@@ -1,0 +1,73 @@
+module.exports = {
+  env: {
+    es6: true,
+    jest: true,
+    browser: false,
+  },
+  extends: [
+    '@react-native-community',
+    'airbnb-typescript',
+    'plugin:@typescript-eslint/recommended',
+    'plugin:import/typescript',
+    'plugin:react/recommended',
+    'plugin:import/recommended',
+    'prettier',
+    'prettier/@typescript-eslint',
+    'prettier/react',
+  ],
+  plugins: ['@typescript-eslint', 'prettier', 'import', 'module-resolver'],
+  globals: {
+    Atomics: 'readonly',
+    SharedArrayBuffer: 'readonly',
+    __DEV__: true,
+  },
+  parser: '@typescript-eslint/parser',
+  parserOptions: {
+    ecmaFeatures: {
+      jsx: true,
+    },
+    ecmaVersion: 2018,
+    sourceType: 'module',
+    project: './tsconfig.json',
+    createDefaultProgram: true,
+  },
+  rules: {
+    'prettier/prettier': 'error',
+    '@typescript-eslint/explicit-member-accessibility': 0,
+    '@typescript-eslint/no-empty-interface': 0,
+    '@typescript-eslint/explicit-function-return-type': 0,
+    '@typescript-eslint/no-non-null-assertion': 0,
+    '@typescript-eslint/no-use-before-define': 0,
+    'no-use-before-define': 0,
+    'react/jsx-filename-extension': ['error', { extensions: ['.js', '.jsx', '.tsx'] }],
+    'import/prefer-default-export': 'off',
+    'no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
+    'react/jsx-one-expression-per-line': 'off',
+    'react/jsx-props-no-spreading': 'off',
+    'react/display-name': 'off',
+    'global-require': 'off',
+    'react-native/no-raw-text': 'off',
+    'no-param-reassign': 'off',
+    'no-underscore-dangle': 'off',
+    'max-len': ['error', 100],
+    camelcase: 'off',
+    'no-use-before-define': 'off',
+    'no-console': ['error', { allow: ['tron'] }],
+    'react-hooks/rules-of-hooks': 'error',
+    'react-hooks/exhaustive-deps': 'warn',
+    'import/no-extraneous-dependencies': [
+      'error',
+      {
+        devDependencies: ['.storybook/**', '**/stories/**', '**/*.stories.tsx'],
+      },
+    ],
+  },
+  settings: {
+    'import/resolver': {
+      'babel-module': {
+        extensions: ['.js', '.jsx', '.ts', '.tsx'],
+      },
+      typescript: {},
+    },
+  },
+};

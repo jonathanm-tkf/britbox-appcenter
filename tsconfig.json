@@ -1,0 +1,35 @@
+{
+  "compilerOptions": {
+    "module": "esnext",
+    "allowJs": true,
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "isolatedModules": true,
+    "jsx": "react",
+    "lib": ["es6"],
+    "moduleResolution": "node",
+    "noEmit": true,
+    "strict": true,
+    "target": "esnext",
+    "rootDir": ".",
+    "baseUrl": ".",
+    "removeComments": true,
+    "paths": {
+      "@store/*": ["src/store/*"],
+      "@components/*": ["src/components/*"],
+      "@screens/*": ["src/screens/*"],
+      "@src/*": ["src/*"],
+      "@assets/*": ["assets/*"]
+    },
+    "types": ["react", "jest"]
+  },
+  "exclude": [
+    "node_modules",
+    "babel.config.js",
+    "metro.config.js",
+    "jest.config.js",
+    "__tests__/**/*-test.ts",
+    "index.js",
+    "**/*.d.ts"
+  ]
+}
