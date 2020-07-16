@@ -211,83 +211,29 @@ export interface BritboxAPIAccountModelsAuthorizationRefreshTokenResponse {
 /**
  *
  * @export
- * @interface BritboxAPIAccountModelsCustomerAuthenticateCustomerRequest
+ * @interface BritboxAPIAccountModelsCustomerAddSubscriptionResponse
  */
-export interface BritboxAPIAccountModelsCustomerAuthenticateCustomerRequest {
+export interface BritboxAPIAccountModelsCustomerAddSubscriptionResponse {
     /**
      *
-     * @type {string}
-     * @memberof BritboxAPIAccountModelsCustomerAuthenticateCustomerRequest
+     * @type {BritboxDataEvergentModelsAddSubscriptionResponseMessageBaseResponse}
+     * @memberof BritboxAPIAccountModelsCustomerAddSubscriptionResponse
      */
-    email: string;
-    /**
-     *
-     * @type {string}
-     * @memberof BritboxAPIAccountModelsCustomerAuthenticateCustomerRequest
-     */
-    password: string;
-    /**
-     *
-     * @type {BritboxDataEvergentModelsDeviceDetails}
-     * @memberof BritboxAPIAccountModelsCustomerAuthenticateCustomerRequest
-     */
-    deviceDetails: BritboxDataEvergentModelsDeviceDetails;
+    response?: BritboxDataEvergentModelsAddSubscriptionResponseMessageBaseResponse;
 }
 
 /**
  *
  * @export
- * @interface BritboxAPIAccountModelsCustomerAuthenticateCustomerResponse
+ * @interface BritboxAPIAccountModelsCustomerGetProductsResponse
  */
-export interface BritboxAPIAccountModelsCustomerAuthenticateCustomerResponse {
+export interface BritboxAPIAccountModelsCustomerGetProductsResponse {
     /**
      *
-     * @type {BritboxDataEvergentModelsAuthenticateCustomerResponseMessageBaseResponse}
-     * @memberof BritboxAPIAccountModelsCustomerAuthenticateCustomerResponse
+     * @type {BritboxDataEvergentModelsGetProductsResponseMessageBaseResponse}
+     * @memberof BritboxAPIAccountModelsCustomerGetProductsResponse
      */
-    response?: BritboxDataEvergentModelsAuthenticateCustomerResponseMessageBaseResponse;
-}
-
-/**
- *
- * @export
- * @interface BritboxAPIAccountModelsCustomerGetActiveSubscriptionsResponse
- */
-export interface BritboxAPIAccountModelsCustomerGetActiveSubscriptionsResponse {
-    /**
-     *
-     * @type {BritboxDataEvergentModelsGetActiveSubscriptionsResponseMessageBaseResponse}
-     * @memberof BritboxAPIAccountModelsCustomerGetActiveSubscriptionsResponse
-     */
-    response?: BritboxDataEvergentModelsGetActiveSubscriptionsResponseMessageBaseResponse;
-}
-
-/**
- *
- * @export
- * @interface BritboxAPIAccountModelsCustomerGetUrlsResponse
- */
-export interface BritboxAPIAccountModelsCustomerGetUrlsResponse {
-    /**
-     *
-     * @type {{ [key: string]: string; }}
-     * @memberof BritboxAPIAccountModelsCustomerGetUrlsResponse
-     */
-    urls?: { [key: string]: string; };
-}
-
-/**
- *
- * @export
- * @interface BritboxAPIAccountModelsCustomerIsCustomerEligibleForFreeTrialResponse
- */
-export interface BritboxAPIAccountModelsCustomerIsCustomerEligibleForFreeTrialResponse {
-    /**
-     *
-     * @type {BritboxDataEvergentModelsIsCustomerEligibleForFreeTrialResponseMessageBaseResponse}
-     * @memberof BritboxAPIAccountModelsCustomerIsCustomerEligibleForFreeTrialResponse
-     */
-    response?: BritboxDataEvergentModelsIsCustomerEligibleForFreeTrialResponseMessageBaseResponse;
+    response?: BritboxDataEvergentModelsGetProductsResponseMessageBaseResponse;
 }
 
 /**
@@ -354,10 +300,10 @@ export interface BritboxAPIAccountModelsDeviceRegisterDeviceResponse {
 export interface BritboxAPIAccountModelsMediaFileGetItemMediaFilesResponse {
     /**
      *
-     * @type {Array<MassiveSDKModelMediaFile>}
+     * @type {Array<BritboxAPIAccountModelsMediaFileGetItemMediaFilesResponseResponse>}
      * @memberof BritboxAPIAccountModelsMediaFileGetItemMediaFilesResponse
      */
-    externalResponse?: Array<MassiveSDKModelMediaFile>;
+    externalResponse?: Array<BritboxAPIAccountModelsMediaFileGetItemMediaFilesResponseResponse>;
     /**
      *
      * @type {Array<string>}
@@ -370,6 +316,26 @@ export interface BritboxAPIAccountModelsMediaFileGetItemMediaFilesResponse {
      * @memberof BritboxAPIAccountModelsMediaFileGetItemMediaFilesResponse
      */
     messages?: Array<string>;
+}
+
+/**
+ *
+ * @export
+ * @interface BritboxAPIAccountModelsMediaFileGetItemMediaFilesResponseResponse
+ */
+export interface BritboxAPIAccountModelsMediaFileGetItemMediaFilesResponseResponse {
+    /**
+     *
+     * @type {string}
+     * @memberof BritboxAPIAccountModelsMediaFileGetItemMediaFilesResponseResponse
+     */
+    token?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof BritboxAPIAccountModelsMediaFileGetItemMediaFilesResponseResponse
+     */
+    url?: string;
 }
 
 /**
@@ -652,10 +618,28 @@ export interface BritboxAPIAccountModelsProfileGetProfileResponse {
     bookmarkList?: MassiveSDKModelItemList;
     /**
      *
-     * @type {Array<MassiveSDKModelItemSummary>}
+     * @type {string}
      * @memberof BritboxAPIAccountModelsProfileGetProfileResponse
      */
-    myShows?: Array<MassiveSDKModelItemSummary>;
+    subscriptionStatus?: string;
+    /**
+     *
+     * @type {boolean}
+     * @memberof BritboxAPIAccountModelsProfileGetProfileResponse
+     */
+    isInFreeTrail?: boolean;
+    /**
+     *
+     * @type {boolean}
+     * @memberof BritboxAPIAccountModelsProfileGetProfileResponse
+     */
+    canStream?: boolean;
+    /**
+     *
+     * @type {boolean}
+     * @memberof BritboxAPIAccountModelsProfileGetProfileResponse
+     */
+    parentalControl?: boolean;
     /**
      *
      * @type {Array<string>}
@@ -814,6 +798,12 @@ export interface BritboxAPIAccountModelsProfileValidateParentalControlPINRequest
      * @memberof BritboxAPIAccountModelsProfileValidateParentalControlPINRequest
      */
     parentalControlPin?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof BritboxAPIAccountModelsProfileValidateParentalControlPINRequest
+     */
+    itemId?: string;
 }
 
 /**
@@ -828,60 +818,110 @@ export interface BritboxAPIAccountModelsProfileValidateParentalControlPINRespons
      * @memberof BritboxAPIAccountModelsProfileValidateParentalControlPINResponse
      */
     response?: BritboxDataEvergentModelsValidateParentalControlPINResponseMessageBase;
+    /**
+     *
+     * @type {string}
+     * @memberof BritboxAPIAccountModelsProfileValidateParentalControlPINResponse
+     */
+    token?: string;
 }
 
 /**
  *
  * @export
- * @interface BritboxDataEvergentModelsAuthenticateCustomerResponseMessageBaseResponse
+ * @interface BritboxDataEvergentModelsAddSubscriptionRequestMessage
  */
-export interface BritboxDataEvergentModelsAuthenticateCustomerResponseMessageBaseResponse {
+export interface BritboxDataEvergentModelsAddSubscriptionRequestMessage {
     /**
      *
      * @type {string}
-     * @memberof BritboxDataEvergentModelsAuthenticateCustomerResponseMessageBaseResponse
+     * @memberof BritboxDataEvergentModelsAddSubscriptionRequestMessage
      */
-    accessToken?: string;
+    appServiceID?: string;
     /**
      *
      * @type {string}
-     * @memberof BritboxDataEvergentModelsAuthenticateCustomerResponseMessageBaseResponse
+     * @memberof BritboxDataEvergentModelsAddSubscriptionRequestMessage
      */
-    refreshToken?: string;
+    serviceType?: string;
     /**
      *
      * @type {string}
-     * @memberof BritboxDataEvergentModelsAuthenticateCustomerResponseMessageBaseResponse
+     * @memberof BritboxDataEvergentModelsAddSubscriptionRequestMessage
      */
-    tokenType?: string;
+    rateType?: string;
     /**
      *
-     * @type {string}
-     * @memberof BritboxDataEvergentModelsAuthenticateCustomerResponseMessageBaseResponse
+     * @type {number}
+     * @memberof BritboxDataEvergentModelsAddSubscriptionRequestMessage
      */
-    expiresIn?: string;
+    priceCharged?: number;
     /**
      *
      * @type {string}
-     * @memberof BritboxDataEvergentModelsAuthenticateCustomerResponseMessageBaseResponse
+     * @memberof BritboxDataEvergentModelsAddSubscriptionRequestMessage
+     */
+    amazonUserId?: string;
+    /**
+     *
+     * @type {BritboxDataEvergentModelsPaymentMethodInfo}
+     * @memberof BritboxDataEvergentModelsAddSubscriptionRequestMessage
+     */
+    paymentMethodInfo?: BritboxDataEvergentModelsPaymentMethodInfo;
+    /**
+     *
+     * @type {string}
+     * @memberof BritboxDataEvergentModelsAddSubscriptionRequestMessage
+     */
+    channelPartnerID?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof BritboxDataEvergentModelsAddSubscriptionRequestMessage
+     */
+    apiKey?: string;
+}
+
+/**
+ *
+ * @export
+ * @interface BritboxDataEvergentModelsAddSubscriptionResponseMessageBaseResponse
+ */
+export interface BritboxDataEvergentModelsAddSubscriptionResponseMessageBaseResponse {
+    /**
+     *
+     * @type {string}
+     * @memberof BritboxDataEvergentModelsAddSubscriptionResponseMessageBaseResponse
+     */
+    orderId?: string;
+    /**
+     *
+     * @type {number}
+     * @memberof BritboxDataEvergentModelsAddSubscriptionResponseMessageBaseResponse
+     */
+    validityTill?: number;
+    /**
+     *
+     * @type {string}
+     * @memberof BritboxDataEvergentModelsAddSubscriptionResponseMessageBaseResponse
      */
     message?: string;
     /**
      *
      * @type {string}
-     * @memberof BritboxDataEvergentModelsAuthenticateCustomerResponseMessageBaseResponse
+     * @memberof BritboxDataEvergentModelsAddSubscriptionResponseMessageBaseResponse
      */
     responseCode?: string;
     /**
      *
      * @type {string}
-     * @memberof BritboxDataEvergentModelsAuthenticateCustomerResponseMessageBaseResponse
+     * @memberof BritboxDataEvergentModelsAddSubscriptionResponseMessageBaseResponse
      */
     status?: string;
     /**
      *
      * @type {Array<BritboxDataEvergentModelsFailureMessage>}
-     * @memberof BritboxDataEvergentModelsAuthenticateCustomerResponseMessageBaseResponse
+     * @memberof BritboxDataEvergentModelsAddSubscriptionResponseMessageBaseResponse
      */
     failureMessage?: Array<BritboxDataEvergentModelsFailureMessage>;
 }
@@ -985,246 +1025,6 @@ export interface BritboxDataEvergentModelsGenerateDeviceActivationCodeResponseMe
 /**
  *
  * @export
- * @interface BritboxDataEvergentModelsGetActiveSubscriptionsResponseMessageBaseAccountServiceMessage
- */
-export interface BritboxDataEvergentModelsGetActiveSubscriptionsResponseMessageBaseAccountServiceMessage {
-    /**
-     *
-     * @type {string}
-     * @memberof BritboxDataEvergentModelsGetActiveSubscriptionsResponseMessageBaseAccountServiceMessage
-     */
-    startDate?: string;
-    /**
-     *
-     * @type {string}
-     * @memberof BritboxDataEvergentModelsGetActiveSubscriptionsResponseMessageBaseAccountServiceMessage
-     */
-    duration?: string;
-    /**
-     *
-     * @type {number}
-     * @memberof BritboxDataEvergentModelsGetActiveSubscriptionsResponseMessageBaseAccountServiceMessage
-     */
-    retailPrice?: number;
-    /**
-     *
-     * @type {string}
-     * @memberof BritboxDataEvergentModelsGetActiveSubscriptionsResponseMessageBaseAccountServiceMessage
-     */
-    orderID?: string;
-    /**
-     *
-     * @type {string}
-     * @memberof BritboxDataEvergentModelsGetActiveSubscriptionsResponseMessageBaseAccountServiceMessage
-     */
-    status?: string;
-    /**
-     *
-     * @type {string}
-     * @memberof BritboxDataEvergentModelsGetActiveSubscriptionsResponseMessageBaseAccountServiceMessage
-     */
-    description?: string;
-    /**
-     *
-     * @type {string}
-     * @memberof BritboxDataEvergentModelsGetActiveSubscriptionsResponseMessageBaseAccountServiceMessage
-     */
-    serviceID?: string;
-    /**
-     *
-     * @type {boolean}
-     * @memberof BritboxDataEvergentModelsGetActiveSubscriptionsResponseMessageBaseAccountServiceMessage
-     */
-    isRenewal?: boolean;
-    /**
-     *
-     * @type {number}
-     * @memberof BritboxDataEvergentModelsGetActiveSubscriptionsResponseMessageBaseAccountServiceMessage
-     */
-    validityTill?: number;
-    /**
-     *
-     * @type {boolean}
-     * @memberof BritboxDataEvergentModelsGetActiveSubscriptionsResponseMessageBaseAccountServiceMessage
-     */
-    isInFreeTrail?: boolean;
-    /**
-     *
-     * @type {string}
-     * @memberof BritboxDataEvergentModelsGetActiveSubscriptionsResponseMessageBaseAccountServiceMessage
-     */
-    period?: string;
-    /**
-     *
-     * @type {string}
-     * @memberof BritboxDataEvergentModelsGetActiveSubscriptionsResponseMessageBaseAccountServiceMessage
-     */
-    serviceName?: string;
-    /**
-     *
-     * @type {string}
-     * @memberof BritboxDataEvergentModelsGetActiveSubscriptionsResponseMessageBaseAccountServiceMessage
-     */
-    displayName?: string;
-    /**
-     *
-     * @type {string}
-     * @memberof BritboxDataEvergentModelsGetActiveSubscriptionsResponseMessageBaseAccountServiceMessage
-     */
-    type?: string;
-    /**
-     *
-     * @type {string}
-     * @memberof BritboxDataEvergentModelsGetActiveSubscriptionsResponseMessageBaseAccountServiceMessage
-     */
-    validityPeriod?: string;
-    /**
-     *
-     * @type {string}
-     * @memberof BritboxDataEvergentModelsGetActiveSubscriptionsResponseMessageBaseAccountServiceMessage
-     */
-    subscriptionType?: string;
-    /**
-     *
-     * @type {number}
-     * @memberof BritboxDataEvergentModelsGetActiveSubscriptionsResponseMessageBaseAccountServiceMessage
-     */
-    startDateInMillis?: number;
-    /**
-     *
-     * @type {string}
-     * @memberof BritboxDataEvergentModelsGetActiveSubscriptionsResponseMessageBaseAccountServiceMessage
-     */
-    paymentMethod?: string;
-    /**
-     *
-     * @type {string}
-     * @memberof BritboxDataEvergentModelsGetActiveSubscriptionsResponseMessageBaseAccountServiceMessage
-     */
-    currencyCode?: string;
-    /**
-     *
-     * @type {Array<BritboxDataEvergentModelsGetActiveSubscriptionsResponseMessageBasePromotion>}
-     * @memberof BritboxDataEvergentModelsGetActiveSubscriptionsResponseMessageBaseAccountServiceMessage
-     */
-    promotions?: Array<BritboxDataEvergentModelsGetActiveSubscriptionsResponseMessageBasePromotion>;
-}
-
-/**
- *
- * @export
- * @interface BritboxDataEvergentModelsGetActiveSubscriptionsResponseMessageBasePromotion
- */
-export interface BritboxDataEvergentModelsGetActiveSubscriptionsResponseMessageBasePromotion {
-    /**
-     *
-     * @type {boolean}
-     * @memberof BritboxDataEvergentModelsGetActiveSubscriptionsResponseMessageBasePromotion
-     */
-    isDefaultPromo?: boolean;
-    /**
-     *
-     * @type {string}
-     * @memberof BritboxDataEvergentModelsGetActiveSubscriptionsResponseMessageBasePromotion
-     */
-    promotionName?: string;
-    /**
-     *
-     * @type {string}
-     * @memberof BritboxDataEvergentModelsGetActiveSubscriptionsResponseMessageBasePromotion
-     */
-    promotionType?: string;
-    /**
-     *
-     * @type {number}
-     * @memberof BritboxDataEvergentModelsGetActiveSubscriptionsResponseMessageBasePromotion
-     */
-    amount?: number;
-    /**
-     *
-     * @type {string}
-     * @memberof BritboxDataEvergentModelsGetActiveSubscriptionsResponseMessageBasePromotion
-     */
-    endDate?: string;
-    /**
-     *
-     * @type {boolean}
-     * @memberof BritboxDataEvergentModelsGetActiveSubscriptionsResponseMessageBasePromotion
-     */
-    isVODPromotion?: boolean;
-    /**
-     *
-     * @type {number}
-     * @memberof BritboxDataEvergentModelsGetActiveSubscriptionsResponseMessageBasePromotion
-     */
-    promotionalPrice?: number;
-    /**
-     *
-     * @type {boolean}
-     * @memberof BritboxDataEvergentModelsGetActiveSubscriptionsResponseMessageBasePromotion
-     */
-    isFreeTrail?: boolean;
-    /**
-     *
-     * @type {string}
-     * @memberof BritboxDataEvergentModelsGetActiveSubscriptionsResponseMessageBasePromotion
-     */
-    promotionId?: string;
-    /**
-     *
-     * @type {string}
-     * @memberof BritboxDataEvergentModelsGetActiveSubscriptionsResponseMessageBasePromotion
-     */
-    startDate?: string;
-}
-
-/**
- *
- * @export
- * @interface BritboxDataEvergentModelsGetActiveSubscriptionsResponseMessageBaseResponse
- */
-export interface BritboxDataEvergentModelsGetActiveSubscriptionsResponseMessageBaseResponse {
-    /**
-     *
-     * @type {string}
-     * @memberof BritboxDataEvergentModelsGetActiveSubscriptionsResponseMessageBaseResponse
-     */
-    country?: string;
-    /**
-     *
-     * @type {Array<BritboxDataEvergentModelsGetActiveSubscriptionsResponseMessageBaseAccountServiceMessage>}
-     * @memberof BritboxDataEvergentModelsGetActiveSubscriptionsResponseMessageBaseResponse
-     */
-    accountServiceMessage?: Array<BritboxDataEvergentModelsGetActiveSubscriptionsResponseMessageBaseAccountServiceMessage>;
-    /**
-     *
-     * @type {string}
-     * @memberof BritboxDataEvergentModelsGetActiveSubscriptionsResponseMessageBaseResponse
-     */
-    message?: string;
-    /**
-     *
-     * @type {string}
-     * @memberof BritboxDataEvergentModelsGetActiveSubscriptionsResponseMessageBaseResponse
-     */
-    responseCode?: string;
-    /**
-     *
-     * @type {string}
-     * @memberof BritboxDataEvergentModelsGetActiveSubscriptionsResponseMessageBaseResponse
-     */
-    status?: string;
-    /**
-     *
-     * @type {Array<BritboxDataEvergentModelsFailureMessage>}
-     * @memberof BritboxDataEvergentModelsGetActiveSubscriptionsResponseMessageBaseResponse
-     */
-    failureMessage?: Array<BritboxDataEvergentModelsFailureMessage>;
-}
-
-/**
- *
- * @export
  * @interface BritboxDataEvergentModelsGetParentalControlDetailsResponseMessageBase
  */
 export interface BritboxDataEvergentModelsGetParentalControlDetailsResponseMessageBase {
@@ -1289,33 +1089,289 @@ export interface BritboxDataEvergentModelsGetParentalControlDetailsResponseMessa
 /**
  *
  * @export
- * @interface BritboxDataEvergentModelsIsCustomerEligibleForFreeTrialResponseMessageBaseResponse
+ * @interface BritboxDataEvergentModelsGetProductsResponseMessageBaseAppChannels
  */
-export interface BritboxDataEvergentModelsIsCustomerEligibleForFreeTrialResponseMessageBaseResponse {
+export interface BritboxDataEvergentModelsGetProductsResponseMessageBaseAppChannels {
     /**
      *
      * @type {string}
-     * @memberof BritboxDataEvergentModelsIsCustomerEligibleForFreeTrialResponseMessageBaseResponse
+     * @memberof BritboxDataEvergentModelsGetProductsResponseMessageBaseAppChannels
+     */
+    appName?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof BritboxDataEvergentModelsGetProductsResponseMessageBaseAppChannels
+     */
+    appChannel?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof BritboxDataEvergentModelsGetProductsResponseMessageBaseAppChannels
+     */
+    appID?: string;
+}
+
+/**
+ *
+ * @export
+ * @interface BritboxDataEvergentModelsGetProductsResponseMessageBaseProductsResponseMsg
+ */
+export interface BritboxDataEvergentModelsGetProductsResponseMessageBaseProductsResponseMsg {
+    /**
+     *
+     * @type {string}
+     * @memberof BritboxDataEvergentModelsGetProductsResponseMessageBaseProductsResponseMsg
+     */
+    dmaName?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof BritboxDataEvergentModelsGetProductsResponseMessageBaseProductsResponseMsg
+     */
+    duration?: string;
+    /**
+     *
+     * @type {number}
+     * @memberof BritboxDataEvergentModelsGetProductsResponseMessageBaseProductsResponseMsg
+     */
+    retailPrice?: number;
+    /**
+     *
+     * @type {string}
+     * @memberof BritboxDataEvergentModelsGetProductsResponseMessageBaseProductsResponseMsg
+     */
+    currencyCode?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof BritboxDataEvergentModelsGetProductsResponseMessageBaseProductsResponseMsg
+     */
+    productDescription?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof BritboxDataEvergentModelsGetProductsResponseMessageBaseProductsResponseMsg
+     */
+    productCategory?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof BritboxDataEvergentModelsGetProductsResponseMessageBaseProductsResponseMsg
+     */
+    serviceType?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof BritboxDataEvergentModelsGetProductsResponseMessageBaseProductsResponseMsg
+     */
+    currencySymbol?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof BritboxDataEvergentModelsGetProductsResponseMessageBaseProductsResponseMsg
+     */
+    displayOrder?: string;
+    /**
+     *
+     * @type {boolean}
+     * @memberof BritboxDataEvergentModelsGetProductsResponseMessageBaseProductsResponseMsg
+     */
+    isAdsEnabled?: boolean;
+    /**
+     *
+     * @type {boolean}
+     * @memberof BritboxDataEvergentModelsGetProductsResponseMessageBaseProductsResponseMsg
+     */
+    renewable?: boolean;
+    /**
+     *
+     * @type {string}
+     * @memberof BritboxDataEvergentModelsGetProductsResponseMessageBaseProductsResponseMsg
+     */
+    displayName?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof BritboxDataEvergentModelsGetProductsResponseMessageBaseProductsResponseMsg
+     */
+    period?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof BritboxDataEvergentModelsGetProductsResponseMessageBaseProductsResponseMsg
+     */
+    productName?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof BritboxDataEvergentModelsGetProductsResponseMessageBaseProductsResponseMsg
+     */
+    skuORQuickCode?: string;
+    /**
+     *
+     * @type {boolean}
+     * @memberof BritboxDataEvergentModelsGetProductsResponseMessageBaseProductsResponseMsg
+     */
+    basicService?: boolean;
+    /**
+     *
+     * @type {Array<BritboxDataEvergentModelsGetProductsResponseMessageBaseAppChannels>}
+     * @memberof BritboxDataEvergentModelsGetProductsResponseMessageBaseProductsResponseMsg
+     */
+    appChannels?: Array<BritboxDataEvergentModelsGetProductsResponseMessageBaseAppChannels>;
+    /**
+     *
+     * @type {Array<BritboxDataEvergentModelsGetProductsResponseMessageBaseSCOfferTypes>}
+     * @memberof BritboxDataEvergentModelsGetProductsResponseMessageBaseProductsResponseMsg
+     */
+    scOfferTypes?: Array<BritboxDataEvergentModelsGetProductsResponseMessageBaseSCOfferTypes>;
+    /**
+     *
+     * @type {Array<BritboxDataEvergentModelsGetProductsResponseMessageBasePromotions>}
+     * @memberof BritboxDataEvergentModelsGetProductsResponseMessageBaseProductsResponseMsg
+     */
+    promotions?: Array<BritboxDataEvergentModelsGetProductsResponseMessageBasePromotions>;
+}
+
+/**
+ *
+ * @export
+ * @interface BritboxDataEvergentModelsGetProductsResponseMessageBasePromotions
+ */
+export interface BritboxDataEvergentModelsGetProductsResponseMessageBasePromotions {
+    /**
+     *
+     * @type {number}
+     * @memberof BritboxDataEvergentModelsGetProductsResponseMessageBasePromotions
+     */
+    amount?: number;
+    /**
+     *
+     * @type {string}
+     * @memberof BritboxDataEvergentModelsGetProductsResponseMessageBasePromotions
+     */
+    promotionId?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof BritboxDataEvergentModelsGetProductsResponseMessageBasePromotions
+     */
+    promotionName?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof BritboxDataEvergentModelsGetProductsResponseMessageBasePromotions
+     */
+    promotionType?: string;
+    /**
+     *
+     * @type {boolean}
+     * @memberof BritboxDataEvergentModelsGetProductsResponseMessageBasePromotions
+     */
+    isVODPromotion?: boolean;
+    /**
+     *
+     * @type {boolean}
+     * @memberof BritboxDataEvergentModelsGetProductsResponseMessageBasePromotions
+     */
+    isFreeTrial?: boolean;
+    /**
+     *
+     * @type {number}
+     * @memberof BritboxDataEvergentModelsGetProductsResponseMessageBasePromotions
+     */
+    promotionExpiryfferType?: number;
+    /**
+     *
+     * @type {number}
+     * @memberof BritboxDataEvergentModelsGetProductsResponseMessageBasePromotions
+     */
+    promotionDuration?: number;
+    /**
+     *
+     * @type {string}
+     * @memberof BritboxDataEvergentModelsGetProductsResponseMessageBasePromotions
+     */
+    promotionPeriod?: string;
+}
+
+/**
+ *
+ * @export
+ * @interface BritboxDataEvergentModelsGetProductsResponseMessageBaseResponse
+ */
+export interface BritboxDataEvergentModelsGetProductsResponseMessageBaseResponse {
+    /**
+     *
+     * @type {Array<BritboxDataEvergentModelsGetProductsResponseMessageBaseProductsResponseMsg>}
+     * @memberof BritboxDataEvergentModelsGetProductsResponseMessageBaseResponse
+     */
+    productsResponseMessage?: Array<BritboxDataEvergentModelsGetProductsResponseMessageBaseProductsResponseMsg>;
+    /**
+     *
+     * @type {string}
+     * @memberof BritboxDataEvergentModelsGetProductsResponseMessageBaseResponse
      */
     message?: string;
     /**
      *
      * @type {string}
-     * @memberof BritboxDataEvergentModelsIsCustomerEligibleForFreeTrialResponseMessageBaseResponse
+     * @memberof BritboxDataEvergentModelsGetProductsResponseMessageBaseResponse
      */
     responseCode?: string;
     /**
      *
      * @type {string}
-     * @memberof BritboxDataEvergentModelsIsCustomerEligibleForFreeTrialResponseMessageBaseResponse
+     * @memberof BritboxDataEvergentModelsGetProductsResponseMessageBaseResponse
      */
     status?: string;
     /**
      *
      * @type {Array<BritboxDataEvergentModelsFailureMessage>}
-     * @memberof BritboxDataEvergentModelsIsCustomerEligibleForFreeTrialResponseMessageBaseResponse
+     * @memberof BritboxDataEvergentModelsGetProductsResponseMessageBaseResponse
      */
     failureMessage?: Array<BritboxDataEvergentModelsFailureMessage>;
+}
+
+/**
+ *
+ * @export
+ * @interface BritboxDataEvergentModelsGetProductsResponseMessageBaseSCOfferTypes
+ */
+export interface BritboxDataEvergentModelsGetProductsResponseMessageBaseSCOfferTypes {
+    /**
+     *
+     * @type {string}
+     * @memberof BritboxDataEvergentModelsGetProductsResponseMessageBaseSCOfferTypes
+     */
+    offerType?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof BritboxDataEvergentModelsGetProductsResponseMessageBaseSCOfferTypes
+     */
+    salesChannel?: string;
+}
+
+/**
+ *
+ * @export
+ * @interface BritboxDataEvergentModelsPaymentMethodInfo
+ */
+export interface BritboxDataEvergentModelsPaymentMethodInfo {
+    /**
+     *
+     * @type {string}
+     * @memberof BritboxDataEvergentModelsPaymentMethodInfo
+     */
+    label?: string;
+    /**
+     *
+     * @type {BritboxDataEvergentModelsTransactionReferenceMsg}
+     * @memberof BritboxDataEvergentModelsPaymentMethodInfo
+     */
+    transactionReferenceMsg?: BritboxDataEvergentModelsTransactionReferenceMsg;
 }
 
 /**
@@ -1404,6 +1460,38 @@ export interface BritboxDataEvergentModelsRegisterDeviceResponseMessageBaseRespo
      * @memberof BritboxDataEvergentModelsRegisterDeviceResponseMessageBaseResponse
      */
     failureMessage?: BritboxDataEvergentModelsFailureMessage;
+}
+
+/**
+ *
+ * @export
+ * @interface BritboxDataEvergentModelsTransactionReferenceMsg
+ */
+export interface BritboxDataEvergentModelsTransactionReferenceMsg {
+    /**
+     *
+     * @type {string}
+     * @memberof BritboxDataEvergentModelsTransactionReferenceMsg
+     */
+    amount?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof BritboxDataEvergentModelsTransactionReferenceMsg
+     */
+    txID?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof BritboxDataEvergentModelsTransactionReferenceMsg
+     */
+    txMsg?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof BritboxDataEvergentModelsTransactionReferenceMsg
+     */
+    rokuPucId?: string;
 }
 
 /**
@@ -1882,6 +1970,12 @@ export interface MassiveSDKModelEpisodesItem {
      * @memberof MassiveSDKModelEpisodesItem
      */
     seasonTitle?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof MassiveSDKModelEpisodesItem
+     */
+    badge?: string;
 }
 
 /**
@@ -2278,6 +2372,12 @@ export interface MassiveSDKModelItemDetail {
      * @memberof MassiveSDKModelItemDetail
      */
     customFields?: any;
+    /**
+     *
+     * @type {Array<any>}
+     * @memberof MassiveSDKModelItemDetail
+     */
+    vams?: Array<any>;
 }
 
 /**
@@ -2650,6 +2750,12 @@ export interface MassiveSDKModelItemSummary {
      * @memberof MassiveSDKModelItemSummary
      */
     credits?: Array<MassiveSDKModelCredit>;
+    /**
+     *
+     * @type {Array<any>}
+     * @memberof MassiveSDKModelItemSummary
+     */
+    vams?: Array<any>;
 }
 
 /**
@@ -2700,108 +2806,6 @@ export interface MassiveSDKModelMedia {
      * @memberof MassiveSDKModelMedia
      */
     duration?: number;
-}
-
-/**
- *
- * @export
- * @interface MassiveSDKModelMediaFile
- */
-export interface MassiveSDKModelMediaFile {
-    /**
-     *
-     * @type {string}
-     * @memberof MassiveSDKModelMediaFile
-     */
-    deliveryType?: MassiveSDKModelMediaFile.DeliveryTypeEnum;
-    /**
-     *
-     * @type {string}
-     * @memberof MassiveSDKModelMediaFile
-     */
-    resolution?: MassiveSDKModelMediaFile.ResolutionEnum;
-    /**
-     *
-     * @type {string}
-     * @memberof MassiveSDKModelMediaFile
-     */
-    name?: string;
-    /**
-     *
-     * @type {string}
-     * @memberof MassiveSDKModelMediaFile
-     */
-    url?: string;
-    /**
-     *
-     * @type {string}
-     * @memberof MassiveSDKModelMediaFile
-     */
-    drm?: string;
-    /**
-     *
-     * @type {string}
-     * @memberof MassiveSDKModelMediaFile
-     */
-    format?: string;
-    /**
-     *
-     * @type {number}
-     * @memberof MassiveSDKModelMediaFile
-     */
-    width?: number;
-    /**
-     *
-     * @type {number}
-     * @memberof MassiveSDKModelMediaFile
-     */
-    height?: number;
-    /**
-     *
-     * @type {number}
-     * @memberof MassiveSDKModelMediaFile
-     */
-    channels?: number;
-    /**
-     *
-     * @type {string}
-     * @memberof MassiveSDKModelMediaFile
-     */
-    language?: string;
-    /**
-     *
-     * @type {string}
-     * @memberof MassiveSDKModelMediaFile
-     */
-    token?: string;
-}
-
-/**
- * @export
- * @namespace MassiveSDKModelMediaFile
- */
-export namespace MassiveSDKModelMediaFile {
-    /**
-     * @export
-     * @enum {string}
-     */
-    export enum DeliveryTypeEnum {
-        Stream = <any> 'Stream',
-        Progressive = <any> 'Progressive',
-        Download = <any> 'Download'
-    }
-    /**
-     * @export
-     * @enum {string}
-     */
-    export enum ResolutionEnum {
-        SD = <any> 'SD',
-        HD720 = <any> 'HD-720',
-        HD1080 = <any> 'HD-1080',
-        HD4K = <any> 'HD-4K',
-        External = <any> 'External',
-        Unknown = <any> 'Unknown'
-    }
 }
 
 /**
@@ -3984,12 +3988,12 @@ export const CustomerApiFetchParamCreator = function (configuration?: Configurat
     return {
         /**
          *
-         * @param {BritboxAPIAccountModelsCustomerAuthenticateCustomerRequest} [request]
+         * @param {BritboxDataEvergentModelsAddSubscriptionRequestMessage} [request]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        authenticateCustomer(request?: BritboxAPIAccountModelsCustomerAuthenticateCustomerRequest, options: any = {}): FetchArgs {
-            const localVarPath = `/v1/account/Customer/authenticate`;
+        addSubscription(request?: BritboxDataEvergentModelsAddSubscriptionRequestMessage, options: any = {}): FetchArgs {
+            const localVarPath = `/v1/account/Customer/subscription`;
             const localVarUrlObj = url.parse(localVarPath, true);
             const localVarRequestOptions = Object.assign({ method: 'POST' }, options);
             const localVarHeaderParameter = {} as any;
@@ -4017,7 +4021,7 @@ export const CustomerApiFetchParamCreator = function (configuration?: Configurat
             // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
             delete localVarUrlObj.search;
             localVarRequestOptions.headers = Object.assign({}, localVarHeaderParameter, options.headers);
-            const needsSerialization = (<any>"BritboxAPIAccountModelsCustomerAuthenticateCustomerRequest" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            const needsSerialization = (<any>"BritboxDataEvergentModelsAddSubscriptionRequestMessage" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
             localVarRequestOptions.body =  needsSerialization ? JSON.stringify(request || {}) : (request || "");
 
             return {
@@ -4027,11 +4031,13 @@ export const CustomerApiFetchParamCreator = function (configuration?: Configurat
         },
         /**
          *
+         * @param {string} [dmaID]
+         * @param {string} [countryCode]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getActiveSubscriptions(options: any = {}): FetchArgs {
-            const localVarPath = `/v1/account/Customer/subscriptions`;
+        getProducts(dmaID?: string, countryCode?: string, options: any = {}): FetchArgs {
+            const localVarPath = `/v1/account/Customer/products`;
             const localVarUrlObj = url.parse(localVarPath, true);
             const localVarRequestOptions = Object.assign({ method: 'GET' }, options);
             const localVarHeaderParameter = {} as any;
@@ -4053,90 +4059,12 @@ export const CustomerApiFetchParamCreator = function (configuration?: Configurat
                 localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
             }
 
-            localVarUrlObj.query = Object.assign({}, localVarUrlObj.query, localVarQueryParameter, options.query);
-            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-            delete localVarUrlObj.search;
-            localVarRequestOptions.headers = Object.assign({}, localVarHeaderParameter, options.headers);
-
-            return {
-                url: url.format(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         *
-         * @param {Array<'SignIn' | 'SignUp' | 'Profile' | 'ParentalControl' | 'GiftSusbcription'>} [evergentPage]
-         * @param {'Prod' | 'Preprod' | 'UAT' | 'Staging' | 'Local'} [environment]
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        getUrl(evergentPage?: Array<'SignIn' | 'SignUp' | 'Profile' | 'ParentalControl' | 'GiftSusbcription'>, environment?: 'Prod' | 'Preprod' | 'UAT' | 'Staging' | 'Local', options: any = {}): FetchArgs {
-            const localVarPath = `/v1/account/Customer/urls`;
-            const localVarUrlObj = url.parse(localVarPath, true);
-            const localVarRequestOptions = Object.assign({ method: 'GET' }, options);
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            // authentication AWSApiKeyAuth required
-            if (configuration && configuration.apiKey) {
-                const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("x-api-key")
-					: configuration.apiKey;
-                localVarHeaderParameter["x-api-key"] = localVarApiKeyValue;
+            if (dmaID !== undefined) {
+                localVarQueryParameter['dmaID'] = dmaID;
             }
 
-            // authentication JWToken required
-            if (configuration && configuration.apiKey) {
-                const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
-                localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
-            }
-
-            if (evergentPage) {
-                localVarQueryParameter['evergentPage'] = evergentPage;
-            }
-
-            if (environment !== undefined) {
-                localVarQueryParameter['environment'] = environment;
-            }
-
-            localVarUrlObj.query = Object.assign({}, localVarUrlObj.query, localVarQueryParameter, options.query);
-            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-            delete localVarUrlObj.search;
-            localVarRequestOptions.headers = Object.assign({}, localVarHeaderParameter, options.headers);
-
-            return {
-                url: url.format(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         *
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        isCustomerEligibleForFreeTrial(options: any = {}): FetchArgs {
-            const localVarPath = `/v1/account/Customer/freetrial`;
-            const localVarUrlObj = url.parse(localVarPath, true);
-            const localVarRequestOptions = Object.assign({ method: 'GET' }, options);
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            // authentication AWSApiKeyAuth required
-            if (configuration && configuration.apiKey) {
-                const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("x-api-key")
-					: configuration.apiKey;
-                localVarHeaderParameter["x-api-key"] = localVarApiKeyValue;
-            }
-
-            // authentication JWToken required
-            if (configuration && configuration.apiKey) {
-                const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
-                localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
+            if (countryCode !== undefined) {
+                localVarQueryParameter['countryCode'] = countryCode;
             }
 
             localVarUrlObj.query = Object.assign({}, localVarUrlObj.query, localVarQueryParameter, options.query);
@@ -4160,12 +4088,12 @@ export const CustomerApiFp = function(configuration?: Configuration) {
     return {
         /**
          *
-         * @param {BritboxAPIAccountModelsCustomerAuthenticateCustomerRequest} [request]
+         * @param {BritboxDataEvergentModelsAddSubscriptionRequestMessage} [request]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        authenticateCustomer(request?: BritboxAPIAccountModelsCustomerAuthenticateCustomerRequest, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<BritboxAPIAccountModelsCustomerAuthenticateCustomerResponse> {
-            const localVarFetchArgs = CustomerApiFetchParamCreator(configuration).authenticateCustomer(request, options);
+        addSubscription(request?: BritboxDataEvergentModelsAddSubscriptionRequestMessage, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<BritboxAPIAccountModelsCustomerAddSubscriptionResponse> {
+            const localVarFetchArgs = CustomerApiFetchParamCreator(configuration).addSubscription(request, options);
             return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
                 return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then((response) => {
                     if (response.status >= 200 && response.status < 300) {
@@ -4178,47 +4106,13 @@ export const CustomerApiFp = function(configuration?: Configuration) {
         },
         /**
          *
+         * @param {string} [dmaID]
+         * @param {string} [countryCode]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getActiveSubscriptions(options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<BritboxAPIAccountModelsCustomerGetActiveSubscriptionsResponse> {
-            const localVarFetchArgs = CustomerApiFetchParamCreator(configuration).getActiveSubscriptions(options);
-            return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
-                return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then((response) => {
-                    if (response.status >= 200 && response.status < 300) {
-                        return response.json();
-                    } else {
-                        throw response;
-                    }
-                });
-            };
-        },
-        /**
-         *
-         * @param {Array<'SignIn' | 'SignUp' | 'Profile' | 'ParentalControl' | 'GiftSusbcription'>} [evergentPage]
-         * @param {'Prod' | 'Preprod' | 'UAT' | 'Staging' | 'Local'} [environment]
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        getUrl(evergentPage?: Array<'SignIn' | 'SignUp' | 'Profile' | 'ParentalControl' | 'GiftSusbcription'>, environment?: 'Prod' | 'Preprod' | 'UAT' | 'Staging' | 'Local', options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<BritboxAPIAccountModelsCustomerGetUrlsResponse> {
-            const localVarFetchArgs = CustomerApiFetchParamCreator(configuration).getUrl(evergentPage, environment, options);
-            return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
-                return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then((response) => {
-                    if (response.status >= 200 && response.status < 300) {
-                        return response.json();
-                    } else {
-                        throw response;
-                    }
-                });
-            };
-        },
-        /**
-         *
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        isCustomerEligibleForFreeTrial(options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<BritboxAPIAccountModelsCustomerIsCustomerEligibleForFreeTrialResponse> {
-            const localVarFetchArgs = CustomerApiFetchParamCreator(configuration).isCustomerEligibleForFreeTrial(options);
+        getProducts(dmaID?: string, countryCode?: string, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<BritboxAPIAccountModelsCustomerGetProductsResponse> {
+            const localVarFetchArgs = CustomerApiFetchParamCreator(configuration).getProducts(dmaID, countryCode, options);
             return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
                 return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then((response) => {
                     if (response.status >= 200 && response.status < 300) {
@@ -4240,38 +4134,22 @@ export const CustomerApiFactory = function (configuration?: Configuration, fetch
     return {
         /**
          *
-         * @param {BritboxAPIAccountModelsCustomerAuthenticateCustomerRequest} [request]
+         * @param {BritboxDataEvergentModelsAddSubscriptionRequestMessage} [request]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        authenticateCustomer(request?: BritboxAPIAccountModelsCustomerAuthenticateCustomerRequest, options?: any) {
-            return CustomerApiFp(configuration).authenticateCustomer(request, options)(fetch, basePath);
+        addSubscription(request?: BritboxDataEvergentModelsAddSubscriptionRequestMessage, options?: any) {
+            return CustomerApiFp(configuration).addSubscription(request, options)(fetch, basePath);
         },
         /**
          *
+         * @param {string} [dmaID]
+         * @param {string} [countryCode]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getActiveSubscriptions(options?: any) {
-            return CustomerApiFp(configuration).getActiveSubscriptions(options)(fetch, basePath);
-        },
-        /**
-         *
-         * @param {Array<'SignIn' | 'SignUp' | 'Profile' | 'ParentalControl' | 'GiftSusbcription'>} [evergentPage]
-         * @param {'Prod' | 'Preprod' | 'UAT' | 'Staging' | 'Local'} [environment]
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        getUrl(evergentPage?: Array<'SignIn' | 'SignUp' | 'Profile' | 'ParentalControl' | 'GiftSusbcription'>, environment?: 'Prod' | 'Preprod' | 'UAT' | 'Staging' | 'Local', options?: any) {
-            return CustomerApiFp(configuration).getUrl(evergentPage, environment, options)(fetch, basePath);
-        },
-        /**
-         *
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        isCustomerEligibleForFreeTrial(options?: any) {
-            return CustomerApiFp(configuration).isCustomerEligibleForFreeTrial(options)(fetch, basePath);
+        getProducts(dmaID?: string, countryCode?: string, options?: any) {
+            return CustomerApiFp(configuration).getProducts(dmaID, countryCode, options)(fetch, basePath);
         },
     };
 };
@@ -4285,45 +4163,25 @@ export const CustomerApiFactory = function (configuration?: Configuration, fetch
 export class CustomerApi extends BaseAPI {
     /**
      *
-     * @param {BritboxAPIAccountModelsCustomerAuthenticateCustomerRequest} [request]
+     * @param {BritboxDataEvergentModelsAddSubscriptionRequestMessage} [request]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof CustomerApi
      */
-    public authenticateCustomer(request?: BritboxAPIAccountModelsCustomerAuthenticateCustomerRequest, options?: any) {
-        return CustomerApiFp(this.configuration).authenticateCustomer(request, options)(this.fetch, this.basePath);
+    public addSubscription(request?: BritboxDataEvergentModelsAddSubscriptionRequestMessage, options?: any) {
+        return CustomerApiFp(this.configuration).addSubscription(request, options)(this.fetch, this.basePath);
     }
 
     /**
      *
+     * @param {string} [dmaID]
+     * @param {string} [countryCode]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof CustomerApi
      */
-    public getActiveSubscriptions(options?: any) {
-        return CustomerApiFp(this.configuration).getActiveSubscriptions(options)(this.fetch, this.basePath);
-    }
-
-    /**
-     *
-     * @param {Array<'SignIn' | 'SignUp' | 'Profile' | 'ParentalControl' | 'GiftSusbcription'>} [evergentPage]
-     * @param {'Prod' | 'Preprod' | 'UAT' | 'Staging' | 'Local'} [environment]
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof CustomerApi
-     */
-    public getUrl(evergentPage?: Array<'SignIn' | 'SignUp' | 'Profile' | 'ParentalControl' | 'GiftSusbcription'>, environment?: 'Prod' | 'Preprod' | 'UAT' | 'Staging' | 'Local', options?: any) {
-        return CustomerApiFp(this.configuration).getUrl(evergentPage, environment, options)(this.fetch, this.basePath);
-    }
-
-    /**
-     *
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof CustomerApi
-     */
-    public isCustomerEligibleForFreeTrial(options?: any) {
-        return CustomerApiFp(this.configuration).isCustomerEligibleForFreeTrial(options)(this.fetch, this.basePath);
+    public getProducts(dmaID?: string, countryCode?: string, options?: any) {
+        return CustomerApiFp(this.configuration).getProducts(dmaID, countryCode, options)(this.fetch, this.basePath);
     }
 
 }
@@ -4535,16 +4393,15 @@ export const MediaFileApiFetchParamCreator = function (configuration?: Configura
         /**
          *
          * @param {string} id
-         * @param {Array<string>} [delivery]
-         * @param {string} [resolution]
-         * @param {Array<string>} [formats]
          * @param {string} [device]
          * @param {string} [sub]
          * @param {Array<string>} [segments]
+         * @param {boolean} [useCustomId]
+         * @param {string} [pcToken]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getItemMediaFiles(id: string, delivery?: Array<string>, resolution?: string, formats?: Array<string>, device?: string, sub?: string, segments?: Array<string>, options: any = {}): FetchArgs {
+        getItemMediaFiles(id: string, device?: string, sub?: string, segments?: Array<string>, useCustomId?: boolean, pcToken?: string, options: any = {}): FetchArgs {
             // verify required parameter 'id' is not null or undefined
             if (id === null || id === undefined) {
                 throw new RequiredError('id','Required parameter id was null or undefined when calling getItemMediaFiles.');
@@ -4572,18 +4429,6 @@ export const MediaFileApiFetchParamCreator = function (configuration?: Configura
                 localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
             }
 
-            if (delivery) {
-                localVarQueryParameter['delivery'] = delivery;
-            }
-
-            if (resolution !== undefined) {
-                localVarQueryParameter['resolution'] = resolution;
-            }
-
-            if (formats) {
-                localVarQueryParameter['formats'] = formats;
-            }
-
             if (device !== undefined) {
                 localVarQueryParameter['device'] = device;
             }
@@ -4594,6 +4439,14 @@ export const MediaFileApiFetchParamCreator = function (configuration?: Configura
 
             if (segments) {
                 localVarQueryParameter['segments'] = segments;
+            }
+
+            if (useCustomId !== undefined) {
+                localVarQueryParameter['useCustomId'] = useCustomId;
+            }
+
+            if (pcToken !== undefined) {
+                localVarQueryParameter['pcToken'] = pcToken;
             }
 
             localVarUrlObj.query = Object.assign({}, localVarUrlObj.query, localVarQueryParameter, options.query);
@@ -4618,17 +4471,16 @@ export const MediaFileApiFp = function(configuration?: Configuration) {
         /**
          *
          * @param {string} id
-         * @param {Array<string>} [delivery]
-         * @param {string} [resolution]
-         * @param {Array<string>} [formats]
          * @param {string} [device]
          * @param {string} [sub]
          * @param {Array<string>} [segments]
+         * @param {boolean} [useCustomId]
+         * @param {string} [pcToken]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getItemMediaFiles(id: string, delivery?: Array<string>, resolution?: string, formats?: Array<string>, device?: string, sub?: string, segments?: Array<string>, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<BritboxAPIAccountModelsMediaFileGetItemMediaFilesResponse> {
-            const localVarFetchArgs = MediaFileApiFetchParamCreator(configuration).getItemMediaFiles(id, delivery, resolution, formats, device, sub, segments, options);
+        getItemMediaFiles(id: string, device?: string, sub?: string, segments?: Array<string>, useCustomId?: boolean, pcToken?: string, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<BritboxAPIAccountModelsMediaFileGetItemMediaFilesResponse> {
+            const localVarFetchArgs = MediaFileApiFetchParamCreator(configuration).getItemMediaFiles(id, device, sub, segments, useCustomId, pcToken, options);
             return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
                 return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then((response) => {
                     if (response.status >= 200 && response.status < 300) {
@@ -4651,17 +4503,16 @@ export const MediaFileApiFactory = function (configuration?: Configuration, fetc
         /**
          *
          * @param {string} id
-         * @param {Array<string>} [delivery]
-         * @param {string} [resolution]
-         * @param {Array<string>} [formats]
          * @param {string} [device]
          * @param {string} [sub]
          * @param {Array<string>} [segments]
+         * @param {boolean} [useCustomId]
+         * @param {string} [pcToken]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getItemMediaFiles(id: string, delivery?: Array<string>, resolution?: string, formats?: Array<string>, device?: string, sub?: string, segments?: Array<string>, options?: any) {
-            return MediaFileApiFp(configuration).getItemMediaFiles(id, delivery, resolution, formats, device, sub, segments, options)(fetch, basePath);
+        getItemMediaFiles(id: string, device?: string, sub?: string, segments?: Array<string>, useCustomId?: boolean, pcToken?: string, options?: any) {
+            return MediaFileApiFp(configuration).getItemMediaFiles(id, device, sub, segments, useCustomId, pcToken, options)(fetch, basePath);
         },
     };
 };
@@ -4676,18 +4527,17 @@ export class MediaFileApi extends BaseAPI {
     /**
      *
      * @param {string} id
-     * @param {Array<string>} [delivery]
-     * @param {string} [resolution]
-     * @param {Array<string>} [formats]
      * @param {string} [device]
      * @param {string} [sub]
      * @param {Array<string>} [segments]
+     * @param {boolean} [useCustomId]
+     * @param {string} [pcToken]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof MediaFileApi
      */
-    public getItemMediaFiles(id: string, delivery?: Array<string>, resolution?: string, formats?: Array<string>, device?: string, sub?: string, segments?: Array<string>, options?: any) {
-        return MediaFileApiFp(this.configuration).getItemMediaFiles(id, delivery, resolution, formats, device, sub, segments, options)(this.fetch, this.basePath);
+    public getItemMediaFiles(id: string, device?: string, sub?: string, segments?: Array<string>, useCustomId?: boolean, pcToken?: string, options?: any) {
+        return MediaFileApiFp(this.configuration).getItemMediaFiles(id, device, sub, segments, useCustomId, pcToken, options)(this.fetch, this.basePath);
     }
 
 }
@@ -4885,11 +4735,12 @@ export const ProfileApiFetchParamCreator = function (configuration?: Configurati
          * @param {string} [itemType]
          * @param {string} [device]
          * @param {string} [sub]
+         * @param {boolean} [useCustomId]
          * @param {Array<string>} [segments]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getBookmarkList(page?: number, pageSize?: number, order?: string, itemType?: string, device?: string, sub?: string, segments?: Array<string>, options: any = {}): FetchArgs {
+        getBookmarkList(page?: number, pageSize?: number, order?: string, itemType?: string, device?: string, sub?: string, useCustomId?: boolean, segments?: Array<string>, options: any = {}): FetchArgs {
             const localVarPath = `/v1/account/Profile/bookmarks/list`;
             const localVarUrlObj = url.parse(localVarPath, true);
             const localVarRequestOptions = Object.assign({ method: 'GET' }, options);
@@ -4934,6 +4785,10 @@ export const ProfileApiFetchParamCreator = function (configuration?: Configurati
 
             if (sub !== undefined) {
                 localVarQueryParameter['sub'] = sub;
+            }
+
+            if (useCustomId !== undefined) {
+                localVarQueryParameter['useCustomId'] = useCustomId;
             }
 
             if (segments) {
@@ -5307,10 +5162,12 @@ export const ProfileApiFetchParamCreator = function (configuration?: Configurati
         },
         /**
          *
+         * @param {boolean} [useCustomId]
+         * @param {Array<string>} [segments]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getProfile(options: any = {}): FetchArgs {
+        getProfile(useCustomId?: boolean, segments?: Array<string>, options: any = {}): FetchArgs {
             const localVarPath = `/v1/account/Profile`;
             const localVarUrlObj = url.parse(localVarPath, true);
             const localVarRequestOptions = Object.assign({ method: 'GET' }, options);
@@ -5331,6 +5188,14 @@ export const ProfileApiFetchParamCreator = function (configuration?: Configurati
 					? configuration.apiKey("Authorization")
 					: configuration.apiKey;
                 localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
+            }
+
+            if (useCustomId !== undefined) {
+                localVarQueryParameter['useCustomId'] = useCustomId;
+            }
+
+            if (segments) {
+                localVarQueryParameter['segments'] = segments;
             }
 
             localVarUrlObj.query = Object.assign({}, localVarUrlObj.query, localVarQueryParameter, options.query);
@@ -5391,11 +5256,12 @@ export const ProfileApiFetchParamCreator = function (configuration?: Configurati
          * @param {string} [itemType]
          * @param {string} [device]
          * @param {string} [sub]
+         * @param {boolean} [useCustomId]
          * @param {Array<string>} [segments]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getWatchedList(page?: number, pageSize?: number, completed?: boolean, order?: string, orderBy?: string, itemType?: string, device?: string, sub?: string, segments?: Array<string>, options: any = {}): FetchArgs {
+        getWatchedList(page?: number, pageSize?: number, completed?: boolean, order?: string, orderBy?: string, itemType?: string, device?: string, sub?: string, useCustomId?: boolean, segments?: Array<string>, options: any = {}): FetchArgs {
             const localVarPath = `/v1/account/Profile/watched/list`;
             const localVarUrlObj = url.parse(localVarPath, true);
             const localVarRequestOptions = Object.assign({ method: 'GET' }, options);
@@ -5448,6 +5314,10 @@ export const ProfileApiFetchParamCreator = function (configuration?: Configurati
 
             if (sub !== undefined) {
                 localVarQueryParameter['sub'] = sub;
+            }
+
+            if (useCustomId !== undefined) {
+                localVarQueryParameter['useCustomId'] = useCustomId;
             }
 
             if (segments) {
@@ -5689,12 +5559,13 @@ export const ProfileApiFp = function(configuration?: Configuration) {
          * @param {string} [itemType]
          * @param {string} [device]
          * @param {string} [sub]
+         * @param {boolean} [useCustomId]
          * @param {Array<string>} [segments]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getBookmarkList(page?: number, pageSize?: number, order?: string, itemType?: string, device?: string, sub?: string, segments?: Array<string>, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<BritboxAPIAccountModelsProfileGetBookmarkListResponse> {
-            const localVarFetchArgs = ProfileApiFetchParamCreator(configuration).getBookmarkList(page, pageSize, order, itemType, device, sub, segments, options);
+        getBookmarkList(page?: number, pageSize?: number, order?: string, itemType?: string, device?: string, sub?: string, useCustomId?: boolean, segments?: Array<string>, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<BritboxAPIAccountModelsProfileGetBookmarkListResponse> {
+            const localVarFetchArgs = ProfileApiFetchParamCreator(configuration).getBookmarkList(page, pageSize, order, itemType, device, sub, useCustomId, segments, options);
             return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
                 return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then((response) => {
                     if (response.status >= 200 && response.status < 300) {
@@ -5843,11 +5714,13 @@ export const ProfileApiFp = function(configuration?: Configuration) {
         },
         /**
          *
+         * @param {boolean} [useCustomId]
+         * @param {Array<string>} [segments]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getProfile(options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<BritboxAPIAccountModelsProfileGetProfileResponse> {
-            const localVarFetchArgs = ProfileApiFetchParamCreator(configuration).getProfile(options);
+        getProfile(useCustomId?: boolean, segments?: Array<string>, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<BritboxAPIAccountModelsProfileGetProfileResponse> {
+            const localVarFetchArgs = ProfileApiFetchParamCreator(configuration).getProfile(useCustomId, segments, options);
             return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
                 return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then((response) => {
                     if (response.status >= 200 && response.status < 300) {
@@ -5885,12 +5758,13 @@ export const ProfileApiFp = function(configuration?: Configuration) {
          * @param {string} [itemType]
          * @param {string} [device]
          * @param {string} [sub]
+         * @param {boolean} [useCustomId]
          * @param {Array<string>} [segments]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getWatchedList(page?: number, pageSize?: number, completed?: boolean, order?: string, orderBy?: string, itemType?: string, device?: string, sub?: string, segments?: Array<string>, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<BritboxAPIAccountModelsProfileGetWatchedListResponse> {
-            const localVarFetchArgs = ProfileApiFetchParamCreator(configuration).getWatchedList(page, pageSize, completed, order, orderBy, itemType, device, sub, segments, options);
+        getWatchedList(page?: number, pageSize?: number, completed?: boolean, order?: string, orderBy?: string, itemType?: string, device?: string, sub?: string, useCustomId?: boolean, segments?: Array<string>, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<BritboxAPIAccountModelsProfileGetWatchedListResponse> {
+            const localVarFetchArgs = ProfileApiFetchParamCreator(configuration).getWatchedList(page, pageSize, completed, order, orderBy, itemType, device, sub, useCustomId, segments, options);
             return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
                 return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then((response) => {
                     if (response.status >= 200 && response.status < 300) {
@@ -6010,12 +5884,13 @@ export const ProfileApiFactory = function (configuration?: Configuration, fetch?
          * @param {string} [itemType]
          * @param {string} [device]
          * @param {string} [sub]
+         * @param {boolean} [useCustomId]
          * @param {Array<string>} [segments]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getBookmarkList(page?: number, pageSize?: number, order?: string, itemType?: string, device?: string, sub?: string, segments?: Array<string>, options?: any) {
-            return ProfileApiFp(configuration).getBookmarkList(page, pageSize, order, itemType, device, sub, segments, options)(fetch, basePath);
+        getBookmarkList(page?: number, pageSize?: number, order?: string, itemType?: string, device?: string, sub?: string, useCustomId?: boolean, segments?: Array<string>, options?: any) {
+            return ProfileApiFp(configuration).getBookmarkList(page, pageSize, order, itemType, device, sub, useCustomId, segments, options)(fetch, basePath);
         },
         /**
          *
@@ -6092,11 +5967,13 @@ export const ProfileApiFactory = function (configuration?: Configuration, fetch?
         },
         /**
          *
+         * @param {boolean} [useCustomId]
+         * @param {Array<string>} [segments]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getProfile(options?: any) {
-            return ProfileApiFp(configuration).getProfile(options)(fetch, basePath);
+        getProfile(useCustomId?: boolean, segments?: Array<string>, options?: any) {
+            return ProfileApiFp(configuration).getProfile(useCustomId, segments, options)(fetch, basePath);
         },
         /**
          *
@@ -6116,12 +5993,13 @@ export const ProfileApiFactory = function (configuration?: Configuration, fetch?
          * @param {string} [itemType]
          * @param {string} [device]
          * @param {string} [sub]
+         * @param {boolean} [useCustomId]
          * @param {Array<string>} [segments]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getWatchedList(page?: number, pageSize?: number, completed?: boolean, order?: string, orderBy?: string, itemType?: string, device?: string, sub?: string, segments?: Array<string>, options?: any) {
-            return ProfileApiFp(configuration).getWatchedList(page, pageSize, completed, order, orderBy, itemType, device, sub, segments, options)(fetch, basePath);
+        getWatchedList(page?: number, pageSize?: number, completed?: boolean, order?: string, orderBy?: string, itemType?: string, device?: string, sub?: string, useCustomId?: boolean, segments?: Array<string>, options?: any) {
+            return ProfileApiFp(configuration).getWatchedList(page, pageSize, completed, order, orderBy, itemType, device, sub, useCustomId, segments, options)(fetch, basePath);
         },
         /**
          *
@@ -6214,13 +6092,14 @@ export class ProfileApi extends BaseAPI {
      * @param {string} [itemType]
      * @param {string} [device]
      * @param {string} [sub]
+     * @param {boolean} [useCustomId]
      * @param {Array<string>} [segments]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof ProfileApi
      */
-    public getBookmarkList(page?: number, pageSize?: number, order?: string, itemType?: string, device?: string, sub?: string, segments?: Array<string>, options?: any) {
-        return ProfileApiFp(this.configuration).getBookmarkList(page, pageSize, order, itemType, device, sub, segments, options)(this.fetch, this.basePath);
+    public getBookmarkList(page?: number, pageSize?: number, order?: string, itemType?: string, device?: string, sub?: string, useCustomId?: boolean, segments?: Array<string>, options?: any) {
+        return ProfileApiFp(this.configuration).getBookmarkList(page, pageSize, order, itemType, device, sub, useCustomId, segments, options)(this.fetch, this.basePath);
     }
 
     /**
@@ -6312,12 +6191,14 @@ export class ProfileApi extends BaseAPI {
 
     /**
      *
+     * @param {boolean} [useCustomId]
+     * @param {Array<string>} [segments]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof ProfileApi
      */
-    public getProfile(options?: any) {
-        return ProfileApiFp(this.configuration).getProfile(options)(this.fetch, this.basePath);
+    public getProfile(useCustomId?: boolean, segments?: Array<string>, options?: any) {
+        return ProfileApiFp(this.configuration).getProfile(useCustomId, segments, options)(this.fetch, this.basePath);
     }
 
     /**
@@ -6340,13 +6221,14 @@ export class ProfileApi extends BaseAPI {
      * @param {string} [itemType]
      * @param {string} [device]
      * @param {string} [sub]
+     * @param {boolean} [useCustomId]
      * @param {Array<string>} [segments]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof ProfileApi
      */
-    public getWatchedList(page?: number, pageSize?: number, completed?: boolean, order?: string, orderBy?: string, itemType?: string, device?: string, sub?: string, segments?: Array<string>, options?: any) {
-        return ProfileApiFp(this.configuration).getWatchedList(page, pageSize, completed, order, orderBy, itemType, device, sub, segments, options)(this.fetch, this.basePath);
+    public getWatchedList(page?: number, pageSize?: number, completed?: boolean, order?: string, orderBy?: string, itemType?: string, device?: string, sub?: string, useCustomId?: boolean, segments?: Array<string>, options?: any) {
+        return ProfileApiFp(this.configuration).getWatchedList(page, pageSize, completed, order, orderBy, itemType, device, sub, useCustomId, segments, options)(this.fetch, this.basePath);
     }
 
     /**

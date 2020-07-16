@@ -92,13 +92,13 @@ export interface BritboxAPIContentModelsConfigGetConfigResponse {
     externalResponse?: MassiveSDKModelAppConfig;
     /**
      *
-     * @type {Array&lt;string&gt;}
+     * @type {Array<string>}
      * @memberof BritboxAPIContentModelsConfigGetConfigResponse
      */
     errors?: Array<string>;
     /**
      *
-     * @type {Array&lt;string&gt;}
+     * @type {Array<string>}
      * @memberof BritboxAPIContentModelsConfigGetConfigResponse
      */
     messages?: Array<string>;
@@ -118,13 +118,13 @@ export interface BritboxAPIContentModelsItemsGetItemChildrenListResponse {
     externalResponse?: MassiveSDKModelItemList;
     /**
      *
-     * @type {Array&lt;string&gt;}
+     * @type {Array<string>}
      * @memberof BritboxAPIContentModelsItemsGetItemChildrenListResponse
      */
     errors?: Array<string>;
     /**
      *
-     * @type {Array&lt;string&gt;}
+     * @type {Array<string>}
      * @memberof BritboxAPIContentModelsItemsGetItemChildrenListResponse
      */
     messages?: Array<string>;
@@ -144,13 +144,13 @@ export interface BritboxAPIContentModelsItemsGetItemRelatedListResponse {
     externalResponse?: MassiveSDKModelItemList;
     /**
      *
-     * @type {Array&lt;string&gt;}
+     * @type {Array<string>}
      * @memberof BritboxAPIContentModelsItemsGetItemRelatedListResponse
      */
     errors?: Array<string>;
     /**
      *
-     * @type {Array&lt;string&gt;}
+     * @type {Array<string>}
      * @memberof BritboxAPIContentModelsItemsGetItemRelatedListResponse
      */
     messages?: Array<string>;
@@ -170,13 +170,13 @@ export interface BritboxAPIContentModelsItemsGetItemResponse {
     externalResponse?: MassiveSDKModelItemDetail;
     /**
      *
-     * @type {Array&lt;string&gt;}
+     * @type {Array<string>}
      * @memberof BritboxAPIContentModelsItemsGetItemResponse
      */
     errors?: Array<string>;
     /**
      *
-     * @type {Array&lt;string&gt;}
+     * @type {Array<string>}
      * @memberof BritboxAPIContentModelsItemsGetItemResponse
      */
     messages?: Array<string>;
@@ -196,13 +196,13 @@ export interface BritboxAPIContentModelsListsGetListResponse {
     externalResponse?: MassiveSDKModelItemList;
     /**
      *
-     * @type {Array&lt;string&gt;}
+     * @type {Array<string>}
      * @memberof BritboxAPIContentModelsListsGetListResponse
      */
     errors?: Array<string>;
     /**
      *
-     * @type {Array&lt;string&gt;}
+     * @type {Array<string>}
      * @memberof BritboxAPIContentModelsListsGetListResponse
      */
     messages?: Array<string>;
@@ -216,19 +216,19 @@ export interface BritboxAPIContentModelsListsGetListResponse {
 export interface BritboxAPIContentModelsListsGetListsResponse {
     /**
      *
-     * @type {Array&lt;MassiveSDKModelItemList&gt;}
+     * @type {Array<MassiveSDKModelItemList>}
      * @memberof BritboxAPIContentModelsListsGetListsResponse
      */
     externalResponse?: Array<MassiveSDKModelItemList>;
     /**
      *
-     * @type {Array&lt;string&gt;}
+     * @type {Array<string>}
      * @memberof BritboxAPIContentModelsListsGetListsResponse
      */
     errors?: Array<string>;
     /**
      *
-     * @type {Array&lt;string&gt;}
+     * @type {Array<string>}
      * @memberof BritboxAPIContentModelsListsGetListsResponse
      */
     messages?: Array<string>;
@@ -248,13 +248,13 @@ export interface BritboxAPIContentModelsPageGetPageResponse {
     externalResponse?: MassiveSDKModelPage;
     /**
      *
-     * @type {Array&lt;string&gt;}
+     * @type {Array<string>}
      * @memberof BritboxAPIContentModelsPageGetPageResponse
      */
     errors?: Array<string>;
     /**
      *
-     * @type {Array&lt;string&gt;}
+     * @type {Array<string>}
      * @memberof BritboxAPIContentModelsPageGetPageResponse
      */
     messages?: Array<string>;
@@ -298,7 +298,7 @@ export interface MassiveSDKModelAppConfig {
     navigation?: MassiveSDKModelNavigation;
     /**
      *
-     * @type {Array&lt;MassiveSDKModelPageSummary&gt;}
+     * @type {Array<MassiveSDKModelPageSummary>}
      * @memberof MassiveSDKModelAppConfig
      */
     sitemap?: Array<MassiveSDKModelPageSummary>;
@@ -330,7 +330,7 @@ export interface MassiveSDKModelAppConfig {
 export interface MassiveSDKModelAppConfigDisplay {
     /**
      *
-     * @type {Array&lt;MassiveSDKModelTheme&gt;}
+     * @type {Array<MassiveSDKModelTheme>}
      * @memberof MassiveSDKModelAppConfigDisplay
      */
     themes?: Array<MassiveSDKModelTheme>;
@@ -412,7 +412,7 @@ export interface MassiveSDKModelAppConfigGeneral {
 export interface MassiveSDKModelAppConfigI18n {
     /**
      *
-     * @type {Array&lt;MassiveSDKModelLanguage&gt;}
+     * @type {Array<MassiveSDKModelLanguage>}
      * @memberof MassiveSDKModelAppConfigI18n
      */
     languages?: Array<MassiveSDKModelLanguage>;
@@ -452,7 +452,7 @@ export interface MassiveSDKModelAppConfigPlayback {
     heartbeatFrequency?: number;
     /**
      *
-     * @type {Array&lt;number&gt;}
+     * @type {Array<number>}
      * @memberof MassiveSDKModelAppConfigPlayback
      */
     viewEventPoints?: Array<number>;
@@ -484,7 +484,7 @@ export interface MassiveSDKModelAppConfigPlayback {
 export interface MassiveSDKModelAppConfigSubscription {
     /**
      *
-     * @type {Array&lt;MassiveSDKModelPlan&gt;}
+     * @type {Array<MassiveSDKModelPlan>}
      * @memberof MassiveSDKModelAppConfigSubscription
      */
     plans?: Array<MassiveSDKModelPlan>;
@@ -674,7 +674,7 @@ export interface MassiveSDKModelEpisodes {
     path?: string;
     /**
      *
-     * @type {Array&lt;MassiveSDKModelEpisodesItem&gt;}
+     * @type {Array<MassiveSDKModelEpisodesItem>}
      * @memberof MassiveSDKModelEpisodes
      */
     items?: Array<MassiveSDKModelEpisodesItem>;
@@ -742,19 +742,19 @@ export interface MassiveSDKModelEpisodesItem {
     showId?: string;
     /**
      *
-     * @type {Array&lt;MassiveSDKModelOffer&gt;}
+     * @type {Array<MassiveSDKModelOffer>}
      * @memberof MassiveSDKModelEpisodesItem
      */
     offers?: Array<MassiveSDKModelOffer>;
     /**
      *
-     * @type {Array&lt;string&gt;}
+     * @type {Array<string>}
      * @memberof MassiveSDKModelEpisodesItem
      */
     scopes?: Array<string>;
     /**
      *
-     * @type {Array&lt;string&gt;}
+     * @type {Array<string>}
      * @memberof MassiveSDKModelEpisodesItem
      */
     categories?: Array<string>;
@@ -772,7 +772,7 @@ export interface MassiveSDKModelEpisodesItem {
     customId?: string;
     /**
      *
-     * @type {Array&lt;string&gt;}
+     * @type {Array<string>}
      * @memberof MassiveSDKModelEpisodesItem
      */
     genres?: Array<string>;
@@ -796,7 +796,7 @@ export interface MassiveSDKModelEpisodesItem {
     maximumOfferEnd?: Date;
     /**
      *
-     * @type {Array&lt;MassiveSDKModelMedia&gt;}
+     * @type {Array<MassiveSDKModelMedia>}
      * @memberof MassiveSDKModelEpisodesItem
      */
     media?: Array<MassiveSDKModelMedia>;
@@ -854,6 +854,12 @@ export interface MassiveSDKModelEpisodesItem {
      * @memberof MassiveSDKModelEpisodesItem
      */
     seasonTitle?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof MassiveSDKModelEpisodesItem
+     */
+    badge?: string;
 }
 
 /**
@@ -982,13 +988,13 @@ export interface MassiveSDKModelItemDetail {
     description?: string;
     /**
      *
-     * @type {Array&lt;MassiveSDKModelItemCustomMetadata&gt;}
+     * @type {Array<MassiveSDKModelItemCustomMetadata>}
      * @memberof MassiveSDKModelItemDetail
      */
     customMetadata?: Array<MassiveSDKModelItemCustomMetadata>;
     /**
      *
-     * @type {Array&lt;string&gt;}
+     * @type {Array<string>}
      * @memberof MassiveSDKModelItemDetail
      */
     genrePaths?: Array<string>;
@@ -1012,7 +1018,7 @@ export interface MassiveSDKModelItemDetail {
     eventDate?: Date;
     /**
      *
-     * @type {Array&lt;MassiveSDKModelCredit&gt;}
+     * @type {Array<MassiveSDKModelCredit>}
      * @memberof MassiveSDKModelItemDetail
      */
     credits?: Array<MassiveSDKModelCredit>;
@@ -1048,7 +1054,7 @@ export interface MassiveSDKModelItemDetail {
     totalUserRatings?: number;
     /**
      *
-     * @type {Array&lt;MassiveSDKModelItemSummary&gt;}
+     * @type {Array<MassiveSDKModelItemSummary>}
      * @memberof MassiveSDKModelItemDetail
      */
     trailers?: Array<MassiveSDKModelItemSummary>;
@@ -1114,7 +1120,7 @@ export interface MassiveSDKModelItemDetail {
     watchPath?: string;
     /**
      *
-     * @type {Array&lt;string&gt;}
+     * @type {Array<string>}
      * @memberof MassiveSDKModelItemDetail
      */
     scopes?: Array<string>;
@@ -1210,7 +1216,7 @@ export interface MassiveSDKModelItemDetail {
     badge?: string;
     /**
      *
-     * @type {Array&lt;string&gt;}
+     * @type {Array<string>}
      * @memberof MassiveSDKModelItemDetail
      */
     genres?: Array<string>;
@@ -1228,7 +1234,7 @@ export interface MassiveSDKModelItemDetail {
     customId?: string;
     /**
      *
-     * @type {Array&lt;MassiveSDKModelOffer&gt;}
+     * @type {Array<MassiveSDKModelOffer>}
      * @memberof MassiveSDKModelItemDetail
      */
     offers?: Array<MassiveSDKModelOffer>;
@@ -1240,7 +1246,7 @@ export interface MassiveSDKModelItemDetail {
     images?: { [key: string]: string; };
     /**
      *
-     * @type {Array&lt;MassiveSDKModelTheme&gt;}
+     * @type {Array<MassiveSDKModelTheme>}
      * @memberof MassiveSDKModelItemDetail
      */
     themes?: Array<MassiveSDKModelTheme>;
@@ -1250,6 +1256,12 @@ export interface MassiveSDKModelItemDetail {
      * @memberof MassiveSDKModelItemDetail
      */
     customFields?: any;
+    /**
+     *
+     * @type {Array<any>}
+     * @memberof MassiveSDKModelItemDetail
+     */
+    vams?: Array<any>;
 }
 
 /**
@@ -1282,7 +1294,7 @@ export namespace MassiveSDKModelItemDetail {
 export interface MassiveSDKModelItemList {
     /**
      *
-     * @type {Array&lt;string&gt;}
+     * @type {Array<string>}
      * @memberof MassiveSDKModelItemList
      */
     itemTypes?: Array<MassiveSDKModelItemList.ItemTypesEnum>;
@@ -1330,7 +1342,7 @@ export interface MassiveSDKModelItemList {
     size?: number;
     /**
      *
-     * @type {Array&lt;MassiveSDKModelItemSummary&gt;}
+     * @type {Array<MassiveSDKModelItemSummary>}
      * @memberof MassiveSDKModelItemList
      */
     items?: Array<MassiveSDKModelItemSummary>;
@@ -1360,7 +1372,7 @@ export interface MassiveSDKModelItemList {
     customFields?: any;
     /**
      *
-     * @type {Array&lt;MassiveSDKModelTheme&gt;}
+     * @type {Array<MassiveSDKModelTheme>}
      * @memberof MassiveSDKModelItemList
      */
     themes?: Array<MassiveSDKModelTheme>;
@@ -1462,7 +1474,7 @@ export interface MassiveSDKModelItemSummary {
     watchPath?: string;
     /**
      *
-     * @type {Array&lt;string&gt;}
+     * @type {Array<string>}
      * @memberof MassiveSDKModelItemSummary
      */
     scopes?: Array<string>;
@@ -1558,7 +1570,7 @@ export interface MassiveSDKModelItemSummary {
     badge?: string;
     /**
      *
-     * @type {Array&lt;string&gt;}
+     * @type {Array<string>}
      * @memberof MassiveSDKModelItemSummary
      */
     genres?: Array<string>;
@@ -1576,7 +1588,7 @@ export interface MassiveSDKModelItemSummary {
     customId?: string;
     /**
      *
-     * @type {Array&lt;MassiveSDKModelOffer&gt;}
+     * @type {Array<MassiveSDKModelOffer>}
      * @memberof MassiveSDKModelItemSummary
      */
     offers?: Array<MassiveSDKModelOffer>;
@@ -1588,7 +1600,7 @@ export interface MassiveSDKModelItemSummary {
     images?: { [key: string]: string; };
     /**
      *
-     * @type {Array&lt;MassiveSDKModelTheme&gt;}
+     * @type {Array<MassiveSDKModelTheme>}
      * @memberof MassiveSDKModelItemSummary
      */
     themes?: Array<MassiveSDKModelTheme>;
@@ -1618,10 +1630,16 @@ export interface MassiveSDKModelItemSummary {
     season?: MassiveSDKModelItemSummary;
     /**
      *
-     * @type {Array&lt;MassiveSDKModelCredit&gt;}
+     * @type {Array<MassiveSDKModelCredit>}
      * @memberof MassiveSDKModelItemSummary
      */
     credits?: Array<MassiveSDKModelCredit>;
+    /**
+     *
+     * @type {Array<any>}
+     * @memberof MassiveSDKModelItemSummary
+     */
+    vams?: Array<any>;
 }
 
 /**
@@ -1758,7 +1776,7 @@ export interface MassiveSDKModelNavEntry {
     content?: MassiveSDKModelNavContent;
     /**
      *
-     * @type {Array&lt;MassiveSDKModelNavEntry&gt;}
+     * @type {Array<MassiveSDKModelNavEntry>}
      * @memberof MassiveSDKModelNavEntry
      */
     children?: Array<MassiveSDKModelNavEntry>;
@@ -1784,7 +1802,7 @@ export interface MassiveSDKModelNavEntry {
 export interface MassiveSDKModelNavigation {
     /**
      *
-     * @type {Array&lt;MassiveSDKModelNavEntry&gt;}
+     * @type {Array<MassiveSDKModelNavEntry>}
      * @memberof MassiveSDKModelNavigation
      */
     header?: Array<MassiveSDKModelNavEntry>;
@@ -1846,7 +1864,7 @@ export interface MassiveSDKModelOffer {
     availability?: MassiveSDKModelOffer.AvailabilityEnum;
     /**
      *
-     * @type {Array&lt;string&gt;}
+     * @type {Array<string>}
      * @memberof MassiveSDKModelOffer
      */
     scopes?: Array<string>;
@@ -1876,7 +1894,7 @@ export interface MassiveSDKModelOffer {
     playPeriod?: number;
     /**
      *
-     * @type {Array&lt;MassiveSDKModelExclusionRule&gt;}
+     * @type {Array<MassiveSDKModelExclusionRule>}
      * @memberof MassiveSDKModelOffer
      */
     exclusionRules?: Array<MassiveSDKModelExclusionRule>;
@@ -2043,7 +2061,7 @@ export interface MassiveSDKModelPage {
     metadata?: MassiveSDKModelPageMetadata;
     /**
      *
-     * @type {Array&lt;MassiveSDKModelPageEntry&gt;}
+     * @type {Array<MassiveSDKModelPageEntry>}
      * @memberof MassiveSDKModelPage
      */
     entries?: Array<MassiveSDKModelPageEntry>;
@@ -2067,7 +2085,7 @@ export interface MassiveSDKModelPage {
     list?: MassiveSDKModelItemList;
     /**
      *
-     * @type {Array&lt;MassiveSDKModelTheme&gt;}
+     * @type {Array<MassiveSDKModelTheme>}
      * @memberof MassiveSDKModelPage
      */
     themes?: Array<MassiveSDKModelTheme>;
@@ -2123,7 +2141,7 @@ export interface MassiveSDKModelPageEntry {
     text?: string;
     /**
      *
-     * @type {Array&lt;MassiveSDKModelPerson&gt;}
+     * @type {Array<MassiveSDKModelPerson>}
      * @memberof MassiveSDKModelPageEntry
      */
     people?: Array<MassiveSDKModelPerson>;
@@ -2177,7 +2195,7 @@ export interface MassiveSDKModelPageMetadata {
     description?: string;
     /**
      *
-     * @type {Array&lt;string&gt;}
+     * @type {Array<string>}
      * @memberof MassiveSDKModelPageMetadata
      */
     keywords?: Array<string>;
@@ -2536,7 +2554,7 @@ export interface MassiveSDKModelPlan {
     alias?: string;
     /**
      *
-     * @type {Array&lt;string&gt;}
+     * @type {Array<string>}
      * @memberof MassiveSDKModelPlan
      */
     benefits?: Array<string>;
@@ -2638,7 +2656,7 @@ export interface MassiveSDKModelSeasons {
     path?: string;
     /**
      *
-     * @type {Array&lt;MassiveSDKModelSeasonsItem&gt;}
+     * @type {Array<MassiveSDKModelSeasonsItem>}
      * @memberof MassiveSDKModelSeasons
      */
     items?: Array<MassiveSDKModelSeasonsItem>;
@@ -2700,19 +2718,19 @@ export interface MassiveSDKModelSeasonsItem {
     episodeCount?: number;
     /**
      *
-     * @type {Array&lt;MassiveSDKModelOffer&gt;}
+     * @type {Array<MassiveSDKModelOffer>}
      * @memberof MassiveSDKModelSeasonsItem
      */
     offers?: Array<MassiveSDKModelOffer>;
     /**
      *
-     * @type {Array&lt;string&gt;}
+     * @type {Array<string>}
      * @memberof MassiveSDKModelSeasonsItem
      */
     scopes?: Array<string>;
     /**
      *
-     * @type {Array&lt;string&gt;}
+     * @type {Array<string>}
      * @memberof MassiveSDKModelSeasonsItem
      */
     categories?: Array<string>;
@@ -2730,7 +2748,7 @@ export interface MassiveSDKModelSeasonsItem {
     customId?: string;
     /**
      *
-     * @type {Array&lt;string&gt;}
+     * @type {Array<string>}
      * @memberof MassiveSDKModelSeasonsItem
      */
     genres?: Array<string>;
@@ -2754,7 +2772,7 @@ export interface MassiveSDKModelSeasonsItem {
     maximumOfferEnd?: Date;
     /**
      *
-     * @type {Array&lt;any&gt;}
+     * @type {Array<any>}
      * @memberof MassiveSDKModelSeasonsItem
      */
     media?: Array<any>;
@@ -2828,13 +2846,13 @@ export interface MassiveSDKModelShow {
     copyright?: string;
     /**
      *
-     * @type {Array&lt;MassiveSDKModelCredit&gt;}
+     * @type {Array<MassiveSDKModelCredit>}
      * @memberof MassiveSDKModelShow
      */
     credits?: Array<MassiveSDKModelCredit>;
     /**
      *
-     * @type {Array&lt;any&gt;}
+     * @type {Array<any>}
      * @memberof MassiveSDKModelShow
      */
     customMetadata?: Array<any>;
@@ -2852,31 +2870,31 @@ export interface MassiveSDKModelShow {
     availableSeasonCount?: number;
     /**
      *
-     * @type {Array&lt;MassiveSDKModelOffer&gt;}
+     * @type {Array<MassiveSDKModelOffer>}
      * @memberof MassiveSDKModelShow
      */
     offers?: Array<MassiveSDKModelOffer>;
     /**
      *
-     * @type {Array&lt;any&gt;}
+     * @type {Array<any>}
      * @memberof MassiveSDKModelShow
      */
     trailers?: Array<any>;
     /**
      *
-     * @type {Array&lt;any&gt;}
+     * @type {Array<any>}
      * @memberof MassiveSDKModelShow
      */
     vams?: Array<any>;
     /**
      *
-     * @type {Array&lt;string&gt;}
+     * @type {Array<string>}
      * @memberof MassiveSDKModelShow
      */
     scopes?: Array<string>;
     /**
      *
-     * @type {Array&lt;string&gt;}
+     * @type {Array<string>}
      * @memberof MassiveSDKModelShow
      */
     categories?: Array<string>;
@@ -2894,7 +2912,7 @@ export interface MassiveSDKModelShow {
     customId?: string;
     /**
      *
-     * @type {Array&lt;string&gt;}
+     * @type {Array<string>}
      * @memberof MassiveSDKModelShow
      */
     genres?: Array<string>;
@@ -2936,7 +2954,7 @@ export interface MassiveSDKModelShow {
     contextualTitle?: string;
     /**
      *
-     * @type {Array&lt;any&gt;}
+     * @type {Array<any>}
      * @memberof MassiveSDKModelShow
      */
     themes?: Array<any>;
@@ -2960,7 +2978,7 @@ export interface MassiveSDKModelShow {
     path?: string;
     /**
      *
-     * @type {Array&lt;string&gt;}
+     * @type {Array<string>}
      * @memberof MassiveSDKModelShow
      */
     genrePaths?: Array<string>;
@@ -2986,7 +3004,7 @@ export interface MassiveSDKModelTheme {
     type?: MassiveSDKModelTheme.TypeEnum;
     /**
      *
-     * @type {Array&lt;MassiveSDKModelThemeColor&gt;}
+     * @type {Array<MassiveSDKModelThemeColor>}
      * @memberof MassiveSDKModelTheme
      */
     colors?: Array<MassiveSDKModelThemeColor>;
@@ -3043,10 +3061,10 @@ export const ConfigApiFetchParamCreator = function (configuration?: Configuratio
     return {
         /**
          *
-         * @param {Array&lt;string&gt;} [include]
+         * @param {Array<string>} [include]
          * @param {string} [device]
          * @param {string} [sub]
-         * @param {Array&lt;string&gt;} [segments]
+         * @param {Array<string>} [segments]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -3102,10 +3120,10 @@ export const ConfigApiFp = function(configuration?: Configuration) {
     return {
         /**
          *
-         * @param {Array&lt;string&gt;} [include]
+         * @param {Array<string>} [include]
          * @param {string} [device]
          * @param {string} [sub]
-         * @param {Array&lt;string&gt;} [segments]
+         * @param {Array<string>} [segments]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -3132,10 +3150,10 @@ export const ConfigApiFactory = function (configuration?: Configuration, fetch?:
     return {
         /**
          *
-         * @param {Array&lt;string&gt;} [include]
+         * @param {Array<string>} [include]
          * @param {string} [device]
          * @param {string} [sub]
-         * @param {Array&lt;string&gt;} [segments]
+         * @param {Array<string>} [segments]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -3154,10 +3172,10 @@ export const ConfigApiFactory = function (configuration?: Configuration, fetch?:
 export class ConfigApi extends BaseAPI {
     /**
      *
-     * @param {} [include]
-     * @param {} [device]
-     * @param {} [sub]
-     * @param {} [segments]
+     * @param {Array<string>} [include]
+     * @param {string} [device]
+     * @param {string} [sub]
+     * @param {Array<string>} [segments]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof ConfigApi
@@ -3183,7 +3201,7 @@ export const ItemsApiFetchParamCreator = function (configuration?: Configuration
          * @param {boolean} [useCustomId]
          * @param {string} [device]
          * @param {string} [sub]
-         * @param {Array&lt;string&gt;} [segments]
+         * @param {Array<string>} [segments]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -3254,7 +3272,7 @@ export const ItemsApiFetchParamCreator = function (configuration?: Configuration
          * @param {string} [order]
          * @param {string} [device]
          * @param {string} [sub]
-         * @param {Array&lt;string&gt;} [segments]
+         * @param {Array<string>} [segments]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -3324,11 +3342,12 @@ export const ItemsApiFetchParamCreator = function (configuration?: Configuration
          * @param {string} [maxRating]
          * @param {string} [device]
          * @param {string} [sub]
-         * @param {Array&lt;string&gt;} [segments]
+         * @param {boolean} [useCustomId]
+         * @param {Array<string>} [segments]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getItemRelatedList(id: string, page?: number, pageSize?: number, maxRating?: string, device?: string, sub?: string, segments?: Array<string>, options: any = {}): FetchArgs {
+        getItemRelatedList(id: string, page?: number, pageSize?: number, maxRating?: string, device?: string, sub?: string, useCustomId?: boolean, segments?: Array<string>, options: any = {}): FetchArgs {
             // verify required parameter 'id' is not null or undefined
             if (id === null || id === undefined) {
                 throw new RequiredError('id','Required parameter id was null or undefined when calling getItemRelatedList.');
@@ -3368,6 +3387,10 @@ export const ItemsApiFetchParamCreator = function (configuration?: Configuration
                 localVarQueryParameter['sub'] = sub;
             }
 
+            if (useCustomId !== undefined) {
+                localVarQueryParameter['useCustomId'] = useCustomId;
+            }
+
             if (segments) {
                 localVarQueryParameter['segments'] = segments;
             }
@@ -3400,7 +3423,7 @@ export const ItemsApiFp = function(configuration?: Configuration) {
          * @param {boolean} [useCustomId]
          * @param {string} [device]
          * @param {string} [sub]
-         * @param {Array&lt;string&gt;} [segments]
+         * @param {Array<string>} [segments]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -3425,7 +3448,7 @@ export const ItemsApiFp = function(configuration?: Configuration) {
          * @param {string} [order]
          * @param {string} [device]
          * @param {string} [sub]
-         * @param {Array&lt;string&gt;} [segments]
+         * @param {Array<string>} [segments]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -3449,12 +3472,13 @@ export const ItemsApiFp = function(configuration?: Configuration) {
          * @param {string} [maxRating]
          * @param {string} [device]
          * @param {string} [sub]
-         * @param {Array&lt;string&gt;} [segments]
+         * @param {boolean} [useCustomId]
+         * @param {Array<string>} [segments]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getItemRelatedList(id: string, page?: number, pageSize?: number, maxRating?: string, device?: string, sub?: string, segments?: Array<string>, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<BritboxAPIContentModelsItemsGetItemRelatedListResponse> {
-            const localVarFetchArgs = ItemsApiFetchParamCreator(configuration).getItemRelatedList(id, page, pageSize, maxRating, device, sub, segments, options);
+        getItemRelatedList(id: string, page?: number, pageSize?: number, maxRating?: string, device?: string, sub?: string, useCustomId?: boolean, segments?: Array<string>, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<BritboxAPIContentModelsItemsGetItemRelatedListResponse> {
+            const localVarFetchArgs = ItemsApiFetchParamCreator(configuration).getItemRelatedList(id, page, pageSize, maxRating, device, sub, useCustomId, segments, options);
             return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
                 return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then((response) => {
                     if (response.status >= 200 && response.status < 300) {
@@ -3483,7 +3507,7 @@ export const ItemsApiFactory = function (configuration?: Configuration, fetch?: 
          * @param {boolean} [useCustomId]
          * @param {string} [device]
          * @param {string} [sub]
-         * @param {Array&lt;string&gt;} [segments]
+         * @param {Array<string>} [segments]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -3499,7 +3523,7 @@ export const ItemsApiFactory = function (configuration?: Configuration, fetch?: 
          * @param {string} [order]
          * @param {string} [device]
          * @param {string} [sub]
-         * @param {Array&lt;string&gt;} [segments]
+         * @param {Array<string>} [segments]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -3514,12 +3538,13 @@ export const ItemsApiFactory = function (configuration?: Configuration, fetch?: 
          * @param {string} [maxRating]
          * @param {string} [device]
          * @param {string} [sub]
-         * @param {Array&lt;string&gt;} [segments]
+         * @param {boolean} [useCustomId]
+         * @param {Array<string>} [segments]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getItemRelatedList(id: string, page?: number, pageSize?: number, maxRating?: string, device?: string, sub?: string, segments?: Array<string>, options?: any) {
-            return ItemsApiFp(configuration).getItemRelatedList(id, page, pageSize, maxRating, device, sub, segments, options)(fetch, basePath);
+        getItemRelatedList(id: string, page?: number, pageSize?: number, maxRating?: string, device?: string, sub?: string, useCustomId?: boolean, segments?: Array<string>, options?: any) {
+            return ItemsApiFp(configuration).getItemRelatedList(id, page, pageSize, maxRating, device, sub, useCustomId, segments, options)(fetch, basePath);
         },
     };
 };
@@ -3533,14 +3558,14 @@ export const ItemsApiFactory = function (configuration?: Configuration, fetch?: 
 export class ItemsApi extends BaseAPI {
     /**
      *
-     * @param {} id
-     * @param {} [maxRating]
-     * @param {} [expand]
-     * @param {} [selectSeason]
-     * @param {} [useCustomId]
-     * @param {} [device]
-     * @param {} [sub]
-     * @param {} [segments]
+     * @param {string} id
+     * @param {string} [maxRating]
+     * @param {string} [expand]
+     * @param {string} [selectSeason]
+     * @param {boolean} [useCustomId]
+     * @param {string} [device]
+     * @param {string} [sub]
+     * @param {Array<string>} [segments]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof ItemsApi
@@ -3551,14 +3576,14 @@ export class ItemsApi extends BaseAPI {
 
     /**
      *
-     * @param {} id
-     * @param {} [page]
-     * @param {} [pageSize]
-     * @param {} [maxRating]
-     * @param {} [order]
-     * @param {} [device]
-     * @param {} [sub]
-     * @param {} [segments]
+     * @param {string} id
+     * @param {number} [page]
+     * @param {number} [pageSize]
+     * @param {string} [maxRating]
+     * @param {string} [order]
+     * @param {string} [device]
+     * @param {string} [sub]
+     * @param {Array<string>} [segments]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof ItemsApi
@@ -3569,19 +3594,20 @@ export class ItemsApi extends BaseAPI {
 
     /**
      *
-     * @param {} id
-     * @param {} [page]
-     * @param {} [pageSize]
-     * @param {} [maxRating]
-     * @param {} [device]
-     * @param {} [sub]
-     * @param {} [segments]
+     * @param {string} id
+     * @param {number} [page]
+     * @param {number} [pageSize]
+     * @param {string} [maxRating]
+     * @param {string} [device]
+     * @param {string} [sub]
+     * @param {boolean} [useCustomId]
+     * @param {Array<string>} [segments]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof ItemsApi
      */
-    public getItemRelatedList(id: string, page?: number, pageSize?: number, maxRating?: string, device?: string, sub?: string, segments?: Array<string>, options?: any) {
-        return ItemsApiFp(this.configuration).getItemRelatedList(id, page, pageSize, maxRating, device, sub, segments, options)(this.fetch, this.basePath);
+    public getItemRelatedList(id: string, page?: number, pageSize?: number, maxRating?: string, device?: string, sub?: string, useCustomId?: boolean, segments?: Array<string>, options?: any) {
+        return ItemsApiFp(this.configuration).getItemRelatedList(id, page, pageSize, maxRating, device, sub, useCustomId, segments, options)(this.fetch, this.basePath);
     }
 
 }
@@ -3604,11 +3630,12 @@ export const ListsApiFetchParamCreator = function (configuration?: Configuration
          * @param {string} [itemType]
          * @param {string} [device]
          * @param {string} [sub]
-         * @param {Array&lt;string&gt;} [segments]
+         * @param {boolean} [useCustomId]
+         * @param {Array<string>} [segments]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getList(id: string, page?: number, pageSize?: number, maxRating?: string, order?: string, orderBy?: string, param?: string, itemType?: string, device?: string, sub?: string, segments?: Array<string>, options: any = {}): FetchArgs {
+        getList(id: string, page?: number, pageSize?: number, maxRating?: string, order?: string, orderBy?: string, param?: string, itemType?: string, device?: string, sub?: string, useCustomId?: boolean, segments?: Array<string>, options: any = {}): FetchArgs {
             // verify required parameter 'id' is not null or undefined
             if (id === null || id === undefined) {
                 throw new RequiredError('id','Required parameter id was null or undefined when calling getList.');
@@ -3664,6 +3691,10 @@ export const ListsApiFetchParamCreator = function (configuration?: Configuration
                 localVarQueryParameter['sub'] = sub;
             }
 
+            if (useCustomId !== undefined) {
+                localVarQueryParameter['useCustomId'] = useCustomId;
+            }
+
             if (segments) {
                 localVarQueryParameter['segments'] = segments;
             }
@@ -3680,7 +3711,7 @@ export const ListsApiFetchParamCreator = function (configuration?: Configuration
         },
         /**
          *
-         * @param {Array&lt;string&gt;} [ids]
+         * @param {Array<string>} [ids]
          * @param {number} [pageSize]
          * @param {string} [maxRating]
          * @param {string} [order]
@@ -3688,7 +3719,7 @@ export const ListsApiFetchParamCreator = function (configuration?: Configuration
          * @param {string} [itemType]
          * @param {string} [device]
          * @param {string} [sub]
-         * @param {Array&lt;string&gt;} [segments]
+         * @param {Array<string>} [segments]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -3774,12 +3805,13 @@ export const ListsApiFp = function(configuration?: Configuration) {
          * @param {string} [itemType]
          * @param {string} [device]
          * @param {string} [sub]
-         * @param {Array&lt;string&gt;} [segments]
+         * @param {boolean} [useCustomId]
+         * @param {Array<string>} [segments]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getList(id: string, page?: number, pageSize?: number, maxRating?: string, order?: string, orderBy?: string, param?: string, itemType?: string, device?: string, sub?: string, segments?: Array<string>, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<BritboxAPIContentModelsListsGetListResponse> {
-            const localVarFetchArgs = ListsApiFetchParamCreator(configuration).getList(id, page, pageSize, maxRating, order, orderBy, param, itemType, device, sub, segments, options);
+        getList(id: string, page?: number, pageSize?: number, maxRating?: string, order?: string, orderBy?: string, param?: string, itemType?: string, device?: string, sub?: string, useCustomId?: boolean, segments?: Array<string>, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<BritboxAPIContentModelsListsGetListResponse> {
+            const localVarFetchArgs = ListsApiFetchParamCreator(configuration).getList(id, page, pageSize, maxRating, order, orderBy, param, itemType, device, sub, useCustomId, segments, options);
             return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
                 return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then((response) => {
                     if (response.status >= 200 && response.status < 300) {
@@ -3792,7 +3824,7 @@ export const ListsApiFp = function(configuration?: Configuration) {
         },
         /**
          *
-         * @param {Array&lt;string&gt;} [ids]
+         * @param {Array<string>} [ids]
          * @param {number} [pageSize]
          * @param {string} [maxRating]
          * @param {string} [order]
@@ -3800,7 +3832,7 @@ export const ListsApiFp = function(configuration?: Configuration) {
          * @param {string} [itemType]
          * @param {string} [device]
          * @param {string} [sub]
-         * @param {Array&lt;string&gt;} [segments]
+         * @param {Array<string>} [segments]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -3837,16 +3869,17 @@ export const ListsApiFactory = function (configuration?: Configuration, fetch?: 
          * @param {string} [itemType]
          * @param {string} [device]
          * @param {string} [sub]
-         * @param {Array&lt;string&gt;} [segments]
+         * @param {boolean} [useCustomId]
+         * @param {Array<string>} [segments]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getList(id: string, page?: number, pageSize?: number, maxRating?: string, order?: string, orderBy?: string, param?: string, itemType?: string, device?: string, sub?: string, segments?: Array<string>, options?: any) {
-            return ListsApiFp(configuration).getList(id, page, pageSize, maxRating, order, orderBy, param, itemType, device, sub, segments, options)(fetch, basePath);
+        getList(id: string, page?: number, pageSize?: number, maxRating?: string, order?: string, orderBy?: string, param?: string, itemType?: string, device?: string, sub?: string, useCustomId?: boolean, segments?: Array<string>, options?: any) {
+            return ListsApiFp(configuration).getList(id, page, pageSize, maxRating, order, orderBy, param, itemType, device, sub, useCustomId, segments, options)(fetch, basePath);
         },
         /**
          *
-         * @param {Array&lt;string&gt;} [ids]
+         * @param {Array<string>} [ids]
          * @param {number} [pageSize]
          * @param {string} [maxRating]
          * @param {string} [order]
@@ -3854,7 +3887,7 @@ export const ListsApiFactory = function (configuration?: Configuration, fetch?: 
          * @param {string} [itemType]
          * @param {string} [device]
          * @param {string} [sub]
-         * @param {Array&lt;string&gt;} [segments]
+         * @param {Array<string>} [segments]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -3873,36 +3906,37 @@ export const ListsApiFactory = function (configuration?: Configuration, fetch?: 
 export class ListsApi extends BaseAPI {
     /**
      *
-     * @param {} id
-     * @param {} [page]
-     * @param {} [pageSize]
-     * @param {} [maxRating]
-     * @param {} [order]
-     * @param {} [orderBy]
-     * @param {} [param]
-     * @param {} [itemType]
-     * @param {} [device]
-     * @param {} [sub]
-     * @param {} [segments]
+     * @param {string} id
+     * @param {number} [page]
+     * @param {number} [pageSize]
+     * @param {string} [maxRating]
+     * @param {string} [order]
+     * @param {string} [orderBy]
+     * @param {string} [param]
+     * @param {string} [itemType]
+     * @param {string} [device]
+     * @param {string} [sub]
+     * @param {boolean} [useCustomId]
+     * @param {Array<string>} [segments]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof ListsApi
      */
-    public getList(id: string, page?: number, pageSize?: number, maxRating?: string, order?: string, orderBy?: string, param?: string, itemType?: string, device?: string, sub?: string, segments?: Array<string>, options?: any) {
-        return ListsApiFp(this.configuration).getList(id, page, pageSize, maxRating, order, orderBy, param, itemType, device, sub, segments, options)(this.fetch, this.basePath);
+    public getList(id: string, page?: number, pageSize?: number, maxRating?: string, order?: string, orderBy?: string, param?: string, itemType?: string, device?: string, sub?: string, useCustomId?: boolean, segments?: Array<string>, options?: any) {
+        return ListsApiFp(this.configuration).getList(id, page, pageSize, maxRating, order, orderBy, param, itemType, device, sub, useCustomId, segments, options)(this.fetch, this.basePath);
     }
 
     /**
      *
-     * @param {} [ids]
-     * @param {} [pageSize]
-     * @param {} [maxRating]
-     * @param {} [order]
-     * @param {} [orderBy]
-     * @param {} [itemType]
-     * @param {} [device]
-     * @param {} [sub]
-     * @param {} [segments]
+     * @param {Array<string>} [ids]
+     * @param {number} [pageSize]
+     * @param {string} [maxRating]
+     * @param {string} [order]
+     * @param {string} [orderBy]
+     * @param {string} [itemType]
+     * @param {string} [device]
+     * @param {string} [sub]
+     * @param {Array<string>} [segments]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof ListsApi
@@ -3922,6 +3956,7 @@ export const PageApiFetchParamCreator = function (configuration?: Configuration)
         /**
          *
          * @param {string} [path]
+         * @param {boolean} [useCustomId]
          * @param {number} [listPageSize]
          * @param {number} [listPageSizeLarge]
          * @param {number} [maxListPrefetch]
@@ -3931,11 +3966,11 @@ export const PageApiFetchParamCreator = function (configuration?: Configuration)
          * @param {string} [maxRating]
          * @param {string} [device]
          * @param {string} [sub]
-         * @param {Array&lt;string&gt;} [segments]
+         * @param {Array<string>} [segments]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getPage(path?: string, listPageSize?: number, listPageSizeLarge?: number, maxListPrefetch?: number, itemDetailExpand?: string, itemDetailSelectSeason?: string, textEntryFormat?: string, maxRating?: string, device?: string, sub?: string, segments?: Array<string>, options: any = {}): FetchArgs {
+        getPage(path?: string, useCustomId?: boolean, listPageSize?: number, listPageSizeLarge?: number, maxListPrefetch?: number, itemDetailExpand?: string, itemDetailSelectSeason?: string, textEntryFormat?: string, maxRating?: string, device?: string, sub?: string, segments?: Array<string>, options: any = {}): FetchArgs {
             const localVarPath = `/v1/content/Page`;
             const localVarUrlObj = url.parse(localVarPath, true);
             const localVarRequestOptions = Object.assign({ method: 'GET' }, options);
@@ -3952,6 +3987,10 @@ export const PageApiFetchParamCreator = function (configuration?: Configuration)
 
             if (path !== undefined) {
                 localVarQueryParameter['path'] = path;
+            }
+
+            if (useCustomId !== undefined) {
+                localVarQueryParameter['useCustomId'] = useCustomId;
             }
 
             if (listPageSize !== undefined) {
@@ -4016,6 +4055,7 @@ export const PageApiFp = function(configuration?: Configuration) {
         /**
          *
          * @param {string} [path]
+         * @param {boolean} [useCustomId]
          * @param {number} [listPageSize]
          * @param {number} [listPageSizeLarge]
          * @param {number} [maxListPrefetch]
@@ -4025,12 +4065,12 @@ export const PageApiFp = function(configuration?: Configuration) {
          * @param {string} [maxRating]
          * @param {string} [device]
          * @param {string} [sub]
-         * @param {Array&lt;string&gt;} [segments]
+         * @param {Array<string>} [segments]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getPage(path?: string, listPageSize?: number, listPageSizeLarge?: number, maxListPrefetch?: number, itemDetailExpand?: string, itemDetailSelectSeason?: string, textEntryFormat?: string, maxRating?: string, device?: string, sub?: string, segments?: Array<string>, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<BritboxAPIContentModelsPageGetPageResponse> {
-            const localVarFetchArgs = PageApiFetchParamCreator(configuration).getPage(path, listPageSize, listPageSizeLarge, maxListPrefetch, itemDetailExpand, itemDetailSelectSeason, textEntryFormat, maxRating, device, sub, segments, options);
+        getPage(path?: string, useCustomId?: boolean, listPageSize?: number, listPageSizeLarge?: number, maxListPrefetch?: number, itemDetailExpand?: string, itemDetailSelectSeason?: string, textEntryFormat?: string, maxRating?: string, device?: string, sub?: string, segments?: Array<string>, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<BritboxAPIContentModelsPageGetPageResponse> {
+            const localVarFetchArgs = PageApiFetchParamCreator(configuration).getPage(path, useCustomId, listPageSize, listPageSizeLarge, maxListPrefetch, itemDetailExpand, itemDetailSelectSeason, textEntryFormat, maxRating, device, sub, segments, options);
             return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
                 return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then((response) => {
                     if (response.status >= 200 && response.status < 300) {
@@ -4053,6 +4093,7 @@ export const PageApiFactory = function (configuration?: Configuration, fetch?: F
         /**
          *
          * @param {string} [path]
+         * @param {boolean} [useCustomId]
          * @param {number} [listPageSize]
          * @param {number} [listPageSizeLarge]
          * @param {number} [maxListPrefetch]
@@ -4062,12 +4103,12 @@ export const PageApiFactory = function (configuration?: Configuration, fetch?: F
          * @param {string} [maxRating]
          * @param {string} [device]
          * @param {string} [sub]
-         * @param {Array&lt;string&gt;} [segments]
+         * @param {Array<string>} [segments]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getPage(path?: string, listPageSize?: number, listPageSizeLarge?: number, maxListPrefetch?: number, itemDetailExpand?: string, itemDetailSelectSeason?: string, textEntryFormat?: string, maxRating?: string, device?: string, sub?: string, segments?: Array<string>, options?: any) {
-            return PageApiFp(configuration).getPage(path, listPageSize, listPageSizeLarge, maxListPrefetch, itemDetailExpand, itemDetailSelectSeason, textEntryFormat, maxRating, device, sub, segments, options)(fetch, basePath);
+        getPage(path?: string, useCustomId?: boolean, listPageSize?: number, listPageSizeLarge?: number, maxListPrefetch?: number, itemDetailExpand?: string, itemDetailSelectSeason?: string, textEntryFormat?: string, maxRating?: string, device?: string, sub?: string, segments?: Array<string>, options?: any) {
+            return PageApiFp(configuration).getPage(path, useCustomId, listPageSize, listPageSizeLarge, maxListPrefetch, itemDetailExpand, itemDetailSelectSeason, textEntryFormat, maxRating, device, sub, segments, options)(fetch, basePath);
         },
     };
 };
@@ -4081,23 +4122,24 @@ export const PageApiFactory = function (configuration?: Configuration, fetch?: F
 export class PageApi extends BaseAPI {
     /**
      *
-     * @param {} [path]
-     * @param {} [listPageSize]
-     * @param {} [listPageSizeLarge]
-     * @param {} [maxListPrefetch]
-     * @param {} [itemDetailExpand]
-     * @param {} [itemDetailSelectSeason]
-     * @param {} [textEntryFormat]
-     * @param {} [maxRating]
-     * @param {} [device]
-     * @param {} [sub]
-     * @param {} [segments]
+     * @param {string} [path]
+     * @param {boolean} [useCustomId]
+     * @param {number} [listPageSize]
+     * @param {number} [listPageSizeLarge]
+     * @param {number} [maxListPrefetch]
+     * @param {string} [itemDetailExpand]
+     * @param {string} [itemDetailSelectSeason]
+     * @param {string} [textEntryFormat]
+     * @param {string} [maxRating]
+     * @param {string} [device]
+     * @param {string} [sub]
+     * @param {Array<string>} [segments]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof PageApi
      */
-    public getPage(path?: string, listPageSize?: number, listPageSizeLarge?: number, maxListPrefetch?: number, itemDetailExpand?: string, itemDetailSelectSeason?: string, textEntryFormat?: string, maxRating?: string, device?: string, sub?: string, segments?: Array<string>, options?: any) {
-        return PageApiFp(this.configuration).getPage(path, listPageSize, listPageSizeLarge, maxListPrefetch, itemDetailExpand, itemDetailSelectSeason, textEntryFormat, maxRating, device, sub, segments, options)(this.fetch, this.basePath);
+    public getPage(path?: string, useCustomId?: boolean, listPageSize?: number, listPageSizeLarge?: number, maxListPrefetch?: number, itemDetailExpand?: string, itemDetailSelectSeason?: string, textEntryFormat?: string, maxRating?: string, device?: string, sub?: string, segments?: Array<string>, options?: any) {
+        return PageApiFp(this.configuration).getPage(path, useCustomId, listPageSize, listPageSizeLarge, maxListPrefetch, itemDetailExpand, itemDetailSelectSeason, textEntryFormat, maxRating, device, sub, segments, options)(this.fetch, this.basePath);
     }
 
 }

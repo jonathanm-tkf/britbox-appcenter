@@ -92,13 +92,13 @@ export interface BritboxAPISearchModelsSearchGetResponse {
     externalResponse?: MassiveSDKModelSearchResults;
     /**
      *
-     * @type {Array&lt;string&gt;}
+     * @type {Array<string>}
      * @memberof BritboxAPISearchModelsSearchGetResponse
      */
     errors?: Array<string>;
     /**
      *
-     * @type {Array&lt;string&gt;}
+     * @type {Array<string>}
      * @memberof BritboxAPISearchModelsSearchGetResponse
      */
     messages?: Array<string>;
@@ -288,7 +288,7 @@ export interface MassiveSDKModelEpisodes {
     path?: string;
     /**
      *
-     * @type {Array&lt;MassiveSDKModelEpisodesItem&gt;}
+     * @type {Array<MassiveSDKModelEpisodesItem>}
      * @memberof MassiveSDKModelEpisodes
      */
     items?: Array<MassiveSDKModelEpisodesItem>;
@@ -356,19 +356,19 @@ export interface MassiveSDKModelEpisodesItem {
     showId?: string;
     /**
      *
-     * @type {Array&lt;MassiveSDKModelOffer&gt;}
+     * @type {Array<MassiveSDKModelOffer>}
      * @memberof MassiveSDKModelEpisodesItem
      */
     offers?: Array<MassiveSDKModelOffer>;
     /**
      *
-     * @type {Array&lt;string&gt;}
+     * @type {Array<string>}
      * @memberof MassiveSDKModelEpisodesItem
      */
     scopes?: Array<string>;
     /**
      *
-     * @type {Array&lt;string&gt;}
+     * @type {Array<string>}
      * @memberof MassiveSDKModelEpisodesItem
      */
     categories?: Array<string>;
@@ -386,7 +386,7 @@ export interface MassiveSDKModelEpisodesItem {
     customId?: string;
     /**
      *
-     * @type {Array&lt;string&gt;}
+     * @type {Array<string>}
      * @memberof MassiveSDKModelEpisodesItem
      */
     genres?: Array<string>;
@@ -410,7 +410,7 @@ export interface MassiveSDKModelEpisodesItem {
     maximumOfferEnd?: Date;
     /**
      *
-     * @type {Array&lt;MassiveSDKModelMedia&gt;}
+     * @type {Array<MassiveSDKModelMedia>}
      * @memberof MassiveSDKModelEpisodesItem
      */
     media?: Array<MassiveSDKModelMedia>;
@@ -468,6 +468,12 @@ export interface MassiveSDKModelEpisodesItem {
      * @memberof MassiveSDKModelEpisodesItem
      */
     seasonTitle?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof MassiveSDKModelEpisodesItem
+     */
+    badge?: string;
 }
 
 /**
@@ -552,7 +558,7 @@ export namespace MassiveSDKModelExclusionRule {
 export interface MassiveSDKModelItemList {
     /**
      *
-     * @type {Array&lt;string&gt;}
+     * @type {Array<string>}
      * @memberof MassiveSDKModelItemList
      */
     itemTypes?: Array<MassiveSDKModelItemList.ItemTypesEnum>;
@@ -600,7 +606,7 @@ export interface MassiveSDKModelItemList {
     size?: number;
     /**
      *
-     * @type {Array&lt;MassiveSDKModelItemSummary&gt;}
+     * @type {Array<MassiveSDKModelItemSummary>}
      * @memberof MassiveSDKModelItemList
      */
     items?: Array<MassiveSDKModelItemSummary>;
@@ -630,7 +636,7 @@ export interface MassiveSDKModelItemList {
     customFields?: any;
     /**
      *
-     * @type {Array&lt;MassiveSDKModelTheme&gt;}
+     * @type {Array<MassiveSDKModelTheme>}
      * @memberof MassiveSDKModelItemList
      */
     themes?: Array<MassiveSDKModelTheme>;
@@ -732,7 +738,7 @@ export interface MassiveSDKModelItemSummary {
     watchPath?: string;
     /**
      *
-     * @type {Array&lt;string&gt;}
+     * @type {Array<string>}
      * @memberof MassiveSDKModelItemSummary
      */
     scopes?: Array<string>;
@@ -828,7 +834,7 @@ export interface MassiveSDKModelItemSummary {
     badge?: string;
     /**
      *
-     * @type {Array&lt;string&gt;}
+     * @type {Array<string>}
      * @memberof MassiveSDKModelItemSummary
      */
     genres?: Array<string>;
@@ -846,7 +852,7 @@ export interface MassiveSDKModelItemSummary {
     customId?: string;
     /**
      *
-     * @type {Array&lt;MassiveSDKModelOffer&gt;}
+     * @type {Array<MassiveSDKModelOffer>}
      * @memberof MassiveSDKModelItemSummary
      */
     offers?: Array<MassiveSDKModelOffer>;
@@ -858,7 +864,7 @@ export interface MassiveSDKModelItemSummary {
     images?: { [key: string]: string; };
     /**
      *
-     * @type {Array&lt;MassiveSDKModelTheme&gt;}
+     * @type {Array<MassiveSDKModelTheme>}
      * @memberof MassiveSDKModelItemSummary
      */
     themes?: Array<MassiveSDKModelTheme>;
@@ -888,7 +894,7 @@ export interface MassiveSDKModelItemSummary {
     season?: MassiveSDKModelItemSummary;
     /**
      *
-     * @type {Array&lt;MassiveSDKModelCredit&gt;}
+     * @type {Array<MassiveSDKModelCredit>}
      * @memberof MassiveSDKModelItemSummary
      */
     credits?: Array<MassiveSDKModelCredit>;
@@ -976,7 +982,7 @@ export interface MassiveSDKModelOffer {
     availability?: MassiveSDKModelOffer.AvailabilityEnum;
     /**
      *
-     * @type {Array&lt;string&gt;}
+     * @type {Array<string>}
      * @memberof MassiveSDKModelOffer
      */
     scopes?: Array<string>;
@@ -1006,7 +1012,7 @@ export interface MassiveSDKModelOffer {
     playPeriod?: number;
     /**
      *
-     * @type {Array&lt;MassiveSDKModelExclusionRule&gt;}
+     * @type {Array<MassiveSDKModelExclusionRule>}
      * @memberof MassiveSDKModelOffer
      */
     exclusionRules?: Array<MassiveSDKModelExclusionRule>;
@@ -1390,7 +1396,7 @@ export interface MassiveSDKModelSearchResults {
     other?: MassiveSDKModelItemList;
     /**
      *
-     * @type {Array&lt;MassiveSDKModelPerson&gt;}
+     * @type {Array<MassiveSDKModelPerson>}
      * @memberof MassiveSDKModelSearchResults
      */
     people?: Array<MassiveSDKModelPerson>;
@@ -1416,7 +1422,7 @@ export interface MassiveSDKModelSeasons {
     path?: string;
     /**
      *
-     * @type {Array&lt;MassiveSDKModelSeasonsItem&gt;}
+     * @type {Array<MassiveSDKModelSeasonsItem>}
      * @memberof MassiveSDKModelSeasons
      */
     items?: Array<MassiveSDKModelSeasonsItem>;
@@ -1478,19 +1484,19 @@ export interface MassiveSDKModelSeasonsItem {
     episodeCount?: number;
     /**
      *
-     * @type {Array&lt;MassiveSDKModelOffer&gt;}
+     * @type {Array<MassiveSDKModelOffer>}
      * @memberof MassiveSDKModelSeasonsItem
      */
     offers?: Array<MassiveSDKModelOffer>;
     /**
      *
-     * @type {Array&lt;string&gt;}
+     * @type {Array<string>}
      * @memberof MassiveSDKModelSeasonsItem
      */
     scopes?: Array<string>;
     /**
      *
-     * @type {Array&lt;string&gt;}
+     * @type {Array<string>}
      * @memberof MassiveSDKModelSeasonsItem
      */
     categories?: Array<string>;
@@ -1508,7 +1514,7 @@ export interface MassiveSDKModelSeasonsItem {
     customId?: string;
     /**
      *
-     * @type {Array&lt;string&gt;}
+     * @type {Array<string>}
      * @memberof MassiveSDKModelSeasonsItem
      */
     genres?: Array<string>;
@@ -1532,7 +1538,7 @@ export interface MassiveSDKModelSeasonsItem {
     maximumOfferEnd?: Date;
     /**
      *
-     * @type {Array&lt;any&gt;}
+     * @type {Array<any>}
      * @memberof MassiveSDKModelSeasonsItem
      */
     media?: Array<any>;
@@ -1606,13 +1612,13 @@ export interface MassiveSDKModelShow {
     copyright?: string;
     /**
      *
-     * @type {Array&lt;MassiveSDKModelCredit&gt;}
+     * @type {Array<MassiveSDKModelCredit>}
      * @memberof MassiveSDKModelShow
      */
     credits?: Array<MassiveSDKModelCredit>;
     /**
      *
-     * @type {Array&lt;any&gt;}
+     * @type {Array<any>}
      * @memberof MassiveSDKModelShow
      */
     customMetadata?: Array<any>;
@@ -1630,31 +1636,31 @@ export interface MassiveSDKModelShow {
     availableSeasonCount?: number;
     /**
      *
-     * @type {Array&lt;MassiveSDKModelOffer&gt;}
+     * @type {Array<MassiveSDKModelOffer>}
      * @memberof MassiveSDKModelShow
      */
     offers?: Array<MassiveSDKModelOffer>;
     /**
      *
-     * @type {Array&lt;any&gt;}
+     * @type {Array<any>}
      * @memberof MassiveSDKModelShow
      */
     trailers?: Array<any>;
     /**
      *
-     * @type {Array&lt;any&gt;}
+     * @type {Array<any>}
      * @memberof MassiveSDKModelShow
      */
     vams?: Array<any>;
     /**
      *
-     * @type {Array&lt;string&gt;}
+     * @type {Array<string>}
      * @memberof MassiveSDKModelShow
      */
     scopes?: Array<string>;
     /**
      *
-     * @type {Array&lt;string&gt;}
+     * @type {Array<string>}
      * @memberof MassiveSDKModelShow
      */
     categories?: Array<string>;
@@ -1672,7 +1678,7 @@ export interface MassiveSDKModelShow {
     customId?: string;
     /**
      *
-     * @type {Array&lt;string&gt;}
+     * @type {Array<string>}
      * @memberof MassiveSDKModelShow
      */
     genres?: Array<string>;
@@ -1714,7 +1720,7 @@ export interface MassiveSDKModelShow {
     contextualTitle?: string;
     /**
      *
-     * @type {Array&lt;any&gt;}
+     * @type {Array<any>}
      * @memberof MassiveSDKModelShow
      */
     themes?: Array<any>;
@@ -1738,7 +1744,7 @@ export interface MassiveSDKModelShow {
     path?: string;
     /**
      *
-     * @type {Array&lt;string&gt;}
+     * @type {Array<string>}
      * @memberof MassiveSDKModelShow
      */
     genrePaths?: Array<string>;
@@ -1764,7 +1770,7 @@ export interface MassiveSDKModelTheme {
     type?: MassiveSDKModelTheme.TypeEnum;
     /**
      *
-     * @type {Array&lt;MassiveSDKModelThemeColor&gt;}
+     * @type {Array<MassiveSDKModelThemeColor>}
      * @memberof MassiveSDKModelTheme
      */
     colors?: Array<MassiveSDKModelThemeColor>;
@@ -1822,17 +1828,18 @@ export const SearchApiFetchParamCreator = function (configuration?: Configuratio
         /**
          *
          * @param {string} [term]
-         * @param {Array&lt;string&gt;} [include]
+         * @param {Array<string>} [include]
          * @param {boolean} [group]
          * @param {number} [maxResults]
          * @param {string} [maxRating]
          * @param {string} [device]
          * @param {string} [sub]
-         * @param {Array&lt;string&gt;} [segments]
+         * @param {boolean} [useCustomId]
+         * @param {Array<string>} [segments]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        get(term?: string, include?: Array<string>, group?: boolean, maxResults?: number, maxRating?: string, device?: string, sub?: string, segments?: Array<string>, options: any = {}): FetchArgs {
+        get(term?: string, include?: Array<string>, group?: boolean, maxResults?: number, maxRating?: string, device?: string, sub?: string, useCustomId?: boolean, segments?: Array<string>, options: any = {}): FetchArgs {
             const localVarPath = `/v1/search`;
             const localVarUrlObj = url.parse(localVarPath, true);
             const localVarRequestOptions = Object.assign({ method: 'GET' }, options);
@@ -1883,6 +1890,10 @@ export const SearchApiFetchParamCreator = function (configuration?: Configuratio
                 localVarQueryParameter['sub'] = sub;
             }
 
+            if (useCustomId !== undefined) {
+                localVarQueryParameter['useCustomId'] = useCustomId;
+            }
+
             if (segments) {
                 localVarQueryParameter['segments'] = segments;
             }
@@ -1909,18 +1920,19 @@ export const SearchApiFp = function(configuration?: Configuration) {
         /**
          *
          * @param {string} [term]
-         * @param {Array&lt;string&gt;} [include]
+         * @param {Array<string>} [include]
          * @param {boolean} [group]
          * @param {number} [maxResults]
          * @param {string} [maxRating]
          * @param {string} [device]
          * @param {string} [sub]
-         * @param {Array&lt;string&gt;} [segments]
+         * @param {boolean} [useCustomId]
+         * @param {Array<string>} [segments]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        get(term?: string, include?: Array<string>, group?: boolean, maxResults?: number, maxRating?: string, device?: string, sub?: string, segments?: Array<string>, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<BritboxAPISearchModelsSearchGetResponse> {
-            const localVarFetchArgs = SearchApiFetchParamCreator(configuration).get(term, include, group, maxResults, maxRating, device, sub, segments, options);
+        get(term?: string, include?: Array<string>, group?: boolean, maxResults?: number, maxRating?: string, device?: string, sub?: string, useCustomId?: boolean, segments?: Array<string>, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<BritboxAPISearchModelsSearchGetResponse> {
+            const localVarFetchArgs = SearchApiFetchParamCreator(configuration).get(term, include, group, maxResults, maxRating, device, sub, useCustomId, segments, options);
             return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
                 return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then((response) => {
                     if (response.status >= 200 && response.status < 300) {
@@ -1943,18 +1955,19 @@ export const SearchApiFactory = function (configuration?: Configuration, fetch?:
         /**
          *
          * @param {string} [term]
-         * @param {Array&lt;string&gt;} [include]
+         * @param {Array<string>} [include]
          * @param {boolean} [group]
          * @param {number} [maxResults]
          * @param {string} [maxRating]
          * @param {string} [device]
          * @param {string} [sub]
-         * @param {Array&lt;string&gt;} [segments]
+         * @param {boolean} [useCustomId]
+         * @param {Array<string>} [segments]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        get(term?: string, include?: Array<string>, group?: boolean, maxResults?: number, maxRating?: string, device?: string, sub?: string, segments?: Array<string>, options?: any) {
-            return SearchApiFp(configuration).get(term, include, group, maxResults, maxRating, device, sub, segments, options)(fetch, basePath);
+        get(term?: string, include?: Array<string>, group?: boolean, maxResults?: number, maxRating?: string, device?: string, sub?: string, useCustomId?: boolean, segments?: Array<string>, options?: any) {
+            return SearchApiFp(configuration).get(term, include, group, maxResults, maxRating, device, sub, useCustomId, segments, options)(fetch, basePath);
         },
     };
 };
@@ -1968,20 +1981,21 @@ export const SearchApiFactory = function (configuration?: Configuration, fetch?:
 export class SearchApi extends BaseAPI {
     /**
      *
-     * @param {} [term]
-     * @param {} [include]
-     * @param {} [group]
-     * @param {} [maxResults]
-     * @param {} [maxRating]
-     * @param {} [device]
-     * @param {} [sub]
-     * @param {} [segments]
+     * @param {string} [term]
+     * @param {Array<string>} [include]
+     * @param {boolean} [group]
+     * @param {number} [maxResults]
+     * @param {string} [maxRating]
+     * @param {string} [device]
+     * @param {string} [sub]
+     * @param {boolean} [useCustomId]
+     * @param {Array<string>} [segments]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof SearchApi
      */
-    public get(term?: string, include?: Array<string>, group?: boolean, maxResults?: number, maxRating?: string, device?: string, sub?: string, segments?: Array<string>, options?: any) {
-        return SearchApiFp(this.configuration).get(term, include, group, maxResults, maxRating, device, sub, segments, options)(this.fetch, this.basePath);
+    public get(term?: string, include?: Array<string>, group?: boolean, maxResults?: number, maxRating?: string, device?: string, sub?: string, useCustomId?: boolean, segments?: Array<string>, options?: any) {
+        return SearchApiFp(this.configuration).get(term, include, group, maxResults, maxRating, device, sub, useCustomId, segments, options)(this.fetch, this.basePath);
     }
 
 }
