@@ -2,7 +2,9 @@ import React from 'react';
 
 import { View, StyleSheet, Dimensions } from 'react-native';
 import { TabView, SceneMap } from 'react-native-tab-view';
-import { Container } from './styles';
+import { AppState } from '@store/modules/rootReducer';
+import { useSelector } from 'react-redux';
+import { Container, TabBar, TabLabel } from './styles';
 
 const FirstRoute = () => <View style={[styles.scene, { backgroundColor: '#ff4081' }]} />;
 
@@ -17,6 +19,8 @@ const styles = StyleSheet.create({
 });
 
 const TabsComponent = () => {
+  const theme = useSelector((state: AppState) => state.theme.theme);
+
   const [index, setIndex] = React.useState(0);
   const [routes] = React.useState([
     { key: 'first', title: 'First' },
@@ -28,15 +32,23 @@ const TabsComponent = () => {
     second: SecondRoute,
   });
 
+  const renderTabBar = (props: any) => (
+    <TabBar
+      {...props}
+      renderLabel={({ route, color, focus }: any) => (
+        <TabLabel {...{ color, focus }}>{route.title}</TabLabel>
+      )}
+    />
+  );
+
   return (
     <Container>
       <TabView
         navigationState={{ index, routes }}
         renderScene={renderScene}
+        renderTabBar={renderTabBar}
         onIndexChange={setIndex}
         initialLayout={initialLayout}
-        swipeEnabled={false}
-        timingConfig={{ duration: 100 }}
       />
     </Container>
   );
