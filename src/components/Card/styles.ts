@@ -16,10 +16,12 @@ export const Container = styled.View`
 
 export const Wrapper = styled.View`
   align-items: center;
-  justify-content: flex-start;
+  justify-content: space-between;
   padding-bottom: 30px;
   width: ${(props: ContainerProps) => props.width || 162}px;
 `;
+
+export const WrapperContent = styled.View``;
 
 export const CustomShadow = styled.View`
   flex: 1;
@@ -87,4 +89,21 @@ export const ActionText = styled.Text`
   line-height: 24px;
   margin-left: -2px;
   font-family: ${(props: ThemeState) => props.theme.PRIMARY_FONT_FAMILY_MEDIUM};
+`;
+
+export const WrapperBookmarks = styled.View`
+  flex-direction: row;
+  padding-left: 10px;
+`;
+
+interface BottomWrapper {
+  isContinue: boolean;
+}
+
+export const BottomWrapper = styled.View`
+  margin-top: 10px;
+  flex-direction: row;
+  align-items: center;
+  justify-content: ${(props: BottomWrapper) => (!props.isContinue ? 'center' : 'space-between')};
+  width: 100%;
 `;

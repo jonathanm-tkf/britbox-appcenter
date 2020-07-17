@@ -52,6 +52,7 @@ module.exports = {
     'max-len': ['error', 100],
     camelcase: 'off',
     'no-use-before-define': 'off',
+    'no-nested-ternary': 'off',
     'no-console': ['error', { allow: ['tron'] }],
     'react-hooks/rules-of-hooks': 'error',
     'react-hooks/exhaustive-deps': 'warn',

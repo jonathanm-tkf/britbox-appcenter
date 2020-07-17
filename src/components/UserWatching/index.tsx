@@ -1,5 +1,6 @@
 import React, { useState, ReactNode } from 'react';
 
+import { Row } from '@components/Layout';
 import {
   Container,
   TabHeader,
@@ -29,14 +30,16 @@ const UserWatching = ({ data }: Props) => {
 
   return (
     <Container>
-      <TabHeader>
-        {data.map((item: DATA) => (
-          <TabHeaderItem key={item.key.toString()} onPress={() => changeTab(item.key)}>
-            {active === item.key && <TabHeaderItemIndicator />}
-            <TabHeaderItemText active={active === item.key}>{item.label}</TabHeaderItemText>
-          </TabHeaderItem>
-        ))}
-      </TabHeader>
+      <Row>
+        <TabHeader>
+          {data.map((item: DATA) => (
+            <TabHeaderItem key={item.key.toString()} onPress={() => changeTab(item.key)}>
+              {active === item.key && <TabHeaderItemIndicator />}
+              <TabHeaderItemText active={active === item.key}>{item.label}</TabHeaderItemText>
+            </TabHeaderItem>
+          ))}
+        </TabHeader>
+      </Row>
       {data.map((item: DATA) => (
         <TabContent key={item.key.toString()}>
           {active === item.key && data[active].content()}

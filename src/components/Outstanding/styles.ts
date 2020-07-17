@@ -6,7 +6,7 @@ import { rgba } from 'polished';
 export const Container = styled.View`
   width: 100%;
   height: 376px;
-  margin-bottom: 90px;
+  margin-bottom: 100px;
   background-color: ${(props: ThemeState) => props.theme.PRIMARY_COLOR};
 `;
 

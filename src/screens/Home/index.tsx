@@ -11,11 +11,12 @@ import { useNavigation } from 'react-navigation-hooks';
 import { toggleTabs } from '@src/utils';
 import NewSlider from '@components/NewSlider';
 import { Headline } from '@components/Typography';
-import { Row } from '@components/Layout';
+import { Row, PaddingLeft } from '@components/Layout';
 import Carousel from '@components/Carousel';
 import Card from '@components/Card';
+import UserWatching from '@components/UserWatching';
 import { Container } from './styles';
-import { items, Element } from './data';
+import { items, Element, continueWatchingItems } from './data';
 
 const wrapper = {
   flex: 1,
@@ -25,6 +26,46 @@ const wrapper = {
 const marginBottom = {
   marginBottom: 60,
 };
+
+const ContinueWatchingData = [
+  {
+    key: 0,
+    label: 'Continue Watching',
+    active: true,
+    content: () => (
+      <Carousel
+        items={continueWatchingItems}
+        listProps={{ horizontal: true }}
+        renderItem={({ item: card }) => (
+          <Card
+            isContinue
+            newEpisode
+            width={157}
+            height={107}
+            url={card.url}
+            data={card.data}
+            actionText={card.data.actionText}
+            onRemove={() => {}}
+          />
+        )}
+      />
+    ),
+  },
+  {
+    key: 1,
+    label: 'Watchlist',
+    active: false,
+    content: () => (
+      <Carousel
+        items={continueWatchingItems}
+        listProps={{ horizontal: true }}
+        renderItem={({ item: card }) => (
+          <Card width={122} height={162} url={card.url} data={card.data} onRemove={() => {}} />
+        )}
+      />
+    ),
+  },
+];
 
 const Home = () => {
   const theme = useSelector((state: AppState) => state.theme.theme);
@@ -70,6 +111,10 @@ const Item = () => {
               onDiscoverMore={() => heroDiscoverMore(item)}
             />
           );
+        }
+
+        if (item.template === 'user-watching') {
+          return <UserWatching key={key.toString()} data={ContinueWatchingData} />;
         }
 
         if (item.template === 'new') {

@@ -9,6 +9,7 @@ interface FlatProps {
 export const FlatList = styled(RNFlatList).attrs((props: FlatProps) => ({
   contentContainerStyle: {
     paddingLeft: props.noPadding ? 0 : 20,
+    paddingRight: props.noPadding ? 0 : 20,
   },
 }))``;
 
