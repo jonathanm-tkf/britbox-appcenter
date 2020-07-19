@@ -106,7 +106,7 @@ const hide = {
 
 const showTabsAnimation = {
   from: {
-    bottom: -getBottomSpace() - 55,
+    bottom: -getBottomSpace() - 70,
   },
   to: {
     bottom: 0,
@@ -118,7 +118,7 @@ const hideTabsAnimation = {
     bottom: 0,
   },
   to: {
-    bottom: -getBottomSpace() - 55,
+    bottom: -getBottomSpace() - 70,
   },
 };
 

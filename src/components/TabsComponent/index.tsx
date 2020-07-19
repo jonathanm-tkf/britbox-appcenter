@@ -1,42 +1,54 @@
-import React from 'react';
-
-import { View, StyleSheet, Dimensions } from 'react-native';
+import React, { useState } from 'react';
+import { Dimensions } from 'react-native';
 import { TabView, SceneMap } from 'react-native-tab-view';
-import { AppState } from '@store/modules/rootReducer';
-import { useSelector } from 'react-redux';
-import { Container, TabBar, TabLabel } from './styles';
+import { Container, TabWrapper, TabBar, TabLabel, Indicator, IndicatorWrapper } from './styles';
 
-const FirstRoute = () => <View style={[styles.scene, { backgroundColor: '#ff4081' }]} />;
-
-const SecondRoute = () => <View style={[styles.scene, { backgroundColor: '#673ab7' }]} />;
+type State = {
+  key: string;
+  title: string;
+} & {
+  content: () => JSX.Element;
+};
 
 const initialLayout = { width: Dimensions.get('window').width };
 
-const styles = StyleSheet.create({
-  scene: {
-    flex: 1,
-  },
-});
+interface Props {
+  routes: State[];
+}
 
-const TabsComponent = () => {
-  const theme = useSelector((state: AppState) => state.theme.theme);
+interface Scene {
+  key: string;
+  content: () => JSX.Element;
+}
 
-  const [index, setIndex] = React.useState(0);
-  const [routes] = React.useState([
-    { key: 'first', title: 'First' },
-    { key: 'second', title: 'Second' },
-  ]);
+const TabsComponent = ({ routes }: Props) => {
+  const [index, setIndex] = useState(0);
+  const [data] = useState(routes);
 
-  const renderScene = SceneMap({
-    first: FirstRoute,
-    second: SecondRoute,
-  });
+  const getScenes = (): Record<string, any> => {
+    const allScenes: any = {};
+    routes.forEach((element: Scene) => {
+      allScenes[element.key] = element.content;
+    });
 
-  const renderTabBar = (props: any) => (
+    return allScenes;
+  };
+
+  const renderScene = SceneMap(getScenes());
+
+  const renderTabBar = (props: any & { navigationState: any }) => (
     <TabBar
       {...props}
-      renderLabel={({ route, color, focus }: any) => (
-        <TabLabel {...{ color, focus }}>{route.title}</TabLabel>
+      scrollEnabled
+      renderLabel={({ route, color, focused }: any) => (
+        <TabWrapper>
+          <TabLabel {...{ color, focused }}>{route.title}</TabLabel>
+          {focused && (
+            <IndicatorWrapper>
+              <Indicator />
+            </IndicatorWrapper>
+          )}
+        </TabWrapper>
       )}
     />
   );
@@ -44,7 +56,7 @@ const TabsComponent = () => {
   return (
     <Container>
       <TabView
-        navigationState={{ index, routes }}
+        navigationState={{ index, routes: data }}
         renderScene={renderScene}
         renderTabBar={renderTabBar}
         onIndexChange={setIndex}

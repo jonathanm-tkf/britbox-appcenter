@@ -1,12 +1,12 @@
 import React from 'react';
 import { Dimensions, StyleSheet, View, Button } from 'react-native';
 import { useNavigation } from 'react-navigation-hooks';
-import { SharedElement } from 'react-navigation-shared-element';
 
 import { toggleTabs } from '@src/utils';
 import { getStatusBarHeight } from 'react-native-iphone-x-helper';
+import { SharedElement } from 'react-native-shared-element';
 import FastImage from 'react-native-fast-image';
-import { Container } from './styled';
+import { Container, HeaderBackgroundImage, ImageTop } from './styled';
 
 const { width } = Dimensions.get('window');
 const styles = StyleSheet.create({
@@ -40,7 +40,6 @@ const Detail = () => {
   const { goBack, getParam, dangerouslyGetParent } = useNavigation();
   const { item } = getParam('item');
   const parent = dangerouslyGetParent();
-  console.tron.log({ item });
   const back = () => {
     if (parent) {
       toggleTabs(parent, true);
@@ -50,8 +49,10 @@ const Detail = () => {
 
   return (
     <Container>
-      {/* <Image style={styles.background} resizeMode="cover" source={listing.picture} />
-       */}
+      {/* <Scroll> */}
+      <HeaderBackgroundImage>
+        <ImageTop source={{ uri: item.url }} />
+      </HeaderBackgroundImage>
       <View style={styles.wrapper}>
         <SharedElement id={item.id}>
           <FastImage style={styles.image} resizeMode="cover" source={{ uri: item.url }} />
@@ -60,7 +61,28 @@ const Detail = () => {
       <View style={styles.thumbnailOverlay}>
         <Button title="X" onPress={() => back()} />
       </View>
+      {/* </Scroll> */}
     </Container>
+    // <View style={{ flex: 1 }}>
+    //   <ScrollView style={{ backgroundColor: 'red' }}>
+    //     <View style={{ width: 100 }}>
+    //       <Text>Label</Text>
+    //     </View>
+
+    //     <View style={{ width: 100 }}>
+    //       <Text>Label</Text>
+    //     </View>
+    //     <View style={{ width: 100 }}>
+    //       <Text>Label</Text>
+    //     </View>
+    //     <View style={{ width: 100 }}>
+    //       <Text>Label</Text>
+    //     </View>
+    //     <View style={{ width: 100 }}>
+    //       <Text>Label</Text>
+    //     </View>
+    //   </ScrollView>
+    // </View>
   );
 };
 
