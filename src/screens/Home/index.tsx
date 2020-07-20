@@ -11,7 +11,7 @@ import { useNavigation } from 'react-navigation-hooks';
 import { toggleTabs } from '@src/utils';
 import NewSlider from '@components/NewSlider';
 import { Headline } from '@components/Typography';
-import { Row, PaddingLeft } from '@components/Layout';
+import { Row } from '@components/Layout';
 import Carousel from '@components/Carousel';
 import Card from '@components/Card';
 import UserWatching from '@components/UserWatching';
@@ -24,7 +24,7 @@ const wrapper = {
 };
 
 const marginBottom = {
-  marginBottom: 60,
+  marginBottom: Platform.OS === 'ios' ? 40 : 20,
 };
 
 const ContinueWatchingData = [

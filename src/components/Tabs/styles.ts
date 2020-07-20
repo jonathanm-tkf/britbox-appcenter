@@ -10,13 +10,8 @@ export const Container = styled.View`
   justify-content: space-around;
   padding-top: 10px;
   padding-bottom: ${`${Platform.OS === 'ios' ? getBottomSpace() : 15}px`};
-  /* position: absolute; */
-  /* width: 100%;
-  bottom: 0; */
   background-color: ${(props: ThemeState) => props.theme.PRIMARY_COLOR};
-
   z-index: 2;
-  /* opacity: 0.5; */
 `;
 
 export const ItemButton = styled.TouchableOpacity`

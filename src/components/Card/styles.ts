@@ -21,8 +21,6 @@ export const Wrapper = styled.View`
   width: ${(props: ContainerProps) => props.width || 162}px;
 `;
 
-export const WrapperContent = styled.View``;
-
 export const CustomShadow = styled.View`
   flex: 1;
   shadow-color: #000;
@@ -48,8 +46,11 @@ export const Gradient = styled(LinearGradient).attrs((props: ThemeState) => ({
 
 export const TextWrapper = styled.View`
   align-self: flex-start;
-  padding-left: 10px;
-  padding-right: 10px;
+
+  /* flex-direction: row; */
+  width: 100%;
+  height: 70px;
+  margin-top: 15px;
 `;
 
 export const Title = styled.Text.attrs({
@@ -57,10 +58,12 @@ export const Title = styled.Text.attrs({
 })`
   color: ${(props: ThemeState) => props.theme.PRIMARY_FOREGROUND_COLOR};
   font-family: ${(props: ThemeState) => props.theme.PRIMARY_FONT_FAMILY_MEDIUM};
-  margin-top: 15px;
+  /* margin-top: 15px; */
   margin-bottom: 2px;
   font-size: 14px;
   line-height: 24px;
+  padding-left: 10px;
+  padding-right: 10px;
 `;
 
 export const Description = styled.Text.attrs({
@@ -70,6 +73,8 @@ export const Description = styled.Text.attrs({
   opacity: 0.5;
   font-size: 12px;
   margin-top: 2px;
+  padding-left: 10px;
+  padding-right: 10px;
 `;
 
 export const ActionWrapper = styled.View`

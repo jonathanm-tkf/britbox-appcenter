@@ -1,12 +1,22 @@
 import React from 'react';
-import { Dimensions, StyleSheet, View, Button } from 'react-native';
+import { Dimensions, StyleSheet, View, Text } from 'react-native';
 import { useNavigation } from 'react-navigation-hooks';
-import { SharedElement } from 'react-navigation-shared-element';
 
 import { toggleTabs } from '@src/utils';
 import { getStatusBarHeight } from 'react-native-iphone-x-helper';
+import { SharedElement } from 'react-native-shared-element';
 import FastImage from 'react-native-fast-image';
-import { Container } from './styled';
+import { BackIcon } from '@assets/icons';
+import {
+  Container,
+  HeaderBackgroundImage,
+  ImageTop,
+  Scroll,
+  TopWrapper,
+  Button,
+  TopText,
+  BackgroundTop,
+} from './styled';
 
 const { width } = Dimensions.get('window');
 const styles = StyleSheet.create({
@@ -32,15 +42,17 @@ const styles = StyleSheet.create({
   },
   thumbnailOverlay: {
     ...StyleSheet.absoluteFillObject,
-    marginTop: getStatusBarHeight(),
+    backgroundColor: 'red',
+    height: getStatusBarHeight() + 30,
     padding: 16,
+    zIndex: 1,
   },
 });
+
 const Detail = () => {
   const { goBack, getParam, dangerouslyGetParent } = useNavigation();
   const { item } = getParam('item');
   const parent = dangerouslyGetParent();
-  console.tron.log({ item });
   const back = () => {
     if (parent) {
       toggleTabs(parent, true);
@@ -50,16 +62,43 @@ const Detail = () => {
 
   return (
     <Container>
-      {/* <Image style={styles.background} resizeMode="cover" source={listing.picture} />
-       */}
-      <View style={styles.wrapper}>
-        <SharedElement id={item.id}>
-          <FastImage style={styles.image} resizeMode="cover" source={{ uri: item.url }} />
-        </SharedElement>
-      </View>
-      <View style={styles.thumbnailOverlay}>
-        <Button title="X" onPress={() => back()} />
-      </View>
+      <TopWrapper>
+        <Button onPress={() => back()}>
+          <BackIcon width={20} height={20} />
+        </Button>
+        <TopText>SHOW</TopText>
+        <BackgroundTop />
+      </TopWrapper>
+      <Scroll>
+        <HeaderBackgroundImage>
+          <ImageTop source={{ uri: item.url }} />
+        </HeaderBackgroundImage>
+
+        <View style={styles.wrapper}>
+          <SharedElement id={item.id}>
+            <FastImage style={styles.image} resizeMode="cover" source={{ uri: item.url }} />
+          </SharedElement>
+        </View>
+
+        <View style={{ flex: 1 }}>
+          <View style={{ width: 100, height: 300 }}>
+            <Text>Label</Text>
+          </View>
+
+          <View style={{ width: 100, height: 300 }}>
+            <Text>Label</Text>
+          </View>
+          <View style={{ width: 100, height: 300 }}>
+            <Text>Label</Text>
+          </View>
+          <View style={{ width: 100, height: 300 }}>
+            <Text>Label</Text>
+          </View>
+          <View style={{ width: 100, height: 300 }}>
+            <Text>Label</Text>
+          </View>
+        </View>
+      </Scroll>
     </Container>
   );
 };

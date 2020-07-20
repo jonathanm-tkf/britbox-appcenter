@@ -41,8 +41,7 @@ export const Actions = styled.View`
 `;
 
 export const ActionButton = styled.TouchableOpacity`
-  margin-left: 10px;
-  margin-right: 10px;
+  padding: 10px;
 `;
 
 export const ActionText = styled.Text`
