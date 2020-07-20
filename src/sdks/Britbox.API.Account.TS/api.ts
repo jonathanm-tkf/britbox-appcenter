@@ -12,22 +12,21 @@
  * Do not edit the class manually.
  */
 
+import * as url from 'url';
+import * as portableFetch from 'portable-fetch';
+import { Configuration } from './configuration';
 
-import * as url from "url";
-import * as portableFetch from "portable-fetch";
-import { Configuration } from "./configuration";
-
-const BASE_PATH = "https://staging-api.britbox.takeoffmedia.com/".replace(/\/+$/, "");
+const BASE_PATH = 'https://staging-api.britbox.takeoffmedia.com/'.replace(/\/+$/, '');
 
 /**
  *
  * @export
  */
 export const COLLECTION_FORMATS = {
-    csv: ",",
-    ssv: " ",
-    tsv: "\t",
-    pipes: "|",
+  csv: ',',
+  ssv: ' ',
+  tsv: '\t',
+  pipes: '|',
 };
 
 /**
@@ -36,7 +35,7 @@ export const COLLECTION_FORMATS = {
  * @interface FetchAPI
  */
 export interface FetchAPI {
-    (url: string, init?: any): Promise<Response>;
+  (url: string, init?: any): Promise<Response>;
 }
 
 /**
@@ -45,8 +44,8 @@ export interface FetchAPI {
  * @interface FetchArgs
  */
 export interface FetchArgs {
-    url: string;
-    options: any;
+  url: string;
+  options: any;
 }
 
 /**
@@ -55,15 +54,19 @@ export interface FetchArgs {
  * @class BaseAPI
  */
 export class BaseAPI {
-    protected configuration: Configuration;
+  protected configuration: Configuration;
 
-    constructor(configuration?: Configuration, protected basePath: string = BASE_PATH, protected fetch: FetchAPI = portableFetch) {
-        if (configuration) {
-            this.configuration = configuration;
-            this.basePath = configuration.basePath || this.basePath;
-        }
+  constructor(
+    configuration?: Configuration,
+    protected basePath: string = BASE_PATH,
+    protected fetch: FetchAPI = portableFetch
+  ) {
+    if (configuration) {
+      this.configuration = configuration;
+      this.basePath = configuration.basePath || this.basePath;
     }
-};
+  }
+}
 
 /**
  *
@@ -72,10 +75,10 @@ export class BaseAPI {
  * @extends {Error}
  */
 export class RequiredError extends Error {
-    name: "RequiredError"
-    constructor(public field: string, msg?: string) {
-        super(msg);
-    }
+  name: 'RequiredError';
+  constructor(public field: string, msg?: string) {
+    super(msg);
+  }
 }
 
 /**
@@ -84,24 +87,66 @@ export class RequiredError extends Error {
  * @interface BritboxAPIAccountModelsAuthorizationAuthenticateCustomerRequest
  */
 export interface BritboxAPIAccountModelsAuthorizationAuthenticateCustomerRequest {
-    /**
-     *
-     * @type {string}
-     * @memberof BritboxAPIAccountModelsAuthorizationAuthenticateCustomerRequest
-     */
-    contactUserName: string;
-    /**
-     *
-     * @type {string}
-     * @memberof BritboxAPIAccountModelsAuthorizationAuthenticateCustomerRequest
-     */
-    contactPassword: string;
-    /**
-     *
-     * @type {BritboxDataEvergentModelsDeviceDetails}
-     * @memberof BritboxAPIAccountModelsAuthorizationAuthenticateCustomerRequest
-     */
-    deviceDetails: BritboxDataEvergentModelsDeviceDetails;
+  /**
+   *
+   * @type {string}
+   * @memberof BritboxAPIAccountModelsAuthorizationAuthenticateCustomerRequest
+   */
+  contactUserName: string;
+  /**
+   *
+   * @type {string}
+   * @memberof BritboxAPIAccountModelsAuthorizationAuthenticateCustomerRequest
+   */
+  contactPassword: string;
+  /**
+   *
+   * @type {BritboxDataEvergentModelsDeviceDetails}
+   * @memberof BritboxAPIAccountModelsAuthorizationAuthenticateCustomerRequest
+   */
+  deviceDetails: BritboxDataEvergentModelsDeviceDetails;
+}
+
+/**
+ *
+ * @export
+ * @interface BritboxAPIAccountModelsAuthorizationAuthenticateCustomerResponse
+ */
+export interface BritboxAPIAccountModelsAuthorizationAuthenticateCustomerResponse {
+  /**
+   *
+   * @type {BritboxDataEvergentModelsAuthenticateCustomerResponseMessageBaseResponse}
+   * @memberof BritboxAPIAccountModelsAuthorizationAuthenticateCustomerResponse
+   */
+  response?: BritboxDataEvergentModelsAuthenticateCustomerResponseMessageBaseResponse;
+}
+
+/**
+ *
+ * @export
+ * @interface BritboxAPIAccountModelsAuthorizationForgotContactPasswordRequest
+ */
+export interface BritboxAPIAccountModelsAuthorizationForgotContactPasswordRequest {
+  /**
+   *
+   * @type {string}
+   * @memberof BritboxAPIAccountModelsAuthorizationForgotContactPasswordRequest
+   */
+  email: string;
+}
+
+/**
+ *
+ * @export
+ * @interface BritboxAPIAccountModelsAuthorizationForgotContactPasswordResponse
+ */
+export interface BritboxAPIAccountModelsAuthorizationForgotContactPasswordResponse {
+  /**
+   *
+   * @type {BritboxDataEvergentModelsForgotContactPasswordResponseMessageBaseResponse}
+   * @memberof BritboxAPIAccountModelsAuthorizationForgotContactPasswordResponse
+   */
+  response?: BritboxDataEvergentModelsForgotContactPasswordResponseMessageBaseResponse;
 }
 
 /**
@@ -110,24 +155,24 @@ export interface BritboxAPIAccountModelsAuthorizationAuthenticateCustomerRequest
  * @interface BritboxAPIAccountModelsAuthorizationGetOAuthAccessTokenRequest
  */
 export interface BritboxAPIAccountModelsAuthorizationGetOAuthAccessTokenRequest {
-    /**
-     *
-     * @type {string}
-     * @memberof BritboxAPIAccountModelsAuthorizationGetOAuthAccessTokenRequest
-     */
-    authCode: string;
-    /**
-     *
-     * @type {string}
-     * @memberof BritboxAPIAccountModelsAuthorizationGetOAuthAccessTokenRequest
-     */
-    deviceName: string;
-    /**
-     *
-     * @type {string}
-     * @memberof BritboxAPIAccountModelsAuthorizationGetOAuthAccessTokenRequest
-     */
-    deviceType: string;
+  /**
+   *
+   * @type {string}
+   * @memberof BritboxAPIAccountModelsAuthorizationGetOAuthAccessTokenRequest
+   */
+  authCode: string;
+  /**
+   *
+   * @type {string}
+   * @memberof BritboxAPIAccountModelsAuthorizationGetOAuthAccessTokenRequest
+   */
+  deviceName: string;
+  /**
+   *
+   * @type {string}
+   * @memberof BritboxAPIAccountModelsAuthorizationGetOAuthAccessTokenRequest
+   */
+  deviceType: string;
 }
 
 /**
@@ -136,36 +181,36 @@ export interface BritboxAPIAccountModelsAuthorizationGetOAuthAccessTokenRequest 
  * @interface BritboxAPIAccountModelsAuthorizationGetOAuthAccessTokenResponse
  */
 export interface BritboxAPIAccountModelsAuthorizationGetOAuthAccessTokenResponse {
-    /**
-     *
-     * @type {string}
-     * @memberof BritboxAPIAccountModelsAuthorizationGetOAuthAccessTokenResponse
-     */
-    authCode?: string;
-    /**
-     *
-     * @type {string}
-     * @memberof BritboxAPIAccountModelsAuthorizationGetOAuthAccessTokenResponse
-     */
-    expiresIn?: string;
-    /**
-     *
-     * @type {string}
-     * @memberof BritboxAPIAccountModelsAuthorizationGetOAuthAccessTokenResponse
-     */
-    accessToken?: string;
-    /**
-     *
-     * @type {string}
-     * @memberof BritboxAPIAccountModelsAuthorizationGetOAuthAccessTokenResponse
-     */
-    refreshToken?: string;
-    /**
-     *
-     * @type {string}
-     * @memberof BritboxAPIAccountModelsAuthorizationGetOAuthAccessTokenResponse
-     */
-    responseCode?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof BritboxAPIAccountModelsAuthorizationGetOAuthAccessTokenResponse
+   */
+  authCode?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof BritboxAPIAccountModelsAuthorizationGetOAuthAccessTokenResponse
+   */
+  expiresIn?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof BritboxAPIAccountModelsAuthorizationGetOAuthAccessTokenResponse
+   */
+  accessToken?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof BritboxAPIAccountModelsAuthorizationGetOAuthAccessTokenResponse
+   */
+  refreshToken?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof BritboxAPIAccountModelsAuthorizationGetOAuthAccessTokenResponse
+   */
+  responseCode?: string;
 }
 
 /**
@@ -174,24 +219,24 @@ export interface BritboxAPIAccountModelsAuthorizationGetOAuthAccessTokenResponse
  * @interface BritboxAPIAccountModelsAuthorizationRefreshTokenRequest
  */
 export interface BritboxAPIAccountModelsAuthorizationRefreshTokenRequest {
-    /**
-     *
-     * @type {string}
-     * @memberof BritboxAPIAccountModelsAuthorizationRefreshTokenRequest
-     */
-    refreshToken: string;
-    /**
-     *
-     * @type {string}
-     * @memberof BritboxAPIAccountModelsAuthorizationRefreshTokenRequest
-     */
-    deviceName: string;
-    /**
-     *
-     * @type {string}
-     * @memberof BritboxAPIAccountModelsAuthorizationRefreshTokenRequest
-     */
-    deviceType: string;
+  /**
+   *
+   * @type {string}
+   * @memberof BritboxAPIAccountModelsAuthorizationRefreshTokenRequest
+   */
+  refreshToken: string;
+  /**
+   *
+   * @type {string}
+   * @memberof BritboxAPIAccountModelsAuthorizationRefreshTokenRequest
+   */
+  deviceName: string;
+  /**
+   *
+   * @type {string}
+   * @memberof BritboxAPIAccountModelsAuthorizationRefreshTokenRequest
+   */
+  deviceType: string;
 }
 
 /**
@@ -200,12 +245,56 @@ export interface BritboxAPIAccountModelsAuthorizationRefreshTokenRequest {
  * @interface BritboxAPIAccountModelsAuthorizationRefreshTokenResponse
  */
 export interface BritboxAPIAccountModelsAuthorizationRefreshTokenResponse {
-    /**
-     *
-     * @type {BritboxDataEvergentModelsRefreshTokenResponseMessageBaseResponse}
-     * @memberof BritboxAPIAccountModelsAuthorizationRefreshTokenResponse
-     */
-    response?: BritboxDataEvergentModelsRefreshTokenResponseMessageBaseResponse;
+  /**
+   *
+   * @type {BritboxDataEvergentModelsRefreshTokenResponseMessageBaseResponse}
+   * @memberof BritboxAPIAccountModelsAuthorizationRefreshTokenResponse
+   */
+  response?: BritboxDataEvergentModelsRefreshTokenResponseMessageBaseResponse;
+}
+
+/**
+ *
+ * @export
+ * @interface BritboxAPIAccountModelsCustomerAddSubscriptionRequest
+ */
+export interface BritboxAPIAccountModelsCustomerAddSubscriptionRequest {
+  /**
+   * Unique app id of the product in store.  ServiceID created in store(This is mandatory for in-app purchases (AppStore/ Google Wallet etc.).
+   * @type {string}
+   * @memberof BritboxAPIAccountModelsCustomerAddSubscriptionRequest
+   */
+  appServiceID?: string;
+  /**
+   * serviceType of the Service.  PRODUCT.
+   * @type {string}
+   * @memberof BritboxAPIAccountModelsCustomerAddSubscriptionRequest
+   */
+  serviceType?: string;
+  /**
+   * Indicate the Rate Type of the Product/Package.  Ex: \"App Store Billing\",\"Amazon App Store Billing\",\"Google Wallet\",\"Roku Payment\"
+   * @type {string}
+   * @memberof BritboxAPIAccountModelsCustomerAddSubscriptionRequest
+   */
+  rateType?: string;
+  /**
+   *
+   * @type {number}
+   * @memberof BritboxAPIAccountModelsCustomerAddSubscriptionRequest
+   */
+  priceCharged?: number;
+  /**
+   * Unique User ID that was generated by Amazon System.  If Payment method is \"Amazon App Store Billing\" - then it is mandatory.
+   * @type {string}
+   * @memberof BritboxAPIAccountModelsCustomerAddSubscriptionRequest
+   */
+  amazonUserId?: string;
+  /**
+   * Payment method details
+   * @type {BritboxDataEvergentModelsPaymentMethodInfo}
+   * @memberof BritboxAPIAccountModelsCustomerAddSubscriptionRequest
+   */
+  paymentMethodInfo?: BritboxDataEvergentModelsPaymentMethodInfo;
 }
 
 /**
@@ -214,12 +303,62 @@ export interface BritboxAPIAccountModelsAuthorizationRefreshTokenResponse {
  * @interface BritboxAPIAccountModelsCustomerAddSubscriptionResponse
  */
 export interface BritboxAPIAccountModelsCustomerAddSubscriptionResponse {
-    /**
-     *
-     * @type {BritboxDataEvergentModelsAddSubscriptionResponseMessageBaseResponse}
-     * @memberof BritboxAPIAccountModelsCustomerAddSubscriptionResponse
-     */
-    response?: BritboxDataEvergentModelsAddSubscriptionResponseMessageBaseResponse;
+  /**
+   *
+   * @type {BritboxDataEvergentModelsAddSubscriptionResponseMessageBaseResponse}
+   * @memberof BritboxAPIAccountModelsCustomerAddSubscriptionResponse
+   */
+  response?: BritboxDataEvergentModelsAddSubscriptionResponseMessageBaseResponse;
+}
+
+/**
+ *
+ * @export
+ * @interface BritboxAPIAccountModelsCustomerCreateUserV2Request
+ */
+export interface BritboxAPIAccountModelsCustomerCreateUserV2Request {
+  /**
+   *
+   * @type {string}
+   * @memberof BritboxAPIAccountModelsCustomerCreateUserV2Request
+   */
+  customerPassword: string;
+  /**
+   *
+   * @type {string}
+   * @memberof BritboxAPIAccountModelsCustomerCreateUserV2Request
+   */
+  email: string;
+  /**
+   *
+   * @type {string}
+   * @memberof BritboxAPIAccountModelsCustomerCreateUserV2Request
+   */
+  firstName: string;
+  /**
+   *
+   * @type {string}
+   * @memberof BritboxAPIAccountModelsCustomerCreateUserV2Request
+   */
+  lastName: string;
+  /**
+   *
+   * @type {string}
+   * @memberof BritboxAPIAccountModelsCustomerCreateUserV2Request
+   */
+  country: string;
+  /**
+   *
+   * @type {string}
+   * @memberof BritboxAPIAccountModelsCustomerCreateUserV2Request
+   */
+  alertNotificationEmail: string;
+  /**
+   *
+   * @type {BritboxDataEvergentModelsDeviceDetails}
+   * @memberof BritboxAPIAccountModelsCustomerCreateUserV2Request
+   */
+  deviceDetails: BritboxDataEvergentModelsDeviceDetails;
 }
 
 /**
@@ -228,12 +367,12 @@ export interface BritboxAPIAccountModelsCustomerAddSubscriptionResponse {
  * @interface BritboxAPIAccountModelsCustomerGetProductsResponse
  */
 export interface BritboxAPIAccountModelsCustomerGetProductsResponse {
-    /**
-     *
-     * @type {BritboxDataEvergentModelsGetProductsResponseMessageBaseResponse}
-     * @memberof BritboxAPIAccountModelsCustomerGetProductsResponse
-     */
-    response?: BritboxDataEvergentModelsGetProductsResponseMessageBaseResponse;
+  /**
+   *
+   * @type {BritboxDataEvergentModelsGetProductsResponseMessageBaseResponse}
+   * @memberof BritboxAPIAccountModelsCustomerGetProductsResponse
+   */
+  response?: BritboxDataEvergentModelsGetProductsResponseMessageBaseResponse;
 }
 
 /**
@@ -242,12 +381,12 @@ export interface BritboxAPIAccountModelsCustomerGetProductsResponse {
  * @interface BritboxAPIAccountModelsDeviceGenerateDeviceActivationCodeRequest
  */
 export interface BritboxAPIAccountModelsDeviceGenerateDeviceActivationCodeRequest {
-    /**
-     *
-     * @type {BritboxDataEvergentModelsDeviceDetails}
-     * @memberof BritboxAPIAccountModelsDeviceGenerateDeviceActivationCodeRequest
-     */
-    deviceDetails?: BritboxDataEvergentModelsDeviceDetails;
+  /**
+   *
+   * @type {BritboxDataEvergentModelsDeviceDetails}
+   * @memberof BritboxAPIAccountModelsDeviceGenerateDeviceActivationCodeRequest
+   */
+  deviceDetails?: BritboxDataEvergentModelsDeviceDetails;
 }
 
 /**
@@ -256,12 +395,12 @@ export interface BritboxAPIAccountModelsDeviceGenerateDeviceActivationCodeReques
  * @interface BritboxAPIAccountModelsDeviceGenerateDeviceActivationCodeResponse
  */
 export interface BritboxAPIAccountModelsDeviceGenerateDeviceActivationCodeResponse {
-    /**
-     *
-     * @type {BritboxDataEvergentModelsGenerateDeviceActivationCodeResponseMessageBaseResponse}
-     * @memberof BritboxAPIAccountModelsDeviceGenerateDeviceActivationCodeResponse
-     */
-    response?: BritboxDataEvergentModelsGenerateDeviceActivationCodeResponseMessageBaseResponse;
+  /**
+   *
+   * @type {BritboxDataEvergentModelsGenerateDeviceActivationCodeResponseMessageBaseResponse}
+   * @memberof BritboxAPIAccountModelsDeviceGenerateDeviceActivationCodeResponse
+   */
+  response?: BritboxDataEvergentModelsGenerateDeviceActivationCodeResponseMessageBaseResponse;
 }
 
 /**
@@ -270,12 +409,12 @@ export interface BritboxAPIAccountModelsDeviceGenerateDeviceActivationCodeRespon
  * @interface BritboxAPIAccountModelsDeviceRegisterDeviceRequest
  */
 export interface BritboxAPIAccountModelsDeviceRegisterDeviceRequest {
-    /**
-     *
-     * @type {string}
-     * @memberof BritboxAPIAccountModelsDeviceRegisterDeviceRequest
-     */
-    activationCode?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof BritboxAPIAccountModelsDeviceRegisterDeviceRequest
+   */
+  activationCode?: string;
 }
 
 /**
@@ -284,12 +423,12 @@ export interface BritboxAPIAccountModelsDeviceRegisterDeviceRequest {
  * @interface BritboxAPIAccountModelsDeviceRegisterDeviceResponse
  */
 export interface BritboxAPIAccountModelsDeviceRegisterDeviceResponse {
-    /**
-     *
-     * @type {BritboxDataEvergentModelsRegisterDeviceResponseMessageBaseResponse}
-     * @memberof BritboxAPIAccountModelsDeviceRegisterDeviceResponse
-     */
-    response?: BritboxDataEvergentModelsRegisterDeviceResponseMessageBaseResponse;
+  /**
+   *
+   * @type {BritboxDataEvergentModelsRegisterDeviceResponseMessageBaseResponse}
+   * @memberof BritboxAPIAccountModelsDeviceRegisterDeviceResponse
+   */
+  response?: BritboxDataEvergentModelsRegisterDeviceResponseMessageBaseResponse;
 }
 
 /**
@@ -298,24 +437,24 @@ export interface BritboxAPIAccountModelsDeviceRegisterDeviceResponse {
  * @interface BritboxAPIAccountModelsMediaFileGetItemMediaFilesResponse
  */
 export interface BritboxAPIAccountModelsMediaFileGetItemMediaFilesResponse {
-    /**
-     *
-     * @type {Array<BritboxAPIAccountModelsMediaFileGetItemMediaFilesResponseResponse>}
-     * @memberof BritboxAPIAccountModelsMediaFileGetItemMediaFilesResponse
-     */
-    externalResponse?: Array<BritboxAPIAccountModelsMediaFileGetItemMediaFilesResponseResponse>;
-    /**
-     *
-     * @type {Array<string>}
-     * @memberof BritboxAPIAccountModelsMediaFileGetItemMediaFilesResponse
-     */
-    errors?: Array<string>;
-    /**
-     *
-     * @type {Array<string>}
-     * @memberof BritboxAPIAccountModelsMediaFileGetItemMediaFilesResponse
-     */
-    messages?: Array<string>;
+  /**
+   *
+   * @type {Array<BritboxAPIAccountModelsMediaFileGetItemMediaFilesResponseResponse>}
+   * @memberof BritboxAPIAccountModelsMediaFileGetItemMediaFilesResponse
+   */
+  externalResponse?: Array<BritboxAPIAccountModelsMediaFileGetItemMediaFilesResponseResponse>;
+  /**
+   *
+   * @type {Array<string>}
+   * @memberof BritboxAPIAccountModelsMediaFileGetItemMediaFilesResponse
+   */
+  errors?: Array<string>;
+  /**
+   *
+   * @type {Array<string>}
+   * @memberof BritboxAPIAccountModelsMediaFileGetItemMediaFilesResponse
+   */
+  messages?: Array<string>;
 }
 
 /**
@@ -324,18 +463,18 @@ export interface BritboxAPIAccountModelsMediaFileGetItemMediaFilesResponse {
  * @interface BritboxAPIAccountModelsMediaFileGetItemMediaFilesResponseResponse
  */
 export interface BritboxAPIAccountModelsMediaFileGetItemMediaFilesResponseResponse {
-    /**
-     *
-     * @type {string}
-     * @memberof BritboxAPIAccountModelsMediaFileGetItemMediaFilesResponseResponse
-     */
-    token?: string;
-    /**
-     *
-     * @type {string}
-     * @memberof BritboxAPIAccountModelsMediaFileGetItemMediaFilesResponseResponse
-     */
-    url?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof BritboxAPIAccountModelsMediaFileGetItemMediaFilesResponseResponse
+   */
+  token?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof BritboxAPIAccountModelsMediaFileGetItemMediaFilesResponseResponse
+   */
+  url?: string;
 }
 
 /**
@@ -344,30 +483,30 @@ export interface BritboxAPIAccountModelsMediaFileGetItemMediaFilesResponseRespon
  * @interface BritboxAPIAccountModelsProfileBookmarkItemResponse
  */
 export interface BritboxAPIAccountModelsProfileBookmarkItemResponse {
-    /**
-     *
-     * @type {MassiveSDKModelBookmark}
-     * @memberof BritboxAPIAccountModelsProfileBookmarkItemResponse
-     */
-    externalResponse?: MassiveSDKModelBookmark;
-    /**
-     *
-     * @type {MassiveSDKModelItemDetail}
-     * @memberof BritboxAPIAccountModelsProfileBookmarkItemResponse
-     */
-    itemDetail?: MassiveSDKModelItemDetail;
-    /**
-     *
-     * @type {Array<string>}
-     * @memberof BritboxAPIAccountModelsProfileBookmarkItemResponse
-     */
-    errors?: Array<string>;
-    /**
-     *
-     * @type {Array<string>}
-     * @memberof BritboxAPIAccountModelsProfileBookmarkItemResponse
-     */
-    messages?: Array<string>;
+  /**
+   *
+   * @type {MassiveSDKModelBookmark}
+   * @memberof BritboxAPIAccountModelsProfileBookmarkItemResponse
+   */
+  externalResponse?: MassiveSDKModelBookmark;
+  /**
+   *
+   * @type {MassiveSDKModelItemDetail}
+   * @memberof BritboxAPIAccountModelsProfileBookmarkItemResponse
+   */
+  itemDetail?: MassiveSDKModelItemDetail;
+  /**
+   *
+   * @type {Array<string>}
+   * @memberof BritboxAPIAccountModelsProfileBookmarkItemResponse
+   */
+  errors?: Array<string>;
+  /**
+   *
+   * @type {Array<string>}
+   * @memberof BritboxAPIAccountModelsProfileBookmarkItemResponse
+   */
+  messages?: Array<string>;
 }
 
 /**
@@ -376,12 +515,12 @@ export interface BritboxAPIAccountModelsProfileBookmarkItemResponse {
  * @interface BritboxAPIAccountModelsProfileCheckParentalControlResponse
  */
 export interface BritboxAPIAccountModelsProfileCheckParentalControlResponse {
-    /**
-     *
-     * @type {boolean}
-     * @memberof BritboxAPIAccountModelsProfileCheckParentalControlResponse
-     */
-    canStream?: boolean;
+  /**
+   *
+   * @type {boolean}
+   * @memberof BritboxAPIAccountModelsProfileCheckParentalControlResponse
+   */
+  canStream?: boolean;
 }
 
 /**
@@ -390,12 +529,12 @@ export interface BritboxAPIAccountModelsProfileCheckParentalControlResponse {
  * @interface BritboxAPIAccountModelsProfileDeleteWatchedRequest
  */
 export interface BritboxAPIAccountModelsProfileDeleteWatchedRequest {
-    /**
-     *
-     * @type {Array<string>}
-     * @memberof BritboxAPIAccountModelsProfileDeleteWatchedRequest
-     */
-    itemIds?: Array<string>;
+  /**
+   *
+   * @type {Array<string>}
+   * @memberof BritboxAPIAccountModelsProfileDeleteWatchedRequest
+   */
+  itemIds?: Array<string>;
 }
 
 /**
@@ -404,24 +543,24 @@ export interface BritboxAPIAccountModelsProfileDeleteWatchedRequest {
  * @interface BritboxAPIAccountModelsProfileGetBookmarkListResponse
  */
 export interface BritboxAPIAccountModelsProfileGetBookmarkListResponse {
-    /**
-     *
-     * @type {MassiveSDKModelItemList}
-     * @memberof BritboxAPIAccountModelsProfileGetBookmarkListResponse
-     */
-    externalResponse?: MassiveSDKModelItemList;
-    /**
-     *
-     * @type {Array<string>}
-     * @memberof BritboxAPIAccountModelsProfileGetBookmarkListResponse
-     */
-    errors?: Array<string>;
-    /**
-     *
-     * @type {Array<string>}
-     * @memberof BritboxAPIAccountModelsProfileGetBookmarkListResponse
-     */
-    messages?: Array<string>;
+  /**
+   *
+   * @type {MassiveSDKModelItemList}
+   * @memberof BritboxAPIAccountModelsProfileGetBookmarkListResponse
+   */
+  externalResponse?: MassiveSDKModelItemList;
+  /**
+   *
+   * @type {Array<string>}
+   * @memberof BritboxAPIAccountModelsProfileGetBookmarkListResponse
+   */
+  errors?: Array<string>;
+  /**
+   *
+   * @type {Array<string>}
+   * @memberof BritboxAPIAccountModelsProfileGetBookmarkListResponse
+   */
+  messages?: Array<string>;
 }
 
 /**
@@ -430,24 +569,24 @@ export interface BritboxAPIAccountModelsProfileGetBookmarkListResponse {
  * @interface BritboxAPIAccountModelsProfileGetBookmarksResponse
  */
 export interface BritboxAPIAccountModelsProfileGetBookmarksResponse {
-    /**
-     *
-     * @type {{ [key: string]: Date; }}
-     * @memberof BritboxAPIAccountModelsProfileGetBookmarksResponse
-     */
-    externalResponse?: { [key: string]: Date; };
-    /**
-     *
-     * @type {Array<string>}
-     * @memberof BritboxAPIAccountModelsProfileGetBookmarksResponse
-     */
-    errors?: Array<string>;
-    /**
-     *
-     * @type {Array<string>}
-     * @memberof BritboxAPIAccountModelsProfileGetBookmarksResponse
-     */
-    messages?: Array<string>;
+  /**
+   *
+   * @type {{ [key: string]: Date; }}
+   * @memberof BritboxAPIAccountModelsProfileGetBookmarksResponse
+   */
+  externalResponse?: { [key: string]: Date };
+  /**
+   *
+   * @type {Array<string>}
+   * @memberof BritboxAPIAccountModelsProfileGetBookmarksResponse
+   */
+  errors?: Array<string>;
+  /**
+   *
+   * @type {Array<string>}
+   * @memberof BritboxAPIAccountModelsProfileGetBookmarksResponse
+   */
+  messages?: Array<string>;
 }
 
 /**
@@ -456,24 +595,24 @@ export interface BritboxAPIAccountModelsProfileGetBookmarksResponse {
  * @interface BritboxAPIAccountModelsProfileGetContinueWatchingListResponse
  */
 export interface BritboxAPIAccountModelsProfileGetContinueWatchingListResponse {
-    /**
-     *
-     * @type {MassiveSDKModelItemList}
-     * @memberof BritboxAPIAccountModelsProfileGetContinueWatchingListResponse
-     */
-    externalResponse?: MassiveSDKModelItemList;
-    /**
-     *
-     * @type {Array<string>}
-     * @memberof BritboxAPIAccountModelsProfileGetContinueWatchingListResponse
-     */
-    errors?: Array<string>;
-    /**
-     *
-     * @type {Array<string>}
-     * @memberof BritboxAPIAccountModelsProfileGetContinueWatchingListResponse
-     */
-    messages?: Array<string>;
+  /**
+   *
+   * @type {MassiveSDKModelItemList}
+   * @memberof BritboxAPIAccountModelsProfileGetContinueWatchingListResponse
+   */
+  externalResponse?: MassiveSDKModelItemList;
+  /**
+   *
+   * @type {Array<string>}
+   * @memberof BritboxAPIAccountModelsProfileGetContinueWatchingListResponse
+   */
+  errors?: Array<string>;
+  /**
+   *
+   * @type {Array<string>}
+   * @memberof BritboxAPIAccountModelsProfileGetContinueWatchingListResponse
+   */
+  messages?: Array<string>;
 }
 
 /**
@@ -482,24 +621,24 @@ export interface BritboxAPIAccountModelsProfileGetContinueWatchingListResponse {
  * @interface BritboxAPIAccountModelsProfileGetItemBookmarkResponse
  */
 export interface BritboxAPIAccountModelsProfileGetItemBookmarkResponse {
-    /**
-     *
-     * @type {MassiveSDKModelBookmark}
-     * @memberof BritboxAPIAccountModelsProfileGetItemBookmarkResponse
-     */
-    externalResponse?: MassiveSDKModelBookmark;
-    /**
-     *
-     * @type {Array<string>}
-     * @memberof BritboxAPIAccountModelsProfileGetItemBookmarkResponse
-     */
-    errors?: Array<string>;
-    /**
-     *
-     * @type {Array<string>}
-     * @memberof BritboxAPIAccountModelsProfileGetItemBookmarkResponse
-     */
-    messages?: Array<string>;
+  /**
+   *
+   * @type {MassiveSDKModelBookmark}
+   * @memberof BritboxAPIAccountModelsProfileGetItemBookmarkResponse
+   */
+  externalResponse?: MassiveSDKModelBookmark;
+  /**
+   *
+   * @type {Array<string>}
+   * @memberof BritboxAPIAccountModelsProfileGetItemBookmarkResponse
+   */
+  errors?: Array<string>;
+  /**
+   *
+   * @type {Array<string>}
+   * @memberof BritboxAPIAccountModelsProfileGetItemBookmarkResponse
+   */
+  messages?: Array<string>;
 }
 
 /**
@@ -508,24 +647,24 @@ export interface BritboxAPIAccountModelsProfileGetItemBookmarkResponse {
  * @interface BritboxAPIAccountModelsProfileGetItemWatchedStatusResponse
  */
 export interface BritboxAPIAccountModelsProfileGetItemWatchedStatusResponse {
-    /**
-     *
-     * @type {MassiveSDKModelWatched}
-     * @memberof BritboxAPIAccountModelsProfileGetItemWatchedStatusResponse
-     */
-    externalResponse?: MassiveSDKModelWatched;
-    /**
-     *
-     * @type {Array<string>}
-     * @memberof BritboxAPIAccountModelsProfileGetItemWatchedStatusResponse
-     */
-    errors?: Array<string>;
-    /**
-     *
-     * @type {Array<string>}
-     * @memberof BritboxAPIAccountModelsProfileGetItemWatchedStatusResponse
-     */
-    messages?: Array<string>;
+  /**
+   *
+   * @type {MassiveSDKModelWatched}
+   * @memberof BritboxAPIAccountModelsProfileGetItemWatchedStatusResponse
+   */
+  externalResponse?: MassiveSDKModelWatched;
+  /**
+   *
+   * @type {Array<string>}
+   * @memberof BritboxAPIAccountModelsProfileGetItemWatchedStatusResponse
+   */
+  errors?: Array<string>;
+  /**
+   *
+   * @type {Array<string>}
+   * @memberof BritboxAPIAccountModelsProfileGetItemWatchedStatusResponse
+   */
+  messages?: Array<string>;
 }
 
 /**
@@ -534,24 +673,24 @@ export interface BritboxAPIAccountModelsProfileGetItemWatchedStatusResponse {
  * @interface BritboxAPIAccountModelsProfileGetNextPlaybackItemResponse
  */
 export interface BritboxAPIAccountModelsProfileGetNextPlaybackItemResponse {
-    /**
-     *
-     * @type {MassiveSDKModelNextPlaybackItem}
-     * @memberof BritboxAPIAccountModelsProfileGetNextPlaybackItemResponse
-     */
-    externalResponse?: MassiveSDKModelNextPlaybackItem;
-    /**
-     *
-     * @type {Array<string>}
-     * @memberof BritboxAPIAccountModelsProfileGetNextPlaybackItemResponse
-     */
-    errors?: Array<string>;
-    /**
-     *
-     * @type {Array<string>}
-     * @memberof BritboxAPIAccountModelsProfileGetNextPlaybackItemResponse
-     */
-    messages?: Array<string>;
+  /**
+   *
+   * @type {MassiveSDKModelNextPlaybackItem}
+   * @memberof BritboxAPIAccountModelsProfileGetNextPlaybackItemResponse
+   */
+  externalResponse?: MassiveSDKModelNextPlaybackItem;
+  /**
+   *
+   * @type {Array<string>}
+   * @memberof BritboxAPIAccountModelsProfileGetNextPlaybackItemResponse
+   */
+  errors?: Array<string>;
+  /**
+   *
+   * @type {Array<string>}
+   * @memberof BritboxAPIAccountModelsProfileGetNextPlaybackItemResponse
+   */
+  messages?: Array<string>;
 }
 
 /**
@@ -560,12 +699,12 @@ export interface BritboxAPIAccountModelsProfileGetNextPlaybackItemResponse {
  * @interface BritboxAPIAccountModelsProfileGetParentalControlDetailsResponse
  */
 export interface BritboxAPIAccountModelsProfileGetParentalControlDetailsResponse {
-    /**
-     *
-     * @type {BritboxDataEvergentModelsGetParentalControlDetailsResponseMessageBase}
-     * @memberof BritboxAPIAccountModelsProfileGetParentalControlDetailsResponse
-     */
-    response?: BritboxDataEvergentModelsGetParentalControlDetailsResponseMessageBase;
+  /**
+   *
+   * @type {BritboxDataEvergentModelsGetParentalControlDetailsResponseMessageBase}
+   * @memberof BritboxAPIAccountModelsProfileGetParentalControlDetailsResponse
+   */
+  response?: BritboxDataEvergentModelsGetParentalControlDetailsResponseMessageBase;
 }
 
 /**
@@ -574,84 +713,84 @@ export interface BritboxAPIAccountModelsProfileGetParentalControlDetailsResponse
  * @interface BritboxAPIAccountModelsProfileGetProfileResponse
  */
 export interface BritboxAPIAccountModelsProfileGetProfileResponse {
-    /**
-     *
-     * @type {string}
-     * @memberof BritboxAPIAccountModelsProfileGetProfileResponse
-     */
-    firstName?: string;
-    /**
-     *
-     * @type {string}
-     * @memberof BritboxAPIAccountModelsProfileGetProfileResponse
-     */
-    country?: string;
-    /**
-     *
-     * @type {string}
-     * @memberof BritboxAPIAccountModelsProfileGetProfileResponse
-     */
-    status?: string;
-    /**
-     *
-     * @type {{ [key: string]: MassiveSDKModelWatched; }}
-     * @memberof BritboxAPIAccountModelsProfileGetProfileResponse
-     */
-    watched?: { [key: string]: MassiveSDKModelWatched; };
-    /**
-     *
-     * @type {MassiveSDKModelItemList}
-     * @memberof BritboxAPIAccountModelsProfileGetProfileResponse
-     */
-    watchedList?: MassiveSDKModelItemList;
-    /**
-     *
-     * @type {{ [key: string]: Date; }}
-     * @memberof BritboxAPIAccountModelsProfileGetProfileResponse
-     */
-    bookmarks?: { [key: string]: Date; };
-    /**
-     *
-     * @type {MassiveSDKModelItemList}
-     * @memberof BritboxAPIAccountModelsProfileGetProfileResponse
-     */
-    bookmarkList?: MassiveSDKModelItemList;
-    /**
-     *
-     * @type {string}
-     * @memberof BritboxAPIAccountModelsProfileGetProfileResponse
-     */
-    subscriptionStatus?: string;
-    /**
-     *
-     * @type {boolean}
-     * @memberof BritboxAPIAccountModelsProfileGetProfileResponse
-     */
-    isInFreeTrail?: boolean;
-    /**
-     *
-     * @type {boolean}
-     * @memberof BritboxAPIAccountModelsProfileGetProfileResponse
-     */
-    canStream?: boolean;
-    /**
-     *
-     * @type {boolean}
-     * @memberof BritboxAPIAccountModelsProfileGetProfileResponse
-     */
-    parentalControl?: boolean;
-    /**
-     *
-     * @type {Array<string>}
-     * @memberof BritboxAPIAccountModelsProfileGetProfileResponse
-     */
-    errors?: Array<string>;
-    /**
-     *
-     * @type {Array<string>}
-     * @memberof BritboxAPIAccountModelsProfileGetProfileResponse
-     */
-    messages?: Array<string>;
+  /**
+   *
+   * @type {string}
+   * @memberof BritboxAPIAccountModelsProfileGetProfileResponse
+   */
+  firstName?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof BritboxAPIAccountModelsProfileGetProfileResponse
+   */
+  country?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof BritboxAPIAccountModelsProfileGetProfileResponse
+   */
+  status?: string;
+  /**
+   *
+   * @type {{ [key: string]: MassiveSDKModelWatched; }}
+   * @memberof BritboxAPIAccountModelsProfileGetProfileResponse
+   */
+  watched?: { [key: string]: MassiveSDKModelWatched };
+  /**
+   *
+   * @type {MassiveSDKModelItemList}
+   * @memberof BritboxAPIAccountModelsProfileGetProfileResponse
+   */
+  watchedList?: MassiveSDKModelItemList;
+  /**
+   *
+   * @type {{ [key: string]: Date; }}
+   * @memberof BritboxAPIAccountModelsProfileGetProfileResponse
+   */
+  bookmarks?: { [key: string]: Date };
+  /**
+   *
+   * @type {MassiveSDKModelItemList}
+   * @memberof BritboxAPIAccountModelsProfileGetProfileResponse
+   */
+  bookmarkList?: MassiveSDKModelItemList;
+  /**
+   *
+   * @type {string}
+   * @memberof BritboxAPIAccountModelsProfileGetProfileResponse
+   */
+  subscriptionStatus?: string;
+  /**
+   *
+   * @type {boolean}
+   * @memberof BritboxAPIAccountModelsProfileGetProfileResponse
+   */
+  isInFreeTrail?: boolean;
+  /**
+   *
+   * @type {boolean}
+   * @memberof BritboxAPIAccountModelsProfileGetProfileResponse
+   */
+  canStream?: boolean;
+  /**
+   *
+   * @type {boolean}
+   * @memberof BritboxAPIAccountModelsProfileGetProfileResponse
+   */
+  parentalControl?: boolean;
+  /**
+   *
+   * @type {Array<string>}
+   * @memberof BritboxAPIAccountModelsProfileGetProfileResponse
+   */
+  errors?: Array<string>;
+  /**
+   *
+   * @type {Array<string>}
+   * @memberof BritboxAPIAccountModelsProfileGetProfileResponse
+   */
+  messages?: Array<string>;
 }
 
 /**
@@ -660,24 +799,24 @@ export interface BritboxAPIAccountModelsProfileGetProfileResponse {
  * @interface BritboxAPIAccountModelsProfileGetWatchedListResponse
  */
 export interface BritboxAPIAccountModelsProfileGetWatchedListResponse {
-    /**
-     *
-     * @type {MassiveSDKModelItemList}
-     * @memberof BritboxAPIAccountModelsProfileGetWatchedListResponse
-     */
-    externalResponse?: MassiveSDKModelItemList;
-    /**
-     *
-     * @type {Array<string>}
-     * @memberof BritboxAPIAccountModelsProfileGetWatchedListResponse
-     */
-    errors?: Array<string>;
-    /**
-     *
-     * @type {Array<string>}
-     * @memberof BritboxAPIAccountModelsProfileGetWatchedListResponse
-     */
-    messages?: Array<string>;
+  /**
+   *
+   * @type {MassiveSDKModelItemList}
+   * @memberof BritboxAPIAccountModelsProfileGetWatchedListResponse
+   */
+  externalResponse?: MassiveSDKModelItemList;
+  /**
+   *
+   * @type {Array<string>}
+   * @memberof BritboxAPIAccountModelsProfileGetWatchedListResponse
+   */
+  errors?: Array<string>;
+  /**
+   *
+   * @type {Array<string>}
+   * @memberof BritboxAPIAccountModelsProfileGetWatchedListResponse
+   */
+  messages?: Array<string>;
 }
 
 /**
@@ -686,24 +825,58 @@ export interface BritboxAPIAccountModelsProfileGetWatchedListResponse {
  * @interface BritboxAPIAccountModelsProfileGetWatchedResponse
  */
 export interface BritboxAPIAccountModelsProfileGetWatchedResponse {
-    /**
-     *
-     * @type {{ [key: string]: MassiveSDKModelWatched; }}
-     * @memberof BritboxAPIAccountModelsProfileGetWatchedResponse
-     */
-    externalResponse?: { [key: string]: MassiveSDKModelWatched; };
-    /**
-     *
-     * @type {Array<string>}
-     * @memberof BritboxAPIAccountModelsProfileGetWatchedResponse
-     */
-    errors?: Array<string>;
-    /**
-     *
-     * @type {Array<string>}
-     * @memberof BritboxAPIAccountModelsProfileGetWatchedResponse
-     */
-    messages?: Array<string>;
+  /**
+   *
+   * @type {{ [key: string]: MassiveSDKModelWatched; }}
+   * @memberof BritboxAPIAccountModelsProfileGetWatchedResponse
+   */
+  externalResponse?: { [key: string]: MassiveSDKModelWatched };
+  /**
+   *
+   * @type {Array<string>}
+   * @memberof BritboxAPIAccountModelsProfileGetWatchedResponse
+   */
+  errors?: Array<string>;
+  /**
+   *
+   * @type {Array<string>}
+   * @memberof BritboxAPIAccountModelsProfileGetWatchedResponse
+   */
+  messages?: Array<string>;
+}
+
+/**
+ *
+ * @export
+ * @interface BritboxAPIAccountModelsProfileResetPasswordRequest
+ */
+export interface BritboxAPIAccountModelsProfileResetPasswordRequest {
+  /**
+   *
+   * @type {string}
+   * @memberof BritboxAPIAccountModelsProfileResetPasswordRequest
+   */
+  email: string;
+  /**
+   *
+   * @type {string}
+   * @memberof BritboxAPIAccountModelsProfileResetPasswordRequest
+   */
+  contactPassword: string;
+}
+
+/**
+ *
+ * @export
+ * @interface BritboxAPIAccountModelsProfileResetPasswordResponse
+ */
+export interface BritboxAPIAccountModelsProfileResetPasswordResponse {
+  /**
+   *
+   * @type {BritboxDataEvergentModelsResetPasswordResponseMessageBaseResponse}
+   * @memberof BritboxAPIAccountModelsProfileResetPasswordResponse
+   */
+  response?: BritboxDataEvergentModelsResetPasswordResponseMessageBaseResponse;
 }
 
 /**
@@ -712,12 +885,12 @@ export interface BritboxAPIAccountModelsProfileGetWatchedResponse {
  * @interface BritboxAPIAccountModelsProfileSetItemWatchedStatusRequest
  */
 export interface BritboxAPIAccountModelsProfileSetItemWatchedStatusRequest {
-    /**
-     *
-     * @type {number}
-     * @memberof BritboxAPIAccountModelsProfileSetItemWatchedStatusRequest
-     */
-    position: number;
+  /**
+   *
+   * @type {number}
+   * @memberof BritboxAPIAccountModelsProfileSetItemWatchedStatusRequest
+   */
+  position: number;
 }
 
 /**
@@ -726,24 +899,24 @@ export interface BritboxAPIAccountModelsProfileSetItemWatchedStatusRequest {
  * @interface BritboxAPIAccountModelsProfileSetItemWatchedStatusResponse
  */
 export interface BritboxAPIAccountModelsProfileSetItemWatchedStatusResponse {
-    /**
-     *
-     * @type {MassiveSDKModelWatched}
-     * @memberof BritboxAPIAccountModelsProfileSetItemWatchedStatusResponse
-     */
-    externalResponse?: MassiveSDKModelWatched;
-    /**
-     *
-     * @type {Array<string>}
-     * @memberof BritboxAPIAccountModelsProfileSetItemWatchedStatusResponse
-     */
-    errors?: Array<string>;
-    /**
-     *
-     * @type {Array<string>}
-     * @memberof BritboxAPIAccountModelsProfileSetItemWatchedStatusResponse
-     */
-    messages?: Array<string>;
+  /**
+   *
+   * @type {MassiveSDKModelWatched}
+   * @memberof BritboxAPIAccountModelsProfileSetItemWatchedStatusResponse
+   */
+  externalResponse?: MassiveSDKModelWatched;
+  /**
+   *
+   * @type {Array<string>}
+   * @memberof BritboxAPIAccountModelsProfileSetItemWatchedStatusResponse
+   */
+  errors?: Array<string>;
+  /**
+   *
+   * @type {Array<string>}
+   * @memberof BritboxAPIAccountModelsProfileSetItemWatchedStatusResponse
+   */
+  messages?: Array<string>;
 }
 
 /**
@@ -752,24 +925,24 @@ export interface BritboxAPIAccountModelsProfileSetItemWatchedStatusResponse {
  * @interface BritboxAPIAccountModelsProfileUpdateParentalControlDetailsRequest
  */
 export interface BritboxAPIAccountModelsProfileUpdateParentalControlDetailsRequest {
-    /**
-     * Active or deactivate the parental control. true or false.
-     * @type {string}
-     * @memberof BritboxAPIAccountModelsProfileUpdateParentalControlDetailsRequest
-     */
-    parentalControl?: string;
-    /**
-     * Level of the parental control.
-     * @type {number}
-     * @memberof BritboxAPIAccountModelsProfileUpdateParentalControlDetailsRequest
-     */
-    parentalControlLevel?: number;
-    /**
-     * Secure pin of parental control.
-     * @type {string}
-     * @memberof BritboxAPIAccountModelsProfileUpdateParentalControlDetailsRequest
-     */
-    newParentalControlPin?: string;
+  /**
+   * Active or deactivate the parental control. true or false.
+   * @type {string}
+   * @memberof BritboxAPIAccountModelsProfileUpdateParentalControlDetailsRequest
+   */
+  parentalControl?: string;
+  /**
+   * Level of the parental control.
+   * @type {number}
+   * @memberof BritboxAPIAccountModelsProfileUpdateParentalControlDetailsRequest
+   */
+  parentalControlLevel?: number;
+  /**
+   * Secure pin of parental control.
+   * @type {string}
+   * @memberof BritboxAPIAccountModelsProfileUpdateParentalControlDetailsRequest
+   */
+  newParentalControlPin?: string;
 }
 
 /**
@@ -778,12 +951,58 @@ export interface BritboxAPIAccountModelsProfileUpdateParentalControlDetailsReque
  * @interface BritboxAPIAccountModelsProfileUpdateParentalControlDetailsResponse
  */
 export interface BritboxAPIAccountModelsProfileUpdateParentalControlDetailsResponse {
-    /**
-     *
-     * @type {BritboxDataEvergentModelsUpdateParentalControlDetailsResponseMessageBase}
-     * @memberof BritboxAPIAccountModelsProfileUpdateParentalControlDetailsResponse
-     */
-    response?: BritboxDataEvergentModelsUpdateParentalControlDetailsResponseMessageBase;
+  /**
+   *
+   * @type {BritboxDataEvergentModelsUpdateParentalControlDetailsResponseMessageBase}
+   * @memberof BritboxAPIAccountModelsProfileUpdateParentalControlDetailsResponse
+   */
+  response?: BritboxDataEvergentModelsUpdateParentalControlDetailsResponseMessageBase;
+}
+
+/**
+ *
+ * @export
+ * @interface BritboxAPIAccountModelsProfileUpdateProfileRequest
+ */
+export interface BritboxAPIAccountModelsProfileUpdateProfileRequest {
+  /**
+   *
+   * @type {string}
+   * @memberof BritboxAPIAccountModelsProfileUpdateProfileRequest
+   */
+  firstName: string;
+  /**
+   *
+   * @type {string}
+   * @memberof BritboxAPIAccountModelsProfileUpdateProfileRequest
+   */
+  lastName: string;
+  /**
+   *
+   * @type {string}
+   * @memberof BritboxAPIAccountModelsProfileUpdateProfileRequest
+   */
+  mobileNumber: string;
+  /**
+   *
+   * @type {boolean}
+   * @memberof BritboxAPIAccountModelsProfileUpdateProfileRequest
+   */
+  alertNotificationEmail: boolean;
+}
+
+/**
+ *
+ * @export
+ * @interface BritboxAPIAccountModelsProfileUpdateProfileResponse
+ */
+export interface BritboxAPIAccountModelsProfileUpdateProfileResponse {
+  /**
+   *
+   * @type {BritboxDataEvergentModelsUpdateProfileResponseMessageBaseResponse}
+   * @memberof BritboxAPIAccountModelsProfileUpdateProfileResponse
+   */
+  response?: BritboxDataEvergentModelsUpdateProfileResponseMessageBaseResponse;
 }
 
 /**
@@ -792,18 +1011,18 @@ export interface BritboxAPIAccountModelsProfileUpdateParentalControlDetailsRespo
  * @interface BritboxAPIAccountModelsProfileValidateParentalControlPINRequest
  */
 export interface BritboxAPIAccountModelsProfileValidateParentalControlPINRequest {
-    /**
-     *
-     * @type {string}
-     * @memberof BritboxAPIAccountModelsProfileValidateParentalControlPINRequest
-     */
-    parentalControlPin?: string;
-    /**
-     *
-     * @type {string}
-     * @memberof BritboxAPIAccountModelsProfileValidateParentalControlPINRequest
-     */
-    itemId?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof BritboxAPIAccountModelsProfileValidateParentalControlPINRequest
+   */
+  parentalControlPin?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof BritboxAPIAccountModelsProfileValidateParentalControlPINRequest
+   */
+  itemId?: string;
 }
 
 /**
@@ -812,74 +1031,18 @@ export interface BritboxAPIAccountModelsProfileValidateParentalControlPINRequest
  * @interface BritboxAPIAccountModelsProfileValidateParentalControlPINResponse
  */
 export interface BritboxAPIAccountModelsProfileValidateParentalControlPINResponse {
-    /**
-     *
-     * @type {BritboxDataEvergentModelsValidateParentalControlPINResponseMessageBase}
-     * @memberof BritboxAPIAccountModelsProfileValidateParentalControlPINResponse
-     */
-    response?: BritboxDataEvergentModelsValidateParentalControlPINResponseMessageBase;
-    /**
-     *
-     * @type {string}
-     * @memberof BritboxAPIAccountModelsProfileValidateParentalControlPINResponse
-     */
-    token?: string;
-}
-
-/**
- *
- * @export
- * @interface BritboxDataEvergentModelsAddSubscriptionRequestMessage
- */
-export interface BritboxDataEvergentModelsAddSubscriptionRequestMessage {
-    /**
-     *
-     * @type {string}
-     * @memberof BritboxDataEvergentModelsAddSubscriptionRequestMessage
-     */
-    appServiceID?: string;
-    /**
-     *
-     * @type {string}
-     * @memberof BritboxDataEvergentModelsAddSubscriptionRequestMessage
-     */
-    serviceType?: string;
-    /**
-     *
-     * @type {string}
-     * @memberof BritboxDataEvergentModelsAddSubscriptionRequestMessage
-     */
-    rateType?: string;
-    /**
-     *
-     * @type {number}
-     * @memberof BritboxDataEvergentModelsAddSubscriptionRequestMessage
-     */
-    priceCharged?: number;
-    /**
-     *
-     * @type {string}
-     * @memberof BritboxDataEvergentModelsAddSubscriptionRequestMessage
-     */
-    amazonUserId?: string;
-    /**
-     *
-     * @type {BritboxDataEvergentModelsPaymentMethodInfo}
-     * @memberof BritboxDataEvergentModelsAddSubscriptionRequestMessage
-     */
-    paymentMethodInfo?: BritboxDataEvergentModelsPaymentMethodInfo;
-    /**
-     *
-     * @type {string}
-     * @memberof BritboxDataEvergentModelsAddSubscriptionRequestMessage
-     */
-    channelPartnerID?: string;
-    /**
-     *
-     * @type {string}
-     * @memberof BritboxDataEvergentModelsAddSubscriptionRequestMessage
-     */
-    apiKey?: string;
+  /**
+   *
+   * @type {BritboxDataEvergentModelsValidateParentalControlPINResponseMessageBase}
+   * @memberof BritboxAPIAccountModelsProfileValidateParentalControlPINResponse
+   */
+  response?: BritboxDataEvergentModelsValidateParentalControlPINResponseMessageBase;
+  /**
+   *
+   * @type {string}
+   * @memberof BritboxAPIAccountModelsProfileValidateParentalControlPINResponse
+   */
+  token?: string;
 }
 
 /**
@@ -888,42 +1051,98 @@ export interface BritboxDataEvergentModelsAddSubscriptionRequestMessage {
  * @interface BritboxDataEvergentModelsAddSubscriptionResponseMessageBaseResponse
  */
 export interface BritboxDataEvergentModelsAddSubscriptionResponseMessageBaseResponse {
-    /**
-     *
-     * @type {string}
-     * @memberof BritboxDataEvergentModelsAddSubscriptionResponseMessageBaseResponse
-     */
-    orderId?: string;
-    /**
-     *
-     * @type {number}
-     * @memberof BritboxDataEvergentModelsAddSubscriptionResponseMessageBaseResponse
-     */
-    validityTill?: number;
-    /**
-     *
-     * @type {string}
-     * @memberof BritboxDataEvergentModelsAddSubscriptionResponseMessageBaseResponse
-     */
-    message?: string;
-    /**
-     *
-     * @type {string}
-     * @memberof BritboxDataEvergentModelsAddSubscriptionResponseMessageBaseResponse
-     */
-    responseCode?: string;
-    /**
-     *
-     * @type {string}
-     * @memberof BritboxDataEvergentModelsAddSubscriptionResponseMessageBaseResponse
-     */
-    status?: string;
-    /**
-     *
-     * @type {Array<BritboxDataEvergentModelsFailureMessage>}
-     * @memberof BritboxDataEvergentModelsAddSubscriptionResponseMessageBaseResponse
-     */
-    failureMessage?: Array<BritboxDataEvergentModelsFailureMessage>;
+  /**
+   *
+   * @type {string}
+   * @memberof BritboxDataEvergentModelsAddSubscriptionResponseMessageBaseResponse
+   */
+  orderId?: string;
+  /**
+   *
+   * @type {number}
+   * @memberof BritboxDataEvergentModelsAddSubscriptionResponseMessageBaseResponse
+   */
+  validityTill?: number;
+  /**
+   *
+   * @type {string}
+   * @memberof BritboxDataEvergentModelsAddSubscriptionResponseMessageBaseResponse
+   */
+  message?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof BritboxDataEvergentModelsAddSubscriptionResponseMessageBaseResponse
+   */
+  responseCode?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof BritboxDataEvergentModelsAddSubscriptionResponseMessageBaseResponse
+   */
+  status?: string;
+  /**
+   *
+   * @type {Array<BritboxDataEvergentModelsFailureMessage>}
+   * @memberof BritboxDataEvergentModelsAddSubscriptionResponseMessageBaseResponse
+   */
+  failureMessage?: Array<BritboxDataEvergentModelsFailureMessage>;
+}
+
+/**
+ *
+ * @export
+ * @interface BritboxDataEvergentModelsAuthenticateCustomerResponseMessageBaseResponse
+ */
+export interface BritboxDataEvergentModelsAuthenticateCustomerResponseMessageBaseResponse {
+  /**
+   *
+   * @type {string}
+   * @memberof BritboxDataEvergentModelsAuthenticateCustomerResponseMessageBaseResponse
+   */
+  accessToken?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof BritboxDataEvergentModelsAuthenticateCustomerResponseMessageBaseResponse
+   */
+  refreshToken?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof BritboxDataEvergentModelsAuthenticateCustomerResponseMessageBaseResponse
+   */
+  tokenType?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof BritboxDataEvergentModelsAuthenticateCustomerResponseMessageBaseResponse
+   */
+  expiresIn?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof BritboxDataEvergentModelsAuthenticateCustomerResponseMessageBaseResponse
+   */
+  message?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof BritboxDataEvergentModelsAuthenticateCustomerResponseMessageBaseResponse
+   */
+  responseCode?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof BritboxDataEvergentModelsAuthenticateCustomerResponseMessageBaseResponse
+   */
+  status?: string;
+  /**
+   *
+   * @type {Array<BritboxDataEvergentModelsFailureMessage>}
+   * @memberof BritboxDataEvergentModelsAuthenticateCustomerResponseMessageBaseResponse
+   */
+  failureMessage?: Array<BritboxDataEvergentModelsFailureMessage>;
 }
 
 /**
@@ -932,36 +1151,36 @@ export interface BritboxDataEvergentModelsAddSubscriptionResponseMessageBaseResp
  * @interface BritboxDataEvergentModelsDeviceDetails
  */
 export interface BritboxDataEvergentModelsDeviceDetails {
-    /**
-     *
-     * @type {string}
-     * @memberof BritboxDataEvergentModelsDeviceDetails
-     */
-    serialNo?: string;
-    /**
-     *
-     * @type {string}
-     * @memberof BritboxDataEvergentModelsDeviceDetails
-     */
-    deviceType?: string;
-    /**
-     *
-     * @type {string}
-     * @memberof BritboxDataEvergentModelsDeviceDetails
-     */
-    deviceName?: string;
-    /**
-     *
-     * @type {string}
-     * @memberof BritboxDataEvergentModelsDeviceDetails
-     */
-    modelNo?: string;
-    /**
-     *
-     * @type {string}
-     * @memberof BritboxDataEvergentModelsDeviceDetails
-     */
-    brand?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof BritboxDataEvergentModelsDeviceDetails
+   */
+  serialNo?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof BritboxDataEvergentModelsDeviceDetails
+   */
+  deviceType?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof BritboxDataEvergentModelsDeviceDetails
+   */
+  deviceName?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof BritboxDataEvergentModelsDeviceDetails
+   */
+  modelNo?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof BritboxDataEvergentModelsDeviceDetails
+   */
+  brand?: string;
 }
 
 /**
@@ -970,18 +1189,50 @@ export interface BritboxDataEvergentModelsDeviceDetails {
  * @interface BritboxDataEvergentModelsFailureMessage
  */
 export interface BritboxDataEvergentModelsFailureMessage {
-    /**
-     *
-     * @type {string}
-     * @memberof BritboxDataEvergentModelsFailureMessage
-     */
-    errorMessage?: string;
-    /**
-     *
-     * @type {string}
-     * @memberof BritboxDataEvergentModelsFailureMessage
-     */
-    errorCode?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof BritboxDataEvergentModelsFailureMessage
+   */
+  errorMessage?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof BritboxDataEvergentModelsFailureMessage
+   */
+  errorCode?: string;
+}
+
+/**
+ *
+ * @export
+ * @interface BritboxDataEvergentModelsForgotContactPasswordResponseMessageBaseResponse
+ */
+export interface BritboxDataEvergentModelsForgotContactPasswordResponseMessageBaseResponse {
+  /**
+   *
+   * @type {string}
+   * @memberof BritboxDataEvergentModelsForgotContactPasswordResponseMessageBaseResponse
+   */
+  message?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof BritboxDataEvergentModelsForgotContactPasswordResponseMessageBaseResponse
+   */
+  responseCode?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof BritboxDataEvergentModelsForgotContactPasswordResponseMessageBaseResponse
+   */
+  status?: string;
+  /**
+   *
+   * @type {Array<BritboxDataEvergentModelsFailureMessage>}
+   * @memberof BritboxDataEvergentModelsForgotContactPasswordResponseMessageBaseResponse
+   */
+  failureMessage?: Array<BritboxDataEvergentModelsFailureMessage>;
 }
 
 /**
@@ -990,36 +1241,36 @@ export interface BritboxDataEvergentModelsFailureMessage {
  * @interface BritboxDataEvergentModelsGenerateDeviceActivationCodeResponseMessageBaseResponse
  */
 export interface BritboxDataEvergentModelsGenerateDeviceActivationCodeResponseMessageBaseResponse {
-    /**
-     *
-     * @type {string}
-     * @memberof BritboxDataEvergentModelsGenerateDeviceActivationCodeResponseMessageBaseResponse
-     */
-    activationCode?: string;
-    /**
-     *
-     * @type {string}
-     * @memberof BritboxDataEvergentModelsGenerateDeviceActivationCodeResponseMessageBaseResponse
-     */
-    message?: string;
-    /**
-     *
-     * @type {string}
-     * @memberof BritboxDataEvergentModelsGenerateDeviceActivationCodeResponseMessageBaseResponse
-     */
-    responseCode?: string;
-    /**
-     *
-     * @type {string}
-     * @memberof BritboxDataEvergentModelsGenerateDeviceActivationCodeResponseMessageBaseResponse
-     */
-    status?: string;
-    /**
-     *
-     * @type {Array<BritboxDataEvergentModelsFailureMessage>}
-     * @memberof BritboxDataEvergentModelsGenerateDeviceActivationCodeResponseMessageBaseResponse
-     */
-    failureMessage?: Array<BritboxDataEvergentModelsFailureMessage>;
+  /**
+   *
+   * @type {string}
+   * @memberof BritboxDataEvergentModelsGenerateDeviceActivationCodeResponseMessageBaseResponse
+   */
+  activationCode?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof BritboxDataEvergentModelsGenerateDeviceActivationCodeResponseMessageBaseResponse
+   */
+  message?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof BritboxDataEvergentModelsGenerateDeviceActivationCodeResponseMessageBaseResponse
+   */
+  responseCode?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof BritboxDataEvergentModelsGenerateDeviceActivationCodeResponseMessageBaseResponse
+   */
+  status?: string;
+  /**
+   *
+   * @type {Array<BritboxDataEvergentModelsFailureMessage>}
+   * @memberof BritboxDataEvergentModelsGenerateDeviceActivationCodeResponseMessageBaseResponse
+   */
+  failureMessage?: Array<BritboxDataEvergentModelsFailureMessage>;
 }
 
 /**
@@ -1028,12 +1279,12 @@ export interface BritboxDataEvergentModelsGenerateDeviceActivationCodeResponseMe
  * @interface BritboxDataEvergentModelsGetParentalControlDetailsResponseMessageBase
  */
 export interface BritboxDataEvergentModelsGetParentalControlDetailsResponseMessageBase {
-    /**
-     *
-     * @type {BritboxDataEvergentModelsGetParentalControlDetailsResponseMessageBaseResponse}
-     * @memberof BritboxDataEvergentModelsGetParentalControlDetailsResponseMessageBase
-     */
-    getParentalControlDetailsResponseMessage?: BritboxDataEvergentModelsGetParentalControlDetailsResponseMessageBaseResponse;
+  /**
+   *
+   * @type {BritboxDataEvergentModelsGetParentalControlDetailsResponseMessageBaseResponse}
+   * @memberof BritboxDataEvergentModelsGetParentalControlDetailsResponseMessageBase
+   */
+  getParentalControlDetailsResponseMessage?: BritboxDataEvergentModelsGetParentalControlDetailsResponseMessageBaseResponse;
 }
 
 /**
@@ -1042,48 +1293,48 @@ export interface BritboxDataEvergentModelsGetParentalControlDetailsResponseMessa
  * @interface BritboxDataEvergentModelsGetParentalControlDetailsResponseMessageBaseResponse
  */
 export interface BritboxDataEvergentModelsGetParentalControlDetailsResponseMessageBaseResponse {
-    /**
-     *
-     * @type {number}
-     * @memberof BritboxDataEvergentModelsGetParentalControlDetailsResponseMessageBaseResponse
-     */
-    parentalControlLevel?: number;
-    /**
-     *
-     * @type {boolean}
-     * @memberof BritboxDataEvergentModelsGetParentalControlDetailsResponseMessageBaseResponse
-     */
-    parentalControl?: boolean;
-    /**
-     *
-     * @type {string}
-     * @memberof BritboxDataEvergentModelsGetParentalControlDetailsResponseMessageBaseResponse
-     */
-    parentalControlPIN?: string;
-    /**
-     *
-     * @type {string}
-     * @memberof BritboxDataEvergentModelsGetParentalControlDetailsResponseMessageBaseResponse
-     */
-    message?: string;
-    /**
-     *
-     * @type {string}
-     * @memberof BritboxDataEvergentModelsGetParentalControlDetailsResponseMessageBaseResponse
-     */
-    responseCode?: string;
-    /**
-     *
-     * @type {string}
-     * @memberof BritboxDataEvergentModelsGetParentalControlDetailsResponseMessageBaseResponse
-     */
-    status?: string;
-    /**
-     *
-     * @type {Array<BritboxDataEvergentModelsFailureMessage>}
-     * @memberof BritboxDataEvergentModelsGetParentalControlDetailsResponseMessageBaseResponse
-     */
-    failureMessage?: Array<BritboxDataEvergentModelsFailureMessage>;
+  /**
+   *
+   * @type {number}
+   * @memberof BritboxDataEvergentModelsGetParentalControlDetailsResponseMessageBaseResponse
+   */
+  parentalControlLevel?: number;
+  /**
+   *
+   * @type {boolean}
+   * @memberof BritboxDataEvergentModelsGetParentalControlDetailsResponseMessageBaseResponse
+   */
+  parentalControl?: boolean;
+  /**
+   *
+   * @type {string}
+   * @memberof BritboxDataEvergentModelsGetParentalControlDetailsResponseMessageBaseResponse
+   */
+  parentalControlPIN?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof BritboxDataEvergentModelsGetParentalControlDetailsResponseMessageBaseResponse
+   */
+  message?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof BritboxDataEvergentModelsGetParentalControlDetailsResponseMessageBaseResponse
+   */
+  responseCode?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof BritboxDataEvergentModelsGetParentalControlDetailsResponseMessageBaseResponse
+   */
+  status?: string;
+  /**
+   *
+   * @type {Array<BritboxDataEvergentModelsFailureMessage>}
+   * @memberof BritboxDataEvergentModelsGetParentalControlDetailsResponseMessageBaseResponse
+   */
+  failureMessage?: Array<BritboxDataEvergentModelsFailureMessage>;
 }
 
 /**
@@ -1092,24 +1343,24 @@ export interface BritboxDataEvergentModelsGetParentalControlDetailsResponseMessa
  * @interface BritboxDataEvergentModelsGetProductsResponseMessageBaseAppChannels
  */
 export interface BritboxDataEvergentModelsGetProductsResponseMessageBaseAppChannels {
-    /**
-     *
-     * @type {string}
-     * @memberof BritboxDataEvergentModelsGetProductsResponseMessageBaseAppChannels
-     */
-    appName?: string;
-    /**
-     *
-     * @type {string}
-     * @memberof BritboxDataEvergentModelsGetProductsResponseMessageBaseAppChannels
-     */
-    appChannel?: string;
-    /**
-     *
-     * @type {string}
-     * @memberof BritboxDataEvergentModelsGetProductsResponseMessageBaseAppChannels
-     */
-    appID?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof BritboxDataEvergentModelsGetProductsResponseMessageBaseAppChannels
+   */
+  appName?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof BritboxDataEvergentModelsGetProductsResponseMessageBaseAppChannels
+   */
+  appChannel?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof BritboxDataEvergentModelsGetProductsResponseMessageBaseAppChannels
+   */
+  appID?: string;
 }
 
 /**
@@ -1118,120 +1369,120 @@ export interface BritboxDataEvergentModelsGetProductsResponseMessageBaseAppChann
  * @interface BritboxDataEvergentModelsGetProductsResponseMessageBaseProductsResponseMsg
  */
 export interface BritboxDataEvergentModelsGetProductsResponseMessageBaseProductsResponseMsg {
-    /**
-     *
-     * @type {string}
-     * @memberof BritboxDataEvergentModelsGetProductsResponseMessageBaseProductsResponseMsg
-     */
-    dmaName?: string;
-    /**
-     *
-     * @type {string}
-     * @memberof BritboxDataEvergentModelsGetProductsResponseMessageBaseProductsResponseMsg
-     */
-    duration?: string;
-    /**
-     *
-     * @type {number}
-     * @memberof BritboxDataEvergentModelsGetProductsResponseMessageBaseProductsResponseMsg
-     */
-    retailPrice?: number;
-    /**
-     *
-     * @type {string}
-     * @memberof BritboxDataEvergentModelsGetProductsResponseMessageBaseProductsResponseMsg
-     */
-    currencyCode?: string;
-    /**
-     *
-     * @type {string}
-     * @memberof BritboxDataEvergentModelsGetProductsResponseMessageBaseProductsResponseMsg
-     */
-    productDescription?: string;
-    /**
-     *
-     * @type {string}
-     * @memberof BritboxDataEvergentModelsGetProductsResponseMessageBaseProductsResponseMsg
-     */
-    productCategory?: string;
-    /**
-     *
-     * @type {string}
-     * @memberof BritboxDataEvergentModelsGetProductsResponseMessageBaseProductsResponseMsg
-     */
-    serviceType?: string;
-    /**
-     *
-     * @type {string}
-     * @memberof BritboxDataEvergentModelsGetProductsResponseMessageBaseProductsResponseMsg
-     */
-    currencySymbol?: string;
-    /**
-     *
-     * @type {string}
-     * @memberof BritboxDataEvergentModelsGetProductsResponseMessageBaseProductsResponseMsg
-     */
-    displayOrder?: string;
-    /**
-     *
-     * @type {boolean}
-     * @memberof BritboxDataEvergentModelsGetProductsResponseMessageBaseProductsResponseMsg
-     */
-    isAdsEnabled?: boolean;
-    /**
-     *
-     * @type {boolean}
-     * @memberof BritboxDataEvergentModelsGetProductsResponseMessageBaseProductsResponseMsg
-     */
-    renewable?: boolean;
-    /**
-     *
-     * @type {string}
-     * @memberof BritboxDataEvergentModelsGetProductsResponseMessageBaseProductsResponseMsg
-     */
-    displayName?: string;
-    /**
-     *
-     * @type {string}
-     * @memberof BritboxDataEvergentModelsGetProductsResponseMessageBaseProductsResponseMsg
-     */
-    period?: string;
-    /**
-     *
-     * @type {string}
-     * @memberof BritboxDataEvergentModelsGetProductsResponseMessageBaseProductsResponseMsg
-     */
-    productName?: string;
-    /**
-     *
-     * @type {string}
-     * @memberof BritboxDataEvergentModelsGetProductsResponseMessageBaseProductsResponseMsg
-     */
-    skuORQuickCode?: string;
-    /**
-     *
-     * @type {boolean}
-     * @memberof BritboxDataEvergentModelsGetProductsResponseMessageBaseProductsResponseMsg
-     */
-    basicService?: boolean;
-    /**
-     *
-     * @type {Array<BritboxDataEvergentModelsGetProductsResponseMessageBaseAppChannels>}
-     * @memberof BritboxDataEvergentModelsGetProductsResponseMessageBaseProductsResponseMsg
-     */
-    appChannels?: Array<BritboxDataEvergentModelsGetProductsResponseMessageBaseAppChannels>;
-    /**
-     *
-     * @type {Array<BritboxDataEvergentModelsGetProductsResponseMessageBaseSCOfferTypes>}
-     * @memberof BritboxDataEvergentModelsGetProductsResponseMessageBaseProductsResponseMsg
-     */
-    scOfferTypes?: Array<BritboxDataEvergentModelsGetProductsResponseMessageBaseSCOfferTypes>;
-    /**
-     *
-     * @type {Array<BritboxDataEvergentModelsGetProductsResponseMessageBasePromotions>}
-     * @memberof BritboxDataEvergentModelsGetProductsResponseMessageBaseProductsResponseMsg
-     */
-    promotions?: Array<BritboxDataEvergentModelsGetProductsResponseMessageBasePromotions>;
+  /**
+   *
+   * @type {string}
+   * @memberof BritboxDataEvergentModelsGetProductsResponseMessageBaseProductsResponseMsg
+   */
+  dmaName?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof BritboxDataEvergentModelsGetProductsResponseMessageBaseProductsResponseMsg
+   */
+  duration?: string;
+  /**
+   *
+   * @type {number}
+   * @memberof BritboxDataEvergentModelsGetProductsResponseMessageBaseProductsResponseMsg
+   */
+  retailPrice?: number;
+  /**
+   *
+   * @type {string}
+   * @memberof BritboxDataEvergentModelsGetProductsResponseMessageBaseProductsResponseMsg
+   */
+  currencyCode?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof BritboxDataEvergentModelsGetProductsResponseMessageBaseProductsResponseMsg
+   */
+  productDescription?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof BritboxDataEvergentModelsGetProductsResponseMessageBaseProductsResponseMsg
+   */
+  productCategory?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof BritboxDataEvergentModelsGetProductsResponseMessageBaseProductsResponseMsg
+   */
+  serviceType?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof BritboxDataEvergentModelsGetProductsResponseMessageBaseProductsResponseMsg
+   */
+  currencySymbol?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof BritboxDataEvergentModelsGetProductsResponseMessageBaseProductsResponseMsg
+   */
+  displayOrder?: string;
+  /**
+   *
+   * @type {boolean}
+   * @memberof BritboxDataEvergentModelsGetProductsResponseMessageBaseProductsResponseMsg
+   */
+  isAdsEnabled?: boolean;
+  /**
+   *
+   * @type {boolean}
+   * @memberof BritboxDataEvergentModelsGetProductsResponseMessageBaseProductsResponseMsg
+   */
+  renewable?: boolean;
+  /**
+   *
+   * @type {string}
+   * @memberof BritboxDataEvergentModelsGetProductsResponseMessageBaseProductsResponseMsg
+   */
+  displayName?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof BritboxDataEvergentModelsGetProductsResponseMessageBaseProductsResponseMsg
+   */
+  period?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof BritboxDataEvergentModelsGetProductsResponseMessageBaseProductsResponseMsg
+   */
+  productName?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof BritboxDataEvergentModelsGetProductsResponseMessageBaseProductsResponseMsg
+   */
+  skuORQuickCode?: string;
+  /**
+   *
+   * @type {boolean}
+   * @memberof BritboxDataEvergentModelsGetProductsResponseMessageBaseProductsResponseMsg
+   */
+  basicService?: boolean;
+  /**
+   *
+   * @type {Array<BritboxDataEvergentModelsGetProductsResponseMessageBaseAppChannels>}
+   * @memberof BritboxDataEvergentModelsGetProductsResponseMessageBaseProductsResponseMsg
+   */
+  appChannels?: Array<BritboxDataEvergentModelsGetProductsResponseMessageBaseAppChannels>;
+  /**
+   *
+   * @type {Array<BritboxDataEvergentModelsGetProductsResponseMessageBaseSCOfferTypes>}
+   * @memberof BritboxDataEvergentModelsGetProductsResponseMessageBaseProductsResponseMsg
+   */
+  scOfferTypes?: Array<BritboxDataEvergentModelsGetProductsResponseMessageBaseSCOfferTypes>;
+  /**
+   *
+   * @type {Array<BritboxDataEvergentModelsGetProductsResponseMessageBasePromotions>}
+   * @memberof BritboxDataEvergentModelsGetProductsResponseMessageBaseProductsResponseMsg
+   */
+  promotions?: Array<BritboxDataEvergentModelsGetProductsResponseMessageBasePromotions>;
 }
 
 /**
@@ -1240,60 +1491,60 @@ export interface BritboxDataEvergentModelsGetProductsResponseMessageBaseProducts
  * @interface BritboxDataEvergentModelsGetProductsResponseMessageBasePromotions
  */
 export interface BritboxDataEvergentModelsGetProductsResponseMessageBasePromotions {
-    /**
-     *
-     * @type {number}
-     * @memberof BritboxDataEvergentModelsGetProductsResponseMessageBasePromotions
-     */
-    amount?: number;
-    /**
-     *
-     * @type {string}
-     * @memberof BritboxDataEvergentModelsGetProductsResponseMessageBasePromotions
-     */
-    promotionId?: string;
-    /**
-     *
-     * @type {string}
-     * @memberof BritboxDataEvergentModelsGetProductsResponseMessageBasePromotions
-     */
-    promotionName?: string;
-    /**
-     *
-     * @type {string}
-     * @memberof BritboxDataEvergentModelsGetProductsResponseMessageBasePromotions
-     */
-    promotionType?: string;
-    /**
-     *
-     * @type {boolean}
-     * @memberof BritboxDataEvergentModelsGetProductsResponseMessageBasePromotions
-     */
-    isVODPromotion?: boolean;
-    /**
-     *
-     * @type {boolean}
-     * @memberof BritboxDataEvergentModelsGetProductsResponseMessageBasePromotions
-     */
-    isFreeTrial?: boolean;
-    /**
-     *
-     * @type {number}
-     * @memberof BritboxDataEvergentModelsGetProductsResponseMessageBasePromotions
-     */
-    promotionExpiryfferType?: number;
-    /**
-     *
-     * @type {number}
-     * @memberof BritboxDataEvergentModelsGetProductsResponseMessageBasePromotions
-     */
-    promotionDuration?: number;
-    /**
-     *
-     * @type {string}
-     * @memberof BritboxDataEvergentModelsGetProductsResponseMessageBasePromotions
-     */
-    promotionPeriod?: string;
+  /**
+   *
+   * @type {number}
+   * @memberof BritboxDataEvergentModelsGetProductsResponseMessageBasePromotions
+   */
+  amount?: number;
+  /**
+   *
+   * @type {string}
+   * @memberof BritboxDataEvergentModelsGetProductsResponseMessageBasePromotions
+   */
+  promotionId?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof BritboxDataEvergentModelsGetProductsResponseMessageBasePromotions
+   */
+  promotionName?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof BritboxDataEvergentModelsGetProductsResponseMessageBasePromotions
+   */
+  promotionType?: string;
+  /**
+   *
+   * @type {boolean}
+   * @memberof BritboxDataEvergentModelsGetProductsResponseMessageBasePromotions
+   */
+  isVODPromotion?: boolean;
+  /**
+   *
+   * @type {boolean}
+   * @memberof BritboxDataEvergentModelsGetProductsResponseMessageBasePromotions
+   */
+  isFreeTrial?: boolean;
+  /**
+   *
+   * @type {number}
+   * @memberof BritboxDataEvergentModelsGetProductsResponseMessageBasePromotions
+   */
+  promotionExpiryfferType?: number;
+  /**
+   *
+   * @type {number}
+   * @memberof BritboxDataEvergentModelsGetProductsResponseMessageBasePromotions
+   */
+  promotionDuration?: number;
+  /**
+   *
+   * @type {string}
+   * @memberof BritboxDataEvergentModelsGetProductsResponseMessageBasePromotions
+   */
+  promotionPeriod?: string;
 }
 
 /**
@@ -1302,36 +1553,38 @@ export interface BritboxDataEvergentModelsGetProductsResponseMessageBasePromotio
  * @interface BritboxDataEvergentModelsGetProductsResponseMessageBaseResponse
  */
 export interface BritboxDataEvergentModelsGetProductsResponseMessageBaseResponse {
-    /**
-     *
-     * @type {Array<BritboxDataEvergentModelsGetProductsResponseMessageBaseProductsResponseMsg>}
-     * @memberof BritboxDataEvergentModelsGetProductsResponseMessageBaseResponse
-     */
-    productsResponseMessage?: Array<BritboxDataEvergentModelsGetProductsResponseMessageBaseProductsResponseMsg>;
-    /**
-     *
-     * @type {string}
-     * @memberof BritboxDataEvergentModelsGetProductsResponseMessageBaseResponse
-     */
-    message?: string;
-    /**
-     *
-     * @type {string}
-     * @memberof BritboxDataEvergentModelsGetProductsResponseMessageBaseResponse
-     */
-    responseCode?: string;
-    /**
-     *
-     * @type {string}
-     * @memberof BritboxDataEvergentModelsGetProductsResponseMessageBaseResponse
-     */
-    status?: string;
-    /**
-     *
-     * @type {Array<BritboxDataEvergentModelsFailureMessage>}
-     * @memberof BritboxDataEvergentModelsGetProductsResponseMessageBaseResponse
-     */
-    failureMessage?: Array<BritboxDataEvergentModelsFailureMessage>;
+  /**
+   *
+   * @type {Array<BritboxDataEvergentModelsGetProductsResponseMessageBaseProductsResponseMsg>}
+   * @memberof BritboxDataEvergentModelsGetProductsResponseMessageBaseResponse
+   */
+  productsResponseMessage?: Array<
+    BritboxDataEvergentModelsGetProductsResponseMessageBaseProductsResponseMsg
+  >;
+  /**
+   *
+   * @type {string}
+   * @memberof BritboxDataEvergentModelsGetProductsResponseMessageBaseResponse
+   */
+  message?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof BritboxDataEvergentModelsGetProductsResponseMessageBaseResponse
+   */
+  responseCode?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof BritboxDataEvergentModelsGetProductsResponseMessageBaseResponse
+   */
+  status?: string;
+  /**
+   *
+   * @type {Array<BritboxDataEvergentModelsFailureMessage>}
+   * @memberof BritboxDataEvergentModelsGetProductsResponseMessageBaseResponse
+   */
+  failureMessage?: Array<BritboxDataEvergentModelsFailureMessage>;
 }
 
 /**
@@ -1340,18 +1593,18 @@ export interface BritboxDataEvergentModelsGetProductsResponseMessageBaseResponse
  * @interface BritboxDataEvergentModelsGetProductsResponseMessageBaseSCOfferTypes
  */
 export interface BritboxDataEvergentModelsGetProductsResponseMessageBaseSCOfferTypes {
-    /**
-     *
-     * @type {string}
-     * @memberof BritboxDataEvergentModelsGetProductsResponseMessageBaseSCOfferTypes
-     */
-    offerType?: string;
-    /**
-     *
-     * @type {string}
-     * @memberof BritboxDataEvergentModelsGetProductsResponseMessageBaseSCOfferTypes
-     */
-    salesChannel?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof BritboxDataEvergentModelsGetProductsResponseMessageBaseSCOfferTypes
+   */
+  offerType?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof BritboxDataEvergentModelsGetProductsResponseMessageBaseSCOfferTypes
+   */
+  salesChannel?: string;
 }
 
 /**
@@ -1360,18 +1613,18 @@ export interface BritboxDataEvergentModelsGetProductsResponseMessageBaseSCOfferT
  * @interface BritboxDataEvergentModelsPaymentMethodInfo
  */
 export interface BritboxDataEvergentModelsPaymentMethodInfo {
-    /**
-     *
-     * @type {string}
-     * @memberof BritboxDataEvergentModelsPaymentMethodInfo
-     */
-    label?: string;
-    /**
-     *
-     * @type {BritboxDataEvergentModelsTransactionReferenceMsg}
-     * @memberof BritboxDataEvergentModelsPaymentMethodInfo
-     */
-    transactionReferenceMsg?: BritboxDataEvergentModelsTransactionReferenceMsg;
+  /**
+   *
+   * @type {string}
+   * @memberof BritboxDataEvergentModelsPaymentMethodInfo
+   */
+  label?: string;
+  /**
+   *
+   * @type {BritboxDataEvergentModelsTransactionReferenceMsg}
+   * @memberof BritboxDataEvergentModelsPaymentMethodInfo
+   */
+  transactionReferenceMsg?: BritboxDataEvergentModelsTransactionReferenceMsg;
 }
 
 /**
@@ -1380,54 +1633,54 @@ export interface BritboxDataEvergentModelsPaymentMethodInfo {
  * @interface BritboxDataEvergentModelsRefreshTokenResponseMessageBaseResponse
  */
 export interface BritboxDataEvergentModelsRefreshTokenResponseMessageBaseResponse {
-    /**
-     *
-     * @type {string}
-     * @memberof BritboxDataEvergentModelsRefreshTokenResponseMessageBaseResponse
-     */
-    accessToken?: string;
-    /**
-     *
-     * @type {string}
-     * @memberof BritboxDataEvergentModelsRefreshTokenResponseMessageBaseResponse
-     */
-    refreshToken?: string;
-    /**
-     *
-     * @type {string}
-     * @memberof BritboxDataEvergentModelsRefreshTokenResponseMessageBaseResponse
-     */
-    tokenType?: string;
-    /**
-     *
-     * @type {string}
-     * @memberof BritboxDataEvergentModelsRefreshTokenResponseMessageBaseResponse
-     */
-    expiresIn?: string;
-    /**
-     *
-     * @type {string}
-     * @memberof BritboxDataEvergentModelsRefreshTokenResponseMessageBaseResponse
-     */
-    message?: string;
-    /**
-     *
-     * @type {string}
-     * @memberof BritboxDataEvergentModelsRefreshTokenResponseMessageBaseResponse
-     */
-    responseCode?: string;
-    /**
-     *
-     * @type {string}
-     * @memberof BritboxDataEvergentModelsRefreshTokenResponseMessageBaseResponse
-     */
-    status?: string;
-    /**
-     *
-     * @type {Array<BritboxDataEvergentModelsFailureMessage>}
-     * @memberof BritboxDataEvergentModelsRefreshTokenResponseMessageBaseResponse
-     */
-    failureMessage?: Array<BritboxDataEvergentModelsFailureMessage>;
+  /**
+   *
+   * @type {string}
+   * @memberof BritboxDataEvergentModelsRefreshTokenResponseMessageBaseResponse
+   */
+  accessToken?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof BritboxDataEvergentModelsRefreshTokenResponseMessageBaseResponse
+   */
+  refreshToken?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof BritboxDataEvergentModelsRefreshTokenResponseMessageBaseResponse
+   */
+  tokenType?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof BritboxDataEvergentModelsRefreshTokenResponseMessageBaseResponse
+   */
+  expiresIn?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof BritboxDataEvergentModelsRefreshTokenResponseMessageBaseResponse
+   */
+  message?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof BritboxDataEvergentModelsRefreshTokenResponseMessageBaseResponse
+   */
+  responseCode?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof BritboxDataEvergentModelsRefreshTokenResponseMessageBaseResponse
+   */
+  status?: string;
+  /**
+   *
+   * @type {Array<BritboxDataEvergentModelsFailureMessage>}
+   * @memberof BritboxDataEvergentModelsRefreshTokenResponseMessageBaseResponse
+   */
+  failureMessage?: Array<BritboxDataEvergentModelsFailureMessage>;
 }
 
 /**
@@ -1436,30 +1689,62 @@ export interface BritboxDataEvergentModelsRefreshTokenResponseMessageBaseRespons
  * @interface BritboxDataEvergentModelsRegisterDeviceResponseMessageBaseResponse
  */
 export interface BritboxDataEvergentModelsRegisterDeviceResponseMessageBaseResponse {
-    /**
-     *
-     * @type {string}
-     * @memberof BritboxDataEvergentModelsRegisterDeviceResponseMessageBaseResponse
-     */
-    message?: string;
-    /**
-     *
-     * @type {string}
-     * @memberof BritboxDataEvergentModelsRegisterDeviceResponseMessageBaseResponse
-     */
-    responseCode?: string;
-    /**
-     *
-     * @type {string}
-     * @memberof BritboxDataEvergentModelsRegisterDeviceResponseMessageBaseResponse
-     */
-    status?: string;
-    /**
-     *
-     * @type {BritboxDataEvergentModelsFailureMessage}
-     * @memberof BritboxDataEvergentModelsRegisterDeviceResponseMessageBaseResponse
-     */
-    failureMessage?: BritboxDataEvergentModelsFailureMessage;
+  /**
+   *
+   * @type {string}
+   * @memberof BritboxDataEvergentModelsRegisterDeviceResponseMessageBaseResponse
+   */
+  message?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof BritboxDataEvergentModelsRegisterDeviceResponseMessageBaseResponse
+   */
+  responseCode?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof BritboxDataEvergentModelsRegisterDeviceResponseMessageBaseResponse
+   */
+  status?: string;
+  /**
+   *
+   * @type {BritboxDataEvergentModelsFailureMessage}
+   * @memberof BritboxDataEvergentModelsRegisterDeviceResponseMessageBaseResponse
+   */
+  failureMessage?: BritboxDataEvergentModelsFailureMessage;
+}
+
+/**
+ *
+ * @export
+ * @interface BritboxDataEvergentModelsResetPasswordResponseMessageBaseResponse
+ */
+export interface BritboxDataEvergentModelsResetPasswordResponseMessageBaseResponse {
+  /**
+   *
+   * @type {string}
+   * @memberof BritboxDataEvergentModelsResetPasswordResponseMessageBaseResponse
+   */
+  message?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof BritboxDataEvergentModelsResetPasswordResponseMessageBaseResponse
+   */
+  responseCode?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof BritboxDataEvergentModelsResetPasswordResponseMessageBaseResponse
+   */
+  status?: string;
+  /**
+   *
+   * @type {Array<BritboxDataEvergentModelsFailureMessage>}
+   * @memberof BritboxDataEvergentModelsResetPasswordResponseMessageBaseResponse
+   */
+  failureMessage?: Array<BritboxDataEvergentModelsFailureMessage>;
 }
 
 /**
@@ -1468,30 +1753,30 @@ export interface BritboxDataEvergentModelsRegisterDeviceResponseMessageBaseRespo
  * @interface BritboxDataEvergentModelsTransactionReferenceMsg
  */
 export interface BritboxDataEvergentModelsTransactionReferenceMsg {
-    /**
-     *
-     * @type {string}
-     * @memberof BritboxDataEvergentModelsTransactionReferenceMsg
-     */
-    amount?: string;
-    /**
-     *
-     * @type {string}
-     * @memberof BritboxDataEvergentModelsTransactionReferenceMsg
-     */
-    txID?: string;
-    /**
-     *
-     * @type {string}
-     * @memberof BritboxDataEvergentModelsTransactionReferenceMsg
-     */
-    txMsg?: string;
-    /**
-     *
-     * @type {string}
-     * @memberof BritboxDataEvergentModelsTransactionReferenceMsg
-     */
-    rokuPucId?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof BritboxDataEvergentModelsTransactionReferenceMsg
+   */
+  amount?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof BritboxDataEvergentModelsTransactionReferenceMsg
+   */
+  txID?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof BritboxDataEvergentModelsTransactionReferenceMsg
+   */
+  txMsg?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof BritboxDataEvergentModelsTransactionReferenceMsg
+   */
+  rokuPucId?: string;
 }
 
 /**
@@ -1500,12 +1785,12 @@ export interface BritboxDataEvergentModelsTransactionReferenceMsg {
  * @interface BritboxDataEvergentModelsUpdateParentalControlDetailsResponseMessageBase
  */
 export interface BritboxDataEvergentModelsUpdateParentalControlDetailsResponseMessageBase {
-    /**
-     *
-     * @type {BritboxDataEvergentModelsUpdateParentalControlDetailsResponseMessageBaseResponse}
-     * @memberof BritboxDataEvergentModelsUpdateParentalControlDetailsResponseMessageBase
-     */
-    updateParentalControlDetailsResponseMessage?: BritboxDataEvergentModelsUpdateParentalControlDetailsResponseMessageBaseResponse;
+  /**
+   *
+   * @type {BritboxDataEvergentModelsUpdateParentalControlDetailsResponseMessageBaseResponse}
+   * @memberof BritboxDataEvergentModelsUpdateParentalControlDetailsResponseMessageBase
+   */
+  updateParentalControlDetailsResponseMessage?: BritboxDataEvergentModelsUpdateParentalControlDetailsResponseMessageBaseResponse;
 }
 
 /**
@@ -1514,30 +1799,62 @@ export interface BritboxDataEvergentModelsUpdateParentalControlDetailsResponseMe
  * @interface BritboxDataEvergentModelsUpdateParentalControlDetailsResponseMessageBaseResponse
  */
 export interface BritboxDataEvergentModelsUpdateParentalControlDetailsResponseMessageBaseResponse {
-    /**
-     *
-     * @type {string}
-     * @memberof BritboxDataEvergentModelsUpdateParentalControlDetailsResponseMessageBaseResponse
-     */
-    message?: string;
-    /**
-     *
-     * @type {string}
-     * @memberof BritboxDataEvergentModelsUpdateParentalControlDetailsResponseMessageBaseResponse
-     */
-    responseCode?: string;
-    /**
-     *
-     * @type {string}
-     * @memberof BritboxDataEvergentModelsUpdateParentalControlDetailsResponseMessageBaseResponse
-     */
-    status?: string;
-    /**
-     *
-     * @type {Array<BritboxDataEvergentModelsFailureMessage>}
-     * @memberof BritboxDataEvergentModelsUpdateParentalControlDetailsResponseMessageBaseResponse
-     */
-    failureMessage?: Array<BritboxDataEvergentModelsFailureMessage>;
+  /**
+   *
+   * @type {string}
+   * @memberof BritboxDataEvergentModelsUpdateParentalControlDetailsResponseMessageBaseResponse
+   */
+  message?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof BritboxDataEvergentModelsUpdateParentalControlDetailsResponseMessageBaseResponse
+   */
+  responseCode?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof BritboxDataEvergentModelsUpdateParentalControlDetailsResponseMessageBaseResponse
+   */
+  status?: string;
+  /**
+   *
+   * @type {Array<BritboxDataEvergentModelsFailureMessage>}
+   * @memberof BritboxDataEvergentModelsUpdateParentalControlDetailsResponseMessageBaseResponse
+   */
+  failureMessage?: Array<BritboxDataEvergentModelsFailureMessage>;
+}
+
+/**
+ *
+ * @export
+ * @interface BritboxDataEvergentModelsUpdateProfileResponseMessageBaseResponse
+ */
+export interface BritboxDataEvergentModelsUpdateProfileResponseMessageBaseResponse {
+  /**
+   *
+   * @type {string}
+   * @memberof BritboxDataEvergentModelsUpdateProfileResponseMessageBaseResponse
+   */
+  message?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof BritboxDataEvergentModelsUpdateProfileResponseMessageBaseResponse
+   */
+  responseCode?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof BritboxDataEvergentModelsUpdateProfileResponseMessageBaseResponse
+   */
+  status?: string;
+  /**
+   *
+   * @type {Array<BritboxDataEvergentModelsFailureMessage>}
+   * @memberof BritboxDataEvergentModelsUpdateProfileResponseMessageBaseResponse
+   */
+  failureMessage?: Array<BritboxDataEvergentModelsFailureMessage>;
 }
 
 /**
@@ -1546,12 +1863,12 @@ export interface BritboxDataEvergentModelsUpdateParentalControlDetailsResponseMe
  * @interface BritboxDataEvergentModelsValidateParentalControlPINResponseMessageBase
  */
 export interface BritboxDataEvergentModelsValidateParentalControlPINResponseMessageBase {
-    /**
-     *
-     * @type {BritboxDataEvergentModelsValidateParentalControlPINResponseMessageBaseResponse}
-     * @memberof BritboxDataEvergentModelsValidateParentalControlPINResponseMessageBase
-     */
-    validateParentalControlPINResponseMessage?: BritboxDataEvergentModelsValidateParentalControlPINResponseMessageBaseResponse;
+  /**
+   *
+   * @type {BritboxDataEvergentModelsValidateParentalControlPINResponseMessageBaseResponse}
+   * @memberof BritboxDataEvergentModelsValidateParentalControlPINResponseMessageBase
+   */
+  validateParentalControlPINResponseMessage?: BritboxDataEvergentModelsValidateParentalControlPINResponseMessageBaseResponse;
 }
 
 /**
@@ -1560,30 +1877,30 @@ export interface BritboxDataEvergentModelsValidateParentalControlPINResponseMess
  * @interface BritboxDataEvergentModelsValidateParentalControlPINResponseMessageBaseResponse
  */
 export interface BritboxDataEvergentModelsValidateParentalControlPINResponseMessageBaseResponse {
-    /**
-     *
-     * @type {string}
-     * @memberof BritboxDataEvergentModelsValidateParentalControlPINResponseMessageBaseResponse
-     */
-    message?: string;
-    /**
-     *
-     * @type {string}
-     * @memberof BritboxDataEvergentModelsValidateParentalControlPINResponseMessageBaseResponse
-     */
-    responseCode?: string;
-    /**
-     *
-     * @type {string}
-     * @memberof BritboxDataEvergentModelsValidateParentalControlPINResponseMessageBaseResponse
-     */
-    status?: string;
-    /**
-     *
-     * @type {Array<BritboxDataEvergentModelsFailureMessage>}
-     * @memberof BritboxDataEvergentModelsValidateParentalControlPINResponseMessageBaseResponse
-     */
-    failureMessage?: Array<BritboxDataEvergentModelsFailureMessage>;
+  /**
+   *
+   * @type {string}
+   * @memberof BritboxDataEvergentModelsValidateParentalControlPINResponseMessageBaseResponse
+   */
+  message?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof BritboxDataEvergentModelsValidateParentalControlPINResponseMessageBaseResponse
+   */
+  responseCode?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof BritboxDataEvergentModelsValidateParentalControlPINResponseMessageBaseResponse
+   */
+  status?: string;
+  /**
+   *
+   * @type {Array<BritboxDataEvergentModelsFailureMessage>}
+   * @memberof BritboxDataEvergentModelsValidateParentalControlPINResponseMessageBaseResponse
+   */
+  failureMessage?: Array<BritboxDataEvergentModelsFailureMessage>;
 }
 
 /**
@@ -1592,18 +1909,18 @@ export interface BritboxDataEvergentModelsValidateParentalControlPINResponseMess
  * @interface MassiveSDKModelBookmark
  */
 export interface MassiveSDKModelBookmark {
-    /**
-     *
-     * @type {string}
-     * @memberof MassiveSDKModelBookmark
-     */
-    itemId?: string;
-    /**
-     *
-     * @type {Date}
-     * @memberof MassiveSDKModelBookmark
-     */
-    creationDate?: Date;
+  /**
+   *
+   * @type {string}
+   * @memberof MassiveSDKModelBookmark
+   */
+  itemId?: string;
+  /**
+   *
+   * @type {Date}
+   * @memberof MassiveSDKModelBookmark
+   */
+  creationDate?: Date;
 }
 
 /**
@@ -1612,42 +1929,42 @@ export interface MassiveSDKModelBookmark {
  * @interface MassiveSDKModelClassification
  */
 export interface MassiveSDKModelClassification {
-    /**
-     *
-     * @type {string}
-     * @memberof MassiveSDKModelClassification
-     */
-    code?: string;
-    /**
-     *
-     * @type {string}
-     * @memberof MassiveSDKModelClassification
-     */
-    name?: string;
-    /**
-     *
-     * @type {string}
-     * @memberof MassiveSDKModelClassification
-     */
-    advisoryText?: string;
-    /**
-     *
-     * @type {number}
-     * @memberof MassiveSDKModelClassification
-     */
-    level?: number;
-    /**
-     *
-     * @type {string}
-     * @memberof MassiveSDKModelClassification
-     */
-    system?: string;
-    /**
-     *
-     * @type {{ [key: string]: string; }}
-     * @memberof MassiveSDKModelClassification
-     */
-    images?: { [key: string]: string; };
+  /**
+   *
+   * @type {string}
+   * @memberof MassiveSDKModelClassification
+   */
+  code?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof MassiveSDKModelClassification
+   */
+  name?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof MassiveSDKModelClassification
+   */
+  advisoryText?: string;
+  /**
+   *
+   * @type {number}
+   * @memberof MassiveSDKModelClassification
+   */
+  level?: number;
+  /**
+   *
+   * @type {string}
+   * @memberof MassiveSDKModelClassification
+   */
+  system?: string;
+  /**
+   *
+   * @type {{ [key: string]: string; }}
+   * @memberof MassiveSDKModelClassification
+   */
+  images?: { [key: string]: string };
 }
 
 /**
@@ -1656,18 +1973,18 @@ export interface MassiveSDKModelClassification {
  * @interface MassiveSDKModelClassificationSummary
  */
 export interface MassiveSDKModelClassificationSummary {
-    /**
-     *
-     * @type {string}
-     * @memberof MassiveSDKModelClassificationSummary
-     */
-    code?: string;
-    /**
-     *
-     * @type {string}
-     * @memberof MassiveSDKModelClassificationSummary
-     */
-    name?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof MassiveSDKModelClassificationSummary
+   */
+  code?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof MassiveSDKModelClassificationSummary
+   */
+  name?: string;
 }
 
 /**
@@ -1676,12 +1993,12 @@ export interface MassiveSDKModelClassificationSummary {
  * @interface MassiveSDKModelContinueWatchingListData
  */
 export interface MassiveSDKModelContinueWatchingListData {
-    /**
-     *
-     * @type {{ [key: string]: MassiveSDKModelContinueWatchingListDataExpansion; }}
-     * @memberof MassiveSDKModelContinueWatchingListData
-     */
-    itemInclusions?: { [key: string]: MassiveSDKModelContinueWatchingListDataExpansion; };
+  /**
+   *
+   * @type {{ [key: string]: MassiveSDKModelContinueWatchingListDataExpansion; }}
+   * @memberof MassiveSDKModelContinueWatchingListData
+   */
+  itemInclusions?: { [key: string]: MassiveSDKModelContinueWatchingListDataExpansion };
 }
 
 /**
@@ -1690,24 +2007,24 @@ export interface MassiveSDKModelContinueWatchingListData {
  * @interface MassiveSDKModelContinueWatchingListDataExpansion
  */
 export interface MassiveSDKModelContinueWatchingListDataExpansion {
-    /**
-     *
-     * @type {MassiveSDKModelItemSummary}
-     * @memberof MassiveSDKModelContinueWatchingListDataExpansion
-     */
-    episode?: MassiveSDKModelItemSummary;
-    /**
-     *
-     * @type {MassiveSDKModelItemSummary}
-     * @memberof MassiveSDKModelContinueWatchingListDataExpansion
-     */
-    season?: MassiveSDKModelItemSummary;
-    /**
-     *
-     * @type {MassiveSDKModelItemSummary}
-     * @memberof MassiveSDKModelContinueWatchingListDataExpansion
-     */
-    show?: MassiveSDKModelItemSummary;
+  /**
+   *
+   * @type {MassiveSDKModelItemSummary}
+   * @memberof MassiveSDKModelContinueWatchingListDataExpansion
+   */
+  episode?: MassiveSDKModelItemSummary;
+  /**
+   *
+   * @type {MassiveSDKModelItemSummary}
+   * @memberof MassiveSDKModelContinueWatchingListDataExpansion
+   */
+  season?: MassiveSDKModelItemSummary;
+  /**
+   *
+   * @type {MassiveSDKModelItemSummary}
+   * @memberof MassiveSDKModelContinueWatchingListDataExpansion
+   */
+  show?: MassiveSDKModelItemSummary;
 }
 
 /**
@@ -1716,30 +2033,30 @@ export interface MassiveSDKModelContinueWatchingListDataExpansion {
  * @interface MassiveSDKModelCredit
  */
 export interface MassiveSDKModelCredit {
-    /**
-     *
-     * @type {string}
-     * @memberof MassiveSDKModelCredit
-     */
-    role?: MassiveSDKModelCredit.RoleEnum;
-    /**
-     *
-     * @type {string}
-     * @memberof MassiveSDKModelCredit
-     */
-    name?: string;
-    /**
-     *
-     * @type {string}
-     * @memberof MassiveSDKModelCredit
-     */
-    path?: string;
-    /**
-     *
-     * @type {string}
-     * @memberof MassiveSDKModelCredit
-     */
-    character?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof MassiveSDKModelCredit
+   */
+  role?: MassiveSDKModelCredit.RoleEnum;
+  /**
+   *
+   * @type {string}
+   * @memberof MassiveSDKModelCredit
+   */
+  name?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof MassiveSDKModelCredit
+   */
+  path?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof MassiveSDKModelCredit
+   */
+  character?: string;
 }
 
 /**
@@ -1747,27 +2064,27 @@ export interface MassiveSDKModelCredit {
  * @namespace MassiveSDKModelCredit
  */
 export namespace MassiveSDKModelCredit {
-    /**
-     * @export
-     * @enum {string}
-     */
-    export enum RoleEnum {
-        Actor = <any> 'actor',
-        Associateproducer = <any> 'associateproducer',
-        Coactor = <any> 'coactor',
-        Director = <any> 'director',
-        Executiveproducer = <any> 'executiveproducer',
-        Filminglocation = <any> 'filminglocation',
-        Guest = <any> 'guest',
-        Narrator = <any> 'narrator',
-        Other = <any> 'other',
-        Presenter = <any> 'presenter',
-        Producer = <any> 'producer',
-        Productmanager = <any> 'productmanager',
-        Thememusicby = <any> 'thememusicby',
-        Voice = <any> 'voice',
-        Writer = <any> 'writer'
-    }
+  /**
+   * @export
+   * @enum {string}
+   */
+  export enum RoleEnum {
+    Actor = <any>'actor',
+    Associateproducer = <any>'associateproducer',
+    Coactor = <any>'coactor',
+    Director = <any>'director',
+    Executiveproducer = <any>'executiveproducer',
+    Filminglocation = <any>'filminglocation',
+    Guest = <any>'guest',
+    Narrator = <any>'narrator',
+    Other = <any>'other',
+    Presenter = <any>'presenter',
+    Producer = <any>'producer',
+    Productmanager = <any>'productmanager',
+    Thememusicby = <any>'thememusicby',
+    Voice = <any>'voice',
+    Writer = <any>'writer',
+  }
 }
 
 /**
@@ -1776,36 +2093,36 @@ export namespace MassiveSDKModelCredit {
  * @interface MassiveSDKModelEpisodes
  */
 export interface MassiveSDKModelEpisodes {
-    /**
-     *
-     * @type {string}
-     * @memberof MassiveSDKModelEpisodes
-     */
-    id?: string;
-    /**
-     *
-     * @type {string}
-     * @memberof MassiveSDKModelEpisodes
-     */
-    path?: string;
-    /**
-     *
-     * @type {Array<MassiveSDKModelEpisodesItem>}
-     * @memberof MassiveSDKModelEpisodes
-     */
-    items?: Array<MassiveSDKModelEpisodesItem>;
-    /**
-     *
-     * @type {number}
-     * @memberof MassiveSDKModelEpisodes
-     */
-    size?: number;
-    /**
-     *
-     * @type {MassiveSDKModelPaging}
-     * @memberof MassiveSDKModelEpisodes
-     */
-    paging?: MassiveSDKModelPaging;
+  /**
+   *
+   * @type {string}
+   * @memberof MassiveSDKModelEpisodes
+   */
+  id?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof MassiveSDKModelEpisodes
+   */
+  path?: string;
+  /**
+   *
+   * @type {Array<MassiveSDKModelEpisodesItem>}
+   * @memberof MassiveSDKModelEpisodes
+   */
+  items?: Array<MassiveSDKModelEpisodesItem>;
+  /**
+   *
+   * @type {number}
+   * @memberof MassiveSDKModelEpisodes
+   */
+  size?: number;
+  /**
+   *
+   * @type {MassiveSDKModelPaging}
+   * @memberof MassiveSDKModelEpisodes
+   */
+  paging?: MassiveSDKModelPaging;
 }
 
 /**
@@ -1814,168 +2131,168 @@ export interface MassiveSDKModelEpisodes {
  * @interface MassiveSDKModelEpisodesItem
  */
 export interface MassiveSDKModelEpisodesItem {
-    /**
-     *
-     * @type {{ [key: string]: string; }}
-     * @memberof MassiveSDKModelEpisodesItem
-     */
-    images?: { [key: string]: string; };
-    /**
-     *
-     * @type {number}
-     * @memberof MassiveSDKModelEpisodesItem
-     */
-    duration?: number;
-    /**
-     *
-     * @type {number}
-     * @memberof MassiveSDKModelEpisodesItem
-     */
-    releaseYear?: number;
-    /**
-     *
-     * @type {number}
-     * @memberof MassiveSDKModelEpisodesItem
-     */
-    episodeNumber?: number;
-    /**
-     *
-     * @type {string}
-     * @memberof MassiveSDKModelEpisodesItem
-     */
-    episodeName?: string;
-    /**
-     *
-     * @type {string}
-     * @memberof MassiveSDKModelEpisodesItem
-     */
-    seasonId?: string;
-    /**
-     *
-     * @type {string}
-     * @memberof MassiveSDKModelEpisodesItem
-     */
-    showId?: string;
-    /**
-     *
-     * @type {Array<MassiveSDKModelOffer>}
-     * @memberof MassiveSDKModelEpisodesItem
-     */
-    offers?: Array<MassiveSDKModelOffer>;
-    /**
-     *
-     * @type {Array<string>}
-     * @memberof MassiveSDKModelEpisodesItem
-     */
-    scopes?: Array<string>;
-    /**
-     *
-     * @type {Array<string>}
-     * @memberof MassiveSDKModelEpisodesItem
-     */
-    categories?: Array<string>;
-    /**
-     *
-     * @type {any}
-     * @memberof MassiveSDKModelEpisodesItem
-     */
-    customFields?: any;
-    /**
-     *
-     * @type {string}
-     * @memberof MassiveSDKModelEpisodesItem
-     */
-    customId?: string;
-    /**
-     *
-     * @type {Array<string>}
-     * @memberof MassiveSDKModelEpisodesItem
-     */
-    genres?: Array<string>;
-    /**
-     *
-     * @type {string}
-     * @memberof MassiveSDKModelEpisodesItem
-     */
-    id?: string;
-    /**
-     *
-     * @type {string}
-     * @memberof MassiveSDKModelEpisodesItem
-     */
-    type?: string;
-    /**
-     *
-     * @type {Date}
-     * @memberof MassiveSDKModelEpisodesItem
-     */
-    maximumOfferEnd?: Date;
-    /**
-     *
-     * @type {Array<MassiveSDKModelMedia>}
-     * @memberof MassiveSDKModelEpisodesItem
-     */
-    media?: Array<MassiveSDKModelMedia>;
-    /**
-     *
-     * @type {string}
-     * @memberof MassiveSDKModelEpisodesItem
-     */
-    shortDescription?: string;
-    /**
-     *
-     * @type {string}
-     * @memberof MassiveSDKModelEpisodesItem
-     */
-    contextualTitle?: string;
-    /**
-     *
-     * @type {string}
-     * @memberof MassiveSDKModelEpisodesItem
-     */
-    title?: string;
-    /**
-     *
-     * @type {MassiveSDKModelClassification}
-     * @memberof MassiveSDKModelEpisodesItem
-     */
-    classification?: MassiveSDKModelClassification;
-    /**
-     *
-     * @type {number}
-     * @memberof MassiveSDKModelEpisodesItem
-     */
-    totalUserRatings?: number;
-    /**
-     *
-     * @type {string}
-     * @memberof MassiveSDKModelEpisodesItem
-     */
-    path?: string;
-    /**
-     *
-     * @type {string}
-     * @memberof MassiveSDKModelEpisodesItem
-     */
-    watchPath?: string;
-    /**
-     *
-     * @type {string}
-     * @memberof MassiveSDKModelEpisodesItem
-     */
-    showTitle?: string;
-    /**
-     *
-     * @type {string}
-     * @memberof MassiveSDKModelEpisodesItem
-     */
-    seasonTitle?: string;
-    /**
-     *
-     * @type {string}
-     * @memberof MassiveSDKModelEpisodesItem
-     */
-    badge?: string;
+  /**
+   *
+   * @type {{ [key: string]: string; }}
+   * @memberof MassiveSDKModelEpisodesItem
+   */
+  images?: { [key: string]: string };
+  /**
+   *
+   * @type {number}
+   * @memberof MassiveSDKModelEpisodesItem
+   */
+  duration?: number;
+  /**
+   *
+   * @type {number}
+   * @memberof MassiveSDKModelEpisodesItem
+   */
+  releaseYear?: number;
+  /**
+   *
+   * @type {number}
+   * @memberof MassiveSDKModelEpisodesItem
+   */
+  episodeNumber?: number;
+  /**
+   *
+   * @type {string}
+   * @memberof MassiveSDKModelEpisodesItem
+   */
+  episodeName?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof MassiveSDKModelEpisodesItem
+   */
+  seasonId?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof MassiveSDKModelEpisodesItem
+   */
+  showId?: string;
+  /**
+   *
+   * @type {Array<MassiveSDKModelOffer>}
+   * @memberof MassiveSDKModelEpisodesItem
+   */
+  offers?: Array<MassiveSDKModelOffer>;
+  /**
+   *
+   * @type {Array<string>}
+   * @memberof MassiveSDKModelEpisodesItem
+   */
+  scopes?: Array<string>;
+  /**
+   *
+   * @type {Array<string>}
+   * @memberof MassiveSDKModelEpisodesItem
+   */
+  categories?: Array<string>;
+  /**
+   *
+   * @type {any}
+   * @memberof MassiveSDKModelEpisodesItem
+   */
+  customFields?: any;
+  /**
+   *
+   * @type {string}
+   * @memberof MassiveSDKModelEpisodesItem
+   */
+  customId?: string;
+  /**
+   *
+   * @type {Array<string>}
+   * @memberof MassiveSDKModelEpisodesItem
+   */
+  genres?: Array<string>;
+  /**
+   *
+   * @type {string}
+   * @memberof MassiveSDKModelEpisodesItem
+   */
+  id?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof MassiveSDKModelEpisodesItem
+   */
+  type?: string;
+  /**
+   *
+   * @type {Date}
+   * @memberof MassiveSDKModelEpisodesItem
+   */
+  maximumOfferEnd?: Date;
+  /**
+   *
+   * @type {Array<MassiveSDKModelMedia>}
+   * @memberof MassiveSDKModelEpisodesItem
+   */
+  media?: Array<MassiveSDKModelMedia>;
+  /**
+   *
+   * @type {string}
+   * @memberof MassiveSDKModelEpisodesItem
+   */
+  shortDescription?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof MassiveSDKModelEpisodesItem
+   */
+  contextualTitle?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof MassiveSDKModelEpisodesItem
+   */
+  title?: string;
+  /**
+   *
+   * @type {MassiveSDKModelClassification}
+   * @memberof MassiveSDKModelEpisodesItem
+   */
+  classification?: MassiveSDKModelClassification;
+  /**
+   *
+   * @type {number}
+   * @memberof MassiveSDKModelEpisodesItem
+   */
+  totalUserRatings?: number;
+  /**
+   *
+   * @type {string}
+   * @memberof MassiveSDKModelEpisodesItem
+   */
+  path?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof MassiveSDKModelEpisodesItem
+   */
+  watchPath?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof MassiveSDKModelEpisodesItem
+   */
+  showTitle?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof MassiveSDKModelEpisodesItem
+   */
+  seasonTitle?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof MassiveSDKModelEpisodesItem
+   */
+  badge?: string;
 }
 
 /**
@@ -1984,42 +2301,42 @@ export interface MassiveSDKModelEpisodesItem {
  * @interface MassiveSDKModelExclusionRule
  */
 export interface MassiveSDKModelExclusionRule {
-    /**
-     *
-     * @type {string}
-     * @memberof MassiveSDKModelExclusionRule
-     */
-    excludeDelivery?: MassiveSDKModelExclusionRule.ExcludeDeliveryEnum;
-    /**
-     *
-     * @type {string}
-     * @memberof MassiveSDKModelExclusionRule
-     */
-    excludeMinResolution?: MassiveSDKModelExclusionRule.ExcludeMinResolutionEnum;
-    /**
-     *
-     * @type {string}
-     * @memberof MassiveSDKModelExclusionRule
-     */
-    description?: string;
-    /**
-     *
-     * @type {string}
-     * @memberof MassiveSDKModelExclusionRule
-     */
-    device?: string;
-    /**
-     *
-     * @type {boolean}
-     * @memberof MassiveSDKModelExclusionRule
-     */
-    excludeAirplay?: boolean;
-    /**
-     *
-     * @type {boolean}
-     * @memberof MassiveSDKModelExclusionRule
-     */
-    excludeChromecast?: boolean;
+  /**
+   *
+   * @type {string}
+   * @memberof MassiveSDKModelExclusionRule
+   */
+  excludeDelivery?: MassiveSDKModelExclusionRule.ExcludeDeliveryEnum;
+  /**
+   *
+   * @type {string}
+   * @memberof MassiveSDKModelExclusionRule
+   */
+  excludeMinResolution?: MassiveSDKModelExclusionRule.ExcludeMinResolutionEnum;
+  /**
+   *
+   * @type {string}
+   * @memberof MassiveSDKModelExclusionRule
+   */
+  description?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof MassiveSDKModelExclusionRule
+   */
+  device?: string;
+  /**
+   *
+   * @type {boolean}
+   * @memberof MassiveSDKModelExclusionRule
+   */
+  excludeAirplay?: boolean;
+  /**
+   *
+   * @type {boolean}
+   * @memberof MassiveSDKModelExclusionRule
+   */
+  excludeChromecast?: boolean;
 }
 
 /**
@@ -2027,29 +2344,29 @@ export interface MassiveSDKModelExclusionRule {
  * @namespace MassiveSDKModelExclusionRule
  */
 export namespace MassiveSDKModelExclusionRule {
-    /**
-     * @export
-     * @enum {string}
-     */
-    export enum ExcludeDeliveryEnum {
-        Stream = <any> 'Stream',
-        Download = <any> 'Download',
-        StreamOrDownload = <any> 'StreamOrDownload',
-        ProgressiveDownload = <any> 'ProgressiveDownload',
-        None = <any> 'None'
-    }
-    /**
-     * @export
-     * @enum {string}
-     */
-    export enum ExcludeMinResolutionEnum {
-        SD = <any> 'SD',
-        HD720 = <any> 'HD-720',
-        HD1080 = <any> 'HD-1080',
-        HD4K = <any> 'HD-4K',
-        External = <any> 'External',
-        Unknown = <any> 'Unknown'
-    }
+  /**
+   * @export
+   * @enum {string}
+   */
+  export enum ExcludeDeliveryEnum {
+    Stream = <any>'Stream',
+    Download = <any>'Download',
+    StreamOrDownload = <any>'StreamOrDownload',
+    ProgressiveDownload = <any>'ProgressiveDownload',
+    None = <any>'None',
+  }
+  /**
+   * @export
+   * @enum {string}
+   */
+  export enum ExcludeMinResolutionEnum {
+    SD = <any>'SD',
+    HD720 = <any>'HD-720',
+    HD1080 = <any>'HD-1080',
+    HD4K = <any>'HD-4K',
+    External = <any>'External',
+    Unknown = <any>'Unknown',
+  }
 }
 
 /**
@@ -2058,18 +2375,18 @@ export namespace MassiveSDKModelExclusionRule {
  * @interface MassiveSDKModelItemCustomMetadata
  */
 export interface MassiveSDKModelItemCustomMetadata {
-    /**
-     *
-     * @type {string}
-     * @memberof MassiveSDKModelItemCustomMetadata
-     */
-    name?: string;
-    /**
-     *
-     * @type {string}
-     * @memberof MassiveSDKModelItemCustomMetadata
-     */
-    value?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof MassiveSDKModelItemCustomMetadata
+   */
+  name?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof MassiveSDKModelItemCustomMetadata
+   */
+  value?: string;
 }
 
 /**
@@ -2078,306 +2395,306 @@ export interface MassiveSDKModelItemCustomMetadata {
  * @interface MassiveSDKModelItemDetail
  */
 export interface MassiveSDKModelItemDetail {
-    /**
-     *
-     * @type {string}
-     * @memberof MassiveSDKModelItemDetail
-     */
-    advisoryText?: string;
-    /**
-     *
-     * @type {string}
-     * @memberof MassiveSDKModelItemDetail
-     */
-    copyright?: string;
-    /**
-     *
-     * @type {string}
-     * @memberof MassiveSDKModelItemDetail
-     */
-    distributor?: string;
-    /**
-     *
-     * @type {string}
-     * @memberof MassiveSDKModelItemDetail
-     */
-    description?: string;
-    /**
-     *
-     * @type {Array<MassiveSDKModelItemCustomMetadata>}
-     * @memberof MassiveSDKModelItemDetail
-     */
-    customMetadata?: Array<MassiveSDKModelItemCustomMetadata>;
-    /**
-     *
-     * @type {Array<string>}
-     * @memberof MassiveSDKModelItemDetail
-     */
-    genrePaths?: Array<string>;
-    /**
-     *
-     * @type {string}
-     * @memberof MassiveSDKModelItemDetail
-     */
-    location?: string;
-    /**
-     *
-     * @type {string}
-     * @memberof MassiveSDKModelItemDetail
-     */
-    venue?: string;
-    /**
-     *
-     * @type {Date}
-     * @memberof MassiveSDKModelItemDetail
-     */
-    eventDate?: Date;
-    /**
-     *
-     * @type {Array<MassiveSDKModelCredit>}
-     * @memberof MassiveSDKModelItemDetail
-     */
-    credits?: Array<MassiveSDKModelCredit>;
-    /**
-     *
-     * @type {MassiveSDKModelItemList}
-     * @memberof MassiveSDKModelItemDetail
-     */
-    seasons?: MassiveSDKModelItemList;
-    /**
-     *
-     * @type {MassiveSDKModelItemList}
-     * @memberof MassiveSDKModelItemDetail
-     */
-    episodes?: MassiveSDKModelItemList;
-    /**
-     *
-     * @type {MassiveSDKModelItemDetail}
-     * @memberof MassiveSDKModelItemDetail
-     */
-    season?: MassiveSDKModelItemDetail;
-    /**
-     *
-     * @type {MassiveSDKModelItemDetail}
-     * @memberof MassiveSDKModelItemDetail
-     */
-    show?: MassiveSDKModelItemDetail;
-    /**
-     *
-     * @type {number}
-     * @memberof MassiveSDKModelItemDetail
-     */
-    totalUserRatings?: number;
-    /**
-     *
-     * @type {Array<MassiveSDKModelItemSummary>}
-     * @memberof MassiveSDKModelItemDetail
-     */
-    trailers?: Array<MassiveSDKModelItemSummary>;
-    /**
-     *
-     * @type {string}
-     * @memberof MassiveSDKModelItemDetail
-     */
-    type?: MassiveSDKModelItemDetail.TypeEnum;
-    /**
-     *
-     * @type {string}
-     * @memberof MassiveSDKModelItemDetail
-     */
-    id?: string;
-    /**
-     *
-     * @type {string}
-     * @memberof MassiveSDKModelItemDetail
-     */
-    subtype?: string;
-    /**
-     *
-     * @type {string}
-     * @memberof MassiveSDKModelItemDetail
-     */
-    title?: string;
-    /**
-     *
-     * @type {string}
-     * @memberof MassiveSDKModelItemDetail
-     */
-    contextualTitle?: string;
-    /**
-     *
-     * @type {string}
-     * @memberof MassiveSDKModelItemDetail
-     */
-    shortDescription?: string;
-    /**
-     *
-     * @type {string}
-     * @memberof MassiveSDKModelItemDetail
-     */
-    tagline?: string;
-    /**
-     *
-     * @type {MassiveSDKModelClassificationSummary}
-     * @memberof MassiveSDKModelItemDetail
-     */
-    classification?: MassiveSDKModelClassificationSummary;
-    /**
-     *
-     * @type {string}
-     * @memberof MassiveSDKModelItemDetail
-     */
-    path?: string;
-    /**
-     *
-     * @type {string}
-     * @memberof MassiveSDKModelItemDetail
-     */
-    watchPath?: string;
-    /**
-     *
-     * @type {Array<string>}
-     * @memberof MassiveSDKModelItemDetail
-     */
-    scopes?: Array<string>;
-    /**
-     *
-     * @type {number}
-     * @memberof MassiveSDKModelItemDetail
-     */
-    releaseYear?: number;
-    /**
-     *
-     * @type {number}
-     * @memberof MassiveSDKModelItemDetail
-     */
-    episodeCount?: number;
-    /**
-     *
-     * @type {number}
-     * @memberof MassiveSDKModelItemDetail
-     */
-    availableEpisodeCount?: number;
-    /**
-     *
-     * @type {number}
-     * @memberof MassiveSDKModelItemDetail
-     */
-    availableSeasonCount?: number;
-    /**
-     *
-     * @type {number}
-     * @memberof MassiveSDKModelItemDetail
-     */
-    seasonNumber?: number;
-    /**
-     *
-     * @type {number}
-     * @memberof MassiveSDKModelItemDetail
-     */
-    episodeNumber?: number;
-    /**
-     *
-     * @type {string}
-     * @memberof MassiveSDKModelItemDetail
-     */
-    episodeName?: string;
-    /**
-     *
-     * @type {string}
-     * @memberof MassiveSDKModelItemDetail
-     */
-    showId?: string;
-    /**
-     *
-     * @type {string}
-     * @memberof MassiveSDKModelItemDetail
-     */
-    showTitle?: string;
-    /**
-     *
-     * @type {string}
-     * @memberof MassiveSDKModelItemDetail
-     */
-    seasonId?: string;
-    /**
-     *
-     * @type {string}
-     * @memberof MassiveSDKModelItemDetail
-     */
-    seasonTitle?: string;
-    /**
-     *
-     * @type {string}
-     * @memberof MassiveSDKModelItemDetail
-     */
-    channelShortCode?: string;
-    /**
-     *
-     * @type {boolean}
-     * @memberof MassiveSDKModelItemDetail
-     */
-    hasClosedCaptions?: boolean;
-    /**
-     *
-     * @type {number}
-     * @memberof MassiveSDKModelItemDetail
-     */
-    averageUserRating?: number;
-    /**
-     *
-     * @type {string}
-     * @memberof MassiveSDKModelItemDetail
-     */
-    badge?: string;
-    /**
-     *
-     * @type {Array<string>}
-     * @memberof MassiveSDKModelItemDetail
-     */
-    genres?: Array<string>;
-    /**
-     *
-     * @type {number}
-     * @memberof MassiveSDKModelItemDetail
-     */
-    duration?: number;
-    /**
-     *
-     * @type {string}
-     * @memberof MassiveSDKModelItemDetail
-     */
-    customId?: string;
-    /**
-     *
-     * @type {Array<MassiveSDKModelOffer>}
-     * @memberof MassiveSDKModelItemDetail
-     */
-    offers?: Array<MassiveSDKModelOffer>;
-    /**
-     *
-     * @type {{ [key: string]: string; }}
-     * @memberof MassiveSDKModelItemDetail
-     */
-    images?: { [key: string]: string; };
-    /**
-     *
-     * @type {Array<MassiveSDKModelTheme>}
-     * @memberof MassiveSDKModelItemDetail
-     */
-    themes?: Array<MassiveSDKModelTheme>;
-    /**
-     *
-     * @type {any}
-     * @memberof MassiveSDKModelItemDetail
-     */
-    customFields?: any;
-    /**
-     *
-     * @type {Array<any>}
-     * @memberof MassiveSDKModelItemDetail
-     */
-    vams?: Array<any>;
+  /**
+   *
+   * @type {string}
+   * @memberof MassiveSDKModelItemDetail
+   */
+  advisoryText?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof MassiveSDKModelItemDetail
+   */
+  copyright?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof MassiveSDKModelItemDetail
+   */
+  distributor?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof MassiveSDKModelItemDetail
+   */
+  description?: string;
+  /**
+   *
+   * @type {Array<MassiveSDKModelItemCustomMetadata>}
+   * @memberof MassiveSDKModelItemDetail
+   */
+  customMetadata?: Array<MassiveSDKModelItemCustomMetadata>;
+  /**
+   *
+   * @type {Array<string>}
+   * @memberof MassiveSDKModelItemDetail
+   */
+  genrePaths?: Array<string>;
+  /**
+   *
+   * @type {string}
+   * @memberof MassiveSDKModelItemDetail
+   */
+  location?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof MassiveSDKModelItemDetail
+   */
+  venue?: string;
+  /**
+   *
+   * @type {Date}
+   * @memberof MassiveSDKModelItemDetail
+   */
+  eventDate?: Date;
+  /**
+   *
+   * @type {Array<MassiveSDKModelCredit>}
+   * @memberof MassiveSDKModelItemDetail
+   */
+  credits?: Array<MassiveSDKModelCredit>;
+  /**
+   *
+   * @type {MassiveSDKModelItemList}
+   * @memberof MassiveSDKModelItemDetail
+   */
+  seasons?: MassiveSDKModelItemList;
+  /**
+   *
+   * @type {MassiveSDKModelItemList}
+   * @memberof MassiveSDKModelItemDetail
+   */
+  episodes?: MassiveSDKModelItemList;
+  /**
+   *
+   * @type {MassiveSDKModelItemDetail}
+   * @memberof MassiveSDKModelItemDetail
+   */
+  season?: MassiveSDKModelItemDetail;
+  /**
+   *
+   * @type {MassiveSDKModelItemDetail}
+   * @memberof MassiveSDKModelItemDetail
+   */
+  show?: MassiveSDKModelItemDetail;
+  /**
+   *
+   * @type {number}
+   * @memberof MassiveSDKModelItemDetail
+   */
+  totalUserRatings?: number;
+  /**
+   *
+   * @type {Array<MassiveSDKModelItemSummary>}
+   * @memberof MassiveSDKModelItemDetail
+   */
+  trailers?: Array<MassiveSDKModelItemSummary>;
+  /**
+   *
+   * @type {string}
+   * @memberof MassiveSDKModelItemDetail
+   */
+  type?: MassiveSDKModelItemDetail.TypeEnum;
+  /**
+   *
+   * @type {string}
+   * @memberof MassiveSDKModelItemDetail
+   */
+  id?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof MassiveSDKModelItemDetail
+   */
+  subtype?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof MassiveSDKModelItemDetail
+   */
+  title?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof MassiveSDKModelItemDetail
+   */
+  contextualTitle?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof MassiveSDKModelItemDetail
+   */
+  shortDescription?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof MassiveSDKModelItemDetail
+   */
+  tagline?: string;
+  /**
+   *
+   * @type {MassiveSDKModelClassificationSummary}
+   * @memberof MassiveSDKModelItemDetail
+   */
+  classification?: MassiveSDKModelClassificationSummary;
+  /**
+   *
+   * @type {string}
+   * @memberof MassiveSDKModelItemDetail
+   */
+  path?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof MassiveSDKModelItemDetail
+   */
+  watchPath?: string;
+  /**
+   *
+   * @type {Array<string>}
+   * @memberof MassiveSDKModelItemDetail
+   */
+  scopes?: Array<string>;
+  /**
+   *
+   * @type {number}
+   * @memberof MassiveSDKModelItemDetail
+   */
+  releaseYear?: number;
+  /**
+   *
+   * @type {number}
+   * @memberof MassiveSDKModelItemDetail
+   */
+  episodeCount?: number;
+  /**
+   *
+   * @type {number}
+   * @memberof MassiveSDKModelItemDetail
+   */
+  availableEpisodeCount?: number;
+  /**
+   *
+   * @type {number}
+   * @memberof MassiveSDKModelItemDetail
+   */
+  availableSeasonCount?: number;
+  /**
+   *
+   * @type {number}
+   * @memberof MassiveSDKModelItemDetail
+   */
+  seasonNumber?: number;
+  /**
+   *
+   * @type {number}
+   * @memberof MassiveSDKModelItemDetail
+   */
+  episodeNumber?: number;
+  /**
+   *
+   * @type {string}
+   * @memberof MassiveSDKModelItemDetail
+   */
+  episodeName?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof MassiveSDKModelItemDetail
+   */
+  showId?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof MassiveSDKModelItemDetail
+   */
+  showTitle?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof MassiveSDKModelItemDetail
+   */
+  seasonId?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof MassiveSDKModelItemDetail
+   */
+  seasonTitle?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof MassiveSDKModelItemDetail
+   */
+  channelShortCode?: string;
+  /**
+   *
+   * @type {boolean}
+   * @memberof MassiveSDKModelItemDetail
+   */
+  hasClosedCaptions?: boolean;
+  /**
+   *
+   * @type {number}
+   * @memberof MassiveSDKModelItemDetail
+   */
+  averageUserRating?: number;
+  /**
+   *
+   * @type {string}
+   * @memberof MassiveSDKModelItemDetail
+   */
+  badge?: string;
+  /**
+   *
+   * @type {Array<string>}
+   * @memberof MassiveSDKModelItemDetail
+   */
+  genres?: Array<string>;
+  /**
+   *
+   * @type {number}
+   * @memberof MassiveSDKModelItemDetail
+   */
+  duration?: number;
+  /**
+   *
+   * @type {string}
+   * @memberof MassiveSDKModelItemDetail
+   */
+  customId?: string;
+  /**
+   *
+   * @type {Array<MassiveSDKModelOffer>}
+   * @memberof MassiveSDKModelItemDetail
+   */
+  offers?: Array<MassiveSDKModelOffer>;
+  /**
+   *
+   * @type {{ [key: string]: string; }}
+   * @memberof MassiveSDKModelItemDetail
+   */
+  images?: { [key: string]: string };
+  /**
+   *
+   * @type {Array<MassiveSDKModelTheme>}
+   * @memberof MassiveSDKModelItemDetail
+   */
+  themes?: Array<MassiveSDKModelTheme>;
+  /**
+   *
+   * @type {any}
+   * @memberof MassiveSDKModelItemDetail
+   */
+  customFields?: any;
+  /**
+   *
+   * @type {Array<any>}
+   * @memberof MassiveSDKModelItemDetail
+   */
+  vams?: Array<any>;
 }
 
 /**
@@ -2385,21 +2702,21 @@ export interface MassiveSDKModelItemDetail {
  * @namespace MassiveSDKModelItemDetail
  */
 export namespace MassiveSDKModelItemDetail {
-    /**
-     * @export
-     * @enum {string}
-     */
-    export enum TypeEnum {
-        Movie = <any> 'movie',
-        Show = <any> 'show',
-        Season = <any> 'season',
-        Episode = <any> 'episode',
-        Program = <any> 'program',
-        Link = <any> 'link',
-        Trailer = <any> 'trailer',
-        Channel = <any> 'channel',
-        CustomAsset = <any> 'customAsset'
-    }
+  /**
+   * @export
+   * @enum {string}
+   */
+  export enum TypeEnum {
+    Movie = <any>'movie',
+    Show = <any>'show',
+    Season = <any>'season',
+    Episode = <any>'episode',
+    Program = <any>'program',
+    Link = <any>'link',
+    Trailer = <any>'trailer',
+    Channel = <any>'channel',
+    CustomAsset = <any>'customAsset',
+  }
 }
 
 /**
@@ -2408,96 +2725,96 @@ export namespace MassiveSDKModelItemDetail {
  * @interface MassiveSDKModelItemList
  */
 export interface MassiveSDKModelItemList {
-    /**
-     *
-     * @type {Array<string>}
-     * @memberof MassiveSDKModelItemList
-     */
-    itemTypes?: Array<MassiveSDKModelItemList.ItemTypesEnum>;
-    /**
-     *
-     * @type {string}
-     * @memberof MassiveSDKModelItemList
-     */
-    id?: string;
-    /**
-     *
-     * @type {string}
-     * @memberof MassiveSDKModelItemList
-     */
-    title?: string;
-    /**
-     *
-     * @type {string}
-     * @memberof MassiveSDKModelItemList
-     */
-    description?: string;
-    /**
-     *
-     * @type {string}
-     * @memberof MassiveSDKModelItemList
-     */
-    shortDescription?: string;
-    /**
-     *
-     * @type {string}
-     * @memberof MassiveSDKModelItemList
-     */
-    tagline?: string;
-    /**
-     *
-     * @type {string}
-     * @memberof MassiveSDKModelItemList
-     */
-    path?: string;
-    /**
-     *
-     * @type {number}
-     * @memberof MassiveSDKModelItemList
-     */
-    size?: number;
-    /**
-     *
-     * @type {Array<MassiveSDKModelItemSummary>}
-     * @memberof MassiveSDKModelItemList
-     */
-    items?: Array<MassiveSDKModelItemSummary>;
-    /**
-     *
-     * @type {{ [key: string]: string; }}
-     * @memberof MassiveSDKModelItemList
-     */
-    images?: { [key: string]: string; };
-    /**
-     *
-     * @type {string}
-     * @memberof MassiveSDKModelItemList
-     */
-    parameter?: string;
-    /**
-     *
-     * @type {MassiveSDKModelPagination}
-     * @memberof MassiveSDKModelItemList
-     */
-    paging?: MassiveSDKModelPagination;
-    /**
-     *
-     * @type {any}
-     * @memberof MassiveSDKModelItemList
-     */
-    customFields?: any;
-    /**
-     *
-     * @type {Array<MassiveSDKModelTheme>}
-     * @memberof MassiveSDKModelItemList
-     */
-    themes?: Array<MassiveSDKModelTheme>;
-    /**
-     *
-     * @type {MassiveSDKModelListData}
-     * @memberof MassiveSDKModelItemList
-     */
-    listData?: MassiveSDKModelListData;
+  /**
+   *
+   * @type {Array<string>}
+   * @memberof MassiveSDKModelItemList
+   */
+  itemTypes?: Array<MassiveSDKModelItemList.ItemTypesEnum>;
+  /**
+   *
+   * @type {string}
+   * @memberof MassiveSDKModelItemList
+   */
+  id?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof MassiveSDKModelItemList
+   */
+  title?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof MassiveSDKModelItemList
+   */
+  description?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof MassiveSDKModelItemList
+   */
+  shortDescription?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof MassiveSDKModelItemList
+   */
+  tagline?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof MassiveSDKModelItemList
+   */
+  path?: string;
+  /**
+   *
+   * @type {number}
+   * @memberof MassiveSDKModelItemList
+   */
+  size?: number;
+  /**
+   *
+   * @type {Array<MassiveSDKModelItemSummary>}
+   * @memberof MassiveSDKModelItemList
+   */
+  items?: Array<MassiveSDKModelItemSummary>;
+  /**
+   *
+   * @type {{ [key: string]: string; }}
+   * @memberof MassiveSDKModelItemList
+   */
+  images?: { [key: string]: string };
+  /**
+   *
+   * @type {string}
+   * @memberof MassiveSDKModelItemList
+   */
+  parameter?: string;
+  /**
+   *
+   * @type {MassiveSDKModelPagination}
+   * @memberof MassiveSDKModelItemList
+   */
+  paging?: MassiveSDKModelPagination;
+  /**
+   *
+   * @type {any}
+   * @memberof MassiveSDKModelItemList
+   */
+  customFields?: any;
+  /**
+   *
+   * @type {Array<MassiveSDKModelTheme>}
+   * @memberof MassiveSDKModelItemList
+   */
+  themes?: Array<MassiveSDKModelTheme>;
+  /**
+   *
+   * @type {MassiveSDKModelListData}
+   * @memberof MassiveSDKModelItemList
+   */
+  listData?: MassiveSDKModelListData;
 }
 
 /**
@@ -2505,21 +2822,21 @@ export interface MassiveSDKModelItemList {
  * @namespace MassiveSDKModelItemList
  */
 export namespace MassiveSDKModelItemList {
-    /**
-     * @export
-     * @enum {string}
-     */
-    export enum ItemTypesEnum {
-        Movie = <any> 'movie',
-        Show = <any> 'show',
-        Season = <any> 'season',
-        Episode = <any> 'episode',
-        Program = <any> 'program',
-        Link = <any> 'link',
-        Trailer = <any> 'trailer',
-        Channel = <any> 'channel',
-        CustomAsset = <any> 'customAsset'
-    }
+  /**
+   * @export
+   * @enum {string}
+   */
+  export enum ItemTypesEnum {
+    Movie = <any>'movie',
+    Show = <any>'show',
+    Season = <any>'season',
+    Episode = <any>'episode',
+    Program = <any>'program',
+    Link = <any>'link',
+    Trailer = <any>'trailer',
+    Channel = <any>'channel',
+    CustomAsset = <any>'customAsset',
+  }
 }
 
 /**
@@ -2528,234 +2845,234 @@ export namespace MassiveSDKModelItemList {
  * @interface MassiveSDKModelItemSummary
  */
 export interface MassiveSDKModelItemSummary {
-    /**
-     *
-     * @type {string}
-     * @memberof MassiveSDKModelItemSummary
-     */
-    type?: MassiveSDKModelItemSummary.TypeEnum;
-    /**
-     *
-     * @type {string}
-     * @memberof MassiveSDKModelItemSummary
-     */
-    id?: string;
-    /**
-     *
-     * @type {string}
-     * @memberof MassiveSDKModelItemSummary
-     */
-    subtype?: string;
-    /**
-     *
-     * @type {string}
-     * @memberof MassiveSDKModelItemSummary
-     */
-    title?: string;
-    /**
-     *
-     * @type {string}
-     * @memberof MassiveSDKModelItemSummary
-     */
-    contextualTitle?: string;
-    /**
-     *
-     * @type {string}
-     * @memberof MassiveSDKModelItemSummary
-     */
-    shortDescription?: string;
-    /**
-     *
-     * @type {string}
-     * @memberof MassiveSDKModelItemSummary
-     */
-    tagline?: string;
-    /**
-     *
-     * @type {MassiveSDKModelClassificationSummary}
-     * @memberof MassiveSDKModelItemSummary
-     */
-    classification?: MassiveSDKModelClassificationSummary;
-    /**
-     *
-     * @type {string}
-     * @memberof MassiveSDKModelItemSummary
-     */
-    path?: string;
-    /**
-     *
-     * @type {string}
-     * @memberof MassiveSDKModelItemSummary
-     */
-    watchPath?: string;
-    /**
-     *
-     * @type {Array<string>}
-     * @memberof MassiveSDKModelItemSummary
-     */
-    scopes?: Array<string>;
-    /**
-     *
-     * @type {number}
-     * @memberof MassiveSDKModelItemSummary
-     */
-    releaseYear?: number;
-    /**
-     *
-     * @type {number}
-     * @memberof MassiveSDKModelItemSummary
-     */
-    episodeCount?: number;
-    /**
-     *
-     * @type {number}
-     * @memberof MassiveSDKModelItemSummary
-     */
-    availableEpisodeCount?: number;
-    /**
-     *
-     * @type {number}
-     * @memberof MassiveSDKModelItemSummary
-     */
-    availableSeasonCount?: number;
-    /**
-     *
-     * @type {number}
-     * @memberof MassiveSDKModelItemSummary
-     */
-    seasonNumber?: number;
-    /**
-     *
-     * @type {number}
-     * @memberof MassiveSDKModelItemSummary
-     */
-    episodeNumber?: number;
-    /**
-     *
-     * @type {string}
-     * @memberof MassiveSDKModelItemSummary
-     */
-    episodeName?: string;
-    /**
-     *
-     * @type {string}
-     * @memberof MassiveSDKModelItemSummary
-     */
-    showId?: string;
-    /**
-     *
-     * @type {string}
-     * @memberof MassiveSDKModelItemSummary
-     */
-    showTitle?: string;
-    /**
-     *
-     * @type {string}
-     * @memberof MassiveSDKModelItemSummary
-     */
-    seasonId?: string;
-    /**
-     *
-     * @type {string}
-     * @memberof MassiveSDKModelItemSummary
-     */
-    seasonTitle?: string;
-    /**
-     *
-     * @type {string}
-     * @memberof MassiveSDKModelItemSummary
-     */
-    channelShortCode?: string;
-    /**
-     *
-     * @type {boolean}
-     * @memberof MassiveSDKModelItemSummary
-     */
-    hasClosedCaptions?: boolean;
-    /**
-     *
-     * @type {number}
-     * @memberof MassiveSDKModelItemSummary
-     */
-    averageUserRating?: number;
-    /**
-     *
-     * @type {string}
-     * @memberof MassiveSDKModelItemSummary
-     */
-    badge?: string;
-    /**
-     *
-     * @type {Array<string>}
-     * @memberof MassiveSDKModelItemSummary
-     */
-    genres?: Array<string>;
-    /**
-     *
-     * @type {number}
-     * @memberof MassiveSDKModelItemSummary
-     */
-    duration?: number;
-    /**
-     *
-     * @type {string}
-     * @memberof MassiveSDKModelItemSummary
-     */
-    customId?: string;
-    /**
-     *
-     * @type {Array<MassiveSDKModelOffer>}
-     * @memberof MassiveSDKModelItemSummary
-     */
-    offers?: Array<MassiveSDKModelOffer>;
-    /**
-     *
-     * @type {{ [key: string]: string; }}
-     * @memberof MassiveSDKModelItemSummary
-     */
-    images?: { [key: string]: string; };
-    /**
-     *
-     * @type {Array<MassiveSDKModelTheme>}
-     * @memberof MassiveSDKModelItemSummary
-     */
-    themes?: Array<MassiveSDKModelTheme>;
-    /**
-     *
-     * @type {any}
-     * @memberof MassiveSDKModelItemSummary
-     */
-    customFields?: any;
-    /**
-     *
-     * @type {MassiveSDKModelShow}
-     * @memberof MassiveSDKModelItemSummary
-     */
-    show?: MassiveSDKModelShow;
-    /**
-     *
-     * @type {MassiveSDKModelEpisodes}
-     * @memberof MassiveSDKModelItemSummary
-     */
-    episodes?: MassiveSDKModelEpisodes;
-    /**
-     *
-     * @type {MassiveSDKModelItemSummary}
-     * @memberof MassiveSDKModelItemSummary
-     */
-    season?: MassiveSDKModelItemSummary;
-    /**
-     *
-     * @type {Array<MassiveSDKModelCredit>}
-     * @memberof MassiveSDKModelItemSummary
-     */
-    credits?: Array<MassiveSDKModelCredit>;
-    /**
-     *
-     * @type {Array<any>}
-     * @memberof MassiveSDKModelItemSummary
-     */
-    vams?: Array<any>;
+  /**
+   *
+   * @type {string}
+   * @memberof MassiveSDKModelItemSummary
+   */
+  type?: MassiveSDKModelItemSummary.TypeEnum;
+  /**
+   *
+   * @type {string}
+   * @memberof MassiveSDKModelItemSummary
+   */
+  id?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof MassiveSDKModelItemSummary
+   */
+  subtype?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof MassiveSDKModelItemSummary
+   */
+  title?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof MassiveSDKModelItemSummary
+   */
+  contextualTitle?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof MassiveSDKModelItemSummary
+   */
+  shortDescription?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof MassiveSDKModelItemSummary
+   */
+  tagline?: string;
+  /**
+   *
+   * @type {MassiveSDKModelClassificationSummary}
+   * @memberof MassiveSDKModelItemSummary
+   */
+  classification?: MassiveSDKModelClassificationSummary;
+  /**
+   *
+   * @type {string}
+   * @memberof MassiveSDKModelItemSummary
+   */
+  path?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof MassiveSDKModelItemSummary
+   */
+  watchPath?: string;
+  /**
+   *
+   * @type {Array<string>}
+   * @memberof MassiveSDKModelItemSummary
+   */
+  scopes?: Array<string>;
+  /**
+   *
+   * @type {number}
+   * @memberof MassiveSDKModelItemSummary
+   */
+  releaseYear?: number;
+  /**
+   *
+   * @type {number}
+   * @memberof MassiveSDKModelItemSummary
+   */
+  episodeCount?: number;
+  /**
+   *
+   * @type {number}
+   * @memberof MassiveSDKModelItemSummary
+   */
+  availableEpisodeCount?: number;
+  /**
+   *
+   * @type {number}
+   * @memberof MassiveSDKModelItemSummary
+   */
+  availableSeasonCount?: number;
+  /**
+   *
+   * @type {number}
+   * @memberof MassiveSDKModelItemSummary
+   */
+  seasonNumber?: number;
+  /**
+   *
+   * @type {number}
+   * @memberof MassiveSDKModelItemSummary
+   */
+  episodeNumber?: number;
+  /**
+   *
+   * @type {string}
+   * @memberof MassiveSDKModelItemSummary
+   */
+  episodeName?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof MassiveSDKModelItemSummary
+   */
+  showId?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof MassiveSDKModelItemSummary
+   */
+  showTitle?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof MassiveSDKModelItemSummary
+   */
+  seasonId?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof MassiveSDKModelItemSummary
+   */
+  seasonTitle?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof MassiveSDKModelItemSummary
+   */
+  channelShortCode?: string;
+  /**
+   *
+   * @type {boolean}
+   * @memberof MassiveSDKModelItemSummary
+   */
+  hasClosedCaptions?: boolean;
+  /**
+   *
+   * @type {number}
+   * @memberof MassiveSDKModelItemSummary
+   */
+  averageUserRating?: number;
+  /**
+   *
+   * @type {string}
+   * @memberof MassiveSDKModelItemSummary
+   */
+  badge?: string;
+  /**
+   *
+   * @type {Array<string>}
+   * @memberof MassiveSDKModelItemSummary
+   */
+  genres?: Array<string>;
+  /**
+   *
+   * @type {number}
+   * @memberof MassiveSDKModelItemSummary
+   */
+  duration?: number;
+  /**
+   *
+   * @type {string}
+   * @memberof MassiveSDKModelItemSummary
+   */
+  customId?: string;
+  /**
+   *
+   * @type {Array<MassiveSDKModelOffer>}
+   * @memberof MassiveSDKModelItemSummary
+   */
+  offers?: Array<MassiveSDKModelOffer>;
+  /**
+   *
+   * @type {{ [key: string]: string; }}
+   * @memberof MassiveSDKModelItemSummary
+   */
+  images?: { [key: string]: string };
+  /**
+   *
+   * @type {Array<MassiveSDKModelTheme>}
+   * @memberof MassiveSDKModelItemSummary
+   */
+  themes?: Array<MassiveSDKModelTheme>;
+  /**
+   *
+   * @type {any}
+   * @memberof MassiveSDKModelItemSummary
+   */
+  customFields?: any;
+  /**
+   *
+   * @type {MassiveSDKModelShow}
+   * @memberof MassiveSDKModelItemSummary
+   */
+  show?: MassiveSDKModelShow;
+  /**
+   *
+   * @type {MassiveSDKModelEpisodes}
+   * @memberof MassiveSDKModelItemSummary
+   */
+  episodes?: MassiveSDKModelEpisodes;
+  /**
+   *
+   * @type {MassiveSDKModelItemSummary}
+   * @memberof MassiveSDKModelItemSummary
+   */
+  season?: MassiveSDKModelItemSummary;
+  /**
+   *
+   * @type {Array<MassiveSDKModelCredit>}
+   * @memberof MassiveSDKModelItemSummary
+   */
+  credits?: Array<MassiveSDKModelCredit>;
+  /**
+   *
+   * @type {Array<any>}
+   * @memberof MassiveSDKModelItemSummary
+   */
+  vams?: Array<any>;
 }
 
 /**
@@ -2763,21 +3080,21 @@ export interface MassiveSDKModelItemSummary {
  * @namespace MassiveSDKModelItemSummary
  */
 export namespace MassiveSDKModelItemSummary {
-    /**
-     * @export
-     * @enum {string}
-     */
-    export enum TypeEnum {
-        Movie = <any> 'movie',
-        Show = <any> 'show',
-        Season = <any> 'season',
-        Episode = <any> 'episode',
-        Program = <any> 'program',
-        Link = <any> 'link',
-        Trailer = <any> 'trailer',
-        Channel = <any> 'channel',
-        CustomAsset = <any> 'customAsset'
-    }
+  /**
+   * @export
+   * @enum {string}
+   */
+  export enum TypeEnum {
+    Movie = <any>'movie',
+    Show = <any>'show',
+    Season = <any>'season',
+    Episode = <any>'episode',
+    Program = <any>'program',
+    Link = <any>'link',
+    Trailer = <any>'trailer',
+    Channel = <any>'channel',
+    CustomAsset = <any>'customAsset',
+  }
 }
 
 /**
@@ -2786,12 +3103,12 @@ export namespace MassiveSDKModelItemSummary {
  * @interface MassiveSDKModelListData
  */
 export interface MassiveSDKModelListData {
-    /**
-     *
-     * @type {MassiveSDKModelContinueWatchingListData}
-     * @memberof MassiveSDKModelListData
-     */
-    continueWatching?: MassiveSDKModelContinueWatchingListData;
+  /**
+   *
+   * @type {MassiveSDKModelContinueWatchingListData}
+   * @memberof MassiveSDKModelListData
+   */
+  continueWatching?: MassiveSDKModelContinueWatchingListData;
 }
 
 /**
@@ -2800,12 +3117,12 @@ export interface MassiveSDKModelListData {
  * @interface MassiveSDKModelMedia
  */
 export interface MassiveSDKModelMedia {
-    /**
-     *
-     * @type {number}
-     * @memberof MassiveSDKModelMedia
-     */
-    duration?: number;
+  /**
+   *
+   * @type {number}
+   * @memberof MassiveSDKModelMedia
+   */
+  duration?: number;
 }
 
 /**
@@ -2814,36 +3131,36 @@ export interface MassiveSDKModelMedia {
  * @interface MassiveSDKModelNextPlaybackItem
  */
 export interface MassiveSDKModelNextPlaybackItem {
-    /**
-     *
-     * @type {string}
-     * @memberof MassiveSDKModelNextPlaybackItem
-     */
-    suggestionType?: MassiveSDKModelNextPlaybackItem.SuggestionTypeEnum;
-    /**
-     *
-     * @type {string}
-     * @memberof MassiveSDKModelNextPlaybackItem
-     */
-    sourceItemId?: string;
-    /**
-     *
-     * @type {Date}
-     * @memberof MassiveSDKModelNextPlaybackItem
-     */
-    firstWatchedDate?: Date;
-    /**
-     *
-     * @type {Date}
-     * @memberof MassiveSDKModelNextPlaybackItem
-     */
-    lastWatchedDate?: Date;
-    /**
-     *
-     * @type {MassiveSDKModelItemDetail}
-     * @memberof MassiveSDKModelNextPlaybackItem
-     */
-    next?: MassiveSDKModelItemDetail;
+  /**
+   *
+   * @type {string}
+   * @memberof MassiveSDKModelNextPlaybackItem
+   */
+  suggestionType?: MassiveSDKModelNextPlaybackItem.SuggestionTypeEnum;
+  /**
+   *
+   * @type {string}
+   * @memberof MassiveSDKModelNextPlaybackItem
+   */
+  sourceItemId?: string;
+  /**
+   *
+   * @type {Date}
+   * @memberof MassiveSDKModelNextPlaybackItem
+   */
+  firstWatchedDate?: Date;
+  /**
+   *
+   * @type {Date}
+   * @memberof MassiveSDKModelNextPlaybackItem
+   */
+  lastWatchedDate?: Date;
+  /**
+   *
+   * @type {MassiveSDKModelItemDetail}
+   * @memberof MassiveSDKModelNextPlaybackItem
+   */
+  next?: MassiveSDKModelItemDetail;
 }
 
 /**
@@ -2851,17 +3168,17 @@ export interface MassiveSDKModelNextPlaybackItem {
  * @namespace MassiveSDKModelNextPlaybackItem
  */
 export namespace MassiveSDKModelNextPlaybackItem {
-    /**
-     * @export
-     * @enum {string}
-     */
-    export enum SuggestionTypeEnum {
-        StartWatching = <any> 'StartWatching',
-        ContinueWatching = <any> 'ContinueWatching',
-        RestartWatching = <any> 'RestartWatching',
-        Sequential = <any> 'Sequential',
-        None = <any> 'None'
-    }
+  /**
+   * @export
+   * @enum {string}
+   */
+  export enum SuggestionTypeEnum {
+    StartWatching = <any>'StartWatching',
+    ContinueWatching = <any>'ContinueWatching',
+    RestartWatching = <any>'RestartWatching',
+    Sequential = <any>'Sequential',
+    None = <any>'None',
+  }
 }
 
 /**
@@ -2870,108 +3187,108 @@ export namespace MassiveSDKModelNextPlaybackItem {
  * @interface MassiveSDKModelOffer
  */
 export interface MassiveSDKModelOffer {
-    /**
-     *
-     * @type {string}
-     * @memberof MassiveSDKModelOffer
-     */
-    deliveryType?: MassiveSDKModelOffer.DeliveryTypeEnum;
-    /**
-     *
-     * @type {string}
-     * @memberof MassiveSDKModelOffer
-     */
-    resolution?: MassiveSDKModelOffer.ResolutionEnum;
-    /**
-     *
-     * @type {string}
-     * @memberof MassiveSDKModelOffer
-     */
-    ownership?: MassiveSDKModelOffer.OwnershipEnum;
-    /**
-     *
-     * @type {string}
-     * @memberof MassiveSDKModelOffer
-     */
-    availability?: MassiveSDKModelOffer.AvailabilityEnum;
-    /**
-     *
-     * @type {Array<string>}
-     * @memberof MassiveSDKModelOffer
-     */
-    scopes?: Array<string>;
-    /**
-     *
-     * @type {number}
-     * @memberof MassiveSDKModelOffer
-     */
-    maxPlays?: number;
-    /**
-     *
-     * @type {number}
-     * @memberof MassiveSDKModelOffer
-     */
-    maxDownloads?: number;
-    /**
-     *
-     * @type {number}
-     * @memberof MassiveSDKModelOffer
-     */
-    rentalPeriod?: number;
-    /**
-     *
-     * @type {number}
-     * @memberof MassiveSDKModelOffer
-     */
-    playPeriod?: number;
-    /**
-     *
-     * @type {Array<MassiveSDKModelExclusionRule>}
-     * @memberof MassiveSDKModelOffer
-     */
-    exclusionRules?: Array<MassiveSDKModelExclusionRule>;
-    /**
-     *
-     * @type {string}
-     * @memberof MassiveSDKModelOffer
-     */
-    id?: string;
-    /**
-     *
-     * @type {string}
-     * @memberof MassiveSDKModelOffer
-     */
-    name?: string;
-    /**
-     *
-     * @type {number}
-     * @memberof MassiveSDKModelOffer
-     */
-    price?: number;
-    /**
-     *
-     * @type {Date}
-     * @memberof MassiveSDKModelOffer
-     */
-    startDate?: Date;
-    /**
-     *
-     * @type {Date}
-     * @memberof MassiveSDKModelOffer
-     */
-    endDate?: Date;
-    /**
-     *
-     * @type {string}
-     * @memberof MassiveSDKModelOffer
-     */
-    subscriptionCode?: string;
-    /**
-     *
-     * @type {any}
-     * @memberof MassiveSDKModelOffer
-     */
-    customFields?: any;
+  /**
+   *
+   * @type {string}
+   * @memberof MassiveSDKModelOffer
+   */
+  deliveryType?: MassiveSDKModelOffer.DeliveryTypeEnum;
+  /**
+   *
+   * @type {string}
+   * @memberof MassiveSDKModelOffer
+   */
+  resolution?: MassiveSDKModelOffer.ResolutionEnum;
+  /**
+   *
+   * @type {string}
+   * @memberof MassiveSDKModelOffer
+   */
+  ownership?: MassiveSDKModelOffer.OwnershipEnum;
+  /**
+   *
+   * @type {string}
+   * @memberof MassiveSDKModelOffer
+   */
+  availability?: MassiveSDKModelOffer.AvailabilityEnum;
+  /**
+   *
+   * @type {Array<string>}
+   * @memberof MassiveSDKModelOffer
+   */
+  scopes?: Array<string>;
+  /**
+   *
+   * @type {number}
+   * @memberof MassiveSDKModelOffer
+   */
+  maxPlays?: number;
+  /**
+   *
+   * @type {number}
+   * @memberof MassiveSDKModelOffer
+   */
+  maxDownloads?: number;
+  /**
+   *
+   * @type {number}
+   * @memberof MassiveSDKModelOffer
+   */
+  rentalPeriod?: number;
+  /**
+   *
+   * @type {number}
+   * @memberof MassiveSDKModelOffer
+   */
+  playPeriod?: number;
+  /**
+   *
+   * @type {Array<MassiveSDKModelExclusionRule>}
+   * @memberof MassiveSDKModelOffer
+   */
+  exclusionRules?: Array<MassiveSDKModelExclusionRule>;
+  /**
+   *
+   * @type {string}
+   * @memberof MassiveSDKModelOffer
+   */
+  id?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof MassiveSDKModelOffer
+   */
+  name?: string;
+  /**
+   *
+   * @type {number}
+   * @memberof MassiveSDKModelOffer
+   */
+  price?: number;
+  /**
+   *
+   * @type {Date}
+   * @memberof MassiveSDKModelOffer
+   */
+  startDate?: Date;
+  /**
+   *
+   * @type {Date}
+   * @memberof MassiveSDKModelOffer
+   */
+  endDate?: Date;
+  /**
+   *
+   * @type {string}
+   * @memberof MassiveSDKModelOffer
+   */
+  subscriptionCode?: string;
+  /**
+   *
+   * @type {any}
+   * @memberof MassiveSDKModelOffer
+   */
+  customFields?: any;
 }
 
 /**
@@ -2979,48 +3296,48 @@ export interface MassiveSDKModelOffer {
  * @namespace MassiveSDKModelOffer
  */
 export namespace MassiveSDKModelOffer {
-    /**
-     * @export
-     * @enum {string}
-     */
-    export enum DeliveryTypeEnum {
-        Stream = <any> 'Stream',
-        Download = <any> 'Download',
-        StreamOrDownload = <any> 'StreamOrDownload',
-        ProgressiveDownload = <any> 'ProgressiveDownload',
-        None = <any> 'None'
-    }
-    /**
-     * @export
-     * @enum {string}
-     */
-    export enum ResolutionEnum {
-        SD = <any> 'SD',
-        HD720 = <any> 'HD-720',
-        HD1080 = <any> 'HD-1080',
-        HD4K = <any> 'HD-4K',
-        External = <any> 'External',
-        Unknown = <any> 'Unknown'
-    }
-    /**
-     * @export
-     * @enum {string}
-     */
-    export enum OwnershipEnum {
-        Subscription = <any> 'Subscription',
-        Free = <any> 'Free',
-        Rent = <any> 'Rent',
-        Own = <any> 'Own',
-        None = <any> 'None'
-    }
-    /**
-     * @export
-     * @enum {string}
-     */
-    export enum AvailabilityEnum {
-        Available = <any> 'Available',
-        ComingSoon = <any> 'ComingSoon'
-    }
+  /**
+   * @export
+   * @enum {string}
+   */
+  export enum DeliveryTypeEnum {
+    Stream = <any>'Stream',
+    Download = <any>'Download',
+    StreamOrDownload = <any>'StreamOrDownload',
+    ProgressiveDownload = <any>'ProgressiveDownload',
+    None = <any>'None',
+  }
+  /**
+   * @export
+   * @enum {string}
+   */
+  export enum ResolutionEnum {
+    SD = <any>'SD',
+    HD720 = <any>'HD-720',
+    HD1080 = <any>'HD-1080',
+    HD4K = <any>'HD-4K',
+    External = <any>'External',
+    Unknown = <any>'Unknown',
+  }
+  /**
+   * @export
+   * @enum {string}
+   */
+  export enum OwnershipEnum {
+    Subscription = <any>'Subscription',
+    Free = <any>'Free',
+    Rent = <any>'Rent',
+    Own = <any>'Own',
+    None = <any>'None',
+  }
+  /**
+   * @export
+   * @enum {string}
+   */
+  export enum AvailabilityEnum {
+    Available = <any>'Available',
+    ComingSoon = <any>'ComingSoon',
+  }
 }
 
 /**
@@ -3029,12 +3346,12 @@ export namespace MassiveSDKModelOffer {
  * @interface MassiveSDKModelOptions
  */
 export interface MassiveSDKModelOptions {
-    /**
-     *
-     * @type {number}
-     * @memberof MassiveSDKModelOptions
-     */
-    pageSize?: number;
+  /**
+   *
+   * @type {number}
+   * @memberof MassiveSDKModelOptions
+   */
+  pageSize?: number;
 }
 
 /**
@@ -3043,48 +3360,48 @@ export interface MassiveSDKModelOptions {
  * @interface MassiveSDKModelPagination
  */
 export interface MassiveSDKModelPagination {
-    /**
-     *
-     * @type {string}
-     * @memberof MassiveSDKModelPagination
-     */
-    next?: string;
-    /**
-     *
-     * @type {string}
-     * @memberof MassiveSDKModelPagination
-     */
-    previous?: string;
-    /**
-     *
-     * @type {number}
-     * @memberof MassiveSDKModelPagination
-     */
-    page?: number;
-    /**
-     *
-     * @type {number}
-     * @memberof MassiveSDKModelPagination
-     */
-    size?: number;
-    /**
-     *
-     * @type {number}
-     * @memberof MassiveSDKModelPagination
-     */
-    total?: number;
-    /**
-     *
-     * @type {MassiveSDKModelPaginationAuth}
-     * @memberof MassiveSDKModelPagination
-     */
-    authorization?: MassiveSDKModelPaginationAuth;
-    /**
-     *
-     * @type {MassiveSDKModelPaginationOptions}
-     * @memberof MassiveSDKModelPagination
-     */
-    options?: MassiveSDKModelPaginationOptions;
+  /**
+   *
+   * @type {string}
+   * @memberof MassiveSDKModelPagination
+   */
+  next?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof MassiveSDKModelPagination
+   */
+  previous?: string;
+  /**
+   *
+   * @type {number}
+   * @memberof MassiveSDKModelPagination
+   */
+  page?: number;
+  /**
+   *
+   * @type {number}
+   * @memberof MassiveSDKModelPagination
+   */
+  size?: number;
+  /**
+   *
+   * @type {number}
+   * @memberof MassiveSDKModelPagination
+   */
+  total?: number;
+  /**
+   *
+   * @type {MassiveSDKModelPaginationAuth}
+   * @memberof MassiveSDKModelPagination
+   */
+  authorization?: MassiveSDKModelPaginationAuth;
+  /**
+   *
+   * @type {MassiveSDKModelPaginationOptions}
+   * @memberof MassiveSDKModelPagination
+   */
+  options?: MassiveSDKModelPaginationOptions;
 }
 
 /**
@@ -3093,18 +3410,18 @@ export interface MassiveSDKModelPagination {
  * @interface MassiveSDKModelPaginationAuth
  */
 export interface MassiveSDKModelPaginationAuth {
-    /**
-     *
-     * @type {string}
-     * @memberof MassiveSDKModelPaginationAuth
-     */
-    type?: MassiveSDKModelPaginationAuth.TypeEnum;
-    /**
-     *
-     * @type {string}
-     * @memberof MassiveSDKModelPaginationAuth
-     */
-    scope?: MassiveSDKModelPaginationAuth.ScopeEnum;
+  /**
+   *
+   * @type {string}
+   * @memberof MassiveSDKModelPaginationAuth
+   */
+  type?: MassiveSDKModelPaginationAuth.TypeEnum;
+  /**
+   *
+   * @type {string}
+   * @memberof MassiveSDKModelPaginationAuth
+   */
+  scope?: MassiveSDKModelPaginationAuth.ScopeEnum;
 }
 
 /**
@@ -3112,23 +3429,23 @@ export interface MassiveSDKModelPaginationAuth {
  * @namespace MassiveSDKModelPaginationAuth
  */
 export namespace MassiveSDKModelPaginationAuth {
-    /**
-     * @export
-     * @enum {string}
-     */
-    export enum TypeEnum {
-        UserAccount = <any> 'UserAccount',
-        UserProfile = <any> 'UserProfile'
-    }
-    /**
-     * @export
-     * @enum {string}
-     */
-    export enum ScopeEnum {
-        Catalog = <any> 'Catalog',
-        Commerce = <any> 'Commerce',
-        Settings = <any> 'Settings'
-    }
+  /**
+   * @export
+   * @enum {string}
+   */
+  export enum TypeEnum {
+    UserAccount = <any>'UserAccount',
+    UserProfile = <any>'UserProfile',
+  }
+  /**
+   * @export
+   * @enum {string}
+   */
+  export enum ScopeEnum {
+    Catalog = <any>'Catalog',
+    Commerce = <any>'Commerce',
+    Settings = <any>'Settings',
+  }
 }
 
 /**
@@ -3137,42 +3454,42 @@ export namespace MassiveSDKModelPaginationAuth {
  * @interface MassiveSDKModelPaginationOptions
  */
 export interface MassiveSDKModelPaginationOptions {
-    /**
-     *
-     * @type {string}
-     * @memberof MassiveSDKModelPaginationOptions
-     */
-    order?: MassiveSDKModelPaginationOptions.OrderEnum;
-    /**
-     *
-     * @type {string}
-     * @memberof MassiveSDKModelPaginationOptions
-     */
-    orderBy?: MassiveSDKModelPaginationOptions.OrderByEnum;
-    /**
-     *
-     * @type {string}
-     * @memberof MassiveSDKModelPaginationOptions
-     */
-    itemType?: MassiveSDKModelPaginationOptions.ItemTypeEnum;
-    /**
-     *
-     * @type {number}
-     * @memberof MassiveSDKModelPaginationOptions
-     */
-    pageSize?: number;
-    /**
-     *
-     * @type {string}
-     * @memberof MassiveSDKModelPaginationOptions
-     */
-    maxRating?: string;
-    /**
-     *
-     * @type {boolean}
-     * @memberof MassiveSDKModelPaginationOptions
-     */
-    completed?: boolean;
+  /**
+   *
+   * @type {string}
+   * @memberof MassiveSDKModelPaginationOptions
+   */
+  order?: MassiveSDKModelPaginationOptions.OrderEnum;
+  /**
+   *
+   * @type {string}
+   * @memberof MassiveSDKModelPaginationOptions
+   */
+  orderBy?: MassiveSDKModelPaginationOptions.OrderByEnum;
+  /**
+   *
+   * @type {string}
+   * @memberof MassiveSDKModelPaginationOptions
+   */
+  itemType?: MassiveSDKModelPaginationOptions.ItemTypeEnum;
+  /**
+   *
+   * @type {number}
+   * @memberof MassiveSDKModelPaginationOptions
+   */
+  pageSize?: number;
+  /**
+   *
+   * @type {string}
+   * @memberof MassiveSDKModelPaginationOptions
+   */
+  maxRating?: string;
+  /**
+   *
+   * @type {boolean}
+   * @memberof MassiveSDKModelPaginationOptions
+   */
+  completed?: boolean;
 }
 
 /**
@@ -3180,38 +3497,38 @@ export interface MassiveSDKModelPaginationOptions {
  * @namespace MassiveSDKModelPaginationOptions
  */
 export namespace MassiveSDKModelPaginationOptions {
-    /**
-     * @export
-     * @enum {string}
-     */
-    export enum OrderEnum {
-        Asc = <any> 'asc',
-        Desc = <any> 'desc'
-    }
-    /**
-     * @export
-     * @enum {string}
-     */
-    export enum OrderByEnum {
-        AZ = <any> 'a-z',
-        ReleaseYear = <any> 'release-year',
-        DateAdded = <any> 'date-added'
-    }
-    /**
-     * @export
-     * @enum {string}
-     */
-    export enum ItemTypeEnum {
-        Movie = <any> 'movie',
-        Show = <any> 'show',
-        Season = <any> 'season',
-        Episode = <any> 'episode',
-        Program = <any> 'program',
-        Link = <any> 'link',
-        Trailer = <any> 'trailer',
-        Channel = <any> 'channel',
-        CustomAsset = <any> 'customAsset'
-    }
+  /**
+   * @export
+   * @enum {string}
+   */
+  export enum OrderEnum {
+    Asc = <any>'asc',
+    Desc = <any>'desc',
+  }
+  /**
+   * @export
+   * @enum {string}
+   */
+  export enum OrderByEnum {
+    AZ = <any>'a-z',
+    ReleaseYear = <any>'release-year',
+    DateAdded = <any>'date-added',
+  }
+  /**
+   * @export
+   * @enum {string}
+   */
+  export enum ItemTypeEnum {
+    Movie = <any>'movie',
+    Show = <any>'show',
+    Season = <any>'season',
+    Episode = <any>'episode',
+    Program = <any>'program',
+    Link = <any>'link',
+    Trailer = <any>'trailer',
+    Channel = <any>'channel',
+    CustomAsset = <any>'customAsset',
+  }
 }
 
 /**
@@ -3220,30 +3537,30 @@ export namespace MassiveSDKModelPaginationOptions {
  * @interface MassiveSDKModelPaging
  */
 export interface MassiveSDKModelPaging {
-    /**
-     *
-     * @type {number}
-     * @memberof MassiveSDKModelPaging
-     */
-    total?: number;
-    /**
-     *
-     * @type {number}
-     * @memberof MassiveSDKModelPaging
-     */
-    page?: number;
-    /**
-     *
-     * @type {number}
-     * @memberof MassiveSDKModelPaging
-     */
-    size?: number;
-    /**
-     *
-     * @type {MassiveSDKModelOptions}
-     * @memberof MassiveSDKModelPaging
-     */
-    options?: MassiveSDKModelOptions;
+  /**
+   *
+   * @type {number}
+   * @memberof MassiveSDKModelPaging
+   */
+  total?: number;
+  /**
+   *
+   * @type {number}
+   * @memberof MassiveSDKModelPaging
+   */
+  page?: number;
+  /**
+   *
+   * @type {number}
+   * @memberof MassiveSDKModelPaging
+   */
+  size?: number;
+  /**
+   *
+   * @type {MassiveSDKModelOptions}
+   * @memberof MassiveSDKModelPaging
+   */
+  options?: MassiveSDKModelOptions;
 }
 
 /**
@@ -3252,36 +3569,36 @@ export interface MassiveSDKModelPaging {
  * @interface MassiveSDKModelSeasons
  */
 export interface MassiveSDKModelSeasons {
-    /**
-     *
-     * @type {string}
-     * @memberof MassiveSDKModelSeasons
-     */
-    id?: string;
-    /**
-     *
-     * @type {string}
-     * @memberof MassiveSDKModelSeasons
-     */
-    path?: string;
-    /**
-     *
-     * @type {Array<MassiveSDKModelSeasonsItem>}
-     * @memberof MassiveSDKModelSeasons
-     */
-    items?: Array<MassiveSDKModelSeasonsItem>;
-    /**
-     *
-     * @type {number}
-     * @memberof MassiveSDKModelSeasons
-     */
-    size?: number;
-    /**
-     *
-     * @type {MassiveSDKModelPaging}
-     * @memberof MassiveSDKModelSeasons
-     */
-    paging?: MassiveSDKModelPaging;
+  /**
+   *
+   * @type {string}
+   * @memberof MassiveSDKModelSeasons
+   */
+  id?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof MassiveSDKModelSeasons
+   */
+  path?: string;
+  /**
+   *
+   * @type {Array<MassiveSDKModelSeasonsItem>}
+   * @memberof MassiveSDKModelSeasons
+   */
+  items?: Array<MassiveSDKModelSeasonsItem>;
+  /**
+   *
+   * @type {number}
+   * @memberof MassiveSDKModelSeasons
+   */
+  size?: number;
+  /**
+   *
+   * @type {MassiveSDKModelPaging}
+   * @memberof MassiveSDKModelSeasons
+   */
+  paging?: MassiveSDKModelPaging;
 }
 
 /**
@@ -3290,144 +3607,144 @@ export interface MassiveSDKModelSeasons {
  * @interface MassiveSDKModelSeasonsItem
  */
 export interface MassiveSDKModelSeasonsItem {
-    /**
-     *
-     * @type {{ [key: string]: string; }}
-     * @memberof MassiveSDKModelSeasonsItem
-     */
-    images?: { [key: string]: string; };
-    /**
-     *
-     * @type {number}
-     * @memberof MassiveSDKModelSeasonsItem
-     */
-    releaseYear?: number;
-    /**
-     *
-     * @type {number}
-     * @memberof MassiveSDKModelSeasonsItem
-     */
-    availableEpisodeCount?: number;
-    /**
-     *
-     * @type {number}
-     * @memberof MassiveSDKModelSeasonsItem
-     */
-    seasonNumber?: number;
-    /**
-     *
-     * @type {string}
-     * @memberof MassiveSDKModelSeasonsItem
-     */
-    showId?: string;
-    /**
-     *
-     * @type {number}
-     * @memberof MassiveSDKModelSeasonsItem
-     */
-    episodeCount?: number;
-    /**
-     *
-     * @type {Array<MassiveSDKModelOffer>}
-     * @memberof MassiveSDKModelSeasonsItem
-     */
-    offers?: Array<MassiveSDKModelOffer>;
-    /**
-     *
-     * @type {Array<string>}
-     * @memberof MassiveSDKModelSeasonsItem
-     */
-    scopes?: Array<string>;
-    /**
-     *
-     * @type {Array<string>}
-     * @memberof MassiveSDKModelSeasonsItem
-     */
-    categories?: Array<string>;
-    /**
-     *
-     * @type {any}
-     * @memberof MassiveSDKModelSeasonsItem
-     */
-    customFields?: any;
-    /**
-     *
-     * @type {string}
-     * @memberof MassiveSDKModelSeasonsItem
-     */
-    customId?: string;
-    /**
-     *
-     * @type {Array<string>}
-     * @memberof MassiveSDKModelSeasonsItem
-     */
-    genres?: Array<string>;
-    /**
-     *
-     * @type {string}
-     * @memberof MassiveSDKModelSeasonsItem
-     */
-    id?: string;
-    /**
-     *
-     * @type {string}
-     * @memberof MassiveSDKModelSeasonsItem
-     */
-    type?: string;
-    /**
-     *
-     * @type {Date}
-     * @memberof MassiveSDKModelSeasonsItem
-     */
-    maximumOfferEnd?: Date;
-    /**
-     *
-     * @type {Array<any>}
-     * @memberof MassiveSDKModelSeasonsItem
-     */
-    media?: Array<any>;
-    /**
-     *
-     * @type {string}
-     * @memberof MassiveSDKModelSeasonsItem
-     */
-    shortDescription?: string;
-    /**
-     *
-     * @type {string}
-     * @memberof MassiveSDKModelSeasonsItem
-     */
-    contextualTitle?: string;
-    /**
-     *
-     * @type {string}
-     * @memberof MassiveSDKModelSeasonsItem
-     */
-    title?: string;
-    /**
-     *
-     * @type {MassiveSDKModelClassification}
-     * @memberof MassiveSDKModelSeasonsItem
-     */
-    classification?: MassiveSDKModelClassification;
-    /**
-     *
-     * @type {number}
-     * @memberof MassiveSDKModelSeasonsItem
-     */
-    totalUserRatings?: number;
-    /**
-     *
-     * @type {string}
-     * @memberof MassiveSDKModelSeasonsItem
-     */
-    path?: string;
-    /**
-     *
-     * @type {string}
-     * @memberof MassiveSDKModelSeasonsItem
-     */
-    showTitle?: string;
+  /**
+   *
+   * @type {{ [key: string]: string; }}
+   * @memberof MassiveSDKModelSeasonsItem
+   */
+  images?: { [key: string]: string };
+  /**
+   *
+   * @type {number}
+   * @memberof MassiveSDKModelSeasonsItem
+   */
+  releaseYear?: number;
+  /**
+   *
+   * @type {number}
+   * @memberof MassiveSDKModelSeasonsItem
+   */
+  availableEpisodeCount?: number;
+  /**
+   *
+   * @type {number}
+   * @memberof MassiveSDKModelSeasonsItem
+   */
+  seasonNumber?: number;
+  /**
+   *
+   * @type {string}
+   * @memberof MassiveSDKModelSeasonsItem
+   */
+  showId?: string;
+  /**
+   *
+   * @type {number}
+   * @memberof MassiveSDKModelSeasonsItem
+   */
+  episodeCount?: number;
+  /**
+   *
+   * @type {Array<MassiveSDKModelOffer>}
+   * @memberof MassiveSDKModelSeasonsItem
+   */
+  offers?: Array<MassiveSDKModelOffer>;
+  /**
+   *
+   * @type {Array<string>}
+   * @memberof MassiveSDKModelSeasonsItem
+   */
+  scopes?: Array<string>;
+  /**
+   *
+   * @type {Array<string>}
+   * @memberof MassiveSDKModelSeasonsItem
+   */
+  categories?: Array<string>;
+  /**
+   *
+   * @type {any}
+   * @memberof MassiveSDKModelSeasonsItem
+   */
+  customFields?: any;
+  /**
+   *
+   * @type {string}
+   * @memberof MassiveSDKModelSeasonsItem
+   */
+  customId?: string;
+  /**
+   *
+   * @type {Array<string>}
+   * @memberof MassiveSDKModelSeasonsItem
+   */
+  genres?: Array<string>;
+  /**
+   *
+   * @type {string}
+   * @memberof MassiveSDKModelSeasonsItem
+   */
+  id?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof MassiveSDKModelSeasonsItem
+   */
+  type?: string;
+  /**
+   *
+   * @type {Date}
+   * @memberof MassiveSDKModelSeasonsItem
+   */
+  maximumOfferEnd?: Date;
+  /**
+   *
+   * @type {Array<any>}
+   * @memberof MassiveSDKModelSeasonsItem
+   */
+  media?: Array<any>;
+  /**
+   *
+   * @type {string}
+   * @memberof MassiveSDKModelSeasonsItem
+   */
+  shortDescription?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof MassiveSDKModelSeasonsItem
+   */
+  contextualTitle?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof MassiveSDKModelSeasonsItem
+   */
+  title?: string;
+  /**
+   *
+   * @type {MassiveSDKModelClassification}
+   * @memberof MassiveSDKModelSeasonsItem
+   */
+  classification?: MassiveSDKModelClassification;
+  /**
+   *
+   * @type {number}
+   * @memberof MassiveSDKModelSeasonsItem
+   */
+  totalUserRatings?: number;
+  /**
+   *
+   * @type {string}
+   * @memberof MassiveSDKModelSeasonsItem
+   */
+  path?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof MassiveSDKModelSeasonsItem
+   */
+  showTitle?: string;
 }
 
 /**
@@ -3436,168 +3753,168 @@ export interface MassiveSDKModelSeasonsItem {
  * @interface MassiveSDKModelShow
  */
 export interface MassiveSDKModelShow {
-    /**
-     *
-     * @type {{ [key: string]: string; }}
-     * @memberof MassiveSDKModelShow
-     */
-    images?: { [key: string]: string; };
-    /**
-     *
-     * @type {string}
-     * @memberof MassiveSDKModelShow
-     */
-    advisoryText?: string;
-    /**
-     *
-     * @type {string}
-     * @memberof MassiveSDKModelShow
-     */
-    copyright?: string;
-    /**
-     *
-     * @type {Array<MassiveSDKModelCredit>}
-     * @memberof MassiveSDKModelShow
-     */
-    credits?: Array<MassiveSDKModelCredit>;
-    /**
-     *
-     * @type {Array<any>}
-     * @memberof MassiveSDKModelShow
-     */
-    customMetadata?: Array<any>;
-    /**
-     *
-     * @type {string}
-     * @memberof MassiveSDKModelShow
-     */
-    distributor?: string;
-    /**
-     *
-     * @type {number}
-     * @memberof MassiveSDKModelShow
-     */
-    availableSeasonCount?: number;
-    /**
-     *
-     * @type {Array<MassiveSDKModelOffer>}
-     * @memberof MassiveSDKModelShow
-     */
-    offers?: Array<MassiveSDKModelOffer>;
-    /**
-     *
-     * @type {Array<any>}
-     * @memberof MassiveSDKModelShow
-     */
-    trailers?: Array<any>;
-    /**
-     *
-     * @type {Array<any>}
-     * @memberof MassiveSDKModelShow
-     */
-    vams?: Array<any>;
-    /**
-     *
-     * @type {Array<string>}
-     * @memberof MassiveSDKModelShow
-     */
-    scopes?: Array<string>;
-    /**
-     *
-     * @type {Array<string>}
-     * @memberof MassiveSDKModelShow
-     */
-    categories?: Array<string>;
-    /**
-     *
-     * @type {any}
-     * @memberof MassiveSDKModelShow
-     */
-    customFields?: any;
-    /**
-     *
-     * @type {string}
-     * @memberof MassiveSDKModelShow
-     */
-    customId?: string;
-    /**
-     *
-     * @type {Array<string>}
-     * @memberof MassiveSDKModelShow
-     */
-    genres?: Array<string>;
-    /**
-     *
-     * @type {string}
-     * @memberof MassiveSDKModelShow
-     */
-    id?: string;
-    /**
-     *
-     * @type {string}
-     * @memberof MassiveSDKModelShow
-     */
-    type?: string;
-    /**
-     *
-     * @type {string}
-     * @memberof MassiveSDKModelShow
-     */
-    description?: string;
-    /**
-     *
-     * @type {Date}
-     * @memberof MassiveSDKModelShow
-     */
-    maximumOfferEnd?: Date;
-    /**
-     *
-     * @type {string}
-     * @memberof MassiveSDKModelShow
-     */
-    shortDescription?: string;
-    /**
-     *
-     * @type {string}
-     * @memberof MassiveSDKModelShow
-     */
-    contextualTitle?: string;
-    /**
-     *
-     * @type {Array<any>}
-     * @memberof MassiveSDKModelShow
-     */
-    themes?: Array<any>;
-    /**
-     *
-     * @type {string}
-     * @memberof MassiveSDKModelShow
-     */
-    title?: string;
-    /**
-     *
-     * @type {number}
-     * @memberof MassiveSDKModelShow
-     */
-    totalUserRatings?: number;
-    /**
-     *
-     * @type {string}
-     * @memberof MassiveSDKModelShow
-     */
-    path?: string;
-    /**
-     *
-     * @type {Array<string>}
-     * @memberof MassiveSDKModelShow
-     */
-    genrePaths?: Array<string>;
-    /**
-     *
-     * @type {MassiveSDKModelSeasons}
-     * @memberof MassiveSDKModelShow
-     */
-    seasons?: MassiveSDKModelSeasons;
+  /**
+   *
+   * @type {{ [key: string]: string; }}
+   * @memberof MassiveSDKModelShow
+   */
+  images?: { [key: string]: string };
+  /**
+   *
+   * @type {string}
+   * @memberof MassiveSDKModelShow
+   */
+  advisoryText?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof MassiveSDKModelShow
+   */
+  copyright?: string;
+  /**
+   *
+   * @type {Array<MassiveSDKModelCredit>}
+   * @memberof MassiveSDKModelShow
+   */
+  credits?: Array<MassiveSDKModelCredit>;
+  /**
+   *
+   * @type {Array<any>}
+   * @memberof MassiveSDKModelShow
+   */
+  customMetadata?: Array<any>;
+  /**
+   *
+   * @type {string}
+   * @memberof MassiveSDKModelShow
+   */
+  distributor?: string;
+  /**
+   *
+   * @type {number}
+   * @memberof MassiveSDKModelShow
+   */
+  availableSeasonCount?: number;
+  /**
+   *
+   * @type {Array<MassiveSDKModelOffer>}
+   * @memberof MassiveSDKModelShow
+   */
+  offers?: Array<MassiveSDKModelOffer>;
+  /**
+   *
+   * @type {Array<any>}
+   * @memberof MassiveSDKModelShow
+   */
+  trailers?: Array<any>;
+  /**
+   *
+   * @type {Array<any>}
+   * @memberof MassiveSDKModelShow
+   */
+  vams?: Array<any>;
+  /**
+   *
+   * @type {Array<string>}
+   * @memberof MassiveSDKModelShow
+   */
+  scopes?: Array<string>;
+  /**
+   *
+   * @type {Array<string>}
+   * @memberof MassiveSDKModelShow
+   */
+  categories?: Array<string>;
+  /**
+   *
+   * @type {any}
+   * @memberof MassiveSDKModelShow
+   */
+  customFields?: any;
+  /**
+   *
+   * @type {string}
+   * @memberof MassiveSDKModelShow
+   */
+  customId?: string;
+  /**
+   *
+   * @type {Array<string>}
+   * @memberof MassiveSDKModelShow
+   */
+  genres?: Array<string>;
+  /**
+   *
+   * @type {string}
+   * @memberof MassiveSDKModelShow
+   */
+  id?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof MassiveSDKModelShow
+   */
+  type?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof MassiveSDKModelShow
+   */
+  description?: string;
+  /**
+   *
+   * @type {Date}
+   * @memberof MassiveSDKModelShow
+   */
+  maximumOfferEnd?: Date;
+  /**
+   *
+   * @type {string}
+   * @memberof MassiveSDKModelShow
+   */
+  shortDescription?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof MassiveSDKModelShow
+   */
+  contextualTitle?: string;
+  /**
+   *
+   * @type {Array<any>}
+   * @memberof MassiveSDKModelShow
+   */
+  themes?: Array<any>;
+  /**
+   *
+   * @type {string}
+   * @memberof MassiveSDKModelShow
+   */
+  title?: string;
+  /**
+   *
+   * @type {number}
+   * @memberof MassiveSDKModelShow
+   */
+  totalUserRatings?: number;
+  /**
+   *
+   * @type {string}
+   * @memberof MassiveSDKModelShow
+   */
+  path?: string;
+  /**
+   *
+   * @type {Array<string>}
+   * @memberof MassiveSDKModelShow
+   */
+  genrePaths?: Array<string>;
+  /**
+   *
+   * @type {MassiveSDKModelSeasons}
+   * @memberof MassiveSDKModelShow
+   */
+  seasons?: MassiveSDKModelSeasons;
 }
 
 /**
@@ -3606,18 +3923,18 @@ export interface MassiveSDKModelShow {
  * @interface MassiveSDKModelTheme
  */
 export interface MassiveSDKModelTheme {
-    /**
-     *
-     * @type {string}
-     * @memberof MassiveSDKModelTheme
-     */
-    type?: MassiveSDKModelTheme.TypeEnum;
-    /**
-     *
-     * @type {Array<MassiveSDKModelThemeColor>}
-     * @memberof MassiveSDKModelTheme
-     */
-    colors?: Array<MassiveSDKModelThemeColor>;
+  /**
+   *
+   * @type {string}
+   * @memberof MassiveSDKModelTheme
+   */
+  type?: MassiveSDKModelTheme.TypeEnum;
+  /**
+   *
+   * @type {Array<MassiveSDKModelThemeColor>}
+   * @memberof MassiveSDKModelTheme
+   */
+  colors?: Array<MassiveSDKModelThemeColor>;
 }
 
 /**
@@ -3625,15 +3942,15 @@ export interface MassiveSDKModelTheme {
  * @namespace MassiveSDKModelTheme
  */
 export namespace MassiveSDKModelTheme {
-    /**
-     * @export
-     * @enum {string}
-     */
-    export enum TypeEnum {
-        Background = <any> 'Background',
-        Text = <any> 'Text',
-        Custom = <any> 'Custom'
-    }
+  /**
+   * @export
+   * @enum {string}
+   */
+  export enum TypeEnum {
+    Background = <any>'Background',
+    Text = <any>'Text',
+    Custom = <any>'Custom',
+  }
 }
 
 /**
@@ -3642,24 +3959,24 @@ export namespace MassiveSDKModelTheme {
  * @interface MassiveSDKModelThemeColor
  */
 export interface MassiveSDKModelThemeColor {
-    /**
-     *
-     * @type {string}
-     * @memberof MassiveSDKModelThemeColor
-     */
-    name?: string;
-    /**
-     *
-     * @type {number}
-     * @memberof MassiveSDKModelThemeColor
-     */
-    opacity?: number;
-    /**
-     *
-     * @type {string}
-     * @memberof MassiveSDKModelThemeColor
-     */
-    value?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof MassiveSDKModelThemeColor
+   */
+  name?: string;
+  /**
+   *
+   * @type {number}
+   * @memberof MassiveSDKModelThemeColor
+   */
+  opacity?: number;
+  /**
+   *
+   * @type {string}
+   * @memberof MassiveSDKModelThemeColor
+   */
+  value?: string;
 }
 
 /**
@@ -3668,274 +3985,536 @@ export interface MassiveSDKModelThemeColor {
  * @interface MassiveSDKModelWatched
  */
 export interface MassiveSDKModelWatched {
-    /**
-     *
-     * @type {string}
-     * @memberof MassiveSDKModelWatched
-     */
-    itemId?: string;
-    /**
-     *
-     * @type {number}
-     * @memberof MassiveSDKModelWatched
-     */
-    position?: number;
-    /**
-     *
-     * @type {Date}
-     * @memberof MassiveSDKModelWatched
-     */
-    firstWatchedDate?: Date;
-    /**
-     *
-     * @type {Date}
-     * @memberof MassiveSDKModelWatched
-     */
-    lastWatchedDate?: Date;
-    /**
-     *
-     * @type {boolean}
-     * @memberof MassiveSDKModelWatched
-     */
-    isFullyWatched?: boolean;
+  /**
+   *
+   * @type {string}
+   * @memberof MassiveSDKModelWatched
+   */
+  itemId?: string;
+  /**
+   *
+   * @type {number}
+   * @memberof MassiveSDKModelWatched
+   */
+  position?: number;
+  /**
+   *
+   * @type {Date}
+   * @memberof MassiveSDKModelWatched
+   */
+  firstWatchedDate?: Date;
+  /**
+   *
+   * @type {Date}
+   * @memberof MassiveSDKModelWatched
+   */
+  lastWatchedDate?: Date;
+  /**
+   *
+   * @type {boolean}
+   * @memberof MassiveSDKModelWatched
+   */
+  isFullyWatched?: boolean;
 }
-
 
 /**
  * AuthorizationApi - fetch parameter creator
  * @export
  */
 export const AuthorizationApiFetchParamCreator = function (configuration?: Configuration) {
-    return {
-        /**
-         *
-         * @param {BritboxAPIAccountModelsAuthorizationAuthenticateCustomerRequest} [request]
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        authenticateCustomer(request?: BritboxAPIAccountModelsAuthorizationAuthenticateCustomerRequest, options: any = {}): FetchArgs {
-            const localVarPath = `/v1/account/Authorization/authenticateCustomer`;
-            const localVarUrlObj = url.parse(localVarPath, true);
-            const localVarRequestOptions = Object.assign({ method: 'POST' }, options);
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
+  return {
+    /**
+     *
+     * @param {BritboxAPIAccountModelsAuthorizationAuthenticateCustomerRequest} [request]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    authenticateCustomer(
+      request?: BritboxAPIAccountModelsAuthorizationAuthenticateCustomerRequest,
+      options: any = {}
+    ): FetchArgs {
+      const localVarPath = `/v1/account/Authorization/authenticateCustomer`;
+      const localVarUrlObj = url.parse(localVarPath, true);
+      const localVarRequestOptions = Object.assign({ method: 'POST' }, options);
+      const localVarHeaderParameter = {} as any;
+      const localVarQueryParameter = {} as any;
 
-            // authentication AWSApiKeyAuth required
-            if (configuration && configuration.apiKey) {
-                const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("x-api-key")
-					: configuration.apiKey;
-                localVarHeaderParameter["x-api-key"] = localVarApiKeyValue;
-            }
+      // authentication AWSApiKeyAuth required
+      if (configuration && configuration.apiKey) {
+        const localVarApiKeyValue =
+          typeof configuration.apiKey === 'function'
+            ? configuration.apiKey('x-api-key')
+            : configuration.apiKey;
+        localVarHeaderParameter['x-api-key'] = localVarApiKeyValue;
+      }
 
-            // authentication JWToken required
-            if (configuration && configuration.apiKey) {
-                const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
-                localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
-            }
+      // authentication JWToken required
+      if (configuration && configuration.apiKey) {
+        const localVarApiKeyValue =
+          typeof configuration.apiKey === 'function'
+            ? configuration.apiKey('Authorization')
+            : configuration.apiKey;
+        localVarHeaderParameter['Authorization'] = localVarApiKeyValue;
+      }
 
-            localVarHeaderParameter['Content-Type'] = 'application/json-patch+json';
+      localVarHeaderParameter['Content-Type'] = 'application/json-patch+json';
 
-            localVarUrlObj.query = Object.assign({}, localVarUrlObj.query, localVarQueryParameter, options.query);
-            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-            delete localVarUrlObj.search;
-            localVarRequestOptions.headers = Object.assign({}, localVarHeaderParameter, options.headers);
-            const needsSerialization = (<any>"BritboxAPIAccountModelsAuthorizationAuthenticateCustomerRequest" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
-            localVarRequestOptions.body =  needsSerialization ? JSON.stringify(request || {}) : (request || "");
+      localVarUrlObj.query = Object.assign(
+        {},
+        localVarUrlObj.query,
+        localVarQueryParameter,
+        options.query
+      );
+      // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+      delete localVarUrlObj.search;
+      localVarRequestOptions.headers = Object.assign({}, localVarHeaderParameter, options.headers);
+      const needsSerialization =
+        <any>'BritboxAPIAccountModelsAuthorizationAuthenticateCustomerRequest' !== 'string' ||
+        localVarRequestOptions.headers['Content-Type'] === 'application/json';
+      localVarRequestOptions.body = needsSerialization
+        ? JSON.stringify(request || {})
+        : request || '';
 
-            return {
-                url: url.format(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         *
-         * @param {BritboxAPIAccountModelsAuthorizationGetOAuthAccessTokenRequest} [request]
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        getOAuthAccessToken(request?: BritboxAPIAccountModelsAuthorizationGetOAuthAccessTokenRequest, options: any = {}): FetchArgs {
-            const localVarPath = `/v1/account/Authorization/getOAuthAccessToken`;
-            const localVarUrlObj = url.parse(localVarPath, true);
-            const localVarRequestOptions = Object.assign({ method: 'POST' }, options);
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
+      return {
+        url: url.format(localVarUrlObj),
+        options: localVarRequestOptions,
+      };
+    },
+    /**
+     *
+     * @param {BritboxAPIAccountModelsAuthorizationForgotContactPasswordRequest} [request]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    forgotContactPassword(
+      request?: BritboxAPIAccountModelsAuthorizationForgotContactPasswordRequest,
+      options: any = {}
+    ): FetchArgs {
+      const localVarPath = `/v1/account/Authorization/forgotContactPassword`;
+      const localVarUrlObj = url.parse(localVarPath, true);
+      const localVarRequestOptions = Object.assign({ method: 'POST' }, options);
+      const localVarHeaderParameter = {} as any;
+      const localVarQueryParameter = {} as any;
 
-            // authentication AWSApiKeyAuth required
-            if (configuration && configuration.apiKey) {
-                const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("x-api-key")
-					: configuration.apiKey;
-                localVarHeaderParameter["x-api-key"] = localVarApiKeyValue;
-            }
+      // authentication AWSApiKeyAuth required
+      if (configuration && configuration.apiKey) {
+        const localVarApiKeyValue =
+          typeof configuration.apiKey === 'function'
+            ? configuration.apiKey('x-api-key')
+            : configuration.apiKey;
+        localVarHeaderParameter['x-api-key'] = localVarApiKeyValue;
+      }
 
-            // authentication JWToken required
-            if (configuration && configuration.apiKey) {
-                const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
-                localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
-            }
+      // authentication JWToken required
+      if (configuration && configuration.apiKey) {
+        const localVarApiKeyValue =
+          typeof configuration.apiKey === 'function'
+            ? configuration.apiKey('Authorization')
+            : configuration.apiKey;
+        localVarHeaderParameter['Authorization'] = localVarApiKeyValue;
+      }
 
-            localVarHeaderParameter['Content-Type'] = 'application/json-patch+json';
+      localVarHeaderParameter['Content-Type'] = 'application/json-patch+json';
 
-            localVarUrlObj.query = Object.assign({}, localVarUrlObj.query, localVarQueryParameter, options.query);
-            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-            delete localVarUrlObj.search;
-            localVarRequestOptions.headers = Object.assign({}, localVarHeaderParameter, options.headers);
-            const needsSerialization = (<any>"BritboxAPIAccountModelsAuthorizationGetOAuthAccessTokenRequest" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
-            localVarRequestOptions.body =  needsSerialization ? JSON.stringify(request || {}) : (request || "");
+      localVarUrlObj.query = Object.assign(
+        {},
+        localVarUrlObj.query,
+        localVarQueryParameter,
+        options.query
+      );
+      // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+      delete localVarUrlObj.search;
+      localVarRequestOptions.headers = Object.assign({}, localVarHeaderParameter, options.headers);
+      const needsSerialization =
+        <any>'BritboxAPIAccountModelsAuthorizationForgotContactPasswordRequest' !== 'string' ||
+        localVarRequestOptions.headers['Content-Type'] === 'application/json';
+      localVarRequestOptions.body = needsSerialization
+        ? JSON.stringify(request || {})
+        : request || '';
 
-            return {
-                url: url.format(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         *
-         * @param {BritboxAPIAccountModelsAuthorizationRefreshTokenRequest} [request]
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        refreshToken(request?: BritboxAPIAccountModelsAuthorizationRefreshTokenRequest, options: any = {}): FetchArgs {
-            const localVarPath = `/v1/account/Authorization/refreshToken`;
-            const localVarUrlObj = url.parse(localVarPath, true);
-            const localVarRequestOptions = Object.assign({ method: 'POST' }, options);
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
+      return {
+        url: url.format(localVarUrlObj),
+        options: localVarRequestOptions,
+      };
+    },
+    /**
+     *
+     * @param {BritboxAPIAccountModelsAuthorizationGetOAuthAccessTokenRequest} [request]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    getOAuthAccessToken(
+      request?: BritboxAPIAccountModelsAuthorizationGetOAuthAccessTokenRequest,
+      options: any = {}
+    ): FetchArgs {
+      const localVarPath = `/v1/account/Authorization/getOAuthAccessToken`;
+      const localVarUrlObj = url.parse(localVarPath, true);
+      const localVarRequestOptions = Object.assign({ method: 'POST' }, options);
+      const localVarHeaderParameter = {} as any;
+      const localVarQueryParameter = {} as any;
 
-            // authentication AWSApiKeyAuth required
-            if (configuration && configuration.apiKey) {
-                const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("x-api-key")
-					: configuration.apiKey;
-                localVarHeaderParameter["x-api-key"] = localVarApiKeyValue;
-            }
+      // authentication AWSApiKeyAuth required
+      if (configuration && configuration.apiKey) {
+        const localVarApiKeyValue =
+          typeof configuration.apiKey === 'function'
+            ? configuration.apiKey('x-api-key')
+            : configuration.apiKey;
+        localVarHeaderParameter['x-api-key'] = localVarApiKeyValue;
+      }
 
-            // authentication JWToken required
-            if (configuration && configuration.apiKey) {
-                const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
-                localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
-            }
+      // authentication JWToken required
+      if (configuration && configuration.apiKey) {
+        const localVarApiKeyValue =
+          typeof configuration.apiKey === 'function'
+            ? configuration.apiKey('Authorization')
+            : configuration.apiKey;
+        localVarHeaderParameter['Authorization'] = localVarApiKeyValue;
+      }
 
-            localVarHeaderParameter['Content-Type'] = 'application/json-patch+json';
+      localVarHeaderParameter['Content-Type'] = 'application/json-patch+json';
 
-            localVarUrlObj.query = Object.assign({}, localVarUrlObj.query, localVarQueryParameter, options.query);
-            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-            delete localVarUrlObj.search;
-            localVarRequestOptions.headers = Object.assign({}, localVarHeaderParameter, options.headers);
-            const needsSerialization = (<any>"BritboxAPIAccountModelsAuthorizationRefreshTokenRequest" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
-            localVarRequestOptions.body =  needsSerialization ? JSON.stringify(request || {}) : (request || "");
+      localVarUrlObj.query = Object.assign(
+        {},
+        localVarUrlObj.query,
+        localVarQueryParameter,
+        options.query
+      );
+      // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+      delete localVarUrlObj.search;
+      localVarRequestOptions.headers = Object.assign({}, localVarHeaderParameter, options.headers);
+      const needsSerialization =
+        <any>'BritboxAPIAccountModelsAuthorizationGetOAuthAccessTokenRequest' !== 'string' ||
+        localVarRequestOptions.headers['Content-Type'] === 'application/json';
+      localVarRequestOptions.body = needsSerialization
+        ? JSON.stringify(request || {})
+        : request || '';
 
-            return {
-                url: url.format(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-    }
+      return {
+        url: url.format(localVarUrlObj),
+        options: localVarRequestOptions,
+      };
+    },
+    /**
+     *
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    logoutCustomer(options: any = {}): FetchArgs {
+      const localVarPath = `/v1/account/Authorization/logout`;
+      const localVarUrlObj = url.parse(localVarPath, true);
+      const localVarRequestOptions = Object.assign({ method: 'POST' }, options);
+      const localVarHeaderParameter = {} as any;
+      const localVarQueryParameter = {} as any;
+
+      // authentication AWSApiKeyAuth required
+      if (configuration && configuration.apiKey) {
+        const localVarApiKeyValue =
+          typeof configuration.apiKey === 'function'
+            ? configuration.apiKey('x-api-key')
+            : configuration.apiKey;
+        localVarHeaderParameter['x-api-key'] = localVarApiKeyValue;
+      }
+
+      // authentication JWToken required
+      if (configuration && configuration.apiKey) {
+        const localVarApiKeyValue =
+          typeof configuration.apiKey === 'function'
+            ? configuration.apiKey('Authorization')
+            : configuration.apiKey;
+        localVarHeaderParameter['Authorization'] = localVarApiKeyValue;
+      }
+
+      localVarUrlObj.query = Object.assign(
+        {},
+        localVarUrlObj.query,
+        localVarQueryParameter,
+        options.query
+      );
+      // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+      delete localVarUrlObj.search;
+      localVarRequestOptions.headers = Object.assign({}, localVarHeaderParameter, options.headers);
+
+      return {
+        url: url.format(localVarUrlObj),
+        options: localVarRequestOptions,
+      };
+    },
+    /**
+     *
+     * @param {BritboxAPIAccountModelsAuthorizationRefreshTokenRequest} [request]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    refreshToken(
+      request?: BritboxAPIAccountModelsAuthorizationRefreshTokenRequest,
+      options: any = {}
+    ): FetchArgs {
+      const localVarPath = `/v1/account/Authorization/refreshToken`;
+      const localVarUrlObj = url.parse(localVarPath, true);
+      const localVarRequestOptions = Object.assign({ method: 'POST' }, options);
+      const localVarHeaderParameter = {} as any;
+      const localVarQueryParameter = {} as any;
+
+      // authentication AWSApiKeyAuth required
+      if (configuration && configuration.apiKey) {
+        const localVarApiKeyValue =
+          typeof configuration.apiKey === 'function'
+            ? configuration.apiKey('x-api-key')
+            : configuration.apiKey;
+        localVarHeaderParameter['x-api-key'] = localVarApiKeyValue;
+      }
+
+      // authentication JWToken required
+      if (configuration && configuration.apiKey) {
+        const localVarApiKeyValue =
+          typeof configuration.apiKey === 'function'
+            ? configuration.apiKey('Authorization')
+            : configuration.apiKey;
+        localVarHeaderParameter['Authorization'] = localVarApiKeyValue;
+      }
+
+      localVarHeaderParameter['Content-Type'] = 'application/json-patch+json';
+
+      localVarUrlObj.query = Object.assign(
+        {},
+        localVarUrlObj.query,
+        localVarQueryParameter,
+        options.query
+      );
+      // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+      delete localVarUrlObj.search;
+      localVarRequestOptions.headers = Object.assign({}, localVarHeaderParameter, options.headers);
+      const needsSerialization =
+        <any>'BritboxAPIAccountModelsAuthorizationRefreshTokenRequest' !== 'string' ||
+        localVarRequestOptions.headers['Content-Type'] === 'application/json';
+      localVarRequestOptions.body = needsSerialization
+        ? JSON.stringify(request || {})
+        : request || '';
+
+      return {
+        url: url.format(localVarUrlObj),
+        options: localVarRequestOptions,
+      };
+    },
+  };
 };
 
 /**
  * AuthorizationApi - functional programming interface
  * @export
  */
-export const AuthorizationApiFp = function(configuration?: Configuration) {
-    return {
-        /**
-         *
-         * @param {BritboxAPIAccountModelsAuthorizationAuthenticateCustomerRequest} [request]
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        authenticateCustomer(request?: BritboxAPIAccountModelsAuthorizationAuthenticateCustomerRequest, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<BritboxAPIAccountModelsAuthorizationRefreshTokenResponse> {
-            const localVarFetchArgs = AuthorizationApiFetchParamCreator(configuration).authenticateCustomer(request, options);
-            return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
-                return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then((response) => {
-                    if (response.status >= 200 && response.status < 300) {
-                        return response.json();
-                    } else {
-                        throw response;
-                    }
-                });
-            };
-        },
-        /**
-         *
-         * @param {BritboxAPIAccountModelsAuthorizationGetOAuthAccessTokenRequest} [request]
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        getOAuthAccessToken(request?: BritboxAPIAccountModelsAuthorizationGetOAuthAccessTokenRequest, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<BritboxAPIAccountModelsAuthorizationGetOAuthAccessTokenResponse> {
-            const localVarFetchArgs = AuthorizationApiFetchParamCreator(configuration).getOAuthAccessToken(request, options);
-            return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
-                return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then((response) => {
-                    if (response.status >= 200 && response.status < 300) {
-                        return response.json();
-                    } else {
-                        throw response;
-                    }
-                });
-            };
-        },
-        /**
-         *
-         * @param {BritboxAPIAccountModelsAuthorizationRefreshTokenRequest} [request]
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        refreshToken(request?: BritboxAPIAccountModelsAuthorizationRefreshTokenRequest, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<BritboxAPIAccountModelsAuthorizationRefreshTokenResponse> {
-            const localVarFetchArgs = AuthorizationApiFetchParamCreator(configuration).refreshToken(request, options);
-            return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
-                return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then((response) => {
-                    if (response.status >= 200 && response.status < 300) {
-                        return response.json();
-                    } else {
-                        throw response;
-                    }
-                });
-            };
-        },
-    }
+export const AuthorizationApiFp = function (configuration?: Configuration) {
+  return {
+    /**
+     *
+     * @param {BritboxAPIAccountModelsAuthorizationAuthenticateCustomerRequest} [request]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    authenticateCustomer(
+      request?: BritboxAPIAccountModelsAuthorizationAuthenticateCustomerRequest,
+      options?: any
+    ): (
+      fetch?: FetchAPI,
+      basePath?: string
+    ) => Promise<BritboxAPIAccountModelsAuthorizationAuthenticateCustomerResponse> {
+      const localVarFetchArgs = AuthorizationApiFetchParamCreator(
+        configuration
+      ).authenticateCustomer(request, options);
+      return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
+        return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then(
+          (response) => {
+            if (response.status >= 200 && response.status < 300) {
+              return response.json();
+            } else {
+              throw response;
+            }
+          }
+        );
+      };
+    },
+    /**
+     *
+     * @param {BritboxAPIAccountModelsAuthorizationForgotContactPasswordRequest} [request]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    forgotContactPassword(
+      request?: BritboxAPIAccountModelsAuthorizationForgotContactPasswordRequest,
+      options?: any
+    ): (
+      fetch?: FetchAPI,
+      basePath?: string
+    ) => Promise<BritboxAPIAccountModelsAuthorizationForgotContactPasswordResponse> {
+      const localVarFetchArgs = AuthorizationApiFetchParamCreator(
+        configuration
+      ).forgotContactPassword(request, options);
+      return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
+        return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then(
+          (response) => {
+            if (response.status >= 200 && response.status < 300) {
+              return response.json();
+            } else {
+              throw response;
+            }
+          }
+        );
+      };
+    },
+    /**
+     *
+     * @param {BritboxAPIAccountModelsAuthorizationGetOAuthAccessTokenRequest} [request]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    getOAuthAccessToken(
+      request?: BritboxAPIAccountModelsAuthorizationGetOAuthAccessTokenRequest,
+      options?: any
+    ): (
+      fetch?: FetchAPI,
+      basePath?: string
+    ) => Promise<BritboxAPIAccountModelsAuthorizationGetOAuthAccessTokenResponse> {
+      const localVarFetchArgs = AuthorizationApiFetchParamCreator(
+        configuration
+      ).getOAuthAccessToken(request, options);
+      return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
+        return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then(
+          (response) => {
+            if (response.status >= 200 && response.status < 300) {
+              return response.json();
+            } else {
+              throw response;
+            }
+          }
+        );
+      };
+    },
+    /**
+     *
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    logoutCustomer(options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<Response> {
+      const localVarFetchArgs = AuthorizationApiFetchParamCreator(configuration).logoutCustomer(
+        options
+      );
+      return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
+        return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then(
+          (response) => {
+            if (response.status >= 200 && response.status < 300) {
+              return response;
+            } else {
+              throw response;
+            }
+          }
+        );
+      };
+    },
+    /**
+     *
+     * @param {BritboxAPIAccountModelsAuthorizationRefreshTokenRequest} [request]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    refreshToken(
+      request?: BritboxAPIAccountModelsAuthorizationRefreshTokenRequest,
+      options?: any
+    ): (
+      fetch?: FetchAPI,
+      basePath?: string
+    ) => Promise<BritboxAPIAccountModelsAuthorizationRefreshTokenResponse> {
+      const localVarFetchArgs = AuthorizationApiFetchParamCreator(configuration).refreshToken(
+        request,
+        options
+      );
+      return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
+        return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then(
+          (response) => {
+            if (response.status >= 200 && response.status < 300) {
+              return response.json();
+            } else {
+              throw response;
+            }
+          }
+        );
+      };
+    },
+  };
 };
 
 /**
  * AuthorizationApi - factory interface
  * @export
  */
-export const AuthorizationApiFactory = function (configuration?: Configuration, fetch?: FetchAPI, basePath?: string) {
-    return {
-        /**
-         *
-         * @param {BritboxAPIAccountModelsAuthorizationAuthenticateCustomerRequest} [request]
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        authenticateCustomer(request?: BritboxAPIAccountModelsAuthorizationAuthenticateCustomerRequest, options?: any) {
-            return AuthorizationApiFp(configuration).authenticateCustomer(request, options)(fetch, basePath);
-        },
-        /**
-         *
-         * @param {BritboxAPIAccountModelsAuthorizationGetOAuthAccessTokenRequest} [request]
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        getOAuthAccessToken(request?: BritboxAPIAccountModelsAuthorizationGetOAuthAccessTokenRequest, options?: any) {
-            return AuthorizationApiFp(configuration).getOAuthAccessToken(request, options)(fetch, basePath);
-        },
-        /**
-         *
-         * @param {BritboxAPIAccountModelsAuthorizationRefreshTokenRequest} [request]
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        refreshToken(request?: BritboxAPIAccountModelsAuthorizationRefreshTokenRequest, options?: any) {
-            return AuthorizationApiFp(configuration).refreshToken(request, options)(fetch, basePath);
-        },
-    };
+export const AuthorizationApiFactory = function (
+  configuration?: Configuration,
+  fetch?: FetchAPI,
+  basePath?: string
+) {
+  return {
+    /**
+     *
+     * @param {BritboxAPIAccountModelsAuthorizationAuthenticateCustomerRequest} [request]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    authenticateCustomer(
+      request?: BritboxAPIAccountModelsAuthorizationAuthenticateCustomerRequest,
+      options?: any
+    ) {
+      return AuthorizationApiFp(configuration).authenticateCustomer(request, options)(
+        fetch,
+        basePath
+      );
+    },
+    /**
+     *
+     * @param {BritboxAPIAccountModelsAuthorizationForgotContactPasswordRequest} [request]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    forgotContactPassword(
+      request?: BritboxAPIAccountModelsAuthorizationForgotContactPasswordRequest,
+      options?: any
+    ) {
+      return AuthorizationApiFp(configuration).forgotContactPassword(request, options)(
+        fetch,
+        basePath
+      );
+    },
+    /**
+     *
+     * @param {BritboxAPIAccountModelsAuthorizationGetOAuthAccessTokenRequest} [request]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    getOAuthAccessToken(
+      request?: BritboxAPIAccountModelsAuthorizationGetOAuthAccessTokenRequest,
+      options?: any
+    ) {
+      return AuthorizationApiFp(configuration).getOAuthAccessToken(request, options)(
+        fetch,
+        basePath
+      );
+    },
+    /**
+     *
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    logoutCustomer(options?: any) {
+      return AuthorizationApiFp(configuration).logoutCustomer(options)(fetch, basePath);
+    },
+    /**
+     *
+     * @param {BritboxAPIAccountModelsAuthorizationRefreshTokenRequest} [request]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    refreshToken(request?: BritboxAPIAccountModelsAuthorizationRefreshTokenRequest, options?: any) {
+      return AuthorizationApiFp(configuration).refreshToken(request, options)(fetch, basePath);
+    },
+  };
 };
 
 /**
@@ -3945,39 +4524,86 @@ export const AuthorizationApiFactory = function (configuration?: Configuration, 
  * @extends {BaseAPI}
  */
 export class AuthorizationApi extends BaseAPI {
-    /**
-     *
-     * @param {BritboxAPIAccountModelsAuthorizationAuthenticateCustomerRequest} [request]
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof AuthorizationApi
-     */
-    public authenticateCustomer(request?: BritboxAPIAccountModelsAuthorizationAuthenticateCustomerRequest, options?: any) {
-        return AuthorizationApiFp(this.configuration).authenticateCustomer(request, options)(this.fetch, this.basePath);
-    }
+  /**
+   *
+   * @param {BritboxAPIAccountModelsAuthorizationAuthenticateCustomerRequest} [request]
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof AuthorizationApi
+   */
+  public authenticateCustomer(
+    request?: BritboxAPIAccountModelsAuthorizationAuthenticateCustomerRequest,
+    options?: any
+  ) {
+    return AuthorizationApiFp(this.configuration).authenticateCustomer(request, options)(
+      this.fetch,
+      this.basePath
+    );
+  }
 
-    /**
-     *
-     * @param {BritboxAPIAccountModelsAuthorizationGetOAuthAccessTokenRequest} [request]
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof AuthorizationApi
-     */
-    public getOAuthAccessToken(request?: BritboxAPIAccountModelsAuthorizationGetOAuthAccessTokenRequest, options?: any) {
-        return AuthorizationApiFp(this.configuration).getOAuthAccessToken(request, options)(this.fetch, this.basePath);
-    }
+  /**
+   *
+   * @param {BritboxAPIAccountModelsAuthorizationForgotContactPasswordRequest} [request]
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof AuthorizationApi
+   */
+  public forgotContactPassword(
+    request?: BritboxAPIAccountModelsAuthorizationForgotContactPasswordRequest,
+    options?: any
+  ) {
+    return AuthorizationApiFp(this.configuration).forgotContactPassword(request, options)(
+      this.fetch,
+      this.basePath
+    );
+  }
 
-    /**
-     *
-     * @param {BritboxAPIAccountModelsAuthorizationRefreshTokenRequest} [request]
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof AuthorizationApi
-     */
-    public refreshToken(request?: BritboxAPIAccountModelsAuthorizationRefreshTokenRequest, options?: any) {
-        return AuthorizationApiFp(this.configuration).refreshToken(request, options)(this.fetch, this.basePath);
-    }
+  /**
+   *
+   * @param {BritboxAPIAccountModelsAuthorizationGetOAuthAccessTokenRequest} [request]
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof AuthorizationApi
+   */
+  public getOAuthAccessToken(
+    request?: BritboxAPIAccountModelsAuthorizationGetOAuthAccessTokenRequest,
+    options?: any
+  ) {
+    return AuthorizationApiFp(this.configuration).getOAuthAccessToken(request, options)(
+      this.fetch,
+      this.basePath
+    );
+  }
 
+  /**
+   *
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof AuthorizationApi
+   */
+  public logoutCustomer(options?: any) {
+    return AuthorizationApiFp(this.configuration).logoutCustomer(options)(
+      this.fetch,
+      this.basePath
+    );
+  }
+
+  /**
+   *
+   * @param {BritboxAPIAccountModelsAuthorizationRefreshTokenRequest} [request]
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof AuthorizationApi
+   */
+  public refreshToken(
+    request?: BritboxAPIAccountModelsAuthorizationRefreshTokenRequest,
+    options?: any
+  ) {
+    return AuthorizationApiFp(this.configuration).refreshToken(request, options)(
+      this.fetch,
+      this.basePath
+    );
+  }
 }
 
 /**
@@ -3985,173 +4611,320 @@ export class AuthorizationApi extends BaseAPI {
  * @export
  */
 export const CustomerApiFetchParamCreator = function (configuration?: Configuration) {
-    return {
-        /**
-         *
-         * @param {BritboxDataEvergentModelsAddSubscriptionRequestMessage} [request]
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        addSubscription(request?: BritboxDataEvergentModelsAddSubscriptionRequestMessage, options: any = {}): FetchArgs {
-            const localVarPath = `/v1/account/Customer/subscription`;
-            const localVarUrlObj = url.parse(localVarPath, true);
-            const localVarRequestOptions = Object.assign({ method: 'POST' }, options);
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
+  return {
+    /**
+     *
+     * @param {BritboxAPIAccountModelsCustomerAddSubscriptionRequest} [request]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    addSubscription(
+      request?: BritboxAPIAccountModelsCustomerAddSubscriptionRequest,
+      options: any = {}
+    ): FetchArgs {
+      const localVarPath = `/v1/account/Customer/subscription`;
+      const localVarUrlObj = url.parse(localVarPath, true);
+      const localVarRequestOptions = Object.assign({ method: 'POST' }, options);
+      const localVarHeaderParameter = {} as any;
+      const localVarQueryParameter = {} as any;
 
-            // authentication AWSApiKeyAuth required
-            if (configuration && configuration.apiKey) {
-                const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("x-api-key")
-					: configuration.apiKey;
-                localVarHeaderParameter["x-api-key"] = localVarApiKeyValue;
-            }
+      // authentication AWSApiKeyAuth required
+      if (configuration && configuration.apiKey) {
+        const localVarApiKeyValue =
+          typeof configuration.apiKey === 'function'
+            ? configuration.apiKey('x-api-key')
+            : configuration.apiKey;
+        localVarHeaderParameter['x-api-key'] = localVarApiKeyValue;
+      }
 
-            // authentication JWToken required
-            if (configuration && configuration.apiKey) {
-                const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
-                localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
-            }
+      // authentication JWToken required
+      if (configuration && configuration.apiKey) {
+        const localVarApiKeyValue =
+          typeof configuration.apiKey === 'function'
+            ? configuration.apiKey('Authorization')
+            : configuration.apiKey;
+        localVarHeaderParameter['Authorization'] = localVarApiKeyValue;
+      }
 
-            localVarHeaderParameter['Content-Type'] = 'application/json-patch+json';
+      localVarHeaderParameter['Content-Type'] = 'application/json-patch+json';
 
-            localVarUrlObj.query = Object.assign({}, localVarUrlObj.query, localVarQueryParameter, options.query);
-            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-            delete localVarUrlObj.search;
-            localVarRequestOptions.headers = Object.assign({}, localVarHeaderParameter, options.headers);
-            const needsSerialization = (<any>"BritboxDataEvergentModelsAddSubscriptionRequestMessage" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
-            localVarRequestOptions.body =  needsSerialization ? JSON.stringify(request || {}) : (request || "");
+      localVarUrlObj.query = Object.assign(
+        {},
+        localVarUrlObj.query,
+        localVarQueryParameter,
+        options.query
+      );
+      // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+      delete localVarUrlObj.search;
+      localVarRequestOptions.headers = Object.assign({}, localVarHeaderParameter, options.headers);
+      const needsSerialization =
+        <any>'BritboxAPIAccountModelsCustomerAddSubscriptionRequest' !== 'string' ||
+        localVarRequestOptions.headers['Content-Type'] === 'application/json';
+      localVarRequestOptions.body = needsSerialization
+        ? JSON.stringify(request || {})
+        : request || '';
 
-            return {
-                url: url.format(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         *
-         * @param {string} [dmaID]
-         * @param {string} [countryCode]
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        getProducts(dmaID?: string, countryCode?: string, options: any = {}): FetchArgs {
-            const localVarPath = `/v1/account/Customer/products`;
-            const localVarUrlObj = url.parse(localVarPath, true);
-            const localVarRequestOptions = Object.assign({ method: 'GET' }, options);
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
+      return {
+        url: url.format(localVarUrlObj),
+        options: localVarRequestOptions,
+      };
+    },
+    /**
+     *
+     * @param {string} [dmaID]
+     * @param {string} [countryCode]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    getProducts(dmaID?: string, countryCode?: string, options: any = {}): FetchArgs {
+      const localVarPath = `/v1/account/Customer/products`;
+      const localVarUrlObj = url.parse(localVarPath, true);
+      const localVarRequestOptions = Object.assign({ method: 'GET' }, options);
+      const localVarHeaderParameter = {} as any;
+      const localVarQueryParameter = {} as any;
 
-            // authentication AWSApiKeyAuth required
-            if (configuration && configuration.apiKey) {
-                const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("x-api-key")
-					: configuration.apiKey;
-                localVarHeaderParameter["x-api-key"] = localVarApiKeyValue;
-            }
+      // authentication AWSApiKeyAuth required
+      if (configuration && configuration.apiKey) {
+        const localVarApiKeyValue =
+          typeof configuration.apiKey === 'function'
+            ? configuration.apiKey('x-api-key')
+            : configuration.apiKey;
+        localVarHeaderParameter['x-api-key'] = localVarApiKeyValue;
+      }
 
-            // authentication JWToken required
-            if (configuration && configuration.apiKey) {
-                const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
-                localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
-            }
+      // authentication JWToken required
+      if (configuration && configuration.apiKey) {
+        const localVarApiKeyValue =
+          typeof configuration.apiKey === 'function'
+            ? configuration.apiKey('Authorization')
+            : configuration.apiKey;
+        localVarHeaderParameter['Authorization'] = localVarApiKeyValue;
+      }
 
-            if (dmaID !== undefined) {
-                localVarQueryParameter['dmaID'] = dmaID;
-            }
+      if (dmaID !== undefined) {
+        localVarQueryParameter['dmaID'] = dmaID;
+      }
 
-            if (countryCode !== undefined) {
-                localVarQueryParameter['countryCode'] = countryCode;
-            }
+      if (countryCode !== undefined) {
+        localVarQueryParameter['countryCode'] = countryCode;
+      }
 
-            localVarUrlObj.query = Object.assign({}, localVarUrlObj.query, localVarQueryParameter, options.query);
-            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-            delete localVarUrlObj.search;
-            localVarRequestOptions.headers = Object.assign({}, localVarHeaderParameter, options.headers);
+      localVarUrlObj.query = Object.assign(
+        {},
+        localVarUrlObj.query,
+        localVarQueryParameter,
+        options.query
+      );
+      // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+      delete localVarUrlObj.search;
+      localVarRequestOptions.headers = Object.assign({}, localVarHeaderParameter, options.headers);
 
-            return {
-                url: url.format(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-    }
+      return {
+        url: url.format(localVarUrlObj),
+        options: localVarRequestOptions,
+      };
+    },
+    /**
+     *
+     * @param {BritboxAPIAccountModelsCustomerCreateUserV2Request} [request]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    register(
+      request?: BritboxAPIAccountModelsCustomerCreateUserV2Request,
+      options: any = {}
+    ): FetchArgs {
+      const localVarPath = `/v1/account/Customer/register`;
+      const localVarUrlObj = url.parse(localVarPath, true);
+      const localVarRequestOptions = Object.assign({ method: 'POST' }, options);
+      const localVarHeaderParameter = {} as any;
+      const localVarQueryParameter = {} as any;
+
+      // authentication AWSApiKeyAuth required
+      if (configuration && configuration.apiKey) {
+        const localVarApiKeyValue =
+          typeof configuration.apiKey === 'function'
+            ? configuration.apiKey('x-api-key')
+            : configuration.apiKey;
+        localVarHeaderParameter['x-api-key'] = localVarApiKeyValue;
+      }
+
+      // authentication JWToken required
+      if (configuration && configuration.apiKey) {
+        const localVarApiKeyValue =
+          typeof configuration.apiKey === 'function'
+            ? configuration.apiKey('Authorization')
+            : configuration.apiKey;
+        localVarHeaderParameter['Authorization'] = localVarApiKeyValue;
+      }
+
+      localVarHeaderParameter['Content-Type'] = 'application/json-patch+json';
+
+      localVarUrlObj.query = Object.assign(
+        {},
+        localVarUrlObj.query,
+        localVarQueryParameter,
+        options.query
+      );
+      // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+      delete localVarUrlObj.search;
+      localVarRequestOptions.headers = Object.assign({}, localVarHeaderParameter, options.headers);
+      const needsSerialization =
+        <any>'BritboxAPIAccountModelsCustomerCreateUserV2Request' !== 'string' ||
+        localVarRequestOptions.headers['Content-Type'] === 'application/json';
+      localVarRequestOptions.body = needsSerialization
+        ? JSON.stringify(request || {})
+        : request || '';
+
+      return {
+        url: url.format(localVarUrlObj),
+        options: localVarRequestOptions,
+      };
+    },
+  };
 };
 
 /**
  * CustomerApi - functional programming interface
  * @export
  */
-export const CustomerApiFp = function(configuration?: Configuration) {
-    return {
-        /**
-         *
-         * @param {BritboxDataEvergentModelsAddSubscriptionRequestMessage} [request]
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        addSubscription(request?: BritboxDataEvergentModelsAddSubscriptionRequestMessage, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<BritboxAPIAccountModelsCustomerAddSubscriptionResponse> {
-            const localVarFetchArgs = CustomerApiFetchParamCreator(configuration).addSubscription(request, options);
-            return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
-                return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then((response) => {
-                    if (response.status >= 200 && response.status < 300) {
-                        return response.json();
-                    } else {
-                        throw response;
-                    }
-                });
-            };
-        },
-        /**
-         *
-         * @param {string} [dmaID]
-         * @param {string} [countryCode]
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        getProducts(dmaID?: string, countryCode?: string, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<BritboxAPIAccountModelsCustomerGetProductsResponse> {
-            const localVarFetchArgs = CustomerApiFetchParamCreator(configuration).getProducts(dmaID, countryCode, options);
-            return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
-                return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then((response) => {
-                    if (response.status >= 200 && response.status < 300) {
-                        return response.json();
-                    } else {
-                        throw response;
-                    }
-                });
-            };
-        },
-    }
+export const CustomerApiFp = function (configuration?: Configuration) {
+  return {
+    /**
+     *
+     * @param {BritboxAPIAccountModelsCustomerAddSubscriptionRequest} [request]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    addSubscription(
+      request?: BritboxAPIAccountModelsCustomerAddSubscriptionRequest,
+      options?: any
+    ): (
+      fetch?: FetchAPI,
+      basePath?: string
+    ) => Promise<BritboxAPIAccountModelsCustomerAddSubscriptionResponse> {
+      const localVarFetchArgs = CustomerApiFetchParamCreator(configuration).addSubscription(
+        request,
+        options
+      );
+      return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
+        return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then(
+          (response) => {
+            if (response.status >= 200 && response.status < 300) {
+              return response.json();
+            } else {
+              throw response;
+            }
+          }
+        );
+      };
+    },
+    /**
+     *
+     * @param {string} [dmaID]
+     * @param {string} [countryCode]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    getProducts(
+      dmaID?: string,
+      countryCode?: string,
+      options?: any
+    ): (
+      fetch?: FetchAPI,
+      basePath?: string
+    ) => Promise<BritboxAPIAccountModelsCustomerGetProductsResponse> {
+      const localVarFetchArgs = CustomerApiFetchParamCreator(configuration).getProducts(
+        dmaID,
+        countryCode,
+        options
+      );
+      return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
+        return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then(
+          (response) => {
+            if (response.status >= 200 && response.status < 300) {
+              return response.json();
+            } else {
+              throw response;
+            }
+          }
+        );
+      };
+    },
+    /**
+     *
+     * @param {BritboxAPIAccountModelsCustomerCreateUserV2Request} [request]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    register(
+      request?: BritboxAPIAccountModelsCustomerCreateUserV2Request,
+      options?: any
+    ): (
+      fetch?: FetchAPI,
+      basePath?: string
+    ) => Promise<BritboxAPIAccountModelsCustomerAddSubscriptionResponse> {
+      const localVarFetchArgs = CustomerApiFetchParamCreator(configuration).register(
+        request,
+        options
+      );
+      return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
+        return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then(
+          (response) => {
+            if (response.status >= 200 && response.status < 300) {
+              return response.json();
+            } else {
+              throw response;
+            }
+          }
+        );
+      };
+    },
+  };
 };
 
 /**
  * CustomerApi - factory interface
  * @export
  */
-export const CustomerApiFactory = function (configuration?: Configuration, fetch?: FetchAPI, basePath?: string) {
-    return {
-        /**
-         *
-         * @param {BritboxDataEvergentModelsAddSubscriptionRequestMessage} [request]
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        addSubscription(request?: BritboxDataEvergentModelsAddSubscriptionRequestMessage, options?: any) {
-            return CustomerApiFp(configuration).addSubscription(request, options)(fetch, basePath);
-        },
-        /**
-         *
-         * @param {string} [dmaID]
-         * @param {string} [countryCode]
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        getProducts(dmaID?: string, countryCode?: string, options?: any) {
-            return CustomerApiFp(configuration).getProducts(dmaID, countryCode, options)(fetch, basePath);
-        },
-    };
+export const CustomerApiFactory = function (
+  configuration?: Configuration,
+  fetch?: FetchAPI,
+  basePath?: string
+) {
+  return {
+    /**
+     *
+     * @param {BritboxAPIAccountModelsCustomerAddSubscriptionRequest} [request]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    addSubscription(
+      request?: BritboxAPIAccountModelsCustomerAddSubscriptionRequest,
+      options?: any
+    ) {
+      return CustomerApiFp(configuration).addSubscription(request, options)(fetch, basePath);
+    },
+    /**
+     *
+     * @param {string} [dmaID]
+     * @param {string} [countryCode]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    getProducts(dmaID?: string, countryCode?: string, options?: any) {
+      return CustomerApiFp(configuration).getProducts(dmaID, countryCode, options)(fetch, basePath);
+    },
+    /**
+     *
+     * @param {BritboxAPIAccountModelsCustomerCreateUserV2Request} [request]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    register(request?: BritboxAPIAccountModelsCustomerCreateUserV2Request, options?: any) {
+      return CustomerApiFp(configuration).register(request, options)(fetch, basePath);
+    },
+  };
 };
 
 /**
@@ -4161,29 +4934,49 @@ export const CustomerApiFactory = function (configuration?: Configuration, fetch
  * @extends {BaseAPI}
  */
 export class CustomerApi extends BaseAPI {
-    /**
-     *
-     * @param {BritboxDataEvergentModelsAddSubscriptionRequestMessage} [request]
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof CustomerApi
-     */
-    public addSubscription(request?: BritboxDataEvergentModelsAddSubscriptionRequestMessage, options?: any) {
-        return CustomerApiFp(this.configuration).addSubscription(request, options)(this.fetch, this.basePath);
-    }
+  /**
+   *
+   * @param {BritboxAPIAccountModelsCustomerAddSubscriptionRequest} [request]
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof CustomerApi
+   */
+  public addSubscription(
+    request?: BritboxAPIAccountModelsCustomerAddSubscriptionRequest,
+    options?: any
+  ) {
+    return CustomerApiFp(this.configuration).addSubscription(request, options)(
+      this.fetch,
+      this.basePath
+    );
+  }
 
-    /**
-     *
-     * @param {string} [dmaID]
-     * @param {string} [countryCode]
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof CustomerApi
-     */
-    public getProducts(dmaID?: string, countryCode?: string, options?: any) {
-        return CustomerApiFp(this.configuration).getProducts(dmaID, countryCode, options)(this.fetch, this.basePath);
-    }
+  /**
+   *
+   * @param {string} [dmaID]
+   * @param {string} [countryCode]
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof CustomerApi
+   */
+  public getProducts(dmaID?: string, countryCode?: string, options?: any) {
+    return CustomerApiFp(this.configuration).getProducts(
+      dmaID,
+      countryCode,
+      options
+    )(this.fetch, this.basePath);
+  }
 
+  /**
+   *
+   * @param {BritboxAPIAccountModelsCustomerCreateUserV2Request} [request]
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof CustomerApi
+   */
+  public register(request?: BritboxAPIAccountModelsCustomerCreateUserV2Request, options?: any) {
+    return CustomerApiFp(this.configuration).register(request, options)(this.fetch, this.basePath);
+  }
 }
 
 /**
@@ -4191,166 +4984,225 @@ export class CustomerApi extends BaseAPI {
  * @export
  */
 export const DeviceApiFetchParamCreator = function (configuration?: Configuration) {
-    return {
-        /**
-         *
-         * @param {BritboxAPIAccountModelsDeviceGenerateDeviceActivationCodeRequest} [request]
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        generateDeviceActivationCode(request?: BritboxAPIAccountModelsDeviceGenerateDeviceActivationCodeRequest, options: any = {}): FetchArgs {
-            const localVarPath = `/v1/account/Device/generateDeviceActivationCode`;
-            const localVarUrlObj = url.parse(localVarPath, true);
-            const localVarRequestOptions = Object.assign({ method: 'POST' }, options);
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
+  return {
+    /**
+     *
+     * @param {BritboxAPIAccountModelsDeviceGenerateDeviceActivationCodeRequest} [request]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    generateDeviceActivationCode(
+      request?: BritboxAPIAccountModelsDeviceGenerateDeviceActivationCodeRequest,
+      options: any = {}
+    ): FetchArgs {
+      const localVarPath = `/v1/account/Device/generateDeviceActivationCode`;
+      const localVarUrlObj = url.parse(localVarPath, true);
+      const localVarRequestOptions = Object.assign({ method: 'POST' }, options);
+      const localVarHeaderParameter = {} as any;
+      const localVarQueryParameter = {} as any;
 
-            // authentication AWSApiKeyAuth required
-            if (configuration && configuration.apiKey) {
-                const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("x-api-key")
-					: configuration.apiKey;
-                localVarHeaderParameter["x-api-key"] = localVarApiKeyValue;
-            }
+      // authentication AWSApiKeyAuth required
+      if (configuration && configuration.apiKey) {
+        const localVarApiKeyValue =
+          typeof configuration.apiKey === 'function'
+            ? configuration.apiKey('x-api-key')
+            : configuration.apiKey;
+        localVarHeaderParameter['x-api-key'] = localVarApiKeyValue;
+      }
 
-            // authentication JWToken required
-            if (configuration && configuration.apiKey) {
-                const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
-                localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
-            }
+      // authentication JWToken required
+      if (configuration && configuration.apiKey) {
+        const localVarApiKeyValue =
+          typeof configuration.apiKey === 'function'
+            ? configuration.apiKey('Authorization')
+            : configuration.apiKey;
+        localVarHeaderParameter['Authorization'] = localVarApiKeyValue;
+      }
 
-            localVarHeaderParameter['Content-Type'] = 'application/json-patch+json';
+      localVarHeaderParameter['Content-Type'] = 'application/json-patch+json';
 
-            localVarUrlObj.query = Object.assign({}, localVarUrlObj.query, localVarQueryParameter, options.query);
-            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-            delete localVarUrlObj.search;
-            localVarRequestOptions.headers = Object.assign({}, localVarHeaderParameter, options.headers);
-            const needsSerialization = (<any>"BritboxAPIAccountModelsDeviceGenerateDeviceActivationCodeRequest" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
-            localVarRequestOptions.body =  needsSerialization ? JSON.stringify(request || {}) : (request || "");
+      localVarUrlObj.query = Object.assign(
+        {},
+        localVarUrlObj.query,
+        localVarQueryParameter,
+        options.query
+      );
+      // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+      delete localVarUrlObj.search;
+      localVarRequestOptions.headers = Object.assign({}, localVarHeaderParameter, options.headers);
+      const needsSerialization =
+        <any>'BritboxAPIAccountModelsDeviceGenerateDeviceActivationCodeRequest' !== 'string' ||
+        localVarRequestOptions.headers['Content-Type'] === 'application/json';
+      localVarRequestOptions.body = needsSerialization
+        ? JSON.stringify(request || {})
+        : request || '';
 
-            return {
-                url: url.format(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         *
-         * @param {BritboxAPIAccountModelsDeviceRegisterDeviceRequest} [request]
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        registerDevice(request?: BritboxAPIAccountModelsDeviceRegisterDeviceRequest, options: any = {}): FetchArgs {
-            const localVarPath = `/v1/account/Device/registerDevice`;
-            const localVarUrlObj = url.parse(localVarPath, true);
-            const localVarRequestOptions = Object.assign({ method: 'POST' }, options);
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
+      return {
+        url: url.format(localVarUrlObj),
+        options: localVarRequestOptions,
+      };
+    },
+    /**
+     *
+     * @param {BritboxAPIAccountModelsDeviceRegisterDeviceRequest} [request]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    registerDevice(
+      request?: BritboxAPIAccountModelsDeviceRegisterDeviceRequest,
+      options: any = {}
+    ): FetchArgs {
+      const localVarPath = `/v1/account/Device/registerDevice`;
+      const localVarUrlObj = url.parse(localVarPath, true);
+      const localVarRequestOptions = Object.assign({ method: 'POST' }, options);
+      const localVarHeaderParameter = {} as any;
+      const localVarQueryParameter = {} as any;
 
-            // authentication AWSApiKeyAuth required
-            if (configuration && configuration.apiKey) {
-                const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("x-api-key")
-					: configuration.apiKey;
-                localVarHeaderParameter["x-api-key"] = localVarApiKeyValue;
-            }
+      // authentication AWSApiKeyAuth required
+      if (configuration && configuration.apiKey) {
+        const localVarApiKeyValue =
+          typeof configuration.apiKey === 'function'
+            ? configuration.apiKey('x-api-key')
+            : configuration.apiKey;
+        localVarHeaderParameter['x-api-key'] = localVarApiKeyValue;
+      }
 
-            // authentication JWToken required
-            if (configuration && configuration.apiKey) {
-                const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
-                localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
-            }
+      // authentication JWToken required
+      if (configuration && configuration.apiKey) {
+        const localVarApiKeyValue =
+          typeof configuration.apiKey === 'function'
+            ? configuration.apiKey('Authorization')
+            : configuration.apiKey;
+        localVarHeaderParameter['Authorization'] = localVarApiKeyValue;
+      }
 
-            localVarHeaderParameter['Content-Type'] = 'application/json-patch+json';
+      localVarHeaderParameter['Content-Type'] = 'application/json-patch+json';
 
-            localVarUrlObj.query = Object.assign({}, localVarUrlObj.query, localVarQueryParameter, options.query);
-            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-            delete localVarUrlObj.search;
-            localVarRequestOptions.headers = Object.assign({}, localVarHeaderParameter, options.headers);
-            const needsSerialization = (<any>"BritboxAPIAccountModelsDeviceRegisterDeviceRequest" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
-            localVarRequestOptions.body =  needsSerialization ? JSON.stringify(request || {}) : (request || "");
+      localVarUrlObj.query = Object.assign(
+        {},
+        localVarUrlObj.query,
+        localVarQueryParameter,
+        options.query
+      );
+      // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+      delete localVarUrlObj.search;
+      localVarRequestOptions.headers = Object.assign({}, localVarHeaderParameter, options.headers);
+      const needsSerialization =
+        <any>'BritboxAPIAccountModelsDeviceRegisterDeviceRequest' !== 'string' ||
+        localVarRequestOptions.headers['Content-Type'] === 'application/json';
+      localVarRequestOptions.body = needsSerialization
+        ? JSON.stringify(request || {})
+        : request || '';
 
-            return {
-                url: url.format(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-    }
+      return {
+        url: url.format(localVarUrlObj),
+        options: localVarRequestOptions,
+      };
+    },
+  };
 };
 
 /**
  * DeviceApi - functional programming interface
  * @export
  */
-export const DeviceApiFp = function(configuration?: Configuration) {
-    return {
-        /**
-         *
-         * @param {BritboxAPIAccountModelsDeviceGenerateDeviceActivationCodeRequest} [request]
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        generateDeviceActivationCode(request?: BritboxAPIAccountModelsDeviceGenerateDeviceActivationCodeRequest, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<BritboxAPIAccountModelsDeviceGenerateDeviceActivationCodeResponse> {
-            const localVarFetchArgs = DeviceApiFetchParamCreator(configuration).generateDeviceActivationCode(request, options);
-            return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
-                return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then((response) => {
-                    if (response.status >= 200 && response.status < 300) {
-                        return response.json();
-                    } else {
-                        throw response;
-                    }
-                });
-            };
-        },
-        /**
-         *
-         * @param {BritboxAPIAccountModelsDeviceRegisterDeviceRequest} [request]
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        registerDevice(request?: BritboxAPIAccountModelsDeviceRegisterDeviceRequest, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<BritboxAPIAccountModelsDeviceRegisterDeviceResponse> {
-            const localVarFetchArgs = DeviceApiFetchParamCreator(configuration).registerDevice(request, options);
-            return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
-                return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then((response) => {
-                    if (response.status >= 200 && response.status < 300) {
-                        return response.json();
-                    } else {
-                        throw response;
-                    }
-                });
-            };
-        },
-    }
+export const DeviceApiFp = function (configuration?: Configuration) {
+  return {
+    /**
+     *
+     * @param {BritboxAPIAccountModelsDeviceGenerateDeviceActivationCodeRequest} [request]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    generateDeviceActivationCode(
+      request?: BritboxAPIAccountModelsDeviceGenerateDeviceActivationCodeRequest,
+      options?: any
+    ): (
+      fetch?: FetchAPI,
+      basePath?: string
+    ) => Promise<BritboxAPIAccountModelsDeviceGenerateDeviceActivationCodeResponse> {
+      const localVarFetchArgs = DeviceApiFetchParamCreator(
+        configuration
+      ).generateDeviceActivationCode(request, options);
+      return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
+        return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then(
+          (response) => {
+            if (response.status >= 200 && response.status < 300) {
+              return response.json();
+            } else {
+              throw response;
+            }
+          }
+        );
+      };
+    },
+    /**
+     *
+     * @param {BritboxAPIAccountModelsDeviceRegisterDeviceRequest} [request]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    registerDevice(
+      request?: BritboxAPIAccountModelsDeviceRegisterDeviceRequest,
+      options?: any
+    ): (
+      fetch?: FetchAPI,
+      basePath?: string
+    ) => Promise<BritboxAPIAccountModelsDeviceRegisterDeviceResponse> {
+      const localVarFetchArgs = DeviceApiFetchParamCreator(configuration).registerDevice(
+        request,
+        options
+      );
+      return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
+        return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then(
+          (response) => {
+            if (response.status >= 200 && response.status < 300) {
+              return response.json();
+            } else {
+              throw response;
+            }
+          }
+        );
+      };
+    },
+  };
 };
 
 /**
  * DeviceApi - factory interface
  * @export
  */
-export const DeviceApiFactory = function (configuration?: Configuration, fetch?: FetchAPI, basePath?: string) {
-    return {
-        /**
-         *
-         * @param {BritboxAPIAccountModelsDeviceGenerateDeviceActivationCodeRequest} [request]
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        generateDeviceActivationCode(request?: BritboxAPIAccountModelsDeviceGenerateDeviceActivationCodeRequest, options?: any) {
-            return DeviceApiFp(configuration).generateDeviceActivationCode(request, options)(fetch, basePath);
-        },
-        /**
-         *
-         * @param {BritboxAPIAccountModelsDeviceRegisterDeviceRequest} [request]
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        registerDevice(request?: BritboxAPIAccountModelsDeviceRegisterDeviceRequest, options?: any) {
-            return DeviceApiFp(configuration).registerDevice(request, options)(fetch, basePath);
-        },
-    };
+export const DeviceApiFactory = function (
+  configuration?: Configuration,
+  fetch?: FetchAPI,
+  basePath?: string
+) {
+  return {
+    /**
+     *
+     * @param {BritboxAPIAccountModelsDeviceGenerateDeviceActivationCodeRequest} [request]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    generateDeviceActivationCode(
+      request?: BritboxAPIAccountModelsDeviceGenerateDeviceActivationCodeRequest,
+      options?: any
+    ) {
+      return DeviceApiFp(configuration).generateDeviceActivationCode(request, options)(
+        fetch,
+        basePath
+      );
+    },
+    /**
+     *
+     * @param {BritboxAPIAccountModelsDeviceRegisterDeviceRequest} [request]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    registerDevice(request?: BritboxAPIAccountModelsDeviceRegisterDeviceRequest, options?: any) {
+      return DeviceApiFp(configuration).registerDevice(request, options)(fetch, basePath);
+    },
+  };
 };
 
 /**
@@ -4360,28 +5212,39 @@ export const DeviceApiFactory = function (configuration?: Configuration, fetch?:
  * @extends {BaseAPI}
  */
 export class DeviceApi extends BaseAPI {
-    /**
-     *
-     * @param {BritboxAPIAccountModelsDeviceGenerateDeviceActivationCodeRequest} [request]
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof DeviceApi
-     */
-    public generateDeviceActivationCode(request?: BritboxAPIAccountModelsDeviceGenerateDeviceActivationCodeRequest, options?: any) {
-        return DeviceApiFp(this.configuration).generateDeviceActivationCode(request, options)(this.fetch, this.basePath);
-    }
+  /**
+   *
+   * @param {BritboxAPIAccountModelsDeviceGenerateDeviceActivationCodeRequest} [request]
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof DeviceApi
+   */
+  public generateDeviceActivationCode(
+    request?: BritboxAPIAccountModelsDeviceGenerateDeviceActivationCodeRequest,
+    options?: any
+  ) {
+    return DeviceApiFp(this.configuration).generateDeviceActivationCode(request, options)(
+      this.fetch,
+      this.basePath
+    );
+  }
 
-    /**
-     *
-     * @param {BritboxAPIAccountModelsDeviceRegisterDeviceRequest} [request]
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof DeviceApi
-     */
-    public registerDevice(request?: BritboxAPIAccountModelsDeviceRegisterDeviceRequest, options?: any) {
-        return DeviceApiFp(this.configuration).registerDevice(request, options)(this.fetch, this.basePath);
-    }
-
+  /**
+   *
+   * @param {BritboxAPIAccountModelsDeviceRegisterDeviceRequest} [request]
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof DeviceApi
+   */
+  public registerDevice(
+    request?: BritboxAPIAccountModelsDeviceRegisterDeviceRequest,
+    options?: any
+  ) {
+    return DeviceApiFp(this.configuration).registerDevice(request, options)(
+      this.fetch,
+      this.basePath
+    );
+  }
 }
 
 /**
@@ -4389,141 +5252,7 @@ export class DeviceApi extends BaseAPI {
  * @export
  */
 export const MediaFileApiFetchParamCreator = function (configuration?: Configuration) {
-    return {
-        /**
-         *
-         * @param {string} id
-         * @param {string} [device]
-         * @param {string} [sub]
-         * @param {Array<string>} [segments]
-         * @param {boolean} [useCustomId]
-         * @param {string} [pcToken]
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        getItemMediaFiles(id: string, device?: string, sub?: string, segments?: Array<string>, useCustomId?: boolean, pcToken?: string, options: any = {}): FetchArgs {
-            // verify required parameter 'id' is not null or undefined
-            if (id === null || id === undefined) {
-                throw new RequiredError('id','Required parameter id was null or undefined when calling getItemMediaFiles.');
-            }
-            const localVarPath = `/v1/account/MediaFile/{id}`
-                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
-            const localVarUrlObj = url.parse(localVarPath, true);
-            const localVarRequestOptions = Object.assign({ method: 'GET' }, options);
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            // authentication AWSApiKeyAuth required
-            if (configuration && configuration.apiKey) {
-                const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("x-api-key")
-					: configuration.apiKey;
-                localVarHeaderParameter["x-api-key"] = localVarApiKeyValue;
-            }
-
-            // authentication JWToken required
-            if (configuration && configuration.apiKey) {
-                const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
-                localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
-            }
-
-            if (device !== undefined) {
-                localVarQueryParameter['device'] = device;
-            }
-
-            if (sub !== undefined) {
-                localVarQueryParameter['sub'] = sub;
-            }
-
-            if (segments) {
-                localVarQueryParameter['segments'] = segments;
-            }
-
-            if (useCustomId !== undefined) {
-                localVarQueryParameter['useCustomId'] = useCustomId;
-            }
-
-            if (pcToken !== undefined) {
-                localVarQueryParameter['pcToken'] = pcToken;
-            }
-
-            localVarUrlObj.query = Object.assign({}, localVarUrlObj.query, localVarQueryParameter, options.query);
-            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-            delete localVarUrlObj.search;
-            localVarRequestOptions.headers = Object.assign({}, localVarHeaderParameter, options.headers);
-
-            return {
-                url: url.format(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-    }
-};
-
-/**
- * MediaFileApi - functional programming interface
- * @export
- */
-export const MediaFileApiFp = function(configuration?: Configuration) {
-    return {
-        /**
-         *
-         * @param {string} id
-         * @param {string} [device]
-         * @param {string} [sub]
-         * @param {Array<string>} [segments]
-         * @param {boolean} [useCustomId]
-         * @param {string} [pcToken]
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        getItemMediaFiles(id: string, device?: string, sub?: string, segments?: Array<string>, useCustomId?: boolean, pcToken?: string, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<BritboxAPIAccountModelsMediaFileGetItemMediaFilesResponse> {
-            const localVarFetchArgs = MediaFileApiFetchParamCreator(configuration).getItemMediaFiles(id, device, sub, segments, useCustomId, pcToken, options);
-            return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
-                return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then((response) => {
-                    if (response.status >= 200 && response.status < 300) {
-                        return response.json();
-                    } else {
-                        throw response;
-                    }
-                });
-            };
-        },
-    }
-};
-
-/**
- * MediaFileApi - factory interface
- * @export
- */
-export const MediaFileApiFactory = function (configuration?: Configuration, fetch?: FetchAPI, basePath?: string) {
-    return {
-        /**
-         *
-         * @param {string} id
-         * @param {string} [device]
-         * @param {string} [sub]
-         * @param {Array<string>} [segments]
-         * @param {boolean} [useCustomId]
-         * @param {string} [pcToken]
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        getItemMediaFiles(id: string, device?: string, sub?: string, segments?: Array<string>, useCustomId?: boolean, pcToken?: string, options?: any) {
-            return MediaFileApiFp(configuration).getItemMediaFiles(id, device, sub, segments, useCustomId, pcToken, options)(fetch, basePath);
-        },
-    };
-};
-
-/**
- * MediaFileApi - object-oriented interface
- * @export
- * @class MediaFileApi
- * @extends {BaseAPI}
- */
-export class MediaFileApi extends BaseAPI {
+  return {
     /**
      *
      * @param {string} id
@@ -4534,12 +5263,222 @@ export class MediaFileApi extends BaseAPI {
      * @param {string} [pcToken]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof MediaFileApi
      */
-    public getItemMediaFiles(id: string, device?: string, sub?: string, segments?: Array<string>, useCustomId?: boolean, pcToken?: string, options?: any) {
-        return MediaFileApiFp(this.configuration).getItemMediaFiles(id, device, sub, segments, useCustomId, pcToken, options)(this.fetch, this.basePath);
-    }
+    getItemMediaFiles(
+      id: string,
+      device?: string,
+      sub?: string,
+      segments?: Array<string>,
+      useCustomId?: boolean,
+      pcToken?: string,
+      options: any = {}
+    ): FetchArgs {
+      // verify required parameter 'id' is not null or undefined
+      if (id === null || id === undefined) {
+        throw new RequiredError(
+          'id',
+          'Required parameter id was null or undefined when calling getItemMediaFiles.'
+        );
+      }
+      const localVarPath = `/v1/account/MediaFile/{id}`.replace(
+        `{${'id'}}`,
+        encodeURIComponent(String(id))
+      );
+      const localVarUrlObj = url.parse(localVarPath, true);
+      const localVarRequestOptions = Object.assign({ method: 'GET' }, options);
+      const localVarHeaderParameter = {} as any;
+      const localVarQueryParameter = {} as any;
 
+      // authentication AWSApiKeyAuth required
+      if (configuration && configuration.apiKey) {
+        const localVarApiKeyValue =
+          typeof configuration.apiKey === 'function'
+            ? configuration.apiKey('x-api-key')
+            : configuration.apiKey;
+        localVarHeaderParameter['x-api-key'] = localVarApiKeyValue;
+      }
+
+      // authentication JWToken required
+      if (configuration && configuration.apiKey) {
+        const localVarApiKeyValue =
+          typeof configuration.apiKey === 'function'
+            ? configuration.apiKey('Authorization')
+            : configuration.apiKey;
+        localVarHeaderParameter['Authorization'] = localVarApiKeyValue;
+      }
+
+      if (device !== undefined) {
+        localVarQueryParameter['device'] = device;
+      }
+
+      if (sub !== undefined) {
+        localVarQueryParameter['sub'] = sub;
+      }
+
+      if (segments) {
+        localVarQueryParameter['segments'] = segments;
+      }
+
+      if (useCustomId !== undefined) {
+        localVarQueryParameter['useCustomId'] = useCustomId;
+      }
+
+      if (pcToken !== undefined) {
+        localVarQueryParameter['pcToken'] = pcToken;
+      }
+
+      localVarUrlObj.query = Object.assign(
+        {},
+        localVarUrlObj.query,
+        localVarQueryParameter,
+        options.query
+      );
+      // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+      delete localVarUrlObj.search;
+      localVarRequestOptions.headers = Object.assign({}, localVarHeaderParameter, options.headers);
+
+      return {
+        url: url.format(localVarUrlObj),
+        options: localVarRequestOptions,
+      };
+    },
+  };
+};
+
+/**
+ * MediaFileApi - functional programming interface
+ * @export
+ */
+export const MediaFileApiFp = function (configuration?: Configuration) {
+  return {
+    /**
+     *
+     * @param {string} id
+     * @param {string} [device]
+     * @param {string} [sub]
+     * @param {Array<string>} [segments]
+     * @param {boolean} [useCustomId]
+     * @param {string} [pcToken]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    getItemMediaFiles(
+      id: string,
+      device?: string,
+      sub?: string,
+      segments?: Array<string>,
+      useCustomId?: boolean,
+      pcToken?: string,
+      options?: any
+    ): (
+      fetch?: FetchAPI,
+      basePath?: string
+    ) => Promise<BritboxAPIAccountModelsMediaFileGetItemMediaFilesResponse> {
+      const localVarFetchArgs = MediaFileApiFetchParamCreator(configuration).getItemMediaFiles(
+        id,
+        device,
+        sub,
+        segments,
+        useCustomId,
+        pcToken,
+        options
+      );
+      return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
+        return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then(
+          (response) => {
+            if (response.status >= 200 && response.status < 300) {
+              return response.json();
+            } else {
+              throw response;
+            }
+          }
+        );
+      };
+    },
+  };
+};
+
+/**
+ * MediaFileApi - factory interface
+ * @export
+ */
+export const MediaFileApiFactory = function (
+  configuration?: Configuration,
+  fetch?: FetchAPI,
+  basePath?: string
+) {
+  return {
+    /**
+     *
+     * @param {string} id
+     * @param {string} [device]
+     * @param {string} [sub]
+     * @param {Array<string>} [segments]
+     * @param {boolean} [useCustomId]
+     * @param {string} [pcToken]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    getItemMediaFiles(
+      id: string,
+      device?: string,
+      sub?: string,
+      segments?: Array<string>,
+      useCustomId?: boolean,
+      pcToken?: string,
+      options?: any
+    ) {
+      return MediaFileApiFp(configuration).getItemMediaFiles(
+        id,
+        device,
+        sub,
+        segments,
+        useCustomId,
+        pcToken,
+        options
+      )(fetch, basePath);
+    },
+  };
+};
+
+/**
+ * MediaFileApi - object-oriented interface
+ * @export
+ * @class MediaFileApi
+ * @extends {BaseAPI}
+ */
+export class MediaFileApi extends BaseAPI {
+  /**
+   *
+   * @param {string} id
+   * @param {string} [device]
+   * @param {string} [sub]
+   * @param {Array<string>} [segments]
+   * @param {boolean} [useCustomId]
+   * @param {string} [pcToken]
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof MediaFileApi
+   */
+  public getItemMediaFiles(
+    id: string,
+    device?: string,
+    sub?: string,
+    segments?: Array<string>,
+    useCustomId?: boolean,
+    pcToken?: string,
+    options?: any
+  ) {
+    return MediaFileApiFp(this.configuration).getItemMediaFiles(
+      id,
+      device,
+      sub,
+      segments,
+      useCustomId,
+      pcToken,
+      options
+    )(this.fetch, this.basePath);
+  }
 }
 
 /**
@@ -4547,1543 +5486,235 @@ export class MediaFileApi extends BaseAPI {
  * @export
  */
 export const ProfileApiFetchParamCreator = function (configuration?: Configuration) {
-    return {
-        /**
-         *
-         * @param {string} itemId
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        bookmarkItem(itemId: string, options: any = {}): FetchArgs {
-            // verify required parameter 'itemId' is not null or undefined
-            if (itemId === null || itemId === undefined) {
-                throw new RequiredError('itemId','Required parameter itemId was null or undefined when calling bookmarkItem.');
-            }
-            const localVarPath = `/v1/account/Profile/bookmarks/{itemId}`
-                .replace(`{${"itemId"}}`, encodeURIComponent(String(itemId)));
-            const localVarUrlObj = url.parse(localVarPath, true);
-            const localVarRequestOptions = Object.assign({ method: 'PUT' }, options);
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            // authentication AWSApiKeyAuth required
-            if (configuration && configuration.apiKey) {
-                const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("x-api-key")
-					: configuration.apiKey;
-                localVarHeaderParameter["x-api-key"] = localVarApiKeyValue;
-            }
-
-            // authentication JWToken required
-            if (configuration && configuration.apiKey) {
-                const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
-                localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
-            }
-
-            localVarUrlObj.query = Object.assign({}, localVarUrlObj.query, localVarQueryParameter, options.query);
-            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-            delete localVarUrlObj.search;
-            localVarRequestOptions.headers = Object.assign({}, localVarHeaderParameter, options.headers);
-
-            return {
-                url: url.format(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         *
-         * @param {string} [classificationName]
-         * @param {string} [segment]
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        checkParentalControl(classificationName?: string, segment?: string, options: any = {}): FetchArgs {
-            const localVarPath = `/v1/account/Profile/parentalcontrol/canstream`;
-            const localVarUrlObj = url.parse(localVarPath, true);
-            const localVarRequestOptions = Object.assign({ method: 'GET' }, options);
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            // authentication AWSApiKeyAuth required
-            if (configuration && configuration.apiKey) {
-                const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("x-api-key")
-					: configuration.apiKey;
-                localVarHeaderParameter["x-api-key"] = localVarApiKeyValue;
-            }
-
-            // authentication JWToken required
-            if (configuration && configuration.apiKey) {
-                const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
-                localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
-            }
-
-            if (classificationName !== undefined) {
-                localVarQueryParameter['classificationName'] = classificationName;
-            }
-
-            if (segment !== undefined) {
-                localVarQueryParameter['segment'] = segment;
-            }
-
-            localVarUrlObj.query = Object.assign({}, localVarUrlObj.query, localVarQueryParameter, options.query);
-            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-            delete localVarUrlObj.search;
-            localVarRequestOptions.headers = Object.assign({}, localVarHeaderParameter, options.headers);
-
-            return {
-                url: url.format(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         *
-         * @param {string} itemId
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        deleteItemBookmark(itemId: string, options: any = {}): FetchArgs {
-            // verify required parameter 'itemId' is not null or undefined
-            if (itemId === null || itemId === undefined) {
-                throw new RequiredError('itemId','Required parameter itemId was null or undefined when calling deleteItemBookmark.');
-            }
-            const localVarPath = `/v1/account/Profile/bookmarks/{itemId}`
-                .replace(`{${"itemId"}}`, encodeURIComponent(String(itemId)));
-            const localVarUrlObj = url.parse(localVarPath, true);
-            const localVarRequestOptions = Object.assign({ method: 'DELETE' }, options);
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            // authentication AWSApiKeyAuth required
-            if (configuration && configuration.apiKey) {
-                const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("x-api-key")
-					: configuration.apiKey;
-                localVarHeaderParameter["x-api-key"] = localVarApiKeyValue;
-            }
-
-            // authentication JWToken required
-            if (configuration && configuration.apiKey) {
-                const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
-                localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
-            }
-
-            localVarUrlObj.query = Object.assign({}, localVarUrlObj.query, localVarQueryParameter, options.query);
-            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-            delete localVarUrlObj.search;
-            localVarRequestOptions.headers = Object.assign({}, localVarHeaderParameter, options.headers);
-
-            return {
-                url: url.format(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         *
-         * @param {BritboxAPIAccountModelsProfileDeleteWatchedRequest} [request]
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        deleteWatched(request?: BritboxAPIAccountModelsProfileDeleteWatchedRequest, options: any = {}): FetchArgs {
-            const localVarPath = `/v1/account/Profile/watched`;
-            const localVarUrlObj = url.parse(localVarPath, true);
-            const localVarRequestOptions = Object.assign({ method: 'DELETE' }, options);
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            // authentication AWSApiKeyAuth required
-            if (configuration && configuration.apiKey) {
-                const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("x-api-key")
-					: configuration.apiKey;
-                localVarHeaderParameter["x-api-key"] = localVarApiKeyValue;
-            }
-
-            // authentication JWToken required
-            if (configuration && configuration.apiKey) {
-                const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
-                localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
-            }
-
-            localVarHeaderParameter['Content-Type'] = 'application/json-patch+json';
-
-            localVarUrlObj.query = Object.assign({}, localVarUrlObj.query, localVarQueryParameter, options.query);
-            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-            delete localVarUrlObj.search;
-            localVarRequestOptions.headers = Object.assign({}, localVarHeaderParameter, options.headers);
-            const needsSerialization = (<any>"BritboxAPIAccountModelsProfileDeleteWatchedRequest" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
-            localVarRequestOptions.body =  needsSerialization ? JSON.stringify(request || {}) : (request || "");
-
-            return {
-                url: url.format(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         *
-         * @param {number} [page]
-         * @param {number} [pageSize]
-         * @param {string} [order]
-         * @param {string} [itemType]
-         * @param {string} [device]
-         * @param {string} [sub]
-         * @param {boolean} [useCustomId]
-         * @param {Array<string>} [segments]
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        getBookmarkList(page?: number, pageSize?: number, order?: string, itemType?: string, device?: string, sub?: string, useCustomId?: boolean, segments?: Array<string>, options: any = {}): FetchArgs {
-            const localVarPath = `/v1/account/Profile/bookmarks/list`;
-            const localVarUrlObj = url.parse(localVarPath, true);
-            const localVarRequestOptions = Object.assign({ method: 'GET' }, options);
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            // authentication AWSApiKeyAuth required
-            if (configuration && configuration.apiKey) {
-                const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("x-api-key")
-					: configuration.apiKey;
-                localVarHeaderParameter["x-api-key"] = localVarApiKeyValue;
-            }
-
-            // authentication JWToken required
-            if (configuration && configuration.apiKey) {
-                const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
-                localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
-            }
-
-            if (page !== undefined) {
-                localVarQueryParameter['page'] = page;
-            }
-
-            if (pageSize !== undefined) {
-                localVarQueryParameter['pageSize'] = pageSize;
-            }
-
-            if (order !== undefined) {
-                localVarQueryParameter['order'] = order;
-            }
-
-            if (itemType !== undefined) {
-                localVarQueryParameter['itemType'] = itemType;
-            }
-
-            if (device !== undefined) {
-                localVarQueryParameter['device'] = device;
-            }
-
-            if (sub !== undefined) {
-                localVarQueryParameter['sub'] = sub;
-            }
-
-            if (useCustomId !== undefined) {
-                localVarQueryParameter['useCustomId'] = useCustomId;
-            }
-
-            if (segments) {
-                localVarQueryParameter['segments'] = segments;
-            }
-
-            localVarUrlObj.query = Object.assign({}, localVarUrlObj.query, localVarQueryParameter, options.query);
-            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-            delete localVarUrlObj.search;
-            localVarRequestOptions.headers = Object.assign({}, localVarHeaderParameter, options.headers);
-
-            return {
-                url: url.format(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         *
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        getBookmarks(options: any = {}): FetchArgs {
-            const localVarPath = `/v1/account/Profile/bookmarks`;
-            const localVarUrlObj = url.parse(localVarPath, true);
-            const localVarRequestOptions = Object.assign({ method: 'GET' }, options);
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            // authentication AWSApiKeyAuth required
-            if (configuration && configuration.apiKey) {
-                const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("x-api-key")
-					: configuration.apiKey;
-                localVarHeaderParameter["x-api-key"] = localVarApiKeyValue;
-            }
-
-            // authentication JWToken required
-            if (configuration && configuration.apiKey) {
-                const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
-                localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
-            }
-
-            localVarUrlObj.query = Object.assign({}, localVarUrlObj.query, localVarQueryParameter, options.query);
-            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-            delete localVarUrlObj.search;
-            localVarRequestOptions.headers = Object.assign({}, localVarHeaderParameter, options.headers);
-
-            return {
-                url: url.format(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         *
-         * @param {string} itemId
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        getContinueWatchingList(itemId: string, options: any = {}): FetchArgs {
-            // verify required parameter 'itemId' is not null or undefined
-            if (itemId === null || itemId === undefined) {
-                throw new RequiredError('itemId','Required parameter itemId was null or undefined when calling getContinueWatchingList.');
-            }
-            const localVarPath = `/v1/account/Profile/watched/show/{itemId}`
-                .replace(`{${"itemId"}}`, encodeURIComponent(String(itemId)));
-            const localVarUrlObj = url.parse(localVarPath, true);
-            const localVarRequestOptions = Object.assign({ method: 'GET' }, options);
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            // authentication AWSApiKeyAuth required
-            if (configuration && configuration.apiKey) {
-                const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("x-api-key")
-					: configuration.apiKey;
-                localVarHeaderParameter["x-api-key"] = localVarApiKeyValue;
-            }
-
-            // authentication JWToken required
-            if (configuration && configuration.apiKey) {
-                const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
-                localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
-            }
-
-            localVarUrlObj.query = Object.assign({}, localVarUrlObj.query, localVarQueryParameter, options.query);
-            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-            delete localVarUrlObj.search;
-            localVarRequestOptions.headers = Object.assign({}, localVarHeaderParameter, options.headers);
-
-            return {
-                url: url.format(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         *
-         * @param {string} [showItemType]
-         * @param {Array<string>} [include]
-         * @param {number} [page]
-         * @param {number} [pageSize]
-         * @param {string} [maxRating]
-         * @param {string} [device]
-         * @param {string} [sub]
-         * @param {Array<string>} [segments]
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        getContinueWatchingList_1(showItemType?: string, include?: Array<string>, page?: number, pageSize?: number, maxRating?: string, device?: string, sub?: string, segments?: Array<string>, options: any = {}): FetchArgs {
-            const localVarPath = `/v1/account/Profile/continue-watching/list`;
-            const localVarUrlObj = url.parse(localVarPath, true);
-            const localVarRequestOptions = Object.assign({ method: 'GET' }, options);
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            // authentication AWSApiKeyAuth required
-            if (configuration && configuration.apiKey) {
-                const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("x-api-key")
-					: configuration.apiKey;
-                localVarHeaderParameter["x-api-key"] = localVarApiKeyValue;
-            }
-
-            // authentication JWToken required
-            if (configuration && configuration.apiKey) {
-                const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
-                localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
-            }
-
-            if (showItemType !== undefined) {
-                localVarQueryParameter['showItemType'] = showItemType;
-            }
-
-            if (include) {
-                localVarQueryParameter['include'] = include;
-            }
-
-            if (page !== undefined) {
-                localVarQueryParameter['page'] = page;
-            }
-
-            if (pageSize !== undefined) {
-                localVarQueryParameter['pageSize'] = pageSize;
-            }
-
-            if (maxRating !== undefined) {
-                localVarQueryParameter['maxRating'] = maxRating;
-            }
-
-            if (device !== undefined) {
-                localVarQueryParameter['device'] = device;
-            }
-
-            if (sub !== undefined) {
-                localVarQueryParameter['sub'] = sub;
-            }
-
-            if (segments) {
-                localVarQueryParameter['segments'] = segments;
-            }
-
-            localVarUrlObj.query = Object.assign({}, localVarUrlObj.query, localVarQueryParameter, options.query);
-            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-            delete localVarUrlObj.search;
-            localVarRequestOptions.headers = Object.assign({}, localVarHeaderParameter, options.headers);
-
-            return {
-                url: url.format(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         *
-         * @param {string} itemId
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        getItemBookmark(itemId: string, options: any = {}): FetchArgs {
-            // verify required parameter 'itemId' is not null or undefined
-            if (itemId === null || itemId === undefined) {
-                throw new RequiredError('itemId','Required parameter itemId was null or undefined when calling getItemBookmark.');
-            }
-            const localVarPath = `/v1/account/Profile/bookmarks/{itemId}`
-                .replace(`{${"itemId"}}`, encodeURIComponent(String(itemId)));
-            const localVarUrlObj = url.parse(localVarPath, true);
-            const localVarRequestOptions = Object.assign({ method: 'GET' }, options);
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            // authentication AWSApiKeyAuth required
-            if (configuration && configuration.apiKey) {
-                const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("x-api-key")
-					: configuration.apiKey;
-                localVarHeaderParameter["x-api-key"] = localVarApiKeyValue;
-            }
-
-            // authentication JWToken required
-            if (configuration && configuration.apiKey) {
-                const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
-                localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
-            }
-
-            localVarUrlObj.query = Object.assign({}, localVarUrlObj.query, localVarQueryParameter, options.query);
-            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-            delete localVarUrlObj.search;
-            localVarRequestOptions.headers = Object.assign({}, localVarHeaderParameter, options.headers);
-
-            return {
-                url: url.format(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         *
-         * @param {string} itemId
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        getItemWatchedStatus(itemId: string, options: any = {}): FetchArgs {
-            // verify required parameter 'itemId' is not null or undefined
-            if (itemId === null || itemId === undefined) {
-                throw new RequiredError('itemId','Required parameter itemId was null or undefined when calling getItemWatchedStatus.');
-            }
-            const localVarPath = `/v1/account/Profile/watched/{itemId}`
-                .replace(`{${"itemId"}}`, encodeURIComponent(String(itemId)));
-            const localVarUrlObj = url.parse(localVarPath, true);
-            const localVarRequestOptions = Object.assign({ method: 'GET' }, options);
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            // authentication AWSApiKeyAuth required
-            if (configuration && configuration.apiKey) {
-                const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("x-api-key")
-					: configuration.apiKey;
-                localVarHeaderParameter["x-api-key"] = localVarApiKeyValue;
-            }
-
-            // authentication JWToken required
-            if (configuration && configuration.apiKey) {
-                const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
-                localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
-            }
-
-            localVarUrlObj.query = Object.assign({}, localVarUrlObj.query, localVarQueryParameter, options.query);
-            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-            delete localVarUrlObj.search;
-            localVarRequestOptions.headers = Object.assign({}, localVarHeaderParameter, options.headers);
-
-            return {
-                url: url.format(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         *
-         * @param {string} itemId
-         * @param {string} [maxRating]
-         * @param {string} [expand]
-         * @param {string} [device]
-         * @param {string} [sub]
-         * @param {Array<string>} [segments]
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        getNextPlaybackItem(itemId: string, maxRating?: string, expand?: string, device?: string, sub?: string, segments?: Array<string>, options: any = {}): FetchArgs {
-            // verify required parameter 'itemId' is not null or undefined
-            if (itemId === null || itemId === undefined) {
-                throw new RequiredError('itemId','Required parameter itemId was null or undefined when calling getNextPlaybackItem.');
-            }
-            const localVarPath = `/v1/account/Profile/items/{itemId}/next`
-                .replace(`{${"itemId"}}`, encodeURIComponent(String(itemId)));
-            const localVarUrlObj = url.parse(localVarPath, true);
-            const localVarRequestOptions = Object.assign({ method: 'GET' }, options);
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            // authentication AWSApiKeyAuth required
-            if (configuration && configuration.apiKey) {
-                const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("x-api-key")
-					: configuration.apiKey;
-                localVarHeaderParameter["x-api-key"] = localVarApiKeyValue;
-            }
-
-            // authentication JWToken required
-            if (configuration && configuration.apiKey) {
-                const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
-                localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
-            }
-
-            if (maxRating !== undefined) {
-                localVarQueryParameter['maxRating'] = maxRating;
-            }
-
-            if (expand !== undefined) {
-                localVarQueryParameter['expand'] = expand;
-            }
-
-            if (device !== undefined) {
-                localVarQueryParameter['device'] = device;
-            }
-
-            if (sub !== undefined) {
-                localVarQueryParameter['sub'] = sub;
-            }
-
-            if (segments) {
-                localVarQueryParameter['segments'] = segments;
-            }
-
-            localVarUrlObj.query = Object.assign({}, localVarUrlObj.query, localVarQueryParameter, options.query);
-            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-            delete localVarUrlObj.search;
-            localVarRequestOptions.headers = Object.assign({}, localVarHeaderParameter, options.headers);
-
-            return {
-                url: url.format(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         *
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        getParentalControlDetails(options: any = {}): FetchArgs {
-            const localVarPath = `/v1/account/Profile/parentalcontrol`;
-            const localVarUrlObj = url.parse(localVarPath, true);
-            const localVarRequestOptions = Object.assign({ method: 'GET' }, options);
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            // authentication AWSApiKeyAuth required
-            if (configuration && configuration.apiKey) {
-                const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("x-api-key")
-					: configuration.apiKey;
-                localVarHeaderParameter["x-api-key"] = localVarApiKeyValue;
-            }
-
-            // authentication JWToken required
-            if (configuration && configuration.apiKey) {
-                const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
-                localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
-            }
-
-            localVarUrlObj.query = Object.assign({}, localVarUrlObj.query, localVarQueryParameter, options.query);
-            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-            delete localVarUrlObj.search;
-            localVarRequestOptions.headers = Object.assign({}, localVarHeaderParameter, options.headers);
-
-            return {
-                url: url.format(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         *
-         * @param {boolean} [useCustomId]
-         * @param {Array<string>} [segments]
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        getProfile(useCustomId?: boolean, segments?: Array<string>, options: any = {}): FetchArgs {
-            const localVarPath = `/v1/account/Profile`;
-            const localVarUrlObj = url.parse(localVarPath, true);
-            const localVarRequestOptions = Object.assign({ method: 'GET' }, options);
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            // authentication AWSApiKeyAuth required
-            if (configuration && configuration.apiKey) {
-                const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("x-api-key")
-					: configuration.apiKey;
-                localVarHeaderParameter["x-api-key"] = localVarApiKeyValue;
-            }
-
-            // authentication JWToken required
-            if (configuration && configuration.apiKey) {
-                const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
-                localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
-            }
-
-            if (useCustomId !== undefined) {
-                localVarQueryParameter['useCustomId'] = useCustomId;
-            }
-
-            if (segments) {
-                localVarQueryParameter['segments'] = segments;
-            }
-
-            localVarUrlObj.query = Object.assign({}, localVarUrlObj.query, localVarQueryParameter, options.query);
-            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-            delete localVarUrlObj.search;
-            localVarRequestOptions.headers = Object.assign({}, localVarHeaderParameter, options.headers);
-
-            return {
-                url: url.format(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         *
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        getWatched(options: any = {}): FetchArgs {
-            const localVarPath = `/v1/account/Profile/watched`;
-            const localVarUrlObj = url.parse(localVarPath, true);
-            const localVarRequestOptions = Object.assign({ method: 'GET' }, options);
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            // authentication AWSApiKeyAuth required
-            if (configuration && configuration.apiKey) {
-                const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("x-api-key")
-					: configuration.apiKey;
-                localVarHeaderParameter["x-api-key"] = localVarApiKeyValue;
-            }
-
-            // authentication JWToken required
-            if (configuration && configuration.apiKey) {
-                const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
-                localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
-            }
-
-            localVarUrlObj.query = Object.assign({}, localVarUrlObj.query, localVarQueryParameter, options.query);
-            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-            delete localVarUrlObj.search;
-            localVarRequestOptions.headers = Object.assign({}, localVarHeaderParameter, options.headers);
-
-            return {
-                url: url.format(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         *
-         * @param {number} [page]
-         * @param {number} [pageSize]
-         * @param {boolean} [completed]
-         * @param {string} [order]
-         * @param {string} [orderBy]
-         * @param {string} [itemType]
-         * @param {string} [device]
-         * @param {string} [sub]
-         * @param {boolean} [useCustomId]
-         * @param {Array<string>} [segments]
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        getWatchedList(page?: number, pageSize?: number, completed?: boolean, order?: string, orderBy?: string, itemType?: string, device?: string, sub?: string, useCustomId?: boolean, segments?: Array<string>, options: any = {}): FetchArgs {
-            const localVarPath = `/v1/account/Profile/watched/list`;
-            const localVarUrlObj = url.parse(localVarPath, true);
-            const localVarRequestOptions = Object.assign({ method: 'GET' }, options);
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            // authentication AWSApiKeyAuth required
-            if (configuration && configuration.apiKey) {
-                const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("x-api-key")
-					: configuration.apiKey;
-                localVarHeaderParameter["x-api-key"] = localVarApiKeyValue;
-            }
-
-            // authentication JWToken required
-            if (configuration && configuration.apiKey) {
-                const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
-                localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
-            }
-
-            if (page !== undefined) {
-                localVarQueryParameter['page'] = page;
-            }
-
-            if (pageSize !== undefined) {
-                localVarQueryParameter['pageSize'] = pageSize;
-            }
-
-            if (completed !== undefined) {
-                localVarQueryParameter['completed'] = completed;
-            }
-
-            if (order !== undefined) {
-                localVarQueryParameter['order'] = order;
-            }
-
-            if (orderBy !== undefined) {
-                localVarQueryParameter['orderBy'] = orderBy;
-            }
-
-            if (itemType !== undefined) {
-                localVarQueryParameter['itemType'] = itemType;
-            }
-
-            if (device !== undefined) {
-                localVarQueryParameter['device'] = device;
-            }
-
-            if (sub !== undefined) {
-                localVarQueryParameter['sub'] = sub;
-            }
-
-            if (useCustomId !== undefined) {
-                localVarQueryParameter['useCustomId'] = useCustomId;
-            }
-
-            if (segments) {
-                localVarQueryParameter['segments'] = segments;
-            }
-
-            localVarUrlObj.query = Object.assign({}, localVarUrlObj.query, localVarQueryParameter, options.query);
-            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-            delete localVarUrlObj.search;
-            localVarRequestOptions.headers = Object.assign({}, localVarHeaderParameter, options.headers);
-
-            return {
-                url: url.format(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         *
-         * @param {string} itemId
-         * @param {BritboxAPIAccountModelsProfileSetItemWatchedStatusRequest} [request]
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        setItemWatchedStatus(itemId: string, request?: BritboxAPIAccountModelsProfileSetItemWatchedStatusRequest, options: any = {}): FetchArgs {
-            // verify required parameter 'itemId' is not null or undefined
-            if (itemId === null || itemId === undefined) {
-                throw new RequiredError('itemId','Required parameter itemId was null or undefined when calling setItemWatchedStatus.');
-            }
-            const localVarPath = `/v1/account/Profile/watched/{itemId}`
-                .replace(`{${"itemId"}}`, encodeURIComponent(String(itemId)));
-            const localVarUrlObj = url.parse(localVarPath, true);
-            const localVarRequestOptions = Object.assign({ method: 'PUT' }, options);
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            // authentication AWSApiKeyAuth required
-            if (configuration && configuration.apiKey) {
-                const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("x-api-key")
-					: configuration.apiKey;
-                localVarHeaderParameter["x-api-key"] = localVarApiKeyValue;
-            }
-
-            // authentication JWToken required
-            if (configuration && configuration.apiKey) {
-                const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
-                localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
-            }
-
-            localVarHeaderParameter['Content-Type'] = 'application/json-patch+json';
-
-            localVarUrlObj.query = Object.assign({}, localVarUrlObj.query, localVarQueryParameter, options.query);
-            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-            delete localVarUrlObj.search;
-            localVarRequestOptions.headers = Object.assign({}, localVarHeaderParameter, options.headers);
-            const needsSerialization = (<any>"BritboxAPIAccountModelsProfileSetItemWatchedStatusRequest" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
-            localVarRequestOptions.body =  needsSerialization ? JSON.stringify(request || {}) : (request || "");
-
-            return {
-                url: url.format(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         *
-         * @param {BritboxAPIAccountModelsProfileUpdateParentalControlDetailsRequest} [request]
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        updateParentalControlDetails(request?: BritboxAPIAccountModelsProfileUpdateParentalControlDetailsRequest, options: any = {}): FetchArgs {
-            const localVarPath = `/v1/account/Profile/parentalcontrol`;
-            const localVarUrlObj = url.parse(localVarPath, true);
-            const localVarRequestOptions = Object.assign({ method: 'POST' }, options);
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            // authentication AWSApiKeyAuth required
-            if (configuration && configuration.apiKey) {
-                const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("x-api-key")
-					: configuration.apiKey;
-                localVarHeaderParameter["x-api-key"] = localVarApiKeyValue;
-            }
-
-            // authentication JWToken required
-            if (configuration && configuration.apiKey) {
-                const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
-                localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
-            }
-
-            localVarHeaderParameter['Content-Type'] = 'application/json-patch+json';
-
-            localVarUrlObj.query = Object.assign({}, localVarUrlObj.query, localVarQueryParameter, options.query);
-            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-            delete localVarUrlObj.search;
-            localVarRequestOptions.headers = Object.assign({}, localVarHeaderParameter, options.headers);
-            const needsSerialization = (<any>"BritboxAPIAccountModelsProfileUpdateParentalControlDetailsRequest" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
-            localVarRequestOptions.body =  needsSerialization ? JSON.stringify(request || {}) : (request || "");
-
-            return {
-                url: url.format(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         *
-         * @param {BritboxAPIAccountModelsProfileValidateParentalControlPINRequest} [request]
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        validateParentalControlPIN(request?: BritboxAPIAccountModelsProfileValidateParentalControlPINRequest, options: any = {}): FetchArgs {
-            const localVarPath = `/v1/account/Profile/parentalcontrol/validate`;
-            const localVarUrlObj = url.parse(localVarPath, true);
-            const localVarRequestOptions = Object.assign({ method: 'POST' }, options);
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            // authentication AWSApiKeyAuth required
-            if (configuration && configuration.apiKey) {
-                const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("x-api-key")
-					: configuration.apiKey;
-                localVarHeaderParameter["x-api-key"] = localVarApiKeyValue;
-            }
-
-            // authentication JWToken required
-            if (configuration && configuration.apiKey) {
-                const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
-                localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
-            }
-
-            localVarHeaderParameter['Content-Type'] = 'application/json-patch+json';
-
-            localVarUrlObj.query = Object.assign({}, localVarUrlObj.query, localVarQueryParameter, options.query);
-            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-            delete localVarUrlObj.search;
-            localVarRequestOptions.headers = Object.assign({}, localVarHeaderParameter, options.headers);
-            const needsSerialization = (<any>"BritboxAPIAccountModelsProfileValidateParentalControlPINRequest" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
-            localVarRequestOptions.body =  needsSerialization ? JSON.stringify(request || {}) : (request || "");
-
-            return {
-                url: url.format(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-    }
-};
-
-/**
- * ProfileApi - functional programming interface
- * @export
- */
-export const ProfileApiFp = function(configuration?: Configuration) {
-    return {
-        /**
-         *
-         * @param {string} itemId
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        bookmarkItem(itemId: string, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<BritboxAPIAccountModelsProfileBookmarkItemResponse> {
-            const localVarFetchArgs = ProfileApiFetchParamCreator(configuration).bookmarkItem(itemId, options);
-            return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
-                return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then((response) => {
-                    if (response.status >= 200 && response.status < 300) {
-                        return response.json();
-                    } else {
-                        throw response;
-                    }
-                });
-            };
-        },
-        /**
-         *
-         * @param {string} [classificationName]
-         * @param {string} [segment]
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        checkParentalControl(classificationName?: string, segment?: string, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<BritboxAPIAccountModelsProfileCheckParentalControlResponse> {
-            const localVarFetchArgs = ProfileApiFetchParamCreator(configuration).checkParentalControl(classificationName, segment, options);
-            return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
-                return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then((response) => {
-                    if (response.status >= 200 && response.status < 300) {
-                        return response.json();
-                    } else {
-                        throw response;
-                    }
-                });
-            };
-        },
-        /**
-         *
-         * @param {string} itemId
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        deleteItemBookmark(itemId: string, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<Response> {
-            const localVarFetchArgs = ProfileApiFetchParamCreator(configuration).deleteItemBookmark(itemId, options);
-            return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
-                return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then((response) => {
-                    if (response.status >= 200 && response.status < 300) {
-                        return response;
-                    } else {
-                        throw response;
-                    }
-                });
-            };
-        },
-        /**
-         *
-         * @param {BritboxAPIAccountModelsProfileDeleteWatchedRequest} [request]
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        deleteWatched(request?: BritboxAPIAccountModelsProfileDeleteWatchedRequest, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<Response> {
-            const localVarFetchArgs = ProfileApiFetchParamCreator(configuration).deleteWatched(request, options);
-            return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
-                return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then((response) => {
-                    if (response.status >= 200 && response.status < 300) {
-                        return response;
-                    } else {
-                        throw response;
-                    }
-                });
-            };
-        },
-        /**
-         *
-         * @param {number} [page]
-         * @param {number} [pageSize]
-         * @param {string} [order]
-         * @param {string} [itemType]
-         * @param {string} [device]
-         * @param {string} [sub]
-         * @param {boolean} [useCustomId]
-         * @param {Array<string>} [segments]
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        getBookmarkList(page?: number, pageSize?: number, order?: string, itemType?: string, device?: string, sub?: string, useCustomId?: boolean, segments?: Array<string>, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<BritboxAPIAccountModelsProfileGetBookmarkListResponse> {
-            const localVarFetchArgs = ProfileApiFetchParamCreator(configuration).getBookmarkList(page, pageSize, order, itemType, device, sub, useCustomId, segments, options);
-            return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
-                return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then((response) => {
-                    if (response.status >= 200 && response.status < 300) {
-                        return response.json();
-                    } else {
-                        throw response;
-                    }
-                });
-            };
-        },
-        /**
-         *
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        getBookmarks(options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<BritboxAPIAccountModelsProfileGetBookmarksResponse> {
-            const localVarFetchArgs = ProfileApiFetchParamCreator(configuration).getBookmarks(options);
-            return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
-                return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then((response) => {
-                    if (response.status >= 200 && response.status < 300) {
-                        return response.json();
-                    } else {
-                        throw response;
-                    }
-                });
-            };
-        },
-        /**
-         *
-         * @param {string} itemId
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        getContinueWatchingList(itemId: string, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<BritboxAPIAccountModelsProfileGetItemWatchedStatusResponse> {
-            const localVarFetchArgs = ProfileApiFetchParamCreator(configuration).getContinueWatchingList(itemId, options);
-            return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
-                return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then((response) => {
-                    if (response.status >= 200 && response.status < 300) {
-                        return response.json();
-                    } else {
-                        throw response;
-                    }
-                });
-            };
-        },
-        /**
-         *
-         * @param {string} [showItemType]
-         * @param {Array<string>} [include]
-         * @param {number} [page]
-         * @param {number} [pageSize]
-         * @param {string} [maxRating]
-         * @param {string} [device]
-         * @param {string} [sub]
-         * @param {Array<string>} [segments]
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        getContinueWatchingList_1(showItemType?: string, include?: Array<string>, page?: number, pageSize?: number, maxRating?: string, device?: string, sub?: string, segments?: Array<string>, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<BritboxAPIAccountModelsProfileGetContinueWatchingListResponse> {
-            const localVarFetchArgs = ProfileApiFetchParamCreator(configuration).getContinueWatchingList_1(showItemType, include, page, pageSize, maxRating, device, sub, segments, options);
-            return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
-                return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then((response) => {
-                    if (response.status >= 200 && response.status < 300) {
-                        return response.json();
-                    } else {
-                        throw response;
-                    }
-                });
-            };
-        },
-        /**
-         *
-         * @param {string} itemId
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        getItemBookmark(itemId: string, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<BritboxAPIAccountModelsProfileGetItemBookmarkResponse> {
-            const localVarFetchArgs = ProfileApiFetchParamCreator(configuration).getItemBookmark(itemId, options);
-            return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
-                return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then((response) => {
-                    if (response.status >= 200 && response.status < 300) {
-                        return response.json();
-                    } else {
-                        throw response;
-                    }
-                });
-            };
-        },
-        /**
-         *
-         * @param {string} itemId
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        getItemWatchedStatus(itemId: string, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<BritboxAPIAccountModelsProfileGetItemWatchedStatusResponse> {
-            const localVarFetchArgs = ProfileApiFetchParamCreator(configuration).getItemWatchedStatus(itemId, options);
-            return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
-                return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then((response) => {
-                    if (response.status >= 200 && response.status < 300) {
-                        return response.json();
-                    } else {
-                        throw response;
-                    }
-                });
-            };
-        },
-        /**
-         *
-         * @param {string} itemId
-         * @param {string} [maxRating]
-         * @param {string} [expand]
-         * @param {string} [device]
-         * @param {string} [sub]
-         * @param {Array<string>} [segments]
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        getNextPlaybackItem(itemId: string, maxRating?: string, expand?: string, device?: string, sub?: string, segments?: Array<string>, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<BritboxAPIAccountModelsProfileGetNextPlaybackItemResponse> {
-            const localVarFetchArgs = ProfileApiFetchParamCreator(configuration).getNextPlaybackItem(itemId, maxRating, expand, device, sub, segments, options);
-            return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
-                return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then((response) => {
-                    if (response.status >= 200 && response.status < 300) {
-                        return response.json();
-                    } else {
-                        throw response;
-                    }
-                });
-            };
-        },
-        /**
-         *
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        getParentalControlDetails(options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<BritboxAPIAccountModelsProfileGetParentalControlDetailsResponse> {
-            const localVarFetchArgs = ProfileApiFetchParamCreator(configuration).getParentalControlDetails(options);
-            return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
-                return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then((response) => {
-                    if (response.status >= 200 && response.status < 300) {
-                        return response.json();
-                    } else {
-                        throw response;
-                    }
-                });
-            };
-        },
-        /**
-         *
-         * @param {boolean} [useCustomId]
-         * @param {Array<string>} [segments]
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        getProfile(useCustomId?: boolean, segments?: Array<string>, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<BritboxAPIAccountModelsProfileGetProfileResponse> {
-            const localVarFetchArgs = ProfileApiFetchParamCreator(configuration).getProfile(useCustomId, segments, options);
-            return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
-                return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then((response) => {
-                    if (response.status >= 200 && response.status < 300) {
-                        return response.json();
-                    } else {
-                        throw response;
-                    }
-                });
-            };
-        },
-        /**
-         *
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        getWatched(options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<BritboxAPIAccountModelsProfileGetWatchedResponse> {
-            const localVarFetchArgs = ProfileApiFetchParamCreator(configuration).getWatched(options);
-            return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
-                return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then((response) => {
-                    if (response.status >= 200 && response.status < 300) {
-                        return response.json();
-                    } else {
-                        throw response;
-                    }
-                });
-            };
-        },
-        /**
-         *
-         * @param {number} [page]
-         * @param {number} [pageSize]
-         * @param {boolean} [completed]
-         * @param {string} [order]
-         * @param {string} [orderBy]
-         * @param {string} [itemType]
-         * @param {string} [device]
-         * @param {string} [sub]
-         * @param {boolean} [useCustomId]
-         * @param {Array<string>} [segments]
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        getWatchedList(page?: number, pageSize?: number, completed?: boolean, order?: string, orderBy?: string, itemType?: string, device?: string, sub?: string, useCustomId?: boolean, segments?: Array<string>, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<BritboxAPIAccountModelsProfileGetWatchedListResponse> {
-            const localVarFetchArgs = ProfileApiFetchParamCreator(configuration).getWatchedList(page, pageSize, completed, order, orderBy, itemType, device, sub, useCustomId, segments, options);
-            return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
-                return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then((response) => {
-                    if (response.status >= 200 && response.status < 300) {
-                        return response.json();
-                    } else {
-                        throw response;
-                    }
-                });
-            };
-        },
-        /**
-         *
-         * @param {string} itemId
-         * @param {BritboxAPIAccountModelsProfileSetItemWatchedStatusRequest} [request]
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        setItemWatchedStatus(itemId: string, request?: BritboxAPIAccountModelsProfileSetItemWatchedStatusRequest, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<BritboxAPIAccountModelsProfileSetItemWatchedStatusResponse> {
-            const localVarFetchArgs = ProfileApiFetchParamCreator(configuration).setItemWatchedStatus(itemId, request, options);
-            return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
-                return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then((response) => {
-                    if (response.status >= 200 && response.status < 300) {
-                        return response.json();
-                    } else {
-                        throw response;
-                    }
-                });
-            };
-        },
-        /**
-         *
-         * @param {BritboxAPIAccountModelsProfileUpdateParentalControlDetailsRequest} [request]
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        updateParentalControlDetails(request?: BritboxAPIAccountModelsProfileUpdateParentalControlDetailsRequest, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<BritboxAPIAccountModelsProfileUpdateParentalControlDetailsResponse> {
-            const localVarFetchArgs = ProfileApiFetchParamCreator(configuration).updateParentalControlDetails(request, options);
-            return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
-                return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then((response) => {
-                    if (response.status >= 200 && response.status < 300) {
-                        return response.json();
-                    } else {
-                        throw response;
-                    }
-                });
-            };
-        },
-        /**
-         *
-         * @param {BritboxAPIAccountModelsProfileValidateParentalControlPINRequest} [request]
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        validateParentalControlPIN(request?: BritboxAPIAccountModelsProfileValidateParentalControlPINRequest, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<BritboxAPIAccountModelsProfileValidateParentalControlPINResponse> {
-            const localVarFetchArgs = ProfileApiFetchParamCreator(configuration).validateParentalControlPIN(request, options);
-            return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
-                return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then((response) => {
-                    if (response.status >= 200 && response.status < 300) {
-                        return response.json();
-                    } else {
-                        throw response;
-                    }
-                });
-            };
-        },
-    }
-};
-
-/**
- * ProfileApi - factory interface
- * @export
- */
-export const ProfileApiFactory = function (configuration?: Configuration, fetch?: FetchAPI, basePath?: string) {
-    return {
-        /**
-         *
-         * @param {string} itemId
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        bookmarkItem(itemId: string, options?: any) {
-            return ProfileApiFp(configuration).bookmarkItem(itemId, options)(fetch, basePath);
-        },
-        /**
-         *
-         * @param {string} [classificationName]
-         * @param {string} [segment]
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        checkParentalControl(classificationName?: string, segment?: string, options?: any) {
-            return ProfileApiFp(configuration).checkParentalControl(classificationName, segment, options)(fetch, basePath);
-        },
-        /**
-         *
-         * @param {string} itemId
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        deleteItemBookmark(itemId: string, options?: any) {
-            return ProfileApiFp(configuration).deleteItemBookmark(itemId, options)(fetch, basePath);
-        },
-        /**
-         *
-         * @param {BritboxAPIAccountModelsProfileDeleteWatchedRequest} [request]
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        deleteWatched(request?: BritboxAPIAccountModelsProfileDeleteWatchedRequest, options?: any) {
-            return ProfileApiFp(configuration).deleteWatched(request, options)(fetch, basePath);
-        },
-        /**
-         *
-         * @param {number} [page]
-         * @param {number} [pageSize]
-         * @param {string} [order]
-         * @param {string} [itemType]
-         * @param {string} [device]
-         * @param {string} [sub]
-         * @param {boolean} [useCustomId]
-         * @param {Array<string>} [segments]
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        getBookmarkList(page?: number, pageSize?: number, order?: string, itemType?: string, device?: string, sub?: string, useCustomId?: boolean, segments?: Array<string>, options?: any) {
-            return ProfileApiFp(configuration).getBookmarkList(page, pageSize, order, itemType, device, sub, useCustomId, segments, options)(fetch, basePath);
-        },
-        /**
-         *
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        getBookmarks(options?: any) {
-            return ProfileApiFp(configuration).getBookmarks(options)(fetch, basePath);
-        },
-        /**
-         *
-         * @param {string} itemId
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        getContinueWatchingList(itemId: string, options?: any) {
-            return ProfileApiFp(configuration).getContinueWatchingList(itemId, options)(fetch, basePath);
-        },
-        /**
-         *
-         * @param {string} [showItemType]
-         * @param {Array<string>} [include]
-         * @param {number} [page]
-         * @param {number} [pageSize]
-         * @param {string} [maxRating]
-         * @param {string} [device]
-         * @param {string} [sub]
-         * @param {Array<string>} [segments]
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        getContinueWatchingList_1(showItemType?: string, include?: Array<string>, page?: number, pageSize?: number, maxRating?: string, device?: string, sub?: string, segments?: Array<string>, options?: any) {
-            return ProfileApiFp(configuration).getContinueWatchingList_1(showItemType, include, page, pageSize, maxRating, device, sub, segments, options)(fetch, basePath);
-        },
-        /**
-         *
-         * @param {string} itemId
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        getItemBookmark(itemId: string, options?: any) {
-            return ProfileApiFp(configuration).getItemBookmark(itemId, options)(fetch, basePath);
-        },
-        /**
-         *
-         * @param {string} itemId
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        getItemWatchedStatus(itemId: string, options?: any) {
-            return ProfileApiFp(configuration).getItemWatchedStatus(itemId, options)(fetch, basePath);
-        },
-        /**
-         *
-         * @param {string} itemId
-         * @param {string} [maxRating]
-         * @param {string} [expand]
-         * @param {string} [device]
-         * @param {string} [sub]
-         * @param {Array<string>} [segments]
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        getNextPlaybackItem(itemId: string, maxRating?: string, expand?: string, device?: string, sub?: string, segments?: Array<string>, options?: any) {
-            return ProfileApiFp(configuration).getNextPlaybackItem(itemId, maxRating, expand, device, sub, segments, options)(fetch, basePath);
-        },
-        /**
-         *
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        getParentalControlDetails(options?: any) {
-            return ProfileApiFp(configuration).getParentalControlDetails(options)(fetch, basePath);
-        },
-        /**
-         *
-         * @param {boolean} [useCustomId]
-         * @param {Array<string>} [segments]
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        getProfile(useCustomId?: boolean, segments?: Array<string>, options?: any) {
-            return ProfileApiFp(configuration).getProfile(useCustomId, segments, options)(fetch, basePath);
-        },
-        /**
-         *
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        getWatched(options?: any) {
-            return ProfileApiFp(configuration).getWatched(options)(fetch, basePath);
-        },
-        /**
-         *
-         * @param {number} [page]
-         * @param {number} [pageSize]
-         * @param {boolean} [completed]
-         * @param {string} [order]
-         * @param {string} [orderBy]
-         * @param {string} [itemType]
-         * @param {string} [device]
-         * @param {string} [sub]
-         * @param {boolean} [useCustomId]
-         * @param {Array<string>} [segments]
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        getWatchedList(page?: number, pageSize?: number, completed?: boolean, order?: string, orderBy?: string, itemType?: string, device?: string, sub?: string, useCustomId?: boolean, segments?: Array<string>, options?: any) {
-            return ProfileApiFp(configuration).getWatchedList(page, pageSize, completed, order, orderBy, itemType, device, sub, useCustomId, segments, options)(fetch, basePath);
-        },
-        /**
-         *
-         * @param {string} itemId
-         * @param {BritboxAPIAccountModelsProfileSetItemWatchedStatusRequest} [request]
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        setItemWatchedStatus(itemId: string, request?: BritboxAPIAccountModelsProfileSetItemWatchedStatusRequest, options?: any) {
-            return ProfileApiFp(configuration).setItemWatchedStatus(itemId, request, options)(fetch, basePath);
-        },
-        /**
-         *
-         * @param {BritboxAPIAccountModelsProfileUpdateParentalControlDetailsRequest} [request]
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        updateParentalControlDetails(request?: BritboxAPIAccountModelsProfileUpdateParentalControlDetailsRequest, options?: any) {
-            return ProfileApiFp(configuration).updateParentalControlDetails(request, options)(fetch, basePath);
-        },
-        /**
-         *
-         * @param {BritboxAPIAccountModelsProfileValidateParentalControlPINRequest} [request]
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        validateParentalControlPIN(request?: BritboxAPIAccountModelsProfileValidateParentalControlPINRequest, options?: any) {
-            return ProfileApiFp(configuration).validateParentalControlPIN(request, options)(fetch, basePath);
-        },
-    };
-};
-
-/**
- * ProfileApi - object-oriented interface
- * @export
- * @class ProfileApi
- * @extends {BaseAPI}
- */
-export class ProfileApi extends BaseAPI {
+  return {
     /**
      *
      * @param {string} itemId
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof ProfileApi
      */
-    public bookmarkItem(itemId: string, options?: any) {
-        return ProfileApiFp(this.configuration).bookmarkItem(itemId, options)(this.fetch, this.basePath);
-    }
+    bookmarkItem(itemId: string, options: any = {}): FetchArgs {
+      // verify required parameter 'itemId' is not null or undefined
+      if (itemId === null || itemId === undefined) {
+        throw new RequiredError(
+          'itemId',
+          'Required parameter itemId was null or undefined when calling bookmarkItem.'
+        );
+      }
+      const localVarPath = `/v1/account/Profile/bookmarks/{itemId}`.replace(
+        `{${'itemId'}}`,
+        encodeURIComponent(String(itemId))
+      );
+      const localVarUrlObj = url.parse(localVarPath, true);
+      const localVarRequestOptions = Object.assign({ method: 'PUT' }, options);
+      const localVarHeaderParameter = {} as any;
+      const localVarQueryParameter = {} as any;
 
+      // authentication AWSApiKeyAuth required
+      if (configuration && configuration.apiKey) {
+        const localVarApiKeyValue =
+          typeof configuration.apiKey === 'function'
+            ? configuration.apiKey('x-api-key')
+            : configuration.apiKey;
+        localVarHeaderParameter['x-api-key'] = localVarApiKeyValue;
+      }
+
+      // authentication JWToken required
+      if (configuration && configuration.apiKey) {
+        const localVarApiKeyValue =
+          typeof configuration.apiKey === 'function'
+            ? configuration.apiKey('Authorization')
+            : configuration.apiKey;
+        localVarHeaderParameter['Authorization'] = localVarApiKeyValue;
+      }
+
+      localVarUrlObj.query = Object.assign(
+        {},
+        localVarUrlObj.query,
+        localVarQueryParameter,
+        options.query
+      );
+      // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+      delete localVarUrlObj.search;
+      localVarRequestOptions.headers = Object.assign({}, localVarHeaderParameter, options.headers);
+
+      return {
+        url: url.format(localVarUrlObj),
+        options: localVarRequestOptions,
+      };
+    },
     /**
      *
      * @param {string} [classificationName]
      * @param {string} [segment]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof ProfileApi
      */
-    public checkParentalControl(classificationName?: string, segment?: string, options?: any) {
-        return ProfileApiFp(this.configuration).checkParentalControl(classificationName, segment, options)(this.fetch, this.basePath);
-    }
+    checkParentalControl(
+      classificationName?: string,
+      segment?: string,
+      options: any = {}
+    ): FetchArgs {
+      const localVarPath = `/v1/account/Profile/parentalcontrol/canstream`;
+      const localVarUrlObj = url.parse(localVarPath, true);
+      const localVarRequestOptions = Object.assign({ method: 'GET' }, options);
+      const localVarHeaderParameter = {} as any;
+      const localVarQueryParameter = {} as any;
 
+      // authentication AWSApiKeyAuth required
+      if (configuration && configuration.apiKey) {
+        const localVarApiKeyValue =
+          typeof configuration.apiKey === 'function'
+            ? configuration.apiKey('x-api-key')
+            : configuration.apiKey;
+        localVarHeaderParameter['x-api-key'] = localVarApiKeyValue;
+      }
+
+      // authentication JWToken required
+      if (configuration && configuration.apiKey) {
+        const localVarApiKeyValue =
+          typeof configuration.apiKey === 'function'
+            ? configuration.apiKey('Authorization')
+            : configuration.apiKey;
+        localVarHeaderParameter['Authorization'] = localVarApiKeyValue;
+      }
+
+      if (classificationName !== undefined) {
+        localVarQueryParameter['classificationName'] = classificationName;
+      }
+
+      if (segment !== undefined) {
+        localVarQueryParameter['segment'] = segment;
+      }
+
+      localVarUrlObj.query = Object.assign(
+        {},
+        localVarUrlObj.query,
+        localVarQueryParameter,
+        options.query
+      );
+      // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+      delete localVarUrlObj.search;
+      localVarRequestOptions.headers = Object.assign({}, localVarHeaderParameter, options.headers);
+
+      return {
+        url: url.format(localVarUrlObj),
+        options: localVarRequestOptions,
+      };
+    },
     /**
      *
      * @param {string} itemId
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof ProfileApi
      */
-    public deleteItemBookmark(itemId: string, options?: any) {
-        return ProfileApiFp(this.configuration).deleteItemBookmark(itemId, options)(this.fetch, this.basePath);
-    }
+    deleteItemBookmark(itemId: string, options: any = {}): FetchArgs {
+      // verify required parameter 'itemId' is not null or undefined
+      if (itemId === null || itemId === undefined) {
+        throw new RequiredError(
+          'itemId',
+          'Required parameter itemId was null or undefined when calling deleteItemBookmark.'
+        );
+      }
+      const localVarPath = `/v1/account/Profile/bookmarks/{itemId}`.replace(
+        `{${'itemId'}}`,
+        encodeURIComponent(String(itemId))
+      );
+      const localVarUrlObj = url.parse(localVarPath, true);
+      const localVarRequestOptions = Object.assign({ method: 'DELETE' }, options);
+      const localVarHeaderParameter = {} as any;
+      const localVarQueryParameter = {} as any;
 
+      // authentication AWSApiKeyAuth required
+      if (configuration && configuration.apiKey) {
+        const localVarApiKeyValue =
+          typeof configuration.apiKey === 'function'
+            ? configuration.apiKey('x-api-key')
+            : configuration.apiKey;
+        localVarHeaderParameter['x-api-key'] = localVarApiKeyValue;
+      }
+
+      // authentication JWToken required
+      if (configuration && configuration.apiKey) {
+        const localVarApiKeyValue =
+          typeof configuration.apiKey === 'function'
+            ? configuration.apiKey('Authorization')
+            : configuration.apiKey;
+        localVarHeaderParameter['Authorization'] = localVarApiKeyValue;
+      }
+
+      localVarUrlObj.query = Object.assign(
+        {},
+        localVarUrlObj.query,
+        localVarQueryParameter,
+        options.query
+      );
+      // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+      delete localVarUrlObj.search;
+      localVarRequestOptions.headers = Object.assign({}, localVarHeaderParameter, options.headers);
+
+      return {
+        url: url.format(localVarUrlObj),
+        options: localVarRequestOptions,
+      };
+    },
     /**
      *
      * @param {BritboxAPIAccountModelsProfileDeleteWatchedRequest} [request]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof ProfileApi
      */
-    public deleteWatched(request?: BritboxAPIAccountModelsProfileDeleteWatchedRequest, options?: any) {
-        return ProfileApiFp(this.configuration).deleteWatched(request, options)(this.fetch, this.basePath);
-    }
+    deleteWatched(
+      request?: BritboxAPIAccountModelsProfileDeleteWatchedRequest,
+      options: any = {}
+    ): FetchArgs {
+      const localVarPath = `/v1/account/Profile/watched`;
+      const localVarUrlObj = url.parse(localVarPath, true);
+      const localVarRequestOptions = Object.assign({ method: 'DELETE' }, options);
+      const localVarHeaderParameter = {} as any;
+      const localVarQueryParameter = {} as any;
 
+      // authentication AWSApiKeyAuth required
+      if (configuration && configuration.apiKey) {
+        const localVarApiKeyValue =
+          typeof configuration.apiKey === 'function'
+            ? configuration.apiKey('x-api-key')
+            : configuration.apiKey;
+        localVarHeaderParameter['x-api-key'] = localVarApiKeyValue;
+      }
+
+      // authentication JWToken required
+      if (configuration && configuration.apiKey) {
+        const localVarApiKeyValue =
+          typeof configuration.apiKey === 'function'
+            ? configuration.apiKey('Authorization')
+            : configuration.apiKey;
+        localVarHeaderParameter['Authorization'] = localVarApiKeyValue;
+      }
+
+      localVarHeaderParameter['Content-Type'] = 'application/json-patch+json';
+
+      localVarUrlObj.query = Object.assign(
+        {},
+        localVarUrlObj.query,
+        localVarQueryParameter,
+        options.query
+      );
+      // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+      delete localVarUrlObj.search;
+      localVarRequestOptions.headers = Object.assign({}, localVarHeaderParameter, options.headers);
+      const needsSerialization =
+        <any>'BritboxAPIAccountModelsProfileDeleteWatchedRequest' !== 'string' ||
+        localVarRequestOptions.headers['Content-Type'] === 'application/json';
+      localVarRequestOptions.body = needsSerialization
+        ? JSON.stringify(request || {})
+        : request || '';
+
+      return {
+        url: url.format(localVarUrlObj),
+        options: localVarRequestOptions,
+      };
+    },
     /**
      *
      * @param {number} [page]
@@ -6096,33 +5727,190 @@ export class ProfileApi extends BaseAPI {
      * @param {Array<string>} [segments]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof ProfileApi
      */
-    public getBookmarkList(page?: number, pageSize?: number, order?: string, itemType?: string, device?: string, sub?: string, useCustomId?: boolean, segments?: Array<string>, options?: any) {
-        return ProfileApiFp(this.configuration).getBookmarkList(page, pageSize, order, itemType, device, sub, useCustomId, segments, options)(this.fetch, this.basePath);
-    }
+    getBookmarkList(
+      page?: number,
+      pageSize?: number,
+      order?: string,
+      itemType?: string,
+      device?: string,
+      sub?: string,
+      useCustomId?: boolean,
+      segments?: Array<string>,
+      options: any = {}
+    ): FetchArgs {
+      const localVarPath = `/v1/account/Profile/bookmarks/list`;
+      const localVarUrlObj = url.parse(localVarPath, true);
+      const localVarRequestOptions = Object.assign({ method: 'GET' }, options);
+      const localVarHeaderParameter = {} as any;
+      const localVarQueryParameter = {} as any;
 
+      // authentication AWSApiKeyAuth required
+      if (configuration && configuration.apiKey) {
+        const localVarApiKeyValue =
+          typeof configuration.apiKey === 'function'
+            ? configuration.apiKey('x-api-key')
+            : configuration.apiKey;
+        localVarHeaderParameter['x-api-key'] = localVarApiKeyValue;
+      }
+
+      // authentication JWToken required
+      if (configuration && configuration.apiKey) {
+        const localVarApiKeyValue =
+          typeof configuration.apiKey === 'function'
+            ? configuration.apiKey('Authorization')
+            : configuration.apiKey;
+        localVarHeaderParameter['Authorization'] = localVarApiKeyValue;
+      }
+
+      if (page !== undefined) {
+        localVarQueryParameter['page'] = page;
+      }
+
+      if (pageSize !== undefined) {
+        localVarQueryParameter['pageSize'] = pageSize;
+      }
+
+      if (order !== undefined) {
+        localVarQueryParameter['order'] = order;
+      }
+
+      if (itemType !== undefined) {
+        localVarQueryParameter['itemType'] = itemType;
+      }
+
+      if (device !== undefined) {
+        localVarQueryParameter['device'] = device;
+      }
+
+      if (sub !== undefined) {
+        localVarQueryParameter['sub'] = sub;
+      }
+
+      if (useCustomId !== undefined) {
+        localVarQueryParameter['useCustomId'] = useCustomId;
+      }
+
+      if (segments) {
+        localVarQueryParameter['segments'] = segments;
+      }
+
+      localVarUrlObj.query = Object.assign(
+        {},
+        localVarUrlObj.query,
+        localVarQueryParameter,
+        options.query
+      );
+      // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+      delete localVarUrlObj.search;
+      localVarRequestOptions.headers = Object.assign({}, localVarHeaderParameter, options.headers);
+
+      return {
+        url: url.format(localVarUrlObj),
+        options: localVarRequestOptions,
+      };
+    },
     /**
      *
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof ProfileApi
      */
-    public getBookmarks(options?: any) {
-        return ProfileApiFp(this.configuration).getBookmarks(options)(this.fetch, this.basePath);
-    }
+    getBookmarks(options: any = {}): FetchArgs {
+      const localVarPath = `/v1/account/Profile/bookmarks`;
+      const localVarUrlObj = url.parse(localVarPath, true);
+      const localVarRequestOptions = Object.assign({ method: 'GET' }, options);
+      const localVarHeaderParameter = {} as any;
+      const localVarQueryParameter = {} as any;
 
+      // authentication AWSApiKeyAuth required
+      if (configuration && configuration.apiKey) {
+        const localVarApiKeyValue =
+          typeof configuration.apiKey === 'function'
+            ? configuration.apiKey('x-api-key')
+            : configuration.apiKey;
+        localVarHeaderParameter['x-api-key'] = localVarApiKeyValue;
+      }
+
+      // authentication JWToken required
+      if (configuration && configuration.apiKey) {
+        const localVarApiKeyValue =
+          typeof configuration.apiKey === 'function'
+            ? configuration.apiKey('Authorization')
+            : configuration.apiKey;
+        localVarHeaderParameter['Authorization'] = localVarApiKeyValue;
+      }
+
+      localVarUrlObj.query = Object.assign(
+        {},
+        localVarUrlObj.query,
+        localVarQueryParameter,
+        options.query
+      );
+      // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+      delete localVarUrlObj.search;
+      localVarRequestOptions.headers = Object.assign({}, localVarHeaderParameter, options.headers);
+
+      return {
+        url: url.format(localVarUrlObj),
+        options: localVarRequestOptions,
+      };
+    },
     /**
      *
      * @param {string} itemId
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof ProfileApi
      */
-    public getContinueWatchingList(itemId: string, options?: any) {
-        return ProfileApiFp(this.configuration).getContinueWatchingList(itemId, options)(this.fetch, this.basePath);
-    }
+    getContinueWatchingList(itemId: string, options: any = {}): FetchArgs {
+      // verify required parameter 'itemId' is not null or undefined
+      if (itemId === null || itemId === undefined) {
+        throw new RequiredError(
+          'itemId',
+          'Required parameter itemId was null or undefined when calling getContinueWatchingList.'
+        );
+      }
+      const localVarPath = `/v1/account/Profile/watched/show/{itemId}`.replace(
+        `{${'itemId'}}`,
+        encodeURIComponent(String(itemId))
+      );
+      const localVarUrlObj = url.parse(localVarPath, true);
+      const localVarRequestOptions = Object.assign({ method: 'GET' }, options);
+      const localVarHeaderParameter = {} as any;
+      const localVarQueryParameter = {} as any;
 
+      // authentication AWSApiKeyAuth required
+      if (configuration && configuration.apiKey) {
+        const localVarApiKeyValue =
+          typeof configuration.apiKey === 'function'
+            ? configuration.apiKey('x-api-key')
+            : configuration.apiKey;
+        localVarHeaderParameter['x-api-key'] = localVarApiKeyValue;
+      }
+
+      // authentication JWToken required
+      if (configuration && configuration.apiKey) {
+        const localVarApiKeyValue =
+          typeof configuration.apiKey === 'function'
+            ? configuration.apiKey('Authorization')
+            : configuration.apiKey;
+        localVarHeaderParameter['Authorization'] = localVarApiKeyValue;
+      }
+
+      localVarUrlObj.query = Object.assign(
+        {},
+        localVarUrlObj.query,
+        localVarQueryParameter,
+        options.query
+      );
+      // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+      delete localVarUrlObj.search;
+      localVarRequestOptions.headers = Object.assign({}, localVarHeaderParameter, options.headers);
+
+      return {
+        url: url.format(localVarUrlObj),
+        options: localVarRequestOptions,
+      };
+    },
     /**
      *
      * @param {string} [showItemType]
@@ -6135,34 +5923,201 @@ export class ProfileApi extends BaseAPI {
      * @param {Array<string>} [segments]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof ProfileApi
      */
-    public getContinueWatchingList_1(showItemType?: string, include?: Array<string>, page?: number, pageSize?: number, maxRating?: string, device?: string, sub?: string, segments?: Array<string>, options?: any) {
-        return ProfileApiFp(this.configuration).getContinueWatchingList_1(showItemType, include, page, pageSize, maxRating, device, sub, segments, options)(this.fetch, this.basePath);
-    }
+    getContinueWatchingList_1(
+      showItemType?: string,
+      include?: Array<string>,
+      page?: number,
+      pageSize?: number,
+      maxRating?: string,
+      device?: string,
+      sub?: string,
+      segments?: Array<string>,
+      options: any = {}
+    ): FetchArgs {
+      const localVarPath = `/v1/account/Profile/continue-watching/list`;
+      const localVarUrlObj = url.parse(localVarPath, true);
+      const localVarRequestOptions = Object.assign({ method: 'GET' }, options);
+      const localVarHeaderParameter = {} as any;
+      const localVarQueryParameter = {} as any;
 
+      // authentication AWSApiKeyAuth required
+      if (configuration && configuration.apiKey) {
+        const localVarApiKeyValue =
+          typeof configuration.apiKey === 'function'
+            ? configuration.apiKey('x-api-key')
+            : configuration.apiKey;
+        localVarHeaderParameter['x-api-key'] = localVarApiKeyValue;
+      }
+
+      // authentication JWToken required
+      if (configuration && configuration.apiKey) {
+        const localVarApiKeyValue =
+          typeof configuration.apiKey === 'function'
+            ? configuration.apiKey('Authorization')
+            : configuration.apiKey;
+        localVarHeaderParameter['Authorization'] = localVarApiKeyValue;
+      }
+
+      if (showItemType !== undefined) {
+        localVarQueryParameter['showItemType'] = showItemType;
+      }
+
+      if (include) {
+        localVarQueryParameter['include'] = include;
+      }
+
+      if (page !== undefined) {
+        localVarQueryParameter['page'] = page;
+      }
+
+      if (pageSize !== undefined) {
+        localVarQueryParameter['pageSize'] = pageSize;
+      }
+
+      if (maxRating !== undefined) {
+        localVarQueryParameter['maxRating'] = maxRating;
+      }
+
+      if (device !== undefined) {
+        localVarQueryParameter['device'] = device;
+      }
+
+      if (sub !== undefined) {
+        localVarQueryParameter['sub'] = sub;
+      }
+
+      if (segments) {
+        localVarQueryParameter['segments'] = segments;
+      }
+
+      localVarUrlObj.query = Object.assign(
+        {},
+        localVarUrlObj.query,
+        localVarQueryParameter,
+        options.query
+      );
+      // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+      delete localVarUrlObj.search;
+      localVarRequestOptions.headers = Object.assign({}, localVarHeaderParameter, options.headers);
+
+      return {
+        url: url.format(localVarUrlObj),
+        options: localVarRequestOptions,
+      };
+    },
     /**
      *
      * @param {string} itemId
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof ProfileApi
      */
-    public getItemBookmark(itemId: string, options?: any) {
-        return ProfileApiFp(this.configuration).getItemBookmark(itemId, options)(this.fetch, this.basePath);
-    }
+    getItemBookmark(itemId: string, options: any = {}): FetchArgs {
+      // verify required parameter 'itemId' is not null or undefined
+      if (itemId === null || itemId === undefined) {
+        throw new RequiredError(
+          'itemId',
+          'Required parameter itemId was null or undefined when calling getItemBookmark.'
+        );
+      }
+      const localVarPath = `/v1/account/Profile/bookmarks/{itemId}`.replace(
+        `{${'itemId'}}`,
+        encodeURIComponent(String(itemId))
+      );
+      const localVarUrlObj = url.parse(localVarPath, true);
+      const localVarRequestOptions = Object.assign({ method: 'GET' }, options);
+      const localVarHeaderParameter = {} as any;
+      const localVarQueryParameter = {} as any;
 
+      // authentication AWSApiKeyAuth required
+      if (configuration && configuration.apiKey) {
+        const localVarApiKeyValue =
+          typeof configuration.apiKey === 'function'
+            ? configuration.apiKey('x-api-key')
+            : configuration.apiKey;
+        localVarHeaderParameter['x-api-key'] = localVarApiKeyValue;
+      }
+
+      // authentication JWToken required
+      if (configuration && configuration.apiKey) {
+        const localVarApiKeyValue =
+          typeof configuration.apiKey === 'function'
+            ? configuration.apiKey('Authorization')
+            : configuration.apiKey;
+        localVarHeaderParameter['Authorization'] = localVarApiKeyValue;
+      }
+
+      localVarUrlObj.query = Object.assign(
+        {},
+        localVarUrlObj.query,
+        localVarQueryParameter,
+        options.query
+      );
+      // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+      delete localVarUrlObj.search;
+      localVarRequestOptions.headers = Object.assign({}, localVarHeaderParameter, options.headers);
+
+      return {
+        url: url.format(localVarUrlObj),
+        options: localVarRequestOptions,
+      };
+    },
     /**
      *
      * @param {string} itemId
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof ProfileApi
      */
-    public getItemWatchedStatus(itemId: string, options?: any) {
-        return ProfileApiFp(this.configuration).getItemWatchedStatus(itemId, options)(this.fetch, this.basePath);
-    }
+    getItemWatchedStatus(itemId: string, options: any = {}): FetchArgs {
+      // verify required parameter 'itemId' is not null or undefined
+      if (itemId === null || itemId === undefined) {
+        throw new RequiredError(
+          'itemId',
+          'Required parameter itemId was null or undefined when calling getItemWatchedStatus.'
+        );
+      }
+      const localVarPath = `/v1/account/Profile/watched/{itemId}`.replace(
+        `{${'itemId'}}`,
+        encodeURIComponent(String(itemId))
+      );
+      const localVarUrlObj = url.parse(localVarPath, true);
+      const localVarRequestOptions = Object.assign({ method: 'GET' }, options);
+      const localVarHeaderParameter = {} as any;
+      const localVarQueryParameter = {} as any;
 
+      // authentication AWSApiKeyAuth required
+      if (configuration && configuration.apiKey) {
+        const localVarApiKeyValue =
+          typeof configuration.apiKey === 'function'
+            ? configuration.apiKey('x-api-key')
+            : configuration.apiKey;
+        localVarHeaderParameter['x-api-key'] = localVarApiKeyValue;
+      }
+
+      // authentication JWToken required
+      if (configuration && configuration.apiKey) {
+        const localVarApiKeyValue =
+          typeof configuration.apiKey === 'function'
+            ? configuration.apiKey('Authorization')
+            : configuration.apiKey;
+        localVarHeaderParameter['Authorization'] = localVarApiKeyValue;
+      }
+
+      localVarUrlObj.query = Object.assign(
+        {},
+        localVarUrlObj.query,
+        localVarQueryParameter,
+        options.query
+      );
+      // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+      delete localVarUrlObj.search;
+      localVarRequestOptions.headers = Object.assign({}, localVarHeaderParameter, options.headers);
+
+      return {
+        url: url.format(localVarUrlObj),
+        options: localVarRequestOptions,
+      };
+    },
     /**
      *
      * @param {string} itemId
@@ -6173,44 +6128,230 @@ export class ProfileApi extends BaseAPI {
      * @param {Array<string>} [segments]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof ProfileApi
      */
-    public getNextPlaybackItem(itemId: string, maxRating?: string, expand?: string, device?: string, sub?: string, segments?: Array<string>, options?: any) {
-        return ProfileApiFp(this.configuration).getNextPlaybackItem(itemId, maxRating, expand, device, sub, segments, options)(this.fetch, this.basePath);
-    }
+    getNextPlaybackItem(
+      itemId: string,
+      maxRating?: string,
+      expand?: string,
+      device?: string,
+      sub?: string,
+      segments?: Array<string>,
+      options: any = {}
+    ): FetchArgs {
+      // verify required parameter 'itemId' is not null or undefined
+      if (itemId === null || itemId === undefined) {
+        throw new RequiredError(
+          'itemId',
+          'Required parameter itemId was null or undefined when calling getNextPlaybackItem.'
+        );
+      }
+      const localVarPath = `/v1/account/Profile/items/{itemId}/next`.replace(
+        `{${'itemId'}}`,
+        encodeURIComponent(String(itemId))
+      );
+      const localVarUrlObj = url.parse(localVarPath, true);
+      const localVarRequestOptions = Object.assign({ method: 'GET' }, options);
+      const localVarHeaderParameter = {} as any;
+      const localVarQueryParameter = {} as any;
 
+      // authentication AWSApiKeyAuth required
+      if (configuration && configuration.apiKey) {
+        const localVarApiKeyValue =
+          typeof configuration.apiKey === 'function'
+            ? configuration.apiKey('x-api-key')
+            : configuration.apiKey;
+        localVarHeaderParameter['x-api-key'] = localVarApiKeyValue;
+      }
+
+      // authentication JWToken required
+      if (configuration && configuration.apiKey) {
+        const localVarApiKeyValue =
+          typeof configuration.apiKey === 'function'
+            ? configuration.apiKey('Authorization')
+            : configuration.apiKey;
+        localVarHeaderParameter['Authorization'] = localVarApiKeyValue;
+      }
+
+      if (maxRating !== undefined) {
+        localVarQueryParameter['maxRating'] = maxRating;
+      }
+
+      if (expand !== undefined) {
+        localVarQueryParameter['expand'] = expand;
+      }
+
+      if (device !== undefined) {
+        localVarQueryParameter['device'] = device;
+      }
+
+      if (sub !== undefined) {
+        localVarQueryParameter['sub'] = sub;
+      }
+
+      if (segments) {
+        localVarQueryParameter['segments'] = segments;
+      }
+
+      localVarUrlObj.query = Object.assign(
+        {},
+        localVarUrlObj.query,
+        localVarQueryParameter,
+        options.query
+      );
+      // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+      delete localVarUrlObj.search;
+      localVarRequestOptions.headers = Object.assign({}, localVarHeaderParameter, options.headers);
+
+      return {
+        url: url.format(localVarUrlObj),
+        options: localVarRequestOptions,
+      };
+    },
     /**
      *
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof ProfileApi
      */
-    public getParentalControlDetails(options?: any) {
-        return ProfileApiFp(this.configuration).getParentalControlDetails(options)(this.fetch, this.basePath);
-    }
+    getParentalControlDetails(options: any = {}): FetchArgs {
+      const localVarPath = `/v1/account/Profile/parentalcontrol`;
+      const localVarUrlObj = url.parse(localVarPath, true);
+      const localVarRequestOptions = Object.assign({ method: 'GET' }, options);
+      const localVarHeaderParameter = {} as any;
+      const localVarQueryParameter = {} as any;
 
+      // authentication AWSApiKeyAuth required
+      if (configuration && configuration.apiKey) {
+        const localVarApiKeyValue =
+          typeof configuration.apiKey === 'function'
+            ? configuration.apiKey('x-api-key')
+            : configuration.apiKey;
+        localVarHeaderParameter['x-api-key'] = localVarApiKeyValue;
+      }
+
+      // authentication JWToken required
+      if (configuration && configuration.apiKey) {
+        const localVarApiKeyValue =
+          typeof configuration.apiKey === 'function'
+            ? configuration.apiKey('Authorization')
+            : configuration.apiKey;
+        localVarHeaderParameter['Authorization'] = localVarApiKeyValue;
+      }
+
+      localVarUrlObj.query = Object.assign(
+        {},
+        localVarUrlObj.query,
+        localVarQueryParameter,
+        options.query
+      );
+      // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+      delete localVarUrlObj.search;
+      localVarRequestOptions.headers = Object.assign({}, localVarHeaderParameter, options.headers);
+
+      return {
+        url: url.format(localVarUrlObj),
+        options: localVarRequestOptions,
+      };
+    },
     /**
      *
-     * @param {boolean} [useCustomId]
-     * @param {Array<string>} [segments]
+     * @param {boolean} [useCustomId] Show content item ids with BBC ids
+     * @param {Array<string>} [segments] US, CA or AU
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof ProfileApi
      */
-    public getProfile(useCustomId?: boolean, segments?: Array<string>, options?: any) {
-        return ProfileApiFp(this.configuration).getProfile(useCustomId, segments, options)(this.fetch, this.basePath);
-    }
+    getProfile(useCustomId?: boolean, segments?: Array<string>, options: any = {}): FetchArgs {
+      const localVarPath = `/v1/account/Profile`;
+      const localVarUrlObj = url.parse(localVarPath, true);
+      const localVarRequestOptions = Object.assign({ method: 'GET' }, options);
+      const localVarHeaderParameter = {} as any;
+      const localVarQueryParameter = {} as any;
 
+      // authentication AWSApiKeyAuth required
+      if (configuration && configuration.apiKey) {
+        const localVarApiKeyValue =
+          typeof configuration.apiKey === 'function'
+            ? configuration.apiKey('x-api-key')
+            : configuration.apiKey;
+        localVarHeaderParameter['x-api-key'] = localVarApiKeyValue;
+      }
+
+      // authentication JWToken required
+      if (configuration && configuration.apiKey) {
+        const localVarApiKeyValue =
+          typeof configuration.apiKey === 'function'
+            ? configuration.apiKey('Authorization')
+            : configuration.apiKey;
+        localVarHeaderParameter['Authorization'] = localVarApiKeyValue;
+      }
+
+      if (useCustomId !== undefined) {
+        localVarQueryParameter['useCustomId'] = useCustomId;
+      }
+
+      if (segments) {
+        localVarQueryParameter['segments'] = segments;
+      }
+
+      localVarUrlObj.query = Object.assign(
+        {},
+        localVarUrlObj.query,
+        localVarQueryParameter,
+        options.query
+      );
+      // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+      delete localVarUrlObj.search;
+      localVarRequestOptions.headers = Object.assign({}, localVarHeaderParameter, options.headers);
+
+      return {
+        url: url.format(localVarUrlObj),
+        options: localVarRequestOptions,
+      };
+    },
     /**
      *
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof ProfileApi
      */
-    public getWatched(options?: any) {
-        return ProfileApiFp(this.configuration).getWatched(options)(this.fetch, this.basePath);
-    }
+    getWatched(options: any = {}): FetchArgs {
+      const localVarPath = `/v1/account/Profile/watched`;
+      const localVarUrlObj = url.parse(localVarPath, true);
+      const localVarRequestOptions = Object.assign({ method: 'GET' }, options);
+      const localVarHeaderParameter = {} as any;
+      const localVarQueryParameter = {} as any;
 
+      // authentication AWSApiKeyAuth required
+      if (configuration && configuration.apiKey) {
+        const localVarApiKeyValue =
+          typeof configuration.apiKey === 'function'
+            ? configuration.apiKey('x-api-key')
+            : configuration.apiKey;
+        localVarHeaderParameter['x-api-key'] = localVarApiKeyValue;
+      }
+
+      // authentication JWToken required
+      if (configuration && configuration.apiKey) {
+        const localVarApiKeyValue =
+          typeof configuration.apiKey === 'function'
+            ? configuration.apiKey('Authorization')
+            : configuration.apiKey;
+        localVarHeaderParameter['Authorization'] = localVarApiKeyValue;
+      }
+
+      localVarUrlObj.query = Object.assign(
+        {},
+        localVarUrlObj.query,
+        localVarQueryParameter,
+        options.query
+      );
+      // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+      delete localVarUrlObj.search;
+      localVarRequestOptions.headers = Object.assign({}, localVarHeaderParameter, options.headers);
+
+      return {
+        url: url.format(localVarUrlObj),
+        options: localVarRequestOptions,
+      };
+    },
     /**
      *
      * @param {number} [page]
@@ -6225,45 +6366,1787 @@ export class ProfileApi extends BaseAPI {
      * @param {Array<string>} [segments]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof ProfileApi
      */
-    public getWatchedList(page?: number, pageSize?: number, completed?: boolean, order?: string, orderBy?: string, itemType?: string, device?: string, sub?: string, useCustomId?: boolean, segments?: Array<string>, options?: any) {
-        return ProfileApiFp(this.configuration).getWatchedList(page, pageSize, completed, order, orderBy, itemType, device, sub, useCustomId, segments, options)(this.fetch, this.basePath);
-    }
+    getWatchedList(
+      page?: number,
+      pageSize?: number,
+      completed?: boolean,
+      order?: string,
+      orderBy?: string,
+      itemType?: string,
+      device?: string,
+      sub?: string,
+      useCustomId?: boolean,
+      segments?: Array<string>,
+      options: any = {}
+    ): FetchArgs {
+      const localVarPath = `/v1/account/Profile/watched/list`;
+      const localVarUrlObj = url.parse(localVarPath, true);
+      const localVarRequestOptions = Object.assign({ method: 'GET' }, options);
+      const localVarHeaderParameter = {} as any;
+      const localVarQueryParameter = {} as any;
 
+      // authentication AWSApiKeyAuth required
+      if (configuration && configuration.apiKey) {
+        const localVarApiKeyValue =
+          typeof configuration.apiKey === 'function'
+            ? configuration.apiKey('x-api-key')
+            : configuration.apiKey;
+        localVarHeaderParameter['x-api-key'] = localVarApiKeyValue;
+      }
+
+      // authentication JWToken required
+      if (configuration && configuration.apiKey) {
+        const localVarApiKeyValue =
+          typeof configuration.apiKey === 'function'
+            ? configuration.apiKey('Authorization')
+            : configuration.apiKey;
+        localVarHeaderParameter['Authorization'] = localVarApiKeyValue;
+      }
+
+      if (page !== undefined) {
+        localVarQueryParameter['page'] = page;
+      }
+
+      if (pageSize !== undefined) {
+        localVarQueryParameter['pageSize'] = pageSize;
+      }
+
+      if (completed !== undefined) {
+        localVarQueryParameter['completed'] = completed;
+      }
+
+      if (order !== undefined) {
+        localVarQueryParameter['order'] = order;
+      }
+
+      if (orderBy !== undefined) {
+        localVarQueryParameter['orderBy'] = orderBy;
+      }
+
+      if (itemType !== undefined) {
+        localVarQueryParameter['itemType'] = itemType;
+      }
+
+      if (device !== undefined) {
+        localVarQueryParameter['device'] = device;
+      }
+
+      if (sub !== undefined) {
+        localVarQueryParameter['sub'] = sub;
+      }
+
+      if (useCustomId !== undefined) {
+        localVarQueryParameter['useCustomId'] = useCustomId;
+      }
+
+      if (segments) {
+        localVarQueryParameter['segments'] = segments;
+      }
+
+      localVarUrlObj.query = Object.assign(
+        {},
+        localVarUrlObj.query,
+        localVarQueryParameter,
+        options.query
+      );
+      // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+      delete localVarUrlObj.search;
+      localVarRequestOptions.headers = Object.assign({}, localVarHeaderParameter, options.headers);
+
+      return {
+        url: url.format(localVarUrlObj),
+        options: localVarRequestOptions,
+      };
+    },
+    /**
+     *
+     * @param {BritboxAPIAccountModelsProfileResetPasswordRequest} [request]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    resetPassword(
+      request?: BritboxAPIAccountModelsProfileResetPasswordRequest,
+      options: any = {}
+    ): FetchArgs {
+      const localVarPath = `/v1/account/Profile/resetPassword`;
+      const localVarUrlObj = url.parse(localVarPath, true);
+      const localVarRequestOptions = Object.assign({ method: 'POST' }, options);
+      const localVarHeaderParameter = {} as any;
+      const localVarQueryParameter = {} as any;
+
+      // authentication AWSApiKeyAuth required
+      if (configuration && configuration.apiKey) {
+        const localVarApiKeyValue =
+          typeof configuration.apiKey === 'function'
+            ? configuration.apiKey('x-api-key')
+            : configuration.apiKey;
+        localVarHeaderParameter['x-api-key'] = localVarApiKeyValue;
+      }
+
+      // authentication JWToken required
+      if (configuration && configuration.apiKey) {
+        const localVarApiKeyValue =
+          typeof configuration.apiKey === 'function'
+            ? configuration.apiKey('Authorization')
+            : configuration.apiKey;
+        localVarHeaderParameter['Authorization'] = localVarApiKeyValue;
+      }
+
+      localVarHeaderParameter['Content-Type'] = 'application/json-patch+json';
+
+      localVarUrlObj.query = Object.assign(
+        {},
+        localVarUrlObj.query,
+        localVarQueryParameter,
+        options.query
+      );
+      // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+      delete localVarUrlObj.search;
+      localVarRequestOptions.headers = Object.assign({}, localVarHeaderParameter, options.headers);
+      const needsSerialization =
+        <any>'BritboxAPIAccountModelsProfileResetPasswordRequest' !== 'string' ||
+        localVarRequestOptions.headers['Content-Type'] === 'application/json';
+      localVarRequestOptions.body = needsSerialization
+        ? JSON.stringify(request || {})
+        : request || '';
+
+      return {
+        url: url.format(localVarUrlObj),
+        options: localVarRequestOptions,
+      };
+    },
     /**
      *
      * @param {string} itemId
      * @param {BritboxAPIAccountModelsProfileSetItemWatchedStatusRequest} [request]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof ProfileApi
      */
-    public setItemWatchedStatus(itemId: string, request?: BritboxAPIAccountModelsProfileSetItemWatchedStatusRequest, options?: any) {
-        return ProfileApiFp(this.configuration).setItemWatchedStatus(itemId, request, options)(this.fetch, this.basePath);
-    }
+    setItemWatchedStatus(
+      itemId: string,
+      request?: BritboxAPIAccountModelsProfileSetItemWatchedStatusRequest,
+      options: any = {}
+    ): FetchArgs {
+      // verify required parameter 'itemId' is not null or undefined
+      if (itemId === null || itemId === undefined) {
+        throw new RequiredError(
+          'itemId',
+          'Required parameter itemId was null or undefined when calling setItemWatchedStatus.'
+        );
+      }
+      const localVarPath = `/v1/account/Profile/watched/{itemId}`.replace(
+        `{${'itemId'}}`,
+        encodeURIComponent(String(itemId))
+      );
+      const localVarUrlObj = url.parse(localVarPath, true);
+      const localVarRequestOptions = Object.assign({ method: 'PUT' }, options);
+      const localVarHeaderParameter = {} as any;
+      const localVarQueryParameter = {} as any;
 
+      // authentication AWSApiKeyAuth required
+      if (configuration && configuration.apiKey) {
+        const localVarApiKeyValue =
+          typeof configuration.apiKey === 'function'
+            ? configuration.apiKey('x-api-key')
+            : configuration.apiKey;
+        localVarHeaderParameter['x-api-key'] = localVarApiKeyValue;
+      }
+
+      // authentication JWToken required
+      if (configuration && configuration.apiKey) {
+        const localVarApiKeyValue =
+          typeof configuration.apiKey === 'function'
+            ? configuration.apiKey('Authorization')
+            : configuration.apiKey;
+        localVarHeaderParameter['Authorization'] = localVarApiKeyValue;
+      }
+
+      localVarHeaderParameter['Content-Type'] = 'application/json-patch+json';
+
+      localVarUrlObj.query = Object.assign(
+        {},
+        localVarUrlObj.query,
+        localVarQueryParameter,
+        options.query
+      );
+      // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+      delete localVarUrlObj.search;
+      localVarRequestOptions.headers = Object.assign({}, localVarHeaderParameter, options.headers);
+      const needsSerialization =
+        <any>'BritboxAPIAccountModelsProfileSetItemWatchedStatusRequest' !== 'string' ||
+        localVarRequestOptions.headers['Content-Type'] === 'application/json';
+      localVarRequestOptions.body = needsSerialization
+        ? JSON.stringify(request || {})
+        : request || '';
+
+      return {
+        url: url.format(localVarUrlObj),
+        options: localVarRequestOptions,
+      };
+    },
     /**
      *
      * @param {BritboxAPIAccountModelsProfileUpdateParentalControlDetailsRequest} [request]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof ProfileApi
      */
-    public updateParentalControlDetails(request?: BritboxAPIAccountModelsProfileUpdateParentalControlDetailsRequest, options?: any) {
-        return ProfileApiFp(this.configuration).updateParentalControlDetails(request, options)(this.fetch, this.basePath);
-    }
+    updateParentalControlDetails(
+      request?: BritboxAPIAccountModelsProfileUpdateParentalControlDetailsRequest,
+      options: any = {}
+    ): FetchArgs {
+      const localVarPath = `/v1/account/Profile/parentalcontrol`;
+      const localVarUrlObj = url.parse(localVarPath, true);
+      const localVarRequestOptions = Object.assign({ method: 'POST' }, options);
+      const localVarHeaderParameter = {} as any;
+      const localVarQueryParameter = {} as any;
 
+      // authentication AWSApiKeyAuth required
+      if (configuration && configuration.apiKey) {
+        const localVarApiKeyValue =
+          typeof configuration.apiKey === 'function'
+            ? configuration.apiKey('x-api-key')
+            : configuration.apiKey;
+        localVarHeaderParameter['x-api-key'] = localVarApiKeyValue;
+      }
+
+      // authentication JWToken required
+      if (configuration && configuration.apiKey) {
+        const localVarApiKeyValue =
+          typeof configuration.apiKey === 'function'
+            ? configuration.apiKey('Authorization')
+            : configuration.apiKey;
+        localVarHeaderParameter['Authorization'] = localVarApiKeyValue;
+      }
+
+      localVarHeaderParameter['Content-Type'] = 'application/json-patch+json';
+
+      localVarUrlObj.query = Object.assign(
+        {},
+        localVarUrlObj.query,
+        localVarQueryParameter,
+        options.query
+      );
+      // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+      delete localVarUrlObj.search;
+      localVarRequestOptions.headers = Object.assign({}, localVarHeaderParameter, options.headers);
+      const needsSerialization =
+        <any>'BritboxAPIAccountModelsProfileUpdateParentalControlDetailsRequest' !== 'string' ||
+        localVarRequestOptions.headers['Content-Type'] === 'application/json';
+      localVarRequestOptions.body = needsSerialization
+        ? JSON.stringify(request || {})
+        : request || '';
+
+      return {
+        url: url.format(localVarUrlObj),
+        options: localVarRequestOptions,
+      };
+    },
+    /**
+     *
+     * @param {BritboxAPIAccountModelsProfileUpdateProfileRequest} [request]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    updateProfile(
+      request?: BritboxAPIAccountModelsProfileUpdateProfileRequest,
+      options: any = {}
+    ): FetchArgs {
+      const localVarPath = `/v1/account/Profile`;
+      const localVarUrlObj = url.parse(localVarPath, true);
+      const localVarRequestOptions = Object.assign({ method: 'PUT' }, options);
+      const localVarHeaderParameter = {} as any;
+      const localVarQueryParameter = {} as any;
+
+      // authentication AWSApiKeyAuth required
+      if (configuration && configuration.apiKey) {
+        const localVarApiKeyValue =
+          typeof configuration.apiKey === 'function'
+            ? configuration.apiKey('x-api-key')
+            : configuration.apiKey;
+        localVarHeaderParameter['x-api-key'] = localVarApiKeyValue;
+      }
+
+      // authentication JWToken required
+      if (configuration && configuration.apiKey) {
+        const localVarApiKeyValue =
+          typeof configuration.apiKey === 'function'
+            ? configuration.apiKey('Authorization')
+            : configuration.apiKey;
+        localVarHeaderParameter['Authorization'] = localVarApiKeyValue;
+      }
+
+      localVarHeaderParameter['Content-Type'] = 'application/json-patch+json';
+
+      localVarUrlObj.query = Object.assign(
+        {},
+        localVarUrlObj.query,
+        localVarQueryParameter,
+        options.query
+      );
+      // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+      delete localVarUrlObj.search;
+      localVarRequestOptions.headers = Object.assign({}, localVarHeaderParameter, options.headers);
+      const needsSerialization =
+        <any>'BritboxAPIAccountModelsProfileUpdateProfileRequest' !== 'string' ||
+        localVarRequestOptions.headers['Content-Type'] === 'application/json';
+      localVarRequestOptions.body = needsSerialization
+        ? JSON.stringify(request || {})
+        : request || '';
+
+      return {
+        url: url.format(localVarUrlObj),
+        options: localVarRequestOptions,
+      };
+    },
     /**
      *
      * @param {BritboxAPIAccountModelsProfileValidateParentalControlPINRequest} [request]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof ProfileApi
      */
-    public validateParentalControlPIN(request?: BritboxAPIAccountModelsProfileValidateParentalControlPINRequest, options?: any) {
-        return ProfileApiFp(this.configuration).validateParentalControlPIN(request, options)(this.fetch, this.basePath);
-    }
+    validateParentalControlPIN(
+      request?: BritboxAPIAccountModelsProfileValidateParentalControlPINRequest,
+      options: any = {}
+    ): FetchArgs {
+      const localVarPath = `/v1/account/Profile/parentalcontrol/validate`;
+      const localVarUrlObj = url.parse(localVarPath, true);
+      const localVarRequestOptions = Object.assign({ method: 'POST' }, options);
+      const localVarHeaderParameter = {} as any;
+      const localVarQueryParameter = {} as any;
 
+      // authentication AWSApiKeyAuth required
+      if (configuration && configuration.apiKey) {
+        const localVarApiKeyValue =
+          typeof configuration.apiKey === 'function'
+            ? configuration.apiKey('x-api-key')
+            : configuration.apiKey;
+        localVarHeaderParameter['x-api-key'] = localVarApiKeyValue;
+      }
+
+      // authentication JWToken required
+      if (configuration && configuration.apiKey) {
+        const localVarApiKeyValue =
+          typeof configuration.apiKey === 'function'
+            ? configuration.apiKey('Authorization')
+            : configuration.apiKey;
+        localVarHeaderParameter['Authorization'] = localVarApiKeyValue;
+      }
+
+      localVarHeaderParameter['Content-Type'] = 'application/json-patch+json';
+
+      localVarUrlObj.query = Object.assign(
+        {},
+        localVarUrlObj.query,
+        localVarQueryParameter,
+        options.query
+      );
+      // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+      delete localVarUrlObj.search;
+      localVarRequestOptions.headers = Object.assign({}, localVarHeaderParameter, options.headers);
+      const needsSerialization =
+        <any>'BritboxAPIAccountModelsProfileValidateParentalControlPINRequest' !== 'string' ||
+        localVarRequestOptions.headers['Content-Type'] === 'application/json';
+      localVarRequestOptions.body = needsSerialization
+        ? JSON.stringify(request || {})
+        : request || '';
+
+      return {
+        url: url.format(localVarUrlObj),
+        options: localVarRequestOptions,
+      };
+    },
+  };
+};
+
+/**
+ * ProfileApi - functional programming interface
+ * @export
+ */
+export const ProfileApiFp = function (configuration?: Configuration) {
+  return {
+    /**
+     *
+     * @param {string} itemId
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    bookmarkItem(
+      itemId: string,
+      options?: any
+    ): (
+      fetch?: FetchAPI,
+      basePath?: string
+    ) => Promise<BritboxAPIAccountModelsProfileBookmarkItemResponse> {
+      const localVarFetchArgs = ProfileApiFetchParamCreator(configuration).bookmarkItem(
+        itemId,
+        options
+      );
+      return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
+        return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then(
+          (response) => {
+            if (response.status >= 200 && response.status < 300) {
+              return response.json();
+            } else {
+              throw response;
+            }
+          }
+        );
+      };
+    },
+    /**
+     *
+     * @param {string} [classificationName]
+     * @param {string} [segment]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    checkParentalControl(
+      classificationName?: string,
+      segment?: string,
+      options?: any
+    ): (
+      fetch?: FetchAPI,
+      basePath?: string
+    ) => Promise<BritboxAPIAccountModelsProfileCheckParentalControlResponse> {
+      const localVarFetchArgs = ProfileApiFetchParamCreator(configuration).checkParentalControl(
+        classificationName,
+        segment,
+        options
+      );
+      return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
+        return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then(
+          (response) => {
+            if (response.status >= 200 && response.status < 300) {
+              return response.json();
+            } else {
+              throw response;
+            }
+          }
+        );
+      };
+    },
+    /**
+     *
+     * @param {string} itemId
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    deleteItemBookmark(
+      itemId: string,
+      options?: any
+    ): (fetch?: FetchAPI, basePath?: string) => Promise<Response> {
+      const localVarFetchArgs = ProfileApiFetchParamCreator(configuration).deleteItemBookmark(
+        itemId,
+        options
+      );
+      return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
+        return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then(
+          (response) => {
+            if (response.status >= 200 && response.status < 300) {
+              return response;
+            } else {
+              throw response;
+            }
+          }
+        );
+      };
+    },
+    /**
+     *
+     * @param {BritboxAPIAccountModelsProfileDeleteWatchedRequest} [request]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    deleteWatched(
+      request?: BritboxAPIAccountModelsProfileDeleteWatchedRequest,
+      options?: any
+    ): (fetch?: FetchAPI, basePath?: string) => Promise<Response> {
+      const localVarFetchArgs = ProfileApiFetchParamCreator(configuration).deleteWatched(
+        request,
+        options
+      );
+      return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
+        return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then(
+          (response) => {
+            if (response.status >= 200 && response.status < 300) {
+              return response;
+            } else {
+              throw response;
+            }
+          }
+        );
+      };
+    },
+    /**
+     *
+     * @param {number} [page]
+     * @param {number} [pageSize]
+     * @param {string} [order]
+     * @param {string} [itemType]
+     * @param {string} [device]
+     * @param {string} [sub]
+     * @param {boolean} [useCustomId]
+     * @param {Array<string>} [segments]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    getBookmarkList(
+      page?: number,
+      pageSize?: number,
+      order?: string,
+      itemType?: string,
+      device?: string,
+      sub?: string,
+      useCustomId?: boolean,
+      segments?: Array<string>,
+      options?: any
+    ): (
+      fetch?: FetchAPI,
+      basePath?: string
+    ) => Promise<BritboxAPIAccountModelsProfileGetBookmarkListResponse> {
+      const localVarFetchArgs = ProfileApiFetchParamCreator(configuration).getBookmarkList(
+        page,
+        pageSize,
+        order,
+        itemType,
+        device,
+        sub,
+        useCustomId,
+        segments,
+        options
+      );
+      return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
+        return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then(
+          (response) => {
+            if (response.status >= 200 && response.status < 300) {
+              return response.json();
+            } else {
+              throw response;
+            }
+          }
+        );
+      };
+    },
+    /**
+     *
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    getBookmarks(
+      options?: any
+    ): (
+      fetch?: FetchAPI,
+      basePath?: string
+    ) => Promise<BritboxAPIAccountModelsProfileGetBookmarksResponse> {
+      const localVarFetchArgs = ProfileApiFetchParamCreator(configuration).getBookmarks(options);
+      return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
+        return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then(
+          (response) => {
+            if (response.status >= 200 && response.status < 300) {
+              return response.json();
+            } else {
+              throw response;
+            }
+          }
+        );
+      };
+    },
+    /**
+     *
+     * @param {string} itemId
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    getContinueWatchingList(
+      itemId: string,
+      options?: any
+    ): (
+      fetch?: FetchAPI,
+      basePath?: string
+    ) => Promise<BritboxAPIAccountModelsProfileGetItemWatchedStatusResponse> {
+      const localVarFetchArgs = ProfileApiFetchParamCreator(configuration).getContinueWatchingList(
+        itemId,
+        options
+      );
+      return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
+        return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then(
+          (response) => {
+            if (response.status >= 200 && response.status < 300) {
+              return response.json();
+            } else {
+              throw response;
+            }
+          }
+        );
+      };
+    },
+    /**
+     *
+     * @param {string} [showItemType]
+     * @param {Array<string>} [include]
+     * @param {number} [page]
+     * @param {number} [pageSize]
+     * @param {string} [maxRating]
+     * @param {string} [device]
+     * @param {string} [sub]
+     * @param {Array<string>} [segments]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    getContinueWatchingList_1(
+      showItemType?: string,
+      include?: Array<string>,
+      page?: number,
+      pageSize?: number,
+      maxRating?: string,
+      device?: string,
+      sub?: string,
+      segments?: Array<string>,
+      options?: any
+    ): (
+      fetch?: FetchAPI,
+      basePath?: string
+    ) => Promise<BritboxAPIAccountModelsProfileGetContinueWatchingListResponse> {
+      const localVarFetchArgs = ProfileApiFetchParamCreator(
+        configuration
+      ).getContinueWatchingList_1(
+        showItemType,
+        include,
+        page,
+        pageSize,
+        maxRating,
+        device,
+        sub,
+        segments,
+        options
+      );
+      return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
+        return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then(
+          (response) => {
+            if (response.status >= 200 && response.status < 300) {
+              return response.json();
+            } else {
+              throw response;
+            }
+          }
+        );
+      };
+    },
+    /**
+     *
+     * @param {string} itemId
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    getItemBookmark(
+      itemId: string,
+      options?: any
+    ): (
+      fetch?: FetchAPI,
+      basePath?: string
+    ) => Promise<BritboxAPIAccountModelsProfileGetItemBookmarkResponse> {
+      const localVarFetchArgs = ProfileApiFetchParamCreator(configuration).getItemBookmark(
+        itemId,
+        options
+      );
+      return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
+        return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then(
+          (response) => {
+            if (response.status >= 200 && response.status < 300) {
+              return response.json();
+            } else {
+              throw response;
+            }
+          }
+        );
+      };
+    },
+    /**
+     *
+     * @param {string} itemId
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    getItemWatchedStatus(
+      itemId: string,
+      options?: any
+    ): (
+      fetch?: FetchAPI,
+      basePath?: string
+    ) => Promise<BritboxAPIAccountModelsProfileGetItemWatchedStatusResponse> {
+      const localVarFetchArgs = ProfileApiFetchParamCreator(configuration).getItemWatchedStatus(
+        itemId,
+        options
+      );
+      return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
+        return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then(
+          (response) => {
+            if (response.status >= 200 && response.status < 300) {
+              return response.json();
+            } else {
+              throw response;
+            }
+          }
+        );
+      };
+    },
+    /**
+     *
+     * @param {string} itemId
+     * @param {string} [maxRating]
+     * @param {string} [expand]
+     * @param {string} [device]
+     * @param {string} [sub]
+     * @param {Array<string>} [segments]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    getNextPlaybackItem(
+      itemId: string,
+      maxRating?: string,
+      expand?: string,
+      device?: string,
+      sub?: string,
+      segments?: Array<string>,
+      options?: any
+    ): (
+      fetch?: FetchAPI,
+      basePath?: string
+    ) => Promise<BritboxAPIAccountModelsProfileGetNextPlaybackItemResponse> {
+      const localVarFetchArgs = ProfileApiFetchParamCreator(configuration).getNextPlaybackItem(
+        itemId,
+        maxRating,
+        expand,
+        device,
+        sub,
+        segments,
+        options
+      );
+      return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
+        return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then(
+          (response) => {
+            if (response.status >= 200 && response.status < 300) {
+              return response.json();
+            } else {
+              throw response;
+            }
+          }
+        );
+      };
+    },
+    /**
+     *
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    getParentalControlDetails(
+      options?: any
+    ): (
+      fetch?: FetchAPI,
+      basePath?: string
+    ) => Promise<BritboxAPIAccountModelsProfileGetParentalControlDetailsResponse> {
+      const localVarFetchArgs = ProfileApiFetchParamCreator(
+        configuration
+      ).getParentalControlDetails(options);
+      return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
+        return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then(
+          (response) => {
+            if (response.status >= 200 && response.status < 300) {
+              return response.json();
+            } else {
+              throw response;
+            }
+          }
+        );
+      };
+    },
+    /**
+     *
+     * @param {boolean} [useCustomId] Show content item ids with BBC ids
+     * @param {Array<string>} [segments] US, CA or AU
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    getProfile(
+      useCustomId?: boolean,
+      segments?: Array<string>,
+      options?: any
+    ): (
+      fetch?: FetchAPI,
+      basePath?: string
+    ) => Promise<BritboxAPIAccountModelsProfileGetProfileResponse> {
+      const localVarFetchArgs = ProfileApiFetchParamCreator(configuration).getProfile(
+        useCustomId,
+        segments,
+        options
+      );
+      return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
+        return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then(
+          (response) => {
+            if (response.status >= 200 && response.status < 300) {
+              return response.json();
+            } else {
+              throw response;
+            }
+          }
+        );
+      };
+    },
+    /**
+     *
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    getWatched(
+      options?: any
+    ): (
+      fetch?: FetchAPI,
+      basePath?: string
+    ) => Promise<BritboxAPIAccountModelsProfileGetWatchedResponse> {
+      const localVarFetchArgs = ProfileApiFetchParamCreator(configuration).getWatched(options);
+      return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
+        return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then(
+          (response) => {
+            if (response.status >= 200 && response.status < 300) {
+              return response.json();
+            } else {
+              throw response;
+            }
+          }
+        );
+      };
+    },
+    /**
+     *
+     * @param {number} [page]
+     * @param {number} [pageSize]
+     * @param {boolean} [completed]
+     * @param {string} [order]
+     * @param {string} [orderBy]
+     * @param {string} [itemType]
+     * @param {string} [device]
+     * @param {string} [sub]
+     * @param {boolean} [useCustomId]
+     * @param {Array<string>} [segments]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    getWatchedList(
+      page?: number,
+      pageSize?: number,
+      completed?: boolean,
+      order?: string,
+      orderBy?: string,
+      itemType?: string,
+      device?: string,
+      sub?: string,
+      useCustomId?: boolean,
+      segments?: Array<string>,
+      options?: any
+    ): (
+      fetch?: FetchAPI,
+      basePath?: string
+    ) => Promise<BritboxAPIAccountModelsProfileGetWatchedListResponse> {
+      const localVarFetchArgs = ProfileApiFetchParamCreator(configuration).getWatchedList(
+        page,
+        pageSize,
+        completed,
+        order,
+        orderBy,
+        itemType,
+        device,
+        sub,
+        useCustomId,
+        segments,
+        options
+      );
+      return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
+        return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then(
+          (response) => {
+            if (response.status >= 200 && response.status < 300) {
+              return response.json();
+            } else {
+              throw response;
+            }
+          }
+        );
+      };
+    },
+    /**
+     *
+     * @param {BritboxAPIAccountModelsProfileResetPasswordRequest} [request]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    resetPassword(
+      request?: BritboxAPIAccountModelsProfileResetPasswordRequest,
+      options?: any
+    ): (
+      fetch?: FetchAPI,
+      basePath?: string
+    ) => Promise<BritboxAPIAccountModelsProfileResetPasswordResponse> {
+      const localVarFetchArgs = ProfileApiFetchParamCreator(configuration).resetPassword(
+        request,
+        options
+      );
+      return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
+        return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then(
+          (response) => {
+            if (response.status >= 200 && response.status < 300) {
+              return response.json();
+            } else {
+              throw response;
+            }
+          }
+        );
+      };
+    },
+    /**
+     *
+     * @param {string} itemId
+     * @param {BritboxAPIAccountModelsProfileSetItemWatchedStatusRequest} [request]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    setItemWatchedStatus(
+      itemId: string,
+      request?: BritboxAPIAccountModelsProfileSetItemWatchedStatusRequest,
+      options?: any
+    ): (
+      fetch?: FetchAPI,
+      basePath?: string
+    ) => Promise<BritboxAPIAccountModelsProfileSetItemWatchedStatusResponse> {
+      const localVarFetchArgs = ProfileApiFetchParamCreator(configuration).setItemWatchedStatus(
+        itemId,
+        request,
+        options
+      );
+      return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
+        return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then(
+          (response) => {
+            if (response.status >= 200 && response.status < 300) {
+              return response.json();
+            } else {
+              throw response;
+            }
+          }
+        );
+      };
+    },
+    /**
+     *
+     * @param {BritboxAPIAccountModelsProfileUpdateParentalControlDetailsRequest} [request]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    updateParentalControlDetails(
+      request?: BritboxAPIAccountModelsProfileUpdateParentalControlDetailsRequest,
+      options?: any
+    ): (
+      fetch?: FetchAPI,
+      basePath?: string
+    ) => Promise<BritboxAPIAccountModelsProfileUpdateParentalControlDetailsResponse> {
+      const localVarFetchArgs = ProfileApiFetchParamCreator(
+        configuration
+      ).updateParentalControlDetails(request, options);
+      return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
+        return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then(
+          (response) => {
+            if (response.status >= 200 && response.status < 300) {
+              return response.json();
+            } else {
+              throw response;
+            }
+          }
+        );
+      };
+    },
+    /**
+     *
+     * @param {BritboxAPIAccountModelsProfileUpdateProfileRequest} [request]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    updateProfile(
+      request?: BritboxAPIAccountModelsProfileUpdateProfileRequest,
+      options?: any
+    ): (
+      fetch?: FetchAPI,
+      basePath?: string
+    ) => Promise<BritboxAPIAccountModelsProfileUpdateProfileResponse> {
+      const localVarFetchArgs = ProfileApiFetchParamCreator(configuration).updateProfile(
+        request,
+        options
+      );
+      return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
+        return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then(
+          (response) => {
+            if (response.status >= 200 && response.status < 300) {
+              return response.json();
+            } else {
+              throw response;
+            }
+          }
+        );
+      };
+    },
+    /**
+     *
+     * @param {BritboxAPIAccountModelsProfileValidateParentalControlPINRequest} [request]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    validateParentalControlPIN(
+      request?: BritboxAPIAccountModelsProfileValidateParentalControlPINRequest,
+      options?: any
+    ): (
+      fetch?: FetchAPI,
+      basePath?: string
+    ) => Promise<BritboxAPIAccountModelsProfileValidateParentalControlPINResponse> {
+      const localVarFetchArgs = ProfileApiFetchParamCreator(
+        configuration
+      ).validateParentalControlPIN(request, options);
+      return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
+        return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then(
+          (response) => {
+            if (response.status >= 200 && response.status < 300) {
+              return response.json();
+            } else {
+              throw response;
+            }
+          }
+        );
+      };
+    },
+  };
+};
+
+/**
+ * ProfileApi - factory interface
+ * @export
+ */
+export const ProfileApiFactory = function (
+  configuration?: Configuration,
+  fetch?: FetchAPI,
+  basePath?: string
+) {
+  return {
+    /**
+     *
+     * @param {string} itemId
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    bookmarkItem(itemId: string, options?: any) {
+      return ProfileApiFp(configuration).bookmarkItem(itemId, options)(fetch, basePath);
+    },
+    /**
+     *
+     * @param {string} [classificationName]
+     * @param {string} [segment]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    checkParentalControl(classificationName?: string, segment?: string, options?: any) {
+      return ProfileApiFp(configuration).checkParentalControl(
+        classificationName,
+        segment,
+        options
+      )(fetch, basePath);
+    },
+    /**
+     *
+     * @param {string} itemId
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    deleteItemBookmark(itemId: string, options?: any) {
+      return ProfileApiFp(configuration).deleteItemBookmark(itemId, options)(fetch, basePath);
+    },
+    /**
+     *
+     * @param {BritboxAPIAccountModelsProfileDeleteWatchedRequest} [request]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    deleteWatched(request?: BritboxAPIAccountModelsProfileDeleteWatchedRequest, options?: any) {
+      return ProfileApiFp(configuration).deleteWatched(request, options)(fetch, basePath);
+    },
+    /**
+     *
+     * @param {number} [page]
+     * @param {number} [pageSize]
+     * @param {string} [order]
+     * @param {string} [itemType]
+     * @param {string} [device]
+     * @param {string} [sub]
+     * @param {boolean} [useCustomId]
+     * @param {Array<string>} [segments]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    getBookmarkList(
+      page?: number,
+      pageSize?: number,
+      order?: string,
+      itemType?: string,
+      device?: string,
+      sub?: string,
+      useCustomId?: boolean,
+      segments?: Array<string>,
+      options?: any
+    ) {
+      return ProfileApiFp(configuration).getBookmarkList(
+        page,
+        pageSize,
+        order,
+        itemType,
+        device,
+        sub,
+        useCustomId,
+        segments,
+        options
+      )(fetch, basePath);
+    },
+    /**
+     *
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    getBookmarks(options?: any) {
+      return ProfileApiFp(configuration).getBookmarks(options)(fetch, basePath);
+    },
+    /**
+     *
+     * @param {string} itemId
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    getContinueWatchingList(itemId: string, options?: any) {
+      return ProfileApiFp(configuration).getContinueWatchingList(itemId, options)(fetch, basePath);
+    },
+    /**
+     *
+     * @param {string} [showItemType]
+     * @param {Array<string>} [include]
+     * @param {number} [page]
+     * @param {number} [pageSize]
+     * @param {string} [maxRating]
+     * @param {string} [device]
+     * @param {string} [sub]
+     * @param {Array<string>} [segments]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    getContinueWatchingList_1(
+      showItemType?: string,
+      include?: Array<string>,
+      page?: number,
+      pageSize?: number,
+      maxRating?: string,
+      device?: string,
+      sub?: string,
+      segments?: Array<string>,
+      options?: any
+    ) {
+      return ProfileApiFp(configuration).getContinueWatchingList_1(
+        showItemType,
+        include,
+        page,
+        pageSize,
+        maxRating,
+        device,
+        sub,
+        segments,
+        options
+      )(fetch, basePath);
+    },
+    /**
+     *
+     * @param {string} itemId
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    getItemBookmark(itemId: string, options?: any) {
+      return ProfileApiFp(configuration).getItemBookmark(itemId, options)(fetch, basePath);
+    },
+    /**
+     *
+     * @param {string} itemId
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    getItemWatchedStatus(itemId: string, options?: any) {
+      return ProfileApiFp(configuration).getItemWatchedStatus(itemId, options)(fetch, basePath);
+    },
+    /**
+     *
+     * @param {string} itemId
+     * @param {string} [maxRating]
+     * @param {string} [expand]
+     * @param {string} [device]
+     * @param {string} [sub]
+     * @param {Array<string>} [segments]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    getNextPlaybackItem(
+      itemId: string,
+      maxRating?: string,
+      expand?: string,
+      device?: string,
+      sub?: string,
+      segments?: Array<string>,
+      options?: any
+    ) {
+      return ProfileApiFp(configuration).getNextPlaybackItem(
+        itemId,
+        maxRating,
+        expand,
+        device,
+        sub,
+        segments,
+        options
+      )(fetch, basePath);
+    },
+    /**
+     *
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    getParentalControlDetails(options?: any) {
+      return ProfileApiFp(configuration).getParentalControlDetails(options)(fetch, basePath);
+    },
+    /**
+     *
+     * @param {boolean} [useCustomId] Show content item ids with BBC ids
+     * @param {Array<string>} [segments] US, CA or AU
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    getProfile(useCustomId?: boolean, segments?: Array<string>, options?: any) {
+      return ProfileApiFp(configuration).getProfile(
+        useCustomId,
+        segments,
+        options
+      )(fetch, basePath);
+    },
+    /**
+     *
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    getWatched(options?: any) {
+      return ProfileApiFp(configuration).getWatched(options)(fetch, basePath);
+    },
+    /**
+     *
+     * @param {number} [page]
+     * @param {number} [pageSize]
+     * @param {boolean} [completed]
+     * @param {string} [order]
+     * @param {string} [orderBy]
+     * @param {string} [itemType]
+     * @param {string} [device]
+     * @param {string} [sub]
+     * @param {boolean} [useCustomId]
+     * @param {Array<string>} [segments]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    getWatchedList(
+      page?: number,
+      pageSize?: number,
+      completed?: boolean,
+      order?: string,
+      orderBy?: string,
+      itemType?: string,
+      device?: string,
+      sub?: string,
+      useCustomId?: boolean,
+      segments?: Array<string>,
+      options?: any
+    ) {
+      return ProfileApiFp(configuration).getWatchedList(
+        page,
+        pageSize,
+        completed,
+        order,
+        orderBy,
+        itemType,
+        device,
+        sub,
+        useCustomId,
+        segments,
+        options
+      )(fetch, basePath);
+    },
+    /**
+     *
+     * @param {BritboxAPIAccountModelsProfileResetPasswordRequest} [request]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    resetPassword(request?: BritboxAPIAccountModelsProfileResetPasswordRequest, options?: any) {
+      return ProfileApiFp(configuration).resetPassword(request, options)(fetch, basePath);
+    },
+    /**
+     *
+     * @param {string} itemId
+     * @param {BritboxAPIAccountModelsProfileSetItemWatchedStatusRequest} [request]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    setItemWatchedStatus(
+      itemId: string,
+      request?: BritboxAPIAccountModelsProfileSetItemWatchedStatusRequest,
+      options?: any
+    ) {
+      return ProfileApiFp(configuration).setItemWatchedStatus(
+        itemId,
+        request,
+        options
+      )(fetch, basePath);
+    },
+    /**
+     *
+     * @param {BritboxAPIAccountModelsProfileUpdateParentalControlDetailsRequest} [request]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    updateParentalControlDetails(
+      request?: BritboxAPIAccountModelsProfileUpdateParentalControlDetailsRequest,
+      options?: any
+    ) {
+      return ProfileApiFp(configuration).updateParentalControlDetails(request, options)(
+        fetch,
+        basePath
+      );
+    },
+    /**
+     *
+     * @param {BritboxAPIAccountModelsProfileUpdateProfileRequest} [request]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    updateProfile(request?: BritboxAPIAccountModelsProfileUpdateProfileRequest, options?: any) {
+      return ProfileApiFp(configuration).updateProfile(request, options)(fetch, basePath);
+    },
+    /**
+     *
+     * @param {BritboxAPIAccountModelsProfileValidateParentalControlPINRequest} [request]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    validateParentalControlPIN(
+      request?: BritboxAPIAccountModelsProfileValidateParentalControlPINRequest,
+      options?: any
+    ) {
+      return ProfileApiFp(configuration).validateParentalControlPIN(request, options)(
+        fetch,
+        basePath
+      );
+    },
+  };
+};
+
+/**
+ * ProfileApi - object-oriented interface
+ * @export
+ * @class ProfileApi
+ * @extends {BaseAPI}
+ */
+export class ProfileApi extends BaseAPI {
+  /**
+   *
+   * @param {string} itemId
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof ProfileApi
+   */
+  public bookmarkItem(itemId: string, options?: any) {
+    return ProfileApiFp(this.configuration).bookmarkItem(itemId, options)(
+      this.fetch,
+      this.basePath
+    );
+  }
+
+  /**
+   *
+   * @param {string} [classificationName]
+   * @param {string} [segment]
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof ProfileApi
+   */
+  public checkParentalControl(classificationName?: string, segment?: string, options?: any) {
+    return ProfileApiFp(this.configuration).checkParentalControl(
+      classificationName,
+      segment,
+      options
+    )(this.fetch, this.basePath);
+  }
+
+  /**
+   *
+   * @param {string} itemId
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof ProfileApi
+   */
+  public deleteItemBookmark(itemId: string, options?: any) {
+    return ProfileApiFp(this.configuration).deleteItemBookmark(itemId, options)(
+      this.fetch,
+      this.basePath
+    );
+  }
+
+  /**
+   *
+   * @param {BritboxAPIAccountModelsProfileDeleteWatchedRequest} [request]
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof ProfileApi
+   */
+  public deleteWatched(
+    request?: BritboxAPIAccountModelsProfileDeleteWatchedRequest,
+    options?: any
+  ) {
+    return ProfileApiFp(this.configuration).deleteWatched(request, options)(
+      this.fetch,
+      this.basePath
+    );
+  }
+
+  /**
+   *
+   * @param {number} [page]
+   * @param {number} [pageSize]
+   * @param {string} [order]
+   * @param {string} [itemType]
+   * @param {string} [device]
+   * @param {string} [sub]
+   * @param {boolean} [useCustomId]
+   * @param {Array<string>} [segments]
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof ProfileApi
+   */
+  public getBookmarkList(
+    page?: number,
+    pageSize?: number,
+    order?: string,
+    itemType?: string,
+    device?: string,
+    sub?: string,
+    useCustomId?: boolean,
+    segments?: Array<string>,
+    options?: any
+  ) {
+    return ProfileApiFp(this.configuration).getBookmarkList(
+      page,
+      pageSize,
+      order,
+      itemType,
+      device,
+      sub,
+      useCustomId,
+      segments,
+      options
+    )(this.fetch, this.basePath);
+  }
+
+  /**
+   *
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof ProfileApi
+   */
+  public getBookmarks(options?: any) {
+    return ProfileApiFp(this.configuration).getBookmarks(options)(this.fetch, this.basePath);
+  }
+
+  /**
+   *
+   * @param {string} itemId
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof ProfileApi
+   */
+  public getContinueWatchingList(itemId: string, options?: any) {
+    return ProfileApiFp(this.configuration).getContinueWatchingList(itemId, options)(
+      this.fetch,
+      this.basePath
+    );
+  }
+
+  /**
+   *
+   * @param {string} [showItemType]
+   * @param {Array<string>} [include]
+   * @param {number} [page]
+   * @param {number} [pageSize]
+   * @param {string} [maxRating]
+   * @param {string} [device]
+   * @param {string} [sub]
+   * @param {Array<string>} [segments]
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof ProfileApi
+   */
+  public getContinueWatchingList_1(
+    showItemType?: string,
+    include?: Array<string>,
+    page?: number,
+    pageSize?: number,
+    maxRating?: string,
+    device?: string,
+    sub?: string,
+    segments?: Array<string>,
+    options?: any
+  ) {
+    return ProfileApiFp(this.configuration).getContinueWatchingList_1(
+      showItemType,
+      include,
+      page,
+      pageSize,
+      maxRating,
+      device,
+      sub,
+      segments,
+      options
+    )(this.fetch, this.basePath);
+  }
+
+  /**
+   *
+   * @param {string} itemId
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof ProfileApi
+   */
+  public getItemBookmark(itemId: string, options?: any) {
+    return ProfileApiFp(this.configuration).getItemBookmark(itemId, options)(
+      this.fetch,
+      this.basePath
+    );
+  }
+
+  /**
+   *
+   * @param {string} itemId
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof ProfileApi
+   */
+  public getItemWatchedStatus(itemId: string, options?: any) {
+    return ProfileApiFp(this.configuration).getItemWatchedStatus(itemId, options)(
+      this.fetch,
+      this.basePath
+    );
+  }
+
+  /**
+   *
+   * @param {string} itemId
+   * @param {string} [maxRating]
+   * @param {string} [expand]
+   * @param {string} [device]
+   * @param {string} [sub]
+   * @param {Array<string>} [segments]
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof ProfileApi
+   */
+  public getNextPlaybackItem(
+    itemId: string,
+    maxRating?: string,
+    expand?: string,
+    device?: string,
+    sub?: string,
+    segments?: Array<string>,
+    options?: any
+  ) {
+    return ProfileApiFp(this.configuration).getNextPlaybackItem(
+      itemId,
+      maxRating,
+      expand,
+      device,
+      sub,
+      segments,
+      options
+    )(this.fetch, this.basePath);
+  }
+
+  /**
+   *
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof ProfileApi
+   */
+  public getParentalControlDetails(options?: any) {
+    return ProfileApiFp(this.configuration).getParentalControlDetails(options)(
+      this.fetch,
+      this.basePath
+    );
+  }
+
+  /**
+   *
+   * @param {boolean} [useCustomId] Show content item ids with BBC ids
+   * @param {Array<string>} [segments] US, CA or AU
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof ProfileApi
+   */
+  public getProfile(useCustomId?: boolean, segments?: Array<string>, options?: any) {
+    return ProfileApiFp(this.configuration).getProfile(
+      useCustomId,
+      segments,
+      options
+    )(this.fetch, this.basePath);
+  }
+
+  /**
+   *
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof ProfileApi
+   */
+  public getWatched(options?: any) {
+    return ProfileApiFp(this.configuration).getWatched(options)(this.fetch, this.basePath);
+  }
+
+  /**
+   *
+   * @param {number} [page]
+   * @param {number} [pageSize]
+   * @param {boolean} [completed]
+   * @param {string} [order]
+   * @param {string} [orderBy]
+   * @param {string} [itemType]
+   * @param {string} [device]
+   * @param {string} [sub]
+   * @param {boolean} [useCustomId]
+   * @param {Array<string>} [segments]
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof ProfileApi
+   */
+  public getWatchedList(
+    page?: number,
+    pageSize?: number,
+    completed?: boolean,
+    order?: string,
+    orderBy?: string,
+    itemType?: string,
+    device?: string,
+    sub?: string,
+    useCustomId?: boolean,
+    segments?: Array<string>,
+    options?: any
+  ) {
+    return ProfileApiFp(this.configuration).getWatchedList(
+      page,
+      pageSize,
+      completed,
+      order,
+      orderBy,
+      itemType,
+      device,
+      sub,
+      useCustomId,
+      segments,
+      options
+    )(this.fetch, this.basePath);
+  }
+
+  /**
+   *
+   * @param {BritboxAPIAccountModelsProfileResetPasswordRequest} [request]
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof ProfileApi
+   */
+  public resetPassword(
+    request?: BritboxAPIAccountModelsProfileResetPasswordRequest,
+    options?: any
+  ) {
+    return ProfileApiFp(this.configuration).resetPassword(request, options)(
+      this.fetch,
+      this.basePath
+    );
+  }
+
+  /**
+   *
+   * @param {string} itemId
+   * @param {BritboxAPIAccountModelsProfileSetItemWatchedStatusRequest} [request]
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof ProfileApi
+   */
+  public setItemWatchedStatus(
+    itemId: string,
+    request?: BritboxAPIAccountModelsProfileSetItemWatchedStatusRequest,
+    options?: any
+  ) {
+    return ProfileApiFp(this.configuration).setItemWatchedStatus(
+      itemId,
+      request,
+      options
+    )(this.fetch, this.basePath);
+  }
+
+  /**
+   *
+   * @param {BritboxAPIAccountModelsProfileUpdateParentalControlDetailsRequest} [request]
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof ProfileApi
+   */
+  public updateParentalControlDetails(
+    request?: BritboxAPIAccountModelsProfileUpdateParentalControlDetailsRequest,
+    options?: any
+  ) {
+    return ProfileApiFp(this.configuration).updateParentalControlDetails(request, options)(
+      this.fetch,
+      this.basePath
+    );
+  }
+
+  /**
+   *
+   * @param {BritboxAPIAccountModelsProfileUpdateProfileRequest} [request]
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof ProfileApi
+   */
+  public updateProfile(
+    request?: BritboxAPIAccountModelsProfileUpdateProfileRequest,
+    options?: any
+  ) {
+    return ProfileApiFp(this.configuration).updateProfile(request, options)(
+      this.fetch,
+      this.basePath
+    );
+  }
+
+  /**
+   *
+   * @param {BritboxAPIAccountModelsProfileValidateParentalControlPINRequest} [request]
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof ProfileApi
+   */
+  public validateParentalControlPIN(
+    request?: BritboxAPIAccountModelsProfileValidateParentalControlPINRequest,
+    options?: any
+  ) {
+    return ProfileApiFp(this.configuration).validateParentalControlPIN(request, options)(
+      this.fetch,
+      this.basePath
+    );
+  }
 }
-
