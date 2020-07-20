@@ -9,5 +9,6 @@ export const Slider = styled.View`
   width: 100%;
   align-items: center;
   justify-content: center;
+  margin-top: 12px;
   margin-bottom: 10px;
 `;

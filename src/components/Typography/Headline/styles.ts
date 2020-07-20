@@ -9,5 +9,5 @@ export const HeadlineComponent = styled(Headline)`
   font-size: 20px;
   font-family: ${(props: ThemeState) => props.theme.PRIMARY_FONT_FAMILY_MEDIUM};
   line-height: 38px;
-  margin-bottom: 12px;
+  /* margin-bottom: 12px; */
 `;

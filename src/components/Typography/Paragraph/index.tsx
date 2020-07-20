@@ -4,12 +4,13 @@ import { Container, ParagraphComponent } from './styles';
 
 interface Props {
   children: any;
+  fontSize?: number;
 }
 
-const Title = ({ children }: Props) => {
+const Title = ({ children, fontSize }: Props) => {
   return (
     <Container>
-      <ParagraphComponent>{children}</ParagraphComponent>
+      <ParagraphComponent {...{ fontSize }}>{children}</ParagraphComponent>
     </Container>
   );
 };

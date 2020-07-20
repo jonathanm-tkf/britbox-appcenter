@@ -1,7 +1,7 @@
 import styled from 'styled-components/native';
 import { ThemeState } from '@store/modules/theme/types';
 import { getStatusBarHeight } from 'react-native-iphone-x-helper';
-import { Platform } from 'react-native';
+import { Platform, Animated } from 'react-native';
 
 export const Container = styled.View`
   flex: 1;
@@ -14,7 +14,7 @@ export const HeaderBackgroundImage = styled.View`
 
 export const ImageTop = styled.Image.attrs({
   resizeMode: 'cover',
-  blurRadius: 5,
+  blurRadius: 2,
 })`
   flex: 1;
 `;
@@ -33,7 +33,6 @@ export const TopWrapper = styled.View`
   right: 0;
   z-index: 2;
   width: 100%;
-  padding-top: ${Platform.OS === 'ios' ? getStatusBarHeight() : 0}px;
   justify-content: center;
   align-items: center;
   /* background-color: red; */
@@ -48,7 +47,6 @@ export const Button = styled.TouchableOpacity`
   z-index: 4;
   width: 50px;
   height: 50px;
-  background-color: blue;
 `;
 
 export const TopText = styled.Text`
@@ -65,8 +63,60 @@ export const TopText = styled.Text`
   text-align: center;
 `;
 
-export const BackgroundTop = styled.View`
-  background-color: red;
-  height: 50px;
+export const BackgroundTop = styled(Animated.View)`
+  background-color: ${(props: ThemeState) => props.theme.PRIMARY_COLOR};
   width: 100%;
+  padding-top: ${Platform.OS === 'ios' ? getStatusBarHeight() + 50 : 50}px;
+`;
+
+export const Poster = styled.View`
+  align-items: center;
+  position: absolute;
+  top: ${Platform.OS === 'ios' ? 80 : 50}px;
+  width: 100%;
+  z-index: 3;
+`;
+
+export const InnerContent = styled.View`
+  background-color: ${(props: ThemeState) => props.theme.PRIMARY_COLOR};
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+  margin-top: -12px;
+  padding: ${Platform.OS === 'ios' ? 210 : 180}px 20px 40px;
+`;
+
+export const ActionWrapper = styled.View`
+  margin-top: -40px;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+`;
+
+export const ActionText = styled.Text`
+  font-family: ${(props: ThemeState) => props.theme.PRIMARY_FONT_FAMILY_MEDIUM};
+  color: ${(props: ThemeState) => props.theme.SECONDARY_COLOR_LIGHT};
+  font-size: 14px;
+`;
+
+interface ActionButton {
+  play?: boolean;
+}
+
+export const ActionButton = styled.TouchableOpacity`
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  margin-top: ${(props: ActionButton) => (props.play ? 10 : 0)}px;
+`;
+
+export const ActionInformation = styled.Text`
+  font-family: ${(props: ThemeState) => props.theme.PRIMARY_FONT_FAMILY_MEDIUM};
+  color: ${(props: ThemeState) => props.theme.PRIMARY_FOREGROUND_COLOR};
+  font-size: 12px;
+`;
+
+export const ActionInformationWrapper = styled.View`
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
 `;

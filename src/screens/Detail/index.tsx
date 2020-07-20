@@ -1,12 +1,12 @@
-import React from 'react';
-import { Dimensions, StyleSheet, View, Text } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, Text, Animated } from 'react-native';
 import { useNavigation } from 'react-navigation-hooks';
 
 import { toggleTabs } from '@src/utils';
-import { getStatusBarHeight } from 'react-native-iphone-x-helper';
-import { SharedElement } from 'react-native-shared-element';
-import FastImage from 'react-native-fast-image';
-import { BackIcon } from '@assets/icons';
+import { BackIcon, WatchlistIcon } from '@assets/icons';
+import Card from '@components/Card';
+import Action from '@components/Action';
+import { Headline, Paragraph } from '@components/Typography';
 import {
   Container,
   HeaderBackgroundImage,
@@ -16,48 +16,51 @@ import {
   Button,
   TopText,
   BackgroundTop,
+  Poster,
+  InnerContent,
+  ActionWrapper,
+  ActionButton,
+  ActionText,
+  ActionInformation,
+  ActionInformationWrapper,
 } from './styled';
-
-const { width } = Dimensions.get('window');
-const styles = StyleSheet.create({
-  wrapper: {
-    alignItems: 'center',
-    position: 'absolute',
-    top: 80,
-    width,
-    height: Math.round((width * 9) / 16),
-    zIndex: 3,
-  },
-  image: {
-    width: 185,
-    height: 270,
-    borderRadius: 5,
-    borderWidth: 5,
-    borderColor: 'black',
-  },
-  background: {
-    width,
-    height: Math.round((width * 9) / 16),
-    opacity: 1,
-  },
-  thumbnailOverlay: {
-    ...StyleSheet.absoluteFillObject,
-    backgroundColor: 'red',
-    height: getStatusBarHeight() + 30,
-    padding: 16,
-    zIndex: 1,
-  },
-});
 
 const Detail = () => {
   const { goBack, getParam, dangerouslyGetParent } = useNavigation();
   const { item } = getParam('item');
   const parent = dangerouslyGetParent();
+  const [showBlueView, setShowBlueView] = useState(false);
+  const [animatedOpacityValue] = useState(new Animated.Value(0));
+
   const back = () => {
     if (parent) {
       toggleTabs(parent, true);
     }
     goBack();
+  };
+
+  useEffect(() => {
+    Animated.timing(animatedOpacityValue, {
+      toValue: 1,
+      duration: 0,
+      useNativeDriver: true,
+    }).start(() => setShowBlueView(true));
+  }, []);
+
+  const handleScroll = (event: any) => {
+    const scrollPosition = event.nativeEvent.contentOffset.y;
+    if (scrollPosition < 150 && !showBlueView) {
+      Animated.timing(animatedOpacityValue, {
+        toValue: 1,
+        useNativeDriver: true,
+      }).start(() => setShowBlueView(true));
+    }
+    if (scrollPosition > 150 && showBlueView) {
+      Animated.timing(animatedOpacityValue, {
+        toValue: 0,
+        useNativeDriver: true,
+      }).start(() => setShowBlueView(false));
+    }
   };
 
   return (
@@ -67,20 +70,43 @@ const Detail = () => {
           <BackIcon width={20} height={20} />
         </Button>
         <TopText>SHOW</TopText>
-        <BackgroundTop />
+        <BackgroundTop
+          style={{
+            opacity: animatedOpacityValue.interpolate({
+              inputRange: [0, 1],
+              outputRange: [1, 0],
+            }),
+          }}
+        />
       </TopWrapper>
-      <Scroll>
+      <Scroll onScroll={(event) => handleScroll(event)} scrollEventThrottle={16}>
         <HeaderBackgroundImage>
           <ImageTop source={{ uri: item.url }} />
         </HeaderBackgroundImage>
 
-        <View style={styles.wrapper}>
-          <SharedElement id={item.id}>
-            <FastImage style={styles.image} resizeMode="cover" source={{ uri: item.url }} />
-          </SharedElement>
-        </View>
+        <Poster>
+          <Card url={item.url} width={185} height={275} />
+          <ActionWrapper>
+            <ActionButton>
+              <WatchlistIcon width={35} height={35} />
+            </ActionButton>
+            <ActionButton play>
+              <Action isContinue={false} loop autoPlay width={80} height={80} />
+              <ActionText>Play now</ActionText>
+            </ActionButton>
+            <ActionInformationWrapper>
+              <ActionInformation>21</ActionInformation>
+              <ActionInformation>seasons</ActionInformation>
+            </ActionInformationWrapper>
+          </ActionWrapper>
+        </Poster>
 
-        <View style={{ flex: 1 }}>
+        <InnerContent>
+          <Headline>Midsumer Murders</Headline>
+          <Paragraph fontSize={14}>
+            Welcome to the idyllic Midsomer County filled with quaint villages, picturesque
+            landscapes and monstrous murders.
+          </Paragraph>
           <View style={{ width: 100, height: 300 }}>
             <Text>Label</Text>
           </View>
@@ -97,7 +123,7 @@ const Detail = () => {
           <View style={{ width: 100, height: 300 }}>
             <Text>Label</Text>
           </View>
-        </View>
+        </InnerContent>
       </Scroll>
     </Container>
   );

@@ -9,7 +9,7 @@ import { AppState } from '@store/modules/rootReducer';
 import { useSelector } from 'react-redux';
 import Tabs from './Tabs';
 
-const STORYBOOK_START = false && __DEV__;
+const STORYBOOK_START = true && __DEV__;
 
 const AppNavigator = ({ theme }: { theme: ThemeState }) => {
   const isLogged = useSelector((state: AppState) => state.core.isLogged);
