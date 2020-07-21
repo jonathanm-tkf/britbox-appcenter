@@ -14,11 +14,32 @@ const episodeUrl =
 const episodeData = {
   title: 'Casually 1900s: London Hospital more text extensive',
   description: 'E68 - 56min',
+  actionText: '56 min left',
+  category: [
+    {
+      key: 1,
+      label: 'TV - PG',
+      bold: false,
+    },
+    {
+      key: 2,
+      label: 'CC',
+      bold: false,
+    },
+    {
+      key: 3,
+      label: 'HD',
+      bold: true,
+    },
+  ],
 };
 
 storiesOf('Card', module)
   .addDecorator(Theme)
   .add('default', () => <Card url={url} />)
   .add('episode', () => (
-    <Card width={157} height={107} url={episodeUrl} newEpisode data={episodeData} />
+    <Card width={157} height={107} url={episodeUrl} isEpisode data={episodeData} />
+  ))
+  .add('detail', () => (
+    <Card width={157} height={107} url={episodeUrl} isDetail data={episodeData} />
   ));

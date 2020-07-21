@@ -14,11 +14,25 @@ export const Container = styled.View`
   border-radius: 8px;
 `;
 
+interface WrapperProps {
+  isDetail?: boolean;
+}
+
 export const Wrapper = styled.View`
   align-items: center;
   justify-content: space-between;
   padding-bottom: 30px;
   width: ${(props: ContainerProps) => props.width || 162}px;
+
+  ${(props: WrapperProps & ContainerProps) => {
+    return (
+      props.isDetail &&
+      `
+      flex-direction: row;
+      width: 100%;
+    `
+    );
+  }};
 `;
 
 export const CustomShadow = styled.View`
@@ -44,13 +58,28 @@ export const Gradient = styled(LinearGradient).attrs((props: ThemeState) => ({
   border-bottom-right-radius: 8px;
 `;
 
+interface TextWrapperProps {
+  isDetail?: boolean;
+}
+
 export const TextWrapper = styled.View`
   align-self: flex-start;
-
-  /* flex-direction: row; */
   width: 100%;
   height: 70px;
   margin-top: 15px;
+
+  ${(props: TextWrapperProps) => {
+    return props.isDetail
+      ? `
+      margin-top: 0;
+      padding-left: 15px;
+      padding-right: 15px;
+    `
+      : `
+      padding-left: 10px;
+      padding-right: 10px;
+    `;
+  }};
 `;
 
 export const Title = styled.Text.attrs({
@@ -62,8 +91,8 @@ export const Title = styled.Text.attrs({
   margin-bottom: 2px;
   font-size: 14px;
   line-height: 24px;
-  padding-left: 10px;
-  padding-right: 10px;
+  /* padding-left: 10px; */
+  /* padding-right: 10px; */
 `;
 
 export const Description = styled.Text.attrs({
@@ -73,8 +102,8 @@ export const Description = styled.Text.attrs({
   opacity: 0.5;
   font-size: 12px;
   margin-top: 2px;
-  padding-left: 10px;
-  padding-right: 10px;
+  /* padding-left: 10px;
+  padding-right: 10px; */
 `;
 
 export const ActionWrapper = styled.View`
@@ -103,6 +132,7 @@ export const WrapperBookmarks = styled.View`
 
 interface BottomWrapper {
   isContinue: boolean;
+  isDetail?: boolean;
 }
 
 export const BottomWrapper = styled.View`
@@ -111,4 +141,20 @@ export const BottomWrapper = styled.View`
   align-items: center;
   justify-content: ${(props: BottomWrapper) => (!props.isContinue ? 'center' : 'space-between')};
   width: 100%;
+
+  ${(props: BottomWrapper) => {
+    return (
+      props.isDetail &&
+      `
+      justify-content: flex-start;
+      padding-left: 5px;
+    `
+    );
+  }};
+`;
+
+export const Group = styled.View`
+  flex-direction: column;
+  width: 100%;
+  flex: 1;
 `;

@@ -138,7 +138,7 @@ const Item = () => {
                 items={item.items}
                 listProps={{ horizontal: true }}
                 renderItem={({ item: card }) => (
-                  <Card newEpisode width={157} height={107} url={card.url} data={card.data} />
+                  <Card isEpisode width={157} height={107} url={card.url} data={card.data} />
                 )}
               />
             </Fragment>
