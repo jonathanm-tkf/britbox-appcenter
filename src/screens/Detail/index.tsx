@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Animated } from 'react-native';
+import { Animated } from 'react-native';
 import { useNavigation } from 'react-navigation-hooks';
 
 import { toggleTabs } from '@src/utils';
@@ -28,6 +28,7 @@ import {
 } from './styled';
 import Episodes from './Components/Episodes/indext';
 import Information from './Components/Information';
+import More from './Components/More';
 
 type HeightType = string | number;
 
@@ -38,8 +39,8 @@ const Detail = () => {
   const [showBlueView, setShowBlueView] = useState(false);
   const [animatedOpacityValue] = useState(new Animated.Value(0));
   const { t } = useTranslation('detail');
-  const [height, setHeight] = useState<HeightType>('auto');
 
+  const [height, setHeight] = useState<HeightType>('auto');
   const [secondHeight, setSecondHeight] = useState('auto');
   const [threeHeight, setThreeHeight] = useState('auto');
 
@@ -60,9 +61,11 @@ const Detail = () => {
       key: 'three',
       title: t('more'),
       content: () => (
-        <View
-          style={[{ flex: 1, backgroundColor: '#6791b7' }]}
-          onLayout={(event) => setThreeHeight(event.nativeEvent.layout.height)}
+        <More
+          onLayout={(event) => {
+            console.tron.log({ height: event.nativeEvent.layout.height });
+            setThreeHeight(event.nativeEvent.layout.height);
+          }}
         />
       ),
     },
@@ -100,6 +103,7 @@ const Detail = () => {
   };
 
   const changeTab = (index: number) => {
+    console.tron.log({ secondHeight, threeHeight });
     switch (index) {
       case 1:
         setHeight(secondHeight);

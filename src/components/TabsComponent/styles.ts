@@ -4,7 +4,6 @@ import { ThemeState } from '@store/modules/theme/types';
 import { rgba } from 'polished';
 
 export const Container = styled.View`
-  background-color: white;
   width: 100%;
   height: 100%;
 `;
@@ -19,11 +18,11 @@ export const TabBar = styled(TabBarC).attrs((props: ThemeState) => ({
   tabStyle: {
     width: 'auto',
     paddingHorizontal: 20,
-    borderBottomWidth: 1,
-    borderColor: rgba(props.theme.PRIMARY_FOREGROUND_COLOR, 0.1),
   },
 }))`
   background-color: ${(props: ThemeState) => props.theme.PRIMARY_COLOR};
+  border-bottom-width: 1px;
+  border-color: ${(props: ThemeState) => rgba(props.theme.PRIMARY_FOREGROUND_COLOR, 0.1)};
 `;
 
 export const TabWrapper = styled.View``;

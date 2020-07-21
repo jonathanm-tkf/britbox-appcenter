@@ -64,6 +64,7 @@ const TabsComponent = ({ routes, sceneContainerStyle, onChangeTab }: Props) => {
             onChangeTab(i);
           }
         }}
+        removeClippedSubviews={false}
         initialLayout={initialLayout}
         // initialLayout={{height: 0, width: Dimensions.get('window').width}}
       />

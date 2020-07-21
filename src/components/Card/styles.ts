@@ -22,7 +22,7 @@ interface WrapperProps {
 export const Wrapper = styled.View`
   align-items: center;
   justify-content: space-between;
-  padding-bottom: 30px;
+  /* padding-bottom: 30px; */
   width: ${(props: ContainerProps) => props.width || 162}px;
 
   ${(props: WrapperProps & ContainerProps) => {
@@ -154,11 +154,16 @@ export const BottomWrapper = styled.View`
   }};
 `;
 
+interface GroupProps {
+  isDetail: boolean;
+}
+
 export const Group = styled.View`
   flex-direction: column;
   width: 100%;
-  height: 100%;
-  flex: 1;
+  ${(props: GroupProps) => {
+    return props.isDetail && `flex: 1;`;
+  }};
 `;
 
 export const ProgressBar = styled(RNProgressBar).attrs((props: ThemeState) => ({
@@ -188,6 +193,9 @@ export const SummaryText = styled.Text`
   color: ${(props: ThemeState) => props.theme.PRIMARY_FOREGROUND_COLOR};
   font-size: 12px;
   line-height: 16px;
-  margin-top: -10px;
-  margin-bottom: 30px;
+  margin-top: 15px;
+`;
+
+export const AllWrapper = styled.View`
+  padding-bottom: 30px;
 `;

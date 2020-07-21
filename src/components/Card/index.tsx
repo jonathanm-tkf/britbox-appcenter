@@ -8,6 +8,7 @@ import Action from '@components/Action';
 import { useTranslation } from 'react-i18next';
 import { CloseIcon } from '@assets/icons';
 import Bookmark from '@components/Bookmark';
+
 import {
   Container,
   Wrapper,
@@ -24,6 +25,7 @@ import {
   Group,
   ProgressBar,
   SummaryText,
+  AllWrapper,
 } from './styles';
 
 interface Props {
@@ -42,6 +44,7 @@ interface Props {
   isContinue?: boolean;
   actionText?: string;
   onRemove?: () => void;
+  style?: any;
 }
 
 const loader: StyleProp<ViewStyle> = {
@@ -61,6 +64,7 @@ const Card = ({
   isContinue,
   actionText = '',
   onRemove,
+  style,
 }: Props) => {
   const theme = useSelector((state: AppState) => state.theme.theme);
   const [loaded, setLoaded] = useState(false);
@@ -73,7 +77,7 @@ const Card = ({
   };
 
   return (
-    <>
+    <AllWrapper {...{ style }}>
       <Wrapper {...{ width, isDetail }}>
         <Container {...{ width, height }}>
           <CustomShadow>
@@ -113,7 +117,7 @@ const Card = ({
             </ImageWrapper>
           </CustomShadow>
         </Container>
-        <Group>
+        <Group {...{ isDetail: isDetail || false }}>
           {(newEpisode || isEpisode || isDetail) && data && (
             <TextWrapper {...{ isDetail }}>
               {loaded ? (
@@ -156,7 +160,7 @@ const Card = ({
         </Group>
       </Wrapper>
       {isDetail && data?.summary && <SummaryText>{data.summary}</SummaryText>}
-    </>
+    </AllWrapper>
   );
 };
 

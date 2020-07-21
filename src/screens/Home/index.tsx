@@ -15,7 +15,7 @@ import { Row } from '@components/Layout';
 import Carousel from '@components/Carousel';
 import Card from '@components/Card';
 import UserWatching from '@components/UserWatching';
-import { Container } from './styles';
+import { Container, Footer } from './styles';
 import { items, Element, continueWatchingItems } from './data';
 
 const wrapper = {
@@ -24,7 +24,7 @@ const wrapper = {
 };
 
 const marginBottom = {
-  marginBottom: Platform.OS === 'ios' ? 40 : 20,
+  marginBottom: 20,
 };
 
 const ContinueWatchingData = [
@@ -82,6 +82,7 @@ const Home = () => {
         keyExtractor={keyExtractor}
         style={marginBottom}
         showsVerticalScrollIndicator={false}
+        ListFooterComponent={<Footer />}
       />
     </View>
   );
