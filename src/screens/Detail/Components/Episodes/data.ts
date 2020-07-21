@@ -1,9 +1,12 @@
+/* eslint-disable max-len */
 export const DATA = [
   {
     id: '1',
     title: 'Casually 1900s: London Hospital more text extensive',
     description: 'E68 - 56min',
     actionText: '56 min left',
+    summary:
+      "An elderly woman's death draws Barnaby into a case that reveals the sordid side of a quaint village. Emily Mortimer guest stars.",
     category: [
       {
         key: 1,
@@ -27,6 +30,8 @@ export const DATA = [
     title: 'Casually 1900s: London Hospital more text extensive',
     description: 'E68 - 56min',
     actionText: '56 min left',
+    summary:
+      "An elderly woman's death draws Barnaby into a case that reveals the sordid side of a quaint village. Emily Mortimer guest stars.",
     category: [
       {
         key: 1,
@@ -50,6 +55,8 @@ export const DATA = [
     title: 'Casually 1900s: London Hospital more text extensive',
     description: 'E68 - 56min',
     actionText: '56 min left',
+    summary:
+      "An elderly woman's death draws Barnaby into a case that reveals the sordid side of a quaint village. Emily Mortimer guest stars.",
     category: [
       {
         key: 1,
@@ -73,6 +80,8 @@ export const DATA = [
     title: 'Casually 1900s: London Hospital more text extensive',
     description: 'E68 - 56min',
     actionText: '56 min left',
+    summary:
+      "An elderly woman's death draws Barnaby into a case that reveals the sordid side of a quaint village. Emily Mortimer guest stars.",
     category: [
       {
         key: 1,
@@ -96,6 +105,8 @@ export const DATA = [
     title: 'Casually 1900s: London Hospital more text extensive',
     description: 'E68 - 56min',
     actionText: '56 min left',
+    summary:
+      "An elderly woman's death draws Barnaby into a case that reveals the sordid side of a quaint village. Emily Mortimer guest stars.",
     category: [
       {
         key: 1,
@@ -119,6 +130,8 @@ export const DATA = [
     title: 'Casually 1900s: London Hospital more text extensive',
     description: 'E68 - 56min',
     actionText: '56 min left',
+    summary:
+      "An elderly woman's death draws Barnaby into a case that reveals the sordid side of a quaint village. Emily Mortimer guest stars.",
     category: [
       {
         key: 1,

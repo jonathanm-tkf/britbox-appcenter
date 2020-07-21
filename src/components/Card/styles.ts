@@ -182,3 +182,12 @@ export const ImageWrapper = styled.View`
   height: 100%;
   position: relative;
 `;
+
+export const SummaryText = styled.Text`
+  font-family: ${(props: ThemeState) => props.theme.PRIMARY_FONT_FAMILY_LIGHT};
+  color: ${(props: ThemeState) => props.theme.PRIMARY_FOREGROUND_COLOR};
+  font-size: 12px;
+  line-height: 16px;
+  margin-top: -10px;
+  margin-bottom: 30px;
+`;

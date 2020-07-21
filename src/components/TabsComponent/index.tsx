@@ -14,6 +14,8 @@ const initialLayout = { width: Dimensions.get('window').width };
 
 interface Props {
   routes: State[];
+  sceneContainerStyle?: any;
+  onChangeTab?: (index: number) => void;
 }
 
 interface Scene {
@@ -21,14 +23,13 @@ interface Scene {
   content: () => JSX.Element;
 }
 
-const TabsComponent = ({ routes }: Props) => {
+const TabsComponent = ({ routes, sceneContainerStyle, onChangeTab }: Props) => {
   const [index, setIndex] = useState(0);
   const [data] = useState(routes);
 
   const renderScene = ({ route }: any) => {
     switch (route.key) {
       default:
-        console.tron.log({ route });
         return route.content();
     }
   };
@@ -53,11 +54,18 @@ const TabsComponent = ({ routes }: Props) => {
   return (
     <Container>
       <TabView
+        {...{ sceneContainerStyle }}
         navigationState={{ index, routes: data }}
         renderScene={renderScene}
         renderTabBar={renderTabBar}
-        onIndexChange={setIndex}
+        onIndexChange={(i) => {
+          setIndex(i);
+          if (onChangeTab) {
+            onChangeTab(i);
+          }
+        }}
         initialLayout={initialLayout}
+        // initialLayout={{height: 0, width: Dimensions.get('window').width}}
       />
     </Container>
   );

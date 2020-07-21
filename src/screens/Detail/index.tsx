@@ -27,9 +27,9 @@ import {
   ActionInformationWrapper,
 } from './styled';
 import Episodes from './Components/Episodes/indext';
+import Information from './Components/Information';
 
-const SecondRoute = () => <View style={[{ flex: 1, backgroundColor: '#673ab7' }]} />;
-const ThreeRoute = () => <View style={[{ flex: 1, backgroundColor: '#6791b7' }]} />;
+type HeightType = string | number;
 
 const Detail = () => {
   const { goBack, getParam, dangerouslyGetParent } = useNavigation();
@@ -38,11 +38,34 @@ const Detail = () => {
   const [showBlueView, setShowBlueView] = useState(false);
   const [animatedOpacityValue] = useState(new Animated.Value(0));
   const { t } = useTranslation('detail');
+  const [height, setHeight] = useState<HeightType>('auto');
+
+  const [secondHeight, setSecondHeight] = useState('auto');
+  const [threeHeight, setThreeHeight] = useState('auto');
 
   const DATA = [
-    { key: 'first', title: t('episodes'), content: () => <Episodes /> },
-    { key: 'second', title: t('information'), content: () => <SecondRoute /> },
-    { key: 'three', title: t('more'), content: () => <ThreeRoute /> },
+    {
+      key: 'first',
+      title: t('episodes'),
+      content: () => <Episodes />,
+    },
+    {
+      key: 'second',
+      title: t('information'),
+      content: () => (
+        <Information onLayout={(event) => setSecondHeight(event.nativeEvent.layout.height)} />
+      ),
+    },
+    {
+      key: 'three',
+      title: t('more'),
+      content: () => (
+        <View
+          style={[{ flex: 1, backgroundColor: '#6791b7' }]}
+          onLayout={(event) => setThreeHeight(event.nativeEvent.layout.height)}
+        />
+      ),
+    },
   ];
 
   const back = () => {
@@ -73,6 +96,20 @@ const Detail = () => {
         toValue: 0,
         useNativeDriver: true,
       }).start(() => setShowBlueView(false));
+    }
+  };
+
+  const changeTab = (index: number) => {
+    switch (index) {
+      case 1:
+        setHeight(secondHeight);
+        break;
+      case 2:
+        setHeight(threeHeight);
+        break;
+      default:
+        setHeight('auto');
+        break;
     }
   };
 
@@ -121,9 +158,7 @@ const Detail = () => {
             landscapes and monstrous murders.
           </Paragraph>
         </InnerContent>
-        <TabsComponent routes={DATA} />
-
-        {/* <Episodes /> */}
+        <TabsComponent routes={DATA} sceneContainerStyle={{ height }} onChangeTab={changeTab} />
       </Scroll>
     </Container>
   );
