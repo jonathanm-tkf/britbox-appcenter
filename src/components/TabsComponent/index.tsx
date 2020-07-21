@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Dimensions } from 'react-native';
-import { TabView, SceneMap } from 'react-native-tab-view';
+import { TabView } from 'react-native-tab-view';
 import { Container, TabWrapper, TabBar, TabLabel, Indicator, IndicatorWrapper } from './styles';
 
 type State = {
@@ -25,16 +25,13 @@ const TabsComponent = ({ routes }: Props) => {
   const [index, setIndex] = useState(0);
   const [data] = useState(routes);
 
-  const getScenes = (): Record<string, any> => {
-    const allScenes: any = {};
-    routes.forEach((element: Scene) => {
-      allScenes[element.key] = element.content;
-    });
-
-    return allScenes;
+  const renderScene = ({ route }: any) => {
+    switch (route.key) {
+      default:
+        console.tron.log({ route });
+        return route.content();
+    }
   };
-
-  const renderScene = SceneMap(getScenes());
 
   const renderTabBar = (props: any & { navigationState: any }) => (
     <TabBar

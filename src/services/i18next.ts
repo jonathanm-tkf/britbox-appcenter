@@ -7,6 +7,7 @@ i18next.use(initReactI18next).init({
   resources: {
     us: {
       layout: require('../locales/us/layout.json'),
+      detail: require('../locales/us/detail.json'),
       signin: require('../locales/us/signin.json'),
       auth: require('../locales/us/auth.json'),
     },

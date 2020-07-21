@@ -20,7 +20,9 @@ import {
   ActionText,
   BottomWrapper,
   WrapperBookmarks,
+  ImageWrapper,
   Group,
+  ProgressBar,
 } from './styles';
 
 interface Props {
@@ -72,31 +74,40 @@ const Card = ({
     <Wrapper {...{ width, isDetail }}>
       <Container {...{ width, height }}>
         <CustomShadow>
-          {(newEpisode || isEpisode || isDetail) && loaded && (
-            <ActionWrapper>
-              <Action isContinue={isContinue} width={60} height={60} autoPlay loop={!isContinue} />
-              <ActionText>
-                {actionText !== '' ? actionText : isContinue ? t('continue') : t('playnow')}
-              </ActionText>
-            </ActionWrapper>
-          )}
-          {!loaded && (
-            <ContentLoader
-              style={loader}
-              speed={1}
-              backgroundColor={theme.PRIMARY_COLOR_OPAQUE}
-              foregroundColor={theme.PRIMARY_COLOR}
-            >
-              <Rect x="0" y="0" rx="8" ry="8" width="100%" height="100%" />
-            </ContentLoader>
-          )}
-          <Image
-            style={imageStyle}
-            source={{ uri: url }}
-            resizeMode="cover"
-            onLoadEnd={() => setLoaded(!loaded)}
-          />
-          {(newEpisode || isEpisode || isDetail) && <Gradient />}
+          <ImageWrapper>
+            {(newEpisode || isEpisode || isDetail) && loaded && (
+              <ActionWrapper>
+                <Action
+                  isContinue={isContinue}
+                  width={60}
+                  height={60}
+                  autoPlay
+                  loop={!isContinue}
+                />
+                <ActionText>
+                  {actionText !== '' ? actionText : isContinue ? t('continue') : t('playnow')}
+                </ActionText>
+              </ActionWrapper>
+            )}
+            {!loaded && (
+              <ContentLoader
+                style={loader}
+                speed={1}
+                backgroundColor={theme.PRIMARY_COLOR_OPAQUE}
+                foregroundColor={theme.PRIMARY_COLOR}
+              >
+                <Rect x="0" y="0" rx="8" ry="8" width="100%" height="100%" />
+              </ContentLoader>
+            )}
+            <Image
+              style={imageStyle}
+              source={{ uri: url }}
+              resizeMode="cover"
+              onLoadEnd={() => setLoaded(!loaded)}
+            />
+            {(newEpisode || isEpisode || isDetail) && <Gradient />}
+            {isDetail && <ProgressBar progress={0.5} />}
+          </ImageWrapper>
         </CustomShadow>
       </Container>
       <Group>

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, Animated } from 'react-native';
+import { View, Animated } from 'react-native';
 import { useNavigation } from 'react-navigation-hooks';
 
 import { toggleTabs } from '@src/utils';
@@ -7,6 +7,8 @@ import { BackIcon, WatchlistIcon } from '@assets/icons';
 import Card from '@components/Card';
 import Action from '@components/Action';
 import { Headline, Paragraph } from '@components/Typography';
+import TabsComponent from '@components/TabsComponent';
+import { useTranslation } from 'react-i18next';
 import {
   Container,
   HeaderBackgroundImage,
@@ -24,6 +26,10 @@ import {
   ActionInformation,
   ActionInformationWrapper,
 } from './styled';
+import Episodes from './Components/Episodes/indext';
+
+const SecondRoute = () => <View style={[{ flex: 1, backgroundColor: '#673ab7' }]} />;
+const ThreeRoute = () => <View style={[{ flex: 1, backgroundColor: '#6791b7' }]} />;
 
 const Detail = () => {
   const { goBack, getParam, dangerouslyGetParent } = useNavigation();
@@ -31,6 +37,13 @@ const Detail = () => {
   const parent = dangerouslyGetParent();
   const [showBlueView, setShowBlueView] = useState(false);
   const [animatedOpacityValue] = useState(new Animated.Value(0));
+  const { t } = useTranslation('detail');
+
+  const DATA = [
+    { key: 'first', title: t('episodes'), content: () => <Episodes /> },
+    { key: 'second', title: t('information'), content: () => <SecondRoute /> },
+    { key: 'three', title: t('more'), content: () => <ThreeRoute /> },
+  ];
 
   const back = () => {
     if (parent) {
@@ -107,23 +120,10 @@ const Detail = () => {
             Welcome to the idyllic Midsomer County filled with quaint villages, picturesque
             landscapes and monstrous murders.
           </Paragraph>
-          <View style={{ width: 100, height: 300 }}>
-            <Text>Label</Text>
-          </View>
-
-          <View style={{ width: 100, height: 300 }}>
-            <Text>Label</Text>
-          </View>
-          <View style={{ width: 100, height: 300 }}>
-            <Text>Label</Text>
-          </View>
-          <View style={{ width: 100, height: 300 }}>
-            <Text>Label</Text>
-          </View>
-          <View style={{ width: 100, height: 300 }}>
-            <Text>Label</Text>
-          </View>
         </InnerContent>
+        <TabsComponent routes={DATA} />
+
+        {/* <Episodes /> */}
       </Scroll>
     </Container>
   );

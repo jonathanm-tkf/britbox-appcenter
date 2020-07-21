@@ -14,12 +14,12 @@ const FiveRoute = () => <View style={[{ flex: 1, backgroundColor: '#63beb7' }]} 
 const SixRoute = () => <View style={[{ flex: 1, backgroundColor: '#453ae7' }]} />;
 
 const DATA = [
-  { key: 'first', title: 'First Tab', content: () => <FirstRoute /> },
-  { key: 'second', title: 'Second Tab', content: () => <SecondRoute /> },
-  { key: 'three', title: 'Three Tab', content: () => <ThreeRoute /> },
-  { key: 'four', title: 'Four Tab', content: () => <FourRoute /> },
-  { key: 'five', title: 'Five Tab', content: () => <FiveRoute /> },
-  { key: 'six', title: 'Six Tab', content: () => <SixRoute /> },
+  { key: 'first', title: 'First Tab ', content: () => <FirstRoute /> },
+  { key: 'second', title: 'Second Tab ', content: () => <SecondRoute /> },
+  { key: 'three', title: 'Three Tab ', content: () => <ThreeRoute /> },
+  { key: 'four', title: 'Four Tab ', content: () => <FourRoute /> },
+  { key: 'five', title: 'Five Tab ', content: () => <FiveRoute /> },
+  { key: 'six', title: 'Six Tab ', content: () => <SixRoute /> },
 ];
 
 storiesOf('Tabs Component', module)

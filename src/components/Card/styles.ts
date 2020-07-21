@@ -2,6 +2,7 @@ import styled from 'styled-components/native';
 import { ThemeState } from '@store/modules/theme/types';
 import LinearGradient from 'react-native-linear-gradient';
 import { rgba } from 'polished';
+import RNProgressBar from 'react-native-progress/Bar';
 
 interface ContainerProps {
   width?: number;
@@ -156,5 +157,28 @@ export const BottomWrapper = styled.View`
 export const Group = styled.View`
   flex-direction: column;
   width: 100%;
+  height: 100%;
   flex: 1;
+`;
+
+export const ProgressBar = styled(RNProgressBar).attrs((props: ThemeState) => ({
+  color: props.theme.SECONDARY_COLOR_LIGHT,
+  borderWidth: 0,
+  borderRadius: 0,
+  unfilledColor: rgba(props.theme.PRIMARY_FOREGROUND_COLOR, 0.1),
+  height: 3,
+}))`
+  z-index: 2;
+  position: absolute;
+  width: 100%;
+  bottom: 10%;
+  margin-bottom: -10px;
+`;
+
+export const ImageWrapper = styled.View`
+  overflow: hidden;
+  border-radius: 8px;
+  width: 100%;
+  height: 100%;
+  position: relative;
 `;
