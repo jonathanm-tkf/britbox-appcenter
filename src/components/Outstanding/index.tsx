@@ -40,7 +40,6 @@ const image: StyleProp<ViewStyle> = {
 const Outstanding = ({ item, onPlay, onWatchlist, onDiscoverMore }: Props) => {
   const [loaded, setLoaded] = useState(false);
   const { t } = useTranslation('layout');
-  console.tron.log({ loaded });
   return (
     <Container>
       <ContentLoader

@@ -44,7 +44,7 @@ const Login = ({ screenProps: { theme } }: Props) => {
   const navigation = useNavigation();
   const { t } = useTranslation('signin');
 
-  const [user, setUser] = useState('maximilianor@takeoffmedia.com');
+  const [user, setUser] = useState('maximilianor+newsub3@takeoffmedia.com');
   const [password, setPassword] = useState('8Ub4cYAiM77EzJY');
   // const [user, setUser] = useState('');
   // const [password, setPassword] = useState('');

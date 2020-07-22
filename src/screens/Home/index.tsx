@@ -4,7 +4,7 @@ import { View, Platform } from 'react-native';
 import { CollapsibleHeaderFlatList } from 'react-native-collapsible-header-views';
 import { getStatusBarHeight } from 'react-native-iphone-x-helper';
 import Header from '@components/Header';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { AppState } from '@store/modules/rootReducer';
 import Outstanding from '@components/Outstanding';
 import { useNavigation } from 'react-navigation-hooks';
@@ -15,6 +15,7 @@ import { Row } from '@components/Layout';
 import Carousel from '@components/Carousel';
 import Card from '@components/Card';
 import UserWatching from '@components/UserWatching';
+import { toggleModal } from '@store/modules/layout/actions';
 import { Container, Footer } from './styles';
 import { items, Element, continueWatchingItems } from './data';
 
@@ -93,6 +94,9 @@ const keyExtractor = (item: number) => `${item}`;
 const Item = () => {
   const { navigate, dangerouslyGetParent } = useNavigation();
   const parent = dangerouslyGetParent();
+  const dispatch = useDispatch();
+
+  const modal = () => dispatch(toggleModal());
 
   const heroDiscoverMore = (item: Element) => {
     if (parent) {
@@ -109,6 +113,7 @@ const Item = () => {
             <Outstanding
               key={key.toString()}
               item={item.item}
+              onPlay={modal}
               onDiscoverMore={() => heroDiscoverMore(item)}
             />
           );

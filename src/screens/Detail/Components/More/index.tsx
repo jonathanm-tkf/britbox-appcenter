@@ -37,7 +37,6 @@ const More = ({ onLayout }: Props) => {
 
   const handleOnLayout = (e: any) => {
     if (width !== e.nativeEvent.layout.width) {
-      console.tron.log({ width: e.nativeEvent.layout.width / 3 });
       setStateWidth(e.nativeEvent.layout.width);
     }
   };

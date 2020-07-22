@@ -63,7 +63,6 @@ const Detail = () => {
       content: () => (
         <More
           onLayout={(event) => {
-            console.tron.log({ height: event.nativeEvent.layout.height });
             setThreeHeight(event.nativeEvent.layout.height);
           }}
         />
@@ -103,7 +102,6 @@ const Detail = () => {
   };
 
   const changeTab = (index: number) => {
-    console.tron.log({ secondHeight, threeHeight });
     switch (index) {
       case 1:
         setHeight(secondHeight);

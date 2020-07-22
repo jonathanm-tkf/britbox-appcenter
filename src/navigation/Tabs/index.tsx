@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import React, { useEffect, useState } from 'react';
 import { createSharedElementStackNavigator } from 'react-navigation-shared-element';
 
@@ -141,6 +142,8 @@ export default function TabsScreens({ navigation, screenProps: { theme } }: Prop
   const modalActive = useSelector((state: AppState) => state.layout.modalActive);
   const token = useSelector((state: AppState) => state.core.token);
   const dispatch = useDispatch();
+  const [url, setUrl] = useState(Constants.url_player + token);
+  const [count, setCount] = useState(0);
 
   const [tabs, setTabs] = useState(true);
 
@@ -178,19 +181,23 @@ export default function TabsScreens({ navigation, screenProps: { theme } }: Prop
   useEffect(() => {
     Orientation.lockToPortrait();
     // StatusBar.setHidden(false);
+    StatusBar.setHidden(false);
   }, []);
 
   useEffect(() => {
     if (modalActive) {
-      // StatusBar.setHidden(true);
+      StatusBar.setHidden(true);
+      setUrl(Constants.url_player + token);
       Orientation.lockToLandscape();
     }
   }, [modalActive]);
 
   const backArrow = () => {
-    // StatusBar.setHidden(false);
+    StatusBar.setHidden(false);
     Orientation.lockToPortrait();
     dispatch(toggleModal());
+    setCount(count + 1);
+    setUrl('');
   };
 
   useEffect(() => {
@@ -211,14 +218,19 @@ export default function TabsScreens({ navigation, screenProps: { theme } }: Prop
         <BackButton onPress={() => backArrow()}>
           <BackIcon />
         </BackButton>
-        <WebView
-          source={{
-            uri: `${Constants.url_player + token}`,
-          }}
-          onLoad={() => {}}
-          allowsInlineMediaPlayback
-          style={webview}
-        />
+        {url !== '' && (
+          <WebView
+            key={count.toString()}
+            source={{
+              uri: `${url}`,
+            }}
+            onLoad={() => console.log('success')}
+            onError={(error) => console.log('onError', error)}
+            onHttpError={(error) => console.log('onHttpError', error)}
+            allowsInlineMediaPlayback
+            style={webview}
+          />
+        )}
       </Modal>
     </ThemeProvider>
   );

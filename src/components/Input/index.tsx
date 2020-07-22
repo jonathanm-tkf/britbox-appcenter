@@ -4,7 +4,6 @@ import { Input as InputStyle, HelperText, Container, Warning } from './styles';
 import { InputProps } from './props';
 
 export const Input = ({ label, error, ...rest }: InputProps) => {
-  console.tron.log({ rest });
   return (
     <Container>
       <InputStyle label={label} error={(error && error?.text !== '') || false} {...rest} />
