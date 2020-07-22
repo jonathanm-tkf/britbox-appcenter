@@ -172,7 +172,7 @@ const Login = ({ screenProps: { theme } }: Props) => {
                 Star your 7-day FREE trial, then just $6.99/month or %69.99/year
               </Paragraph>
 
-              <Button outline size="big" style={suscribeStyle} onPress={() => {}}>
+              <Button outline size="big" style={suscribeStyle} onPress={() => navigation.navigate('SignUp')}>
                 <SuscribeText>Suscribe now</SuscribeText>
               </Button>
             </Wrapper>

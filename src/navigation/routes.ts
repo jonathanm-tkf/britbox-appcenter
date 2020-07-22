@@ -5,6 +5,8 @@ import { ThemeState } from '@store/modules/theme/types';
 import Storybook from '@screens/Storybook';
 import Auth from '@screens/Auth';
 import Login from '@screens/Login';
+import SignUp from '@screens/SignUp';
+import SignUpSubscription from '@screens/SignUpSubscription';
 import { AppState } from '@store/modules/rootReducer';
 import { useSelector } from 'react-redux';
 import Tabs from './Tabs';
@@ -32,6 +34,18 @@ const AppNavigator = ({ theme }: { theme: ThemeState }) => {
             cardStyle: {
               backgroundColor: 'transparent',
             },
+          },
+        },
+        SignUp: {
+          screen: SignUp,
+          navigationOptions: {
+            header: () => null,
+          },
+        },
+        SignUpSubscription: {
+          screen: SignUpSubscription,
+          navigationOptions: {
+            header: () => null,
           },
         },
         Tabs: {
