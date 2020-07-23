@@ -142,7 +142,7 @@ export default function TabsScreens({ navigation, screenProps: { theme } }: Prop
   const modalActive = useSelector((state: AppState) => state.layout.modalActive);
   const token = useSelector((state: AppState) => state.core.token);
   const dispatch = useDispatch();
-  const [url, setUrl] = useState(Constants.url_player + token);
+  const [url, setUrl] = useState('');
   const [count, setCount] = useState(0);
 
   const [tabs, setTabs] = useState(true);
