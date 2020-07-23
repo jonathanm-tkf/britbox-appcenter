@@ -9,6 +9,7 @@ i18next.use(initReactI18next).init({
       layout: require('../locales/us/layout.json'),
       detail: require('../locales/us/detail.json'),
       signin: require('../locales/us/signin.json'),
+      signup: require('../locales/us/signup.json'),
       auth: require('../locales/us/auth.json'),
     },
   },
