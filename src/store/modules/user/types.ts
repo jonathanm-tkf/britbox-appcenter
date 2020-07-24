@@ -1,6 +1,9 @@
+/* eslint-disable max-len */
 /**
  * Data types
  */
+
+import { BritboxAPIAccountModelsProfileGetProfileResponse } from '@src/sdks/Britbox.API.Account.TS/api';
 
 export interface User {
   name: string;
@@ -21,18 +24,22 @@ export enum UserActionTypes {
   LOGIN_REQUEST_FAILURE = '@user/LOGIN_REQUEST_FAILURE',
   LOGIN_REQUEST_ERROR_CLEAR = '@user/LOGIN_REQUEST_ERROR_CLEAR',
   LOGOUT = '@user/LOGOUT',
+  PROFILE_REQUEST_SUCCESS = '@user/PROFILE_REQUEST_SUCCESS',
 }
 
 /**
  * State type
  */
 
+type Access = EvergentLoginResponse | EvergentLoginError | undefined;
+
 export interface UserState {
   isLogged: boolean;
   loading: boolean;
   error: boolean;
   data: User;
-  access: EvergentLoginResponse | EvergentLoginError | undefined;
+  access: Access;
+  profile: BritboxAPIAccountModelsProfileGetProfileResponse | undefined;
 }
 
 export interface EvergentLogin {

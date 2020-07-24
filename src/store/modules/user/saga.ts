@@ -1,24 +1,39 @@
-import { takeLatest, all, call, put } from 'redux-saga/effects';
+import { takeLatest, all, call, put, select } from 'redux-saga/effects';
 // import * as Sentry from '@sentry/react-native';
 
 import { BritboxAccountApi } from '@src/sdks';
 import { PayloadAction } from 'typesafe-actions';
-import { UserActionTypes, UserLogin } from './types';
-import { loginRequestFailure, loginRequestSuccess, loginRequestError } from './actions';
+import { UserActionTypes, UserLogin, EvergentLoginResponse } from './types';
+import {
+  loginRequestFailure,
+  loginRequestSuccess,
+  loginRequestError,
+  profileRequestSuccess,
+} from './actions';
+import { AppState } from '../rootReducer';
 
-async function login({ user, password }: UserLogin) {
-  const { authenticateCustomer } = new BritboxAccountApi.AuthorizationApi();
+const getToken = (state: AppState) => state.user.access as EvergentLoginResponse;
+
+async function profile(token: string) {
+  const { getProfile } = BritboxAccountApi({
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
 
   try {
-    // const response = await authenticateCustomer({
-    //   contactUserName: 'maximilianor@takeoffmedia.com',
-    //   contactPassword: '8Ub4cYAiM77EzJY',
-    //   deviceDetails: {
-    //     deviceType: 'android',
-    //     deviceName: 'sony',
-    //     serialNo: 'M7676273462',
-    //   },
-    // });
+    const response = await getProfile();
+    return { response };
+  } catch (error) {
+    return error;
+  }
+}
+
+async function login({ user, password }: UserLogin) {
+  const { authenticateCustomer } = BritboxAccountApi();
+
+  try {
+    // TODO: Change devices data
     const response = await authenticateCustomer({
       contactUserName: user,
       contactPassword: password,
@@ -42,6 +57,9 @@ export function* loginRequest({
     const { response } = yield call(login, payload);
     if (Number(response.responseCode) === 1) {
       yield put(loginRequestSuccess(response));
+      const { accessToken } = yield select(getToken);
+      const { response: responseProfile } = yield call(profile, accessToken);
+      yield put(profileRequestSuccess(responseProfile));
     } else {
       yield put(loginRequestError(response));
     }

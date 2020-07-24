@@ -1,4 +1,6 @@
+/* eslint-disable max-len */
 import { action } from 'typesafe-actions';
+import { BritboxAPIAccountModelsProfileGetProfileResponse } from '@src/sdks/Britbox.API.Account.TS/api';
 import {
   UserActionTypes,
   UserLogin,
@@ -20,3 +22,6 @@ export const loginRequestFailure = () => action(UserActionTypes.LOGIN_REQUEST_FA
 export const loginRequestErrorClear = () => action(UserActionTypes.LOGIN_REQUEST_ERROR_CLEAR);
 
 export const logout = () => action(UserActionTypes.LOGOUT);
+
+export const profileRequestSuccess = (data: BritboxAPIAccountModelsProfileGetProfileResponse) =>
+  action(UserActionTypes.PROFILE_REQUEST_SUCCESS, { ...data });

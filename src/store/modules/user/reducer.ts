@@ -10,6 +10,7 @@ export const initialState: UserState = {
     name: '',
   },
   access: undefined,
+  profile: undefined,
 };
 
 const user: Reducer<UserState> = (state = initialState, action) => {
@@ -37,6 +38,10 @@ const user: Reducer<UserState> = (state = initialState, action) => {
       case UserActionTypes.LOGOUT:
         draft.isLogged = false;
         draft.access = undefined;
+        draft.profile = undefined;
+        break;
+      case UserActionTypes.PROFILE_REQUEST_SUCCESS:
+        draft.profile = action.payload;
         break;
       default:
         break;
