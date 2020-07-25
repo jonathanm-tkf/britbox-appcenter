@@ -15,16 +15,15 @@
 		13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB11A68108700A75B9A /* LaunchScreen.xib */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
-		2C0E05F8CB8F356B37F73489 /* libPods-Britbox-BritboxTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 23E37B38C5743AEC20A1D269 /* libPods-Britbox-BritboxTests.a */; };
-		2C693C540E8F385FC166A766 /* libPods-Britbox.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AF64A73BE2503A11C5FACE4D /* libPods-Britbox.a */; };
 		2D02E4BC1E0B4A80006451C7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		2D02E4BD1E0B4A84006451C7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		2D02E4BF1E0B4AB3006451C7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		2DCD954D1E0B4F2C00145EB5 /* BritboxTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* BritboxTests.m */; };
-		365B34B7D466C5E358599ED2 /* libPods-Britbox-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6593C36496A235C431108D4A /* libPods-Britbox-tvOSTests.a */; };
 		36BCDFAB258947BA88EDE4E2 /* Close.svg in Resources */ = {isa = PBXBuildFile; fileRef = 0860A1879BC942E6BC0051C5 /* Close.svg */; };
+		381062EE8C8908488C2FF3BB /* libPods-Britbox-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B5FBBE49140BCA23E38AF54B /* libPods-Britbox-tvOS.a */; };
 		51D074C57883481EBFC2EED8 /* Play_now.svg in Resources */ = {isa = PBXBuildFile; fileRef = 24E5D4B241174CCE899F5CE0 /* Play_now.svg */; };
 		626CD53F0A3F459A8788632F /* Help.svg in Resources */ = {isa = PBXBuildFile; fileRef = 67DC3AD720BD4263B0F0CBCE /* Help.svg */; };
+		636FD203E07DF89F4649B5B0 /* libPods-Britbox.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FE5CE31698C01D17881EB948 /* libPods-Britbox.a */; };
 		6698080B7D1D4F2EA2D1F6BF /* MuseoSans-900.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DD3CD0A7496D40AB84D16D16 /* MuseoSans-900.ttf */; };
 		66D52D8CB4D346A1A939A7A5 /* AllDevice.png in Resources */ = {isa = PBXBuildFile; fileRef = 4B13AEFB49094574AD9D2483 /* AllDevice.png */; };
 		66EEA3F934824173B790F9F4 /* Offline.svg in Resources */ = {isa = PBXBuildFile; fileRef = AA8367000ECC4914BDD87152 /* Offline.svg */; };
@@ -36,10 +35,10 @@
 		A55659A2AAEC4C158E7D9295 /* Explore_mb.svg in Resources */ = {isa = PBXBuildFile; fileRef = EDBB238BAF1C43CBBA08CD0E /* Explore_mb.svg */; };
 		A9C13C832493D20D00CB0044 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A9C13C822493D20D00CB0044 /* StoreKit.framework */; };
 		AB351D6207D443EE85DC1DD5 /* MuseoSans-100.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 73E02622E1CA4B64BFDCDC99 /* MuseoSans-100.ttf */; };
+		B2D51E3E430C3E32EF086DFC /* libPods-Britbox-BritboxTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E17F1556314214878EB50914 /* libPods-Britbox-BritboxTests.a */; };
 		B9AC06F15F524C5394CCD61C /* More_menu.svg in Resources */ = {isa = PBXBuildFile; fileRef = F8535627104544378435F763 /* More_menu.svg */; };
 		C3F49FF54367439D9BE133CB /* MuseoSans-700.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 57601D08C4924C64A55352F3 /* MuseoSans-700.ttf */; };
 		C86255F1B53545CA9D75C22A /* Profile.svg in Resources */ = {isa = PBXBuildFile; fileRef = 390517AAD5C04C73A0A86341 /* Profile.svg */; };
-		C886E7507B09768002D7C921 /* libPods-Britbox-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BA4BABFF5B9D5D1C1EA8D3E /* libPods-Britbox-tvOS.a */; };
 		CB018159D1614B7084DF541C /* Arrow_bottom.svg in Resources */ = {isa = PBXBuildFile; fileRef = 6FD935706C56436D8CE34AA7 /* Arrow_bottom.svg */; };
 		CEC2BB47BBB347AD9FA035BD /* tiny-home.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0CDD674C483A43229C35581B /* tiny-home.jpg */; };
 		D38705DC667340EC95BEF4BD /* Loading_more.svg in Resources */ = {isa = PBXBuildFile; fileRef = 3EA22149FEAB48BB8C17BA50 /* Loading_more.svg */; };
@@ -50,6 +49,7 @@
 		DE83A6DC86A64FA1B8DDC8EC /* Search.svg in Resources */ = {isa = PBXBuildFile; fileRef = 2C284B2E87F049A982E22BF9 /* Search.svg */; };
 		F01AF71E3CE44B4DAC576121 /* cook-house.jpg in Resources */ = {isa = PBXBuildFile; fileRef = CCEBA4ED99224E868D54CA02 /* cook-house.jpg */; };
 		F7AB4D1AD8EC43E19F53ADE5 /* Home.svg in Resources */ = {isa = PBXBuildFile; fileRef = D7212EE376D441C0B37DFDE2 /* Home.svg */; };
+		FE7E68B2A0E805FBB0DEC21B /* libPods-Britbox-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AB717B2662ED79634E6AACA9 /* libPods-Britbox-tvOSTests.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -76,7 +76,11 @@
 		00E356F21AD99517003FC87E /* BritboxTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BritboxTests.m; sourceTree = "<group>"; };
 		0860A1879BC942E6BC0051C5 /* Close.svg */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Close.svg; path = ../assets/images/Close.svg; sourceTree = "<group>"; };
 		09AC4A685844492E9C61CEC8 /* MuseoSans-500.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "MuseoSans-500.ttf"; path = "../assets/fonts/MuseoSans-500.ttf"; sourceTree = "<group>"; };
+		09F7654AC705C7FB731BBC11 /* Pods-Britbox.staging.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Britbox.staging.xcconfig"; path = "Target Support Files/Pods-Britbox/Pods-Britbox.staging.xcconfig"; sourceTree = "<group>"; };
 		0CDD674C483A43229C35581B /* tiny-home.jpg */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "tiny-home.jpg"; path = "../assets/tiny-home.jpg"; sourceTree = "<group>"; };
+		0DE26362685BA45A9B9AA72B /* Pods-Britbox-BritboxTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Britbox-BritboxTests.release.xcconfig"; path = "Target Support Files/Pods-Britbox-BritboxTests/Pods-Britbox-BritboxTests.release.xcconfig"; sourceTree = "<group>"; };
+		0E508D8FD4EDA7836A7CB18E /* Pods-Britbox.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Britbox.debug.xcconfig"; path = "Target Support Files/Pods-Britbox/Pods-Britbox.debug.xcconfig"; sourceTree = "<group>"; };
+		12404C7C9D89DE0EF94311DC /* Pods-Britbox-tvOSTests.staging.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Britbox-tvOSTests.staging.xcconfig"; path = "Target Support Files/Pods-Britbox-tvOSTests/Pods-Britbox-tvOSTests.staging.xcconfig"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* Britbox.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Britbox.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = Britbox/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = Britbox/AppDelegate.m; sourceTree = "<group>"; };
@@ -84,54 +88,50 @@
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = Britbox/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = Britbox/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = Britbox/main.m; sourceTree = "<group>"; };
-		198AA9DA902D600D6C121CC7 /* Pods-Britbox-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Britbox-tvOS.debug.xcconfig"; path = "Target Support Files/Pods-Britbox-tvOS/Pods-Britbox-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
-		1F22DB08A43AAE05EDC6B54E /* Pods-Britbox.staging.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Britbox.staging.xcconfig"; path = "Target Support Files/Pods-Britbox/Pods-Britbox.staging.xcconfig"; sourceTree = "<group>"; };
-		23D57E1976CD1E1252164DB8 /* Pods-Britbox-BritboxTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Britbox-BritboxTests.release.xcconfig"; path = "Target Support Files/Pods-Britbox-BritboxTests/Pods-Britbox-BritboxTests.release.xcconfig"; sourceTree = "<group>"; };
-		23E37B38C5743AEC20A1D269 /* libPods-Britbox-BritboxTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Britbox-BritboxTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		24E5D4B241174CCE899F5CE0 /* Play_now.svg */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Play_now.svg; path = ../assets/images/Play_now.svg; sourceTree = "<group>"; };
 		2C284B2E87F049A982E22BF9 /* Search.svg */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Search.svg; path = ../assets/images/Search.svg; sourceTree = "<group>"; };
 		2D02E47B1E0B4A5D006451C7 /* Britbox-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Britbox-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D02E4901E0B4A5D006451C7 /* Britbox-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Britbox-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		2EAC1880BA62032E830C3382 /* Pods-Britbox-BritboxTests.staging.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Britbox-BritboxTests.staging.xcconfig"; path = "Target Support Files/Pods-Britbox-BritboxTests/Pods-Britbox-BritboxTests.staging.xcconfig"; sourceTree = "<group>"; };
 		382D717F5B444E81A89C59D0 /* Celular.svg */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Celular.svg; path = ../assets/images/Celular.svg; sourceTree = "<group>"; };
 		387384A32DFF441BA72981FA /* MoreWatching.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MoreWatching.png; path = ../assets/images/MoreWatching.png; sourceTree = "<group>"; };
 		390517AAD5C04C73A0A86341 /* Profile.svg */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Profile.svg; path = ../assets/images/Profile.svg; sourceTree = "<group>"; };
-		3BA4BABFF5B9D5D1C1EA8D3E /* libPods-Britbox-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Britbox-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3EA22149FEAB48BB8C17BA50 /* Loading_more.svg */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Loading_more.svg; path = ../assets/images/Loading_more.svg; sourceTree = "<group>"; };
-		47DD03DB21B504D0EC25D0EB /* Pods-Britbox-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Britbox-tvOSTests.debug.xcconfig"; path = "Target Support Files/Pods-Britbox-tvOSTests/Pods-Britbox-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
+		473EFF55278D6FC145D15D21 /* Pods-Britbox.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Britbox.release.xcconfig"; path = "Target Support Files/Pods-Britbox/Pods-Britbox.release.xcconfig"; sourceTree = "<group>"; };
 		4B13AEFB49094574AD9D2483 /* AllDevice.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = AllDevice.png; path = ../assets/images/AllDevice.png; sourceTree = "<group>"; };
 		57601D08C4924C64A55352F3 /* MuseoSans-700.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "MuseoSans-700.ttf"; path = "../assets/fonts/MuseoSans-700.ttf"; sourceTree = "<group>"; };
-		6593C36496A235C431108D4A /* libPods-Britbox-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Britbox-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		6515AC71E862F936356D209D /* Pods-Britbox-tvOS.staging.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Britbox-tvOS.staging.xcconfig"; path = "Target Support Files/Pods-Britbox-tvOS/Pods-Britbox-tvOS.staging.xcconfig"; sourceTree = "<group>"; };
+		6667D86B8E3FFFF7456EA42B /* Pods-Britbox-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Britbox-tvOS.release.xcconfig"; path = "Target Support Files/Pods-Britbox-tvOS/Pods-Britbox-tvOS.release.xcconfig"; sourceTree = "<group>"; };
 		67DC3AD720BD4263B0F0CBCE /* Help.svg */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Help.svg; path = ../assets/images/Help.svg; sourceTree = "<group>"; };
 		6FD935706C56436D8CE34AA7 /* Arrow_bottom.svg */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Arrow_bottom.svg; path = ../assets/images/Arrow_bottom.svg; sourceTree = "<group>"; };
-		716FD6D1C2E8528615DE9136 /* Pods-Britbox-BritboxTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Britbox-BritboxTests.debug.xcconfig"; path = "Target Support Files/Pods-Britbox-BritboxTests/Pods-Britbox-BritboxTests.debug.xcconfig"; sourceTree = "<group>"; };
 		73E02622E1CA4B64BFDCDC99 /* MuseoSans-100.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "MuseoSans-100.ttf"; path = "../assets/fonts/MuseoSans-100.ttf"; sourceTree = "<group>"; };
 		876060987FFA4FB4B9E5E685 /* Arrow_back_browser.svg */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Arrow_back_browser.svg; path = ../assets/images/Arrow_back_browser.svg; sourceTree = "<group>"; };
-		8B2F35B21283ADFCAD7D594C /* Pods-Britbox-tvOSTests.staging.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Britbox-tvOSTests.staging.xcconfig"; path = "Target Support Files/Pods-Britbox-tvOSTests/Pods-Britbox-tvOSTests.staging.xcconfig"; sourceTree = "<group>"; };
 		953D74F793C34FE48C3CEA6C /* Logo.svg */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Logo.svg; path = ../assets/images/Logo.svg; sourceTree = "<group>"; };
 		98727A3900204438B173CF13 /* host.jpg */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = host.jpg; path = ../assets/host.jpg; sourceTree = "<group>"; };
-		990413CE3B9CEA9E0107B436 /* Pods-Britbox-BritboxTests.staging.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Britbox-BritboxTests.staging.xcconfig"; path = "Target Support Files/Pods-Britbox-BritboxTests/Pods-Britbox-BritboxTests.staging.xcconfig"; sourceTree = "<group>"; };
-		9CDBEF97777372DD731EB533 /* Pods-Britbox.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Britbox.release.xcconfig"; path = "Target Support Files/Pods-Britbox/Pods-Britbox.release.xcconfig"; sourceTree = "<group>"; };
+		9D89A3C85988B22D3442068E /* Pods-Britbox-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Britbox-tvOSTests.release.xcconfig"; path = "Target Support Files/Pods-Britbox-tvOSTests/Pods-Britbox-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
 		A9C13C822493D20D00CB0044 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		A9F423C9245D19A700D04F5E /* Britbox-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Britbox-Bridging-Header.h"; sourceTree = "<group>"; };
 		AA8367000ECC4914BDD87152 /* Offline.svg */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Offline.svg; path = ../assets/images/Offline.svg; sourceTree = "<group>"; };
+		AB717B2662ED79634E6AACA9 /* libPods-Britbox-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Britbox-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		AF13C119D65C40E49D5C9949 /* Watchlist.svg */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Watchlist.svg; path = ../assets/images/Watchlist.svg; sourceTree = "<group>"; };
-		AF64A73BE2503A11C5FACE4D /* libPods-Britbox.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Britbox.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		AF7AC4CC51E64009A9189080 /* CancelAnyTime.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = CancelAnyTime.png; path = ../assets/images/CancelAnyTime.png; sourceTree = "<group>"; };
+		B5448EE1D91F7B3748558715 /* Pods-Britbox-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Britbox-tvOSTests.debug.xcconfig"; path = "Target Support Files/Pods-Britbox-tvOSTests/Pods-Britbox-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
+		B5FBBE49140BCA23E38AF54B /* libPods-Britbox-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Britbox-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C1DA002AC8ABEE7E30A5AF71 /* Pods-Britbox-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Britbox-tvOS.debug.xcconfig"; path = "Target Support Files/Pods-Britbox-tvOS/Pods-Britbox-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
 		C6AA26CB40824E038D15F7C8 /* Chromecast.svg */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Chromecast.svg; path = ../assets/images/Chromecast.svg; sourceTree = "<group>"; };
 		CCEBA4ED99224E868D54CA02 /* cook-house.jpg */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "cook-house.jpg"; path = "../assets/cook-house.jpg"; sourceTree = "<group>"; };
 		D7212EE376D441C0B37DFDE2 /* Home.svg */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Home.svg; path = ../assets/images/Home.svg; sourceTree = "<group>"; };
 		DD3CD0A7496D40AB84D16D16 /* MuseoSans-900.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "MuseoSans-900.ttf"; path = "../assets/fonts/MuseoSans-900.ttf"; sourceTree = "<group>"; };
+		E17F1556314214878EB50914 /* libPods-Britbox-BritboxTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Britbox-BritboxTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E3A03DF01CD0453AB37998FD /* WelcomeApp.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = WelcomeApp.png; path = ../assets/images/WelcomeApp.png; sourceTree = "<group>"; };
-		E919CBC743E85F5471A0E853 /* Pods-Britbox.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Britbox.debug.xcconfig"; path = "Target Support Files/Pods-Britbox/Pods-Britbox.debug.xcconfig"; sourceTree = "<group>"; };
-		EC189233CC1EBA25F6D3F7CC /* Pods-Britbox-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Britbox-tvOSTests.release.xcconfig"; path = "Target Support Files/Pods-Britbox-tvOSTests/Pods-Britbox-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
 		EDBB238BAF1C43CBBA08CD0E /* Explore_mb.svg */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Explore_mb.svg; path = ../assets/images/Explore_mb.svg; sourceTree = "<group>"; };
 		F06FFB518996482788502A2C /* MuseoSans-300.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "MuseoSans-300.ttf"; path = "../assets/fonts/MuseoSans-300.ttf"; sourceTree = "<group>"; };
-		F18DD477B7879B88C40A226A /* Pods-Britbox-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Britbox-tvOS.release.xcconfig"; path = "Target Support Files/Pods-Britbox-tvOS/Pods-Britbox-tvOS.release.xcconfig"; sourceTree = "<group>"; };
-		F690E42C2E0B95DEF865B2E0 /* Pods-Britbox-tvOS.staging.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Britbox-tvOS.staging.xcconfig"; path = "Target Support Files/Pods-Britbox-tvOS/Pods-Britbox-tvOS.staging.xcconfig"; sourceTree = "<group>"; };
 		F8535627104544378435F763 /* More_menu.svg */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = More_menu.svg; path = ../assets/images/More_menu.svg; sourceTree = "<group>"; };
+		FC64322B254485804261C10C /* Pods-Britbox-BritboxTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Britbox-BritboxTests.debug.xcconfig"; path = "Target Support Files/Pods-Britbox-BritboxTests/Pods-Britbox-BritboxTests.debug.xcconfig"; sourceTree = "<group>"; };
 		FD7EFCC6262948F48D0B32CC /* Discover_more.svg */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Discover_more.svg; path = ../assets/images/Discover_more.svg; sourceTree = "<group>"; };
+		FE5CE31698C01D17881EB948 /* libPods-Britbox.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Britbox.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -139,7 +139,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2C0E05F8CB8F356B37F73489 /* libPods-Britbox-BritboxTests.a in Frameworks */,
+				B2D51E3E430C3E32EF086DFC /* libPods-Britbox-BritboxTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -147,8 +147,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2C693C540E8F385FC166A766 /* libPods-Britbox.a in Frameworks */,
 				A9C13C832493D20D00CB0044 /* StoreKit.framework in Frameworks */,
+				636FD203E07DF89F4649B5B0 /* libPods-Britbox.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -156,7 +156,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C886E7507B09768002D7C921 /* libPods-Britbox-tvOS.a in Frameworks */,
+				381062EE8C8908488C2FF3BB /* libPods-Britbox-tvOS.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -164,7 +164,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				365B34B7D466C5E358599ED2 /* libPods-Britbox-tvOSTests.a in Frameworks */,
+				FE7E68B2A0E805FBB0DEC21B /* libPods-Britbox-tvOSTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -209,10 +209,10 @@
 				A9C13C822493D20D00CB0044 /* StoreKit.framework */,
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
 				ED2971642150620600B7C4FE /* JavaScriptCore.framework */,
-				AF64A73BE2503A11C5FACE4D /* libPods-Britbox.a */,
-				23E37B38C5743AEC20A1D269 /* libPods-Britbox-BritboxTests.a */,
-				3BA4BABFF5B9D5D1C1EA8D3E /* libPods-Britbox-tvOS.a */,
-				6593C36496A235C431108D4A /* libPods-Britbox-tvOSTests.a */,
+				FE5CE31698C01D17881EB948 /* libPods-Britbox.a */,
+				E17F1556314214878EB50914 /* libPods-Britbox-BritboxTests.a */,
+				B5FBBE49140BCA23E38AF54B /* libPods-Britbox-tvOS.a */,
+				AB717B2662ED79634E6AACA9 /* libPods-Britbox-tvOSTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -220,18 +220,18 @@
 		543ADA2DB24EBD8EEA171E2E /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				E919CBC743E85F5471A0E853 /* Pods-Britbox.debug.xcconfig */,
-				9CDBEF97777372DD731EB533 /* Pods-Britbox.release.xcconfig */,
-				716FD6D1C2E8528615DE9136 /* Pods-Britbox-BritboxTests.debug.xcconfig */,
-				23D57E1976CD1E1252164DB8 /* Pods-Britbox-BritboxTests.release.xcconfig */,
-				198AA9DA902D600D6C121CC7 /* Pods-Britbox-tvOS.debug.xcconfig */,
-				F18DD477B7879B88C40A226A /* Pods-Britbox-tvOS.release.xcconfig */,
-				47DD03DB21B504D0EC25D0EB /* Pods-Britbox-tvOSTests.debug.xcconfig */,
-				EC189233CC1EBA25F6D3F7CC /* Pods-Britbox-tvOSTests.release.xcconfig */,
-				1F22DB08A43AAE05EDC6B54E /* Pods-Britbox.staging.xcconfig */,
-				990413CE3B9CEA9E0107B436 /* Pods-Britbox-BritboxTests.staging.xcconfig */,
-				F690E42C2E0B95DEF865B2E0 /* Pods-Britbox-tvOS.staging.xcconfig */,
-				8B2F35B21283ADFCAD7D594C /* Pods-Britbox-tvOSTests.staging.xcconfig */,
+				0E508D8FD4EDA7836A7CB18E /* Pods-Britbox.debug.xcconfig */,
+				473EFF55278D6FC145D15D21 /* Pods-Britbox.release.xcconfig */,
+				09F7654AC705C7FB731BBC11 /* Pods-Britbox.staging.xcconfig */,
+				FC64322B254485804261C10C /* Pods-Britbox-BritboxTests.debug.xcconfig */,
+				0DE26362685BA45A9B9AA72B /* Pods-Britbox-BritboxTests.release.xcconfig */,
+				2EAC1880BA62032E830C3382 /* Pods-Britbox-BritboxTests.staging.xcconfig */,
+				C1DA002AC8ABEE7E30A5AF71 /* Pods-Britbox-tvOS.debug.xcconfig */,
+				6667D86B8E3FFFF7456EA42B /* Pods-Britbox-tvOS.release.xcconfig */,
+				6515AC71E862F936356D209D /* Pods-Britbox-tvOS.staging.xcconfig */,
+				B5448EE1D91F7B3748558715 /* Pods-Britbox-tvOSTests.debug.xcconfig */,
+				9D89A3C85988B22D3442068E /* Pods-Britbox-tvOSTests.release.xcconfig */,
+				12404C7C9D89DE0EF94311DC /* Pods-Britbox-tvOSTests.staging.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -313,11 +313,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "BritboxTests" */;
 			buildPhases = (
-				4D8DDB8BA490636871BD4BE6 /* [CP] Check Pods Manifest.lock */,
+				C15425C54BD0C97B2865950C /* [CP] Check Pods Manifest.lock */,
 				00E356EA1AD99517003FC87E /* Sources */,
 				00E356EB1AD99517003FC87E /* Frameworks */,
 				00E356EC1AD99517003FC87E /* Resources */,
-				BEDA420960B57E3AE234F322 /* [CP] Copy Pods Resources */,
+				78721472BB3E15C32C1DD457 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -333,13 +333,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "Britbox" */;
 			buildPhases = (
-				33CEFA3DB2C9F8AF24013E44 /* [CP] Check Pods Manifest.lock */,
+				E1AD517A03CC5D7CF0590AED /* [CP] Check Pods Manifest.lock */,
 				FD10A7F022414F080027D42C /* Start Packager */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
-				81A20547C75B77CEB6B52FDF /* [CP] Copy Pods Resources */,
+				83CE25FCEB42C4891875A4CC /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -354,7 +354,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2D02E4BA1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "Britbox-tvOS" */;
 			buildPhases = (
-				FED00DF544CA5476003F75FE /* [CP] Check Pods Manifest.lock */,
+				D33EB4DA7D51DA7F78EED60D /* [CP] Check Pods Manifest.lock */,
 				FD10A7F122414F3F0027D42C /* Start Packager */,
 				2D02E4771E0B4A5D006451C7 /* Sources */,
 				2D02E4781E0B4A5D006451C7 /* Frameworks */,
@@ -374,7 +374,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2D02E4BB1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "Britbox-tvOSTests" */;
 			buildPhases = (
-				599EB0714EF419C5543C708C /* [CP] Check Pods Manifest.lock */,
+				7D4444EE88F0DAF915088CF2 /* [CP] Check Pods Manifest.lock */,
 				2D02E48C1E0B4A5D006451C7 /* Sources */,
 				2D02E48D1E0B4A5D006451C7 /* Frameworks */,
 				2D02E48E1E0B4A5D006451C7 /* Resources */,
@@ -529,121 +529,7 @@
 			shellPath = /bin/sh;
 			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh";
 		};
-		33CEFA3DB2C9F8AF24013E44 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-Britbox-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		4D8DDB8BA490636871BD4BE6 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-Britbox-BritboxTests-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		599EB0714EF419C5543C708C /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-Britbox-tvOSTests-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		81A20547C75B77CEB6B52FDF /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Britbox/Pods-Britbox-resources.sh",
-				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/AntDesign.ttf",
-				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Entypo.ttf",
-				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/EvilIcons.ttf",
-				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Feather.ttf",
-				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/FontAwesome.ttf",
-				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Brands.ttf",
-				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Regular.ttf",
-				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Solid.ttf",
-				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Fontisto.ttf",
-				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Foundation.ttf",
-				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Ionicons.ttf",
-				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/MaterialCommunityIcons.ttf",
-				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/MaterialIcons.ttf",
-				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Octicons.ttf",
-				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/SimpleLineIcons.ttf",
-				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Zocial.ttf",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/AntDesign.ttf",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Entypo.ttf",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/EvilIcons.ttf",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Feather.ttf",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FontAwesome.ttf",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FontAwesome5_Brands.ttf",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FontAwesome5_Regular.ttf",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FontAwesome5_Solid.ttf",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Fontisto.ttf",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Foundation.ttf",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Ionicons.ttf",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MaterialCommunityIcons.ttf",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MaterialIcons.ttf",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Octicons.ttf",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/SimpleLineIcons.ttf",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Zocial.ttf",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Britbox/Pods-Britbox-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		BEDA420960B57E3AE234F322 /* [CP] Copy Pods Resources */ = {
+		78721472BB3E15C32C1DD457 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -691,6 +577,142 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Britbox-BritboxTests/Pods-Britbox-BritboxTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		7D4444EE88F0DAF915088CF2 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Britbox-tvOSTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		83CE25FCEB42C4891875A4CC /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Britbox/Pods-Britbox-resources.sh",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/AntDesign.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Entypo.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/EvilIcons.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Feather.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/FontAwesome.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Brands.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Regular.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Solid.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Fontisto.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Foundation.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Ionicons.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/MaterialCommunityIcons.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/MaterialIcons.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Octicons.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/SimpleLineIcons.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Zocial.ttf",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/AntDesign.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Entypo.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/EvilIcons.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Feather.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FontAwesome.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FontAwesome5_Brands.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FontAwesome5_Regular.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FontAwesome5_Solid.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Fontisto.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Foundation.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Ionicons.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MaterialCommunityIcons.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MaterialIcons.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Octicons.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/SimpleLineIcons.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Zocial.ttf",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Britbox/Pods-Britbox-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C15425C54BD0C97B2865950C /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Britbox-BritboxTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D33EB4DA7D51DA7F78EED60D /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Britbox-tvOS-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E1AD517A03CC5D7CF0590AED /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Britbox-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
 		FD10A7F022414F080027D42C /* Start Packager */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -727,28 +749,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "export RCT_METRO_PORT=\"${RCT_METRO_PORT:=8081}\"\necho \"export RCT_METRO_PORT=${RCT_METRO_PORT}\" > \"${SRCROOT}/../node_modules/react-native/scripts/.packager.env\"\nif [ -z \"${RCT_NO_LAUNCH_PACKAGER+xxx}\" ] ; then\n  if nc -w 5 -z localhost ${RCT_METRO_PORT} ; then\n    if ! curl -s \"http://localhost:${RCT_METRO_PORT}/status\" | grep -q \"packager-status:running\" ; then\n      echo \"Port ${RCT_METRO_PORT} already in use, packager is either not running or not running correctly\"\n      exit 2\n    fi\n  else\n    open \"$SRCROOT/../node_modules/react-native/scripts/launchPackager.command\" || echo \"Can't start packager automatically\"\n  fi\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-		FED00DF544CA5476003F75FE /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-Britbox-tvOS-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -818,7 +818,7 @@
 /* Begin XCBuildConfiguration section */
 		00E356F61AD99517003FC87E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 716FD6D1C2E8528615DE9136 /* Pods-Britbox-BritboxTests.debug.xcconfig */;
+			baseConfigurationReference = FC64322B254485804261C10C /* Pods-Britbox-BritboxTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -841,7 +841,7 @@
 		};
 		00E356F71AD99517003FC87E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 23D57E1976CD1E1252164DB8 /* Pods-Britbox-BritboxTests.release.xcconfig */;
+			baseConfigurationReference = 0DE26362685BA45A9B9AA72B /* Pods-Britbox-BritboxTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
@@ -861,7 +861,7 @@
 		};
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = E919CBC743E85F5471A0E853 /* Pods-Britbox.debug.xcconfig */;
+			baseConfigurationReference = 0E508D8FD4EDA7836A7CB18E /* Pods-Britbox.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -891,7 +891,7 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 9CDBEF97777372DD731EB533 /* Pods-Britbox.release.xcconfig */;
+			baseConfigurationReference = 473EFF55278D6FC145D15D21 /* Pods-Britbox.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -915,7 +915,7 @@
 		};
 		2D02E4971E0B4A5E006451C7 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 198AA9DA902D600D6C121CC7 /* Pods-Britbox-tvOS.debug.xcconfig */;
+			baseConfigurationReference = C1DA002AC8ABEE7E30A5AF71 /* Pods-Britbox-tvOS.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -943,7 +943,7 @@
 		};
 		2D02E4981E0B4A5E006451C7 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F18DD477B7879B88C40A226A /* Pods-Britbox-tvOS.release.xcconfig */;
+			baseConfigurationReference = 6667D86B8E3FFFF7456EA42B /* Pods-Britbox-tvOS.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -971,7 +971,7 @@
 		};
 		2D02E4991E0B4A5E006451C7 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 47DD03DB21B504D0EC25D0EB /* Pods-Britbox-tvOSTests.debug.xcconfig */;
+			baseConfigurationReference = B5448EE1D91F7B3748558715 /* Pods-Britbox-tvOSTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ANALYZER_NONNULL = YES;
@@ -998,7 +998,7 @@
 		};
 		2D02E49A1E0B4A5E006451C7 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = EC189233CC1EBA25F6D3F7CC /* Pods-Britbox-tvOSTests.release.xcconfig */;
+			baseConfigurationReference = 9D89A3C85988B22D3442068E /* Pods-Britbox-tvOSTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ANALYZER_NONNULL = YES;
@@ -1194,7 +1194,7 @@
 		};
 		A9F423C5245D174400D04F5E /* Staging */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 1F22DB08A43AAE05EDC6B54E /* Pods-Britbox.staging.xcconfig */;
+			baseConfigurationReference = 09F7654AC705C7FB731BBC11 /* Pods-Britbox.staging.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -1219,7 +1219,7 @@
 		};
 		A9F423C6245D174400D04F5E /* Staging */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 990413CE3B9CEA9E0107B436 /* Pods-Britbox-BritboxTests.staging.xcconfig */;
+			baseConfigurationReference = 2EAC1880BA62032E830C3382 /* Pods-Britbox-BritboxTests.staging.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
@@ -1239,7 +1239,7 @@
 		};
 		A9F423C7245D174400D04F5E /* Staging */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F690E42C2E0B95DEF865B2E0 /* Pods-Britbox-tvOS.staging.xcconfig */;
+			baseConfigurationReference = 6515AC71E862F936356D209D /* Pods-Britbox-tvOS.staging.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -1267,7 +1267,7 @@
 		};
 		A9F423C8245D174400D04F5E /* Staging */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 8B2F35B21283ADFCAD7D594C /* Pods-Britbox-tvOSTests.staging.xcconfig */;
+			baseConfigurationReference = 12404C7C9D89DE0EF94311DC /* Pods-Britbox-tvOSTests.staging.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ANALYZER_NONNULL = YES;

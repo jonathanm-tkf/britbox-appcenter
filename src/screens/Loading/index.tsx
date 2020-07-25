@@ -3,8 +3,8 @@ import { View } from 'react-native';
 
 // import { Container } from './styles';
 
-const Explore = () => {
+const Loading: React.FC = () => {
   return <View />;
 };
 
-export default Explore;
+export default Loading;

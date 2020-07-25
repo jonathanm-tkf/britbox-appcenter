@@ -41,8 +41,8 @@ const UserWatching = ({ data }: Props) => {
         </TabHeader>
       </Row>
       {data.map((item: DATA) => (
-        <TabContent key={item.key.toString()}>
-          {active === item.key && data[active].content()}
+        <TabContent key={item.key.toString()} active={active === item.key}>
+          {item.content()}
         </TabContent>
       ))}
     </Container>

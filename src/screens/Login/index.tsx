@@ -2,7 +2,6 @@
 import React, { useState, useEffect } from 'react';
 import { KeyboardAvoidingView, Platform } from 'react-native';
 
-import { ThemeProvider } from 'styled-components/native';
 import { Button } from '@components/Button';
 import { Input } from '@components/Input';
 import { useDispatch, useSelector } from 'react-redux';
@@ -12,8 +11,9 @@ import { ThemeProps } from '@store/modules/theme/types';
 import { EvergentLoginResponseError } from '@store/modules/user/types';
 import Orientation from 'react-native-orientation-locker';
 import { CloseIcon } from '@assets/icons';
-import { useNavigation } from 'react-navigation-hooks';
+
 import { useTranslation } from 'react-i18next';
+import { useNavigation } from '@react-navigation/native';
 import {
   Container,
   ErrorText,
@@ -39,10 +39,11 @@ const flex = {
 
 const suscribeStyle = { paddingLeft: 65, paddingRight: 65, marginTop: 30 };
 
-const Login = ({ screenProps: { theme } }: Props) => {
+const Login = () => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
   const { t } = useTranslation('signin');
+  const theme = useSelector((state: AppState) => state.theme.theme);
 
   const [user, setUser] = useState('maximilianor+newsub3@takeoffmedia.com');
   const [password, setPassword] = useState('8Ub4cYAiM77EzJY');
@@ -119,7 +120,7 @@ const Login = ({ screenProps: { theme } }: Props) => {
   }, []);
 
   return (
-    <ThemeProvider theme={theme}>
+    <>
       <CloseButton onPress={() => navigation.goBack()}>
         <CloseIcon width={32} height={32} />
       </CloseButton>
@@ -184,7 +185,7 @@ const Login = ({ screenProps: { theme } }: Props) => {
           </ScrollView>
         </KeyboardAvoidingView>
       </Gradient>
-    </ThemeProvider>
+    </>
   );
 };
 
