@@ -127,37 +127,27 @@ const Item = () => {
           //   return <UserWatching key={key.toString()} data={ContinueWatchingData} />;
           // }
 
+          if ((item?.list?.items || []).length === 0) {
+            return null;
+          }
+
           switch (getTemplate(item.template || '')) {
             case 'new':
               return <New key={key.toString()} {...{ item }} />;
             case 'episodes':
-              return (item?.list?.items || []).length > 0 ? (
-                <Episodes key={key.toString()} {...{ item }} />
-              ) : null;
+              return <Episodes key={key.toString()} {...{ item }} />;
             case 'large-programing':
-              return (item?.list?.items || []).length > 0 ? (
-                <LargeProgramming key={key.toString()} {...{ item }} />
-              ) : null;
+              return <LargeProgramming key={key.toString()} {...{ item }} />;
             case 'title-treatment':
-              return (item?.list?.items || []).length > 0 ? (
-                <TitleTreatment key={key.toString()} {...{ item }} />
-              ) : null;
+              return <TitleTreatment key={key.toString()} {...{ item }} />;
             case 'popular':
-              return (item?.list?.items || []).length > 0 ? (
-                <Popular key={key.toString()} {...{ item }} />
-              ) : null;
+              return <Popular key={key.toString()} {...{ item }} />;
             case 'standard':
-              return (item?.list?.items || []).length > 0 ? (
-                <Standard key={key.toString()} {...{ item }} />
-              ) : null;
+              return <Standard key={key.toString()} {...{ item }} />;
             case 'genre':
-              return (item?.list?.items || []).length > 0 ? (
-                <Genre key={key.toString()} {...{ item }} />
-              ) : null;
+              return <Genre key={key.toString()} {...{ item }} />;
             case 'collections':
-              return (item?.list?.items || []).length > 0 ? (
-                <Collections key={key.toString()} {...{ item }} />
-              ) : null;
+              return <Collections key={key.toString()} {...{ item }} />;
             default:
               return null;
           }
