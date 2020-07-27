@@ -30,14 +30,14 @@ export default function HeaderCustom({
   rightComponent = <EmptyView />,
   shadow = false,
 }: Props) {
-  const navigation = useNavigation();
+  const { goBack } = useNavigation();
 
   return (
     <Container>
       <TopWrapper>
         <SideView>
           {isBack ? (
-            <BackButton onPress={() => navigation.goBack()}>
+            <BackButton onPress={() => goBack()}>
               <BackIcon width={20} height={20} />
             </BackButton>
           ) : (

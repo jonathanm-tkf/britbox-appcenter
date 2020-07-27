@@ -1,7 +1,7 @@
 import styled from 'styled-components/native';
-import { CheckBox } from 'react-native';
 import { ThemeState } from '@store/modules/theme/types';
 import LinearGradient from 'react-native-linear-gradient';
+import { RadioCheckedIcon, RadioUnCheckedIcon } from '@assets/icons';
 
 export const Container = styled.View`
   flex: 1;
@@ -55,7 +55,12 @@ export const WrapperParagraph = styled.Text`
   margin-top: 10px;
   margin-bottom: 10px;
   font-size: 16px;
+  line-height: 22px;
   color: ${(props: ThemeState) => props.theme.PRIMARY_FOREGROUND_COLOR};
+`;
+
+export const LinkText = styled.Text`
+  color: ${(props: ThemeState) => props.theme.SECONDARY_COLOR};
 `;
 
 export const Paragraph = styled.Text`
@@ -74,13 +79,9 @@ export const Wrapper = styled.View`
   padding-bottom: 55px;
 `;
 
-export const CheckBoxView = styled(CheckBox)`
-  height: 30px;
-  width: 30px;
-  border-radius: 5px;
-  margin-top: 10px;
+export const CheckBoxView = styled.TouchableOpacity`
+  margin-top: 13px;
   margin-left: 20px;
-  border-color: ${(props: ThemeState) => props.theme.PRIMARY_FOREGROUND_COLOR};
 `;
 
 export const CancelText = styled.Text`
@@ -93,3 +94,13 @@ export const Gradient = styled(LinearGradient).attrs({
 })`
   flex: 1;
 `;
+
+export const RadioCheckedIconView = styled(RadioCheckedIcon).attrs({
+  height: 30,
+  width: 30,
+})``;
+
+export const RadioUnCheckedIconView = styled(RadioUnCheckedIcon).attrs({
+  height: 30,
+  width: 30,
+})``;

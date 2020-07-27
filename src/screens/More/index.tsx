@@ -1,7 +1,9 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import React, { useEffect } from 'react';
-import { View, Platform, Alert } from 'react-native';
+import React, { useEffect, useCallback } from 'react';
+import { View, Platform, Alert, Text, TouchableOpacity } from 'react-native';
+import { getStatusBarHeight } from 'react-native-iphone-x-helper';
+import { ThemeState } from '@store/modules/theme/types';
 import RNIap, {
   InAppPurchase,
   PurchaseError,
@@ -11,12 +13,46 @@ import RNIap, {
   purchaseUpdatedListener,
 } from 'react-native-iap';
 import { Button } from '@components/Button';
+import { Title } from '@components/Typography';
+import { CelularIcon } from '@assets/icons';
+import { useNavigation } from '@react-navigation/native';
+import { AppState } from '@store/modules/rootReducer';
+import { useSelector, useDispatch } from 'react-redux';
+import { logout } from '@store/modules/user/actions';
+import {
+  ProfileView,
+  RowContainer,
+  RowContent,
+  SubTitleLink,
+  SeparatorLine,
+  ItemTitle,
+  ItemSubTitle,
+  DescriptionText,
+  RowViewContainer,
+  ProfileImageIconView,
+  EditIconContainer,
+} from './styles';
 
 // import { Container } from './styles';
 
 const flex = {
   flex: 1,
   justifyContent: 'center',
+};
+
+const wrapper = {
+  flex: 1,
+  paddingTop: Platform.OS === 'ios' ? getStatusBarHeight() + 10 : 10,
+  paddingHorizontal: 30,
+};
+
+const marginBottom = {
+  marginBottom: Platform.OS === 'ios' ? 40 : 20,
+};
+
+const CelularStyle = {
+  left: -10,
+  opacity: 0.6,
 };
 
 interface Product {}
@@ -66,8 +102,13 @@ const itemSubs = Platform.select({
 });
 
 export default function More() {
+  const { navigate } = useNavigation();
+  const dispatch = useDispatch();
+  const user = useSelector((state: AppState) => state.user);
   let purchaseUpdateSubscription;
   let purchaseErrorSubscription;
+
+  const logoutAction = () => dispatch(logout());
 
   const getProducts = async () => {
     // try {
@@ -204,16 +245,88 @@ export default function More() {
   }, []);
 
   return (
-    <>
-      <View style={flex}>
-        <Button
-          onPress={() =>
-            REAL_PRODUCT ? requestSubscription(PACKAGE_SUSCRIPTION) : requestPurchase(PACKAGE)
-          }
-        >
-          Subscribe now
-        </Button>
-      </View>
-    </>
+    <View style={[wrapper, marginBottom]}>
+      <ProfileView>
+        <RowContainer>
+          <ProfileImageIconView />
+          <RowContent>
+            <Title>{user?.profile?.firstName || ''}</Title>
+            <RowViewContainer>
+              <SubTitleLink>Manage Profile</SubTitleLink>
+              <EditIconContainer />
+            </RowViewContainer>
+          </RowContent>
+        </RowContainer>
+      </ProfileView>
+      <SeparatorLine />
+      <RowContainer
+        onPress={() => {
+          navigate('MyAccount');
+        }}
+      >
+        <RowContent>
+          <ItemTitle>My Account</ItemTitle>
+        </RowContent>
+        {/* <BackIcon height={20} width={20} /> */}
+      </RowContainer>
+      <SeparatorLine />
+      <RowContainer
+        onPress={() => {
+          navigate('ParentalControls');
+        }}
+      >
+        <RowContent>
+          <ItemTitle>Parental Controls</ItemTitle>
+        </RowContent>
+        {/* <BackIcon height={20} width={20} /> */}
+      </RowContainer>
+      <SeparatorLine />
+      <RowContainer>
+        <RowContent>
+          <ItemTitle>Help</ItemTitle>
+        </RowContent>
+        {/* <BackIcon height={20} width={20} /> */}
+      </RowContainer>
+      <RowContainer>
+        <RowContent>
+          <ItemTitle>Terms & Conditions</ItemTitle>
+        </RowContent>
+        {/* <BackIcon height={20} width={20} /> */}
+      </RowContainer>
+      <RowContainer>
+        <RowContent>
+          <ItemTitle>Privacy Policy</ItemTitle>
+        </RowContent>
+        {/* <BackIcon height={20} width={20} /> */}
+      </RowContainer>
+      <SeparatorLine />
+      <RowContainer>
+        <CelularIcon height={60} width={50} style={CelularStyle} />
+        <RowContent>
+          <ItemSubTitle>APP Version</ItemSubTitle>
+          <DescriptionText>Version: 7.52.0 build 19 (code 34567), OS</DescriptionText>
+        </RowContent>
+      </RowContainer>
+      <SeparatorLine />
+      <RowContainer>
+        <RowContent>
+          <TouchableOpacity onPress={() => logoutAction()}>
+            <ItemTitle>Sign Out</ItemTitle>
+          </TouchableOpacity>
+        </RowContent>
+      </RowContainer>
+    </View>
+
+    // <>
+    //   <View style={flex}>
+    //     <Button
+    //       onPress={() =>
+    //         REAL_PRODUCT ? requestSubscription(PACKAGE_SUSCRIPTION) : requestPurchase(PACKAGE)
+    //       }
+    //     >
+    //       Subscribe now
+    //     </Button>
+    //   </View>
+    // </>
   );
 }

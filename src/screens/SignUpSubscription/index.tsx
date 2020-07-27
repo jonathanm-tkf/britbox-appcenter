@@ -27,6 +27,9 @@ import {
   EmailTitle,
   CancelText,
   Gradient,
+  RadioCheckedIconView,
+  RadioUnCheckedIconView,
+  RadioBoxContent,
 } from './styles';
 
 const flex = {
@@ -37,6 +40,7 @@ const SignUpSubscription = () => {
   const navigation = useNavigation();
   const { t } = useTranslation('signup');
   const theme = useSelector((state: AppState) => state.theme.theme);
+
   const cancelStyle = { marginTop: 15, borderWidth: 0 };
   const textLeft = { textAlign: 'left' };
   const activeRadio = {
@@ -56,7 +60,11 @@ const SignUpSubscription = () => {
         isBack
         shadow
         rightComponent={
-          <Button link onPress={() => navigation.navigate('Login')} color="#FFF">
+          <Button
+            link
+            onPress={() => navigation.navigate('Login')}
+            color={theme.PRIMARY_FOREGROUND_COLOR}
+          >
             Signin
           </Button>
         }
@@ -75,20 +83,30 @@ const SignUpSubscription = () => {
                   onPress={() => setPackageName('monthly')}
                   style={packageName === 'monthly' && activeRadio}
                 >
-                  <SubTitle style={textLeft}>Monthly</SubTitle>
-                  <DescriptionText style={textLeft}>$6.99 per month</DescriptionText>
+                  <RadioBoxContent>
+                    <SubTitle style={textLeft}>Monthly</SubTitle>
+                    <DescriptionText style={textLeft}>$6.99 per month</DescriptionText>
+                  </RadioBoxContent>
+                  {packageName === 'monthly' ? (
+                    <RadioCheckedIconView />
+                  ) : (
+                    <RadioUnCheckedIconView />
+                  )}
                 </RadioBox>
                 <RadioBox
                   onPress={() => setPackageName('annual')}
                   style={packageName === 'annual' && activeRadio}
                 >
-                  <SubTitle style={textLeft}>Annual</SubTitle>
-                  <DescriptionText style={[textLeft, { marginBottom: 0 }]}>
-                    $69.99 per month
-                  </DescriptionText>
-                  <RadioBottomText style={[textLeft, { marginTop: 5 }]}>
-                    12 months for the price of 10
-                  </RadioBottomText>
+                  <RadioBoxContent>
+                    <SubTitle style={textLeft}>Annual</SubTitle>
+                    <DescriptionText style={[textLeft, { marginBottom: 0 }]}>
+                      $69.99 per month
+                    </DescriptionText>
+                    <RadioBottomText style={[textLeft, { marginTop: 5, marginBottom: 0 }]}>
+                      12 months for the price of 10
+                    </RadioBottomText>
+                  </RadioBoxContent>
+                  {packageName === 'annual' ? <RadioCheckedIconView /> : <RadioUnCheckedIconView />}
                 </RadioBox>
               </RowWrapper>
               <RadioBottomText>

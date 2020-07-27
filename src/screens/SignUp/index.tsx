@@ -23,6 +23,9 @@ import {
   RowWrapper,
   CancelText,
   Gradient,
+  RadioCheckedIconView,
+  RadioUnCheckedIconView,
+  LinkText,
 } from './styles';
 
 const flex = {
@@ -32,17 +35,16 @@ const flex = {
 const cancelStyle = { marginTop: 15, borderWidth: 0 };
 
 const SignUp = () => {
-  const { goBack, navigate } = useNavigation();
+  const navigation = useNavigation();
   const { t } = useTranslation('signup');
-  const theme = useSelector((state: AppState) => state.theme.theme);
 
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [isCheckPrivacy] = useState(false);
-
+  const [isCheckPrivacy, setIsCheckPrivacy] = useState(false);
+  const theme = useSelector((state: AppState) => state.theme.theme);
   const loading = useSelector((state: AppState) => state.user.loading);
 
   useEffect(() => {
@@ -55,7 +57,7 @@ const SignUp = () => {
         isBack
         shadow
         rightComponent={
-          <Button link onPress={() => goBack()} color="#FFF">
+          <Button link onPress={() => navigation.goBack()} color={theme.PRIMARY_FOREGROUND_COLOR}>
             Signin
           </Button>
         }
@@ -91,7 +93,7 @@ const SignUp = () => {
                 onChangeText={(text) => setConfirmPassword(text)}
               />
               <Button
-                onPress={() => navigate('SignUpSubscription')}
+                onPress={() => navigation.navigate('SignUpSubscription')}
                 stretch
                 loading={loading}
                 size="big"
@@ -99,18 +101,21 @@ const SignUp = () => {
               >
                 Create Account
               </Button>
-              <Button outline size="big" style={cancelStyle} onPress={() => goBack()}>
+              <Button outline size="big" style={cancelStyle} onPress={() => navigation.goBack()}>
                 <CancelText>Cancel</CancelText>
               </Button>
             </Container>
             <Wrapper>
-              <CheckBoxView value={isCheckPrivacy} />
+              <CheckBoxView onPress={() => setIsCheckPrivacy(!isCheckPrivacy)}>
+                {isCheckPrivacy ? <RadioCheckedIconView /> : <RadioUnCheckedIconView />}
+              </CheckBoxView>
               <RowWrapper>
                 <WrapperParagraph>
-                  By Clicking 'Create Account' you agree to the BritBox Terms and Conditions and our
-                  Privacy Policy. We'll send you regular BritBox newsletters, along with other
-                  special offers and promotions. You can opt out at any time by clicking on the
-                  unsubscribe link in our emails.
+                  By Clicking 'Create Account' you agree to the BritBox{' '}
+                  <LinkText>Terms and Conditions</LinkText> and our{' '}
+                  <LinkText>Privacy Policy</LinkText>. We'll send you regular BritBox newsletters,
+                  along with other special offers and promotions. You can opt out at any time by
+                  clicking on the unsubscribe link in our emails.
                 </WrapperParagraph>
               </RowWrapper>
             </Wrapper>

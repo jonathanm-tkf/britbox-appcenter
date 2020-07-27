@@ -1,6 +1,7 @@
 import styled from 'styled-components/native';
 import { ThemeState } from '@store/modules/theme/types';
 import LinearGradient from 'react-native-linear-gradient';
+import { RadioCheckedIcon, RadioUnCheckedIcon } from '@assets/icons';
 
 export const Container = styled.View`
   flex: 1;
@@ -99,6 +100,10 @@ export const RadioBox = styled.TouchableOpacity`
   border-color: ${(props: ThemeState) => props.theme.PRIMARY_FOREGROUND_COLOR};
 `;
 
+export const RadioBoxContent = styled.TouchableOpacity`
+  flex: 1;
+`;
+
 export const DescriptionText = styled.Text`
   text-align: center;
   margin-bottom: 30px;
@@ -137,4 +142,22 @@ export const Gradient = styled(LinearGradient).attrs({
   colors: ['#202634', '#171B23'],
 })`
   flex: 1;
+`;
+
+export const RadioCheckedIconView = styled(RadioCheckedIcon).attrs({
+  height: 30,
+  width: 30,
+})`
+  margin-top: 10px;
+  margin-bottom: 15px;
+  align-self: center;
+`;
+
+export const RadioUnCheckedIconView = styled(RadioUnCheckedIcon).attrs({
+  height: 30,
+  width: 30,
+})`
+  margin-top: 10px;
+  margin-bottom: 15px;
+  align-self: center;
 `;

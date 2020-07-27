@@ -5,10 +5,10 @@ import { AppState } from '@store/modules/rootReducer';
 import Home from '@screens/Home';
 import { HomeIcon, ExploreIcon, MoreIcon, SearchIcon } from '@assets/icons';
 import Explore from '@screens/Explore';
-import More from '@screens/More';
 import Search from '@screens/Search';
 import { rgba } from 'polished';
 import { useTranslation } from 'react-i18next';
+import { MoreStackScreen } from './More';
 
 type Tab = {
   focused: boolean;
@@ -81,7 +81,7 @@ const AppTabsScreen = () => {
       />
       <AppTabs.Screen
         name="More"
-        component={More}
+        component={MoreStackScreen}
         options={{
           tabBarLabel: t('more'),
           tabBarIcon: ({ focused }: Tab) => (
