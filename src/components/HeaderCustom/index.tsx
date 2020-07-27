@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React from 'react';
 
-import { useNavigation } from 'react-navigation-hooks';
 import { BackIcon } from '@assets/icons';
+import { useNavigation } from '@react-navigation/native';
 import {
   Container,
   Logo,

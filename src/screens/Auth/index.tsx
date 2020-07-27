@@ -2,13 +2,12 @@
 import React, { useEffect, useState } from 'react';
 
 import Header from '@components/Header';
-import { ThemeProvider } from 'styled-components/native';
 import Orientation from 'react-native-orientation-locker';
 import { ThemeProps } from '@store/modules/theme/types';
-import { useIsFocused } from 'react-navigation-hooks';
 import Carousel from 'react-native-snap-carousel';
 import { StyleSheet } from 'react-native';
 import { useTranslation } from 'react-i18next';
+import { useIsFocused } from '@react-navigation/native';
 import {
   Container,
   Button,
@@ -42,7 +41,9 @@ const styles = StyleSheet.create({
   },
 });
 
-const Auth = ({ screenProps: { theme } }: Props) => {
+const Auth = () => {
+  // const theme = useSelector((state: AppState) => state.theme.theme);
+
   const isFocused = useIsFocused();
   const [sliderRef, setSliderRef] = useState(null);
   const [slider1ActiveSlide, setSlider1ActiveSlide] = useState(0);
@@ -91,46 +92,43 @@ const Auth = ({ screenProps: { theme } }: Props) => {
   };
 
   return (
-    <ThemeProvider theme={theme}>
-      <Container>
-        <HeaderWrapper>
-          <Header hideSignIn={!isFocused} />
-        </HeaderWrapper>
-        <Content>
-          <Carousel
-            ref={(c: any) => setSliderRef(c)}
-            data={ENTRIES}
-            renderItem={renderItemWithParallax}
-            sliderWidth={sliderWidth}
-            itemWidth={itemWidth}
-            hasParallaxImages
-            firstItem={0}
-            inactiveSlideScale={1}
-            inactiveSlideOpacity={1}
-            // inactiveSlideShift={20}
-            containerCustomStyle={styles.slider}
-            contentContainerCustomStyle={styles.sliderContentContainer}
-            loop={false}
-            loopClonesPerSide={2}
-            autoplay={false}
-            onSnapToItem={(index: number) => setSlider1ActiveSlide(index)}
+    <Container>
+      <HeaderWrapper>
+        <Header hideSignIn={!isFocused} />
+      </HeaderWrapper>
+      <Content>
+        <Carousel
+          ref={(c: any) => setSliderRef(c)}
+          data={ENTRIES}
+          renderItem={renderItemWithParallax}
+          sliderWidth={sliderWidth}
+          itemWidth={itemWidth}
+          hasParallaxImages
+          firstItem={0}
+          inactiveSlideScale={1}
+          inactiveSlideOpacity={1}
+          containerCustomStyle={styles.slider}
+          contentContainerCustomStyle={styles.sliderContentContainer}
+          loop={false}
+          loopClonesPerSide={2}
+          autoplay={false}
+          onSnapToItem={(index: number) => setSlider1ActiveSlide(index)}
+        />
+        <PaginationWrapper>
+          <PaginationContent />
+          <Pagination
+            dotsLength={ENTRIES.length}
+            activeDotIndex={slider1ActiveSlide}
+            carouselRef={sliderRef || undefined}
+            tappableDots={!!sliderRef}
           />
-          <PaginationWrapper>
-            <PaginationContent />
-            <Pagination
-              dotsLength={ENTRIES.length}
-              activeDotIndex={slider1ActiveSlide}
-              carouselRef={sliderRef || undefined}
-              tappableDots={!!sliderRef}
-            />
-          </PaginationWrapper>
+        </PaginationWrapper>
 
-          <Button size="big" stretch onPress={() => {}}>
-            {t('freetrial')}
-          </Button>
-        </Content>
-      </Container>
-    </ThemeProvider>
+        <Button size="big" stretch onPress={() => {}}>
+          {t('freetrial')}
+        </Button>
+      </Content>
+    </Container>
   );
 };
 

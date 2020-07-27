@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import ContentLoader, { Rect } from 'react-content-loader/native';
 
 import FastImage from 'react-native-fast-image';
-import { SharedElement } from 'react-navigation-shared-element';
 
 import { StyleProp, ViewStyle } from 'react-native';
 import { WatchlistIcon, DiscoverMoreIcon } from '@assets/icons';
@@ -51,14 +50,12 @@ const Outstanding = ({ item, onPlay, onWatchlist, onDiscoverMore }: Props) => {
         <Rect x="0" y="0" width="100%" height="100%" />
       </ContentLoader>
       <GradientTop />
-      <SharedElement id={item.id}>
-        <FastImage
-          style={image}
-          source={{ uri: item.url }}
-          resizeMode={FastImage.resizeMode.cover}
-          onLoad={() => setLoaded(!loaded)}
-        />
-      </SharedElement>
+      <FastImage
+        style={image}
+        source={{ uri: item.url }}
+        resizeMode={FastImage.resizeMode.cover}
+        onLoad={() => setLoaded(!loaded)}
+      />
       <Actions>
         <ActionButton onPress={() => (onWatchlist ? onWatchlist() : {})}>
           <WatchlistIcon width={32} height={32} />

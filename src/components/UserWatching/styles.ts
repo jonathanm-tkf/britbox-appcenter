@@ -35,7 +35,21 @@ export const TabHeaderItemIndicator = styled.View`
   margin-right: 10px;
 `;
 
-export const TabContent = styled.View`
+type TabContent = {
+  active: boolean;
+};
+
+export const TabContent = styled.View<TabContent>`
   flex-direction: row;
   margin-top: 5px;
+  ${(props: TabContent) => {
+    return (
+      !props.active &&
+      `
+      height: 0;
+      width: 0;
+      overflow: hidden;
+    `
+    );
+  }};
 `;

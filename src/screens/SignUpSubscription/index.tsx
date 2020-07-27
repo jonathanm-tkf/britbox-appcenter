@@ -2,15 +2,13 @@
 import React, { useState, useEffect } from 'react';
 import { KeyboardAvoidingView, Platform } from 'react-native';
 
-import { ThemeProvider } from 'styled-components/native';
 import { Button } from '@components/Button';
 import HeaderCustom from '@components/HeaderCustom';
 import { useSelector } from 'react-redux';
 import { AppState } from '@store/modules/rootReducer';
-import { ThemeProps } from '@store/modules/theme/types';
 import Orientation from 'react-native-orientation-locker';
-import { useNavigation } from 'react-navigation-hooks';
 import { useTranslation } from 'react-i18next';
+import { useNavigation } from '@react-navigation/native';
 import {
   Container,
   ScrollView,
@@ -31,20 +29,14 @@ import {
   Gradient,
 } from './styles';
 
-interface Props {
-  screenProps: {
-    theme: ThemeProps;
-  };
-}
-
 const flex = {
   flex: 1,
 };
 
-const SignUpSubscription = ({ screenProps: { theme } }: Props) => {
+const SignUpSubscription = () => {
   const navigation = useNavigation();
   const { t } = useTranslation('signup');
-
+  const theme = useSelector((state: AppState) => state.theme.theme);
   const cancelStyle = { marginTop: 15, borderWidth: 0 };
   const textLeft = { textAlign: 'left' };
   const activeRadio = {
@@ -59,7 +51,7 @@ const SignUpSubscription = ({ screenProps: { theme } }: Props) => {
   }, []);
 
   return (
-    <ThemeProvider theme={theme}>
+    <>
       <HeaderCustom
         isBack
         shadow
@@ -135,7 +127,7 @@ const SignUpSubscription = ({ screenProps: { theme } }: Props) => {
           </ScrollView>
         </KeyboardAvoidingView>
       </Gradient>
-    </ThemeProvider>
+    </>
   );
 };
 

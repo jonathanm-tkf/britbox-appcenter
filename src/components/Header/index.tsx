@@ -5,9 +5,9 @@ import { Button } from '@components/Button';
 import { useTranslation } from 'react-i18next';
 import { useSelector, useDispatch } from 'react-redux';
 import { AppState } from '@store/modules/rootReducer';
-import { useNavigation } from 'react-navigation-hooks';
 import { logout } from '@store/modules/user/actions';
 import Animated from 'react-native-reanimated';
+import { useNavigation } from '@react-navigation/native';
 import { Container, Logo, LinksList, Gradient } from './styles';
 
 interface DataElement {

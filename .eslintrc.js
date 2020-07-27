@@ -49,7 +49,7 @@ module.exports = {
     'react-native/no-raw-text': 'off',
     'no-param-reassign': 'off',
     'no-underscore-dangle': 'off',
-    'max-len': ['error', 100],
+    'max-len': ['error', 180],
     camelcase: 'off',
     'no-use-before-define': 'off',
     'no-nested-ternary': 'off',

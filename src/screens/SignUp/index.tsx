@@ -2,16 +2,14 @@
 import React, { useState, useEffect } from 'react';
 import { KeyboardAvoidingView, Platform } from 'react-native';
 
-import { ThemeProvider } from 'styled-components/native';
 import { Button } from '@components/Button';
 import { Input } from '@components/Input';
 import HeaderCustom from '@components/HeaderCustom';
 import { useSelector } from 'react-redux';
 import { AppState } from '@store/modules/rootReducer';
-import { ThemeProps } from '@store/modules/theme/types';
 import Orientation from 'react-native-orientation-locker';
-import { useNavigation } from 'react-navigation-hooks';
 import { useTranslation } from 'react-i18next';
+import { useNavigation } from '@react-navigation/native';
 import {
   Container,
   ScrollView,
@@ -27,21 +25,16 @@ import {
   Gradient,
 } from './styles';
 
-interface Props {
-  screenProps: {
-    theme: ThemeProps;
-  };
-}
-
 const flex = {
   flex: 1,
 };
 
 const cancelStyle = { marginTop: 15, borderWidth: 0 };
 
-const SignUp = ({ screenProps: { theme } }: Props) => {
-  const navigation = useNavigation();
+const SignUp = () => {
+  const { goBack, navigate } = useNavigation();
   const { t } = useTranslation('signup');
+  const theme = useSelector((state: AppState) => state.theme.theme);
 
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
@@ -57,12 +50,12 @@ const SignUp = ({ screenProps: { theme } }: Props) => {
   }, []);
 
   return (
-    <ThemeProvider theme={theme}>
+    <>
       <HeaderCustom
         isBack
         shadow
         rightComponent={
-          <Button link onPress={() => navigation.goBack()} color="#FFF">
+          <Button link onPress={() => goBack()} color="#FFF">
             Signin
           </Button>
         }
@@ -98,7 +91,7 @@ const SignUp = ({ screenProps: { theme } }: Props) => {
                 onChangeText={(text) => setConfirmPassword(text)}
               />
               <Button
-                onPress={() => navigation.navigate('SignUpSubscription')}
+                onPress={() => navigate('SignUpSubscription')}
                 stretch
                 loading={loading}
                 size="big"
@@ -106,7 +99,7 @@ const SignUp = ({ screenProps: { theme } }: Props) => {
               >
                 Create Account
               </Button>
-              <Button outline size="big" style={cancelStyle} onPress={() => navigation.goBack()}>
+              <Button outline size="big" style={cancelStyle} onPress={() => goBack()}>
                 <CancelText>Cancel</CancelText>
               </Button>
             </Container>
@@ -124,7 +117,7 @@ const SignUp = ({ screenProps: { theme } }: Props) => {
           </ScrollView>
         </KeyboardAvoidingView>
       </Gradient>
-    </ThemeProvider>
+    </>
   );
 };
 

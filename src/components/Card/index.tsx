@@ -3,12 +3,14 @@ import ContentLoader, { Rect } from 'react-content-loader/native';
 
 import { useSelector } from 'react-redux';
 import { AppState } from '@store/modules/rootReducer';
-import { StyleProp, ViewStyle, TouchableOpacity, Image } from 'react-native';
+import { TouchableOpacity, Image } from 'react-native';
 import Action from '@components/Action';
 import { useTranslation } from 'react-i18next';
 import { CloseIcon } from '@assets/icons';
 import Bookmark from '@components/Bookmark';
 
+import Shimmer from '@components/Shimmer';
+// import { MassiveSDKModelItemSummary } from '@src/sdks/Britbox.API.Content.TS/api';
 import {
   Container,
   Wrapper,
@@ -47,12 +49,6 @@ interface Props {
   style?: any;
 }
 
-const loader: StyleProp<ViewStyle> = {
-  display: 'flex',
-  position: 'absolute',
-  zIndex: 1,
-};
-
 const Card = ({
   url,
   width,
@@ -60,7 +56,7 @@ const Card = ({
   isEpisode,
   isDetail,
   newEpisode,
-  data,
+  data = undefined,
   isContinue,
   actionText = '',
   onRemove,
@@ -96,22 +92,27 @@ const Card = ({
                   </ActionText>
                 </ActionWrapper>
               )}
-              {!loaded && (
-                <ContentLoader
-                  style={loader}
-                  speed={1}
-                  backgroundColor={theme.PRIMARY_COLOR_OPAQUE}
-                  foregroundColor={theme.PRIMARY_COLOR}
-                >
-                  <Rect x="0" y="0" rx="8" ry="8" width="100%" height="100%" />
-                </ContentLoader>
-              )}
-              <Image
-                style={imageStyle}
-                source={{ uri: url }}
-                resizeMode="cover"
-                onLoadEnd={() => setLoaded(!loaded)}
-              />
+              <Shimmer
+                visible={loaded}
+                shimmerComponent={() => (
+                  <ContentLoader
+                    speed={1}
+                    backgroundColor={theme.PRIMARY_COLOR_OPAQUE}
+                    foregroundColor={theme.PRIMARY_COLOR}
+                  >
+                    <Rect x="0" y="0" rx="8" ry="8" width="100%" height="100%" />
+                  </ContentLoader>
+                )}
+              >
+                {url !== '' ? (
+                  <Image
+                    style={imageStyle}
+                    source={{ uri: url }}
+                    resizeMode="cover"
+                    onLoadEnd={() => setLoaded(true)}
+                  />
+                ) : null}
+              </Shimmer>
               {(newEpisode || isEpisode || isDetail) && <Gradient />}
               {isDetail && <ProgressBar progress={0.5} />}
             </ImageWrapper>

@@ -1,14 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { Animated } from 'react-native';
-import { useNavigation } from 'react-navigation-hooks';
 
-import { toggleTabs } from '@src/utils';
 import { BackIcon, WatchlistIcon } from '@assets/icons';
 import Card from '@components/Card';
 import Action from '@components/Action';
 import { Headline, Paragraph } from '@components/Typography';
 import TabsComponent from '@components/TabsComponent';
 import { useTranslation } from 'react-i18next';
+import { useRoute, useNavigation } from '@react-navigation/native';
 import {
   Container,
   HeaderBackgroundImage,
@@ -33,9 +32,9 @@ import More from './Components/More';
 type HeightType = string | number;
 
 const Detail = () => {
-  const { goBack, getParam, dangerouslyGetParent } = useNavigation();
-  const { item } = getParam('item');
-  const parent = dangerouslyGetParent();
+  const { params } = useRoute();
+  const { item } = params?.item || undefined;
+  const { goBack } = useNavigation();
   const [showBlueView, setShowBlueView] = useState(false);
   const [animatedOpacityValue] = useState(new Animated.Value(0));
   const { t } = useTranslation('detail');
@@ -71,9 +70,6 @@ const Detail = () => {
   ];
 
   const back = () => {
-    if (parent) {
-      toggleTabs(parent, true);
-    }
     goBack();
   };
 
@@ -164,11 +160,6 @@ const Detail = () => {
       </Scroll>
     </Container>
   );
-};
-
-Detail.sharedElements = (navigation: ReturnType<typeof useNavigation>) => {
-  const { item } = navigation.getParam('item');
-  return [item.id];
 };
 
 export default Detail;
