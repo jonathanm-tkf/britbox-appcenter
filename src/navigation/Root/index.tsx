@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { AppState } from '@store/modules/rootReducer';
 import Storybook from '@screens/Storybook';
 import { rgba } from 'polished';
@@ -8,6 +8,7 @@ import Detail from '@screens/Detail';
 import VideoPlayer from '@screens/VideoPlayer';
 import Modal from '@screens/Modal';
 import Loading from '@screens/Loading';
+import { homeRequest } from '@store/modules/home/actions';
 import { AppDrawerScreen } from '../Drawer';
 import { AuthStackScreen } from '../Auth';
 
@@ -15,16 +16,21 @@ const STORYBOOK_START = false && __DEV__;
 
 const RootStack = createStackNavigator();
 const RootStackScreen = () => {
-  const [isLoading] = React.useState(false);
+  const [isLoading, setIsLoading] = React.useState(true);
   const user = useSelector((state: AppState) => state.user);
   const theme = useSelector((state: AppState) => state.theme.theme);
+  const dispatch = useDispatch();
+  const home = useSelector((state: AppState) => state.home);
 
-  React.useEffect(() => {
-    // console.tron.log({ jona: true });
-    // setTimeout(() => {
-    //   setIsLoading(false);
-    // }, 500);
+  useEffect(() => {
+    dispatch(homeRequest());
   }, []);
+
+  useEffect(() => {
+    if (!home.loading && (home.data?.entries || []).length > 0) {
+      setIsLoading(false);
+    }
+  }, [home.data, home.loading, setIsLoading]);
 
   return (
     <RootStack.Navigator headerMode="none" screenOptions={{ animationEnabled: false }} mode="modal">

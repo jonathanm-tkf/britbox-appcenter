@@ -1,5 +1,9 @@
 import { StyleSheet, Dimensions, Platform } from 'react-native';
 import { base, lightTheme } from '@store/modules/theme/theme';
+import styled from 'styled-components/native';
+import LinearGradient from 'react-native-linear-gradient';
+import { rgba } from 'polished';
+import { ThemeState } from '@store/modules/theme/types';
 
 const IS_IOS = Platform.OS === 'ios';
 const { width: viewportWidth } = Dimensions.get('window');
@@ -79,6 +83,7 @@ export default StyleSheet.create({
     paddingHorizontal: 16,
     borderBottomLeftRadius: entryBorderRadius,
     borderBottomRightRadius: entryBorderRadius,
+    zIndex: 2,
   },
   textContainerEven: {},
   title: {
@@ -94,3 +99,21 @@ export default StyleSheet.create({
   },
   subtitleEven: {},
 });
+
+export const Gradient = styled(LinearGradient).attrs((props: ThemeState) => ({
+  colors: [rgba(props.theme.PRIMARY_COLOR, 0), props.theme.PRIMARY_COLOR],
+}))`
+  width: 100%;
+  height: 120px;
+  position: absolute;
+  bottom: -2px;
+  z-index: 1;
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+`;
+
+export const LogoWrapper = styled.View`
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+`;

@@ -8,6 +8,7 @@ import Explore from '@screens/Explore';
 import Search from '@screens/Search';
 import { rgba } from 'polished';
 import { useTranslation } from 'react-i18next';
+import { Platform } from 'react-native';
 import { MoreStackScreen } from './More';
 
 type Tab = {
@@ -28,6 +29,10 @@ const AppTabsScreen = () => {
         labelStyle: {
           fontSize: 14,
           fontFamily: theme.PRIMARY_FONT_FAMILY,
+          marginBottom: Platform.OS === 'android' ? 10 : 0,
+        },
+        style: {
+          height: Platform.OS === 'android' ? 75 : 90,
         },
       }}
     >

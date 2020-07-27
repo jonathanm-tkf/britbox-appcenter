@@ -1,7 +1,8 @@
 import React from 'react';
 import { View, Image, Text, TouchableOpacity } from 'react-native';
 import { ParallaxImage } from 'react-native-snap-carousel';
-import styles from './styles';
+import { Logo } from '@assets/icons';
+import styles, { Gradient, LogoWrapper } from './styles';
 
 interface Props {
   even: boolean;
@@ -17,7 +18,11 @@ const CustomCard = ({
   data: { illustration, title, subtitle },
 }: Props) => {
   const getImage = () => {
-    return parallax ? (
+    return illustration === 'no-image' ? (
+      <LogoWrapper>
+        <Logo />
+      </LogoWrapper>
+    ) : parallax ? (
       <ParallaxImage
         source={{ uri: illustration }}
         containerStyle={[styles.imageContainer, even ? styles.imageContainerEven : {}]}
@@ -59,6 +64,7 @@ const CustomCard = ({
               {subtitle}
             </Text>
           </View>
+          <Gradient />
         </View>
       </TouchableOpacity>
     </View>

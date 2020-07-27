@@ -1,26 +1,35 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable max-len */
-import React, { Fragment, useEffect } from 'react';
+import React from 'react';
 import { View, Platform } from 'react-native';
 import { CollapsibleHeaderFlatList } from 'react-native-collapsible-header-views';
 import { getStatusBarHeight } from 'react-native-iphone-x-helper';
 import Header from '@components/Header';
 import { useSelector, useDispatch } from 'react-redux';
 import { AppState } from '@store/modules/rootReducer';
-import Outstanding from '@components/Outstanding';
+// import Outstanding from '@components/Outstanding';
 import NewSlider from '@components/NewSlider';
 import { Headline } from '@components/Typography';
 import { Row } from '@components/Layout';
 import Carousel from '@components/Carousel';
 import Card from '@components/Card';
-import UserWatching from '@components/UserWatching';
+// import UserWatching from '@components/UserWatching';
 import { useNavigation } from '@react-navigation/native';
-import { homeRequest } from '@store/modules/home/actions';
-// import { getTemplate } from '@src/utils/template';
-// import { MassiveSDKModelItemSummary } from '@src/sdks/Britbox.API.Content.TS/api';
-// import { useTranslation } from 'react-i18next';
-// import { slice } from 'lodash';
+import { getTemplate } from '@src/utils/template';
+import { useTranslation } from 'react-i18next';
+import {
+  New,
+  Episodes,
+  LargeProgramming,
+  TitleTreatment,
+  Popular,
+  Standard,
+  Genre,
+  Collections,
+} from '@screens/Shared';
 import { Container } from './styles';
-import { items, Element, continueWatchingItems } from './data';
+import { Element, continueWatchingItems } from './data';
 
 const wrapper = {
   flex: 1,
@@ -69,11 +78,6 @@ const ContinueWatchingData = [
 
 const Home = () => {
   const theme = useSelector((state: AppState) => state.theme.theme);
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(homeRequest());
-  }, []);
 
   return (
     <View style={wrapper}>
@@ -95,13 +99,10 @@ const keyExtractor = (item: number) => `${item}`;
 
 const Item = () => {
   const { navigate } = useNavigation();
-  // const { t } = useTranslation('home');
+  const { t } = useTranslation('home');
 
   const modal = () => navigate('VideoPlayer');
-  // const home = useSelector((state: AppState) => state.home.data);
-  const home = {
-    entries: items,
-  };
+  const home = useSelector((state: AppState) => state.home.data);
 
   const heroDiscoverMore = (item: Element) => {
     navigate('Detail', { item });
@@ -112,75 +113,54 @@ const Item = () => {
       {home &&
         home.entries &&
         home.entries.map((item, key) => {
-          if (item.template === 'hero') {
-            return (
-              <Outstanding
-                key={key.toString()}
-                item={item.item}
-                onPlay={modal}
-                onDiscoverMore={() => heroDiscoverMore(item)}
-              />
-            );
-          }
-          if (item.template === 'user-watching') {
-            return <UserWatching key={key.toString()} data={ContinueWatchingData} />;
-          }
-          if (item.template === 'new') {
-            return (
-              <Fragment key={key.toString()}>
-                <Row>
-                  <Headline>New to Britbox</Headline>
-                </Row>
-                <NewSlider data={item.items} />
-              </Fragment>
-            );
-          }
-
-          // if (getTemplate(item.template || '') === 'episodes') {
-          //   return (item?.list?.items || []).length > 0 ? (
-          //     <Fragment key={key.toString()}>
-          //       <Row>
-          //         <Headline>{item.title}</Headline>
-          //       </Row>
-          //       <Carousel
-          //         items={slice(item?.list?.items, 0, 20)}
-          //         listProps={{ horizontal: true }}
-          //         renderItem={({ item: card }: { item: MassiveSDKModelItemSummary }) => (
-          //           <Card
-          //             isEpisode
-          //             width={157}
-          //             height={107}
-          //             url={card.images?.wallpaper || ''}
-          //             data={{
-          //               title: card?.title || '',
-          //               description:
-          //                 card.type === 'movie'
-          //                   ? card.shortDescription || ''
-          //                   : card.type === 'show'
-          //                   ? t('season', {
-          //                       context: 'plural',
-          //                       count: card?.availableSeasonCount,
-          //                     })
-          //                   : `E ${card.episodeNumber} - ${card.duration} min`,
-          //             }}
-          //           />
-          //         )}
-          //       />
-          //     </Fragment>
-          //   ) : null;
+          // if (item.template === 'hero') {
+          //   return (
+          //     <Outstanding
+          //       key={key.toString()}
+          //       item={item.item}
+          //       onPlay={modal}
+          //       onDiscoverMore={() => heroDiscoverMore(item)}
+          //     />
+          //   );
           // }
-          return (
-            <Fragment key={key.toString()}>
-              <Row>
-                <Headline>{item.title}</Headline>
-              </Row>
-              <Carousel
-                items={item.items}
-                listProps={{ horizontal: true }}
-                renderItem={({ item: card }) => <Card url={card.url} />}
-              />
-            </Fragment>
-          );
+          // if (item.template === 'user-watching') {
+          //   return <UserWatching key={key.toString()} data={ContinueWatchingData} />;
+          // }
+
+          switch (getTemplate(item.template || '')) {
+            case 'new':
+              return <New key={key.toString()} {...{ item }} />;
+            case 'episodes':
+              return (item?.list?.items || []).length > 0 ? (
+                <Episodes key={key.toString()} {...{ item }} />
+              ) : null;
+            case 'large-programing':
+              return (item?.list?.items || []).length > 0 ? (
+                <LargeProgramming key={key.toString()} {...{ item }} />
+              ) : null;
+            case 'title-treatment':
+              return (item?.list?.items || []).length > 0 ? (
+                <TitleTreatment key={key.toString()} {...{ item }} />
+              ) : null;
+            case 'popular':
+              return (item?.list?.items || []).length > 0 ? (
+                <Popular key={key.toString()} {...{ item }} />
+              ) : null;
+            case 'standard':
+              return (item?.list?.items || []).length > 0 ? (
+                <Standard key={key.toString()} {...{ item }} />
+              ) : null;
+            case 'genre':
+              return (item?.list?.items || []).length > 0 ? (
+                <Genre key={key.toString()} {...{ item }} />
+              ) : null;
+            case 'collections':
+              return (item?.list?.items || []).length > 0 ? (
+                <Collections key={key.toString()} {...{ item }} />
+              ) : null;
+            default:
+              return null;
+          }
         })}
     </Container>
   );

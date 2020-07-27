@@ -1,6 +1,8 @@
 import React from 'react';
 import { StyleSheet } from 'react-native';
 import Carousel from 'react-native-snap-carousel';
+import { MassiveSDKModelItemList } from '@src/sdks/Britbox.API.Content.TS/api';
+import { calculateSizeImage } from '@src/utils/images';
 import CustomCard from './CustomCard';
 import { sliderWidth, itemWidth } from './CustomCard/styles';
 import { Container, Slider } from './styles';
@@ -15,10 +17,17 @@ const styles = StyleSheet.create({
 });
 
 interface Props {
-  data: any;
+  data: MassiveSDKModelItemList[];
 }
 
 const NewSlider = ({ data }: Props) => {
+  const carouselData = data.map((item) => {
+    return {
+      title: item.title,
+      illustration: calculateSizeImage(item.images?.hero3x1, 'wallpaper'),
+    };
+  });
+
   const renderItem = ({ item, index }: any, parallaxProps: any) => (
     <CustomCard data={item} even={(index + 1) % 2 === 0} parallax parallaxProps={parallaxProps} />
   );
@@ -27,7 +36,7 @@ const NewSlider = ({ data }: Props) => {
     <Container>
       <Slider>
         <Carousel
-          data={data}
+          data={carouselData}
           renderItem={renderItem}
           sliderWidth={sliderWidth}
           itemWidth={itemWidth}

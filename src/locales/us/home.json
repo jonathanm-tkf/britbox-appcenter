@@ -2,5 +2,7 @@
   "season": "{{count}} Season",
   "season_plural": "{{count}} Seasons",
   "keyWithCount": "{{count}} item",
-  "keyWithCount_plural": "{{count}} items"
+  "keyWithCount_plural": "{{count}} items",
+  "show": "Show",
+  "Show": "Movie"
 }
