@@ -2,13 +2,13 @@ import produce from 'immer';
 import { Reducer } from 'redux';
 import { BritboxAPIContentModelsPageGetPageResponse } from '@src/sdks/Britbox.API.Content.TS/api';
 import { HomeState, HomeActionTypes } from './types';
-import { items } from './data';
+// import { items } from './data';
 
 export const initialState: HomeState = {
   loading: false,
   error: false,
   data: {
-    entries: items,
+    entries: [],
   },
 };
 

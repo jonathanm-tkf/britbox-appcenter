@@ -53,7 +53,7 @@ export const Gradient = styled(LinearGradient).attrs((props: ThemeState) => ({
   width: 100%;
   height: 100px;
   position: absolute;
-  bottom: 0;
+  bottom: -1px;
   z-index: 1;
   border-bottom-left-radius: 8px;
   border-bottom-right-radius: 8px;
@@ -162,7 +162,7 @@ export const Group = styled.View`
   flex-direction: column;
   width: 100%;
   ${(props: GroupProps) => {
-    return props.isDetail && `flex: 1;`;
+    return props.isDetail ? `flex: 1;` : `flex-direction: row`;
   }};
 `;
 
@@ -198,4 +198,10 @@ export const SummaryText = styled.Text`
 
 export const AllWrapper = styled.View`
   padding-bottom: 30px;
+`;
+
+export const LogoWrapper = styled.View`
+  flex: 1;
+  justify-content: center;
+  align-items: center;
 `;

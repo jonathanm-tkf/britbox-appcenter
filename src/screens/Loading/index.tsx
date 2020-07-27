@@ -1,10 +1,14 @@
 import React from 'react';
-import { View } from 'react-native';
 
-// import { Container } from './styles';
+import { Logo } from '@assets/icons';
+import { Container } from './styles';
 
-const Loading: React.FC = () => {
-  return <View />;
+const Loading = () => {
+  return (
+    <Container>
+      <Logo />
+    </Container>
+  );
 };
 
 export default Loading;
