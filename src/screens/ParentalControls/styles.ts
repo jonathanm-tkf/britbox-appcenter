@@ -2,6 +2,7 @@ import styled from 'styled-components/native';
 import { ThemeState } from '@store/modules/theme/types';
 import LinearGradient from 'react-native-linear-gradient';
 import { UnLockIcon, LockIcon } from '@assets/icons';
+// import { Dimensions } from 'react-native';
 
 export const Container = styled.View`
   flex: 1;
@@ -106,7 +107,7 @@ export const RowContent = styled.View`
 export const RowLeftContainer = styled.TouchableOpacity.attrs({
   activeOpacity: 1,
 })`
-  width: 35%;
+  width: 130px;
   height: 100%;
   align-items: center;
   justify-content: center;
@@ -123,7 +124,7 @@ export const SliderContainer = styled.View`
   position: absolute;
   margin-top: 600px;
   top: -325px;
-  left: -45.5%;
+  left: -170px;
 `;
 
 export const TableBtnContainer = styled.View`

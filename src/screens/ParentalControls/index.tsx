@@ -51,6 +51,12 @@ import {
 
 const CELL_COUNT = 4;
 
+interface CellProps {
+  index: number;
+  symbol: string;
+  isFocused: boolean;
+}
+
 export default function ParentalControls() {
   const { navigate } = useNavigation();
   const [password, setPassword] = useState('');
@@ -106,13 +112,13 @@ export default function ParentalControls() {
   const [enableMask, setEnableMask] = useState(true);
   const [value, setValue] = useState('');
   const ref = useBlurOnFulfill({ value, cellCount: CELL_COUNT });
-  const [props, getCellOnLayoutHandler] = useClearByFocusCell({
+  const [codeProps, getCellOnLayoutHandler] = useClearByFocusCell({
     value,
     setValue,
   });
   const toggleMask = () => setEnableMask((f) => !f);
 
-  const renderCell = ({ index, symbol, isFocused }: any) => {
+  const renderCell = ({ index, symbol, isFocused }: CellProps) => {
     let textChild = null;
 
     if (symbol) {
@@ -184,7 +190,7 @@ export default function ParentalControls() {
           <PINView>
             <CodeField
               ref={ref}
-              {...props}
+              {...codeProps}
               value={value}
               onChangeText={setValue}
               cellCount={CELL_COUNT}
@@ -194,7 +200,7 @@ export default function ParentalControls() {
             />
           </PINView>
           <Button
-            onPress={() => {}}
+            onPress={() => setValue('')}
             link
             color={theme.SECONDARY_COLOR}
             loading={loading}

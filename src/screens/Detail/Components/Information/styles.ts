@@ -20,6 +20,10 @@ export const Seasons = styled.Text`
   font-size: 14px;
 `;
 
+export const Label = styled.Text`
+  text-transform: capitalize;
+`;
+
 export const Genre = styled.Text`
   color: ${(props: ThemeState) => props.theme.PRIMARY_FOREGROUND_COLOR};
   font-family: ${(props: ThemeState) => props.theme.PRIMARY_FONT_FAMILY};

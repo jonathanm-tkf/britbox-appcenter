@@ -29,6 +29,7 @@ import {
   NewsParagraph,
   SwitchContainer,
   ScrollableContainerPaddingHorizontal,
+  ScrollContent,
 } from './styles';
 
 const updateBtnStyle = {
@@ -54,33 +55,45 @@ export default function MyAccount() {
     return (
       <Container>
         <ScrollableContainer>
-          <ScrollableContainerPaddingHorizontal>
-            <TitleWrapper>
-              <SubTitle>Upgrade your Details</SubTitle>
-            </TitleWrapper>
-            <Input
-              label="First Name"
-              value={firstName}
-              onChangeText={(text) => setFirstName(text)}
-            />
-            <Input label="Last Name" value={lastName} onChangeText={(text) => setLastName(text)} />
-            <Input label="Email" value={email} onChangeText={(text) => setEmail(text)} />
-            <Input label="Mobile" value={mobile} onChangeText={(text) => setMobile(text)} />
-            <Button onPress={() => {}} stretch style={updateBtnStyle} loading={loading} size="big">
-              Update
-            </Button>
-            <Paragraph>
-              Your information will be used in accordance with our{' '}
-              <LinkTitle>Privacy Policy</LinkTitle>.
-            </Paragraph>
-          </ScrollableContainerPaddingHorizontal>
-          <Gradient>
-            <Wrapper>
-              <FooterTitle>Customer Service: 1-888-636-7662</FooterTitle>
-              <Paragraph>Available from noon-midnight EST</Paragraph>
-              <LinkTitle>support-us@britbox.com</LinkTitle>
-            </Wrapper>
-          </Gradient>
+          <ScrollContent>
+            <ScrollableContainerPaddingHorizontal>
+              <TitleWrapper>
+                <SubTitle>Upgrade your Details</SubTitle>
+              </TitleWrapper>
+              <Input
+                label="First Name"
+                value={firstName}
+                onChangeText={(text) => setFirstName(text)}
+              />
+              <Input
+                label="Last Name"
+                value={lastName}
+                onChangeText={(text) => setLastName(text)}
+              />
+              <Input label="Email" value={email} onChangeText={(text) => setEmail(text)} />
+              <Input label="Mobile" value={mobile} onChangeText={(text) => setMobile(text)} />
+              <Button
+                onPress={() => {}}
+                stretch
+                style={updateBtnStyle}
+                loading={loading}
+                size="big"
+              >
+                Update
+              </Button>
+              <Paragraph>
+                Your information will be used in accordance with our{' '}
+                <LinkTitle>Privacy Policy</LinkTitle>.
+              </Paragraph>
+            </ScrollableContainerPaddingHorizontal>
+            <Gradient>
+              <Wrapper>
+                <FooterTitle>Customer Service: 1-888-636-7662</FooterTitle>
+                <Paragraph>Available from noon-midnight EST</Paragraph>
+                <LinkTitle>support-us@britbox.com</LinkTitle>
+              </Wrapper>
+            </Gradient>
+          </ScrollContent>
         </ScrollableContainer>
       </Container>
     );
@@ -89,29 +102,31 @@ export default function MyAccount() {
   const PasswordRoute = () => {
     return (
       <ScrollableContainer>
-        <ScrollableContainerPaddingHorizontal>
-          <TitleWrapper>
-            <SubTitle>Change Password</SubTitle>
-          </TitleWrapper>
-          <Input
-            label="Current password"
-            value={curPassword}
-            onChangeText={(text) => setCurPassword(text)}
-          />
-          <Input
-            label="New password"
-            value={newPassword}
-            onChangeText={(text) => setNewPassword(text)}
-          />
-          <Input
-            label="Confirm password"
-            value={confirmPassword}
-            onChangeText={(text) => setConfirmPassword(text)}
-          />
-          <Button onPress={() => {}} stretch loading={loading} size="big">
-            Update
-          </Button>
-        </ScrollableContainerPaddingHorizontal>
+        <ScrollContent>
+          <ScrollableContainerPaddingHorizontal>
+            <TitleWrapper>
+              <SubTitle>Change Password</SubTitle>
+            </TitleWrapper>
+            <Input
+              label="Current password"
+              value={curPassword}
+              onChangeText={(text) => setCurPassword(text)}
+            />
+            <Input
+              label="New password"
+              value={newPassword}
+              onChangeText={(text) => setNewPassword(text)}
+            />
+            <Input
+              label="Confirm password"
+              value={confirmPassword}
+              onChangeText={(text) => setConfirmPassword(text)}
+            />
+            <Button onPress={() => {}} stretch loading={loading} size="big">
+              Update
+            </Button>
+          </ScrollableContainerPaddingHorizontal>
+        </ScrollContent>
         <Gradient>
           <Wrapper>
             <FooterTitle>Customer Service: 1-888-636-7662</FooterTitle>
@@ -149,35 +164,43 @@ export default function MyAccount() {
     return (
       <Container>
         <ScrollableContainer>
-          <ScrollableContainerPaddingHorizontal>
-            <TitleWrapper>
-              <SubTitle>Newsletter preferences</SubTitle>
-            </TitleWrapper>
-            <RowContainer>
-              <SwitchContainer
-                value={isNewsletters}
-                onValueChange={(value: boolean) => setIsNewsletters(value)}
-              />
-              <RowContent>
-                <NewsParagraph>BritBox newsletter, special promotions and offers.</NewsParagraph>
-              </RowContent>
-            </RowContainer>
-            <Button onPress={() => {}} stretch style={updateBtnStyle} loading={loading} size="big">
-              Update
-            </Button>
-            <Paragraph>
-              Your information will be used in accordance with our{' '}
-              <LinkTitle>Privacy Policy</LinkTitle>.
-            </Paragraph>
-          </ScrollableContainerPaddingHorizontal>
+          <ScrollContent>
+            <ScrollableContainerPaddingHorizontal>
+              <TitleWrapper>
+                <SubTitle>Newsletter preferences</SubTitle>
+              </TitleWrapper>
+              <RowContainer>
+                <SwitchContainer
+                  value={isNewsletters}
+                  onValueChange={(value: boolean) => setIsNewsletters(value)}
+                />
+                <RowContent>
+                  <NewsParagraph>BritBox newsletter, special promotions and offers.</NewsParagraph>
+                </RowContent>
+              </RowContainer>
+              <Button
+                onPress={() => {}}
+                stretch
+                style={updateBtnStyle}
+                loading={loading}
+                size="big"
+              >
+                Update
+              </Button>
+              <Paragraph>
+                Your information will be used in accordance with our{' '}
+                <LinkTitle>Privacy Policy</LinkTitle>.
+              </Paragraph>
+            </ScrollableContainerPaddingHorizontal>
+            <Gradient>
+              <Wrapper>
+                <FooterTitle>Customer Service: 1-888-636-7662</FooterTitle>
+                <Paragraph>Available from noon-midnight EST</Paragraph>
+                <LinkTitle>support-us@britbox.com</LinkTitle>
+              </Wrapper>
+            </Gradient>
+          </ScrollContent>
         </ScrollableContainer>
-        <Gradient>
-          <Wrapper>
-            <FooterTitle>Customer Service: 1-888-636-7662</FooterTitle>
-            <Paragraph>Available from noon-midnight EST</Paragraph>
-            <LinkTitle>support-us@britbox.com</LinkTitle>
-          </Wrapper>
-        </Gradient>
       </Container>
     );
   };
@@ -185,18 +208,18 @@ export default function MyAccount() {
   const DATA = [
     {
       key: 'details',
-      title: 'Your Details',
+      title: 'Your Details ',
       content: () => <DetailsRoute />,
     },
     { key: 'password', title: 'Password', content: () => <PasswordRoute /> },
     {
       key: 'subscription',
-      title: 'Subscription',
+      title: 'Subscription ',
       content: () => <SubscriptionRoute />,
     },
     {
       key: 'newsletter',
-      title: 'Newsletter',
+      title: 'Newsletter ',
       content: () => <NewsletterRoute />,
     },
   ];

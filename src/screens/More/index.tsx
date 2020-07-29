@@ -14,7 +14,7 @@ import RNIap, {
 } from 'react-native-iap';
 import { Button } from '@components/Button';
 import { Title } from '@components/Typography';
-import { CelularIcon } from '@assets/icons';
+import { CelularIcon, EditIcon } from '@assets/icons';
 import { useNavigation } from '@react-navigation/native';
 import { AppState } from '@store/modules/rootReducer';
 import { useSelector, useDispatch } from 'react-redux';
@@ -57,7 +57,7 @@ const CelularStyle = {
 
 interface Product {}
 
-const REAL_PRODUCT = false;
+const REAL_PRODUCT = true;
 const itemSkus = Platform.select({
   ios: [
     'com.britbox.us.staging.subscription',
@@ -78,8 +78,10 @@ const itemSkus = Platform.select({
       ],
 });
 
+// const PACKAGE = 'android.test.purchased';
 const PACKAGE = 'android.test.purchased';
 const PACKAGE_SUSCRIPTION = 'com.britbox.us.staging.subscription';
+// const PACKAGE_SUSCRIPTION = 'com.britbox.us.subscription';
 
 const itemSubs = Platform.select({
   ios: [
@@ -252,8 +254,14 @@ export default function More() {
           <RowContent>
             <Title>{user?.profile?.firstName || ''}</Title>
             <RowViewContainer>
-              <SubTitleLink>Manage Profile</SubTitleLink>
-              <EditIconContainer />
+              <EditIconContainer
+                onPress={() => {
+                  navigate('MyAccount');
+                }}
+              >
+                <SubTitleLink>Manage Profile</SubTitleLink>
+                <EditIcon width={25} height={25} />
+              </EditIconContainer>
             </RowViewContainer>
           </RowContent>
         </RowContainer>
@@ -315,18 +323,15 @@ export default function More() {
           </TouchableOpacity>
         </RowContent>
       </RowContainer>
+      {/* <View style={flex}>
+        <Button
+          onPress={() =>
+            REAL_PRODUCT ? requestSubscription(PACKAGE_SUSCRIPTION) : requestPurchase(PACKAGE)
+          }
+        >
+          Subscribe now
+        </Button>
+      </View> */}
     </View>
-
-    // <>
-    //   <View style={flex}>
-    //     <Button
-    //       onPress={() =>
-    //         REAL_PRODUCT ? requestSubscription(PACKAGE_SUSCRIPTION) : requestPurchase(PACKAGE)
-    //       }
-    //     >
-    //       Subscribe now
-    //     </Button>
-    //   </View>
-    // </>
   );
 }

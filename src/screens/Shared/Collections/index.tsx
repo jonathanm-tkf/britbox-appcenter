@@ -21,11 +21,7 @@ const Collections = ({ item }: Props) => {
         items={slice(item?.list?.items, 0, 20)}
         listProps={{ horizontal: true }}
         renderItem={({ item: card }) => (
-          <Card
-            url={calculateSizeImage(card.images?.wallpaper, 'wallpaper')}
-            width={190}
-            height={130}
-          />
+          <Card url={calculateSizeImage(card.images?.square, 'square')} width={130} height={130} />
         )}
       />
     </>

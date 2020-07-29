@@ -879,7 +879,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.britbox.us.staging.takeoff;
+				PRODUCT_BUNDLE_IDENTIFIER = com.britbox.us.staging;
 				PRODUCT_NAME = Britbox;
 				SWIFT_OBJC_BRIDGING_HEADER = "Britbox-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -904,7 +904,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.britbox.us.staging.takeoff;
+				PRODUCT_BUNDLE_IDENTIFIER = com.britbox.us.staging;
 				PRODUCT_NAME = Britbox;
 				SWIFT_OBJC_BRIDGING_HEADER = "Britbox-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
@@ -1208,7 +1208,7 @@
 					"-lc++",
 				);
 				PODS_CONFIGURATION_BUILD_DIR = "${PODS_BUILD_DIR}/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)";
-				PRODUCT_BUNDLE_IDENTIFIER = com.britbox.us.staging.takeoff;
+				PRODUCT_BUNDLE_IDENTIFIER = com.britbox.us.staging;
 				PRODUCT_NAME = Britbox;
 				SWIFT_OBJC_BRIDGING_HEADER = "Britbox-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;

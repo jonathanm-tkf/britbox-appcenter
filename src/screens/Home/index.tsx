@@ -15,7 +15,7 @@ import { Row } from '@components/Layout';
 import Carousel from '@components/Carousel';
 import Card from '@components/Card';
 // import UserWatching from '@components/UserWatching';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useNavigationState } from '@react-navigation/native';
 import { getTemplate } from '@src/utils/template';
 import { useTranslation } from 'react-i18next';
 import {
@@ -27,7 +27,9 @@ import {
   Standard,
   Genre,
   Collections,
+  Hero,
 } from '@screens/Shared';
+import { calculateSizeImage } from '@src/utils/images';
 import { Container } from './styles';
 import { Element, continueWatchingItems } from './data';
 
@@ -98,14 +100,14 @@ const Home = () => {
 const keyExtractor = (item: number) => `${item}`;
 
 const Item = () => {
-  const { navigate } = useNavigation();
+  const navigation = useNavigation();
   const { t } = useTranslation('home');
 
-  const modal = () => navigate('VideoPlayer');
+  const modal = () => navigation.navigate('VideoPlayer');
   const home = useSelector((state: AppState) => state.home.data);
 
-  const heroDiscoverMore = (item: Element) => {
-    navigate('Detail', { item });
+  const heroDiscoverMore = (item: any) => {
+    navigation.push('Detail', { item });
   };
 
   return (
@@ -113,16 +115,6 @@ const Item = () => {
       {home &&
         home.entries &&
         home.entries.map((item, key) => {
-          // if (item.template === 'hero') {
-          //   return (
-          //     <Outstanding
-          //       key={key.toString()}
-          //       item={item.item}
-          //       onPlay={modal}
-          //       onDiscoverMore={() => heroDiscoverMore(item)}
-          //     />
-          //   );
-          // }
           // if (item.template === 'user-watching') {
           //   return <UserWatching key={key.toString()} data={ContinueWatchingData} />;
           // }
@@ -132,6 +124,15 @@ const Item = () => {
           }
 
           switch (getTemplate(item.template || '')) {
+            case 'hero':
+              return (
+                <Hero
+                  key={key.toString()}
+                  {...{ item }}
+                  onPlay={modal}
+                  onDiscoverMore={(i) => heroDiscoverMore(i)}
+                />
+              );
             case 'new':
               return <New key={key.toString()} {...{ item }} />;
             case 'episodes':

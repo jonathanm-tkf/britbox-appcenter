@@ -1,6 +1,6 @@
 import styled from 'styled-components/native';
 import { ThemeState } from '@store/modules/theme/types';
-import { ProfileImageIcon, EditIcon } from '@assets/icons';
+import { ProfileImageIcon } from '@assets/icons';
 
 export const ProfileView = styled.View`
   padding-top: 50px;
@@ -28,12 +28,10 @@ export const RowViewContainer = styled.View`
   align-items: center;
 `;
 
-export const EditIconContainer = styled(EditIcon).attrs({
-  height: 20,
-  width: 20,
-})`
-  margin-left: 10px;
-  margin-right: 10px;
+export const EditIconContainer = styled.TouchableOpacity`
+  padding-left: 10px;
+  padding-right: 10px;
+  flex-direction: row;
 `;
 
 export const RowContent = styled.View`

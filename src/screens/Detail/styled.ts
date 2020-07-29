@@ -1,7 +1,9 @@
 import styled from 'styled-components/native';
 import { ThemeState } from '@store/modules/theme/types';
 import { getStatusBarHeight } from 'react-native-iphone-x-helper';
-import { Platform, Animated } from 'react-native';
+import { Platform, Dimensions, Animated } from 'react-native';
+
+const { width } = Dimensions.get('window');
 
 export const Container = styled.View`
   flex: 1;
@@ -10,13 +12,15 @@ export const Container = styled.View`
 
 export const HeaderBackgroundImage = styled.View`
   height: 300px;
+  background-color: ${(props: ThemeState) => props.theme.PRIMARY_COLOR_OPAQUE};
 `;
 
 export const ImageTop = styled.Image.attrs({
   resizeMode: 'cover',
   blurRadius: 2,
 })`
-  flex: 1;
+  width: ${width}px;
+  height: 300px;
 `;
 
 export const Scroll = styled.ScrollView.attrs({
@@ -119,4 +123,9 @@ export const ActionInformationWrapper = styled.View`
   align-items: center;
   justify-content: center;
   padding: 10px;
+`;
+
+export const PreloadDescription = styled.View`
+  width: 100%;
+  height: 150px;
 `;

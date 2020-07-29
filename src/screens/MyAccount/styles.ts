@@ -19,13 +19,16 @@ export const SceneContainer = styled.View`
 export const ScrollableContainer = styled.ScrollView.attrs({
   contentContainerStyle: {
     flexGrow: 1,
-    paddingTop: 10,
-    paddingBottom: 30,
   },
   bounces: false,
   nestedScrollEnabled: true,
 })`
   background-color: ${(props: ThemeState) => props.theme.PRIMARY_COLOR};
+`;
+
+export const ScrollContent = styled.View`
+  flex: 1;
+  padding: 10px 0 30px;
 `;
 
 export const ScrollableContainerPaddingHorizontal = styled.View`
@@ -34,7 +37,8 @@ export const ScrollableContainerPaddingHorizontal = styled.View`
 `;
 
 export const SwitchContainer = styled(Switch).attrs({
-  trackColor: { true: '#2d6eff' },
+  trackColor: { true: '#2d6eff', false: '#202634' },
+  thumbColor: '#FFFFFF',
 })``;
 
 export const TitleWrapper = styled.View`

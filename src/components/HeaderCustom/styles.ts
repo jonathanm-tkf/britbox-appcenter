@@ -37,7 +37,7 @@ export const CenterWrapper = styled.View`
   height: 100%;
   align-items: center;
   z-index: -1;
-  top: ${Platform.OS === 'ios' ? getStatusBarHeight() : 0}px;
+  top: ${Platform.OS === 'ios' ? getStatusBarHeight() : -14}px;
 `;
 
 export const Title = styled.Text`

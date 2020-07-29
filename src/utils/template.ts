@@ -1,6 +1,9 @@
 /* eslint-disable consistent-return */
 export const getTemplate = (template: string) => {
   switch (template) {
+    case '3:1 Hero (Standard)':
+    case 'Hero (BBC)':
+      return 'hero';
     case 'T1':
       return 'episodes';
     case 'T2':
@@ -21,4 +24,8 @@ export const getTemplate = (template: string) => {
     default:
       break;
   }
+};
+
+export const getDuration = (duration: number) => {
+  return Math.abs(Math.round(duration / 60));
 };

@@ -6,3 +6,4 @@ export { default as Popular } from './Popular';
 export { default as Standard } from './Standard';
 export { default as Genre } from './Genre';
 export { default as Collections } from './Collections';
+export { default as Hero } from './Hero';
