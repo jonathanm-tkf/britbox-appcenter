@@ -29,7 +29,8 @@ import {
   Collections,
   Hero,
 } from '@screens/Shared';
-import { calculateSizeImage } from '@src/utils/images';
+import { getImage } from '@src/utils/images';
+import UserWatching from '@components/UserWatching';
 import { Container } from './styles';
 import { Element, continueWatchingItems } from './data';
 
@@ -112,6 +113,8 @@ const Item = () => {
 
   return (
     <Container>
+      {/* <UserWatching data={ContinueWatchingData} /> */}
+
       {home &&
         home.entries &&
         home.entries.map((item, key) => {

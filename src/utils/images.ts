@@ -13,13 +13,7 @@ export const getUrlVars = (url: string): any => {
   return myJson;
 };
 
-export const calculateSizeImage = (
-  url = '',
-  imageType = '',
-  quality = 0,
-  height = 0,
-  width = 0
-) => {
+export const getImage = (url = '', imageType = '', quality = 0, height = 0, width = 0) => {
   let resImageURL = url;
 
   if (url === '') {

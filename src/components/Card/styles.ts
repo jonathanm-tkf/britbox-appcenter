@@ -61,12 +61,13 @@ export const Gradient = styled(LinearGradient).attrs((props: ThemeState) => ({
 
 interface TextWrapperProps {
   isDetail?: boolean;
+  loaded?: boolean;
 }
 
 export const TextWrapper = styled.View`
   align-self: flex-start;
   width: 100%;
-  height: 70px;
+  /* height: 70px; */
   margin-top: 15px;
 
   ${(props: TextWrapperProps) => {
@@ -79,6 +80,16 @@ export const TextWrapper = styled.View`
       : `
       padding-left: 10px;
       padding-right: 10px;
+    `;
+  }};
+
+  ${(props: TextWrapperProps) => {
+    return props.isDetail && props.loaded
+      ? `
+      height: auto;
+    `
+      : `
+      height: 70px;
     `;
   }};
 `;
@@ -162,7 +173,7 @@ export const Group = styled.View`
   flex-direction: column;
   width: 100%;
   ${(props: GroupProps) => {
-    return props.isDetail ? `flex: 1;` : `flex-direction: row`;
+    return props.isDetail ? `flex: 1;` : `flex-direction: column`;
   }};
 `;
 

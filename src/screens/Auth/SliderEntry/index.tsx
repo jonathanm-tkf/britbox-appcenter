@@ -22,7 +22,7 @@ export default class SliderEntry extends Component {
         {...parallaxProps}
       />
     ) : (
-      <Image source={illustration} style={styles.image} />
+      <Image source={illustration} style={styles.image} resizeMode="contain" />
     );
   }
 

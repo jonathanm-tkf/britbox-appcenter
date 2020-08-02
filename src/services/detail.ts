@@ -3,7 +3,9 @@ import { getDevice } from '@src/utils';
 import {
   BritboxAPIContentModelsPageGetPageResponse,
   MassiveSDKModelCredit,
-  BritboxAPIContentModelsItemsGetItemRelatedListResponse,
+  MassiveSDKModelItemList,
+  MassiveSDKModelSeasons,
+  MassiveSDKModelEpisodes,
 } from '@src/sdks/Britbox.API.Content.TS/api';
 
 type Detail = {
@@ -22,7 +24,7 @@ type Detail = {
 };
 
 type Show = {
-  seasons: any;
+  seasons: MassiveSDKModelSeasons | undefined;
 };
 
 export type Information = {
@@ -35,9 +37,10 @@ export type Information = {
 
 export type LoadDetailPageResponse = {
   detail: Detail;
-  show: Show;
+  show: Show | undefined;
   information: Information;
-  related: BritboxAPIContentModelsItemsGetItemRelatedListResponse | undefined;
+  related: MassiveSDKModelItemList | undefined;
+  episodes: MassiveSDKModelEpisodes | undefined;
 };
 
 const processDetailPage = async (
@@ -46,7 +49,7 @@ const processDetailPage = async (
   response: LoadDetailPageResponse;
 }> => {
   const { externalResponse: detail } = data;
-  console.tron.log({ detail });
+  // console.tron.log({ detail });
   const detailResponse: Detail = {
     title: '',
     relatedId: undefined,
@@ -55,7 +58,9 @@ const processDetailPage = async (
   };
 
   const showResponse: Show = {
-    seasons: {},
+    seasons: {
+      size: 0,
+    },
   };
 
   const informationResponse: Information = {
@@ -65,6 +70,8 @@ const processDetailPage = async (
     customFields: undefined,
     seasons: 1,
   };
+
+  let episodesResponse;
 
   let relatedResponse;
 
@@ -85,6 +92,8 @@ const processDetailPage = async (
       informationResponse.seasons = entries?.item?.show?.seasons?.size || 1;
 
       relatedResponse = entries?.item?.id ? await loadRelated(entries?.item?.id) : undefined;
+
+      episodesResponse = entries?.item?.episodes;
     }
   }
 
@@ -94,6 +103,7 @@ const processDetailPage = async (
       show: showResponse,
       information: informationResponse,
       related: relatedResponse,
+      episodes: episodesResponse,
     },
   };
 };

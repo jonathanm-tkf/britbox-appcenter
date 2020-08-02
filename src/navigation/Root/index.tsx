@@ -23,6 +23,9 @@ const RootStackScreen = () => {
   const home = useSelector((state: AppState) => state.home);
 
   useEffect(() => {
+    if (!user.isLogged) {
+      setIsLoading(false);
+    }
     dispatch(homeRequest());
   }, []);
 

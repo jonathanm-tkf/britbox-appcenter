@@ -8,7 +8,7 @@ import { Row } from '@components/Layout';
 import { slice } from 'lodash';
 import Carousel from '@components/Carousel';
 import Card from '@components/Card';
-import { calculateSizeImage } from '@src/utils/images';
+import { getImage } from '@src/utils/images';
 import { useTranslation } from 'react-i18next';
 
 type Props = {
@@ -30,7 +30,7 @@ const LargeProgramming = ({ item }: Props) => {
             hasDescription
             width={157}
             height={107}
-            url={calculateSizeImage(card.images?.tile, 'tile')}
+            url={getImage(card.images?.tile, 'tile')}
             data={{
               title: card?.title || '',
               description: card.type === 'movie' ? t('movie') : t('show'),

@@ -1,26 +1,11 @@
 import styled from 'styled-components/native';
 import { ThemeState } from '@store/modules/theme/types';
 import { getStatusBarHeight } from 'react-native-iphone-x-helper';
-import { Platform, Dimensions, Animated } from 'react-native';
-
-const { width } = Dimensions.get('window');
+import { Platform, Animated } from 'react-native';
 
 export const Container = styled.View`
   flex: 1;
   background-color: ${(props: ThemeState) => props.theme.PRIMARY_COLOR};
-`;
-
-export const HeaderBackgroundImage = styled.View`
-  height: 300px;
-  background-color: ${(props: ThemeState) => props.theme.PRIMARY_COLOR_OPAQUE};
-`;
-
-export const ImageTop = styled.Image.attrs({
-  resizeMode: 'cover',
-  blurRadius: 2,
-})`
-  width: ${width}px;
-  height: 300px;
 `;
 
 export const Scroll = styled.ScrollView.attrs({
@@ -39,7 +24,6 @@ export const TopWrapper = styled.View`
   width: 100%;
   justify-content: center;
   align-items: center;
-  /* background-color: red; */
 `;
 
 export const Button = styled.TouchableOpacity`
@@ -86,46 +70,8 @@ export const InnerContent = styled.View`
   border-top-left-radius: 12px;
   border-top-right-radius: 12px;
   margin-top: -12px;
-  padding: ${Platform.OS === 'ios' ? 210 : 180}px 20px 40px;
-`;
-
-export const ActionWrapper = styled.View`
-  margin-top: -40px;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-`;
-
-export const ActionText = styled.Text`
-  font-family: ${(props: ThemeState) => props.theme.PRIMARY_FONT_FAMILY_MEDIUM};
-  color: ${(props: ThemeState) => props.theme.SECONDARY_COLOR_LIGHT};
-  font-size: 14px;
-`;
-
-interface ActionButton {
-  play?: boolean;
-}
-
-export const ActionButton = styled.TouchableOpacity`
-  align-items: center;
-  justify-content: center;
-  padding: 10px;
-  margin-top: ${(props: ActionButton) => (props.play ? 10 : 0)}px;
-`;
-
-export const ActionInformation = styled.Text`
-  font-family: ${(props: ThemeState) => props.theme.PRIMARY_FONT_FAMILY_MEDIUM};
-  color: ${(props: ThemeState) => props.theme.PRIMARY_FOREGROUND_COLOR};
-  font-size: 12px;
-`;
-
-export const ActionInformationWrapper = styled.View`
-  align-items: center;
-  justify-content: center;
-  padding: 10px;
-`;
-
-export const PreloadDescription = styled.View`
-  width: 100%;
-  height: 150px;
+  /* padding: ${Platform.OS === 'ios' ? 210 : 180}px 20px 40px; */
+  padding-top: 80px;
+  padding-left: 20px;
+  padding-right: 20px;
 `;

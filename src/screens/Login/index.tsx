@@ -45,8 +45,8 @@ const Login = () => {
   const { t } = useTranslation('signin');
   const theme = useSelector((state: AppState) => state.theme.theme);
 
-  const [user, setUser] = useState('maximilianor@takeoffmedia.com');
-  const [password, setPassword] = useState('8Ub4cYAiM77EzJY');
+  const [user, setUser] = useState(__DEV__ ? 'maximilianor@takeoffmedia.com' : '');
+  const [password, setPassword] = useState(__DEV__ ? '8Ub4cYAiM77EzJY' : '');
   // const [user, setUser] = useState('');
   // const [password, setPassword] = useState('');
 

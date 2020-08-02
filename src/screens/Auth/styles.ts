@@ -7,11 +7,9 @@ import { ThemeState } from '@store/modules/theme/types';
 import LinearGradient from 'react-native-linear-gradient';
 
 export const HeaderWrapper = styled.View`
-  position: absolute;
-  top: 0;
   width: 100%;
   margin-top: ${`${Platform.OS === 'ios' ? getStatusBarHeight() + 10 : 0}px`};
-  margin-bottom: ${Platform.OS === 'android' ? 20 : getBottomSpace()}px;
+  /* margin-bottom: ${Platform.OS === 'android' ? 20 : getBottomSpace()}px; */
 `;
 
 export const Container = styled.View`
@@ -66,3 +64,7 @@ export const Gradient = styled(LinearGradient).attrs({
   flex: 1;
   justify-content: center;
 `;
+
+export const ScrollView = styled.ScrollView.attrs({
+  showsVerticalScrollIndicator: false,
+})``;

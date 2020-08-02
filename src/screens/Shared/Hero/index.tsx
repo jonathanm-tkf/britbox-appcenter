@@ -5,7 +5,7 @@ import {
 } from '@src/sdks/Britbox.API.Content.TS/api';
 import { slice } from 'lodash';
 import Outstanding from '@components/Outstanding';
-import { calculateSizeImage } from '@src/utils/images';
+import { getImage } from '@src/utils/images';
 import { Container } from './styles';
 
 type Props = {
@@ -19,7 +19,7 @@ const Hero = ({ item, onWatchlist, onDiscoverMore, onPlay }: Props) => {
   const items = slice(item?.list?.items, 0, 20).map((data: MassiveSDKModelItemSummary) => {
     return {
       ...data,
-      url: calculateSizeImage(data?.images?.square, 'square') || '',
+      url: getImage(data?.images?.square, 'square') || '',
     };
   });
 

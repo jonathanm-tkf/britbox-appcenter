@@ -16,6 +16,7 @@ import {
   HeaderWrapper,
   PaginationWrapper,
   PaginationContent,
+  ScrollView,
 } from './styles';
 import SliderEntry from './SliderEntry';
 import { sliderWidth, itemWidth } from './SliderEntry/styles';
@@ -33,7 +34,7 @@ interface Props {
 
 const styles = StyleSheet.create({
   slider: {
-    marginTop: 15,
+    // marginTop: 15,
     overflow: 'visible', // for custom animations
   },
   sliderContentContainer: {
@@ -92,43 +93,47 @@ const Auth = () => {
   };
 
   return (
-    <Container>
+    <>
       <HeaderWrapper>
         <Header hideSignIn={!isFocused} />
       </HeaderWrapper>
-      <Content>
-        <Carousel
-          ref={(c: any) => setSliderRef(c)}
-          data={ENTRIES}
-          renderItem={renderItemWithParallax}
-          sliderWidth={sliderWidth}
-          itemWidth={itemWidth}
-          hasParallaxImages
-          firstItem={0}
-          inactiveSlideScale={1}
-          inactiveSlideOpacity={1}
-          containerCustomStyle={styles.slider}
-          contentContainerCustomStyle={styles.sliderContentContainer}
-          loop={false}
-          loopClonesPerSide={2}
-          autoplay={false}
-          onSnapToItem={(index: number) => setSlider1ActiveSlide(index)}
-        />
-        <PaginationWrapper>
-          <PaginationContent />
-          <Pagination
-            dotsLength={ENTRIES.length}
-            activeDotIndex={slider1ActiveSlide}
-            carouselRef={sliderRef || undefined}
-            tappableDots={!!sliderRef}
-          />
-        </PaginationWrapper>
+      <ScrollView>
+        <Container>
+          <Content>
+            <Carousel
+              ref={(c: any) => setSliderRef(c)}
+              data={ENTRIES}
+              renderItem={renderItemWithParallax}
+              sliderWidth={sliderWidth}
+              itemWidth={itemWidth}
+              hasParallaxImages
+              firstItem={0}
+              inactiveSlideScale={1}
+              inactiveSlideOpacity={1}
+              containerCustomStyle={styles.slider}
+              contentContainerCustomStyle={styles.sliderContentContainer}
+              loop={false}
+              loopClonesPerSide={2}
+              autoplay={false}
+              onSnapToItem={(index: number) => setSlider1ActiveSlide(index)}
+            />
+            <PaginationWrapper>
+              <PaginationContent />
+              <Pagination
+                dotsLength={ENTRIES.length}
+                activeDotIndex={slider1ActiveSlide}
+                carouselRef={sliderRef || undefined}
+                tappableDots={!!sliderRef}
+              />
+            </PaginationWrapper>
 
-        <Button size="big" stretch onPress={() => {}}>
-          {t('freetrial')}
-        </Button>
-      </Content>
-    </Container>
+            <Button size="big" stretch onPress={() => {}}>
+              {t('freetrial')}
+            </Button>
+          </Content>
+        </Container>
+      </ScrollView>
+    </>
   );
 };
 

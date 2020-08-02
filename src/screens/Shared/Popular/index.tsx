@@ -5,7 +5,7 @@ import { Row } from '@components/Layout';
 import { slice } from 'lodash';
 import Carousel from '@components/Carousel';
 import Card from '@components/Card';
-import { calculateSizeImage } from '@src/utils/images';
+import { getImage } from '@src/utils/images';
 
 type Props = {
   item: MassiveSDKModelPageEntry;
@@ -20,9 +20,7 @@ const Popular = ({ item }: Props) => {
       <Carousel
         items={slice(item?.list?.items, 0, 20)}
         listProps={{ horizontal: true }}
-        renderItem={({ item: card }) => (
-          <Card url={calculateSizeImage(card.images?.poster, 'poster')} />
-        )}
+        renderItem={({ item: card }) => <Card url={getImage(card.images?.poster, 'poster')} />}
       />
     </>
   );

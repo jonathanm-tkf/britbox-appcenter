@@ -4,12 +4,14 @@ import { Container, HeadlineComponent } from './styles';
 
 interface Props {
   children: any;
+  fontSize?: number;
+  lineHeight?: number;
 }
 
-const Header = ({ children }: Props) => {
+const Header = ({ children, fontSize, lineHeight }: Props) => {
   return (
     <Container>
-      <HeadlineComponent>{children}</HeadlineComponent>
+      <HeadlineComponent {...{ fontSize, lineHeight }}>{children}</HeadlineComponent>
     </Container>
   );
 };

@@ -15,19 +15,21 @@ const initialLayout = { width: Dimensions.get('window').width };
 interface Props {
   routes: State[];
   sceneContainerStyle?: any;
-  onChangeTab?: (index: number) => void;
+  onChangeTab?: (index: number, key: string) => void;
 }
 
-interface Scene {
-  key: string;
-  content: () => JSX.Element;
-}
+type Scene = {
+  route: {
+    key: string;
+    content: () => JSX.Element;
+  };
+};
 
 const TabsComponent = ({ routes, sceneContainerStyle, onChangeTab }: Props) => {
   const [index, setIndex] = useState(0);
   const [data] = useState(routes);
 
-  const renderScene = ({ route }: any) => {
+  const renderScene = ({ route }: Scene) => {
     switch (route.key) {
       default:
         return route.content();
@@ -53,21 +55,24 @@ const TabsComponent = ({ routes, sceneContainerStyle, onChangeTab }: Props) => {
 
   return (
     <Container>
-      <TabView
-        {...{ sceneContainerStyle }}
-        navigationState={{ index, routes: data }}
-        renderScene={renderScene}
-        renderTabBar={renderTabBar}
-        onIndexChange={(i) => {
-          setIndex(i);
-          if (onChangeTab) {
-            onChangeTab(i);
-          }
-        }}
-        // removeClippedSubviews={false}
-        initialLayout={initialLayout}
-        // initialLayout={{height: 0, width: Dimensions.get('window').width}}
-      />
+      {data.length > 0 ? (
+        <TabView
+          {...{ sceneContainerStyle }}
+          navigationState={{ index, routes: data }}
+          renderScene={renderScene}
+          renderTabBar={renderTabBar}
+          onIndexChange={(i) => {
+            const { key } = routes[i];
+            setIndex(i);
+            if (onChangeTab) {
+              onChangeTab(i, key);
+            }
+          }}
+          // removeClippedSubviews={false}
+          initialLayout={initialLayout}
+          // initialLayout={{height: 0, width: Dimensions.get('window').width}}
+        />
+      ) : null}
     </Container>
   );
 };

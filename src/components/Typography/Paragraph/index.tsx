@@ -5,12 +5,13 @@ import { Container, ParagraphComponent } from './styles';
 interface Props {
   children: any;
   fontSize?: number;
+  lineHeight?: number;
 }
 
-const Title = ({ children, fontSize }: Props) => {
+const Title = ({ children, fontSize, lineHeight }: Props) => {
   return (
     <Container>
-      <ParagraphComponent {...{ fontSize }}>{children}</ParagraphComponent>
+      <ParagraphComponent {...{ fontSize, lineHeight }}>{children}</ParagraphComponent>
     </Container>
   );
 };

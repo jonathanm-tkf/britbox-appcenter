@@ -211,7 +211,7 @@ export default function MyAccount() {
       title: 'Your Details ',
       content: () => <DetailsRoute />,
     },
-    { key: 'password', title: 'Password', content: () => <PasswordRoute /> },
+    { key: 'password', title: 'Password ', content: () => <PasswordRoute /> },
     {
       key: 'subscription',
       title: 'Subscription ',
