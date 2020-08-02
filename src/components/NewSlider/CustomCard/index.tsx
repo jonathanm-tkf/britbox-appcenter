@@ -1,8 +1,10 @@
 import React from 'react';
-import { View, Image, Text, TouchableOpacity } from 'react-native';
+import { View, Image, Text } from 'react-native';
 import { ParallaxImage } from 'react-native-snap-carousel';
 import { Logo } from '@assets/icons';
-import styles, { Gradient, LogoWrapper } from './styles';
+import { useNavigation } from '@react-navigation/native';
+import { MassiveSDKModelItemList } from '@src/sdks/Britbox.API.Content.TS/api';
+import styles, { Gradient, LogoWrapper, TouchableScale } from './styles';
 
 interface Props {
   even: boolean;
@@ -15,8 +17,13 @@ const CustomCard = ({
   even,
   parallax,
   parallaxProps,
-  data: { illustration, title, subtitle },
+  data: { illustration, title, subtitle, item },
 }: Props) => {
+  const navigation = useNavigation();
+  const goToDetail = (card: MassiveSDKModelItemList) => {
+    navigation.push('Detail', { item: { ...card } });
+  };
+
   const getImage = () => {
     return illustration === 'no-image' ? (
       <LogoWrapper>
@@ -44,14 +51,15 @@ const CustomCard = ({
   ) : (
     false
   );
+
   return (
     <View style={styles.outerContainer}>
-      <TouchableOpacity
-        activeOpacity={1}
+      <TouchableScale
+        activeScale={0.9}
+        tension={50}
+        friction={8}
         style={styles.slideInnerContainer}
-        onPress={() => {
-          alert(`You've clicked '${title}'`);
-        }}
+        onPress={() => goToDetail(item)}
       >
         <View style={styles.customShadow}>
           <View style={[styles.imageContainer, even ? styles.imageContainerEven : {}]}>
@@ -66,7 +74,7 @@ const CustomCard = ({
           </View>
           <Gradient />
         </View>
-      </TouchableOpacity>
+      </TouchableScale>
     </View>
   );
 };

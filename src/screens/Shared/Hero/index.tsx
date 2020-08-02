@@ -29,7 +29,7 @@ const Hero = ({ item, onWatchlist, onDiscoverMore, onPlay }: Props) => {
         items={items}
         onWatchlist={onWatchlist}
         onPlay={onPlay}
-        onDiscoverMore={(i) => onDiscoverMore(i)}
+        onDiscoverMore={(i) => (onDiscoverMore ? onDiscoverMore(i) : {})}
       />
     </Container>
   );

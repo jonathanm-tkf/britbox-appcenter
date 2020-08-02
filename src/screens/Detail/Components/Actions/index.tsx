@@ -7,7 +7,7 @@ import { AppState } from '@store/modules/rootReducer';
 import Shimmer from '@components/Shimmer';
 import { WatchlistIcon } from '@assets/icons';
 import Action from '@components/Action';
-// import { getDuration } from '@src/utils/template';
+import { getDuration } from '@src/utils/template';
 import { useTranslation } from 'react-i18next';
 import {
   Container,
@@ -61,8 +61,7 @@ const Actions = ({ data }: Props) => {
               <ActionInformation>
                 {data?.information.type === 'show' || data?.information.type === 'season'
                   ? data.show?.seasons?.size
-                  : // : getDuration(item.duration || 0)
-                    0}
+                  : getDuration(data?.information.duration || 0)}
               </ActionInformation>
               <ActionInformation>
                 {data?.information.type === 'show' || data?.information.type === 'season'

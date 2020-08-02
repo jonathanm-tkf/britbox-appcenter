@@ -108,7 +108,7 @@ const Item = () => {
   const home = useSelector((state: AppState) => state.home.data);
 
   const heroDiscoverMore = (item: any) => {
-    navigation.push('Detail', { item });
+    navigation.push('Detail', { ...item });
   };
 
   return (

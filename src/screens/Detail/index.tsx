@@ -30,9 +30,7 @@ type customItem = {
 
 type RootParamList = {
   Detail: {
-    item: {
-      item: MassiveSDKModelItemSummary & customItem;
-    };
+    item: MassiveSDKModelItemSummary & customItem;
   };
 };
 
@@ -40,7 +38,7 @@ type DetailScreenRouteProp = RouteProp<RootParamList, 'Detail'>;
 
 const Detail = () => {
   const { params } = useRoute<DetailScreenRouteProp>();
-  const { item } = params?.item || undefined;
+  const { item } = params || undefined;
   const { goBack } = useNavigation();
   const [showBlueView, setShowBlueView] = useState(false);
   const [animatedOpacityValue] = useState(new Animated.Value(0));
@@ -53,6 +51,7 @@ const Detail = () => {
   };
 
   useEffect(() => {
+    console.tron.log({ params });
     getDataDetail(item?.path || '');
   }, [item]);
 
@@ -104,7 +103,7 @@ const Detail = () => {
         <Header {...{ data }} />
         <Poster>
           <Card
-            url={data?.detail.images.poster ? getImage(data?.detail.images.poster, 'poster') : ''}
+            url={data?.detail?.images ? getImage(data?.detail?.images?.poster, 'poster') : ''}
             width={185}
             height={275}
           />

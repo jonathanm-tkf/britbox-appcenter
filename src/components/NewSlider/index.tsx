@@ -25,6 +25,7 @@ const NewSlider = ({ data }: Props) => {
     return {
       title: item.title,
       illustration: getImage(item.images?.hero3x1, 'wallpaper'),
+      item,
     };
   });
 

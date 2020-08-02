@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import { MassiveSDKModelItemList } from '@src/sdks/Britbox.API.Content.TS/api';
 import { getImage } from '@src/utils/images';
+import { useNavigation } from '@react-navigation/native';
 import { Container, WrapperCard, Card } from './styles';
 
 interface Props {
@@ -11,6 +12,7 @@ interface Props {
 
 const More = ({ onLayout, items }: Props) => {
   const [stateWidth, setStateWidth] = useState(125);
+  const navigation = useNavigation();
 
   const width = `${100 / parseInt((stateWidth / 125).toString(), 10)}%`;
 
@@ -18,6 +20,10 @@ const More = ({ onLayout, items }: Props) => {
     if (width !== e.nativeEvent.layout.width) {
       setStateWidth(e.nativeEvent.layout.width);
     }
+  };
+
+  const goToOtherContent = (item: MassiveSDKModelItemList) => {
+    navigation.push('Detail', { item: { ...item } });
   };
 
   return (
@@ -33,6 +39,7 @@ const More = ({ onLayout, items }: Props) => {
             width={stateWidth / 3 - 20}
             height={157}
             url={getImage(item?.images?.poster || '', 'poster')}
+            onPress={() => goToOtherContent(item)}
           />
         </WrapperCard>
       ))}
