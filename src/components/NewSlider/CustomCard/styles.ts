@@ -4,6 +4,7 @@ import styled from 'styled-components/native';
 import LinearGradient from 'react-native-linear-gradient';
 import { rgba } from 'polished';
 import { ThemeState } from '@store/modules/theme/types';
+import TouchableScaleC from 'react-native-touchable-scale';
 
 const IS_IOS = Platform.OS === 'ios';
 const { width: viewportWidth } = Dimensions.get('window');
@@ -117,3 +118,5 @@ export const LogoWrapper = styled.View`
   justify-content: center;
   align-items: center;
 `;
+
+export const TouchableScale = styled(TouchableScaleC)``;

@@ -2,6 +2,7 @@ import React from 'react';
 import {
   MassiveSDKModelPageEntry,
   MassiveSDKModelItemSummary,
+  MassiveSDKModelItemList,
 } from '@src/sdks/Britbox.API.Content.TS/api';
 import { Headline } from '@components/Typography';
 import { Row } from '@components/Layout';
@@ -10,12 +11,19 @@ import Carousel from '@components/Carousel';
 import Card from '@components/Card';
 import { getImage } from '@src/utils/images';
 import { useTranslation } from 'react-i18next';
+import { useNavigation } from '@react-navigation/native';
 
 type Props = {
   item: MassiveSDKModelPageEntry;
 };
 
 const LargeProgramming = ({ item }: Props) => {
+  const navigation = useNavigation();
+
+  const goToDetail = (card: MassiveSDKModelItemList) => {
+    navigation.push('Detail', { item: { ...card } });
+  };
+
   const { t } = useTranslation('home');
   return (
     <>
@@ -35,6 +43,7 @@ const LargeProgramming = ({ item }: Props) => {
               title: card?.title || '',
               description: card.type === 'movie' ? t('movie') : t('show'),
             }}
+            onPress={() => goToDetail(card)}
           />
         )}
       />

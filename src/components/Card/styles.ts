@@ -3,6 +3,7 @@ import { ThemeState } from '@store/modules/theme/types';
 import LinearGradient from 'react-native-linear-gradient';
 import { rgba } from 'polished';
 import RNProgressBar from 'react-native-progress/Bar';
+import TouchableScaleC from 'react-native-touchable-scale';
 
 interface ContainerProps {
   width?: number;
@@ -215,4 +216,19 @@ export const LogoWrapper = styled.View`
   flex: 1;
   justify-content: center;
   align-items: center;
+`;
+
+type Toucheable = {
+  isDetail?: boolean;
+};
+
+export const TouchableScale = styled(TouchableScaleC)`
+  ${(props: Toucheable) => {
+    return (
+      props.isDetail &&
+      `
+     width: 100%;
+    `
+    );
+  }};
 `;

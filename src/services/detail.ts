@@ -33,6 +33,7 @@ export type Information = {
   genres: string[] | undefined;
   customFields: any;
   seasons: number;
+  duration: number;
 };
 
 export type LoadDetailPageResponse = {
@@ -69,6 +70,7 @@ const processDetailPage = async (
     credits: undefined,
     customFields: undefined,
     seasons: 1,
+    duration: 0,
   };
 
   let episodesResponse;
@@ -94,6 +96,25 @@ const processDetailPage = async (
       relatedResponse = entries?.item?.id ? await loadRelated(entries?.item?.id) : undefined;
 
       episodesResponse = entries?.item?.episodes;
+    }
+  }
+
+  if (detail?.key === 'EpisodeDetail' || detail?.key === 'MovieDetail') {
+    if ((detail.entries || []).length > 0) {
+      const entries = detail.entries?.reduce((item) => item);
+
+      detailResponse.title = entries?.item?.title || '';
+      detailResponse.description = entries?.item?.shortDescription || '';
+      detailResponse.images = entries?.item?.images || {};
+      detailResponse.relatedId = entries?.item?.id;
+
+      informationResponse.type = entries?.item?.type || '';
+      informationResponse.credits = entries?.item?.credits;
+      informationResponse.genres = entries?.item?.genres;
+      informationResponse.customFields = entries?.item?.customFields;
+      informationResponse.duration = entries?.item?.duration || 0;
+
+      relatedResponse = entries?.item?.id ? await loadRelated(entries?.item?.id) : undefined;
     }
   }
 

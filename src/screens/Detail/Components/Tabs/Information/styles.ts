@@ -16,8 +16,10 @@ export const Year = styled.Text`
 export const Seasons = styled.Text`
   color: ${(props: ThemeState) => props.theme.PRIMARY_FOREGROUND_COLOR};
   font-family: ${(props: ThemeState) => props.theme.PRIMARY_FONT_FAMILY};
-  margin-bottom: 25px;
+  /* margin-bottom: 25px; */
   font-size: 14px;
+  line-height: 24px;
+  margin-bottom: 10px;
 `;
 
 export const Label = styled.Text`
@@ -27,8 +29,10 @@ export const Label = styled.Text`
 export const Genre = styled.Text`
   color: ${(props: ThemeState) => props.theme.PRIMARY_FOREGROUND_COLOR};
   font-family: ${(props: ThemeState) => props.theme.PRIMARY_FONT_FAMILY};
-  margin-bottom: 25px;
+  /* margin-bottom: 25px; */
   font-size: 14px;
+  line-height: 24px;
+  margin-bottom: 10px;
 `;
 
 export const CreditsBold = styled.Text`
@@ -42,4 +46,5 @@ export const Credits = styled.Text`
   font-family: ${(props: ThemeState) => props.theme.PRIMARY_FONT_FAMILY_LIGHT};
   font-size: 14px;
   line-height: 24px;
+  margin-bottom: 10px;
 `;
