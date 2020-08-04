@@ -259,7 +259,7 @@ export default function More() {
                   navigate('MyAccount');
                 }}
               >
-                <SubTitleLink>Manage Profile</SubTitleLink>
+                <SubTitleLink>Manage Profile </SubTitleLink>
                 <EditIcon width={25} height={25} />
               </EditIconContainer>
             </RowViewContainer>
