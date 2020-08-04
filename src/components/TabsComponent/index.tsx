@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Dimensions } from 'react-native';
 import { TabView } from 'react-native-tab-view';
 import { Container, TabWrapper, TabBar, TabLabel, Indicator, IndicatorWrapper } from './styles';
@@ -16,6 +16,7 @@ interface Props {
   routes: State[];
   sceneContainerStyle?: any;
   onChangeTab?: (index: number, key: string) => void;
+  onForceUpdate?: () => void;
 }
 
 type Scene = {
@@ -25,9 +26,9 @@ type Scene = {
   };
 };
 
-const TabsComponent = ({ routes, sceneContainerStyle, onChangeTab }: Props) => {
+const TabsComponent = ({ routes, sceneContainerStyle, onChangeTab, onForceUpdate }: Props) => {
   const [index, setIndex] = useState(0);
-  const [data] = useState(routes);
+  const [data, setData] = useState(routes);
 
   const renderScene = ({ route }: Scene) => {
     switch (route.key) {
@@ -35,6 +36,15 @@ const TabsComponent = ({ routes, sceneContainerStyle, onChangeTab }: Props) => {
         return route.content();
     }
   };
+
+  useEffect(() => {
+    setData(routes);
+    if (onForceUpdate) {
+      setTimeout(() => {
+        onForceUpdate();
+      }, 250);
+    }
+  }, [routes]);
 
   const renderTabBar = (props: any & { navigationState: any }) => (
     <TabBar

@@ -82,6 +82,9 @@ const Card = ({
     if (url === 'no-image') {
       setLoaded(true);
     }
+    if (url === 'loading') {
+      setLoaded(false);
+    }
   }, [url, setLoaded]);
   return (
     <TouchableScale
@@ -127,7 +130,7 @@ const Card = ({
                       </ContentLoader>
                     )}
                   >
-                    {url !== '' ? (
+                    {url !== 'loading' && url !== '' ? (
                       <Image
                         style={imageStyle}
                         source={{ uri: url }}
@@ -147,8 +150,8 @@ const Card = ({
               <TextWrapper {...{ isDetail, loaded }}>
                 {loaded ? (
                   <>
-                    {data.title && <Title>{data.title}</Title>}
-                    {data.description && <Description>{data.description}</Description>}
+                    {data.title !== '' && <Title>{data.title}</Title>}
+                    {data.description !== '' && <Description>{data.description}</Description>}
                   </>
                 ) : (
                   <ContentLoader
@@ -184,7 +187,7 @@ const Card = ({
             )}
           </Group>
         </Wrapper>
-        {isDetail && data?.summary && <SummaryText>{data.summary}</SummaryText>}
+        {isDetail && data?.summary !== '' && <SummaryText>{data.summary}</SummaryText>}
       </AllWrapper>
     </TouchableScale>
   );

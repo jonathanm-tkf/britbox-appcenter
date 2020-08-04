@@ -5,19 +5,19 @@ import Card from '@components/Card';
 import { MassiveSDKModelEpisodesItem } from '@src/sdks/Britbox.API.Content.TS/api';
 import { getImage } from '@src/utils/images';
 import { getDuration } from '@src/utils/template';
-import { Container } from './styles';
-// import { DATA } from './data';
-
-// const episodeUrl =
-//   'https://test.bbc-massive.com/isl/api/v1/dataservice/ResizeImage/$value?Format=%27jpg%27&Quality=85&ImageId=%27233178%27&EntityType=%27Item%27&EntityId=%277553%27&Width=1248&Height=702&device=web_browser&subscriptions=Subscriber&segmentationTags=us';
+import { Show } from '@src/services/detail';
+import { ArrowBottomIcon } from '@assets/icons';
+import { useNavigation } from '@react-navigation/native';
+import { Container, ContainerFilter, Year, SeasonButton, SeasonText } from './styles';
 
 interface Props {
   onLayout?: (event: any) => void;
   data: MassiveSDKModelEpisodesItem[];
+  show: Show | undefined;
 }
 
-const Episodes = ({ onLayout, data }: Props) => {
-  console.tron.log({ data });
+const Episodes = ({ onLayout, data, show }: Props) => {
+  const { navigate } = useNavigation();
 
   const getCategories = (itemData: MassiveSDKModelEpisodesItem): any[] => {
     const dataResult = [];
@@ -49,14 +49,36 @@ const Episodes = ({ onLayout, data }: Props) => {
     return dataResult;
   };
 
+  const goToModalSeasons = (showData: Show) => {
+    navigate('ModalSeasons', { show: showData });
+  };
+
   return (
     <Container onLayout={onLayout}>
-      {data.map((item) => (
+      {show && (
+        <ContainerFilter>
+          <SeasonButton onPress={() => goToModalSeasons(show)}>
+            <SeasonText>
+              {
+                (show.seasons?.items || [])
+                  .filter(
+                    (item) =>
+                      parseInt(item.id || '0', 10) === parseInt((show?.id || '0').toString(), 10)
+                  )
+                  .reduce((item) => item).contextualTitle
+              }
+            </SeasonText>
+            <ArrowBottomIcon width={10} height={10} />
+          </SeasonButton>
+          <Year>Year: {show.releaseYear}</Year>
+        </ContainerFilter>
+      )}
+      {data.map((item, index) => (
         <Card
-          key={item.id}
+          key={index.toString()}
           width={157}
           height={107}
-          url={getImage(item?.images?.wallpaper || '', 'wallpaper')}
+          url={getImage(item?.images?.wallpaper || 'loading', 'wallpaper')}
           isDetail
           data={{
             title: item?.contextualTitle || '',

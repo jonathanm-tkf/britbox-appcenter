@@ -20,6 +20,10 @@ export const getImage = (url = '', imageType = '', quality = 0, height = 0, widt
     return 'no-image';
   }
 
+  if (url === 'loading') {
+    return 'loading';
+  }
+
   try {
     const { Height, Width, Quality } = getUrlVars(url);
     const originalHeight = parseInt(Height, 10);
