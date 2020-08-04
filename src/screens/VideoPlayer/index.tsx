@@ -28,12 +28,18 @@ const VideoPlayer = () => {
 
   const { goBack } = useNavigation();
   useEffect(() => {
+    let unmonted = false;
     Orientation.lockToLandscape();
 
-    NetInfo.fetch().then((state) => {
-      const { type } = state;
-      setConnection(type || undefined);
-    });
+    if (!unmonted) {
+      NetInfo.fetch().then((state) => {
+        const { type } = state;
+        setConnection(type || undefined);
+      });
+    }
+    return () => {
+      unmonted = true;
+    };
   }, []);
 
   const backArrow = () => {

@@ -23,8 +23,11 @@ type Detail = {
   };
 };
 
-type Show = {
+export type Show = {
   seasons: MassiveSDKModelSeasons | undefined;
+  releaseYear: number | undefined;
+  seasonNumber: number | undefined;
+  id: number | undefined;
 };
 
 export type Information = {
@@ -62,6 +65,9 @@ const processDetailPage = async (
     seasons: {
       size: 0,
     },
+    id: undefined,
+    releaseYear: undefined,
+    seasonNumber: undefined,
   };
 
   const informationResponse: Information = {
@@ -86,6 +92,9 @@ const processDetailPage = async (
       detailResponse.relatedId = entries?.item?.id;
 
       showResponse.seasons = entries?.item?.show?.seasons;
+      showResponse.seasonNumber = entries?.item?.seasonNumber;
+      showResponse.releaseYear = entries?.item?.releaseYear;
+      showResponse.id = parseInt(entries?.item?.id || '0', 10);
 
       informationResponse.type = 'show';
       informationResponse.credits = entries?.item?.show?.credits;
@@ -170,6 +179,54 @@ export const loadRelated = async (id: string) => {
       return { ...externalResponse };
     }
     throw new Error('Error load Related');
+  } catch (error) {
+    return error;
+  }
+};
+
+export type LoadEpisodesBySeasonResponse = {
+  episodes: MassiveSDKModelEpisodes | undefined;
+};
+
+const processEpisodesBySeason = async (
+  data: BritboxAPIContentModelsPageGetPageResponse
+): Promise<{
+  response: LoadEpisodesBySeasonResponse;
+}> => {
+  const { externalResponse: detail } = data;
+
+  let episodesResponse;
+
+  if ((detail?.entries || []).length > 0) {
+    const entries = (detail?.entries || [])?.reduce((item) => item);
+
+    episodesResponse = entries?.item?.episodes;
+  }
+
+  return {
+    response: {
+      episodes: episodesResponse,
+    },
+  };
+};
+
+export const loadEpisodesBySeason = async (path: string) => {
+  const { getPage } = BritboxContentApi();
+
+  try {
+    const response = await getPage({
+      path,
+      device: getDevice(),
+      listPageSize: 18,
+      maxListPrefetch: 15,
+      segments: ['US'],
+      sub: 'Subscriber',
+      useCustomId: true,
+      itemDetailExpand: 'all',
+      itemDetailSelectSeason: 'first',
+    });
+
+    return await processEpisodesBySeason(response);
   } catch (error) {
     return error;
   }

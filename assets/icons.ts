@@ -16,3 +16,4 @@ export { default as RadioCheckedIcon } from './images/circulo_seleccionado.svg';
 export { default as RadioUnCheckedIcon } from './images/circulo_vacio.svg';
 export { default as ProfileImageIcon } from './images/Profile.svg';
 export { default as Logo } from './images/Logo.svg';
+export { default as ArrowBottomIcon } from './images/Arrow_bottom.svg';

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import ContentLoader, { Rect } from 'react-content-loader/native';
 
 import { LoadDetailPageResponse } from '@src/services/detail';
@@ -26,11 +26,12 @@ const Tabs = ({ data }: Props) => {
   const [threeHeight, setThreeHeight] = useState('auto');
   const [tabsData, setTabsData] = useState<any>([]);
   const { t } = useTranslation(['detail', 'layout']);
+  const ref = useRef();
 
   const createTabs = (content: LoadDetailPageResponse | undefined) => {
     const tabs = [];
 
-    const { information, related, episodes } = content || {};
+    const { information, related, episodes, show } = content || {};
 
     if (episodes) {
       tabs.push({
@@ -39,8 +40,10 @@ const Tabs = ({ data }: Props) => {
         content: () => (
           <Episodes
             data={episodes?.items || []}
+            {...{ show }}
             onLayout={(event) => {
               const newHeight = event.nativeEvent.layout.height;
+              ref.current = newHeight;
               if (
                 firstHeight === 'auto' ||
                 parseInt(newHeight, 10) > parseInt(firstHeight, 10) ||
@@ -110,7 +113,6 @@ const Tabs = ({ data }: Props) => {
   useEffect(() => {
     if (tabsData.length) {
       const { key } = tabsData[0];
-      console.tron.log({ firstHeight, secondHeight, threeHeight, key });
       switch (key) {
         case 'second':
           setHeight(secondHeight);
@@ -136,6 +138,16 @@ const Tabs = ({ data }: Props) => {
       default:
         setHeight(firstHeight);
         break;
+    }
+  };
+
+  const updateHeightEpisodes = () => {
+    if (tabsData.length > 0 && ref && ref?.current) {
+      const { key } = tabsData[0];
+      const { current: newHeight } = ref;
+      if (key === 'first') {
+        setHeight(parseInt(newHeight || '0', 10));
+      }
     }
   };
 
@@ -165,6 +177,7 @@ const Tabs = ({ data }: Props) => {
             routes={tabsData}
             sceneContainerStyle={{ height }}
             onChangeTab={(_, key) => changeTab(key)}
+            onForceUpdate={() => updateHeightEpisodes()}
           />
         </Shimmer>
       </TabsWrapper>

@@ -9,6 +9,7 @@ import VideoPlayer from '@screens/VideoPlayer';
 import Modal from '@screens/Modal';
 import Loading from '@screens/Loading';
 import { homeRequest } from '@store/modules/home/actions';
+import ModalSeasons from '@screens/ModalSeasons';
 import { AppDrawerScreen } from '../Drawer';
 import { AuthStackScreen } from '../Auth';
 
@@ -77,6 +78,33 @@ const RootStackScreen = () => {
       <RootStack.Screen
         name="Detail"
         component={Detail}
+        options={{
+          gestureEnabled: false,
+          animationEnabled: true,
+          cardStyle: { backgroundColor: rgba(theme.PRIMARY_COLOR, 0.15) },
+          cardOverlayEnabled: true,
+          cardStyleInterpolator: ({ current: { progress } }) => {
+            return {
+              cardStyle: {
+                opacity: progress.interpolate({
+                  inputRange: [0, 0.5, 0.9, 1],
+                  outputRange: [0, 0.25, 0.7, 1],
+                }),
+              },
+              overlayStyle: {
+                opacity: progress.interpolate({
+                  inputRange: [0, 1],
+                  outputRange: [0, 0.5],
+                  extrapolate: 'clamp',
+                }),
+              },
+            };
+          },
+        }}
+      />
+      <RootStack.Screen
+        name="ModalSeasons"
+        component={ModalSeasons}
         options={{
           gestureEnabled: false,
           animationEnabled: true,
