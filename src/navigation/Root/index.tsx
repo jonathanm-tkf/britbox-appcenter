@@ -10,10 +10,37 @@ import Modal from '@screens/Modal';
 import Loading from '@screens/Loading';
 import { homeRequest } from '@store/modules/home/actions';
 import ModalSeasons from '@screens/ModalSeasons';
+import { Animated } from 'react-native';
+import { ThemeProps } from '@store/modules/theme/types';
+import Collections from '@screens/Collections';
 import { AppDrawerScreen } from '../Drawer';
 import { AuthStackScreen } from '../Auth';
 
 const STORYBOOK_START = false && __DEV__;
+
+const EffectModal = (progress: Animated.AnimatedInterpolation) => ({
+  cardStyle: {
+    opacity: progress.interpolate({
+      inputRange: [0, 0.5, 0.9, 1],
+      outputRange: [0, 0.25, 0.7, 1],
+    }),
+  },
+  overlayStyle: {
+    opacity: progress.interpolate({
+      inputRange: [0, 1],
+      outputRange: [0, 0.5],
+      extrapolate: 'clamp',
+    }),
+  },
+});
+
+const ModalOptions = (theme: ThemeProps) => ({
+  gestureEnabled: false,
+  animationEnabled: true,
+  cardStyle: { backgroundColor: rgba(theme.PRIMARY_COLOR, 0.15) },
+  cardOverlayEnabled: true,
+  cardStyleInterpolator: ({ current: { progress } }) => EffectModal(progress),
+});
 
 const RootStack = createStackNavigator();
 const RootStackScreen = () => {
@@ -48,86 +75,13 @@ const RootStackScreen = () => {
         <RootStack.Screen name="AuthStackScreen" component={AuthStackScreen} />
       )}
       <RootStack.Screen name="Modal" component={Modal} options={{ animationEnabled: true }} />
-      <RootStack.Screen
-        name="VideoPlayer"
-        component={VideoPlayer}
-        options={{
-          gestureEnabled: false,
-          animationEnabled: true,
-          cardStyle: { backgroundColor: rgba(theme.PRIMARY_COLOR, 0.15) },
-          cardOverlayEnabled: true,
-          cardStyleInterpolator: ({ current: { progress } }) => {
-            return {
-              cardStyle: {
-                opacity: progress.interpolate({
-                  inputRange: [0, 0.5, 0.9, 1],
-                  outputRange: [0, 0.25, 0.7, 1],
-                }),
-              },
-              overlayStyle: {
-                opacity: progress.interpolate({
-                  inputRange: [0, 1],
-                  outputRange: [0, 0.5],
-                  extrapolate: 'clamp',
-                }),
-              },
-            };
-          },
-        }}
-      />
-      <RootStack.Screen
-        name="Detail"
-        component={Detail}
-        options={{
-          gestureEnabled: false,
-          animationEnabled: true,
-          cardStyle: { backgroundColor: rgba(theme.PRIMARY_COLOR, 0.15) },
-          cardOverlayEnabled: true,
-          cardStyleInterpolator: ({ current: { progress } }) => {
-            return {
-              cardStyle: {
-                opacity: progress.interpolate({
-                  inputRange: [0, 0.5, 0.9, 1],
-                  outputRange: [0, 0.25, 0.7, 1],
-                }),
-              },
-              overlayStyle: {
-                opacity: progress.interpolate({
-                  inputRange: [0, 1],
-                  outputRange: [0, 0.5],
-                  extrapolate: 'clamp',
-                }),
-              },
-            };
-          },
-        }}
-      />
+      <RootStack.Screen name="VideoPlayer" component={VideoPlayer} options={ModalOptions(theme)} />
+      <RootStack.Screen name="Detail" component={Detail} options={ModalOptions(theme)} />
+      <RootStack.Screen name="Collections" component={Collections} options={ModalOptions(theme)} />
       <RootStack.Screen
         name="ModalSeasons"
         component={ModalSeasons}
-        options={{
-          gestureEnabled: false,
-          animationEnabled: true,
-          cardStyle: { backgroundColor: rgba(theme.PRIMARY_COLOR, 0.15) },
-          cardOverlayEnabled: true,
-          cardStyleInterpolator: ({ current: { progress } }) => {
-            return {
-              cardStyle: {
-                opacity: progress.interpolate({
-                  inputRange: [0, 0.5, 0.9, 1],
-                  outputRange: [0, 0.25, 0.7, 1],
-                }),
-              },
-              overlayStyle: {
-                opacity: progress.interpolate({
-                  inputRange: [0, 1],
-                  outputRange: [0, 0.5],
-                  extrapolate: 'clamp',
-                }),
-              },
-            };
-          },
-        }}
+        options={ModalOptions(theme)}
       />
     </RootStack.Navigator>
   );

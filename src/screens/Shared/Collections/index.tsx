@@ -10,6 +10,10 @@ import Carousel from '@components/Carousel';
 import Card from '@components/Card';
 import { getImage } from '@src/utils/images';
 import { useNavigation } from '@react-navigation/native';
+import { useSelector } from 'react-redux';
+import { AppState } from '@store/modules/rootReducer';
+import ContentLoader, { Rect } from 'react-content-loader/native';
+import { Container } from './styles';
 
 type Props = {
   item: MassiveSDKModelPageEntry;
@@ -17,6 +21,7 @@ type Props = {
 
 const Collections = ({ item }: Props) => {
   const navigation = useNavigation();
+  const theme = useSelector((state: AppState) => state.theme.theme);
 
   const goToDetail = (card: MassiveSDKModelItemList) => {
     navigation.push('Detail', { item: { card } });
@@ -25,7 +30,19 @@ const Collections = ({ item }: Props) => {
   return (
     <>
       <Row>
-        <Headline>{item.title}</Headline>
+        {item.title === 'loading' ? (
+          <Container>
+            <ContentLoader
+              speed={1}
+              backgroundColor={theme.PRIMARY_COLOR_OPAQUE}
+              foregroundColor={theme.PRIMARY_COLOR}
+            >
+              <Rect x="0" y="0" rx="8" ry="8" width="50%" height="40" />
+            </ContentLoader>
+          </Container>
+        ) : (
+          <Headline>{item.title}</Headline>
+        )}
       </Row>
       <Carousel
         items={slice(item?.list?.items, 0, 20)}
@@ -35,7 +52,7 @@ const Collections = ({ item }: Props) => {
             url={getImage(card.images?.square, 'square')}
             width={130}
             height={130}
-            onPress={() => goToDetail(card)}
+            onPress={() => ((item?.list?.title || '') !== 'loading' ? goToDetail(card) : {})}
           />
         )}
       />

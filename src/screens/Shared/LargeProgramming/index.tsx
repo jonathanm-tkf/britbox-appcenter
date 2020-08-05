@@ -12,6 +12,10 @@ import Card from '@components/Card';
 import { getImage } from '@src/utils/images';
 import { useTranslation } from 'react-i18next';
 import { useNavigation } from '@react-navigation/native';
+import { useSelector } from 'react-redux';
+import { AppState } from '@store/modules/rootReducer';
+import ContentLoader, { Rect } from 'react-content-loader/native';
+import { Container } from './styles';
 
 type Props = {
   item: MassiveSDKModelPageEntry;
@@ -19,6 +23,7 @@ type Props = {
 
 const LargeProgramming = ({ item }: Props) => {
   const navigation = useNavigation();
+  const theme = useSelector((state: AppState) => state.theme.theme);
 
   const goToDetail = (card: MassiveSDKModelItemList) => {
     navigation.push('Detail', { item: { ...card } });
@@ -28,7 +33,19 @@ const LargeProgramming = ({ item }: Props) => {
   return (
     <>
       <Row>
-        <Headline>{item.title}</Headline>
+        {item.title === 'loading' ? (
+          <Container>
+            <ContentLoader
+              speed={1}
+              backgroundColor={theme.PRIMARY_COLOR_OPAQUE}
+              foregroundColor={theme.PRIMARY_COLOR}
+            >
+              <Rect x="0" y="0" rx="8" ry="8" width="50%" height="40" />
+            </ContentLoader>
+          </Container>
+        ) : (
+          <Headline>{item.title}</Headline>
+        )}
       </Row>
       <Carousel
         items={slice(item?.list?.items, 0, 20)}
@@ -43,7 +60,7 @@ const LargeProgramming = ({ item }: Props) => {
               title: card?.title || '',
               description: card.type === 'movie' ? t('movie') : t('show'),
             }}
-            onPress={() => goToDetail(card)}
+            onPress={() => ((item?.list?.title || '') !== 'loading' ? goToDetail(card) : {})}
           />
         )}
       />

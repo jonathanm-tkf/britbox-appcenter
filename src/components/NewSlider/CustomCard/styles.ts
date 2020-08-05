@@ -1,5 +1,5 @@
 import { StyleSheet, Dimensions, Platform } from 'react-native';
-import { base, lightTheme } from '@store/modules/theme/theme';
+import { lightTheme } from '@store/modules/theme/theme';
 import styled from 'styled-components/native';
 import LinearGradient from 'react-native-linear-gradient';
 import { rgba } from 'polished';
@@ -14,6 +14,7 @@ const wp = (percentage: number) => {
   return Math.round(value);
 };
 
+// Normal
 const slideHeight = 225;
 const slideWidth = wp(85);
 const itemHorizontalMargin = wp(0);
@@ -21,85 +22,37 @@ const itemHorizontalMargin = wp(0);
 export const sliderWidth = viewportWidth;
 export const itemWidth = slideWidth + itemHorizontalMargin * 2;
 
+// Slim
+const slideHeightSlim = 275;
+const slideWidthSlim = 185;
+const itemHorizontalMarginSlim = 7;
+
+export const sliderWidthSlim = viewportWidth;
+export const itemWidthSlim = slideWidthSlim + itemHorizontalMarginSlim * 2;
+
 const entryBorderRadius = 8;
 
 export default StyleSheet.create({
-  outerContainer: {
-    padding: 0,
-  },
-  customShadow: {
-    flex: 1,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 15 },
-    shadowOpacity: 0.8,
-    shadowRadius: 15,
-    elevation: 3,
-    borderRadius: 8,
-  },
-  slideInnerContainer: {
-    width: itemWidth,
-    height: slideHeight,
-    paddingHorizontal: itemHorizontalMargin,
-    paddingBottom: 18, // needed for shadow
-  },
-  shadow: {
-    position: 'absolute',
-    top: 0,
-    left: itemHorizontalMargin,
-    right: itemHorizontalMargin,
-    bottom: 18,
-    shadowOpacity: 0.25,
-    shadowOffset: { width: 0, height: 10 },
-    shadowRadius: 10,
-    borderRadius: entryBorderRadius,
-  },
   imageContainer: {
     flex: 1,
     marginBottom: IS_IOS ? 0 : -1, // Prevent a random Android rendering issue
     backgroundColor: lightTheme.PRIMARY_COLOR_OPAQUE,
     borderRadius: entryBorderRadius,
   },
-  imageContainerEven: {},
   image: {
     ...StyleSheet.absoluteFillObject,
     resizeMode: 'cover',
     borderRadius: entryBorderRadius,
   },
-  // image's border radius is buggy on iOS; let's hack it!
-  radiusMask: {
-    position: 'absolute',
-    bottom: 0,
-    left: 0,
-    right: 0,
-    height: entryBorderRadius,
-  },
-  radiusMaskEven: {},
-  textContainer: {
-    position: 'absolute',
-    bottom: 0,
-    justifyContent: 'center',
-    width: '100%',
-    paddingTop: 20 - entryBorderRadius,
-    paddingBottom: 0,
-    paddingHorizontal: 16,
-    borderBottomLeftRadius: entryBorderRadius,
-    borderBottomRightRadius: entryBorderRadius,
-    zIndex: 2,
-  },
-  textContainerEven: {},
-  title: {
-    fontSize: 16,
-    fontFamily: base.PRIMARY_FONT_FAMILY_MEDIUM,
-    color: 'white',
-  },
-  titleEven: {},
-  subtitle: {
-    marginTop: 6,
-    fontSize: 12,
-    color: 'white',
-  },
-  subtitleEven: {},
 });
+
+export const RadiusMask = styled.View`
+  position: absolute;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+  height: ${entryBorderRadius}px;
+`;
 
 export const Gradient = styled(LinearGradient).attrs((props: ThemeState) => ({
   colors: [rgba(props.theme.PRIMARY_COLOR, 0), props.theme.PRIMARY_COLOR],
@@ -119,4 +72,71 @@ export const LogoWrapper = styled.View`
   align-items: center;
 `;
 
-export const TouchableScale = styled(TouchableScaleC)``;
+export const OuterContainer = styled.View``;
+
+export const CustomShadow = styled.View`
+  flex: 1;
+  shadow-color: black;
+  shadow-offset: 0px 15px;
+  shadow-opacity: 0.8;
+  shadow-radius: 15px;
+  elevation: 3;
+  border-radius: 8px;
+`;
+
+type TouchableScale = {
+  slim: boolean;
+};
+
+export const TouchableScale = styled(TouchableScaleC)`
+  width: ${(props: TouchableScale) => (props.slim ? itemWidthSlim : itemWidth)}px;
+  height: ${(props: TouchableScale) => (props.slim ? slideHeightSlim : slideHeight)}px;
+  padding-left: ${(props: TouchableScale) =>
+    props.slim ? itemHorizontalMarginSlim : itemHorizontalMargin}px;
+  padding-right: ${(props: TouchableScale) =>
+    props.slim ? itemHorizontalMarginSlim : itemHorizontalMargin}px;
+  padding-bottom: 18px;
+
+  ${(props: TouchableScale) => {
+    return (
+      props.slim &&
+      `
+      height: 275px;
+    `
+    );
+  }};
+`;
+
+export const ImageContainer = styled.View`
+  flex: 1;
+  margin-bottom: ${IS_IOS ? 0 : -1}px;
+  background-color: ${(props: ThemeState) => props.theme.PRIMARY_COLOR_OPAQUE};
+  border-radius: ${entryBorderRadius}px;
+`;
+
+export const Title = styled.Text`
+  font-size: 16px;
+  font-family: ${(props: ThemeState) => props.theme.PRIMARY_FONT_FAMILY_MEDIUM};
+  color: ${(props: ThemeState) => props.theme.PRIMARY_FOREGROUND_COLOR};
+`;
+
+export const Subtitle = styled.Text`
+  margin-top: 6px;
+  font-size: 12px;
+  color: ${(props: ThemeState) => props.theme.PRIMARY_FOREGROUND_COLOR};
+`;
+
+type TextContainer = {
+  slim?: boolean;
+};
+
+export const TextContainer = styled.View<TextContainer>`
+  position: ${(props: TextContainer) => (props.slim ? 'relative' : 'absolute')};
+  bottom: 0;
+  justify-content: center;
+  width: 100%;
+  padding: ${20 - entryBorderRadius}px 16px 0px;
+  border-bottom-left-radius: ${entryBorderRadius}px;
+  border-bottom-right-radius: ${entryBorderRadius}px;
+  z-index: 2;
+`;

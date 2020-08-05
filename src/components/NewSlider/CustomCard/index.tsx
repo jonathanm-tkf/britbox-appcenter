@@ -1,16 +1,32 @@
 import React from 'react';
-import { View, Image, Text } from 'react-native';
+import { Image } from 'react-native';
 import { ParallaxImage } from 'react-native-snap-carousel';
 import { Logo } from '@assets/icons';
 import { useNavigation } from '@react-navigation/native';
 import { MassiveSDKModelItemList } from '@src/sdks/Britbox.API.Content.TS/api';
-import styles, { Gradient, LogoWrapper, TouchableScale } from './styles';
+import { useSelector } from 'react-redux';
+import { AppState } from '@store/modules/rootReducer';
+import ContentLoader, { Rect } from 'react-content-loader/native';
+import styles, {
+  Gradient,
+  LogoWrapper,
+  TouchableScale,
+  CustomShadow,
+  OuterContainer,
+  ImageContainer,
+  Title,
+  Subtitle,
+  TextContainer,
+  RadiusMask,
+} from './styles';
 
 interface Props {
   even: boolean;
   parallax: boolean;
   parallaxProps: any;
   data: any;
+  slim?: boolean;
+  active: boolean;
 }
 
 const CustomCard = ({
@@ -18,8 +34,11 @@ const CustomCard = ({
   parallax,
   parallaxProps,
   data: { illustration, title, subtitle, item },
+  slim,
 }: Props) => {
   const navigation = useNavigation();
+  const theme = useSelector((state: AppState) => state.theme.theme);
+
   const goToDetail = (card: MassiveSDKModelItemList) => {
     navigation.push('Detail', { item: { ...card } });
   };
@@ -27,55 +46,61 @@ const CustomCard = ({
   const getImage = () => {
     return illustration === 'no-image' ? (
       <LogoWrapper>
-        <Logo />
+        <Logo width="70%" />
       </LogoWrapper>
     ) : parallax ? (
       <ParallaxImage
         source={{ uri: illustration }}
-        containerStyle={[styles.imageContainer, even ? styles.imageContainerEven : {}]}
-        style={styles.image}
+        containerStyle={[styles.imageContainer]}
         parallaxFactor={0.35}
         showSpinner
         spinnerColor={even ? 'rgba(255, 255, 255, 0.4)' : 'rgba(0, 0, 0, 0.25)'}
         {...parallaxProps}
       />
     ) : (
-      <Image source={{ uri: illustration }} style={styles.image} />
+      <Image source={{ uri: illustration }} />
     );
   };
 
-  const getTitle = title ? (
-    <Text style={[styles.title, even ? styles.titleEven : {}]} numberOfLines={2}>
-      {title}
-    </Text>
-  ) : (
-    false
-  );
+  const getTitle = title ? <Title numberOfLines={2}>{title}</Title> : false;
 
   return (
-    <View style={styles.outerContainer}>
+    <OuterContainer>
       <TouchableScale
-        activeScale={0.9}
+        {...{ slim }}
+        activeScale={slim ? 1 : 0.9}
         tension={50}
         friction={8}
-        style={styles.slideInnerContainer}
-        onPress={() => goToDetail(item)}
+        onPress={() => (slim ? {} : goToDetail(item))}
       >
-        <View style={styles.customShadow}>
-          <View style={[styles.imageContainer, even ? styles.imageContainerEven : {}]}>
-            {getImage()}
-            <View style={[styles.radiusMask, even ? styles.radiusMaskEven : {}]} />
-          </View>
-          <View style={[styles.textContainer, even ? styles.textContainerEven : {}]}>
-            {getTitle}
-            <Text style={[styles.subtitle, even ? styles.subtitleEven : {}]} numberOfLines={2}>
-              {subtitle}
-            </Text>
-          </View>
-          <Gradient />
-        </View>
+        <CustomShadow>
+          <ImageContainer>
+            {console.tron.log({ illustration })}
+            {illustration === 'loading' ? (
+              <ContentLoader
+                speed={1}
+                backgroundColor={theme.PRIMARY_COLOR_OPAQUE}
+                foregroundColor={theme.PRIMARY_COLOR}
+              >
+                <Rect x="0" y="0" rx="8" ry="8" width="100%" height="100%" />
+              </ContentLoader>
+            ) : (
+              getImage()
+            )}
+            <RadiusMask />
+          </ImageContainer>
+          {!slim && (
+            <>
+              <TextContainer {...{ slim }}>
+                {getTitle}
+                <Subtitle numberOfLines={2}>{subtitle}</Subtitle>
+              </TextContainer>
+              <Gradient />
+            </>
+          )}
+        </CustomShadow>
       </TouchableScale>
-    </View>
+    </OuterContainer>
   );
 };
 

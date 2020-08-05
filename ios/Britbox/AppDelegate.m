@@ -27,9 +27,12 @@ static void InitializeFlipper(UIApplication *application) {
 
 @implementation AppDelegate
 
+#if TARGET_OS_IOS
 - (UIInterfaceOrientationMask)application:(UIApplication *)application supportedInterfaceOrientationsForWindow:(UIWindow *)window {
   return [Orientation getOrientation];
 }
+#endif
+
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {

@@ -150,8 +150,10 @@ const Card = ({
               <TextWrapper {...{ isDetail, loaded }}>
                 {loaded ? (
                   <>
-                    {data.title !== '' && <Title>{data.title}</Title>}
-                    {data.description !== '' && <Description>{data.description}</Description>}
+                    {(data?.title || '') !== '' && <Title>{data.title}</Title>}
+                    {(data?.description || '') !== '' && (
+                      <Description>{data.description}</Description>
+                    )}
                   </>
                 ) : (
                   <ContentLoader

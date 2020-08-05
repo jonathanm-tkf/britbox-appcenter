@@ -6,6 +6,7 @@ import {
   MassiveSDKModelItemList,
   MassiveSDKModelSeasons,
   MassiveSDKModelEpisodes,
+  MassiveSDKModelPage,
 } from '@src/sdks/Britbox.API.Content.TS/api';
 
 type Detail = {
@@ -227,6 +228,46 @@ export const loadEpisodesBySeason = async (path: string) => {
     });
 
     return await processEpisodesBySeason(response);
+  } catch (error) {
+    return error;
+  }
+};
+
+const processCollectionPage = async (
+  data: BritboxAPIContentModelsPageGetPageResponse
+): Promise<{
+  response: MassiveSDKModelPage | undefined;
+}> => {
+  const { externalResponse: detail } = data;
+
+  if (detail) {
+    return {
+      response: {
+        ...detail,
+      },
+    };
+  }
+
+  return { response: undefined };
+};
+
+export const loadCollectionPage = async (path: string) => {
+  const { getPage } = BritboxContentApi();
+
+  try {
+    const response = await getPage({
+      path,
+      device: getDevice(),
+      listPageSize: 18,
+      maxListPrefetch: 15,
+      segments: ['US'],
+      sub: 'Subscriber',
+      useCustomId: true,
+      itemDetailExpand: 'all',
+      itemDetailSelectSeason: 'first',
+    });
+
+    return await processCollectionPage(response);
   } catch (error) {
     return error;
   }
