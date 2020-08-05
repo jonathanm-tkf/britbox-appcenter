@@ -53,6 +53,13 @@ const Episodes = ({ onLayout, data, show }: Props) => {
     navigate('ModalSeasons', { show: showData });
   };
 
+  const onPlay = (item: MassiveSDKModelEpisodesItem) => {
+    if (item.type === 'movie' || item.type === 'episode') {
+      return navigate('VideoPlayer', { item });
+    }
+    return null;
+  };
+
   return (
     <Container onLayout={onLayout}>
       {show && (
@@ -86,6 +93,7 @@ const Episodes = ({ onLayout, data, show }: Props) => {
             summary: item?.shortDescription || '',
             category: getCategories(item || {}),
           }}
+          onPress={() => onPlay(item)}
         />
       ))}
     </Container>

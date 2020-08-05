@@ -24,12 +24,12 @@ const { width } = Dimensions.get('window');
 
 type Props = {
   data: LoadDetailPageResponse | undefined;
+  onPlay: () => void;
 };
 
-const Actions = ({ data }: Props) => {
+const Actions = ({ data, onPlay }: Props) => {
   const theme = useSelector((state: AppState) => state.theme.theme);
   const { t } = useTranslation(['layout']);
-
   return (
     <Container>
       <ActionWrapper>
@@ -53,7 +53,7 @@ const Actions = ({ data }: Props) => {
             <ActionButton>
               <WatchlistIcon width={35} height={35} />
             </ActionButton>
-            <ActionButton play>
+            <ActionButton play onPress={onPlay}>
               <Action isContinue={false} loop autoPlay width={80} height={80} />
               <ActionText>Play now</ActionText>
             </ActionButton>

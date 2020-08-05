@@ -7,12 +7,14 @@ import {
   MassiveSDKModelSeasons,
   MassiveSDKModelEpisodes,
   MassiveSDKModelPage,
+  MassiveSDKModelItemSummary,
 } from '@src/sdks/Britbox.API.Content.TS/api';
 
 type Detail = {
   title: string;
   description: string;
   relatedId: string | undefined;
+  originalItem: MassiveSDKModelItemSummary | undefined;
   images: {
     tile?: string;
     brand?: string;
@@ -60,6 +62,7 @@ const processDetailPage = async (
     relatedId: undefined,
     description: '',
     images: {},
+    originalItem: undefined,
   };
 
   const showResponse: Show = {
@@ -117,6 +120,7 @@ const processDetailPage = async (
       detailResponse.description = entries?.item?.shortDescription || '';
       detailResponse.images = entries?.item?.images || {};
       detailResponse.relatedId = entries?.item?.id;
+      detailResponse.originalItem = entries?.item;
 
       informationResponse.type = entries?.item?.type || '';
       informationResponse.credits = entries?.item?.credits;

@@ -42,7 +42,6 @@ const Collections = () => {
 
   const getDataDetail = async (path: string) => {
     const { response }: { response: MassiveSDKModelPage } = await loadCollectionPage(path);
-    console.tron.log({ response });
     setData(response);
   };
 

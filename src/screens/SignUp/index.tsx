@@ -172,7 +172,7 @@ const SignUp = () => {
       if (response) {
         const { response: responseData } = response;
         if (responseData && Number(responseData.responseCode) === 1) {
-          navigation.navigate('SignUpSubscription');
+          navigation.navigate('SignUpSubscription', { responseData });
         } else {
           const responseError: EvergentSignupResponseError = {
             responseCode: 0,
@@ -194,6 +194,11 @@ const SignUp = () => {
     }
     if (lastName.trim() !== '') {
       setErrorLastName({
+        text: '',
+      });
+    }
+    if (email.trim() !== '') {
+      setErrorEmail({
         text: '',
       });
     }

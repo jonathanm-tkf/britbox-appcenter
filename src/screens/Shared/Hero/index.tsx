@@ -12,7 +12,7 @@ type Props = {
   item: MassiveSDKModelPageEntry;
   onWatchlist?: () => void;
   onDiscoverMore?: (i: any) => void;
-  onPlay?: () => void;
+  onPlay?: (i: any) => void;
 };
 
 const Hero = ({ item, onWatchlist, onDiscoverMore, onPlay }: Props) => {
@@ -28,7 +28,7 @@ const Hero = ({ item, onWatchlist, onDiscoverMore, onPlay }: Props) => {
       <Outstanding
         items={items}
         onWatchlist={onWatchlist}
-        onPlay={onPlay}
+        onPlay={(i) => (onPlay ? onPlay(i) : {})}
         onDiscoverMore={(i) => (onDiscoverMore ? onDiscoverMore(i) : {})}
       />
     </Container>

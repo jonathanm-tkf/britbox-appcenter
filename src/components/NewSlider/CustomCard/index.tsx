@@ -75,7 +75,6 @@ const CustomCard = ({
       >
         <CustomShadow>
           <ImageContainer>
-            {console.tron.log({ illustration })}
             {illustration === 'loading' ? (
               <ContentLoader
                 speed={1}

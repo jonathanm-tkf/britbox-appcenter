@@ -4,11 +4,13 @@ import { KeyboardAvoidingView, Platform } from 'react-native';
 
 import { Button } from '@components/Button';
 import HeaderCustom from '@components/HeaderCustom';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { AppState } from '@store/modules/rootReducer';
 import Orientation from 'react-native-orientation-locker';
 import { useTranslation } from 'react-i18next';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
+import { loginRequestSuccess, profileRequestSuccess } from '@store/modules/user/actions';
+import { BritboxAccountApi } from '@src/sdks';
 import {
   Container,
   ScrollView,
@@ -40,6 +42,8 @@ const SignUpSubscription = () => {
   const navigation = useNavigation();
   const { t } = useTranslation('signup');
   const theme = useSelector((state: AppState) => state.theme.theme);
+  const { params }: any = useRoute();
+  const dispatch = useDispatch();
 
   const cancelStyle = { marginTop: 15, borderWidth: 0 };
   const textLeft = { textAlign: 'left' };
@@ -53,6 +57,29 @@ const SignUpSubscription = () => {
   useEffect(() => {
     Orientation.lockToPortrait();
   }, []);
+
+  const login = async () => {
+    const { responseData } = params;
+
+    if (responseData) {
+      const { getProfile } = BritboxAccountApi({
+        headers: {
+          Authorization: `Bearer ${responseData.accessToken}`,
+        },
+      });
+
+      try {
+        const response = await getProfile();
+        dispatch(profileRequestSuccess(response));
+
+        dispatch(loginRequestSuccess(responseData));
+      } catch (e) {
+        // console.log(e)
+      }
+    }
+
+    return null;
+  };
 
   return (
     <>
@@ -120,7 +147,7 @@ const SignUpSubscription = () => {
               <PriceTitle>$6.99</PriceTitle>
               <DescriptionText>per month after free trial ends</DescriptionText>
               <Button
-                onPress={() => {}}
+                onPress={() => login()}
                 stretch
                 loading={loading}
                 size="big"

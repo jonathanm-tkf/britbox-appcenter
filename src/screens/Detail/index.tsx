@@ -38,7 +38,7 @@ type DetailScreenRouteProp = RouteProp<RootParamList, 'Detail'>;
 const Detail = () => {
   const { params } = useRoute<DetailScreenRouteProp>();
   const { item, seasonModal } = params || undefined;
-  const { goBack } = useNavigation();
+  const { goBack, navigate } = useNavigation();
   const [showBlueView, setShowBlueView] = useState(false);
   const [animatedOpacityValue] = useState(new Animated.Value(0));
   const [data, setData] = useState<LoadDetailPageResponse | undefined>(undefined);
@@ -119,6 +119,13 @@ const Detail = () => {
     }
   };
 
+  const onPlay = () => {
+    if (data?.information.type === 'movie' || data?.information.type === 'episode') {
+      return navigate('VideoPlayer', { item });
+    }
+    return null;
+  };
+
   return (
     <Container>
       <TopWrapper>
@@ -146,7 +153,7 @@ const Detail = () => {
           />
         </Poster>
         <InnerContent>
-          <Actions {...{ data }} />
+          <Actions {...{ data }} onPlay={onPlay} />
           <Description {...{ data }} />
         </InnerContent>
         <Tabs {...{ data }} />

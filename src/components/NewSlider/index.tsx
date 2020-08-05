@@ -36,7 +36,6 @@ const NewSlider = ({ data, slim }: Props) => {
   });
 
   const renderItem = ({ item, index }: any, parallaxProps: any) => {
-    console.tron.log({ item, index, currentIndex });
     return (
       <CustomCard
         data={item}
@@ -49,8 +48,6 @@ const NewSlider = ({ data, slim }: Props) => {
   };
 
   const getContent = (item: MassiveSDKModelItemList) => {
-    console.tron.log({ item });
-
     return null;
   };
 

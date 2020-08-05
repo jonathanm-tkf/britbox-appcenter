@@ -24,7 +24,7 @@ interface Props {
   }[];
   onWatchlist?: () => void;
   onDiscoverMore?: (item: any) => void;
-  onPlay?: () => void;
+  onPlay?: (item: any) => void;
   isContinue?: boolean;
   isTrailer?: boolean;
 }
@@ -63,7 +63,7 @@ const Outstanding = ({ items, onPlay, onWatchlist, onDiscoverMore }: Props) => {
             <ActionButton onPress={() => (onWatchlist ? onWatchlist() : {})}>
               <WatchlistIcon width={32} height={32} />
             </ActionButton>
-            <ActionButton onPress={() => (onPlay ? onPlay() : {})}>
+            <ActionButton onPress={() => (onPlay ? onPlay({ item }) : {})}>
               <Action autoPlay loop width={100} height={100} />
             </ActionButton>
             <ActionButton onPress={() => (onDiscoverMore ? onDiscoverMore({ item }) : {})}>

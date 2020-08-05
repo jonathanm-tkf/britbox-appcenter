@@ -133,9 +133,9 @@ export default function More() {
     try {
       const result = await RNIap.initConnection();
       await RNIap.consumeAllItemsAndroid();
-      console.tron.log('result', result);
+      // console.tron.log('result', result);
     } catch (err) {
-      console.tron.log(err.code, err.message);
+      // console.tron.log(err.code, err.message);
     }
 
     if (REAL_PRODUCT) {
@@ -147,7 +147,7 @@ export default function More() {
     purchaseUpdateSubscription = purchaseUpdatedListener(
       async (purchase: InAppPurchase | SubscriptionPurchase) => {
         const receipt = purchase.transactionReceipt;
-        console.tron.log({ receipt });
+        // console.tron.log({ receipt });
         if (receipt) {
           try {
             // if (Platform.OS === 'ios') {
@@ -160,7 +160,7 @@ export default function More() {
             // }
             const ackResult = await finishTransaction(purchase);
           } catch (ackErr) {
-            console.tron.log('ackErr', ackErr);
+            // console.tron.log('ackErr', ackErr);
           }
 
           goNext(receipt);
@@ -170,7 +170,7 @@ export default function More() {
     );
 
     purchaseErrorSubscription = purchaseErrorListener((error: PurchaseError) => {
-      console.tron.log('purchaseErrorListener', error);
+      // console.tron.log('purchaseErrorListener', error);
       Alert.alert('purchase error', JSON.stringify(error));
     });
   };
@@ -183,28 +183,28 @@ export default function More() {
     try {
       const products = await RNIap.getProducts(itemSkus);
       // const products = await RNIap.getSubscriptions(itemSkus);
-      console.tron.log('Products', products);
+      // console.tron.log('Products', products);
       // this.setState({productList: products});
     } catch (err) {
-      console.tron.log(err.code, err.message);
+      // console.tron.log(err.code, err.message);
     }
   };
 
   const getSubscriptions = async () => {
     try {
       const products = await RNIap.getSubscriptions(itemSubs);
-      console.tron.log('Products', products);
+      // console.tron.log('Products', products);
       // this.setState({productList: products});
     } catch (err) {
-      console.tron.log(err.code, err.message);
+      // console.tron.log(err.code, err.message);
     }
   };
 
   const getAvailablePurchases = async () => {
     try {
-      console.tron.log('Get available purchases (non-consumable or unconsumed consumable)');
+      // console.tron.log('Get available purchases (non-consumable or unconsumed consumable)');
       const purchases = await RNIap.getAvailablePurchases();
-      console.tron.log('Available purchases :: ', purchases);
+      // console.tron.log('Available purchases :: ', purchases);
       if (purchases && purchases.length > 0) {
         // this.setState({
         //   availableItemsMessage: `Got ${purchases.length} items.`,
@@ -212,7 +212,7 @@ export default function More() {
         // });
       }
     } catch (err) {
-      console.tron.log(err.code, err.message);
+      // console.tron.log(err.code, err.message);
       Alert.alert(err.message);
     }
   };
@@ -222,7 +222,7 @@ export default function More() {
     try {
       RNIap.requestPurchase(sku);
     } catch (err) {
-      console.tron.log(err.code, err.message);
+      // console.tron.log(err.code, err.message);
     }
   };
 
