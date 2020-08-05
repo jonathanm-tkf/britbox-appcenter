@@ -14,6 +14,14 @@ export interface UserLogin {
   password: string;
 }
 
+export interface UserSignUp {
+  firstName: string;
+  lastName: string;
+  email: string;
+  password: string;
+  alertNotificationEmail: string;
+}
+
 /**
  * Action types
  */
@@ -66,6 +74,15 @@ export interface EvergentLoginError {
 }
 
 export interface EvergentLoginResponseError {
+  responseCode: 1 | 0;
+  failureMessage: FailureMessage[];
+}
+
+export interface EvergentSignupError {
+  response: EvergentSignupResponseError;
+}
+
+export interface EvergentSignupResponseError {
   responseCode: 1 | 0;
   failureMessage: FailureMessage[];
 }

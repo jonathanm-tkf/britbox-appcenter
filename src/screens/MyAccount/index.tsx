@@ -53,49 +53,37 @@ export default function MyAccount() {
 
   const DetailsRoute = () => {
     return (
-      <Container>
-        <ScrollableContainer>
-          <ScrollContent>
-            <ScrollableContainerPaddingHorizontal>
-              <TitleWrapper>
-                <SubTitle>Upgrade your Details</SubTitle>
-              </TitleWrapper>
-              <Input
-                label="First Name"
-                value={firstName}
-                onChangeText={(text) => setFirstName(text)}
-              />
-              <Input
-                label="Last Name"
-                value={lastName}
-                onChangeText={(text) => setLastName(text)}
-              />
-              <Input label="Email" value={email} onChangeText={(text) => setEmail(text)} />
-              <Input label="Mobile" value={mobile} onChangeText={(text) => setMobile(text)} />
-              <Button
-                onPress={() => {}}
-                stretch
-                style={updateBtnStyle}
-                loading={loading}
-                size="big"
-              >
-                Update
-              </Button>
-              <Paragraph>
-                Your information will be used in accordance with our{' '}
-                <LinkTitle>Privacy Policy</LinkTitle>.
-              </Paragraph>
-            </ScrollableContainerPaddingHorizontal>
-            <Gradient>
-              <Wrapper>
-                <FooterTitle>Customer Service: 1-888-636-7662</FooterTitle>
-                <Paragraph>Available from noon-midnight EST</Paragraph>
-                <LinkTitle>support-us@britbox.com</LinkTitle>
-              </Wrapper>
-            </Gradient>
-          </ScrollContent>
-        </ScrollableContainer>
-      </Container>
+      <ScrollableContainer>
+        <ScrollContent>
+          <ScrollableContainerPaddingHorizontal>
+            <TitleWrapper>
+              <SubTitle>Upgrade your Details</SubTitle>
+            </TitleWrapper>
+            <Input
+              label="First Name"
+              value={firstName}
+              onChangeText={(text) => setFirstName(text)}
+            />
+            <Input label="Last Name" value={lastName} onChangeText={(text) => setLastName(text)} />
+            <Input label="Email" value={email} onChangeText={(text) => setEmail(text)} />
+            <Input label="Mobile" value={mobile} onChangeText={(text) => setMobile(text)} />
+            <Button onPress={() => {}} stretch style={updateBtnStyle} loading={loading} size="big">
+              Update
+            </Button>
+            <Paragraph>
+              Your information will be used in accordance with our{' '}
+              <LinkTitle>Privacy Policy</LinkTitle>.
+            </Paragraph>
+          </ScrollableContainerPaddingHorizontal>
+          <Gradient>
+            <Wrapper>
+              <FooterTitle>Customer Service: 1-888-636-7662</FooterTitle>
+              <Paragraph>Available from noon-midnight EST</Paragraph>
+              <LinkTitle>support-us@britbox.com</LinkTitle>
+            </Wrapper>
+          </Gradient>
+        </ScrollContent>
+      </ScrollableContainer>
     );
   };
 
@@ -162,46 +150,38 @@ export default function MyAccount() {
   };
   const NewsletterRoute = () => {
     return (
-      <Container>
-        <ScrollableContainer>
-          <ScrollContent>
-            <ScrollableContainerPaddingHorizontal>
-              <TitleWrapper>
-                <SubTitle>Newsletter preferences</SubTitle>
-              </TitleWrapper>
-              <RowContainer>
-                <SwitchContainer
-                  value={isNewsletters}
-                  onValueChange={(value: boolean) => setIsNewsletters(value)}
-                />
-                <RowContent>
-                  <NewsParagraph>BritBox newsletter, special promotions and offers.</NewsParagraph>
-                </RowContent>
-              </RowContainer>
-              <Button
-                onPress={() => {}}
-                stretch
-                style={updateBtnStyle}
-                loading={loading}
-                size="big"
-              >
-                Update
-              </Button>
-              <Paragraph>
-                Your information will be used in accordance with our{' '}
-                <LinkTitle>Privacy Policy</LinkTitle>.
-              </Paragraph>
-            </ScrollableContainerPaddingHorizontal>
-            <Gradient>
-              <Wrapper>
-                <FooterTitle>Customer Service: 1-888-636-7662</FooterTitle>
-                <Paragraph>Available from noon-midnight EST</Paragraph>
-                <LinkTitle>support-us@britbox.com</LinkTitle>
-              </Wrapper>
-            </Gradient>
-          </ScrollContent>
-        </ScrollableContainer>
-      </Container>
+      <ScrollableContainer>
+        <ScrollContent>
+          <ScrollableContainerPaddingHorizontal>
+            <TitleWrapper>
+              <SubTitle>Newsletter preferences</SubTitle>
+            </TitleWrapper>
+            <RowContainer>
+              <SwitchContainer
+                value={isNewsletters}
+                onValueChange={(value: boolean) => setIsNewsletters(value)}
+              />
+              <RowContent>
+                <NewsParagraph>BritBox newsletter, special promotions and offers.</NewsParagraph>
+              </RowContent>
+            </RowContainer>
+            <Button onPress={() => {}} stretch style={updateBtnStyle} loading={loading} size="big">
+              Update
+            </Button>
+            <Paragraph>
+              Your information will be used in accordance with our{' '}
+              <LinkTitle>Privacy Policy</LinkTitle>.
+            </Paragraph>
+          </ScrollableContainerPaddingHorizontal>
+        </ScrollContent>
+        <Gradient>
+          <Wrapper>
+            <FooterTitle>Customer Service: 1-888-636-7662</FooterTitle>
+            <Paragraph>Available from noon-midnight EST</Paragraph>
+            <LinkTitle>support-us@britbox.com</LinkTitle>
+          </Wrapper>
+        </Gradient>
+      </ScrollableContainer>
     );
   };
 

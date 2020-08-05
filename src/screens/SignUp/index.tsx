@@ -6,9 +6,11 @@ import { Button } from '@components/Button';
 import { Input } from '@components/Input';
 import HeaderCustom from '@components/HeaderCustom';
 import { useSelector } from 'react-redux';
+import { signupRequest } from '@store/modules/user/saga';
 import { AppState } from '@store/modules/rootReducer';
 import Orientation from 'react-native-orientation-locker';
 import { useTranslation } from 'react-i18next';
+import { EvergentSignupResponseError } from '@store/modules/user/types';
 import { useNavigation } from '@react-navigation/native';
 import {
   Container,
@@ -26,10 +28,15 @@ import {
   RadioCheckedIconView,
   RadioUnCheckedIconView,
   LinkText,
+  ErrorText,
 } from './styles';
 
 const flex = {
   flex: 1,
+};
+const evergentSignupResponseError: EvergentSignupResponseError = {
+  responseCode: 0,
+  failureMessage: [],
 };
 
 const cancelStyle = { marginTop: 15, borderWidth: 0 };
@@ -45,7 +52,165 @@ const SignUp = () => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [isCheckPrivacy, setIsCheckPrivacy] = useState(false);
   const theme = useSelector((state: AppState) => state.theme.theme);
-  const loading = useSelector((state: AppState) => state.user.loading);
+  const [loading, setLoading] = useState(false);
+
+  const [errorState, setErrorState] = useState(false);
+  const [errorMessage, setErrorMessage] = useState(evergentSignupResponseError);
+
+  const [errorFirstName, setErrorFirstName] = useState<{
+    text: string;
+  }>({
+    text: '',
+  });
+
+  const [errorLastName, setErrorLastName] = useState<{
+    text: string;
+  }>({
+    text: '',
+  });
+
+  const [errorEmail, setErrorEmail] = useState<{
+    text: string;
+  }>({
+    text: '',
+  });
+
+  const [errorPassword, setErrorPassword] = useState<{
+    text: string;
+  }>({
+    text: '',
+  });
+
+  const [errorConfirmPassword, setErrorConfirmPassword] = useState<{
+    text: string;
+  }>({
+    text: '',
+  });
+
+  const error = {
+    text: 'Field is required',
+  };
+
+  const matchError = {
+    text: 'Should match to password',
+  };
+
+  const signup = async () => {
+    const hasErrorFirstName = firstName.trim() === '';
+    const hasErrorLastName = lastName.trim() === '';
+    const hasErrorEmail = email.trim() === '';
+    const hasErrorPassword = password.trim() === '';
+    const hasErrorConfirmPassword = confirmPassword.trim() === '';
+    const hasErrorConfirmPasswordMatch = confirmPassword.trim() !== password.trim();
+
+    setErrorFirstName(
+      hasErrorFirstName
+        ? error
+        : {
+            text: '',
+          }
+    );
+
+    setErrorLastName(
+      hasErrorLastName
+        ? error
+        : {
+            text: '',
+          }
+    );
+
+    setErrorEmail(
+      hasErrorEmail
+        ? error
+        : {
+            text: '',
+          }
+    );
+
+    setErrorPassword(
+      hasErrorPassword
+        ? error
+        : {
+            text: '',
+          }
+    );
+
+    setErrorConfirmPassword(
+      hasErrorConfirmPassword
+        ? error
+        : {
+            text: '',
+          }
+    );
+
+    if (!hasErrorConfirmPassword) {
+      if (hasErrorConfirmPasswordMatch) {
+        setErrorConfirmPassword(matchError);
+      }
+    }
+
+    if (
+      !hasErrorFirstName &&
+      !hasErrorLastName &&
+      !hasErrorEmail &&
+      !hasErrorPassword &&
+      !hasErrorConfirmPassword &&
+      !hasErrorConfirmPasswordMatch
+    ) {
+      setLoading(true);
+      setErrorState(false);
+      setErrorMessage(evergentSignupResponseError);
+
+      const response = await signupRequest({
+        firstName,
+        lastName,
+        email,
+        password,
+        alertNotificationEmail: email,
+      });
+
+      if (response) {
+        const { response: responseData } = response;
+        if (responseData && Number(responseData.responseCode) === 1) {
+          navigation.navigate('SignUpSubscription');
+        } else {
+          const responseError: EvergentSignupResponseError = {
+            responseCode: 0,
+            failureMessage: response,
+          };
+          setErrorMessage(responseError);
+          setErrorState(true);
+        }
+      }
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    if (firstName.trim() !== '') {
+      setErrorFirstName({
+        text: '',
+      });
+    }
+    if (lastName.trim() !== '') {
+      setErrorLastName({
+        text: '',
+      });
+    }
+    if (password.trim() !== '') {
+      setErrorPassword({
+        text: '',
+      });
+    }
+    if (confirmPassword.trim() !== '' || confirmPassword.trim() === password.trim()) {
+      setErrorConfirmPassword({
+        text: '',
+      });
+    }
+
+    setErrorState(false);
+    setErrorMessage(evergentSignupResponseError);
+  }, [firstName, lastName, email, password, confirmPassword]);
 
   useEffect(() => {
     Orientation.lockToPortrait();
@@ -71,29 +236,49 @@ const SignUp = () => {
                 <Paragraph>Start your free trial then pay $69.99/year or $6.99/month</Paragraph>
                 <SubTitle>Step 1 of 2: Create Your Account</SubTitle>
               </TitleWrapper>
+              {errorState && (
+                <ErrorText>
+                  {
+                    ((errorMessage as unknown) as EvergentSignupResponseError).failureMessage.reduce(
+                      (item) => item
+                    ).errorMessage
+                  }
+                </ErrorText>
+              )}
               <Input
                 label="First Name"
                 value={firstName}
                 onChangeText={(text) => setFirstName(text)}
+                error={errorFirstName}
               />
               <Input
                 label="Last Name"
                 value={lastName}
                 onChangeText={(text) => setLastName(text)}
+                error={errorLastName}
               />
-              <Input label="Email" value={email} onChangeText={(text) => setEmail(text)} />
+              <Input
+                label="Email"
+                value={email}
+                onChangeText={(text) => setEmail(text)}
+                error={errorEmail}
+              />
               <Input
                 label="Create Password"
                 value={password}
                 onChangeText={(text) => setPassword(text)}
+                secureTextEntry
+                error={errorPassword}
               />
               <Input
                 label="Confirm Password"
                 value={confirmPassword}
                 onChangeText={(text) => setConfirmPassword(text)}
+                secureTextEntry
+                error={errorConfirmPassword}
               />
               <Button
-                onPress={() => navigation.navigate('SignUpSubscription')}
+                onPress={() => signup()}
                 stretch
                 loading={loading}
                 size="big"
