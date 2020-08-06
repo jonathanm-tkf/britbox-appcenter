@@ -16,8 +16,8 @@ import Popular from '@screens/Shared/Popular';
 import LargeProgramming from '@screens/Shared/LargeProgramming';
 import Episodes from '@screens/Shared/Episodes';
 import New from '@screens/Shared/New';
+import NewSlider from '@components/NewSlider';
 import { dataDummy } from './data';
-import Header from './Components/Header';
 import { Container, TopWrapper, Button, BackgroundTop, TopText, Scroll } from './styles';
 
 type RootParamList = {
@@ -106,7 +106,7 @@ const Collections = () => {
 
             switch (getTemplate(item.template || '')) {
               case 'hero-slim':
-                return <Header key={key.toString()} />;
+                return <NewSlider key={key.toString()} slim data={item?.list?.items || []} />;
               case 'new':
                 return <New key={key.toString()} {...{ item }} />;
               case 'episodes':

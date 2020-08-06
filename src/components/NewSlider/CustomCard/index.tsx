@@ -52,7 +52,7 @@ const CustomCard = ({
       <ParallaxImage
         source={{ uri: illustration }}
         containerStyle={[styles.imageContainer]}
-        parallaxFactor={0.35}
+        parallaxFactor={slim ? 0 : 0.35}
         showSpinner
         spinnerColor={even ? 'rgba(255, 255, 255, 0.4)' : 'rgba(0, 0, 0, 0.25)'}
         {...parallaxProps}

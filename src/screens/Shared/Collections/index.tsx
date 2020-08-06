@@ -49,7 +49,10 @@ const Collections = ({ item }: Props) => {
         listProps={{ horizontal: true }}
         renderItem={({ item: card }) => (
           <Card
-            url={getImage(card.images?.square, 'square')}
+            url={getImage(
+              card.images?.square || card.images?.tile || card.images?.wallpaper,
+              'square'
+            )}
             width={130}
             height={130}
             onPress={() => ((item?.list?.title || '') !== 'loading' ? goToDetail(card) : {})}

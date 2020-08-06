@@ -49,7 +49,10 @@ const Standard = ({ item }: Props) => {
         listProps={{ horizontal: true }}
         renderItem={({ item: card }) => (
           <Card
-            url={getImage(card.images?.poster, 'poster')}
+            url={getImage(
+              card.images?.poster || card.images?.square || card.images?.tile,
+              'poster'
+            )}
             width={108}
             height={162}
             onPress={() => ((item?.list?.title || '') !== 'loading' ? goToDetail(card) : {})}

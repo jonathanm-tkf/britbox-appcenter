@@ -83,17 +83,17 @@ const VideoPlayer = () => {
                 : 'mobile-cellular-main'
             }`,
           }}
-          // onLoad={() =>
-          //   console.tron.log({
-          //     url: `${Constants.url_player}${params.item.id}?token=${token}&connection=${
-          //       connection === 'wifi' && isTablet()
-          //         ? 'mobile-tablet-main'
-          //         : connection === 'wifi'
-          //         ? 'mobile-phone-main'
-          //         : 'mobile-cellular-main'
-          //     }`,
-          //   })
-          // }
+          onLoad={() =>
+            console.tron.log({
+              url: `${Constants.url_player}${params.item.id}?token=${token}&connection=${
+                connection === 'wifi' && isTablet()
+                  ? 'mobile-tablet-main'
+                  : connection === 'wifi'
+                  ? 'mobile-phone-main'
+                  : 'mobile-cellular-main'
+              }`,
+            })
+          }
           allowsInlineMediaPlayback
           style={webview}
         />

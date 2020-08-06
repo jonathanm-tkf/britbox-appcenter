@@ -24,3 +24,7 @@ export const SlimDescriptionText = styled.Text.attrs({
   font-size: 14px;
   line-height: 22px;
 `;
+
+export const SlimDescription = styled.View`
+  height: 250px;
+`;

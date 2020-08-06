@@ -49,7 +49,10 @@ const Popular = ({ item }: Props) => {
         listProps={{ horizontal: true }}
         renderItem={({ item: card }) => (
           <Card
-            url={getImage(card.images?.poster, 'poster')}
+            url={getImage(
+              card.images?.poster || card.images?.square || card.images?.tile,
+              'poster'
+            )}
             onPress={() => ((item?.list?.title || '') !== 'loading' ? goToDetail(card) : {})}
           />
         )}

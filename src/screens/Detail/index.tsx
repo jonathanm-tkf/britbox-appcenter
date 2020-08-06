@@ -147,7 +147,16 @@ const Detail = () => {
         <Header {...{ data }} />
         <Poster>
           <Card
-            url={data?.detail?.images ? getImage(data?.detail?.images?.poster, 'poster') : ''}
+            url={
+              data?.detail?.images
+                ? getImage(
+                    data?.detail?.images?.poster ||
+                      data?.detail?.images?.square ||
+                      data?.detail?.images?.tile,
+                    'poster'
+                  )
+                : ''
+            }
             width={185}
             height={275}
           />

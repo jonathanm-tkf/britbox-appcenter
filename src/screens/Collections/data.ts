@@ -5,7 +5,23 @@ export const dataDummy = {
     {
       template: 'Hero Slim (BBC)',
       list: {
-        items: [{}],
+        items: [
+          {
+            images: {
+              poster: 'loading',
+            },
+          },
+          {
+            images: {
+              poster: 'loading',
+            },
+          },
+          {
+            images: {
+              poster: 'loading',
+            },
+          },
+        ],
       },
     },
     {

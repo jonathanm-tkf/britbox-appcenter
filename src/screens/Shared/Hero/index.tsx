@@ -19,7 +19,11 @@ const Hero = ({ item, onWatchlist, onDiscoverMore, onPlay }: Props) => {
   const items = slice(item?.list?.items, 0, 20).map((data: MassiveSDKModelItemSummary) => {
     return {
       ...data,
-      url: getImage(data?.images?.square, 'square') || '',
+      url:
+        getImage(
+          data?.images?.square || data?.images?.hero3x1 || data?.images?.wallpaper,
+          'square'
+        ) || '',
     };
   });
 

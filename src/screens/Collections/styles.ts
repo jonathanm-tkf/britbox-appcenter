@@ -13,6 +13,7 @@ export const Scroll = styled.ScrollView.attrs({
   bounces: false,
 })`
   flex: 1;
+  padding-top: ${getStatusBarHeight() + 40}px;
 `;
 
 export const TopWrapper = styled.View`
