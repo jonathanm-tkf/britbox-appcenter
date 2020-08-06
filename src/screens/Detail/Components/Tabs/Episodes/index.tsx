@@ -5,18 +5,19 @@ import Card from '@components/Card';
 import { MassiveSDKModelEpisodesItem } from '@src/sdks/Britbox.API.Content.TS/api';
 import { getImage } from '@src/utils/images';
 import { getDuration } from '@src/utils/template';
-import { Show } from '@src/services/detail';
-import { ArrowBottomIcon } from '@assets/icons';
+import { Show, MoreInformation } from '@src/services/detail';
+import { ArrowBottomIcon, DiscoverMoreIcon } from '@assets/icons';
 import { useNavigation } from '@react-navigation/native';
-import { Container, ContainerFilter, Year, SeasonButton, SeasonText } from './styles';
+import { Container, ContainerFilter, SeasonButton, SeasonText, InformationButton } from './styles';
 
 interface Props {
   onLayout?: (event: any) => void;
   data: MassiveSDKModelEpisodesItem[];
   show: Show | undefined;
+  moreInformation: MoreInformation | undefined;
 }
 
-const Episodes = ({ onLayout, data, show }: Props) => {
+const Episodes = ({ onLayout, data, show, moreInformation }: Props) => {
   const { navigate } = useNavigation();
 
   const getCategories = (itemData: MassiveSDKModelEpisodesItem): any[] => {
@@ -60,6 +61,10 @@ const Episodes = ({ onLayout, data, show }: Props) => {
     return null;
   };
 
+  const goToMoreInformation = () => {
+    return navigate('ModalMoreInformation', { moreInformation });
+  };
+
   return (
     <Container onLayout={onLayout}>
       {show && (
@@ -75,9 +80,12 @@ const Episodes = ({ onLayout, data, show }: Props) => {
                   .reduce((item) => item).contextualTitle
               }
             </SeasonText>
-            <ArrowBottomIcon width={10} height={10} />
+            <ArrowBottomIcon width={14} height={14} />
           </SeasonButton>
-          <Year>Year: {show.releaseYear}</Year>
+          <InformationButton onPress={goToMoreInformation}>
+            <DiscoverMoreIcon width={25} height={25} />
+          </InformationButton>
+          {/* <Year>Year: {show.releaseYear}</Year> */}
         </ContainerFilter>
       )}
       {data.map((item, index) => (

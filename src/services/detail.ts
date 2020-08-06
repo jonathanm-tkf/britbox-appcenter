@@ -42,12 +42,20 @@ export type Information = {
   duration: number;
 };
 
+export type MoreInformation = {
+  credits: MassiveSDKModelCredit[] | undefined;
+  title: string;
+  description: string;
+  season: string;
+};
+
 export type LoadDetailPageResponse = {
   detail: Detail;
   show: Show | undefined;
   information: Information;
   related: MassiveSDKModelItemList | undefined;
   episodes: MassiveSDKModelEpisodes | undefined;
+  moreInformation: MoreInformation;
 };
 
 const processDetailPage = async (
@@ -83,6 +91,13 @@ const processDetailPage = async (
     duration: 0,
   };
 
+  const moreInformationResponse: MoreInformation = {
+    credits: undefined,
+    title: '',
+    description: '',
+    season: '',
+  };
+
   let episodesResponse;
 
   let relatedResponse;
@@ -109,6 +124,11 @@ const processDetailPage = async (
       relatedResponse = entries?.item?.id ? await loadRelated(entries?.item?.id) : undefined;
 
       episodesResponse = entries?.item?.episodes;
+
+      moreInformationResponse.credits = entries?.item?.credits;
+      moreInformationResponse.title = entries?.item?.show?.title || '';
+      moreInformationResponse.description = entries?.item?.show?.description || '';
+      moreInformationResponse.season = entries?.item?.contextualTitle || '';
     }
   }
 
@@ -129,6 +149,10 @@ const processDetailPage = async (
       informationResponse.duration = entries?.item?.duration || 0;
 
       relatedResponse = entries?.item?.id ? await loadRelated(entries?.item?.id) : undefined;
+
+      moreInformationResponse.credits = entries?.item?.credits;
+      moreInformationResponse.title = entries?.item?.title || '';
+      moreInformationResponse.description = entries?.item?.shortDescription || '';
     }
   }
 
@@ -139,6 +163,7 @@ const processDetailPage = async (
       information: informationResponse,
       related: relatedResponse,
       episodes: episodesResponse,
+      moreInformation: moreInformationResponse,
     },
   };
 };
@@ -191,6 +216,7 @@ export const loadRelated = async (id: string) => {
 
 export type LoadEpisodesBySeasonResponse = {
   episodes: MassiveSDKModelEpisodes | undefined;
+  moreInformation: MoreInformation | undefined;
 };
 
 const processEpisodesBySeason = async (
@@ -202,15 +228,28 @@ const processEpisodesBySeason = async (
 
   let episodesResponse;
 
+  const moreInformationResponse = {
+    credits: undefined,
+    title: '',
+    description: '',
+    season: '',
+  };
+
   if ((detail?.entries || []).length > 0) {
     const entries = (detail?.entries || [])?.reduce((item) => item);
 
     episodesResponse = entries?.item?.episodes;
+
+    moreInformationResponse.credits = entries?.item?.credits;
+    moreInformationResponse.title = entries?.item?.title || '';
+    moreInformationResponse.description = entries?.item?.shortDescription || '';
+    moreInformationResponse.season = entries?.item?.contextualTitle || '';
   }
 
   return {
     response: {
       episodes: episodesResponse,
+      moreInformation: moreInformationResponse,
     },
   };
 };

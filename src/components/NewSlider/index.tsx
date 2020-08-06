@@ -57,7 +57,6 @@ const NewSlider = ({ data, slim }: Props) => {
   };
 
   const getContent = (item: MassiveSDKModelItemList) => {
-    console.tron.log({ item });
     const image = getImage(item?.images?.poster, 'wallpaper');
 
     if (image === 'loading') {

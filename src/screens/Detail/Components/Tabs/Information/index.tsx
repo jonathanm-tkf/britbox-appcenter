@@ -1,19 +1,33 @@
 import React from 'react';
 
-import { Information as InformationDataType } from '@src/services/detail';
+import { Information as InformationDataType, MoreInformation } from '@src/services/detail';
 import { useTranslation } from 'react-i18next';
 import { getDuration } from '@src/utils/template';
-import { Container, Row, LabelBold } from './styles';
+import { DiscoverMoreIcon } from '@assets/icons';
+import { useNavigation } from '@react-navigation/native';
+import { Container, Row, LabelBold, InformationButton } from './styles';
 
 interface Props {
   data: InformationDataType;
   onLayout?: (event: any) => void;
+  moreInformation: MoreInformation | undefined;
 }
 
-const Information = ({ data, onLayout }: Props) => {
+const Information = ({ data, onLayout, moreInformation }: Props) => {
   const { t } = useTranslation('layout');
+  const { navigate } = useNavigation();
+
+  const goToMoreInformation = () => {
+    return navigate('ModalMoreInformation', { moreInformation });
+  };
+
   return (
     <Container onLayout={onLayout}>
+      {(data.type === 'movie' || data.type === 'episode') && (
+        <InformationButton onPress={goToMoreInformation}>
+          <DiscoverMoreIcon width={25} height={25} />
+        </InformationButton>
+      )}
       {data?.customFields?.YearRange && (
         <Row>
           <LabelBold>{t('years')}:</LabelBold> {data.customFields.YearRange}

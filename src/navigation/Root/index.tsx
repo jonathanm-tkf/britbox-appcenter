@@ -13,6 +13,7 @@ import ModalSeasons from '@screens/ModalSeasons';
 import { Animated } from 'react-native';
 import { ThemeProps } from '@store/modules/theme/types';
 import Collections from '@screens/Collections';
+import ModalMoreInformation from '@screens/ModalMoreInformation';
 import { AppDrawerScreen } from '../Drawer';
 import { AuthStackScreen } from '../Auth';
 
@@ -78,6 +79,11 @@ const RootStackScreen = () => {
       <RootStack.Screen name="VideoPlayer" component={VideoPlayer} options={ModalOptions(theme)} />
       <RootStack.Screen name="Detail" component={Detail} options={ModalOptions(theme)} />
       <RootStack.Screen name="Collections" component={Collections} options={ModalOptions(theme)} />
+      <RootStack.Screen
+        name="ModalMoreInformation"
+        component={ModalMoreInformation}
+        options={ModalOptions(theme)}
+      />
       <RootStack.Screen
         name="ModalSeasons"
         component={ModalSeasons}

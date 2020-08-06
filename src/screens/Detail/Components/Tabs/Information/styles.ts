@@ -23,3 +23,15 @@ export const LabelBold = styled.Text`
   font-size: 14px;
   text-transform: capitalize;
 `;
+
+export const InformationButton = styled.TouchableOpacity`
+  padding: 5px;
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  width: 50px;
+  height: 50px;
+  z-index: 1;
+  justify-content: center;
+  align-items: center;
+`;

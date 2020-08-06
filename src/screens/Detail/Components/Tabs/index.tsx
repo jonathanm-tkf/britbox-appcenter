@@ -31,7 +31,7 @@ const Tabs = ({ data }: Props) => {
   const createTabs = (content: LoadDetailPageResponse | undefined) => {
     const tabs = [];
 
-    const { information, related, episodes, show } = content || {};
+    const { information, related, episodes, show, moreInformation } = content || {};
 
     if (episodes) {
       tabs.push({
@@ -40,7 +40,7 @@ const Tabs = ({ data }: Props) => {
         content: () => (
           <Episodes
             data={episodes?.items || []}
-            {...{ show }}
+            {...{ show, moreInformation }}
             onLayout={(event) => {
               const newHeight = event.nativeEvent.layout.height;
               ref.current = newHeight;
@@ -64,6 +64,7 @@ const Tabs = ({ data }: Props) => {
         content: () => (
           <Information
             data={information}
+            {...{ moreInformation }}
             onLayout={(event) => {
               const newHeight = event.nativeEvent.layout.height;
               if (

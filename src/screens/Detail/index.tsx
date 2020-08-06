@@ -85,6 +85,7 @@ const Detail = () => {
             seasons: { ...show?.seasons },
           },
           episodes: response?.episodes,
+          moreInformation: response?.moreInformation,
         };
         setData(afterResponse);
       });
