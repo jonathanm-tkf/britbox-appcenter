@@ -417,6 +417,7 @@
 					13B07F861A680F5B00A75B9A = {
 						DevelopmentTeam = 99MS4LGK4X;
 						LastSwiftMigration = 1140;
+						ProvisioningStyle = Manual;
 					};
 					2D02E47A1E0B4A5D006451C7 = {
 						CreatedOnToolsVersion = 8.2.1;
@@ -901,7 +902,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CURRENT_PROJECT_VERSION = 3;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_TEAM = 99MS4LGK4X;
 				ENABLE_BITCODE = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -920,8 +923,9 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.britbox.us.staging.takeoff;
+				PRODUCT_BUNDLE_IDENTIFIER = com.britbox.us.staging;
 				PRODUCT_NAME = Britbox;
+				PROVISIONING_PROFILE_SPECIFIER = "iOS Development Al - Staging";
 				SWIFT_OBJC_BRIDGING_HEADER = "Britbox-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -936,7 +940,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CURRENT_PROJECT_VERSION = 3;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_TEAM = 99MS4LGK4X;
 				INFOPLIST_FILE = Britbox/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -950,8 +956,9 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.britbox.us.staging.takeoff;
+				PRODUCT_BUNDLE_IDENTIFIER = com.britbox.us.staging;
 				PRODUCT_NAME = Britbox;
+				PROVISIONING_PROFILE_SPECIFIER = "iOS Development Al - Staging";
 				SWIFT_OBJC_BRIDGING_HEADER = "Britbox-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				VALID_ARCHS = "arm64 arm64e";
@@ -1276,7 +1283,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CURRENT_PROJECT_VERSION = 3;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_TEAM = 99MS4LGK4X;
 				INFOPLIST_FILE = Britbox/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1291,8 +1300,9 @@
 					"-lc++",
 				);
 				PODS_CONFIGURATION_BUILD_DIR = "${PODS_BUILD_DIR}/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)";
-				PRODUCT_BUNDLE_IDENTIFIER = com.britbox.us.staging.takeoff;
+				PRODUCT_BUNDLE_IDENTIFIER = com.britbox.us.staging;
 				PRODUCT_NAME = Britbox;
+				PROVISIONING_PROFILE_SPECIFIER = "iOS Development Al - Staging";
 				SWIFT_OBJC_BRIDGING_HEADER = "Britbox-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				VALID_ARCHS = "arm64 arm64e";

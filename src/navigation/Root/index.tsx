@@ -4,7 +4,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import { AppState } from '@store/modules/rootReducer';
 import Storybook from '@screens/Storybook';
 import { rgba } from 'polished';
-import Detail from '@screens/Detail';
 import VideoPlayer from '@screens/VideoPlayer';
 import Modal from '@screens/Modal';
 import Loading from '@screens/Loading';
@@ -12,7 +11,6 @@ import { homeRequest } from '@store/modules/home/actions';
 import ModalSeasons from '@screens/ModalSeasons';
 import { Animated } from 'react-native';
 import { ThemeProps } from '@store/modules/theme/types';
-import Collections from '@screens/Collections';
 import ModalMoreInformation from '@screens/ModalMoreInformation';
 import { AppDrawerScreen } from '../Drawer';
 import { AuthStackScreen } from '../Auth';
@@ -77,8 +75,6 @@ const RootStackScreen = () => {
       )}
       <RootStack.Screen name="Modal" component={Modal} options={{ animationEnabled: true }} />
       <RootStack.Screen name="VideoPlayer" component={VideoPlayer} options={ModalOptions(theme)} />
-      <RootStack.Screen name="Detail" component={Detail} options={ModalOptions(theme)} />
-      <RootStack.Screen name="Collections" component={Collections} options={ModalOptions(theme)} />
       <RootStack.Screen
         name="ModalMoreInformation"
         component={ModalMoreInformation}

@@ -77,17 +77,23 @@ export default function Header({ hideSignIn, shadow }: Props) {
               data={[
                 {
                   id: '2',
-                  text: t('logout'),
-                  goTo: 'Logout',
+                  text: t('new'),
+                  goTo: 'New',
+                },
+                {
+                  id: '3',
+                  text: t('az'),
+                  goTo: 'AZ',
+                },
+                {
+                  id: '4',
+                  text: t('watchlist'),
+                  goTo: 'Watchlist',
                 },
               ]}
               keyExtractor={(item: any) => item.id}
               renderItem={({ item }: any) => (
-                <Item
-                  text={item.text}
-                  goTo={item.goTo}
-                  onPressTouch={(value) => toggleSignIn(value)}
-                />
+                <Item text={item.text} goTo={item.goTo} onPressTouch={() => {}} />
               )}
             />
           )}

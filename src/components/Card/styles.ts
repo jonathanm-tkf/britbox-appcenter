@@ -63,6 +63,7 @@ export const Gradient = styled(LinearGradient).attrs((props: ThemeState) => ({
 interface TextWrapperProps {
   isDetail?: boolean;
   loaded?: boolean;
+  category?: boolean;
 }
 
 export const TextWrapper = styled.View`
@@ -89,9 +90,11 @@ export const TextWrapper = styled.View`
       ? `
       height: auto;
     `
-      : `
+      : props.category
+      ? `
       height: 70px;
-    `;
+    `
+      : `height: 50px;`;
   }};
 `;
 

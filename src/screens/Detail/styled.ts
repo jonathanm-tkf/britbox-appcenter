@@ -1,11 +1,12 @@
 import styled from 'styled-components/native';
 import { ThemeState } from '@store/modules/theme/types';
-import { getStatusBarHeight } from 'react-native-iphone-x-helper';
+import { getStatusBarHeight, getBottomSpace } from 'react-native-iphone-x-helper';
 import { Platform, Animated } from 'react-native';
 
 export const Container = styled.View`
   flex: 1;
   background-color: ${(props: ThemeState) => props.theme.PRIMARY_COLOR};
+  padding-bottom: ${getBottomSpace() + 64}px;
 `;
 
 export const Scroll = styled.ScrollView.attrs({

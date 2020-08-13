@@ -1,20 +1,18 @@
 import styled from 'styled-components/native';
-import { getStatusBarHeight } from 'react-native-iphone-x-helper';
+import { getStatusBarHeight, getBottomSpace } from 'react-native-iphone-x-helper';
 import { ThemeState } from '@store/modules/theme/types';
 import { Platform, Animated } from 'react-native';
 
 export const Container = styled.View`
   flex: 1;
   background-color: ${(props: ThemeState) => props.theme.PRIMARY_COLOR};
+  padding-bottom: ${getBottomSpace() + 64}px;
 `;
 
 export const Scroll = styled.ScrollView.attrs({
   showsVerticalScrollIndicator: false,
   bounces: false,
-})`
-  flex: 1;
-  padding-top: ${getStatusBarHeight() + 40}px;
-`;
+})``;
 
 export const TopWrapper = styled.View`
   position: absolute;
@@ -56,4 +54,8 @@ export const BackgroundTop = styled(Animated.View)`
   background-color: ${(props: ThemeState) => props.theme.PRIMARY_COLOR};
   width: 100%;
   padding-top: ${Platform.OS === 'ios' ? getStatusBarHeight() + 50 : 50}px;
+`;
+
+export const SpaceNoHeroSlim = styled.View`
+  height: 60px;
 `;

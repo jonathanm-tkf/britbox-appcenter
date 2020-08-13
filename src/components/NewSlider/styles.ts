@@ -1,17 +1,51 @@
 import styled from 'styled-components/native';
 import { ThemeState } from '@store/modules/theme/types';
+import { Animated, ImageBackground, Dimensions } from 'react-native';
+
+const { width } = Dimensions.get('window');
 
 export const Container = styled.View`
   flex: 1;
   justify-content: center;
 `;
 
-export const Slider = styled.View`
-  width: 100%;
+const AnimatedImage = Animated.createAnimatedComponent(ImageBackground);
+
+type CarouselProps = {
+  slim: boolean;
+};
+
+export const SliderWrapper = styled.View`
+  width: ${width}px;
+  margin-bottom: 23px;
+  ${(props: CarouselProps) => {
+    return (
+      props.slim &&
+      `
+      min-height: 300px;
+      margin-bottom: 50px;
+    `
+    );
+  }};
+`;
+
+export const Slider = styled(AnimatedImage).attrs({
+  resizeMode: 'cover',
+  blurRadius: 10,
+})`
+  width: ${width}px;
   align-items: center;
   justify-content: center;
-  margin-top: 12px;
   margin-bottom: 10px;
+  opacity: 0.3;
+  ${(props: CarouselProps) => {
+    return (
+      props.slim &&
+      `
+      min-height: 300px;
+    `
+    );
+  }};
 `;
 
 export const SlimDescriptionText = styled.Text.attrs({
@@ -26,5 +60,6 @@ export const SlimDescriptionText = styled.Text.attrs({
 `;
 
 export const SlimDescription = styled.View`
-  height: 250px;
+  height: 220px;
+  margin-bottom: 20px;
 `;
