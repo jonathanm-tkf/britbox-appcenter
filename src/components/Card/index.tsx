@@ -147,7 +147,13 @@ const Card = ({
           </Container>
           <Group {...{ isDetail: isDetail || false }}>
             {(newEpisode || isEpisode || isDetail || hasDescription) && data && (
-              <TextWrapper {...{ isDetail, loaded }}>
+              <TextWrapper
+                {...{
+                  isDetail,
+                  loaded,
+                  category: (data?.category && data?.category?.length > 0) || false,
+                }}
+              >
                 {loaded ? (
                   <>
                     {(data?.title || '') !== '' && <Title>{data.title}</Title>}

@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
-
+import { Animated } from 'react-native';
 import { useNavigation, useRoute, RouteProp } from '@react-navigation/native';
 import { BackIcon } from '@assets/icons';
-import { Animated } from 'react-native';
+
 import {
   MassiveSDKModelItemSummary,
   MassiveSDKModelPage,
+  MassiveSDKModelItemList,
 } from '@src/sdks/Britbox.API.Content.TS/api';
 import { loadCollectionPage } from '@src/services/detail';
 import { getTemplate } from '@src/utils/template';
@@ -18,7 +19,15 @@ import Episodes from '@screens/Shared/Episodes';
 import New from '@screens/Shared/New';
 import NewSlider from '@components/NewSlider';
 import { dataDummy } from './data';
-import { Container, TopWrapper, Button, BackgroundTop, TopText, Scroll } from './styles';
+import {
+  Container,
+  TopWrapper,
+  Button,
+  BackgroundTop,
+  TopText,
+  Scroll,
+  SpaceNoHeroSlim,
+} from './styles';
 
 type RootParamList = {
   Collection: {
@@ -29,7 +38,7 @@ type RootParamList = {
 type CollectionScreenRouteProp = RouteProp<RootParamList, 'Collection'>;
 
 const Collections = () => {
-  const { goBack } = useNavigation();
+  const navigation = useNavigation();
   const [showBlueView, setShowBlueView] = useState(false);
   const [animatedOpacityValue] = useState(new Animated.Value(0));
   const { params } = useRoute<CollectionScreenRouteProp>();
@@ -37,7 +46,7 @@ const Collections = () => {
   const [data, setData] = useState<MassiveSDKModelPage | undefined>(dataDummy);
 
   const back = () => {
-    goBack();
+    navigation.goBack();
   };
 
   const getDataDetail = async (path: string) => {
@@ -75,6 +84,26 @@ const Collections = () => {
     }
   };
 
+  const getIsHeroSlim = () => {
+    if (
+      data &&
+      data.entries &&
+      data.entries.filter((item) => getTemplate(item.template || '') === 'hero-slim').length === 0
+    ) {
+      return <SpaceNoHeroSlim />;
+    }
+
+    return null;
+  };
+
+  const onPlay = (card: MassiveSDKModelItemList) => {
+    navigation.push('Detail', { item: { ...card } });
+  };
+
+  const onDiscoverMore = (card: MassiveSDKModelItemList) => {
+    navigation.push('Detail', { item: { ...card } });
+  };
+
   return (
     <Container>
       <TopWrapper>
@@ -82,7 +111,6 @@ const Collections = () => {
           <BackIcon width={20} height={20} />
         </Button>
         <TopText>{data?.title}</TopText>
-
         <BackgroundTop
           style={{
             opacity: animatedOpacityValue.interpolate({
@@ -93,20 +121,26 @@ const Collections = () => {
         />
       </TopWrapper>
       <Scroll onScroll={(event) => handleScroll(event)} scrollEventThrottle={16}>
+        {getIsHeroSlim()}
         {data &&
           data.entries &&
           data.entries.map((item, key) => {
-            // if (item.template === 'user-watching') {
-            //   return <UserWatching key={key.toString()} data={ContinueWatchingData} />;
-            // }
-
             if ((item?.list?.items || []).length === 0) {
               return null;
             }
 
             switch (getTemplate(item.template || '')) {
               case 'hero-slim':
-                return <NewSlider key={key.toString()} slim data={item?.list?.items || []} />;
+                return (
+                  <NewSlider
+                    key={key.toString()}
+                    slim
+                    data={item?.list?.items || []}
+                    onWatchlist={() => {}}
+                    onPlay={(element) => onPlay(element)}
+                    onDiscoverMore={(element) => onDiscoverMore(element)}
+                  />
+                );
               case 'new':
                 return <New key={key.toString()} {...{ item }} />;
               case 'episodes':
@@ -127,8 +161,6 @@ const Collections = () => {
                 return null;
             }
           })}
-
-        {/* <Header /> */}
       </Scroll>
     </Container>
   );

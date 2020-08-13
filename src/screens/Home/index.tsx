@@ -32,6 +32,7 @@ import {
 import { getImage } from '@src/utils/images';
 import UserWatching from '@components/UserWatching';
 import { MassiveSDKModelItemSummary } from '@src/sdks/Britbox.API.Content.TS/api';
+import Cast from '@screens/Shared/Cast';
 import { Container } from './styles';
 import { Element, continueWatchingItems } from './data';
 
@@ -95,6 +96,7 @@ const Home = () => {
         keyExtractor={keyExtractor}
         showsVerticalScrollIndicator={false}
       />
+      {/* <Cast /> */}
     </View>
   );
 };
@@ -115,7 +117,7 @@ const Item = () => {
   const home = useSelector((state: AppState) => state.home.data);
 
   const heroDiscoverMore = (item: any) => {
-    navigation.push('Detail', { ...item });
+    navigation.navigate('Detail', { ...item });
   };
 
   return (
