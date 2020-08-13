@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useState } from 'react';
-import { StyleSheet, Dimensions } from 'react-native';
+import { StyleSheet, Dimensions, Platform } from 'react-native';
 import Carousel from 'react-native-snap-carousel';
 import { MassiveSDKModelItemList } from '@src/sdks/Britbox.API.Content.TS/api';
 import { getImage } from '@src/utils/images';
@@ -122,7 +122,12 @@ const NewSlider = ({ data, slim, onWatchlist, onPlay, onDiscoverMore }: Props) =
           inactiveSlideOpacity={slim ? 0.5 : 0.7}
           containerCustomStyle={[
             styles.sliderContainer,
-            slim ? { top: getStatusBarHeight() + 50, position: 'absolute' } : {},
+            slim
+              ? {
+                  top: getStatusBarHeight() + (Platform.OS === 'ios' ? 50 : 20),
+                  position: 'absolute',
+                }
+              : {},
           ]}
           contentContainerCustomStyle={styles.sliderContentContainer}
           onSnapToItem={(index: number) => setCurrentIndex(index)}

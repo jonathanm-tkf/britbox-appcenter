@@ -1,6 +1,6 @@
 import styled from 'styled-components/native';
 import { ThemeState } from '@store/modules/theme/types';
-import { Animated, ImageBackground, Dimensions } from 'react-native';
+import { Animated, ImageBackground, Dimensions, Platform } from 'react-native';
 
 const { width } = Dimensions.get('window');
 
@@ -39,12 +39,7 @@ export const Slider = styled(AnimatedImage).attrs({
   margin-bottom: 10px;
   opacity: 0.3;
   ${(props: CarouselProps) => {
-    return (
-      props.slim &&
-      `
-      min-height: 300px;
-    `
-    );
+    return props.slim ? (Platform.OS === 'ios' ? `min-height: 300px;` : `min-height: 270px;`) : ``;
   }};
 `;
 
