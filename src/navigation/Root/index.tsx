@@ -8,6 +8,7 @@ import Detail from '@screens/Detail';
 import VideoPlayer from '@screens/VideoPlayer';
 import Modal from '@screens/Modal';
 import Loading from '@screens/Loading';
+import { getConfigRequest } from '@store/modules/user/saga';
 import { homeRequest } from '@store/modules/home/actions';
 import { AppDrawerScreen } from '../Drawer';
 import { AuthStackScreen } from '../Auth';
@@ -26,8 +27,13 @@ const RootStackScreen = () => {
     if (!user.isLogged) {
       setIsLoading(false);
     }
+    getConfig();
     dispatch(homeRequest());
   }, []);
+
+  const getConfig = async () => {
+    const response = await getConfigRequest();
+  };
 
   useEffect(() => {
     if (!home.loading && (home.data?.entries || []).length > 0) {

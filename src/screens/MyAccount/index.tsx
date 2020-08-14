@@ -38,8 +38,9 @@ const updateBtnStyle = {
 
 export default function MyAccount() {
   const { navigate } = useNavigation();
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
+  const user = useSelector((state: AppState) => state.user);
+  const [firstName, setFirstName] = useState(user?.profile?.firstName || '');
+  const [lastName, setLastName] = useState(user?.profile?.lastName || '');
   const [email, setEmail] = useState('');
   const [mobile, setMobile] = useState('');
 

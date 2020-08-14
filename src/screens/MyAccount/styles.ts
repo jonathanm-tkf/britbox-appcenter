@@ -32,6 +32,7 @@ export const ScrollContent = styled.View`
 `;
 
 export const ScrollableContainerPaddingHorizontal = styled.View`
+  flex: 1;
   padding-left: 20px;
   padding-right: 20px;
 `;

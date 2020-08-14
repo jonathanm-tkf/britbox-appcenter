@@ -142,7 +142,7 @@ export default function ParentalControls() {
     <Container>
       <HeaderCustom isBack shadow />
       {!isAuthorize ? (
-        <Container>
+        <ScrollableContainer>
           <TitleWrapper>
             <Title>Parental Controls</Title>
           </TitleWrapper>
@@ -163,7 +163,7 @@ export default function ParentalControls() {
               <LinkTitle>support-us@britbox.com</LinkTitle>
             </Wrapper>
           </Gradient>
-        </Container>
+        </ScrollableContainer>
       ) : (
         <ScrollableContainer scrollEnabled={!isSliding}>
           <TitleWrapper>

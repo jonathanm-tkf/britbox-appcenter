@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useEffect, useCallback } from 'react';
-import { View, Platform, Alert, Text, TouchableOpacity } from 'react-native';
+import { View, Platform, Alert, ScrollView, TouchableOpacity } from 'react-native';
 import { getStatusBarHeight } from 'react-native-iphone-x-helper';
 import { ThemeState } from '@store/modules/theme/types';
 import RNIap, {
@@ -41,13 +41,10 @@ const flex = {
 };
 
 const wrapper = {
-  flex: 1,
+  flexGrow: 1,
   paddingTop: Platform.OS === 'ios' ? getStatusBarHeight() + 10 : 10,
   paddingHorizontal: 30,
-};
-
-const marginBottom = {
-  marginBottom: Platform.OS === 'ios' ? 40 : 20,
+  paddingBottom: Platform.OS === 'ios' ? 40 : 20,
 };
 
 const CelularStyle = {
@@ -243,11 +240,11 @@ export default function More() {
   // };
 
   useEffect(() => {
-    getProducts();
+    // getProducts();
   }, []);
 
   return (
-    <View style={[wrapper, marginBottom]}>
+    <ScrollView contentContainerStyle={wrapper}>
       <ProfileView>
         <RowContainer>
           <ProfileImageIconView />
@@ -332,6 +329,6 @@ export default function More() {
           Subscribe now
         </Button>
       </View> */}
-    </View>
+    </ScrollView>
   );
 }

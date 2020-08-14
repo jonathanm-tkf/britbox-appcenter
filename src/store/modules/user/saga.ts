@@ -1,9 +1,10 @@
 import { takeLatest, all, call, put, select } from 'redux-saga/effects';
 // import * as Sentry from '@sentry/react-native';
 
-import { BritboxAccountApi } from '@src/sdks';
+import { BritboxAccountApi, BritboxContentApi } from '@src/sdks';
+import { BritboxAPIAccountModelsCustomerAddSubscriptionRequest } from '@src/sdks/Britbox.API.Account.TS/api';
 import { PayloadAction } from 'typesafe-actions';
-import { UserActionTypes, UserLogin, EvergentLoginResponse } from './types';
+import { UserActionTypes, UserLogin, EvergentLoginResponse, UserSignUp } from './types';
 import {
   loginRequestFailure,
   loginRequestSuccess,
@@ -14,7 +15,7 @@ import { AppState } from '../rootReducer';
 
 const getToken = (state: AppState) => state.user.access as EvergentLoginResponse;
 
-async function profile(token: string) {
+export async function profile(token: string) {
   const { getProfile } = BritboxAccountApi({
     headers: {
       Authorization: `Bearer ${token}`,
@@ -66,6 +67,104 @@ export function* loginRequest({
   } catch (error) {
     // Sentry.captureException({ error, logger: 'user facebook' });
     yield put(loginRequestFailure());
+  }
+}
+
+async function signup({
+  firstName,
+  lastName,
+  email,
+  password,
+  alertNotificationEmail,
+}: UserSignUp) {
+  const { register } = BritboxAccountApi();
+
+  try {
+    const response = await register({
+      firstName,
+      lastName,
+      email,
+      customerPassword: password,
+      country: 'US',
+      alertNotificationEmail,
+      deviceDetails: {
+        deviceType: 'android',
+        deviceName: 'sony',
+        serialNo: 'M7676273462',
+      },
+    });
+
+    return response;
+  } catch (error) {
+    return error;
+  }
+}
+
+export async function signupRequest(payload: UserSignUp) {
+  try {
+    const response = await signup(payload);
+    return response;
+  } catch (error) {
+    // Sentry.captureException({ error, logger: 'signup error' });
+    return null;
+  }
+}
+
+export async function getProductsRequest() {
+  const { getProducts } = BritboxAccountApi();
+
+  try {
+    const response = await getProducts({
+      countryCode: 'US',
+    });
+
+    return response;
+  } catch (error) {
+    return error;
+  }
+}
+
+export async function addSubscriptionRequest(
+  accessToken: string,
+  addSubscriptionRequestObject: BritboxAPIAccountModelsCustomerAddSubscriptionRequest
+) {
+  const { addSubscription } = BritboxAccountApi({
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
+
+  try {
+    const response = await addSubscription(addSubscriptionRequestObject);
+
+    return response;
+  } catch (error) {
+    return error;
+  }
+}
+
+export async function getConfigRequest() {
+  const { getConfig } = BritboxContentApi();
+
+  try {
+    const response = await getConfig({
+      segments: 'us',
+      include: [
+        'classification',
+        'playback',
+        'sitemap',
+        'navigation',
+        'subscription',
+        'general',
+        'display',
+        'i18n',
+        'linear',
+      ],
+    });
+
+    return { response };
+  } catch (error) {
+    return error;
   }
 }
 
