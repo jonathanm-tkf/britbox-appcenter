@@ -43,6 +43,14 @@ const user: Reducer<UserState> = (state = initialState, action) => {
       case UserActionTypes.PROFILE_REQUEST_SUCCESS:
         draft.profile = action.payload;
         break;
+      case UserActionTypes.REGISTER_REQUEST_SUCCESS:
+        draft.access = action.payload;
+        break;
+      case UserActionTypes.LOGGEDIN_REQUEST:
+        draft.isLogged = true;
+        draft.loading = false;
+        draft.error = false;
+        break;
       default:
         break;
     }

@@ -7,6 +7,7 @@ import { rgba } from 'polished';
 import VideoPlayer from '@screens/VideoPlayer';
 import Modal from '@screens/Modal';
 import Loading from '@screens/Loading';
+import { getConfigRequest } from '@store/modules/user/saga';
 import { homeRequest } from '@store/modules/home/actions';
 import ModalSeasons from '@screens/ModalSeasons';
 import { Animated } from 'react-native';
@@ -53,8 +54,13 @@ const RootStackScreen = () => {
     if (!user.isLogged) {
       setIsLoading(false);
     }
+    getConfig();
     dispatch(homeRequest());
   }, []);
+
+  const getConfig = async () => {
+    const response = await getConfigRequest();
+  };
 
   useEffect(() => {
     if (!home.loading && (home.data?.entries || []).length > 0) {

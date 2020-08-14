@@ -25,3 +25,8 @@ export const logout = () => action(UserActionTypes.LOGOUT);
 
 export const profileRequestSuccess = (data: BritboxAPIAccountModelsProfileGetProfileResponse) =>
   action(UserActionTypes.PROFILE_REQUEST_SUCCESS, { ...data });
+
+export const registerRequestSuccess = (data: EvergentLoginResponse) =>
+  action(UserActionTypes.REGISTER_REQUEST_SUCCESS, { ...data });
+
+export const loggedInRequest = () => action(UserActionTypes.LOGGEDIN_REQUEST);
