@@ -9,12 +9,13 @@ interface Props {
   height?: number;
   isContinue?: boolean;
   isTrailer?: boolean;
+  loading?: boolean;
 }
 
-const Action = ({ autoPlay, loop, width, height, isContinue, isTrailer }: Props) => {
+const Action = ({ autoPlay, loop, width, height, isContinue, isTrailer, loading }: Props) => {
   return (
     <Container>
-      <LottieAnimation {...{ autoPlay, loop, width, height, isContinue, isTrailer }} />
+      <LottieAnimation {...{ autoPlay, loop, width, height, isContinue, isTrailer, loading }} />
     </Container>
   );
 };

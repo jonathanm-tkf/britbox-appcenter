@@ -9,6 +9,7 @@ function loadStories() {
   require('../src/components/Stories/Button.stories');
   require('../src/components/Stories/Card.stories');
   require('../src/components/Stories/Carousel.stories');
+  require('../src/components/Stories/Grid.stories');
   require('../src/components/Stories/Header.stories');
   require('../src/components/Stories/HeaderCustom.stories');
   require('../src/components/Stories/Input.stories');
@@ -25,6 +26,7 @@ const stories = [
   '../src/components/Stories/Button.stories',
   '../src/components/Stories/Card.stories',
   '../src/components/Stories/Carousel.stories',
+  '../src/components/Stories/Grid.stories',
   '../src/components/Stories/Header.stories',
   '../src/components/Stories/HeaderCustom.stories',
   '../src/components/Stories/Input.stories',

@@ -55,6 +55,6 @@ export const SlimDescriptionText = styled.Text.attrs({
 `;
 
 export const SlimDescription = styled.View`
-  height: 220px;
+  height: 240px;
   margin-bottom: 20px;
 `;

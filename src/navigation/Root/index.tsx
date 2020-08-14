@@ -13,6 +13,7 @@ import ModalSeasons from '@screens/ModalSeasons';
 import { Animated } from 'react-native';
 import { ThemeProps } from '@store/modules/theme/types';
 import ModalMoreInformation from '@screens/ModalMoreInformation';
+import Orientation from 'react-native-orientation-locker';
 import { AppDrawerScreen } from '../Drawer';
 import { AuthStackScreen } from '../Auth';
 
@@ -51,6 +52,7 @@ const RootStackScreen = () => {
   const home = useSelector((state: AppState) => state.home);
 
   useEffect(() => {
+    Orientation.lockToPortrait();
     if (!user.isLogged) {
       setIsLoading(false);
     }

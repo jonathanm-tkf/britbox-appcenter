@@ -13,7 +13,7 @@ export const HeaderBackgroundImage = styled.View`
 
 export const ImageTop = styled.Image.attrs({
   resizeMode: 'cover',
-  blurRadius: 2,
+  blurRadius: 10,
 })`
   width: ${width}px;
   height: 300px;

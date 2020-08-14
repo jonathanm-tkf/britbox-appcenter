@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Animated } from 'react-native';
+import { Animated, NativeScrollEvent } from 'react-native';
 import { useNavigation, useRoute, RouteProp } from '@react-navigation/native';
 import { BackIcon } from '@assets/icons';
 
@@ -8,7 +8,7 @@ import {
   MassiveSDKModelPage,
   MassiveSDKModelItemList,
 } from '@src/sdks/Britbox.API.Content.TS/api';
-import { loadCollectionPage } from '@src/services/detail';
+import { loadCollectionPage, loadCollectionList } from '@src/services/detail';
 import { getTemplate } from '@src/utils/template';
 import TitleTreatment from '@screens/Shared/TitleTreatment';
 import Genre from '@screens/Shared/Genre';
@@ -18,6 +18,7 @@ import LargeProgramming from '@screens/Shared/LargeProgramming';
 import Episodes from '@screens/Shared/Episodes';
 import New from '@screens/Shared/New';
 import NewSlider from '@components/NewSlider';
+import Grid from '@screens/Shared/Grid';
 import { dataDummy } from './data';
 import {
   Container,
@@ -44,14 +45,20 @@ const Collections = () => {
   const { params } = useRoute<CollectionScreenRouteProp>();
   const { item: itemData } = params || undefined;
   const [data, setData] = useState<MassiveSDKModelPage | undefined>(dataDummy);
+  const [isContinuosScroll, setIsContinuosScroll] = useState(false);
+  const [isLoadingContinuosScroll, setIsLoadingContinuosScroll] = useState(false);
+  const [animationContinuosScroll, setAnimationContinuosScroll] = useState(false);
 
   const back = () => {
     navigation.goBack();
   };
 
   const getDataDetail = async (path: string) => {
-    const { response }: { response: MassiveSDKModelPage } = await loadCollectionPage(path);
+    const { response } = await loadCollectionPage(path);
     setData(response);
+    const checkIsContinuosScroll = getIsContinuosScroll(response || {});
+    setIsContinuosScroll(checkIsContinuosScroll);
+    setAnimationContinuosScroll(checkIsContinuosScroll);
   };
 
   useEffect(() => {
@@ -65,8 +72,18 @@ const Collections = () => {
 
     return () => {
       setData(dataDummy);
+      setIsLoadingContinuosScroll(false);
+      setIsContinuosScroll(false);
     };
   }, []);
+
+  const isCloseToBottom = ({
+    layoutMeasurement,
+    contentOffset,
+    contentSize,
+  }: NativeScrollEvent) => {
+    return layoutMeasurement.height + contentOffset.y >= contentSize.height - 50;
+  };
 
   const handleScroll = (event: any) => {
     const scrollPosition = event.nativeEvent.contentOffset.y;
@@ -82,6 +99,11 @@ const Collections = () => {
         useNativeDriver: true,
       }).start(() => setShowBlueView(false));
     }
+
+    if (isCloseToBottom(event.nativeEvent) && !isLoadingContinuosScroll && isContinuosScroll) {
+      setIsLoadingContinuosScroll(true);
+      getMoreDataContinuosScroll();
+    }
   };
 
   const getIsHeroSlim = () => {
@@ -94,6 +116,65 @@ const Collections = () => {
     }
 
     return null;
+  };
+
+  const getIsContinuosScroll = (response: MassiveSDKModelPage) => {
+    return (
+      (response &&
+        response.entries &&
+        response.entries.filter((item) => getTemplate(item.template || '') === 'grid-infinite')
+          .length > 0) ||
+      false
+    );
+  };
+
+  const getMoreDataContinuosScroll = () => {
+    const { next, page, total } =
+      (data?.entries || [])
+        .filter((item) => getTemplate(item.template || '') === 'grid-infinite')
+        .reduce((item) => item).list?.paging || {};
+
+    if (page !== total) {
+      const url = (next || '').split('?');
+
+      if (url.length > 0) {
+        const { page: nextPage, page_size: pageSize, sub } = JSON.parse(
+          `{"${url[url.length - 1].replace(/&/g, '","').replace(/=/g, '":"')}"}`,
+          (key, value) => {
+            return key === '' ? value : decodeURIComponent(value);
+          }
+        );
+        const id = url[0].split('/').pop() || '';
+
+        loadCollectionList({
+          id,
+          page: nextPage,
+          pageSize,
+          sub,
+        }).then(({ response }) => {
+          const newData = (data?.entries || []).map((item) => {
+            if (getTemplate(item.template || '') === 'grid-infinite') {
+              return {
+                ...item,
+                list: {
+                  ...item.list,
+                  items: [...(item.list?.items || []), ...(response?.items || [])],
+                  paging: { ...response?.paging },
+                },
+              };
+            }
+            return item;
+          });
+
+          setData({ ...data, entries: newData });
+          setIsLoadingContinuosScroll(false);
+
+          if ((page || 0) + 1 === total) {
+            setAnimationContinuosScroll(false);
+          }
+        });
+      }
+    }
   };
 
   const onPlay = (card: MassiveSDKModelItemList) => {
@@ -139,6 +220,23 @@ const Collections = () => {
                     onWatchlist={() => {}}
                     onPlay={(element) => onPlay(element)}
                     onDiscoverMore={(element) => onDiscoverMore(element)}
+                  />
+                );
+              case 'grid':
+                return (
+                  <Grid
+                    key={key.toString()}
+                    items={item?.list?.items || []}
+                    title={item?.title || ''}
+                  />
+                );
+              case 'grid-infinite':
+                return (
+                  <Grid
+                    key={key.toString()}
+                    items={item?.list?.items || []}
+                    title={item?.title || ''}
+                    loading={animationContinuosScroll}
                   />
                 );
               case 'new':
