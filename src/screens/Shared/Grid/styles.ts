@@ -5,3 +5,8 @@ export const Container = styled.View`
   flex-wrap: wrap;
   padding: 20px 0;
 `;
+
+export const WrapperLoading = styled.View`
+  align-items: center;
+  width: 100%;
+`;

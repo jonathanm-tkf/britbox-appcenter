@@ -89,12 +89,11 @@ const Tabs = ({ data }: Props) => {
             items={related?.items || []}
             onLayout={(event) => {
               const newHeight = event.nativeEvent.layout.height;
-              if (
-                threeHeight === 'auto' ||
-                parseInt(newHeight, 10) > parseInt(threeHeight, 10) ||
-                0
-              ) {
-                setThreeHeight(event.nativeEvent.layout.height);
+              console.tron.log({ valid: threeHeight === 'auto', newHeight });
+              if (threeHeight === 'auto') {
+                if (parseInt(newHeight, 10) > parseInt(threeHeight, 10)) {
+                  setThreeHeight(event.nativeEvent.layout.height);
+                }
               }
             }}
           />

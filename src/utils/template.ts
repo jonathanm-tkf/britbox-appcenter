@@ -24,6 +24,10 @@ export const getTemplate = (template: string) => {
       return 'genre';
     case '16:9 Tile (Reduced)':
       return 'title-treatment';
+    case 'Programme Grid (BBC)':
+      return 'grid';
+    case '16:9 Tile (Continuous Scroll)':
+      return 'grid-infinite';
     default:
       break;
   }

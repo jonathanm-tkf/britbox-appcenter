@@ -8,6 +8,7 @@ import {
   MassiveSDKModelEpisodes,
   MassiveSDKModelPage,
   MassiveSDKModelItemSummary,
+  BritboxAPIContentModelsListsGetListResponse,
 } from '@src/sdks/Britbox.API.Content.TS/api';
 
 type Detail = {
@@ -294,7 +295,11 @@ const processCollectionPage = async (
   return { response: undefined };
 };
 
-export const loadCollectionPage = async (path: string) => {
+export const loadCollectionPage = async (
+  path: string
+): Promise<{
+  response: MassiveSDKModelPage | undefined;
+}> => {
   const { getPage } = BritboxContentApi();
 
   try {
@@ -303,6 +308,7 @@ export const loadCollectionPage = async (path: string) => {
       device: getDevice(),
       listPageSize: 18,
       maxListPrefetch: 15,
+      listPageSizeLarge: 15,
       segments: ['US'],
       sub: 'Subscriber',
       useCustomId: true,
@@ -311,6 +317,56 @@ export const loadCollectionPage = async (path: string) => {
     });
 
     return await processCollectionPage(response);
+  } catch (error) {
+    return error;
+  }
+};
+
+type LoadCollectionList = {
+  id: string;
+  page: number;
+  pageSize: number;
+  sub: string;
+};
+
+const processCollectionList = async (
+  data: BritboxAPIContentModelsListsGetListResponse
+): Promise<{
+  response: MassiveSDKModelItemList | undefined;
+}> => {
+  const { externalResponse: detail } = data;
+
+  if (detail) {
+    return {
+      response: {
+        ...detail,
+      },
+    };
+  }
+
+  return { response: undefined };
+};
+
+export const loadCollectionList = async ({
+  id,
+  page,
+  pageSize,
+  sub,
+}: LoadCollectionList): Promise<{
+  response: MassiveSDKModelItemList | undefined;
+}> => {
+  const { getList } = BritboxContentApi();
+
+  try {
+    const response = await getList(id, {
+      page,
+      pageSize,
+      device: getDevice(),
+      segments: ['US'],
+      sub,
+    });
+
+    return await processCollectionList(response);
   } catch (error) {
     return error;
   }
