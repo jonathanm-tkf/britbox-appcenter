@@ -1,3 +1,4 @@
+import { ScrollView as ScrollViewList } from 'react-native';
 import styled from 'styled-components/native';
 import { ThemeState } from '@store/modules/theme/types';
 import LinearGradient from 'react-native-linear-gradient';
@@ -5,7 +6,7 @@ import { RadioCheckedIcon, RadioUnCheckedIcon } from '@assets/icons';
 
 export const Container = styled.View`
   flex: 1;
-  padding: 30px 20px 15px 20px;
+  padding: 30px 0px 15px 0px;
   justify-content: center;
   margin-bottom: 10px;
   border-bottom-width: 1px;
@@ -26,6 +27,13 @@ export const ScrollView = styled.ScrollView`
 
 export const TitleWrapper = styled.View`
   margin-bottom: 10px;
+  padding-left: 20px;
+  padding-right: 20px;
+`;
+
+export const PaddingHorizontalView = styled.View`
+  padding-left: 20px;
+  padding-right: 20px;
 `;
 
 export const Title = styled.Text`
@@ -60,8 +68,16 @@ export const EmailTitle = styled.Text`
   text-align: center;
 `;
 
-export const RowWrapper = styled.View`
-  flex-direction: row;
+export const RowWrapper = styled(ScrollViewList).attrs({
+  horizontal: true,
+  showsHorizontalScrollIndicator: false,
+  contentContainerStyle: {
+    flexGrow: 1,
+    justifyContent: 'center',
+    paddingHorizontal: 15,
+  },
+  bounces: false,
+})`
   margin-top: 10px;
 `;
 
@@ -90,8 +106,10 @@ export const SmallText = styled.Text`
   color: ${(props: ThemeState) => props.theme.PRIMARY_FOREGROUND_COLOR};
 `;
 
-export const RadioBox = styled.TouchableOpacity`
-  flex: 1;
+export const RadioBox = styled.TouchableOpacity.attrs({
+  activeOpacity: 1,
+})`
+  width: 180px;
   height: 100%;
   border-width: 1px;
   margin-horizontal: 5px;
@@ -100,7 +118,7 @@ export const RadioBox = styled.TouchableOpacity`
   border-color: ${(props: ThemeState) => props.theme.PRIMARY_FOREGROUND_COLOR};
 `;
 
-export const RadioBoxContent = styled.TouchableOpacity`
+export const RadioBoxContent = styled.View`
   flex: 1;
 `;
 

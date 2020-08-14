@@ -5,12 +5,14 @@ import { KeyboardAvoidingView, Platform } from 'react-native';
 import { Button } from '@components/Button';
 import { Input } from '@components/Input';
 import HeaderCustom from '@components/HeaderCustom';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { signupRequest } from '@store/modules/user/saga';
+import { registerRequestSuccess } from '@store/modules/user/actions';
+import { EvergentSignupResponseError } from '@store/modules/user/types';
 import { AppState } from '@store/modules/rootReducer';
 import Orientation from 'react-native-orientation-locker';
 import { useTranslation } from 'react-i18next';
-import { EvergentSignupResponseError } from '@store/modules/user/types';
+
 import { useNavigation } from '@react-navigation/native';
 import {
   Container,
@@ -42,6 +44,7 @@ const evergentSignupResponseError: EvergentSignupResponseError = {
 const cancelStyle = { marginTop: 15, borderWidth: 0 };
 
 const SignUp = () => {
+  const dispatch = useDispatch();
   const navigation = useNavigation();
   const { t } = useTranslation('signup');
 
@@ -172,7 +175,8 @@ const SignUp = () => {
       if (response) {
         const { response: responseData } = response;
         if (responseData && Number(responseData.responseCode) === 1) {
-          navigation.navigate('SignUpSubscription', { responseData });
+          dispatch(registerRequestSuccess(responseData));
+          navigation.navigate('SignUpSubscription');
         } else {
           const responseError: EvergentSignupResponseError = {
             responseCode: 0,
@@ -283,7 +287,9 @@ const SignUp = () => {
                 error={errorConfirmPassword}
               />
               <Button
-                onPress={() => signup()}
+                onPress={() => {
+                  signup();
+                }}
                 stretch
                 loading={loading}
                 size="big"
