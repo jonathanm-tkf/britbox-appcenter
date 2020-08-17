@@ -39,6 +39,12 @@ export interface BritboxDataEvergentModelsFailureMessage {
   errorCode?: string;
 }
 
+export interface BritboxAPIAccountModelsAuthorizationRefreshTokenRequestD3 {
+  d3Token: string;
+  deviceName: string;
+  deviceType: string;
+}
+
 export interface BritboxAPIAccountModelsAuthorizationAuthenticateCustomerRequest {
   contactUserName: string;
   contactPassword: string;
@@ -63,6 +69,14 @@ export interface BritboxAPIAccountModelsAuthorizationForgotContactPasswordReques
 
 export interface BritboxAPIAccountModelsAuthorizationForgotContactPasswordResponse {
   response?: BritboxDataEvergentModelsForgotContactPasswordResponseMessageBaseResponse;
+}
+
+export interface BritboxAPIAccountModelsAuthorizationValidateContactPasswordRequest {
+  contactPassword?: string;
+}
+
+export interface BritboxAPIAccountModelsAuthorizationValidateContactPasswordResponse {
+  response?: BritboxDataEvergentModelsValidateContactPasswordResponseMessageBaseResponse;
 }
 
 export interface BritboxAPIAccountModelsCustomerGetProductsResponse {
@@ -149,8 +163,10 @@ export interface BritboxAPIAccountModelsMediaFileGetItemMediaFilesResponse {
 
 export interface BritboxAPIAccountModelsProfileGetProfileResponse {
   firstName?: string;
+  lastName?: string;
   country?: string;
   status?: string;
+  phoneNumber?: string;
   watched?: Record<string, MassiveSDKModelWatched>;
   watchedList?: MassiveSDKModelItemList;
   bookmarks?: Record<string, string>;
@@ -247,6 +263,7 @@ export interface MassiveSDKModelItemSummary {
   season?: MassiveSDKModelItemSummary;
   credits?: MassiveSDKModelCredit[];
   vams?: object[];
+  trailers?: object[];
 }
 
 export interface MassiveSDKModelPagination {
@@ -360,7 +377,7 @@ export interface MassiveSDKModelPaginationAuth {
 
 export interface MassiveSDKModelPaginationOptions {
   order?: 'asc' | 'desc';
-  orderBy?: 'a-z' | 'release-year' | 'date-added';
+  orderBy?: 'a-z' | 'release-year' | 'date-added' | 'date-modified';
   itemType?:
     | 'movie'
     | 'show'
@@ -732,6 +749,14 @@ export interface BritboxDataEvergentModelsForgotContactPasswordResponseMessageBa
   failureMessage?: BritboxDataEvergentModelsFailureMessage[];
 }
 
+export interface BritboxDataEvergentModelsValidateContactPasswordResponseMessageBaseResponse {
+  email?: string;
+  message?: string;
+  responseCode?: string;
+  status?: string;
+  failureMessage?: BritboxDataEvergentModelsFailureMessage[];
+}
+
 export interface BritboxDataEvergentModelsGetProductsResponseMessageBaseResponse {
   productsResponseMessage?: BritboxDataEvergentModelsGetProductsResponseMessageBaseProductsResponseMsg[];
   message?: string;
@@ -1004,6 +1029,22 @@ export class Api<SecurityDataType = any> extends HttpClient<SecurityDataType> {
 
     /**
      * @tags Authorization
+     * @name RefreshTokenD3
+     * @request POST:/v1/account/Authorization/refreshTokenD3
+     */
+    refreshTokenD3: (
+      request: BritboxAPIAccountModelsAuthorizationRefreshTokenRequestD3,
+      params?: RequestParams
+    ) =>
+      this.request<BritboxAPIAccountModelsAuthorizationRefreshTokenResponse, any>(
+        `/v1/account/Authorization/refreshTokenD3`,
+        'POST',
+        params,
+        request
+      ),
+
+    /**
+     * @tags Authorization
      * @name AuthenticateCustomer
      * @request POST:/v1/account/Authorization/authenticateCustomer
      */
@@ -1029,6 +1070,22 @@ export class Api<SecurityDataType = any> extends HttpClient<SecurityDataType> {
     ) =>
       this.request<BritboxAPIAccountModelsAuthorizationForgotContactPasswordResponse, any>(
         `/v1/account/Authorization/forgotContactPassword`,
+        'POST',
+        params,
+        request
+      ),
+
+    /**
+     * @tags Authorization
+     * @name ValidateContactPassword
+     * @request POST:/v1/account/Authorization/validateContactPassword
+     */
+    validateContactPassword: (
+      request: BritboxAPIAccountModelsAuthorizationValidateContactPasswordRequest,
+      params?: RequestParams
+    ) =>
+      this.request<BritboxAPIAccountModelsAuthorizationValidateContactPasswordResponse, any>(
+        `/v1/account/Authorization/validateContactPassword`,
         'POST',
         params,
         request
@@ -1203,8 +1260,15 @@ export class Api<SecurityDataType = any> extends HttpClient<SecurityDataType> {
      */
     deleteWatched: (
       request: BritboxAPIAccountModelsProfileDeleteWatchedRequest,
+      query?: { segments?: string[] },
       params?: RequestParams
-    ) => this.request<any, any>(`/v1/account/Profile/watched`, 'DELETE', params, request),
+    ) =>
+      this.request<any, any>(
+        `/v1/account/Profile/watched${this.addQueryParams(query)}`,
+        'DELETE',
+        params,
+        request
+      ),
 
     /**
      * @tags Profile
@@ -1252,10 +1316,11 @@ export class Api<SecurityDataType = any> extends HttpClient<SecurityDataType> {
     setItemWatchedStatus: (
       itemId: string,
       request: BritboxAPIAccountModelsProfileSetItemWatchedStatusRequest,
+      query?: { segments?: string[] },
       params?: RequestParams
     ) =>
       this.request<BritboxAPIAccountModelsProfileSetItemWatchedStatusResponse, any>(
-        `/v1/account/Profile/watched/${itemId}`,
+        `/v1/account/Profile/watched/${itemId}${this.addQueryParams(query)}`,
         'PUT',
         params,
         request
@@ -1316,9 +1381,9 @@ export class Api<SecurityDataType = any> extends HttpClient<SecurityDataType> {
      * @name BookmarkItem
      * @request PUT:/v1/account/Profile/bookmarks/{itemId}
      */
-    bookmarkItem: (itemId: string, params?: RequestParams) =>
+    bookmarkItem: (itemId: string, query?: { segments?: string[] }, params?: RequestParams) =>
       this.request<BritboxAPIAccountModelsProfileBookmarkItemResponse, any>(
-        `/v1/account/Profile/bookmarks/${itemId}`,
+        `/v1/account/Profile/bookmarks/${itemId}${this.addQueryParams(query)}`,
         'PUT',
         params
       ),
@@ -1328,8 +1393,12 @@ export class Api<SecurityDataType = any> extends HttpClient<SecurityDataType> {
      * @name DeleteItemBookmark
      * @request DELETE:/v1/account/Profile/bookmarks/{itemId}
      */
-    deleteItemBookmark: (itemId: string, params?: RequestParams) =>
-      this.request<any, any>(`/v1/account/Profile/bookmarks/${itemId}`, 'DELETE', params),
+    deleteItemBookmark: (itemId: string, query?: { segments?: string[] }, params?: RequestParams) =>
+      this.request<any, any>(
+        `/v1/account/Profile/bookmarks/${itemId}${this.addQueryParams(query)}`,
+        'DELETE',
+        params
+      ),
 
     /**
      * @tags Profile
