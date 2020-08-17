@@ -2,7 +2,10 @@ import { takeLatest, all, call, put, select } from 'redux-saga/effects';
 // import * as Sentry from '@sentry/react-native';
 
 import { BritboxAccountApi, BritboxContentApi } from '@src/sdks';
-import { BritboxAPIAccountModelsCustomerAddSubscriptionRequest } from '@src/sdks/Britbox.API.Account.TS/api';
+import {
+  BritboxAPIAccountModelsCustomerAddSubscriptionRequest,
+  BritboxAPIAccountModelsProfileUpdateProfileRequest,
+} from '@src/sdks/Britbox.API.Account.TS/api';
 import { PayloadAction } from 'typesafe-actions';
 import { UserActionTypes, UserLogin, EvergentLoginResponse, UserSignUp } from './types';
 import {
@@ -136,6 +139,25 @@ export async function addSubscriptionRequest(
 
   try {
     const response = await addSubscription(addSubscriptionRequestObject);
+
+    return response;
+  } catch (error) {
+    return error;
+  }
+}
+
+export async function updateProfileRequest(
+  accessToken: string,
+  updateProfileParams: BritboxAPIAccountModelsProfileUpdateProfileRequest
+) {
+  const { updateProfile } = BritboxAccountApi({
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
+
+  try {
+    const response = await updateProfile(updateProfileParams);
 
     return response;
   } catch (error) {

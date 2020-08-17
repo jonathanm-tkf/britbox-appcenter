@@ -5,6 +5,7 @@ import { View, Platform, Alert, Text, Switch } from 'react-native';
 import { getStatusBarHeight } from 'react-native-iphone-x-helper';
 import { ThemeState } from '@store/modules/theme/types';
 import { BackIcon, CelularIcon } from '@assets/icons';
+import { updateProfileRequest } from '@store/modules/user/saga';
 import HeaderCustom from '@components/HeaderCustom';
 import TabsComponent from '@components/TabsComponent';
 import { Button } from '@components/Button';
@@ -39,20 +40,30 @@ const updateBtnStyle = {
 export default function MyAccount() {
   const { navigate } = useNavigation();
   const user = useSelector((state: AppState) => state.user);
-  const [firstName, setFirstName] = useState(user?.profile?.firstName || '');
-  const [lastName, setLastName] = useState(user?.profile?.lastName || '');
-  const [email, setEmail] = useState('');
-  const [mobile, setMobile] = useState('');
-
-  const [curPassword, setCurPassword] = useState('');
-  const [newPassword, setNewPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
+  const theme = useSelector((state: AppState) => state.theme.theme);
 
   const [isNewsletters, setIsNewsletters] = useState(false);
 
-  const loading = useSelector((state: AppState) => state.user.loading);
-
   const DetailsRoute = () => {
+    const [firstName, setFirstName] = useState(user?.profile?.firstName || '');
+    const [lastName, setLastName] = useState(user?.profile?.lastName || '');
+    const [email, setEmail] = useState('');
+    const [mobile, setMobile] = useState(user?.profile?.phoneNumber || '');
+    const [loading, setLoading] = useState(false);
+
+    const updateProfile = async () => {
+      setLoading(true);
+      const response = await updateProfileRequest(user.access.accessToken, {
+        firstName,
+        lastName,
+        mobileNumber: mobile,
+        alertNotificationEmail: true,
+      });
+
+      console.tron.log(response);
+      setLoading(false);
+    };
+
     return (
       <Container>
         <ScrollableContainer>
@@ -74,11 +85,12 @@ export default function MyAccount() {
               <Input label="Email" value={email} onChangeText={(text) => setEmail(text)} />
               <Input label="Mobile" value={mobile} onChangeText={(text) => setMobile(text)} />
               <Button
-                onPress={() => {}}
+                onPress={() => updateProfile()}
                 stretch
                 style={updateBtnStyle}
                 loading={loading}
                 size="big"
+                color={theme.PRIMARY_FOREGROUND_COLOR}
               >
                 Update
               </Button>
@@ -101,6 +113,11 @@ export default function MyAccount() {
   };
 
   const PasswordRoute = () => {
+    const [curPassword, setCurPassword] = useState('');
+    const [newPassword, setNewPassword] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('');
+    const [loading, setLoading] = useState(false);
+
     return (
       <ScrollableContainer>
         <ScrollContent>
@@ -123,7 +140,13 @@ export default function MyAccount() {
               value={confirmPassword}
               onChangeText={(text) => setConfirmPassword(text)}
             />
-            <Button onPress={() => {}} stretch loading={loading} size="big">
+            <Button
+              onPress={() => {}}
+              stretch
+              loading={loading}
+              size="big"
+              color={theme.PRIMARY_FOREGROUND_COLOR}
+            >
               Update
             </Button>
           </ScrollableContainerPaddingHorizontal>
@@ -162,6 +185,8 @@ export default function MyAccount() {
     );
   };
   const NewsletterRoute = () => {
+    const [loading, setLoading] = useState(false);
+
     return (
       <Container>
         <ScrollableContainer>
@@ -185,6 +210,7 @@ export default function MyAccount() {
                 style={updateBtnStyle}
                 loading={loading}
                 size="big"
+                color={theme.PRIMARY_FOREGROUND_COLOR}
               >
                 Update
               </Button>
