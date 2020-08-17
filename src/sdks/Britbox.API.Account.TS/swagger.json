@@ -1255,7 +1255,7 @@
     "Britbox.Data.Evergent.Models.TransactionReferenceMsg": {
       "type": "object",
       "properties": {
-        "amount": { "type": "string" },
+        "amount": { "format": "double", "type": "number" },
         "txID": { "type": "string" },
         "txMsg": { "type": "string" },
         "rokuPucId": { "type": "string" }
@@ -1862,9 +1862,10 @@
       "properties": { "pageSize": { "format": "int64", "type": "integer" } }
     },
     "Britbox.API.Account.Models.Profile.UpdateProfileRequest": {
-      "required": ["firstName", "lastName", "mobileNumber", "alertNotificationEmail"],
+      "required": ["email", "firstName", "lastName", "mobileNumber", "alertNotificationEmail"],
       "type": "object",
       "properties": {
+        "email": { "type": "string" },
         "firstName": { "type": "string" },
         "lastName": { "type": "string" },
         "mobileNumber": { "type": "string" },
