@@ -64,6 +64,6 @@ buck-out/
 
 /android/app/release/
 
-/src/sdks/Britbox.API.Account.TS/index.html
-/src/sdks/Britbox.API.Content.TS/index.html
-/src/sdks/Britbox.API.Search.TS/index.html
+# /src/sdks/Britbox.API.Account.TS/index.html
+# /src/sdks/Britbox.API.Content.TS/index.html
+# /src/sdks/Britbox.API.Search.TS/index.html

@@ -40,7 +40,6 @@ export default function More() {
   const { navigate } = useNavigation();
   const dispatch = useDispatch();
   const user = useSelector((state: AppState) => state.user);
-  console.tron.log(user);
 
   const logoutAction = () => dispatch(logout());
 
@@ -57,7 +56,7 @@ export default function More() {
                   navigate('MyAccount');
                 }}
               >
-                <SubTitleLink>Manage Profile</SubTitleLink>
+                <SubTitleLink>Manage Profile </SubTitleLink>
                 <EditIcon width={25} height={25} />
               </EditIconContainer>
             </RowViewContainer>

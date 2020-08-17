@@ -224,6 +224,7 @@ export interface MassiveSDKModelItemSummary {
   season?: MassiveSDKModelItemSummary;
   credits?: MassiveSDKModelCredit[];
   vams?: object[];
+  trailers?: object[];
 }
 
 export interface MassiveSDKModelPagination {
@@ -332,7 +333,7 @@ export interface MassiveSDKModelPaginationAuth {
 
 export interface MassiveSDKModelPaginationOptions {
   order?: 'asc' | 'desc';
-  orderBy?: 'a-z' | 'release-year' | 'date-added';
+  orderBy?: 'a-z' | 'release-year' | 'date-added' | 'date-modified';
   itemType?:
     | 'movie'
     | 'show'

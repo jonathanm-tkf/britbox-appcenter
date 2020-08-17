@@ -1,8 +1,8 @@
 /* eslint-disable react-native/no-inline-styles */
 import React, { useEffect, useState } from 'react';
-import { View, Dimensions } from 'react-native';
+import { View, Dimensions, StatusBar } from 'react-native';
 import Orientation from 'react-native-orientation-locker';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, RouteProp, useRoute } from '@react-navigation/native';
 import { AppState } from '@store/modules/rootReducer';
 import { useSelector } from 'react-redux';
 import { WebView } from 'react-native-webview';
@@ -10,6 +10,7 @@ import Constants from '@src/config/Constants';
 import { BackIcon } from '@assets/icons';
 import NetInfo, { NetInfoStateType } from '@react-native-community/netinfo';
 import { isTablet } from 'react-native-device-info';
+import { MassiveSDKModelItemSummary } from '@src/sdks/Britbox.API.Content.TS/api';
 import { BackButton } from './styles';
 
 const { width, height } = Dimensions.get('window');
@@ -20,6 +21,14 @@ const webview = {
   height: width,
 };
 
+type RootParamList = {
+  VideoPlayer: {
+    item: MassiveSDKModelItemSummary;
+  };
+};
+
+type VideoPlayerScreenRouteProp = RouteProp<RootParamList, 'VideoPlayer'>;
+
 const VideoPlayer = () => {
   const theme = useSelector((state: AppState) => state.theme.theme);
   const token = useSelector((state: AppState) => state.core.token);
@@ -27,17 +36,27 @@ const VideoPlayer = () => {
   const [connection, setConnection] = useState<NetInfoStateType | undefined>(undefined);
 
   const { goBack } = useNavigation();
-  useEffect(() => {
-    Orientation.lockToLandscape();
+  const { params } = useRoute<VideoPlayerScreenRouteProp>();
 
-    NetInfo.fetch().then((state) => {
-      const { type } = state;
-      setConnection(type || undefined);
-    });
+  useEffect(() => {
+    let unmonted = false;
+    Orientation.lockToLandscape();
+    StatusBar.setHidden(true);
+
+    if (!unmonted) {
+      NetInfo.fetch().then((state) => {
+        const { type } = state;
+        setConnection(type || undefined);
+      });
+    }
+    return () => {
+      unmonted = true;
+    };
   }, []);
 
   const backArrow = () => {
     Orientation.lockToPortrait();
+    StatusBar.setHidden(false);
     goBack();
   };
 
@@ -56,7 +75,7 @@ const VideoPlayer = () => {
       {token && (
         <WebView
           source={{
-            uri: `${Constants.url_player}${token}&connection=${
+            uri: `${Constants.url_player}${params.item.id}?token=${token}&connection=${
               connection === 'wifi' && isTablet()
                 ? 'mobile-tablet-main'
                 : connection === 'wifi'
@@ -66,7 +85,7 @@ const VideoPlayer = () => {
           }}
           // onLoad={() =>
           //   console.tron.log({
-          //     url: `${Constants.url_player}${token}&connection=${
+          //     url: `${Constants.url_player}${params.item.id}?token=${token}&connection=${
           //       connection === 'wifi' && isTablet()
           //         ? 'mobile-tablet-main'
           //         : connection === 'wifi'

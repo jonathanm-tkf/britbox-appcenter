@@ -5,19 +5,20 @@ import Card from '@components/Card';
 import { MassiveSDKModelEpisodesItem } from '@src/sdks/Britbox.API.Content.TS/api';
 import { getImage } from '@src/utils/images';
 import { getDuration } from '@src/utils/template';
-import { Container } from './styles';
-// import { DATA } from './data';
-
-// const episodeUrl =
-//   'https://test.bbc-massive.com/isl/api/v1/dataservice/ResizeImage/$value?Format=%27jpg%27&Quality=85&ImageId=%27233178%27&EntityType=%27Item%27&EntityId=%277553%27&Width=1248&Height=702&device=web_browser&subscriptions=Subscriber&segmentationTags=us';
+import { Show, MoreInformation } from '@src/services/detail';
+import { ArrowBottomIcon, DiscoverMoreIcon } from '@assets/icons';
+import { useNavigation } from '@react-navigation/native';
+import { Container, ContainerFilter, SeasonButton, SeasonText, InformationButton } from './styles';
 
 interface Props {
   onLayout?: (event: any) => void;
   data: MassiveSDKModelEpisodesItem[];
+  show: Show | undefined;
+  moreInformation: MoreInformation | undefined;
 }
 
-const Episodes = ({ onLayout, data }: Props) => {
-  console.tron.log({ data });
+const Episodes = ({ onLayout, data, show, moreInformation }: Props) => {
+  const { navigate } = useNavigation();
 
   const getCategories = (itemData: MassiveSDKModelEpisodesItem): any[] => {
     const dataResult = [];
@@ -49,14 +50,50 @@ const Episodes = ({ onLayout, data }: Props) => {
     return dataResult;
   };
 
+  const goToModalSeasons = (showData: Show) => {
+    navigate('ModalSeasons', { show: showData });
+  };
+
+  const onPlay = (item: MassiveSDKModelEpisodesItem) => {
+    if (item.type === 'movie' || item.type === 'episode') {
+      return navigate('VideoPlayer', { item });
+    }
+    return null;
+  };
+
+  const goToMoreInformation = () => {
+    return navigate('ModalMoreInformation', { moreInformation });
+  };
+
   return (
     <Container onLayout={onLayout}>
-      {data.map((item) => (
+      {show && (
+        <ContainerFilter>
+          <SeasonButton onPress={() => goToModalSeasons(show)}>
+            <SeasonText>
+              {
+                (show.seasons?.items || [])
+                  .filter(
+                    (item) =>
+                      parseInt(item.id || '0', 10) === parseInt((show?.id || '0').toString(), 10)
+                  )
+                  .reduce((item) => item).contextualTitle
+              }
+            </SeasonText>
+            <ArrowBottomIcon width={14} height={14} />
+          </SeasonButton>
+          <InformationButton onPress={goToMoreInformation}>
+            <DiscoverMoreIcon width={25} height={25} />
+          </InformationButton>
+          {/* <Year>Year: {show.releaseYear}</Year> */}
+        </ContainerFilter>
+      )}
+      {data.map((item, index) => (
         <Card
-          key={item.id}
+          key={index.toString()}
           width={157}
           height={107}
-          url={getImage(item?.images?.wallpaper || '', 'wallpaper')}
+          url={getImage(item?.images?.wallpaper || 'loading', 'wallpaper')}
           isDetail
           data={{
             title: item?.contextualTitle || '',
@@ -64,6 +101,7 @@ const Episodes = ({ onLayout, data }: Props) => {
             summary: item?.shortDescription || '',
             category: getCategories(item || {}),
           }}
+          onPress={() => onPlay(item)}
         />
       ))}
     </Container>

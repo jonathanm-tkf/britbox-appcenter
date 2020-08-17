@@ -1,54 +1,70 @@
 import React from 'react';
 
-import { Information as InformationDataType } from '@src/services/detail';
+import { Information as InformationDataType, MoreInformation } from '@src/services/detail';
 import { useTranslation } from 'react-i18next';
 import { getDuration } from '@src/utils/template';
-import { Container, Year, Seasons, Genre, Credits, CreditsBold, Label } from './styles';
+import { DiscoverMoreIcon } from '@assets/icons';
+import { useNavigation } from '@react-navigation/native';
+import { Container, Row, LabelBold, InformationButton } from './styles';
 
 interface Props {
   data: InformationDataType;
   onLayout?: (event: any) => void;
+  moreInformation: MoreInformation | undefined;
 }
 
-const Information = ({ data, onLayout }: Props) => {
+const Information = ({ data, onLayout, moreInformation }: Props) => {
   const { t } = useTranslation('layout');
+  const { navigate } = useNavigation();
+
+  const goToMoreInformation = () => {
+    return navigate('ModalMoreInformation', { moreInformation });
+  };
+
   return (
     <Container onLayout={onLayout}>
+      {(data.type === 'movie' || data.type === 'episode') && (
+        <InformationButton onPress={goToMoreInformation}>
+          <DiscoverMoreIcon width={25} height={25} />
+        </InformationButton>
+      )}
       {data?.customFields?.YearRange && (
-        <Year>
-          <Label>{t('years')}:</Label> {data.customFields.YearRange}
-        </Year>
+        <Row>
+          <LabelBold>{t('years')}:</LabelBold> {data.customFields.YearRange}
+        </Row>
       )}
       {data.type === 'show' && (
-        <Seasons>
-          <Label>{data.seasons > 1 ? t('seasons') : t('season')}:</Label> {data.seasons}
-        </Seasons>
+        <Row>
+          <LabelBold>{data.seasons > 1 ? t('seasons') : t('season')}:</LabelBold> {data.seasons}
+        </Row>
       )}
       {data.type === 'movie' && (
-        <Seasons>
-          <Label>{t('duration')}:</Label> {getDuration(data.duration)} min
-        </Seasons>
+        <Row>
+          <LabelBold>{t('duration')}:</LabelBold> {getDuration(data.duration)} min
+        </Row>
       )}
       {(data.genres || []).length > 0 && (
-        <Genre>
-          Genre:{' '}
+        <Row>
+          <LabelBold>Genre: </LabelBold>
           {(() => {
-            const genres = (data.genres || []).map((item) => item[0].toUpperCase() + item.slice(1));
+            const genres = (data.genres || [])
+              .filter((item) => item.character !== '')
+              .map((item) => item[0].toUpperCase() + item.slice(1));
             return genres.join(', ');
           })()}
-        </Genre>
+        </Row>
       )}
 
       {(data.credits || []).length > 0 && (
-        <Credits>
-          <CreditsBold>Credits: </CreditsBold>
+        <Row>
+          <LabelBold>Credits: </LabelBold>
           {(() => {
             const name = (data.credits || [])
               .filter((item) => item.character !== '')
               .map((item) => item.character);
             return name.join(', ');
           })()}
-        </Credits>
+        </Row>
       )}
     </Container>
   );

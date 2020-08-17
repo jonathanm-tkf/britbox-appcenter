@@ -2,10 +2,13 @@ import styled from 'styled-components/native';
 import { ThemeState } from '@store/modules/theme/types';
 import LinearGradient from 'react-native-linear-gradient';
 import { UnLockIcon, LockIcon } from '@assets/icons';
+import { getBottomSpace } from 'react-native-iphone-x-helper';
+// import { Dimensions } from 'react-native';
 
 export const Container = styled.View`
   flex: 1;
   background-color: ${(props: ThemeState) => props.theme.PRIMARY_COLOR};
+  padding-bottom: ${getBottomSpace() + 74}px;
 `;
 
 export const ScrollableContainer = styled.ScrollView.attrs({

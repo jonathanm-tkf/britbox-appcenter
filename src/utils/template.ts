@@ -4,6 +4,8 @@ export const getTemplate = (template: string) => {
     case '3:1 Hero (Standard)':
     case 'Hero (BBC)':
       return 'hero';
+    case 'Hero Slim (BBC)':
+      return 'hero-slim';
     case 'T1':
       return 'episodes';
     case 'T2':
@@ -12,6 +14,7 @@ export const getTemplate = (template: string) => {
       return 'standard';
     case 'P2':
       return 'popular';
+    case 'Programme Carousel (BBC)':
     case 'Double Programme Carousel (BBC)':
     case '16:9 Tile (Hero)':
       return 'new';

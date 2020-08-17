@@ -6,45 +6,32 @@ export const Container = styled.View`
   padding: 30px 20px;
 `;
 
-export const Year = styled.Text`
+export const Row = styled.Text`
   color: ${(props: ThemeState) => props.theme.PRIMARY_FOREGROUND_COLOR};
   font-family: ${(props: ThemeState) => props.theme.PRIMARY_FONT_FAMILY};
   margin-bottom: 25px;
   font-size: 14px;
 `;
 
-export const Seasons = styled.Text`
-  color: ${(props: ThemeState) => props.theme.PRIMARY_FOREGROUND_COLOR};
-  font-family: ${(props: ThemeState) => props.theme.PRIMARY_FONT_FAMILY};
-  /* margin-bottom: 25px; */
-  font-size: 14px;
-  line-height: 24px;
-  margin-bottom: 10px;
-`;
-
 export const Label = styled.Text`
   text-transform: capitalize;
 `;
 
-export const Genre = styled.Text`
-  color: ${(props: ThemeState) => props.theme.PRIMARY_FOREGROUND_COLOR};
-  font-family: ${(props: ThemeState) => props.theme.PRIMARY_FONT_FAMILY};
-  /* margin-bottom: 25px; */
-  font-size: 14px;
-  line-height: 24px;
-  margin-bottom: 10px;
-`;
-
-export const CreditsBold = styled.Text`
+export const LabelBold = styled.Text`
   color: ${(props: ThemeState) => props.theme.PRIMARY_FOREGROUND_COLOR};
   font-family: ${(props: ThemeState) => props.theme.PRIMARY_FONT_FAMILY_MEDIUM};
   font-size: 14px;
+  text-transform: capitalize;
 `;
 
-export const Credits = styled.Text`
-  color: ${(props: ThemeState) => props.theme.PRIMARY_FOREGROUND_COLOR};
-  font-family: ${(props: ThemeState) => props.theme.PRIMARY_FONT_FAMILY_LIGHT};
-  font-size: 14px;
-  line-height: 24px;
-  margin-bottom: 10px;
+export const InformationButton = styled.TouchableOpacity`
+  padding: 5px;
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  width: 50px;
+  height: 50px;
+  z-index: 1;
+  justify-content: center;
+  align-items: center;
 `;

@@ -6,5 +6,9 @@
   "season": "season",
   "seasons": "seasons",
   "years": "years",
-  "min": "min"
+  "credits": "Credits",
+  "min": "min",
+  "az": "A-Z",
+  "watchlist": "Watchlist",
+  "new": "New"
 }

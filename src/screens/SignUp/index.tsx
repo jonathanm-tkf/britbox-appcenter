@@ -12,6 +12,7 @@ import { EvergentSignupResponseError } from '@store/modules/user/types';
 import { AppState } from '@store/modules/rootReducer';
 import Orientation from 'react-native-orientation-locker';
 import { useTranslation } from 'react-i18next';
+
 import { useNavigation } from '@react-navigation/native';
 import {
   Container,
@@ -35,7 +36,6 @@ import {
 const flex = {
   flex: 1,
 };
-
 const evergentSignupResponseError: EvergentSignupResponseError = {
   responseCode: 0,
   failureMessage: [],
@@ -55,7 +55,6 @@ const SignUp = () => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [isCheckPrivacy, setIsCheckPrivacy] = useState(false);
   const theme = useSelector((state: AppState) => state.theme.theme);
-
   const [loading, setLoading] = useState(false);
 
   const [errorState, setErrorState] = useState(false);

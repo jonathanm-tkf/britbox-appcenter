@@ -1,11 +1,12 @@
 import styled from 'styled-components/native';
 import { ThemeState } from '@store/modules/theme/types';
-import { getStatusBarHeight } from 'react-native-iphone-x-helper';
+import { getStatusBarHeight, getBottomSpace } from 'react-native-iphone-x-helper';
 import { Platform, Animated } from 'react-native';
 
 export const Container = styled.View`
   flex: 1;
   background-color: ${(props: ThemeState) => props.theme.PRIMARY_COLOR};
+  padding-bottom: ${getBottomSpace() + 64}px;
 `;
 
 export const Scroll = styled.ScrollView.attrs({
@@ -71,7 +72,7 @@ export const InnerContent = styled.View`
   border-top-right-radius: 12px;
   margin-top: -12px;
   /* padding: ${Platform.OS === 'ios' ? 210 : 180}px 20px 40px; */
-  padding-top: 80px;
+  padding-top: ${Platform.OS === 'ios' ? 80 : 40}px;
   padding-left: 20px;
   padding-right: 20px;
 `;

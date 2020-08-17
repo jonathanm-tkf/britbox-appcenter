@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 /* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable react/no-array-index-key */
 /* eslint-disable react-native/no-inline-styles */
@@ -8,7 +9,7 @@ import { KeyboardAvoidingView, Platform } from 'react-native';
 import { Button } from '@components/Button';
 import HeaderCustom from '@components/HeaderCustom';
 import { useSelector, useDispatch } from 'react-redux';
-import { getProductsRequest, addSubscriptionRequest, profile } from '@store/modules/user/saga';
+import { getProductsRequest, profile } from '@store/modules/user/saga';
 import { loggedInRequest, profileRequestSuccess } from '@store/modules/user/actions';
 import { ProductsResponse } from '@store/modules/user/types';
 import { AppState } from '@store/modules/rootReducer';
@@ -17,7 +18,6 @@ import { useTranslation } from 'react-i18next';
 import { useNavigation } from '@react-navigation/native';
 import { Html5Entities } from 'html-entities';
 import * as RNIap from 'react-native-iap';
-import { ReceiptValidationResponse } from 'react-native-iap/type/apple';
 import {
   Container,
   ScrollView,
@@ -156,7 +156,7 @@ const SignUpSubscription = () => {
     }
   };
 
-  const receiptValidateIOS = async (receipt: string) => {
+  const receiptValidateIOS = async () => {
     try {
       // const receiptBody = {
       //   'receipt-data': receipt,

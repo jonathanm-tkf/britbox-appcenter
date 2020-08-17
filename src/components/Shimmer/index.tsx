@@ -1,5 +1,6 @@
 import React, { useEffect, useState, ReactNode } from 'react';
 import { View, StyleSheet, ViewStyle, StyleProp } from 'react-native';
+import { ContentHidden } from './styles';
 
 type Props = {
   shimmerComponent: () => ReactNode;
@@ -22,7 +23,7 @@ const Shimmer = ({ style, visible = false, children, shimmerComponent }: Props) 
       {!isVisible ? (
         <View style={{ flex: 1 }}>
           {shimmerComponent && shimmerComponent()}
-          <View style={{ width: 0, height: 0 }}>{children}</View>
+          <ContentHidden>{children}</ContentHidden>
         </View>
       ) : (
         children

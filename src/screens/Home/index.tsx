@@ -31,6 +31,8 @@ import {
 } from '@screens/Shared';
 import { getImage } from '@src/utils/images';
 import UserWatching from '@components/UserWatching';
+import { MassiveSDKModelItemSummary } from '@src/sdks/Britbox.API.Content.TS/api';
+import Cast from '@screens/Shared/Cast';
 import { Container } from './styles';
 import { Element, continueWatchingItems } from './data';
 
@@ -94,6 +96,7 @@ const Home = () => {
         keyExtractor={keyExtractor}
         showsVerticalScrollIndicator={false}
       />
+      {/* <Cast /> */}
     </View>
   );
 };
@@ -104,11 +107,17 @@ const Item = () => {
   const navigation = useNavigation();
   const { t } = useTranslation('home');
 
-  const modal = () => navigation.navigate('VideoPlayer');
+  const modal = (item: MassiveSDKModelItemSummary) => {
+    if (item.type === 'movie' || item.type === 'episode') {
+      return navigation.navigate('VideoPlayer', { item });
+    }
+
+    return navigation.push('Detail', { ...item });
+  };
   const home = useSelector((state: AppState) => state.home.data);
 
   const heroDiscoverMore = (item: any) => {
-    navigation.push('Detail', { ...item });
+    navigation.navigate('Detail', { ...item });
   };
 
   return (
@@ -132,7 +141,7 @@ const Item = () => {
                 <Hero
                   key={key.toString()}
                   {...{ item }}
-                  onPlay={modal}
+                  onPlay={(i: MassiveSDKModelItemSummary) => modal(i)}
                   onDiscoverMore={(i) => heroDiscoverMore(i)}
                 />
               );

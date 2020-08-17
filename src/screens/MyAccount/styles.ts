@@ -2,6 +2,7 @@ import styled from 'styled-components/native';
 import { Switch } from 'react-native';
 import { ThemeState } from '@store/modules/theme/types';
 import LinearGradient from 'react-native-linear-gradient';
+import { getBottomSpace } from 'react-native-iphone-x-helper';
 
 export const Container = styled.View`
   flex: 1;
@@ -19,6 +20,7 @@ export const SceneContainer = styled.View`
 export const ScrollableContainer = styled.ScrollView.attrs({
   contentContainerStyle: {
     flexGrow: 1,
+    paddingBottom: getBottomSpace() + 74,
   },
   bounces: false,
   nestedScrollEnabled: true,

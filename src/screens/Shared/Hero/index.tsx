@@ -12,14 +12,18 @@ type Props = {
   item: MassiveSDKModelPageEntry;
   onWatchlist?: () => void;
   onDiscoverMore?: (i: any) => void;
-  onPlay?: () => void;
+  onPlay?: (i: any) => void;
 };
 
 const Hero = ({ item, onWatchlist, onDiscoverMore, onPlay }: Props) => {
   const items = slice(item?.list?.items, 0, 20).map((data: MassiveSDKModelItemSummary) => {
     return {
       ...data,
-      url: getImage(data?.images?.square, 'square') || '',
+      url:
+        getImage(
+          data?.images?.square || data?.images?.hero3x1 || data?.images?.wallpaper,
+          'square'
+        ) || '',
     };
   });
 
@@ -28,7 +32,7 @@ const Hero = ({ item, onWatchlist, onDiscoverMore, onPlay }: Props) => {
       <Outstanding
         items={items}
         onWatchlist={onWatchlist}
-        onPlay={onPlay}
+        onPlay={(i) => (onPlay ? onPlay(i) : {})}
         onDiscoverMore={(i) => (onDiscoverMore ? onDiscoverMore(i) : {})}
       />
     </Container>

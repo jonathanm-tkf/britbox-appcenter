@@ -68,6 +68,37 @@
         }
       }
     },
+    "/v1/account/Authorization/refreshTokenD3": {
+      "post": {
+        "tags": ["Authorization"],
+        "operationId": "RefreshTokenD3",
+        "consumes": [
+          "application/json-patch+json",
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "produces": ["text/plain", "application/json", "text/json"],
+        "parameters": [
+          {
+            "name": "request",
+            "in": "body",
+            "required": false,
+            "schema": {
+              "$ref": "#/definitions/Britbox.API.Account.Models.Authorization.RefreshTokenRequestD3"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/Britbox.API.Account.Models.Authorization.RefreshTokenResponse"
+            }
+          }
+        }
+      }
+    },
     "/v1/account/Authorization/authenticateCustomer": {
       "post": {
         "tags": ["Authorization"],
@@ -125,6 +156,37 @@
             "description": "Success",
             "schema": {
               "$ref": "#/definitions/Britbox.API.Account.Models.Authorization.ForgotContactPasswordResponse"
+            }
+          }
+        }
+      }
+    },
+    "/v1/account/Authorization/validateContactPassword": {
+      "post": {
+        "tags": ["Authorization"],
+        "operationId": "ValidateContactPassword",
+        "consumes": [
+          "application/json-patch+json",
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "produces": ["text/plain", "application/json", "text/json"],
+        "parameters": [
+          {
+            "name": "request",
+            "in": "body",
+            "required": false,
+            "schema": {
+              "$ref": "#/definitions/Britbox.API.Account.Models.Authorization.ValidateContactPasswordRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/Britbox.API.Account.Models.Authorization.ValidateContactPasswordResponse"
             }
           }
         }
@@ -452,6 +514,15 @@
             "schema": {
               "$ref": "#/definitions/Britbox.API.Account.Models.Profile.DeleteWatchedRequest"
             }
+          },
+          {
+            "name": "segments",
+            "in": "query",
+            "required": false,
+            "type": "array",
+            "items": { "type": "string" },
+            "collectionFormat": "multi",
+            "uniqueItems": false
           }
         ],
         "responses": { "200": { "description": "Success" } }
@@ -540,6 +611,15 @@
             "schema": {
               "$ref": "#/definitions/Britbox.API.Account.Models.Profile.SetItemWatchedStatusRequest"
             }
+          },
+          {
+            "name": "segments",
+            "in": "query",
+            "required": false,
+            "type": "array",
+            "items": { "type": "string" },
+            "collectionFormat": "multi",
+            "uniqueItems": false
           }
         ],
         "responses": {
@@ -644,7 +724,18 @@
         "operationId": "BookmarkItem",
         "consumes": [],
         "produces": ["text/plain", "application/json", "text/json"],
-        "parameters": [{ "name": "itemId", "in": "path", "required": true, "type": "string" }],
+        "parameters": [
+          { "name": "itemId", "in": "path", "required": true, "type": "string" },
+          {
+            "name": "segments",
+            "in": "query",
+            "required": false,
+            "type": "array",
+            "items": { "type": "string" },
+            "collectionFormat": "multi",
+            "uniqueItems": false
+          }
+        ],
         "responses": {
           "200": {
             "description": "Success",
@@ -659,7 +750,18 @@
         "operationId": "DeleteItemBookmark",
         "consumes": [],
         "produces": [],
-        "parameters": [{ "name": "itemId", "in": "path", "required": true, "type": "string" }],
+        "parameters": [
+          { "name": "itemId", "in": "path", "required": true, "type": "string" },
+          {
+            "name": "segments",
+            "in": "query",
+            "required": false,
+            "type": "array",
+            "items": { "type": "string" },
+            "collectionFormat": "multi",
+            "uniqueItems": false
+          }
+        ],
         "responses": { "200": { "description": "Success" } }
       }
     },
@@ -914,6 +1016,15 @@
       "type": "object",
       "properties": { "errorMessage": { "type": "string" }, "errorCode": { "type": "string" } }
     },
+    "Britbox.API.Account.Models.Authorization.RefreshTokenRequestD3": {
+      "required": ["d3Token", "deviceName", "deviceType"],
+      "type": "object",
+      "properties": {
+        "d3Token": { "type": "string" },
+        "deviceName": { "type": "string" },
+        "deviceType": { "type": "string" }
+      }
+    },
     "Britbox.API.Account.Models.Authorization.AuthenticateCustomerRequest": {
       "required": ["contactUserName", "contactPassword", "deviceDetails"],
       "type": "object",
@@ -974,6 +1085,32 @@
     "Britbox.Data.Evergent.Models.ForgotContactPasswordResponseMessageBase+Response": {
       "type": "object",
       "properties": {
+        "message": { "type": "string" },
+        "responseCode": { "type": "string" },
+        "status": { "type": "string" },
+        "failureMessage": {
+          "uniqueItems": false,
+          "type": "array",
+          "items": { "$ref": "#/definitions/Britbox.Data.Evergent.Models.FailureMessage" }
+        }
+      }
+    },
+    "Britbox.API.Account.Models.Authorization.ValidateContactPasswordRequest": {
+      "type": "object",
+      "properties": { "contactPassword": { "type": "string" } }
+    },
+    "Britbox.API.Account.Models.Authorization.ValidateContactPasswordResponse": {
+      "type": "object",
+      "properties": {
+        "response": {
+          "$ref": "#/definitions/Britbox.Data.Evergent.Models.ValidateContactPasswordResponseMessageBase+Response"
+        }
+      }
+    },
+    "Britbox.Data.Evergent.Models.ValidateContactPasswordResponseMessageBase+Response": {
+      "type": "object",
+      "properties": {
+        "email": { "type": "string" },
         "message": { "type": "string" },
         "responseCode": { "type": "string" },
         "status": { "type": "string" },
@@ -1239,8 +1376,10 @@
       "type": "object",
       "properties": {
         "firstName": { "type": "string" },
+        "lastName": { "type": "string" },
         "country": { "type": "string" },
         "status": { "type": "string" },
+        "phoneNumber": { "type": "string" },
         "watched": {
           "type": "object",
           "additionalProperties": { "$ref": "#/definitions/MassiveSDK.Model.Watched" }
@@ -1379,7 +1518,8 @@
           "type": "array",
           "items": { "$ref": "#/definitions/MassiveSDK.Model.Credit" }
         },
-        "vams": { "uniqueItems": false, "type": "array", "items": { "type": "object" } }
+        "vams": { "uniqueItems": false, "type": "array", "items": { "type": "object" } },
+        "trailers": { "uniqueItems": false, "type": "array", "items": { "type": "object" } }
       }
     },
     "MassiveSDK.Model.Pagination": {
@@ -1540,7 +1680,10 @@
       "type": "object",
       "properties": {
         "order": { "enum": ["asc", "desc"], "type": "string" },
-        "orderBy": { "enum": ["a-z", "release-year", "date-added"], "type": "string" },
+        "orderBy": {
+          "enum": ["a-z", "release-year", "date-added", "date-modified"],
+          "type": "string"
+        },
         "itemType": {
           "enum": [
             "movie",
