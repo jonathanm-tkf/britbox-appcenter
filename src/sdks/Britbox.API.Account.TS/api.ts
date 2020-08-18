@@ -119,7 +119,7 @@ export interface BritboxDataEvergentModelsPaymentMethodInfo {
 }
 
 export interface BritboxDataEvergentModelsTransactionReferenceMsg {
-  amount?: string;
+  amount?: number;
   txID?: string;
   txMsg?: string;
   rokuPucId?: string;
@@ -507,6 +507,7 @@ export interface MassiveSDKModelOptions {
 }
 
 export interface BritboxAPIAccountModelsProfileUpdateProfileRequest {
+  email: string;
   firstName: string;
   lastName: string;
   mobileNumber: string;
