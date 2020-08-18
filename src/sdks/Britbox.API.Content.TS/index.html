@@ -50194,6 +50194,7 @@ and limitations under the License.
                       items: { $ref: '#/components/schemas/MassiveSDK.Model.Credit' },
                     },
                     vams: { uniqueItems: false, type: 'array', items: { type: 'object' } },
+                    trailers: { uniqueItems: false, type: 'array', items: { type: 'object' } },
                   },
                 },
                 'MassiveSDK.Model.Pagination': {
@@ -50358,7 +50359,10 @@ and limitations under the License.
                   type: 'object',
                   properties: {
                     order: { enum: ['asc', 'desc'], type: 'string' },
-                    orderBy: { enum: ['a-z', 'release-year', 'date-added'], type: 'string' },
+                    orderBy: {
+                      enum: ['a-z', 'release-year', 'date-added', 'date-modified'],
+                      type: 'string',
+                    },
                     itemType: {
                       enum: [
                         'movie',
