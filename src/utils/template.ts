@@ -1,4 +1,3 @@
-/* eslint-disable consistent-return */
 export const getTemplate = (template: string) => {
   switch (template) {
     case '3:1 Hero (Standard)':
@@ -27,10 +26,21 @@ export const getTemplate = (template: string) => {
     case 'Programme Grid (BBC)':
       return 'grid';
     case '16:9 Tile (Continuous Scroll)':
+    case 'Continuous Scroll Automatic':
       return 'grid-infinite';
+    case 'Our Favourites (BBC)':
+      return 'our-favorites';
     default:
-      break;
+      return '';
   }
+};
+
+export const getIsCollectionDetail = (template: string) => {
+  return template === 'Collection (BBC)';
+};
+
+export const getIsOurFavoritesMultiple = (customFields: { selectType?: string }) => {
+  return customFields?.selectType === 'Multiple';
 };
 
 export const getDuration = (duration: number) => {

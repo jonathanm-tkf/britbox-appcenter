@@ -10,6 +10,7 @@ export interface ButtonProps {
   color?: string;
   stretch?: boolean;
   size?: 'small' | 'medium' | 'big';
+  fontWeight?: 'normal' | 'medium' | 'bold';
   loading?: boolean;
   style?: any;
   rest?: any;
@@ -22,4 +23,5 @@ export interface ButtonTextProps {
   color?: string;
   stretch?: boolean;
   size?: 'small' | 'medium' | 'big';
+  fontWeight?: 'normal' | 'medium' | 'bold';
 }

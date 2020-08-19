@@ -7,4 +7,5 @@ export const Container = styled.View`
 
 export const Card = styled(CardC)`
   padding-bottom: 0;
+  align-self: center;
 `;

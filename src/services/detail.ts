@@ -105,7 +105,7 @@ const processDetailPage = async (
 
   if (detail?.key === 'ShowDetail') {
     if ((detail.entries || []).length > 0) {
-      const entries = detail.entries?.reduce((item) => item);
+      const entries = (detail.entries || []).reduce((item) => item);
       detailResponse.title = entries?.item?.show?.title || '';
       detailResponse.description = entries?.item?.show?.shortDescription || '';
       detailResponse.images = entries?.item?.show?.images || {};
@@ -135,7 +135,7 @@ const processDetailPage = async (
 
   if (detail?.key === 'EpisodeDetail' || detail?.key === 'MovieDetail') {
     if ((detail.entries || []).length > 0) {
-      const entries = detail.entries?.reduce((item) => item);
+      const entries = (detail.entries || []).reduce((item) => item);
 
       detailResponse.title = entries?.item?.title || '';
       detailResponse.description = entries?.item?.shortDescription || '';
@@ -169,7 +169,7 @@ const processDetailPage = async (
   };
 };
 
-export const loadDetailPage = async (path: string) => {
+export const loadDetailPage = async (path: string, customId: string) => {
   const { getPage } = BritboxContentApi();
 
   try {
@@ -180,7 +180,7 @@ export const loadDetailPage = async (path: string) => {
       maxListPrefetch: 15,
       segments: ['US'],
       sub: 'Subscriber',
-      useCustomId: true,
+      useCustomId: customId !== '',
       itemDetailExpand: 'all',
       itemDetailSelectSeason: 'first',
     });
@@ -363,6 +363,7 @@ export const loadCollectionList = async ({
       pageSize,
       device: getDevice(),
       segments: ['US'],
+      useCustomId: true,
       sub,
     });
 

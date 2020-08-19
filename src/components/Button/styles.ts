@@ -93,7 +93,23 @@ export const ButtonText = styled.Text`
     return (
       props.size === 'big' &&
       `
+      font-size: 18px;
+    `
+    );
+  }};
+  ${(props: ButtonTextProps & ThemeState) => {
+    return (
+      props.fontWeight === 'medium' &&
+      `
       font-family: ${props.theme.PRIMARY_FONT_FAMILY_MEDIUM};
+    `
+    );
+  }};
+  ${(props: ButtonTextProps & ThemeState) => {
+    return (
+      props.fontWeight === 'bold' &&
+      `
+      font-family: ${props.theme.PRIMARY_FONT_FAMILY_BOLD};
       font-size: 18px;
     `
     );

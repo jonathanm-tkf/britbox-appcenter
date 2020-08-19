@@ -9,10 +9,10 @@ import { slice } from 'lodash';
 import Carousel from '@components/Carousel';
 import Card from '@components/Card';
 import { getImage } from '@src/utils/images';
-import { useNavigation } from '@react-navigation/native';
 import { useSelector } from 'react-redux';
 import { AppState } from '@store/modules/rootReducer';
 import ContentLoader, { Rect } from 'react-content-loader/native';
+import { navigateByPath } from '@src/navigation/rootNavigation';
 import { Container } from './styles';
 
 type Props = {
@@ -20,11 +20,10 @@ type Props = {
 };
 
 const Collections = ({ item }: Props) => {
-  const navigation = useNavigation();
   const theme = useSelector((state: AppState) => state.theme.theme);
 
   const goToDetail = (card: MassiveSDKModelItemList) => {
-    navigation.push('Detail', { item: { card } });
+    navigateByPath(card);
   };
 
   return (

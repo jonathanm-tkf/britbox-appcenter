@@ -43,13 +43,13 @@ const Detail = () => {
   const [animatedOpacityValue] = useState(new Animated.Value(0));
   const [data, setData] = useState<LoadDetailPageResponse | undefined>(undefined);
 
-  const getDataDetail = async (path: string) => {
-    const { response }: { response: LoadDetailPageResponse } = await loadDetailPage(path);
+  const getDataDetail = async (path: string, customId: string) => {
+    const { response }: { response: LoadDetailPageResponse } = await loadDetailPage(path, customId);
     setData(response);
   };
 
   useEffect(() => {
-    getDataDetail(item?.path || '');
+    getDataDetail(item?.path || '', item?.customId || '');
   }, [item]);
 
   useEffect(() => {

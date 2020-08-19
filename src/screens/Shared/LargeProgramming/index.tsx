@@ -11,10 +11,10 @@ import Carousel from '@components/Carousel';
 import Card from '@components/Card';
 import { getImage } from '@src/utils/images';
 import { useTranslation } from 'react-i18next';
-import { useNavigation } from '@react-navigation/native';
 import { useSelector } from 'react-redux';
 import { AppState } from '@store/modules/rootReducer';
 import ContentLoader, { Rect } from 'react-content-loader/native';
+import { navigateByPath } from '@src/navigation/rootNavigation';
 import { Container } from './styles';
 
 type Props = {
@@ -22,14 +22,12 @@ type Props = {
 };
 
 const LargeProgramming = ({ item }: Props) => {
-  const navigation = useNavigation();
+  const { t } = useTranslation('home');
   const theme = useSelector((state: AppState) => state.theme.theme);
-
   const goToDetail = (card: MassiveSDKModelItemList) => {
-    navigation.push('Detail', { item: { ...card } });
+    navigateByPath(card);
   };
 
-  const { t } = useTranslation('home');
   return (
     <>
       <Row>

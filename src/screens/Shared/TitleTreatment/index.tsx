@@ -10,10 +10,10 @@ import { slice } from 'lodash';
 import Carousel from '@components/Carousel';
 import Card from '@components/Card';
 import { getImage } from '@src/utils/images';
-import { useNavigation } from '@react-navigation/native';
 import { useSelector } from 'react-redux';
 import { AppState } from '@store/modules/rootReducer';
 import ContentLoader, { Rect } from 'react-content-loader/native';
+import { navigateByPath } from '@src/navigation/rootNavigation';
 import { Container } from './style';
 
 type Props = {
@@ -21,30 +21,31 @@ type Props = {
 };
 
 const TitleTreatment = ({ item }: Props) => {
-  const navigation = useNavigation();
   const theme = useSelector((state: AppState) => state.theme.theme);
 
   const goToDetail = (card: MassiveSDKModelItemList) => {
-    navigation.push('Detail', { item: { ...card } });
+    navigateByPath(card);
   };
 
   return (
     <>
-      <Row>
-        {item.title === 'loading' ? (
-          <Container>
-            <ContentLoader
-              speed={1}
-              backgroundColor={theme.PRIMARY_COLOR_OPAQUE}
-              foregroundColor={theme.PRIMARY_COLOR}
-            >
-              <Rect x="0" y="0" rx="8" ry="8" width="50%" height="40" />
-            </ContentLoader>
-          </Container>
-        ) : (
-          <Headline>{item.title}</Headline>
-        )}
-      </Row>
+      {item.title !== '' && (
+        <Row>
+          {item.title === 'loading' ? (
+            <Container>
+              <ContentLoader
+                speed={1}
+                backgroundColor={theme.PRIMARY_COLOR_OPAQUE}
+                foregroundColor={theme.PRIMARY_COLOR}
+              >
+                <Rect x="0" y="0" rx="8" ry="8" width="50%" height="40" />
+              </ContentLoader>
+            </Container>
+          ) : (
+            <Headline>{item.title}</Headline>
+          )}
+        </Row>
+      )}
       <Carousel
         items={slice(item?.list?.items, 0, 20)}
         listProps={{ horizontal: true }}
@@ -52,7 +53,7 @@ const TitleTreatment = ({ item }: Props) => {
           <Card
             width={137}
             height={107}
-            url={getImage(card.images?.tile, 'tile')}
+            url={getImage(card.images?.tile || card.images?.wallpaper, 'tile')}
             onPress={() => ((item?.list?.title || '') !== 'loading' ? goToDetail(card) : {})}
           />
         )}

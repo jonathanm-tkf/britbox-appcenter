@@ -114,10 +114,17 @@ export const ImageContainer = styled.View`
   border-radius: ${entryBorderRadius}px;
 `;
 
+type Title = {
+  collection?: boolean;
+};
+
 export const Title = styled.Text`
   font-size: 16px;
   font-family: ${(props: ThemeState) => props.theme.PRIMARY_FONT_FAMILY_MEDIUM};
   color: ${(props: ThemeState) => props.theme.PRIMARY_FOREGROUND_COLOR};
+  ${(props: Title & ThemeState) => {
+    return props.collection && `font-size: 18px;`;
+  }};
 `;
 
 export const Subtitle = styled.Text`
@@ -128,6 +135,7 @@ export const Subtitle = styled.Text`
 
 type TextContainer = {
   slim?: boolean;
+  center?: boolean;
 };
 
 export const TextContainer = styled.View<TextContainer>`
@@ -139,4 +147,7 @@ export const TextContainer = styled.View<TextContainer>`
   border-bottom-left-radius: ${entryBorderRadius}px;
   border-bottom-right-radius: ${entryBorderRadius}px;
   z-index: 2;
+  ${(props: TextContainer) => {
+    return props.center && `align-items: center;`;
+  }};
 `;

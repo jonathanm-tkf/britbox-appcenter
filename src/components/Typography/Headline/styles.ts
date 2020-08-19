@@ -7,6 +7,7 @@ export const Container = styled.View``;
 interface HeadlineComponentProps {
   fontSize?: number;
   lineHeight?: number;
+  center?: boolean;
 }
 
 export const HeadlineComponent = styled(Headline)`
@@ -32,5 +33,13 @@ export const HeadlineComponent = styled(Headline)`
     `
     );
   }};
-  /* margin-bottom: 12px; */
+
+  ${(props: HeadlineComponentProps & ThemeState) => {
+    return (
+      props.center &&
+      `
+      text-align: center;
+    `
+    );
+  }};
 `;

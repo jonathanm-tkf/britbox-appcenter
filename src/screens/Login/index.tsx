@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/no-unescaped-entities */
 import React, { useState, useEffect } from 'react';
 import { KeyboardAvoidingView, Platform } from 'react-native';
@@ -116,7 +117,7 @@ const Login = () => {
   }, [user, password]);
 
   useEffect(() => {
-    Orientation.lockToPortrait();
+    // Orientation.lockToPortrait();
   }, []);
 
   return (
@@ -158,6 +159,7 @@ const Login = () => {
                 stretch
                 loading={loading}
                 size="big"
+                fontWeight="medium"
                 color={theme.PRIMARY_FOREGROUND_COLOR}
               >
                 Sign In
@@ -176,6 +178,7 @@ const Login = () => {
               <Button
                 outline
                 size="big"
+                fontWeight="medium"
                 style={suscribeStyle}
                 onPress={() => navigation.navigate('SignUp')}
               >

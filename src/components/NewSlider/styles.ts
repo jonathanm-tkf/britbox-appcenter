@@ -13,11 +13,20 @@ const AnimatedImage = Animated.createAnimatedComponent(ImageBackground);
 
 type CarouselProps = {
   slim: boolean;
+  collection: boolean;
 };
 
 export const SliderWrapper = styled.View`
   width: ${width}px;
   margin-bottom: 23px;
+  ${(props: CarouselProps) => {
+    return (
+      props.collection &&
+      `
+      min-height: 300px;
+    `
+    );
+  }};
   ${(props: CarouselProps) => {
     return (
       props.slim &&
@@ -39,7 +48,11 @@ export const Slider = styled(AnimatedImage).attrs({
   margin-bottom: 10px;
   opacity: 0.3;
   ${(props: CarouselProps) => {
-    return props.slim ? (Platform.OS === 'ios' ? `min-height: 300px;` : `min-height: 270px;`) : ``;
+    return props.slim || props.collection
+      ? Platform.OS === 'ios'
+        ? `min-height: 300px;`
+        : `min-height: 270px;`
+      : ``;
   }};
 `;
 
@@ -55,6 +68,10 @@ export const SlimDescriptionText = styled.Text.attrs({
 `;
 
 export const SlimDescription = styled.View`
-  height: 240px;
+  height: 100px;
+`;
+
+export const ActionsWrapper = styled.View`
+  height: 120px;
   margin-bottom: 20px;
 `;
