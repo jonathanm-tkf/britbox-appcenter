@@ -202,6 +202,23 @@
         "responses": { "200": { "description": "Success" } }
       }
     },
+    "/v1/account/Customer": {
+      "get": {
+        "tags": ["Customer"],
+        "operationId": "GetAccountDetails",
+        "consumes": [],
+        "produces": ["text/plain", "application/json", "text/json"],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/Britbox.API.Account.Models.Customer.GetAccountDetailsResponse"
+            }
+          }
+        }
+      }
+    },
     "/v1/account/Customer/products": {
       "get": {
         "tags": ["Customer"],
@@ -223,6 +240,21 @@
       }
     },
     "/v1/account/Customer/subscription": {
+      "get": {
+        "tags": ["Customer"],
+        "operationId": "GetActiveSubscription",
+        "consumes": [],
+        "produces": ["text/plain", "application/json", "text/json"],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/Britbox.API.Account.Models.Customer.GetActiveSubscriptionsResponse"
+            }
+          }
+        }
+      },
       "post": {
         "tags": ["Customer"],
         "operationId": "AddSubscription",
@@ -1121,6 +1153,18 @@
         }
       }
     },
+    "Britbox.API.Account.Models.Customer.GetAccountDetailsResponse": {
+      "type": "object",
+      "properties": {
+        "lastName": { "type": "string" },
+        "isAlertNotificationEmail": { "type": "string" },
+        "country": { "type": "string" },
+        "phoneNumber": { "type": "string" },
+        "email": { "type": "string" },
+        "accountStatus": { "type": "string" },
+        "firstName": { "type": "string" }
+      }
+    },
     "Britbox.API.Account.Models.Customer.GetProductsResponse": {
       "type": "object",
       "properties": {
@@ -1284,6 +1328,81 @@
         }
       }
     },
+    "Britbox.API.Account.Models.Customer.GetActiveSubscriptionsResponse": {
+      "type": "object",
+      "properties": {
+        "response": {
+          "$ref": "#/definitions/Britbox.Data.Evergent.Models.GetActiveSubscriptionsResponseMessageBase+Response"
+        }
+      }
+    },
+    "Britbox.Data.Evergent.Models.GetActiveSubscriptionsResponseMessageBase+Response": {
+      "type": "object",
+      "properties": {
+        "country": { "type": "string" },
+        "accountServiceMessage": {
+          "uniqueItems": false,
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Britbox.Data.Evergent.Models.GetActiveSubscriptionsResponseMessageBase+AccountServiceMessage"
+          }
+        },
+        "message": { "type": "string" },
+        "responseCode": { "type": "string" },
+        "status": { "type": "string" },
+        "failureMessage": {
+          "uniqueItems": false,
+          "type": "array",
+          "items": { "$ref": "#/definitions/Britbox.Data.Evergent.Models.FailureMessage" }
+        }
+      }
+    },
+    "Britbox.Data.Evergent.Models.GetActiveSubscriptionsResponseMessageBase+AccountServiceMessage": {
+      "type": "object",
+      "properties": {
+        "startDate": { "type": "string" },
+        "duration": { "type": "string" },
+        "retailPrice": { "format": "double", "type": "number" },
+        "orderID": { "type": "string" },
+        "status": { "type": "string" },
+        "description": { "type": "string" },
+        "serviceID": { "type": "string" },
+        "isRenewal": { "type": "boolean" },
+        "validityTill": { "format": "int64", "type": "integer" },
+        "isInFreeTrail": { "type": "boolean" },
+        "period": { "type": "string" },
+        "serviceName": { "type": "string" },
+        "displayName": { "type": "string" },
+        "type": { "type": "string" },
+        "validityPeriod": { "type": "string" },
+        "subscriptionType": { "type": "string" },
+        "startDateInMillis": { "format": "int64", "type": "integer" },
+        "paymentMethod": { "type": "string" },
+        "currencyCode": { "type": "string" },
+        "promotions": {
+          "uniqueItems": false,
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Britbox.Data.Evergent.Models.GetActiveSubscriptionsResponseMessageBase+Promotion"
+          }
+        }
+      }
+    },
+    "Britbox.Data.Evergent.Models.GetActiveSubscriptionsResponseMessageBase+Promotion": {
+      "type": "object",
+      "properties": {
+        "isDefaultPromo": { "type": "boolean" },
+        "promotionName": { "type": "string" },
+        "promotionType": { "type": "string" },
+        "amount": { "format": "int32", "type": "integer" },
+        "endDate": { "type": "string" },
+        "isVODPromotion": { "type": "boolean" },
+        "promotionalPrice": { "format": "double", "type": "number" },
+        "isFreeTrail": { "type": "boolean" },
+        "promotionId": { "type": "string" },
+        "startDate": { "type": "string" }
+      }
+    },
     "Britbox.API.Account.Models.Customer.CreateUserV2Request": {
       "required": [
         "customerPassword",
@@ -1379,7 +1498,6 @@
         "lastName": { "type": "string" },
         "country": { "type": "string" },
         "status": { "type": "string" },
-        "phoneNumber": { "type": "string" },
         "watched": {
           "type": "object",
           "additionalProperties": { "$ref": "#/definitions/MassiveSDK.Model.Watched" }
@@ -1862,7 +1980,7 @@
       "properties": { "pageSize": { "format": "int64", "type": "integer" } }
     },
     "Britbox.API.Account.Models.Profile.UpdateProfileRequest": {
-      "required": ["email", "firstName", "lastName", "mobileNumber", "alertNotificationEmail"],
+      "required": ["email", "firstName", "lastName", "alertNotificationEmail"],
       "type": "object",
       "properties": {
         "email": { "type": "string" },
