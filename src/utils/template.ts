@@ -28,6 +28,8 @@ export const getTemplate = (template: string) => {
     case '16:9 Tile (Continuous Scroll)':
     case 'Continuous Scroll Automatic':
       return 'grid-infinite';
+    case 'Our Favourites (BBC)':
+      return 'our-favorites';
     default:
       return '';
   }
@@ -35,6 +37,10 @@ export const getTemplate = (template: string) => {
 
 export const getIsCollectionDetail = (template: string) => {
   return template === 'Collection (BBC)';
+};
+
+export const getIsOurFavoritesMultiple = (customFields: { selectType?: string }) => {
+  return customFields?.selectType === 'Multiple';
 };
 
 export const getDuration = (duration: number) => {

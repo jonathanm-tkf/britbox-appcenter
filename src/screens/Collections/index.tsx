@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Animated, NativeScrollEvent } from 'react-native';
+import { Animated, NativeScrollEvent, Dimensions } from 'react-native';
 import { useNavigation, useRoute, RouteProp } from '@react-navigation/native';
 import { BackIcon } from '@assets/icons';
 
@@ -9,7 +9,7 @@ import {
   MassiveSDKModelItemList,
 } from '@src/sdks/Britbox.API.Content.TS/api';
 import { loadCollectionPage, loadCollectionList } from '@src/services/detail';
-import { getTemplate, getIsCollectionDetail } from '@src/utils/template';
+import { getTemplate, getIsCollectionDetail, getIsOurFavoritesMultiple } from '@src/utils/template';
 import TitleTreatment from '@screens/Shared/TitleTreatment';
 import Genre from '@screens/Shared/Genre';
 import Standard from '@screens/Shared/Standard';
@@ -31,6 +31,8 @@ import {
   Scroll,
   SpaceNoHeroSlim,
 } from './styles';
+
+const { width } = Dimensions.get('window');
 
 type RootParamList = {
   Collection: {
@@ -274,7 +276,18 @@ const Collections = () => {
               case 'large-programing':
                 return <LargeProgramming key={key.toString()} {...{ item }} />;
               case 'title-treatment':
-                return <TitleTreatment key={key.toString()} {...{ item }} />;
+                return getIsCollectionDetail(data?.template || '') ? (
+                  <Grid
+                    key={key.toString()}
+                    items={item?.list?.items || []}
+                    title={item?.title || ''}
+                    width={185}
+                    height={100}
+                    imageType="wallpaper"
+                  />
+                ) : (
+                  <TitleTreatment key={key.toString()} {...{ item }} />
+                );
               case 'popular':
                 return <Popular key={key.toString()} {...{ item }} />;
               case 'standard':
@@ -283,6 +296,17 @@ const Collections = () => {
                 return <Genre key={key.toString()} {...{ item }} />;
               case 'collections':
                 return <Collections key={key.toString()} {...{ item }} />;
+              case 'our-favorites':
+                return getIsOurFavoritesMultiple(item?.customFields || {}) ? (
+                  <Grid
+                    key={key.toString()}
+                    items={item?.list?.items || []}
+                    title={item?.list?.title || ''}
+                    width={width - 40}
+                    height={190}
+                    imageType="wallpaper"
+                  />
+                ) : null;
               default:
                 return null;
             }

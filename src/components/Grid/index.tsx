@@ -3,7 +3,7 @@ import { MassiveSDKModelItemList } from '@src/sdks/Britbox.API.Content.TS/api';
 
 import { getImage } from '@src/utils/images';
 import { FlatGrid } from 'react-native-super-grid';
-import { YellowBox, ImageStyle } from 'react-native';
+import { YellowBox, ImageStyle, ViewStyle } from 'react-native';
 import ContentLoader, { Rect } from 'react-content-loader/native';
 import { AppState } from '@store/modules/rootReducer';
 import { useSelector } from 'react-redux';
@@ -15,14 +15,22 @@ YellowBox.ignoreWarnings([
   'VirtualizedLists should never be nested', // TODO: Remove when fixed
 ]);
 
+type WALLPAPER = 'wallpaper';
+type POSTER = 'poster';
+type HERO3X1 = 'hero3x1';
+type SQUARE = 'square';
+
 type Props = {
   data: MassiveSDKModelItemList[];
+  containerStyle?: ViewStyle;
   element: ImageStyle;
+  imageType?: WALLPAPER | POSTER | HERO3X1 | SQUARE;
   onPress?: (item: MassiveSDKModelItemList) => void;
   title?: string;
+  spacing?: number;
 };
 
-const Grid = ({ data, element, onPress, title }: Props) => {
+const Grid = ({ data, element, imageType, containerStyle, onPress, title, spacing }: Props) => {
   const theme = useSelector((state: AppState) => state.theme.theme);
   return (
     <>
@@ -43,24 +51,20 @@ const Grid = ({ data, element, onPress, title }: Props) => {
           )}
         </Row>
       )}
-      <Container>
+      <Container style={containerStyle}>
         <FlatGrid
           scrollEnabled={false}
           itemDimension={Number(element?.width || 100)}
-          spacing={0}
+          spacing={spacing || 0}
           data={data}
-          contentContainerStyle={
-            {
-              // paddingLeft: 5,
-            }
-          }
           renderItem={({ item }) => (
             <Card
-              // width={element?.width || 100}
-              // height={element?.height || 157}
-              url={getImage(item?.images?.poster || '', 'poster')}
+              url={getImage(
+                imageType && item?.images ? item?.images[imageType] : item?.images?.poster || '',
+                imageType || 'poster'
+              )}
               onPress={() => (onPress ? onPress(item) : {})}
-              {...{ element }}
+              {...{ element, containerStyle }}
             />
           )}
         />

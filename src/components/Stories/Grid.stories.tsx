@@ -353,6 +353,31 @@ storiesOf('Grid', module)
     <Grid
       data={DATA.items}
       element={{ width: width - 40, marginBottom: 20 }}
+      imageType="wallpaper"
+      onPress={action('tapped-item')}
+    />
+  ))
+  .add('one column', () => (
+    <Grid
+      data={DATA.items}
+      element={{ width: width - 40, marginBottom: 20 }}
+      imageType="wallpaper"
+      onPress={action('tapped-item')}
+    />
+  ))
+  .add('two column', () => (
+    <Grid
+      data={DATA.items}
+      element={{ width: 195, height: 280, marginBottom: 20 }}
+      imageType="poster"
+      onPress={action('tapped-item')}
+    />
+  ))
+  .add('three column', () => (
+    <Grid
+      data={DATA.items}
+      element={{ width: 125, height: 165, marginBottom: 20 }}
+      imageType="poster"
       onPress={action('tapped-item')}
     />
   ))
