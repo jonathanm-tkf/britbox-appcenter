@@ -28,7 +28,7 @@ const wrapper = {
   flexGrow: 1,
   paddingTop: Platform.OS === 'ios' ? getStatusBarHeight() + 10 : 10,
   paddingHorizontal: 30,
-  paddingBottom: Platform.OS === 'ios' ? 40 : 20,
+  paddingBottom: Platform.OS === 'ios' ? 100 : 80,
 };
 
 const CelularStyle = {
@@ -40,7 +40,7 @@ export default function More() {
   const { navigate } = useNavigation();
   const dispatch = useDispatch();
   const user = useSelector((state: AppState) => state.user);
-
+  console.tron.log(user);
   const logoutAction = () => dispatch(logout());
 
   return (

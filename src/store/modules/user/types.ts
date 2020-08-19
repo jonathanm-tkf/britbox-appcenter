@@ -89,6 +89,11 @@ export interface EvergentSignupResponseError {
   failureMessage: FailureMessage[];
 }
 
+export interface EvergentResponseError {
+  responseCode: 1 | 0;
+  failureMessage: [];
+}
+
 export interface ProductsResponse {
   dmaName: string;
   duration: string;

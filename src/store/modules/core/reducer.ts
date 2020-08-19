@@ -23,6 +23,15 @@ const core: Reducer<CoreState> = (state = initialState, action) => {
         draft.token = accessToken;
         break;
       }
+      case UserActionTypes.REGISTER_REQUEST_SUCCESS: {
+        const { accessToken } = action.payload;
+        draft.token = accessToken;
+        break;
+      }
+      case UserActionTypes.LOGGEDIN_REQUEST: {
+        draft.isLogged = true;
+        break;
+      }
       case UserActionTypes.LOGOUT: {
         draft.isLogged = false;
         draft.token = '';

@@ -26,8 +26,8 @@ export const TitleWrapper = styled.View`
   margin-bottom: 10px;
 `;
 
-export const PasswordContainer = styled.ScrollView`
-  flex-grow: 1;
+export const PasswordContainer = styled.View`
+  flex: 1;
   padding: 15px 15px 40px;
 `;
 

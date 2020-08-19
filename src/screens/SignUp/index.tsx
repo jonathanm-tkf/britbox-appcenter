@@ -288,6 +288,7 @@ const SignUp = () => {
               />
               <Button
                 onPress={() => {
+                  // navigation.navigate('SignUpSubscription');
                   signup();
                 }}
                 stretch

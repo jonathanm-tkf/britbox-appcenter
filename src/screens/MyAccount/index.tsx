@@ -5,14 +5,16 @@ import { View, Platform, Alert, Text, Switch } from 'react-native';
 import { getStatusBarHeight } from 'react-native-iphone-x-helper';
 import { ThemeState } from '@store/modules/theme/types';
 import { BackIcon, CelularIcon } from '@assets/icons';
-import { updateProfileRequest } from '@store/modules/user/saga';
+import { updateProfileRequest, profile } from '@store/modules/user/saga';
+import { profileRequestSuccess } from '@store/modules/user/actions';
 import HeaderCustom from '@components/HeaderCustom';
 import TabsComponent from '@components/TabsComponent';
 import { Button } from '@components/Button';
 import { Input } from '@components/Input';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { AppState } from '@store/modules/rootReducer';
 import { useNavigation } from '@react-navigation/native';
+import { EvergentResponseError } from '@store/modules/user/types';
 import {
   Container,
   TitleWrapper,
@@ -31,13 +33,20 @@ import {
   SwitchContainer,
   ScrollableContainerPaddingHorizontal,
   ScrollContent,
+  ErrorText,
 } from './styles';
 
 const updateBtnStyle = {
   marginBottom: 30,
 };
 
+const evergentResponseError: EvergentResponseError = {
+  responseCode: 0,
+  failureMessage: [],
+};
+
 export default function MyAccount() {
+  const dispatch = useDispatch();
   const { navigate } = useNavigation();
   const user = useSelector((state: AppState) => state.user);
   const theme = useSelector((state: AppState) => state.theme.theme);
@@ -51,16 +60,38 @@ export default function MyAccount() {
     const [mobile, setMobile] = useState(user?.profile?.phoneNumber || '');
     const [loading, setLoading] = useState(false);
 
+    const [errorState, setErrorState] = useState(false);
+    const [errorMessage, setErrorMessage] = useState(evergentResponseError);
+
     const updateProfile = async () => {
       setLoading(true);
-      const response = await updateProfileRequest(user.access.accessToken, {
+      setErrorState(false);
+      setErrorMessage(evergentResponseError);
+
+      const response = await updateProfileRequest(user?.access?.accessToken, {
         firstName,
         lastName,
         mobileNumber: mobile,
+        // email: '',
         alertNotificationEmail: true,
       });
 
-      console.tron.log(response);
+      console.log(response);
+
+      if (response) {
+        const { response: responseData } = response;
+        if (responseData && Number(responseData.responseCode) === 1) {
+          const responseProfile = await profile(user?.access?.accessToken);
+          dispatch(profileRequestSuccess(responseProfile.response));
+        } else {
+          const responseError: EvergentResponseError = {
+            responseCode: 0,
+            failureMessage: response,
+          };
+          setErrorMessage(responseError);
+          setErrorState(true);
+        }
+      }
       setLoading(false);
     };
 
@@ -72,6 +103,13 @@ export default function MyAccount() {
               <TitleWrapper>
                 <SubTitle>Upgrade your Details</SubTitle>
               </TitleWrapper>
+              {errorState && (
+                <ErrorText>
+                  {Object.keys(
+                    ((errorMessage as unknown) as EvergentResponseError).failureMessage
+                  ).map((item) => errorMessage.failureMessage[item])}
+                </ErrorText>
+              )}
               <Input
                 label="First Name"
                 value={firstName}

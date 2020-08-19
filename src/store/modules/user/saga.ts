@@ -7,6 +7,7 @@ import {
   BritboxAPIAccountModelsProfileUpdateProfileRequest,
 } from '@src/sdks/Britbox.API.Account.TS/api';
 import { PayloadAction } from 'typesafe-actions';
+import { useDispatch } from 'react-redux';
 import { UserActionTypes, UserLogin, EvergentLoginResponse, UserSignUp } from './types';
 import {
   loginRequestFailure,
@@ -134,6 +135,7 @@ export async function addSubscriptionRequest(
   const { addSubscription } = BritboxAccountApi({
     headers: {
       Authorization: `Bearer ${accessToken}`,
+      'content-type': 'application/json',
     },
   });
 
@@ -153,6 +155,7 @@ export async function updateProfileRequest(
   const { updateProfile } = BritboxAccountApi({
     headers: {
       Authorization: `Bearer ${accessToken}`,
+      'content-type': 'application/json',
     },
   });
 
