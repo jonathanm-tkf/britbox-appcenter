@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 import React, { useEffect, useState } from 'react';
 
@@ -51,7 +52,7 @@ const Auth = () => {
   const { t } = useTranslation('auth');
 
   useEffect(() => {
-    Orientation.lockToPortrait();
+    // Orientation.lockToPortrait();
   }, []);
 
   const ENTRIES = [
@@ -127,7 +128,7 @@ const Auth = () => {
               />
             </PaginationWrapper>
 
-            <Button size="big" stretch onPress={() => {}}>
+            <Button size="big" fontWeight="medium" stretch onPress={() => {}}>
               {t('freetrial')}
             </Button>
           </Content>

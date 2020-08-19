@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable max-len */
 /* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable react/no-array-index-key */
@@ -97,7 +98,7 @@ const SignUpSubscription = () => {
   };
 
   useEffect(() => {
-    Orientation.lockToPortrait();
+    // Orientation.lockToPortrait();
     initialConnection();
     getProducts();
   }, []);
@@ -260,6 +261,7 @@ const SignUpSubscription = () => {
                   stretch
                   loading={loading}
                   size="big"
+                  fontWeight="medium"
                   color={theme.PRIMARY_FOREGROUND_COLOR}
                 >
                   Start free trial
@@ -267,6 +269,7 @@ const SignUpSubscription = () => {
                 <Button
                   outline
                   size="big"
+                  fontWeight="medium"
                   style={cancelStyle}
                   onPress={() => navigation.navigate('Login')}
                 >

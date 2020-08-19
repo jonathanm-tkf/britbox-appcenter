@@ -19,7 +19,7 @@ import Orientation from 'react-native-orientation-locker';
 import { AppDrawerScreen } from '../Drawer';
 import { AuthStackScreen } from '../Auth';
 
-const STORYBOOK_START = false && __DEV__;
+const STORYBOOK_START = true && __DEV__;
 
 const EffectModal = (progress: Animated.AnimatedInterpolation) => ({
   cardStyle: {
@@ -54,7 +54,7 @@ const RootStackScreen = () => {
   const home = useSelector((state: AppState) => state.home);
 
   useEffect(() => {
-    Orientation.lockToPortrait();
+    // Orientation.lockToPortrait();
     if (!user.isLogged) {
       setIsLoading(false);
     }

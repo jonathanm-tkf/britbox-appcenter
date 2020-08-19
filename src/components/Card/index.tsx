@@ -51,6 +51,7 @@ interface Props {
   onRemove?: () => void;
   onPress?: () => void;
   style?: any;
+  element?: any;
 }
 
 const Card = ({
@@ -67,13 +68,14 @@ const Card = ({
   onRemove,
   onPress,
   style,
+  element,
 }: Props) => {
   const theme = useSelector((state: AppState) => state.theme.theme);
   const [loaded, setLoaded] = useState(false);
   const { t } = useTranslation('layout');
 
   const imageStyle = {
-    width: width || 162,
+    width: width || element.width || 162,
     height: height || 243,
     borderRadius: 8,
   };
@@ -195,7 +197,7 @@ const Card = ({
             )}
           </Group>
         </Wrapper>
-        {isDetail && data?.summary !== '' && <SummaryText>{data.summary}</SummaryText>}
+        {isDetail && data?.summary !== '' && <SummaryText>{data?.summary}</SummaryText>}
       </AllWrapper>
     </TouchableScale>
   );

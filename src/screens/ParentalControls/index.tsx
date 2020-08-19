@@ -179,6 +179,7 @@ export default function ParentalControls() {
               color={theme.SECONDARY_COLOR}
               loading={loading}
               size="big"
+              fontWeight="medium"
             >
               Turn Off PIN
             </Button>
@@ -205,6 +206,7 @@ export default function ParentalControls() {
             color={theme.SECONDARY_COLOR}
             loading={loading}
             size="big"
+            fontWeight="medium"
           >
             Clear all
           </Button>

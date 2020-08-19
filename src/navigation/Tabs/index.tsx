@@ -2,11 +2,11 @@ import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 // import Home from '@screens/Home';
 import { HomeIcon, ExploreIcon, MoreIcon, SearchIcon } from '@assets/icons';
-import Explore from '@screens/Explore';
 import Search from '@screens/Search';
 import { useTranslation } from 'react-i18next';
 import { MoreStackScreen } from './More';
 import { HomeStackScreen } from './Home';
+import { ExploreStackScreen } from './Explore';
 import TabBar from './Components/TabBar';
 
 const AppTabs = createBottomTabNavigator();
@@ -24,7 +24,7 @@ const AppTabsScreen = () => {
       />
       <AppTabs.Screen
         name="Explore"
-        component={Explore}
+        component={ExploreStackScreen}
         options={{
           tabBarLabel: t('explore'),
           tabBarIcon: () => <ExploreIcon width={34} height={34} />,

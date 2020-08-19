@@ -2,9 +2,12 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react-native';
 import { action } from '@storybook/addon-actions';
+import { Dimensions } from 'react-native';
 
 import Grid from '@components/Grid';
 import Theme from './Theme';
+
+const { width } = Dimensions.get('window');
 
 const DATA: any = {
   id: 'Related-22878',
@@ -347,7 +350,11 @@ const DATA: any = {
 storiesOf('Grid', module)
   .addDecorator(Theme)
   .add('default', () => (
-    <Grid data={DATA.items} element={{ width: 100, height: 125 }} onPress={action('tapped-item')} />
+    <Grid
+      data={DATA.items}
+      element={{ width: width - 40, marginBottom: 20 }}
+      onPress={action('tapped-item')}
+    />
   ))
   .add('title', () => (
     <Grid

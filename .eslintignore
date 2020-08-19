@@ -8,5 +8,5 @@ coverage
 storybook/**
 metro.config.js
 jest.config.js
-src/sdks/**
+# src/sdks/**
 **/*.d.ts

@@ -68,7 +68,14 @@ export default function MyAccount() {
             <Input label="Last Name" value={lastName} onChangeText={(text) => setLastName(text)} />
             <Input label="Email" value={email} onChangeText={(text) => setEmail(text)} />
             <Input label="Mobile" value={mobile} onChangeText={(text) => setMobile(text)} />
-            <Button onPress={() => {}} stretch style={updateBtnStyle} loading={loading} size="big">
+            <Button
+              onPress={() => {}}
+              stretch
+              style={updateBtnStyle}
+              loading={loading}
+              size="big"
+              fontWeight="medium"
+            >
               Update
             </Button>
             <Paragraph>
@@ -111,7 +118,7 @@ export default function MyAccount() {
               value={confirmPassword}
               onChangeText={(text) => setConfirmPassword(text)}
             />
-            <Button onPress={() => {}} stretch loading={loading} size="big">
+            <Button onPress={() => {}} stretch loading={loading} size="big" fontWeight="medium">
               Update
             </Button>
           </ScrollableContainerPaddingHorizontal>
@@ -166,7 +173,14 @@ export default function MyAccount() {
                 <NewsParagraph>BritBox newsletter, special promotions and offers.</NewsParagraph>
               </RowContent>
             </RowContainer>
-            <Button onPress={() => {}} stretch style={updateBtnStyle} loading={loading} size="big">
+            <Button
+              onPress={() => {}}
+              stretch
+              style={updateBtnStyle}
+              loading={loading}
+              size="big"
+              fontWeight="medium"
+            >
               Update
             </Button>
             <Paragraph>

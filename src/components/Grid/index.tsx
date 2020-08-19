@@ -3,7 +3,7 @@ import { MassiveSDKModelItemList } from '@src/sdks/Britbox.API.Content.TS/api';
 
 import { getImage } from '@src/utils/images';
 import { FlatGrid } from 'react-native-super-grid';
-import { YellowBox } from 'react-native';
+import { YellowBox, ImageStyle } from 'react-native';
 import ContentLoader, { Rect } from 'react-content-loader/native';
 import { AppState } from '@store/modules/rootReducer';
 import { useSelector } from 'react-redux';
@@ -17,17 +17,13 @@ YellowBox.ignoreWarnings([
 
 type Props = {
   data: MassiveSDKModelItemList[];
-  element: {
-    width: number;
-    height: number;
-  };
+  element: ImageStyle;
   onPress?: (item: MassiveSDKModelItemList) => void;
   title?: string;
 };
 
 const Grid = ({ data, element, onPress, title }: Props) => {
   const theme = useSelector((state: AppState) => state.theme.theme);
-
   return (
     <>
       {title !== '' && (
@@ -50,18 +46,21 @@ const Grid = ({ data, element, onPress, title }: Props) => {
       <Container>
         <FlatGrid
           scrollEnabled={false}
-          itemDimension={element?.width || 100}
-          spacing={10}
+          itemDimension={Number(element?.width || 100)}
+          spacing={0}
           data={data}
-          contentContainerStyle={{
-            paddingLeft: 5,
-          }}
+          contentContainerStyle={
+            {
+              // paddingLeft: 5,
+            }
+          }
           renderItem={({ item }) => (
             <Card
-              width={element?.width || 100}
-              height={element?.height || 157}
+              // width={element?.width || 100}
+              // height={element?.height || 157}
               url={getImage(item?.images?.poster || '', 'poster')}
               onPress={() => (onPress ? onPress(item) : {})}
+              {...{ element }}
             />
           )}
         />

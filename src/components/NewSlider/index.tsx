@@ -11,7 +11,14 @@ import { AppState } from '@store/modules/rootReducer';
 import { getStatusBarHeight } from 'react-native-iphone-x-helper';
 import CustomCard from './CustomCard';
 import { sliderWidth, itemWidth, sliderWidthSlim, itemWidthSlim } from './CustomCard/styles';
-import { Container, Slider, SliderWrapper, SlimDescriptionText, SlimDescription } from './styles';
+import {
+  Container,
+  Slider,
+  SliderWrapper,
+  SlimDescriptionText,
+  SlimDescription,
+  ActionsWrapper,
+} from './styles';
 import Actions from './Actions';
 
 const { width } = Dimensions.get('window');
@@ -28,12 +35,22 @@ const styles = StyleSheet.create({
 interface Props {
   data: MassiveSDKModelItemList[];
   slim?: boolean;
+  collection?: boolean;
+  center?: boolean;
   onWatchlist?: (item: MassiveSDKModelItemList) => void;
   onPlay?: (item: MassiveSDKModelItemList) => void;
   onDiscoverMore?: (item: MassiveSDKModelItemList) => void;
 }
 
-const NewSlider = ({ data, slim, onWatchlist, onPlay, onDiscoverMore }: Props) => {
+const NewSlider = ({
+  data,
+  slim,
+  collection,
+  center,
+  onWatchlist,
+  onPlay,
+  onDiscoverMore,
+}: Props) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const theme = useSelector((state: AppState) => state.theme.theme);
   const carouselData = data.map((item) => {
@@ -54,6 +71,9 @@ const NewSlider = ({ data, slim, onWatchlist, onPlay, onDiscoverMore }: Props) =
         data={item}
         even={(index + 1) % 2 === 0}
         parallax
+        collection
+        center
+        enableTouch={carouselData.length > 1}
         {...{ parallaxProps, slim }}
         active={index === currentIndex}
       />
@@ -74,19 +94,34 @@ const NewSlider = ({ data, slim, onWatchlist, onPlay, onDiscoverMore }: Props) =
           backgroundColor={theme.PRIMARY_COLOR_OPAQUE}
           foregroundColor={theme.PRIMARY_COLOR}
         >
-          <Rect x="11%" y="0" rx="8" ry="8" width="75%" height="20" />
-          <Rect x="4%" y="30" rx="8" ry="8" width="87%" height="20" />
-          <Rect x="2%" y="60" rx="8" ry="8" width="89%" height="20" />
-          <Rect x="11%" y="90" rx="8" ry="8" width="75%" height="20" />
-          <Rect x={width / 2 - 105 - 20 + 8} y="165" rx="8" ry="8" width="50" height="50" />
-          <Rect x={width / 2 - 35 - 20 + 16} y="140" rx="8" ry="8" width="70" height="100" />
-          <Rect x={width / 2 + 55 - 20 + 24} y="165" rx="8" ry="8" width="50" height="50" />
+          <Rect x="11%" y="0" rx="8" ry="8" width="75%" height="15" />
+          <Rect x="4%" y="25" rx="8" ry="8" width="87%" height="15" />
+          <Rect x="2%" y="50" rx="8" ry="8" width="89%" height="15" />
+          <Rect x="11%" y="75" rx="8" ry="8" width="75%" height="15" />
+        </ContentLoader>
+      );
+    }
+    return <SlimDescriptionText>{item?.shortDescription}</SlimDescriptionText>;
+  };
+
+  const getActions = (item: MassiveSDKModelItemList) => {
+    const image = getImage(item?.images?.poster, 'wallpaper');
+
+    if (image === 'loading') {
+      return (
+        <ContentLoader
+          speed={1}
+          backgroundColor={theme.PRIMARY_COLOR_OPAQUE}
+          foregroundColor={theme.PRIMARY_COLOR}
+        >
+          <Rect x={width / 2 - 105 - 20 + 8} y="35" rx="8" ry="8" width="50" height="50" />
+          <Rect x={width / 2 - 35 - 20 + 16} y="10" rx="8" ry="8" width="70" height="100" />
+          <Rect x={width / 2 + 55 - 20 + 24} y="35" rx="8" ry="8" width="50" height="50" />
         </ContentLoader>
       );
     }
     return (
       <>
-        <SlimDescriptionText>{item?.shortDescription}</SlimDescriptionText>
         <Actions
           onWatchlist={() => (onWatchlist ? onWatchlist(item) : {})}
           onPlay={() => (onPlay ? onPlay(item) : {})}
@@ -96,15 +131,43 @@ const NewSlider = ({ data, slim, onWatchlist, onPlay, onDiscoverMore }: Props) =
     );
   };
 
+  const stylesContainer =
+    slim || collection
+      ? {
+          top: slim
+            ? getStatusBarHeight() + (Platform.OS === 'ios' ? 50 : 20)
+            : getStatusBarHeight() + (Platform.OS === 'ios' ? 90 : 60),
+          position: 'absolute',
+        }
+      : {};
+
   return (
     <Container>
-      <SliderWrapper {...{ slim: !!slim }}>
+      <SliderWrapper {...{ slim: !!slim, collection: !!collection }}>
         <Slider
           {...{
             slim: !!slim,
+            collection: !!collection,
             source:
-              slim && getImageSquare(getImage(data[currentIndex]?.images?.square, 'square'))
-                ? { uri: getImageSquare(getImage(data[currentIndex]?.images?.square, 'square')) }
+              (slim || collection) &&
+              getImageSquare(
+                getImage(
+                  data[currentIndex]?.images?.square ||
+                    data[currentIndex]?.images?.wallpaper ||
+                    data[currentIndex]?.images?.hero3x1,
+                  'square'
+                )
+              )
+                ? {
+                    uri: getImageSquare(
+                      getImage(
+                        data[currentIndex]?.images?.square ||
+                          data[currentIndex]?.images?.wallpaper ||
+                          data[currentIndex]?.images?.hero3x1,
+                        'square'
+                      )
+                    ),
+                  }
                 : {},
           }}
         />
@@ -120,22 +183,17 @@ const NewSlider = ({ data, slim, onWatchlist, onPlay, onDiscoverMore }: Props) =
           firstItem={currentIndex}
           inactiveSlideScale={slim ? 0.8 : 0.92}
           inactiveSlideOpacity={slim ? 0.5 : 0.7}
-          containerCustomStyle={[
-            styles.sliderContainer,
-            slim
-              ? {
-                  top: getStatusBarHeight() + (Platform.OS === 'ios' ? 50 : 20),
-                  position: 'absolute',
-                }
-              : {},
-          ]}
+          containerCustomStyle={[styles.sliderContainer, stylesContainer]}
           contentContainerCustomStyle={styles.sliderContentContainer}
           onSnapToItem={(index: number) => setCurrentIndex(index)}
+          scrollEnabled={carouselData.length > 1}
         />
-        {/* </Slider> */}
       </SliderWrapper>
 
       {slim && <SlimDescription>{getContent(carouselData[currentIndex].item)}</SlimDescription>}
+      {(slim || collection) && (
+        <ActionsWrapper>{getActions(carouselData[currentIndex].item)}</ActionsWrapper>
+      )}
     </Container>
   );
 };

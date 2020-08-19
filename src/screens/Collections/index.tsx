@@ -9,7 +9,7 @@ import {
   MassiveSDKModelItemList,
 } from '@src/sdks/Britbox.API.Content.TS/api';
 import { loadCollectionPage, loadCollectionList } from '@src/services/detail';
-import { getTemplate } from '@src/utils/template';
+import { getTemplate, getIsCollectionDetail } from '@src/utils/template';
 import TitleTreatment from '@screens/Shared/TitleTreatment';
 import Genre from '@screens/Shared/Genre';
 import Standard from '@screens/Shared/Standard';
@@ -19,6 +19,8 @@ import Episodes from '@screens/Shared/Episodes';
 import New from '@screens/Shared/New';
 import NewSlider from '@components/NewSlider';
 import Grid from '@screens/Shared/Grid';
+import { navigateByPath } from '@src/navigation/rootNavigation';
+import ErrorLanding from '@components/ErrorLanding';
 import { dataDummy } from './data';
 import {
   Container,
@@ -46,6 +48,7 @@ const Collections = () => {
   const { item: itemData } = params || undefined;
   const [data, setData] = useState<MassiveSDKModelPage | undefined>(dataDummy);
   const [isContinuosScroll, setIsContinuosScroll] = useState(false);
+  const [error, setError] = useState(false);
   const [isLoadingContinuosScroll, setIsLoadingContinuosScroll] = useState(false);
   const [animationContinuosScroll, setAnimationContinuosScroll] = useState(false);
 
@@ -56,9 +59,13 @@ const Collections = () => {
   const getDataDetail = async (path: string) => {
     const { response } = await loadCollectionPage(path);
     setData(response);
+
+    if ((response?.entries || []).length === 0) {
+      setError(true);
+    }
+
     const checkIsContinuosScroll = getIsContinuosScroll(response || {});
     setIsContinuosScroll(checkIsContinuosScroll);
-    setAnimationContinuosScroll(checkIsContinuosScroll);
   };
 
   useEffect(() => {
@@ -74,6 +81,7 @@ const Collections = () => {
       setData(dataDummy);
       setIsLoadingContinuosScroll(false);
       setIsContinuosScroll(false);
+      setError(false);
     };
   }, []);
 
@@ -119,13 +127,23 @@ const Collections = () => {
   };
 
   const getIsContinuosScroll = (response: MassiveSDKModelPage) => {
-    return (
+    const result =
       (response &&
         response.entries &&
-        response.entries.filter((item) => getTemplate(item.template || '') === 'grid-infinite')
-          .length > 0) ||
-      false
-    );
+        response.entries.filter((item) => getTemplate(item.template || '') === 'grid-infinite')) ||
+      [];
+
+    if (result.length > 0) {
+      const {
+        list: {
+          paging: { page, total },
+        },
+      } = result.reduce((item) => item);
+
+      setAnimationContinuosScroll(page !== total);
+    }
+
+    return result.length > 0;
   };
 
   const getMoreDataContinuosScroll = () => {
@@ -178,11 +196,11 @@ const Collections = () => {
   };
 
   const onPlay = (card: MassiveSDKModelItemList) => {
-    navigation.push('Detail', { item: { ...card } });
+    navigateByPath(card);
   };
 
   const onDiscoverMore = (card: MassiveSDKModelItemList) => {
-    navigation.push('Detail', { item: { ...card } });
+    navigateByPath(card);
   };
 
   return (
@@ -191,7 +209,7 @@ const Collections = () => {
         <Button onPress={() => back()}>
           <BackIcon width={20} height={20} />
         </Button>
-        <TopText>{data?.title}</TopText>
+        <TopText>{getIsCollectionDetail(data?.template || '') ? '' : data?.title}</TopText>
         <BackgroundTop
           style={{
             opacity: animatedOpacityValue.interpolate({
@@ -212,7 +230,17 @@ const Collections = () => {
 
             switch (getTemplate(item.template || '')) {
               case 'hero-slim':
-                return (
+                return getIsCollectionDetail(data?.template || '') ? (
+                  <NewSlider
+                    key={key.toString()}
+                    collection
+                    center
+                    data={item?.list?.items || []}
+                    onWatchlist={() => {}}
+                    onPlay={(element) => onPlay(element)}
+                    onDiscoverMore={(element) => onDiscoverMore(element)}
+                  />
+                ) : (
                   <NewSlider
                     key={key.toString()}
                     slim
@@ -260,6 +288,7 @@ const Collections = () => {
             }
           })}
       </Scroll>
+      {error && <ErrorLanding onPress={() => back()} />}
     </Container>
   );
 };

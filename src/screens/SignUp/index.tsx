@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/no-unescaped-entities */
 import React, { useState, useEffect } from 'react';
 import { KeyboardAvoidingView, Platform } from 'react-native';
@@ -222,7 +223,7 @@ const SignUp = () => {
   }, [firstName, lastName, email, password, confirmPassword]);
 
   useEffect(() => {
-    Orientation.lockToPortrait();
+    // Orientation.lockToPortrait();
   }, []);
 
   return (
@@ -293,6 +294,7 @@ const SignUp = () => {
                 stretch
                 loading={loading}
                 size="big"
+                fontWeight="medium"
                 color={theme.PRIMARY_FOREGROUND_COLOR}
               >
                 Create Account

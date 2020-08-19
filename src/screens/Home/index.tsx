@@ -33,6 +33,7 @@ import { getImage } from '@src/utils/images';
 import UserWatching from '@components/UserWatching';
 import { MassiveSDKModelItemSummary } from '@src/sdks/Britbox.API.Content.TS/api';
 import Cast from '@screens/Shared/Cast';
+import { navigateByPath } from '@src/navigation/rootNavigation';
 import { Container } from './styles';
 import { Element, continueWatchingItems } from './data';
 
@@ -111,13 +112,12 @@ const Item = () => {
     if (item.type === 'movie' || item.type === 'episode') {
       return navigation.navigate('VideoPlayer', { item });
     }
-
-    return navigation.push('Detail', { ...item });
+    return navigateByPath(item);
   };
   const home = useSelector((state: AppState) => state.home.data);
 
   const heroDiscoverMore = (item: any) => {
-    navigation.navigate('Detail', { ...item });
+    navigateByPath(item);
   };
 
   return (

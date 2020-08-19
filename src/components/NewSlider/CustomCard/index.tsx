@@ -2,11 +2,11 @@ import React from 'react';
 import { Image } from 'react-native';
 import { ParallaxImage } from 'react-native-snap-carousel';
 import { Logo } from '@assets/icons';
-import { useNavigation } from '@react-navigation/native';
 import { MassiveSDKModelItemList } from '@src/sdks/Britbox.API.Content.TS/api';
 import { useSelector } from 'react-redux';
 import { AppState } from '@store/modules/rootReducer';
 import ContentLoader, { Rect } from 'react-content-loader/native';
+import { navigateByPath } from '@src/navigation/rootNavigation';
 import styles, {
   Gradient,
   LogoWrapper,
@@ -26,7 +26,10 @@ interface Props {
   parallaxProps: any;
   data: any;
   slim?: boolean;
+  collection?: boolean;
   active: boolean;
+  enableTouch: boolean;
+  center?: boolean;
 }
 
 const CustomCard = ({
@@ -35,12 +38,14 @@ const CustomCard = ({
   parallaxProps,
   data: { illustration, title, subtitle, item },
   slim,
+  collection,
+  enableTouch,
+  center,
 }: Props) => {
-  const navigation = useNavigation();
   const theme = useSelector((state: AppState) => state.theme.theme);
 
   const goToDetail = (card: MassiveSDKModelItemList) => {
-    navigation.push('Detail', { item: { ...card } });
+    navigateByPath(card);
   };
 
   const getImage = () => {
@@ -62,16 +67,22 @@ const CustomCard = ({
     );
   };
 
-  const getTitle = title ? <Title numberOfLines={2}>{title}</Title> : false;
+  const getTitle = title ? (
+    <Title {...{ collection }} numberOfLines={2}>
+      {title}
+    </Title>
+  ) : (
+    false
+  );
 
   return (
     <OuterContainer>
       <TouchableScale
         {...{ slim }}
-        activeScale={slim ? 1 : 0.9}
+        activeScale={!enableTouch ? 1 : 0.9}
         tension={50}
         friction={8}
-        onPress={() => (slim ? {} : goToDetail(item))}
+        onPress={() => (!enableTouch ? {} : goToDetail(item))}
       >
         <CustomShadow>
           <ImageContainer>
@@ -90,7 +101,7 @@ const CustomCard = ({
           </ImageContainer>
           {!slim && (
             <>
-              <TextContainer {...{ slim }}>
+              <TextContainer {...{ slim, collection, center }}>
                 {getTitle}
                 <Subtitle numberOfLines={2}>{subtitle}</Subtitle>
               </TextContainer>
