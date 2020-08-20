@@ -28,9 +28,19 @@ type Props = {
   onPress?: (item: MassiveSDKModelItemList) => void;
   title?: string;
   spacing?: number;
+  cardContent?: (item: MassiveSDKModelItemList) => JSX.Element | null;
 };
 
-const Grid = ({ data, element, imageType, containerStyle, onPress, title, spacing }: Props) => {
+const Grid = ({
+  data,
+  element,
+  imageType,
+  containerStyle,
+  onPress,
+  title,
+  spacing,
+  cardContent,
+}: Props) => {
   const theme = useSelector((state: AppState) => state.theme.theme);
   return (
     <>
@@ -58,14 +68,18 @@ const Grid = ({ data, element, imageType, containerStyle, onPress, title, spacin
           spacing={spacing || 0}
           data={data}
           renderItem={({ item }) => (
-            <Card
-              url={getImage(
-                imageType && item?.images ? item?.images[imageType] : item?.images?.poster || '',
-                imageType || 'poster'
-              )}
-              onPress={() => (onPress ? onPress(item) : {})}
-              {...{ element, containerStyle }}
-            />
+            <>
+              <Card
+                url={getImage(
+                  imageType && item?.images ? item?.images[imageType] : item?.images?.poster || '',
+                  imageType || 'poster'
+                )}
+                onPress={() => (onPress ? onPress(item) : {})}
+                cardContent={(card) => (cardContent ? cardContent(card) : null)}
+                cardElement={item}
+                {...{ element, containerStyle }}
+              />
+            </>
           )}
         />
       </Container>

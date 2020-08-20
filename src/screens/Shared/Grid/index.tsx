@@ -18,13 +18,22 @@ interface Props {
   width?: number;
   height?: number;
   imageType?: WALLPAPER | POSTER | HERO3X1 | SQUARE;
+  cardContent?: (item: MassiveSDKModelItemList) => JSX.Element | null;
 }
 
-const Grid = ({ onLayout, items, title, loading, width, height, imageType }: Props) => {
+const Grid = ({
+  onLayout,
+  items,
+  title,
+  loading,
+  width,
+  height,
+  imageType,
+  cardContent,
+}: Props) => {
   const goToOtherContent = (item: MassiveSDKModelItemList) => {
     navigateByPath(item);
   };
-
   return (
     <Container
       onLayout={(e) => {
@@ -38,6 +47,7 @@ const Grid = ({ onLayout, items, title, loading, width, height, imageType }: Pro
         spacing={13}
         imageType={imageType}
         title={title}
+        cardContent={(item) => (cardContent ? cardContent(item) : null)}
       />
       {loading && (
         <WrapperLoading>
