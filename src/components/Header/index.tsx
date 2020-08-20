@@ -1,13 +1,13 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { Button } from '@components/Button';
 import { useTranslation } from 'react-i18next';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { AppState } from '@store/modules/rootReducer';
-import { logout } from '@store/modules/user/actions';
 import Animated from 'react-native-reanimated';
 import { useNavigation } from '@react-navigation/native';
+import { navigateByPath } from '@src/navigation/rootNavigation';
 import { Container, Logo, LinksList, Gradient } from './styles';
 
 interface DataElement {
@@ -36,18 +36,38 @@ interface Props {
   shadow?: boolean;
 }
 
+type MenuItem = {
+  id: string;
+  text: string;
+  goTo: string;
+};
+
 export default function Header({ hideSignIn, shadow }: Props) {
   const { t } = useTranslation('layout');
   const isLogged = useSelector((state: AppState) => state.core.isLogged);
+  const menu = useSelector((state: AppState) => state.core.menu?.navigation.header); // TODO: get data from properties
   const { navigate } = useNavigation();
-  const dispatch = useDispatch();
+  const [menuItems, setMenuItems] = useState<MenuItem[]>([]);
 
-  const toggleSignIn = (value: boolean, goTo?: string) => {
-    if (value && goTo) {
-      navigate(goTo);
-    } else {
-      dispatch(logout());
+  useEffect(() => {
+    // TODO: after get all properties remove this effect
+    if (menu && menu.length > 0) {
+      const items = menu
+        .filter((item) => item.label !== 'Explore' && item.label !== 'Help')
+        .map((item, index) => {
+          return {
+            id: index.toString(),
+            text: item.label,
+            goTo: item?.path || '',
+          };
+        });
+
+      setMenuItems(items);
     }
+  }, [menu]);
+
+  const toggleSignIn = (goTo: string) => {
+    navigate(goTo);
   };
   return (
     <Container>
@@ -68,32 +88,20 @@ export default function Header({ hideSignIn, shadow }: Props) {
                 <Item
                   text={item.text}
                   goTo={item.goTo}
-                  onPressTouch={(value) => toggleSignIn(value, item.goTo)}
+                  onPressTouch={() => toggleSignIn(item.goTo)}
                 />
               )}
             />
           ) : (
             <LinksList
-              data={[
-                {
-                  id: '2',
-                  text: t('new'),
-                  goTo: 'New',
-                },
-                {
-                  id: '3',
-                  text: t('az'),
-                  goTo: 'AZ',
-                },
-                {
-                  id: '4',
-                  text: t('watchlist'),
-                  goTo: 'Watchlist',
-                },
-              ]}
+              data={menuItems}
               keyExtractor={(item: any) => item.id}
               renderItem={({ item }: any) => (
-                <Item text={item.text} goTo={item.goTo} onPressTouch={() => {}} />
+                <Item
+                  text={item.text}
+                  goTo={item.goTo}
+                  onPressTouch={() => navigateByPath({ path: item.goTo })}
+                />
               )}
             />
           )}

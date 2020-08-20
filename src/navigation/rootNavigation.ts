@@ -16,6 +16,9 @@ export function navigateByPath(item: any) {
     // case /\/show\//.test(item?.path || ''):
     //   push('Detail', { item });
     //   break;
+    case item?.path === '/programmes':
+    case item?.path === '/account/watchlist':
+      break;
     case item?.path === '/':
       navigate('Home');
       break;
