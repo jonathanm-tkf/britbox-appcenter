@@ -21,6 +21,9 @@ import NewSlider from '@components/NewSlider';
 import Grid from '@screens/Shared/Grid';
 import { navigateByPath } from '@src/navigation/rootNavigation';
 import ErrorLanding from '@components/ErrorLanding';
+import OurFavorites from '@screens/Shared/OurFavorites';
+import Action from '@components/Action';
+import { useTranslation } from 'react-i18next';
 import { dataDummy } from './data';
 import {
   Container,
@@ -30,6 +33,11 @@ import {
   TopText,
   Scroll,
   SpaceNoHeroSlim,
+  GridInnerContent,
+  Gradient,
+  ActionWrapper,
+  ActionText,
+  ActionTitle,
 } from './styles';
 
 const { width } = Dimensions.get('window');
@@ -41,6 +49,24 @@ type RootParamList = {
 };
 
 type CollectionScreenRouteProp = RouteProp<RootParamList, 'Collection'>;
+
+const GridContent = ({ data }: { data: MassiveSDKModelItemSummary }) => {
+  const { t } = useTranslation('layout');
+  const wrapper = {
+    width: width - 40,
+  };
+
+  return (
+    <GridInnerContent style={wrapper}>
+      <ActionWrapper>
+        <Action autoPlay loop width={60} height={60} />
+        <ActionText>{t('playnow')}</ActionText>
+      </ActionWrapper>
+      <ActionTitle>{data?.contextualTitle || ''}</ActionTitle>
+      <Gradient />
+    </GridInnerContent>
+  );
+};
 
 const Collections = () => {
   const navigation = useNavigation();
@@ -305,8 +331,11 @@ const Collections = () => {
                     width={width - 40}
                     height={190}
                     imageType="wallpaper"
+                    cardContent={(card: MassiveSDKModelItemSummary) => <GridContent data={card} />}
                   />
-                ) : null;
+                ) : (
+                  <OurFavorites key={key.toString()} data={item?.list || {}} />
+                );
               default:
                 return null;
             }

@@ -147,5 +147,8 @@
       "pattern": "**/*.stories.tsx",
       "outputFile": "./storybook/storyLoader.js"
     }
+  },
+  "quokka": {
+    "babel": true
   }
 }

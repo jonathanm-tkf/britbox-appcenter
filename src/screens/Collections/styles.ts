@@ -2,6 +2,8 @@ import styled from 'styled-components/native';
 import { getStatusBarHeight, getBottomSpace } from 'react-native-iphone-x-helper';
 import { ThemeState } from '@store/modules/theme/types';
 import { Platform, Animated } from 'react-native';
+import LinearGradient from 'react-native-linear-gradient';
+import { rgba } from 'polished';
 
 export const Container = styled.View`
   flex: 1;
@@ -58,4 +60,49 @@ export const BackgroundTop = styled(Animated.View)`
 
 export const SpaceNoHeroSlim = styled.View`
   height: 60px;
+`;
+
+export const GridInnerContent = styled.View`
+  position: absolute;
+  bottom: 5px;
+  width: 100%;
+  align-self: center;
+`;
+
+export const Gradient = styled(LinearGradient).attrs((props: ThemeState) => ({
+  colors: [rgba(props.theme.PRIMARY_COLOR, 0), props.theme.PRIMARY_COLOR],
+}))`
+  background-color: red;
+  width: 100%;
+  height: 160px;
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  right: 0;
+  z-index: 1;
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+`;
+
+export const ActionWrapper = styled.View`
+  flex-direction: row;
+  align-items: center;
+  z-index: 2;
+`;
+
+export const ActionText = styled.Text`
+  color: ${(props: ThemeState) => props.theme.SECONDARY_COLOR_LIGHT};
+  font-family: ${(props: ThemeState) => props.theme.PRIMARY_FONT_FAMILY_MEDIUM};
+  font-size: 14px;
+  line-height: 24px;
+`;
+
+export const ActionTitle = styled.Text`
+  color: ${(props: ThemeState) => props.theme.PRIMARY_FOREGROUND_COLOR};
+  font-size: 16px;
+  line-height: 37px;
+  margin-left: 15px;
+  margin-bottom: 5px;
+  font-family: ${(props: ThemeState) => props.theme.PRIMARY_FONT_FAMILY_MEDIUM};
+  z-index: 2;
 `;

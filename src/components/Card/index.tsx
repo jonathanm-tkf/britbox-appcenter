@@ -11,6 +11,7 @@ import Bookmark from '@components/Bookmark';
 
 import Shimmer from '@components/Shimmer';
 // import { MassiveSDKModelItemSummary } from '@src/sdks/Britbox.API.Content.TS/api';
+import { MassiveSDKModelItemList } from '@src/sdks/Britbox.API.Content.TS/api';
 import {
   Container,
   Wrapper,
@@ -52,6 +53,9 @@ interface Props {
   onPress?: () => void;
   style?: any;
   element?: any;
+  resizeMode?: 'cover' | 'contain' | 'stretch' | 'repeat' | 'center' | undefined;
+  cardContent?: (item: MassiveSDKModelItemList) => JSX.Element | null;
+  cardElement?: MassiveSDKModelItemList;
 }
 
 const Card = ({
@@ -69,6 +73,9 @@ const Card = ({
   onPress,
   style,
   element,
+  resizeMode,
+  cardContent,
+  cardElement,
 }: Props) => {
   const theme = useSelector((state: AppState) => state.theme.theme);
   const [loaded, setLoaded] = useState(false);
@@ -136,7 +143,7 @@ const Card = ({
                       <Image
                         style={imageStyle}
                         source={{ uri: url }}
-                        resizeMode="cover"
+                        resizeMode={resizeMode || 'cover'}
                         onLoadEnd={() => setLoaded(true)}
                       />
                     ) : null}
@@ -199,6 +206,7 @@ const Card = ({
         </Wrapper>
         {isDetail && data?.summary !== '' && <SummaryText>{data?.summary}</SummaryText>}
       </AllWrapper>
+      {cardContent && cardContent(cardElement || {})}
     </TouchableScale>
   );
 };

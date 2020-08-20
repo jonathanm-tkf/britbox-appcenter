@@ -13,6 +13,9 @@ export const Button = styled.TouchableOpacity.attrs({
     return props.opaque && `background-color: ${props.theme.PRIMARY_COLOR};`;
   }};
   ${(props: ButtonProps & ThemeState) => {
+    return props.secondary && `background-color: ${props.theme.SECONDARY_COLOR_LIGHT};`;
+  }};
+  ${(props: ButtonProps & ThemeState) => {
     return (
       props.outline &&
       `
