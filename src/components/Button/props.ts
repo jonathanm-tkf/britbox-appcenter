@@ -2,6 +2,7 @@ import React from 'react';
 
 export interface ButtonProps {
   opaque?: boolean;
+  secondary?: boolean;
   outline?: boolean;
   link?: boolean;
   children: React.ReactNode;

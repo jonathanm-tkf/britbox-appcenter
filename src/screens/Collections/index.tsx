@@ -21,6 +21,7 @@ import NewSlider from '@components/NewSlider';
 import Grid from '@screens/Shared/Grid';
 import { navigateByPath } from '@src/navigation/rootNavigation';
 import ErrorLanding from '@components/ErrorLanding';
+import OurFavorites from '@screens/Shared/OurFavorites';
 import { dataDummy } from './data';
 import {
   Container,
@@ -306,7 +307,9 @@ const Collections = () => {
                     height={190}
                     imageType="wallpaper"
                   />
-                ) : null;
+                ) : (
+                  <OurFavorites key={key.toString()} data={item?.list || {}} />
+                );
               default:
                 return null;
             }

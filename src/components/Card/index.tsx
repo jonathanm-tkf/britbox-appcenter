@@ -52,6 +52,7 @@ interface Props {
   onPress?: () => void;
   style?: any;
   element?: any;
+  resizeMode?: 'cover' | 'contain' | 'stretch' | 'repeat' | 'center' | undefined;
 }
 
 const Card = ({
@@ -69,6 +70,7 @@ const Card = ({
   onPress,
   style,
   element,
+  resizeMode,
 }: Props) => {
   const theme = useSelector((state: AppState) => state.theme.theme);
   const [loaded, setLoaded] = useState(false);
@@ -136,7 +138,7 @@ const Card = ({
                       <Image
                         style={imageStyle}
                         source={{ uri: url }}
-                        resizeMode="cover"
+                        resizeMode={resizeMode || 'cover'}
                         onLoadEnd={() => setLoaded(true)}
                       />
                     ) : null}

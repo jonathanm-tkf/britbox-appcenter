@@ -16,6 +16,7 @@ function loadStories() {
   require('../src/components/Stories/HeaderCustom.stories');
   require('../src/components/Stories/Input.stories');
   require('../src/components/Stories/NewSlider.stories');
+  require('../src/components/Stories/OurFavorites.stories');
   require('../src/components/Stories/Outstanding.stories');
   require('../src/components/Stories/TabsComponent.stories');
   require('../src/components/Stories/Typography.stories');
@@ -35,6 +36,7 @@ const stories = [
   '../src/components/Stories/HeaderCustom.stories',
   '../src/components/Stories/Input.stories',
   '../src/components/Stories/NewSlider.stories',
+  '../src/components/Stories/OurFavorites.stories',
   '../src/components/Stories/Outstanding.stories',
   '../src/components/Stories/TabsComponent.stories',
   '../src/components/Stories/Typography.stories',
