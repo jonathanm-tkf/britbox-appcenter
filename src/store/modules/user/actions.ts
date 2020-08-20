@@ -1,4 +1,3 @@
-/* eslint-disable max-len */
 import { action } from 'typesafe-actions';
 import { BritboxAPIAccountModelsProfileGetProfileResponse } from '@src/sdks/Britbox.API.Account.TS/api';
 import {

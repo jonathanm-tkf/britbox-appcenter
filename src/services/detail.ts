@@ -229,7 +229,7 @@ const processEpisodesBySeason = async (
 
   let episodesResponse;
 
-  const moreInformationResponse = {
+  const moreInformationResponse: MoreInformation = {
     credits: undefined,
     title: '',
     description: '',

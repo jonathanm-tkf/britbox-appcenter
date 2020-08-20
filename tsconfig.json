@@ -8,6 +8,7 @@
     "jsx": "react",
     "lib": ["es6"],
     "moduleResolution": "node",
+    "resolveJsonModule": true,
     "noEmit": true,
     "strict": true,
     "target": "esnext",
@@ -29,7 +30,6 @@
     "metro.config.js",
     "jest.config.js",
     "__tests__/**/*-test.ts",
-    "index.js",
-    "**/*.d.ts"
+    "index.js"
   ]
 }

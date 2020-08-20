@@ -1,4 +1,3 @@
-/* eslint-disable no-nested-ternary */
 import styled from 'styled-components/native';
 import LottieView from 'lottie-react-native';
 import Play from './animations/play.json';
