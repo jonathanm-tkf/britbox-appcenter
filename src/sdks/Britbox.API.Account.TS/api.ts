@@ -708,6 +708,9 @@ export interface BritboxAPIAccountModelsProfileUpdateParentalControlDetailsReque
 
   /** Secure pin of parental control. */
   newParentalControlPin?: string;
+
+  /** Old secure pin of parental control. */
+  oldParentalControlPin?: string;
 }
 
 export interface BritboxAPIAccountModelsProfileUpdateParentalControlDetailsResponse {

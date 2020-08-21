@@ -2319,6 +2319,10 @@
         "newParentalControlPin": {
           "description": "Secure pin of parental control.",
           "type": "string"
+        },
+        "oldParentalControlPin": {
+          "description": "Old secure pin of parental control.",
+          "type": "string"
         }
       }
     },

@@ -55251,7 +55251,7 @@ and limitations under the License.
                         </div>
                       </td>
                     </tr>
-                    <tr class="last undefined">
+                    <tr>
                       <td
                         class="sc-cSHVUG sc-chPdSV bIrgla"
                         kind="field"
@@ -55268,6 +55268,28 @@ and limitations under the License.
                           <div>
                             <div class="sc-jWBwVP sc-iRbamj kjegA">
                               <p>Secure pin of parental control.</p>
+                            </div>
+                          </div>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr class="last undefined">
+                      <td
+                        class="sc-cSHVUG sc-chPdSV bIrgla"
+                        kind="field"
+                        title="oldParentalControlPin"
+                      >
+                        <span class="sc-kGXeez bcLONg"></span>oldParentalControlPin
+                      </td>
+                      <td class="sc-kgoBCf kGwPhO">
+                        <div>
+                          <div>
+                            <span class="sc-cHGsZl sc-TOsTZ fKyGWc"></span
+                            ><span class="sc-cHGsZl sc-kgAjT hqYVjx">string</span>
+                          </div>
+                          <div>
+                            <div class="sc-jWBwVP sc-iRbamj kjegA">
+                              <p>Old secure pin of parental control.</p>
                             </div>
                           </div>
                         </div>
@@ -55394,6 +55416,14 @@ and limitations under the License.
                                       <div class="hoverable">
                                         <span class="property token string"
                                           >"newParentalControlPin"</span
+                                        >: <span class="token string">&quot;string&quot;</span
+                                        ><span class="token punctuation">,</span>
+                                      </div>
+                                    </li>
+                                    <li>
+                                      <div class="hoverable">
+                                        <span class="property token string"
+                                          >"oldParentalControlPin"</span
                                         >: <span class="token string">&quot;string&quot;</span>
                                       </div>
                                     </li>
@@ -58644,6 +58674,10 @@ and limitations under the License.
                     },
                     newParentalControlPin: {
                       description: 'Secure pin of parental control.',
+                      type: 'string',
+                    },
+                    oldParentalControlPin: {
+                      description: 'Old secure pin of parental control.',
                       type: 'string',
                     },
                   },
