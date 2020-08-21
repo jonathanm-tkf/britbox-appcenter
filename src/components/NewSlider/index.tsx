@@ -72,7 +72,7 @@ const NewSlider = ({
         even={(index + 1) % 2 === 0}
         parallax
         collection
-        center
+        center={center}
         enableTouch={carouselData.length > 1}
         {...{ parallaxProps, slim }}
         active={index === currentIndex}

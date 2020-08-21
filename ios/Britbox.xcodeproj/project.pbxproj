@@ -904,7 +904,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 7;
 				DEVELOPMENT_TEAM = 99MS4LGK4X;
 				ENABLE_BITCODE = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -929,6 +929,7 @@
 				SWIFT_OBJC_BRIDGING_HEADER = "Britbox-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = "arm64 arm64e";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -942,7 +943,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 7;
 				DEVELOPMENT_TEAM = 99MS4LGK4X;
 				INFOPLIST_FILE = Britbox/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -961,6 +962,7 @@
 				PROVISIONING_PROFILE_SPECIFIER = "iOS Development Al - Staging";
 				SWIFT_OBJC_BRIDGING_HEADER = "Britbox-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = "arm64 arm64e";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -1285,7 +1287,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 7;
 				DEVELOPMENT_TEAM = 99MS4LGK4X;
 				INFOPLIST_FILE = Britbox/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1305,6 +1307,7 @@
 				PROVISIONING_PROFILE_SPECIFIER = "iOS Development Al - Staging";
 				SWIFT_OBJC_BRIDGING_HEADER = "Britbox-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = "arm64 arm64e";
 				VERSIONING_SYSTEM = "apple-generic";
 			};

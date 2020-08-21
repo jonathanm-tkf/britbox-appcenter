@@ -42,7 +42,7 @@ const Grid = ({
     >
       <GridC
         data={items}
-        element={{ width: width || 120, height: height || 157, marginBottom: 5 }}
+        element={{ width: width || 112, height: height || 157, marginBottom: 5 }}
         onPress={(item) => goToOtherContent(item)}
         spacing={13}
         imageType={imageType}

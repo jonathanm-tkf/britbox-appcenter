@@ -16,6 +16,8 @@ import { Animated } from 'react-native';
 import { ThemeProps } from '@store/modules/theme/types';
 import ModalMoreInformation from '@screens/ModalMoreInformation';
 import Orientation from 'react-native-orientation-locker';
+import ModalGenre from '@screens/ModalGenre';
+import ModalFilter from '@screens/ModalFilter';
 import { AppDrawerScreen } from '../Drawer';
 import { AuthStackScreen } from '../Auth';
 
@@ -95,6 +97,8 @@ const RootStackScreen = () => {
         component={ModalSeasons}
         options={ModalOptions(theme)}
       />
+      <RootStack.Screen name="ModalGenre" component={ModalGenre} options={ModalOptions(theme)} />
+      <RootStack.Screen name="ModalFilter" component={ModalFilter} options={ModalOptions(theme)} />
     </RootStack.Navigator>
   );
 };

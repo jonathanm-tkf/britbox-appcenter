@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { Animated, NativeScrollEvent, Dimensions } from 'react-native';
 import { useNavigation, useRoute, RouteProp } from '@react-navigation/native';
-import { BackIcon } from '@assets/icons';
+import { BackIcon, ArrowBottomIcon } from '@assets/icons';
 
 import {
   MassiveSDKModelItemSummary,
@@ -24,6 +24,10 @@ import ErrorLanding from '@components/ErrorLanding';
 import OurFavorites from '@screens/Shared/OurFavorites';
 import Action from '@components/Action';
 import { useTranslation } from 'react-i18next';
+import { useSelector } from 'react-redux';
+import { AppState } from '@store/modules/rootReducer';
+import { Header } from '@store/modules/core/types';
+import { Item } from '@screens/ModalFilter';
 import { dataDummy } from './data';
 import {
   Container,
@@ -38,6 +42,11 @@ import {
   ActionWrapper,
   ActionText,
   ActionTitle,
+  ChangeGenreButton,
+  ChangeGenreText,
+  ChangeOrderButton,
+  ChangeOrderText,
+  WrapperContinuosScroll,
 } from './styles';
 
 const { width } = Dimensions.get('window');
@@ -45,6 +54,8 @@ const { width } = Dimensions.get('window');
 type RootParamList = {
   Collection: {
     item: MassiveSDKModelItemSummary;
+    genre: string;
+    filter: Item;
   };
 };
 
@@ -73,12 +84,35 @@ const Collections = () => {
   const [showBlueView, setShowBlueView] = useState(false);
   const [animatedOpacityValue] = useState(new Animated.Value(0));
   const { params } = useRoute<CollectionScreenRouteProp>();
-  const { item: itemData } = params || undefined;
+  const { item: itemData, genre, filter } = params || undefined;
   const [data, setData] = useState<MassiveSDKModelPage | undefined>(dataDummy);
   const [isContinuosScroll, setIsContinuosScroll] = useState(false);
   const [error, setError] = useState(false);
   const [isLoadingContinuosScroll, setIsLoadingContinuosScroll] = useState(false);
   const [animationContinuosScroll, setAnimationContinuosScroll] = useState(false);
+  const menu = useSelector((state: AppState) => state.core?.menu?.navigation?.header);
+  const theme = useSelector((state: AppState) => state.theme.theme);
+  const { t } = useTranslation('layout');
+
+  const [order, setOrder] = useState('asc');
+  const [orderBy, setOrderBy] = useState('a-z');
+
+  const isGenre = useMemo(() => {
+    if (menu && data) {
+      const explore = (menu.filter((item: Header) => item.label === 'Explore') || []).reduce(
+        (e) => e
+      ).children;
+
+      if (explore && explore?.length > 0) {
+        const genreList = (explore.filter((list) => list.label === 'Genre') || [])
+          .reduce((l) => l)
+          .children.filter((children) => children.label === data.title);
+        return genreList.length ? t('genre') : data?.title || '';
+      }
+    }
+
+    return '';
+  }, [data, menu, t]);
 
   const back = () => {
     navigation.goBack();
@@ -174,7 +208,11 @@ const Collections = () => {
     return result.length > 0;
   };
 
-  const getMoreDataContinuosScroll = () => {
+  const getMoreDataContinuosScroll = (
+    reset?: boolean,
+    orderFilter?: string,
+    orderByFilter?: string
+  ) => {
     const { next, page, total } =
       (data?.entries || [])
         .filter((item) => getTemplate(item.template || '') === 'grid-infinite')
@@ -194,9 +232,11 @@ const Collections = () => {
 
         loadCollectionList({
           id,
-          page: nextPage,
+          page: reset ? 1 : nextPage,
           pageSize,
           sub,
+          order: orderFilter || order,
+          orderBy: orderByFilter || orderBy,
         }).then(({ response }) => {
           const newData = (data?.entries || []).map((item) => {
             if (getTemplate(item.template || '') === 'grid-infinite') {
@@ -204,7 +244,9 @@ const Collections = () => {
                 ...item,
                 list: {
                   ...item.list,
-                  items: [...(item.list?.items || []), ...(response?.items || [])],
+                  items: reset
+                    ? [...(response?.items || [])]
+                    : [...(item.list?.items || []), ...(response?.items || [])],
                   paging: { ...response?.paging },
                 },
               };
@@ -231,13 +273,59 @@ const Collections = () => {
     navigateByPath(card);
   };
 
+  useEffect(() => {
+    if (genre) {
+      setData(dataDummy);
+      getDataDetail(genre);
+    }
+  }, [genre]);
+
+  useEffect(() => {
+    if (filter) {
+      setOrder(filter.value === 'date-added' ? 'desc' : 'asc');
+      setOrderBy(filter.value);
+
+      const newData = (data?.entries || []).map((item) => {
+        if (getTemplate(item.template || '') === 'grid-infinite') {
+          return {
+            ...item,
+            list: {
+              ...item.list,
+              items: [
+                ...(dataDummy.entries
+                  .filter((f: { template: string }) => f.template === 'Continuous Scroll Automatic')
+                  .reduce((element) => element).list.items || []),
+              ],
+            },
+          };
+        }
+        return item;
+      });
+
+      setData({ ...data, entries: newData });
+      getMoreDataContinuosScroll(
+        true,
+        filter.value === 'date-added' ? 'desc' : 'asc',
+        filter.value
+      );
+    }
+  }, [filter]);
+
   return (
     <Container>
       <TopWrapper>
         <Button onPress={() => back()}>
           <BackIcon width={20} height={20} />
         </Button>
-        <TopText>{getIsCollectionDetail(data?.template || '') ? '' : data?.title}</TopText>
+        <TopText>{getIsCollectionDetail(data?.template || '') ? '' : isGenre}</TopText>
+        {isGenre === t('genre') && (
+          <ChangeGenreButton
+            onPress={() => navigation.navigate('ModalGenre', { genre: data?.title || '' })}
+          >
+            <ChangeGenreText>{data?.title || ''}</ChangeGenreText>
+            <ArrowBottomIcon width={10} height={10} fill={theme.PRIMARY_FOREGROUND_COLOR} />
+          </ChangeGenreButton>
+        )}
         <BackgroundTop
           style={{
             opacity: animatedOpacityValue.interpolate({
@@ -288,12 +376,39 @@ const Collections = () => {
                 );
               case 'grid-infinite':
                 return (
-                  <Grid
-                    key={key.toString()}
-                    items={item?.list?.items || []}
-                    title={item?.title || ''}
-                    loading={animationContinuosScroll}
-                  />
+                  <WrapperContinuosScroll key={key.toString()}>
+                    <ChangeOrderButton
+                      onPress={() =>
+                        navigation.navigate('ModalFilter', {
+                          title: t('filter'),
+                          data: [
+                            {
+                              title: t('order'),
+                              data: [
+                                {
+                                  title: t('recent'),
+                                  value: 'date-added',
+                                  selected: orderBy === 'date-added',
+                                },
+                                {
+                                  title: t('az'),
+                                  value: 'a-z',
+                                  selected: orderBy === 'a-z',
+                                },
+                              ],
+                            },
+                          ],
+                        })
+                      }
+                    >
+                      <ChangeOrderText>Filter +</ChangeOrderText>
+                    </ChangeOrderButton>
+                    <Grid
+                      items={item?.list?.items || []}
+                      title={item?.title || ''}
+                      loading={animationContinuosScroll}
+                    />
+                  </WrapperContinuosScroll>
                 );
               case 'new':
                 return <New key={key.toString()} {...{ item }} />;
@@ -307,7 +422,7 @@ const Collections = () => {
                     key={key.toString()}
                     items={item?.list?.items || []}
                     title={item?.title || ''}
-                    width={185}
+                    width={170}
                     height={100}
                     imageType="wallpaper"
                   />

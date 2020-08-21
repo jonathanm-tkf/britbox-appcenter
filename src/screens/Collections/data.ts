@@ -46,5 +46,15 @@ export const dataDummy = {
         }),
       },
     },
+    {
+      template: 'Continuous Scroll Automatic',
+      list: {
+        items: fill(new Array(15), {
+          images: {
+            poster: 'loading',
+          },
+        }),
+      },
+    },
   ],
 };
