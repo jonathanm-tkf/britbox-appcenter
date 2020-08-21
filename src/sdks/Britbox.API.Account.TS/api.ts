@@ -185,6 +185,7 @@ export interface BritboxAPIAccountModelsProfileGetProfileResponse {
   bookmarks?: Record<string, string>;
   bookmarkList?: MassiveSDKModelItemList;
   subscriptionStatus?: string;
+  analyticsSubscriptionStatus?: string;
   isInFreeTrail?: boolean;
   canStream?: boolean;
   parentalControl?: boolean;
@@ -532,12 +533,13 @@ export interface BritboxAPIAccountModelsProfileUpdateProfileResponse {
 }
 
 export interface BritboxAPIAccountModelsProfileResetPasswordRequest {
-  email: string;
-  contactPassword: string;
+  oldPassword: string;
+  newPassword: string;
+  confirmNewpassword: string;
 }
 
 export interface BritboxAPIAccountModelsProfileResetPasswordResponse {
-  response?: BritboxDataEvergentModelsResetPasswordResponseMessageBaseResponse;
+  response?: BritboxDataEvergentModelsChangePasswordResponseMessageBaseResponse;
 }
 
 export interface BritboxAPIAccountModelsProfileGetWatchedResponse {
@@ -905,7 +907,7 @@ export interface BritboxDataEvergentModelsUpdateProfileResponseMessageBaseRespon
   failureMessage?: BritboxDataEvergentModelsFailureMessage[];
 }
 
-export interface BritboxDataEvergentModelsResetPasswordResponseMessageBaseResponse {
+export interface BritboxDataEvergentModelsChangePasswordResponseMessageBaseResponse {
   message?: string;
   responseCode?: string;
   status?: string;
@@ -1173,9 +1175,13 @@ export class Api<SecurityDataType = any> extends HttpClient<SecurityDataType> {
     /**
      * @tags Customer
      * @name GetProducts
+     * @summary REST API is used to get the products list available to that DMA.
      * @request GET:/v1/account/Customer/products
      */
-    getProducts: (query?: { dmaID?: string; countryCode?: string }, params?: RequestParams) =>
+    getProducts: (
+      query?: { dmaID?: string; countryCode?: string; returnAppChannels?: string },
+      params?: RequestParams
+    ) =>
       this.request<BritboxAPIAccountModelsCustomerGetProductsResponse, any>(
         `/v1/account/Customer/products${this.addQueryParams(query)}`,
         'GET',

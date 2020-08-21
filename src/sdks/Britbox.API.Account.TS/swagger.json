@@ -222,12 +222,32 @@
     "/v1/account/Customer/products": {
       "get": {
         "tags": ["Customer"],
+        "summary": "REST API is used to get the products list available to that DMA.",
         "operationId": "GetProducts",
         "consumes": [],
         "produces": ["text/plain", "application/json", "text/json"],
         "parameters": [
-          { "name": "dmaID", "in": "query", "required": false, "type": "string" },
-          { "name": "countryCode", "in": "query", "required": false, "type": "string" }
+          {
+            "name": "dmaID",
+            "in": "query",
+            "description": "Unique ID of the channel partner. Default value is \"001\"",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "countryCode",
+            "in": "query",
+            "description": "Country code of the ChannelPartnerID",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "returnAppChannels",
+            "in": "query",
+            "description": "Returns IAP appID and appName, appChannel. Value \"T\"",
+            "required": false,
+            "type": "string"
+          }
         ],
         "responses": {
           "200": {
@@ -1509,6 +1529,7 @@
         },
         "bookmarkList": { "$ref": "#/definitions/MassiveSDK.Model.ItemList" },
         "subscriptionStatus": { "type": "string" },
+        "analyticsSubscriptionStatus": { "type": "string" },
         "isInFreeTrail": { "type": "boolean" },
         "canStream": { "type": "boolean" },
         "parentalControl": { "type": "boolean" },
@@ -2012,19 +2033,23 @@
       }
     },
     "Britbox.API.Account.Models.Profile.ResetPasswordRequest": {
-      "required": ["email", "contactPassword"],
+      "required": ["oldPassword", "newPassword", "confirmNewpassword"],
       "type": "object",
-      "properties": { "email": { "type": "string" }, "contactPassword": { "type": "string" } }
+      "properties": {
+        "oldPassword": { "type": "string" },
+        "newPassword": { "type": "string" },
+        "confirmNewpassword": { "type": "string" }
+      }
     },
     "Britbox.API.Account.Models.Profile.ResetPasswordResponse": {
       "type": "object",
       "properties": {
         "response": {
-          "$ref": "#/definitions/Britbox.Data.Evergent.Models.ResetPasswordResponseMessageBase+Response"
+          "$ref": "#/definitions/Britbox.Data.Evergent.Models.ChangePasswordResponseMessageBase+Response"
         }
       }
     },
-    "Britbox.Data.Evergent.Models.ResetPasswordResponseMessageBase+Response": {
+    "Britbox.Data.Evergent.Models.ChangePasswordResponseMessageBase+Response": {
       "type": "object",
       "properties": {
         "message": { "type": "string" },

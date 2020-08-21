@@ -47869,7 +47869,7 @@ and limitations under the License.
                     <label role="menuitem" class="sc-lhVmIH bLMrnV -depth2"
                       ><span type="get" class="sc-cmTdod kxjqzZ operation-type get">get</span
                       ><span width="calc(100% - 38px)" class="sc-bYSBpT gpHEtH"
-                        >GetProducts</span
+                        >REST API is used to get the products list available to that DMA.</span
                       ></label
                     >
                   </li>
@@ -50043,7 +50043,8 @@ and limitations under the License.
             <div class="sc-gzVnrw sc-cmthru hcTXxz">
               <div class="sc-bxivhb cjtbAK">
                 <h2 class="sc-dnqmqq ioYTqA">
-                  <a class="sc-VigVT kGvRyb" href="#operation/GetProducts"></a>GetProducts<!-- -->
+                  <a class="sc-VigVT kGvRyb" href="#operation/GetProducts"></a>REST API is used to
+                  get the products list available to that DMA.<!-- -->
                 </h2>
                 <div class="sc-bsbRJL PDnUY">
                   <div class="sc-hXRMBi ceJGIt">
@@ -50076,11 +50077,17 @@ and limitations under the License.
                               <span class="sc-cHGsZl sc-TOsTZ fKyGWc"></span
                               ><span class="sc-cHGsZl sc-kgAjT hqYVjx">string</span>
                             </div>
-                            <div><div class="sc-jWBwVP sc-iRbamj kjegA"></div></div>
+                            <div>
+                              <div class="sc-jWBwVP sc-iRbamj kjegA">
+                                <p>
+                                  Unique ID of the channel partner. Default value is &quot;001&quot;
+                                </p>
+                              </div>
+                            </div>
                           </div>
                         </td>
                       </tr>
-                      <tr class="last undefined">
+                      <tr>
                         <td class="sc-cSHVUG sc-chPdSV bIrgla" kind="field" title="countryCode">
                           <span class="sc-kGXeez bcLONg"></span>countryCode
                         </td>
@@ -50090,7 +50097,35 @@ and limitations under the License.
                               <span class="sc-cHGsZl sc-TOsTZ fKyGWc"></span
                               ><span class="sc-cHGsZl sc-kgAjT hqYVjx">string</span>
                             </div>
-                            <div><div class="sc-jWBwVP sc-iRbamj kjegA"></div></div>
+                            <div>
+                              <div class="sc-jWBwVP sc-iRbamj kjegA">
+                                <p>Country code of the ChannelPartnerID</p>
+                              </div>
+                            </div>
+                          </div>
+                        </td>
+                      </tr>
+                      <tr class="last undefined">
+                        <td
+                          class="sc-cSHVUG sc-chPdSV bIrgla"
+                          kind="field"
+                          title="returnAppChannels"
+                        >
+                          <span class="sc-kGXeez bcLONg"></span>returnAppChannels
+                        </td>
+                        <td class="sc-kgoBCf kGwPhO">
+                          <div>
+                            <div>
+                              <span class="sc-cHGsZl sc-TOsTZ fKyGWc"></span
+                              ><span class="sc-cHGsZl sc-kgAjT hqYVjx">string</span>
+                            </div>
+                            <div>
+                              <div class="sc-jWBwVP sc-iRbamj kjegA">
+                                <p>
+                                  Returns IAP appID and appName, appChannel. Value &quot;T&quot;
+                                </p>
+                              </div>
+                            </div>
                           </div>
                         </td>
                       </tr>
@@ -52396,8 +52431,23 @@ and limitations under the License.
                 <table class="sc-dxgOiQ eCjbJc">
                   <tbody>
                     <tr>
-                      <td class="sc-cSHVUG sc-chPdSV bIrgla" kind="field" title="email">
-                        <span class="sc-kGXeez bcLONg"></span>email
+                      <td class="sc-cSHVUG sc-chPdSV bIrgla" kind="field" title="oldPassword">
+                        <span class="sc-kGXeez bcLONg"></span>oldPassword
+                        <div class="sc-ksYbfQ sc-hmzhuo jsTAxL">required</div>
+                      </td>
+                      <td class="sc-kgoBCf kGwPhO">
+                        <div>
+                          <div>
+                            <span class="sc-cHGsZl sc-TOsTZ fKyGWc"></span
+                            ><span class="sc-cHGsZl sc-kgAjT hqYVjx">string</span>
+                          </div>
+                          <div><div class="sc-jWBwVP sc-iRbamj kjegA"></div></div>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="sc-cSHVUG sc-chPdSV bIrgla" kind="field" title="newPassword">
+                        <span class="sc-kGXeez bcLONg"></span>newPassword
                         <div class="sc-ksYbfQ sc-hmzhuo jsTAxL">required</div>
                       </td>
                       <td class="sc-kgoBCf kGwPhO">
@@ -52411,8 +52461,12 @@ and limitations under the License.
                       </td>
                     </tr>
                     <tr class="last undefined">
-                      <td class="sc-cSHVUG sc-chPdSV bIrgla" kind="field" title="contactPassword">
-                        <span class="sc-kGXeez bcLONg"></span>contactPassword
+                      <td
+                        class="sc-cSHVUG sc-chPdSV bIrgla"
+                        kind="field"
+                        title="confirmNewpassword"
+                      >
+                        <span class="sc-kGXeez bcLONg"></span>confirmNewpassword
                         <div class="sc-ksYbfQ sc-hmzhuo jsTAxL">required</div>
                       </td>
                       <td class="sc-kgoBCf kGwPhO">
@@ -52529,14 +52583,22 @@ and limitations under the License.
                                   <ul class="obj collapsible">
                                     <li>
                                       <div class="hoverable">
-                                        <span class="property token string">"email"</span>:
+                                        <span class="property token string">"oldPassword"</span>:
                                         <span class="token string">&quot;string&quot;</span
                                         ><span class="token punctuation">,</span>
                                       </div>
                                     </li>
                                     <li>
                                       <div class="hoverable">
-                                        <span class="property token string">"contactPassword"</span
+                                        <span class="property token string">"newPassword"</span>:
+                                        <span class="token string">&quot;string&quot;</span
+                                        ><span class="token punctuation">,</span>
+                                      </div>
+                                    </li>
+                                    <li>
+                                      <div class="hoverable">
+                                        <span class="property token string"
+                                          >"confirmNewpassword"</span
                                         >: <span class="token string">&quot;string&quot;</span>
                                       </div>
                                     </li>
@@ -56202,12 +56264,27 @@ and limitations under the License.
               '/v1/account/Customer/products': {
                 get: {
                   tags: ['Customer'],
+                  summary: 'REST API is used to get the products list available to that DMA.',
                   operationId: 'GetProducts',
                   parameters: [
-                    { name: 'dmaID', in: 'query', required: false, schema: { type: 'string' } },
+                    {
+                      name: 'dmaID',
+                      in: 'query',
+                      description: 'Unique ID of the channel partner. Default value is "001"',
+                      required: false,
+                      schema: { type: 'string' },
+                    },
                     {
                       name: 'countryCode',
                       in: 'query',
+                      description: 'Country code of the ChannelPartnerID',
+                      required: false,
+                      schema: { type: 'string' },
+                    },
+                    {
+                      name: 'returnAppChannels',
+                      in: 'query',
+                      description: 'Returns IAP appID and appName, appChannel. Value "T"',
                       required: false,
                       schema: { type: 'string' },
                     },
@@ -57776,6 +57853,7 @@ and limitations under the License.
                     },
                     bookmarkList: { $ref: '#/components/schemas/MassiveSDK.Model.ItemList' },
                     subscriptionStatus: { type: 'string' },
+                    analyticsSubscriptionStatus: { type: 'string' },
                     isInFreeTrail: { type: 'boolean' },
                     canStream: { type: 'boolean' },
                     parentalControl: { type: 'boolean' },
@@ -58295,16 +58373,20 @@ and limitations under the License.
                   },
                 },
                 'Britbox.API.Account.Models.Profile.ResetPasswordRequest': {
-                  required: ['email', 'contactPassword'],
+                  required: ['oldPassword', 'newPassword', 'confirmNewpassword'],
                   type: 'object',
-                  properties: { email: { type: 'string' }, contactPassword: { type: 'string' } },
+                  properties: {
+                    oldPassword: { type: 'string' },
+                    newPassword: { type: 'string' },
+                    confirmNewpassword: { type: 'string' },
+                  },
                 },
                 'Britbox.API.Account.Models.Profile.ResetPasswordResponse': {
                   type: 'object',
                   properties: {
                     response: {
                       $ref:
-                        '#/components/schemas/Britbox.Data.Evergent.Models.ResetPasswordResponseMessageBase_Response',
+                        '#/components/schemas/Britbox.Data.Evergent.Models.ChangePasswordResponseMessageBase_Response',
                     },
                   },
                 },
@@ -58911,7 +58993,7 @@ and limitations under the License.
                     },
                   },
                 },
-                'Britbox.Data.Evergent.Models.ResetPasswordResponseMessageBase_Response': {
+                'Britbox.Data.Evergent.Models.ChangePasswordResponseMessageBase_Response': {
                   type: 'object',
                   properties: {
                     message: { type: 'string' },
@@ -59026,136 +59108,145 @@ and limitations under the License.
             version: '2.3.8',
             fields: ['title', 'description'],
             fieldVectors: [
-              ['title/0', [0, 3.332]],
+              ['title/0', [0, 3.516]],
               ['description/0', [1, 0.374, 2, 0.192, 3, 0.192]],
-              ['title/1', [4, 3.332]],
+              ['title/1', [4, 3.516]],
               ['description/1', []],
-              ['title/2', [5, 3.332]],
+              ['title/2', [5, 3.516]],
               ['description/2', []],
-              ['title/3', [6, 3.332]],
+              ['title/3', [6, 3.516]],
               ['description/3', []],
-              ['title/4', [7, 3.332]],
+              ['title/4', [7, 3.516]],
               ['description/4', []],
-              ['title/5', [8, 3.332]],
+              ['title/5', [8, 3.516]],
               ['description/5', []],
-              ['title/6', [9, 3.332]],
+              ['title/6', [9, 3.516]],
               ['description/6', []],
-              ['title/7', [10, 3.332]],
+              ['title/7', [10, 3.516]],
               ['description/7', []],
-              ['title/8', [11, 3.332]],
+              ['title/8', [11, 3.516]],
               ['description/8', []],
-              ['title/9', [12, 3.332]],
+              ['title/9', [12, 3.516]],
               ['description/9', []],
-              ['title/10', [13, 3.332]],
+              ['title/10', [13, 3.516]],
               ['description/10', []],
-              ['title/11', [14, 3.332]],
+              [
+                'title/11',
+                [14, 1.079, 15, 1.079, 16, 1.079, 17, 1.079, 18, 1.079, 19, 1.079, 20, 1.079],
+              ],
               ['description/11', []],
-              ['title/12', [15, 3.332]],
+              ['title/12', [21, 3.516]],
               ['description/12', []],
-              ['title/13', [16, 3.332]],
+              ['title/13', [22, 3.516]],
               ['description/13', []],
-              ['title/14', [17, 3.332]],
+              ['title/14', [23, 3.516]],
               ['description/14', []],
-              ['title/15', [18, 3.332]],
+              ['title/15', [24, 3.516]],
               ['description/15', []],
-              ['title/16', [19, 3.332]],
+              ['title/16', [25, 3.516]],
               ['description/16', []],
-              ['title/17', [20, 3.332]],
+              ['title/17', [26, 3.516]],
               ['description/17', []],
-              ['title/18', [21, 3.332]],
+              ['title/18', [27, 3.516]],
               ['description/18', []],
-              ['title/19', [22, 3.332]],
+              ['title/19', [28, 3.516]],
               ['description/19', []],
-              ['title/20', [23, 3.332]],
+              ['title/20', [29, 3.516]],
               ['description/20', []],
-              ['title/21', [24, 3.332]],
+              ['title/21', [30, 3.516]],
               ['description/21', []],
-              ['title/22', [25, 3.332]],
+              ['title/22', [31, 3.516]],
               ['description/22', []],
-              ['title/23', [26, 3.332]],
+              ['title/23', [32, 3.516]],
               ['description/23', []],
-              ['title/24', [27, 3.332]],
+              ['title/24', [33, 3.516]],
               ['description/24', []],
-              ['title/25', [28, 3.332]],
+              ['title/25', [34, 3.516]],
               ['description/25', []],
-              ['title/26', [29, 3.332]],
+              ['title/26', [35, 3.516]],
               ['description/26', []],
-              ['title/27', [30, 3.332]],
+              ['title/27', [36, 3.516]],
               ['description/27', []],
-              ['title/28', [31, 3.332]],
+              ['title/28', [37, 3.516]],
               ['description/28', []],
-              ['title/29', [32, 2.821]],
+              ['title/29', [38, 2.977]],
               ['description/29', []],
-              ['title/30', [32, 2.821]],
+              ['title/30', [38, 2.977]],
               ['description/30', []],
-              ['title/31', [33, 3.332]],
+              ['title/31', [39, 3.516]],
               ['description/31', []],
-              ['title/32', [34, 3.332]],
+              ['title/32', [40, 3.516]],
               ['description/32', []],
-              ['title/33', [35, 3.332]],
+              ['title/33', [41, 3.516]],
               ['description/33', []],
-              ['title/34', [36, 3.332]],
+              ['title/34', [42, 3.516]],
               ['description/34', []],
-              ['title/35', [37, 3.332]],
+              ['title/35', [43, 3.516]],
               ['description/35', []],
-              ['title/36', [38, 3.332]],
+              ['title/36', [44, 3.516]],
               ['description/36', []],
-              ['title/37', [39, 3.332]],
+              ['title/37', [45, 3.516]],
               ['description/37', []],
-              ['title/38', [40, 3.332]],
+              ['title/38', [46, 3.516]],
               ['description/38', []],
-              ['title/39', [41, 3.332]],
+              ['title/39', [47, 3.516]],
               ['description/39', []],
-              ['title/40', [42, 3.332]],
+              ['title/40', [48, 3.516]],
               ['description/40', []],
             ],
             invertedIndex: [
               ['', { _index: 1, title: {}, description: { '0': {} } }],
-              ['addsubscript', { _index: 16, title: { '13': {} }, description: {} }],
+              ['addsubscript', { _index: 22, title: { '13': {} }, description: {} }],
+              ['api', { _index: 15, title: { '11': {} }, description: {} }],
               ['authent', { _index: 0, title: { '0': {} }, description: {} }],
               ['authenticatecustom', { _index: 8, title: { '5': {} }, description: {} }],
               ['author', { _index: 4, title: { '1': {} }, description: {} }],
-              ['bookmarkitem', { _index: 34, title: { '32': {} }, description: {} }],
-              ['checkparentalcontrol', { _index: 41, title: { '39': {} }, description: {} }],
+              ['avail', { _index: 19, title: { '11': {} }, description: {} }],
+              ['bookmarkitem', { _index: 40, title: { '32': {} }, description: {} }],
+              ['checkparentalcontrol', { _index: 47, title: { '39': {} }, description: {} }],
               ['custom', { _index: 12, title: { '9': {} }, description: {} }],
-              ['deleteitembookmark', { _index: 35, title: { '33': {} }, description: {} }],
-              ['deletewatch', { _index: 28, title: { '25': {} }, description: {} }],
-              ['devic', { _index: 18, title: { '15': {} }, description: {} }],
+              ['deleteitembookmark', { _index: 41, title: { '33': {} }, description: {} }],
+              ['deletewatch', { _index: 34, title: { '25': {} }, description: {} }],
+              ['devic', { _index: 24, title: { '15': {} }, description: {} }],
+              ['dma', { _index: 20, title: { '11': {} }, description: {} }],
               ['forgotcontactpassword', { _index: 9, title: { '6': {} }, description: {} }],
-              ['generatedeviceactivationcod', { _index: 20, title: { '17': {} }, description: {} }],
+              ['generatedeviceactivationcod', { _index: 26, title: { '17': {} }, description: {} }],
               ['getaccountdetail', { _index: 13, title: { '10': {} }, description: {} }],
-              ['getactivesubscript', { _index: 15, title: { '12': {} }, description: {} }],
-              ['getbookmark', { _index: 37, title: { '35': {} }, description: {} }],
-              ['getbookmarklist', { _index: 36, title: { '34': {} }, description: {} }],
+              ['getactivesubscript', { _index: 21, title: { '12': {} }, description: {} }],
+              ['getbookmark', { _index: 43, title: { '35': {} }, description: {} }],
+              ['getbookmarklist', { _index: 42, title: { '34': {} }, description: {} }],
               [
                 'getcontinuewatchinglist',
-                { _index: 32, title: { '29': {}, '30': {} }, description: {} },
+                { _index: 38, title: { '29': {}, '30': {} }, description: {} },
               ],
-              ['getitembookmark', { _index: 33, title: { '31': {} }, description: {} }],
-              ['getitemmediafil', { _index: 22, title: { '19': {} }, description: {} }],
-              ['getitemwatchedstatu', { _index: 30, title: { '27': {} }, description: {} }],
-              ['getnextplaybackitem', { _index: 38, title: { '36': {} }, description: {} }],
+              ['getitembookmark', { _index: 39, title: { '31': {} }, description: {} }],
+              ['getitemmediafil', { _index: 28, title: { '19': {} }, description: {} }],
+              ['getitemwatchedstatu', { _index: 36, title: { '27': {} }, description: {} }],
+              ['getnextplaybackitem', { _index: 44, title: { '36': {} }, description: {} }],
               ['getoauthaccesstoken', { _index: 5, title: { '2': {} }, description: {} }],
-              ['getparentalcontroldetail', { _index: 39, title: { '37': {} }, description: {} }],
-              ['getproduct', { _index: 14, title: { '11': {} }, description: {} }],
-              ['getprofil', { _index: 24, title: { '21': {} }, description: {} }],
-              ['getwatch', { _index: 27, title: { '24': {} }, description: {} }],
-              ['getwatchedlist', { _index: 29, title: { '26': {} }, description: {} }],
+              ['getparentalcontroldetail', { _index: 45, title: { '37': {} }, description: {} }],
+              ['getprofil', { _index: 30, title: { '21': {} }, description: {} }],
+              ['getwatch', { _index: 33, title: { '24': {} }, description: {} }],
+              ['getwatchedlist', { _index: 35, title: { '26': {} }, description: {} }],
+              ['list', { _index: 18, title: { '11': {} }, description: {} }],
               ['logoutcustom', { _index: 11, title: { '8': {} }, description: {} }],
-              ['mediafil', { _index: 21, title: { '18': {} }, description: {} }],
-              ['profil', { _index: 23, title: { '20': {} }, description: {} }],
+              ['mediafil', { _index: 27, title: { '18': {} }, description: {} }],
+              ['product', { _index: 17, title: { '11': {} }, description: {} }],
+              ['profil', { _index: 29, title: { '20': {} }, description: {} }],
               ['redoc-inject', { _index: 2, title: {}, description: { '0': {} } }],
               ['refreshtoken', { _index: 6, title: { '3': {} }, description: {} }],
               ['refreshtokend3', { _index: 7, title: { '4': {} }, description: {} }],
-              ['regist', { _index: 17, title: { '14': {} }, description: {} }],
-              ['registerdevic', { _index: 19, title: { '16': {} }, description: {} }],
-              ['resetpassword', { _index: 26, title: { '23': {} }, description: {} }],
+              ['regist', { _index: 23, title: { '14': {} }, description: {} }],
+              ['registerdevic', { _index: 25, title: { '16': {} }, description: {} }],
+              ['resetpassword', { _index: 32, title: { '23': {} }, description: {} }],
+              ['rest', { _index: 14, title: { '11': {} }, description: {} }],
               ['security-definit', { _index: 3, title: {}, description: { '0': {} } }],
-              ['setitemwatchedstatu', { _index: 31, title: { '28': {} }, description: {} }],
-              ['updateparentalcontroldetail', { _index: 40, title: { '38': {} }, description: {} }],
-              ['updateprofil', { _index: 25, title: { '22': {} }, description: {} }],
+              ['setitemwatchedstatu', { _index: 37, title: { '28': {} }, description: {} }],
+              ['updateparentalcontroldetail', { _index: 46, title: { '38': {} }, description: {} }],
+              ['updateprofil', { _index: 31, title: { '22': {} }, description: {} }],
+              ['us', { _index: 16, title: { '11': {} }, description: {} }],
               ['validatecontactpassword', { _index: 10, title: { '7': {} }, description: {} }],
-              ['validateparentalcontrolpin', { _index: 42, title: { '40': {} }, description: {} }],
+              ['validateparentalcontrolpin', { _index: 48, title: { '40': {} }, description: {} }],
             ],
             pipeline: [],
           },
