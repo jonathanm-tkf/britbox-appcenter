@@ -2,11 +2,11 @@ import { takeLatest, all, select, call, put } from 'redux-saga/effects';
 // import * as Sentry from '@sentry/react-native';
 
 import api from '@src/services/api';
-import { CoreActionTypes, Menu } from './types';
+import { CoreActionTypes, Menu, Segment } from './types';
 import { AppState } from '../rootReducer';
 import { menuRequestSuccess, menuRequestError } from './actions';
 
-const getSegment = (state: AppState) => state.core.segment;
+const getSegment = (state: AppState) => state.core.segment || Segment.US;
 
 export async function getMenu(segment: string) {
   try {

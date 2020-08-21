@@ -20,5 +20,9 @@
     "description": "Looks like something was unplugged.",
     "button": "Return"
   },
-  "watchprogrammes": "Watch programmes"
+  "watchprogrammes": "Watch programmes",
+  "genre": "Genre",
+  "filter": "Filter",
+  "recent": "Recently Added",
+  "order": "Order"
 }

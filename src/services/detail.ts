@@ -327,6 +327,8 @@ type LoadCollectionList = {
   page: number;
   pageSize: number;
   sub: string;
+  order: string;
+  orderBy: string;
 };
 
 const processCollectionList = async (
@@ -352,6 +354,8 @@ export const loadCollectionList = async ({
   page,
   pageSize,
   sub,
+  order,
+  orderBy,
 }: LoadCollectionList): Promise<{
   response: MassiveSDKModelItemList | undefined;
 }> => {
@@ -364,6 +368,8 @@ export const loadCollectionList = async ({
       device: getDevice(),
       segments: ['US'],
       useCustomId: true,
+      order,
+      orderBy,
       sub,
     });
 
