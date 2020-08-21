@@ -1,6 +1,7 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import Home from '@screens/Home';
+import AZ from '@screens/AZ';
 import { ThemeProps } from '@store/modules/theme/types';
 import { rgba } from 'polished';
 import { Animated } from 'react-native';
@@ -40,6 +41,7 @@ const HomeStackScreen = () => {
   return (
     <HomeStack.Navigator headerMode="none">
       <HomeStack.Screen name="Home" component={Home} />
+      <HomeStack.Screen name="AZ" component={AZ} options={ModalOptions(theme)} />
       <HomeStack.Screen name="Detail" component={Detail} options={ModalOptions(theme)} />
       <HomeStack.Screen name="Collections" component={Collections} options={ModalOptions(theme)} />
     </HomeStack.Navigator>

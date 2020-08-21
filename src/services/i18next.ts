@@ -13,6 +13,7 @@ i18next.use(initReactI18next).init({
       auth: require('../locales/us/auth.json'),
       tabs: require('../locales/us/tabs.json'),
       home: require('../locales/us/home.json'),
+      az: require('../locales/us/az.json'),
     },
   },
 });

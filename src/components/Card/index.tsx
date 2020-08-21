@@ -101,7 +101,7 @@ const Card = ({
       activeScale={onPress ? 0.9 : 1}
       tension={50}
       friction={8}
-      onPress={() => (onPress ? onPress() : {})}
+      onPress={() => (onPress && url !== 'loading' ? onPress() : {})}
     >
       <AllWrapper {...{ style }}>
         <Wrapper {...{ width: imageStyle.width, isDetail }} style={element}>
