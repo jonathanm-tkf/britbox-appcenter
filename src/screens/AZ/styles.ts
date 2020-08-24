@@ -1,7 +1,7 @@
 import styled from 'styled-components/native';
 import { getStatusBarHeight, getBottomSpace } from 'react-native-iphone-x-helper';
 import { ThemeState } from '@store/modules/theme/types';
-import { Platform, Animated } from 'react-native';
+import { Platform, Animated, Dimensions } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import { rgba } from 'polished';
 
@@ -9,6 +9,16 @@ export const Container = styled.View`
   flex: 1;
   background-color: ${(props: ThemeState) => props.theme.PRIMARY_COLOR};
   padding-bottom: ${getBottomSpace() + 64}px;
+`;
+
+const { width } = Dimensions.get('window');
+export const ContainerGrid = styled.View`
+  /* flex: 1; */
+  background-color: ${(props: ThemeState) => props.theme.PRIMARY_COLOR};
+  /* padding-bottom: ${getBottomSpace() + 74}px; */
+  /* padding-bottom: 40px; */
+  flex-direction: row;
+  width: ${width - 28}px;
 `;
 
 export const Scroll = styled.ScrollView.attrs({
@@ -143,4 +153,34 @@ export const ChangeOrderButton = styled.TouchableOpacity`
 
 export const WrapperContinuosScroll = styled.View`
   position: relative;
+`;
+
+export const AlphabetWrapper = styled.View`
+  flex-direction: column;
+  width: 28px;
+  top: 130px;
+  right: 0;
+  position: absolute;
+`;
+
+export const LetterButton = styled.TouchableOpacity`
+  align-items: center;
+  justify-content: center;
+`;
+
+type LetterButtonText = {
+  desactivate?: boolean;
+};
+export const LetterButtonText = styled.Text`
+  color: ${(props: ThemeState) => props.theme.PRIMARY_FOREGROUND_COLOR};
+  margin-top: 5px;
+  opacity: 1;
+  ${(props: LetterButtonText & ThemeState) => {
+    return (
+      props.desactivate &&
+      `
+      opacity: 0.6;
+    `
+    );
+  }};
 `;

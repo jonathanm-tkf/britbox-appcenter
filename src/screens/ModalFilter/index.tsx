@@ -31,6 +31,7 @@ type RootParamList = {
   ModalFilter: {
     title: string;
     data: DataFilter[];
+    previusRoute: string;
   };
 };
 
@@ -39,10 +40,10 @@ type ModalFilterScreenRouteProp = RouteProp<RootParamList, 'ModalFilter'>;
 const ModalFilter = () => {
   const { params } = useRoute<ModalFilterScreenRouteProp>();
   const { goBack, navigate } = useNavigation();
-  const { data, title } = params;
+  const { data, title, previusRoute } = params;
 
   const goToDetail = (item: Item) => {
-    navigate('Collections', { filter: item });
+    navigate(previusRoute, { filter: item });
   };
 
   const renderItem = ({ item }: { item: Item }) => {

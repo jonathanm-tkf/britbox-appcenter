@@ -24,6 +24,13 @@ const Tabs = ({ data }: Props) => {
   const [firstHeight, setFirstHeight] = useState('auto');
   const [secondHeight, setSecondHeight] = useState('auto');
   const [threeHeight, setThreeHeight] = useState('auto');
+
+  const ready = {
+    episodes: false,
+    information: false,
+    more: false,
+  };
+
   const [tabsData, setTabsData] = useState<any>([]);
   const { t } = useTranslation(['detail', 'layout']);
   const ref = useRef();
@@ -42,14 +49,9 @@ const Tabs = ({ data }: Props) => {
             data={episodes?.items || []}
             {...{ show, moreInformation }}
             onLayout={(event) => {
-              const newHeight = event.nativeEvent.layout.height;
-              ref.current = newHeight;
-              if (
-                firstHeight === 'auto' ||
-                parseInt(newHeight, 10) > parseInt(firstHeight, 10) ||
-                0
-              ) {
-                setFirstHeight(newHeight);
+              if (!ready.episodes) {
+                setFirstHeight(event.nativeEvent.layout.height);
+                ready.episodes = true;
               }
             }}
           />
@@ -66,13 +68,9 @@ const Tabs = ({ data }: Props) => {
             data={information}
             {...{ moreInformation }}
             onLayout={(event) => {
-              const newHeight = event.nativeEvent.layout.height;
-              if (
-                secondHeight === 'auto' ||
-                parseInt(newHeight, 10) > parseInt(secondHeight, 10) ||
-                0
-              ) {
-                setSecondHeight(newHeight);
+              if (!ready.information) {
+                setSecondHeight(event.nativeEvent.layout.height);
+                ready.information = true;
               }
             }}
           />
@@ -88,13 +86,9 @@ const Tabs = ({ data }: Props) => {
           <More
             items={related?.items || []}
             onLayout={(event) => {
-              const newHeight = event.nativeEvent.layout.height;
-              if (
-                threeHeight === 'auto' ||
-                parseInt(newHeight, 10) > parseInt(threeHeight, 10) ||
-                0
-              ) {
-                setThreeHeight(newHeight);
+              if (!ready.more) {
+                setThreeHeight(event.nativeEvent.layout.height);
+                ready.more = true;
               }
             }}
           />
