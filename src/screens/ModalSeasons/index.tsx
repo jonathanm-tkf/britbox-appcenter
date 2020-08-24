@@ -40,7 +40,7 @@ const ModalSeasons = () => {
   } = params;
 
   const goToDetail = (item: MassiveSDKModelSeasonsItem) => {
-    navigate('Detail', { seasonModal: item });
+    navigate('Detail', { seasonModal: { ...item } });
   };
 
   const renderItem = ({ item }: { item: MassiveSDKModelSeasonsItem }) => {

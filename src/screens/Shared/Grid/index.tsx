@@ -17,6 +17,7 @@ interface Props {
   loading?: boolean;
   width?: number;
   height?: number;
+  spacing?: number;
   imageType?: WALLPAPER | POSTER | HERO3X1 | SQUARE;
   cardContent?: (item: MassiveSDKModelItemList) => JSX.Element | null;
 }
@@ -29,6 +30,7 @@ const Grid = ({
   width,
   height,
   imageType,
+  spacing,
   cardContent,
 }: Props) => {
   const goToOtherContent = (item: MassiveSDKModelItemList) => {
@@ -44,7 +46,7 @@ const Grid = ({
         data={items}
         element={{ width: width || 112, height: height || 157, marginBottom: 5 }}
         onPress={(item) => goToOtherContent(item)}
-        spacing={13}
+        spacing={spacing || 13}
         imageType={imageType}
         title={title}
         cardContent={(item) => (cardContent ? cardContent(item) : null)}

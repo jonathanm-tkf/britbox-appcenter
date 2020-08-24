@@ -65,7 +65,6 @@ const processDetailPage = async (
   response: LoadDetailPageResponse;
 }> => {
   const { externalResponse: detail } = data;
-  // console.tron.log({ detail });
   const detailResponse: Detail = {
     title: '',
     relatedId: undefined,
@@ -329,6 +328,7 @@ type LoadCollectionList = {
   sub: string;
   order: string;
   orderBy: string;
+  param?: string;
 };
 
 const processCollectionList = async (
@@ -356,11 +356,11 @@ export const loadCollectionList = async ({
   sub,
   order,
   orderBy,
+  param,
 }: LoadCollectionList): Promise<{
   response: MassiveSDKModelItemList | undefined;
 }> => {
   const { getList } = BritboxContentApi();
-
   try {
     const response = await getList(id, {
       page,
@@ -371,10 +371,11 @@ export const loadCollectionList = async ({
       order,
       orderBy,
       sub,
+      param,
     });
 
     return await processCollectionList(response);
   } catch (error) {
-    return error;
+    throw new Error(error);
   }
 };

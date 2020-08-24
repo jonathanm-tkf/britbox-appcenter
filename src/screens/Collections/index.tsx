@@ -398,6 +398,7 @@ const Collections = () => {
                               ],
                             },
                           ],
+                          previusRoute: 'Collections',
                         })
                       }
                     >
