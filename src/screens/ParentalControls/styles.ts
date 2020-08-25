@@ -74,6 +74,14 @@ export const LinkTitle = styled.Text`
   font-family: ${(props: ThemeState) => props.theme.PRIMARY_FONT_FAMILY_MEDIUM};
 `;
 
+export const ErrorText = styled.Text`
+  color: ${(props: ThemeState) => props.theme.ERROR_COLOR};
+  align-self: center;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  font-family: ${(props: ThemeState) => props.theme.PRIMARY_FONT_FAMILY_MEDIUM};
+`;
+
 export const Paragraph = styled.Text`
   text-align: center;
   margin-top: 20px;
@@ -210,4 +218,12 @@ export const UnLockIconView = styled(UnLockIcon).attrs({
   width: 40,
 })`
   margin-top: 15px;
+`;
+
+export const DisabledOverlay = styled.View`
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  background-color: ${(props: ThemeState) => props.theme.PRIMARY_TEXT_COLOR};
+  opacity: 0.4;
 `;

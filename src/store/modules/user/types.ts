@@ -3,7 +3,10 @@
  * Data types
  */
 
-import { BritboxAPIAccountModelsProfileGetProfileResponse } from '@src/sdks/Britbox.API.Account.TS/api';
+import {
+  BritboxAPIAccountModelsProfileGetProfileResponse,
+  BritboxAPIAccountModelsCustomerGetAccountDetailsResponse,
+} from '@src/sdks/Britbox.API.Account.TS/api';
 
 export interface User {
   name: string;
@@ -32,6 +35,7 @@ export enum UserActionTypes {
   LOGIN_REQUEST_FAILURE = '@user/LOGIN_REQUEST_FAILURE',
   LOGIN_REQUEST_ERROR_CLEAR = '@user/LOGIN_REQUEST_ERROR_CLEAR',
   LOGOUT = '@user/LOGOUT',
+  GET_PROFILE_REQUEST = '@user/GET_PROFILE_REQUEST',
   PROFILE_REQUEST_SUCCESS = '@user/PROFILE_REQUEST_SUCCESS',
   REGISTER_REQUEST_SUCCESS = '@user/REGISTER_REQUEST_SUCCESS',
   LOGGEDIN_REQUEST = '@user/LOGGEDIN_REQUEST',
@@ -49,7 +53,10 @@ export interface UserState {
   error: boolean;
   data: User;
   access: Access;
-  profile: BritboxAPIAccountModelsProfileGetProfileResponse | undefined;
+  profile:
+    | BritboxAPIAccountModelsProfileGetProfileResponse
+    | BritboxAPIAccountModelsCustomerGetAccountDetailsResponse
+    | undefined;
 }
 
 export interface EvergentLogin {
@@ -91,39 +98,5 @@ export interface EvergentSignupResponseError {
 
 export interface EvergentResponseError {
   responseCode: 1 | 0;
-  failureMessage: [];
-}
-
-export interface ProductsResponse {
-  dmaName: string;
-  duration: string;
-  retailPrice: number;
-  currencyCode: string;
-  productDescription: string;
-  productCategory: string;
-  serviceType: string;
-  currencySymbol: string;
-  displayOrder: string;
-  isAdsEnabled: boolean;
-  renewable: boolean;
-  displayName: string;
-  period: string;
-  productName: string;
-  skuORQuickCode: string;
-  basicService: boolean;
-  scOfferTypes: {
-    offerType: string;
-    salesChannel: string;
-  }[];
-  promotions: {
-    amount: number;
-    promotionId: string;
-    promotionName: string;
-    promotionType: string;
-    isVODPromotion: boolean;
-    isFreeTrial: boolean;
-    promotionExpiryfferType: number;
-    promotionDuration: number;
-    promotionPeriod: string;
-  }[];
+  failureMessage: FailureMessage[];
 }

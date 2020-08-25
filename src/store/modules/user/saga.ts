@@ -5,9 +5,11 @@ import { BritboxAccountApi, BritboxContentApi } from '@src/sdks';
 import {
   BritboxAPIAccountModelsCustomerAddSubscriptionRequest,
   BritboxAPIAccountModelsProfileUpdateProfileRequest,
+  BritboxAPIAccountModelsProfileUpdateParentalControlDetailsRequest,
+  BritboxAPIAccountModelsProfileResetPasswordResponse,
+  BritboxAPIAccountModelsProfileResetPasswordRequest,
 } from '@src/sdks/Britbox.API.Account.TS/api';
 import { PayloadAction } from 'typesafe-actions';
-import { useDispatch } from 'react-redux';
 import { UserActionTypes, UserLogin, EvergentLoginResponse, UserSignUp } from './types';
 import {
   loginRequestFailure,
@@ -28,6 +30,21 @@ export async function profile(token: string) {
 
   try {
     const response = await getProfile();
+    return { response };
+  } catch (error) {
+    return error;
+  }
+}
+
+export async function getAccountDetail(token: string) {
+  const { getAccountDetails } = BritboxAccountApi({
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  try {
+    const response = await getAccountDetails();
     return { response };
   } catch (error) {
     return error;
@@ -64,7 +81,8 @@ export function* loginRequest({
       yield put(loginRequestSuccess(response));
       const { accessToken } = yield select(getToken);
       const { response: responseProfile } = yield call(profile, accessToken);
-      yield put(profileRequestSuccess(responseProfile));
+      const { response: responseAccountDetail } = yield call(getAccountDetail, accessToken);
+      yield put(profileRequestSuccess({ ...responseProfile, ...responseAccountDetail }));
     } else {
       yield put(loginRequestError(response));
     }
@@ -120,6 +138,7 @@ export async function getProductsRequest() {
   try {
     const response = await getProducts({
       countryCode: 'US',
+      returnAppChannels: 'T',
     });
 
     return response;
@@ -148,6 +167,17 @@ export async function addSubscriptionRequest(
   }
 }
 
+export function* getProfileRequest() {
+  try {
+    const { accessToken } = yield select(getToken);
+    const { response: responseProfile } = yield call(profile, accessToken);
+    const { response: responseAccountDetail } = yield call(getAccountDetail, accessToken);
+    yield put(profileRequestSuccess({ ...responseProfile, ...responseAccountDetail }));
+  } catch (error) {
+    // Sentry.captureException({ error, logger: 'user get profile' });
+  }
+}
+
 export async function updateProfileRequest(
   accessToken: string,
   updateProfileParams: BritboxAPIAccountModelsProfileUpdateProfileRequest
@@ -161,6 +191,81 @@ export async function updateProfileRequest(
 
   try {
     const response = await updateProfile(updateProfileParams);
+
+    return response;
+  } catch (error) {
+    return error;
+  }
+}
+
+export async function resetPasswordRequest(
+  accessToken: string,
+  resetPasswordParams: BritboxAPIAccountModelsProfileResetPasswordRequest
+) {
+  const { resetPassword } = BritboxAccountApi({
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+      'content-type': 'application/json',
+    },
+  });
+
+  try {
+    const response = await resetPassword(resetPasswordParams);
+
+    return response;
+  } catch (error) {
+    return error;
+  }
+}
+
+export async function validateContactPasswordRequest(accessToken: string, contactPassword: string) {
+  const { validateContactPassword } = BritboxAccountApi({
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+      'content-type': 'application/json',
+    },
+  });
+
+  try {
+    const response = await validateContactPassword({
+      contactPassword,
+    });
+
+    return response;
+  } catch (error) {
+    return error;
+  }
+}
+
+export async function getParentalControlDetail(accessToken: string) {
+  const { getParentalControlDetails } = BritboxAccountApi({
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
+
+  try {
+    const response = await getParentalControlDetails();
+
+    return response;
+  } catch (error) {
+    return error;
+  }
+}
+
+export async function updateParentalControlDetailsRequest(
+  accessToken: string,
+  updateParentalControlParams: BritboxAPIAccountModelsProfileUpdateParentalControlDetailsRequest
+) {
+  const { updateParentalControlDetails } = BritboxAccountApi({
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+      'content-type': 'application/json',
+    },
+  });
+
+  try {
+    const response = await updateParentalControlDetails(updateParentalControlParams);
 
     return response;
   } catch (error) {
@@ -193,4 +298,7 @@ export async function getConfigRequest() {
   }
 }
 
-export default all([takeLatest(UserActionTypes.LOGIN_REQUEST, loginRequest)]);
+export default all([
+  takeLatest(UserActionTypes.LOGIN_REQUEST, loginRequest),
+  takeLatest(UserActionTypes.GET_PROFILE_REQUEST, getProfileRequest),
+]);
