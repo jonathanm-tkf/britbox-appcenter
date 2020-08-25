@@ -202,15 +202,52 @@
         "responses": { "200": { "description": "Success" } }
       }
     },
+    "/v1/account/Customer": {
+      "get": {
+        "tags": ["Customer"],
+        "operationId": "GetAccountDetails",
+        "consumes": [],
+        "produces": ["text/plain", "application/json", "text/json"],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/Britbox.API.Account.Models.Customer.GetAccountDetailsResponse"
+            }
+          }
+        }
+      }
+    },
     "/v1/account/Customer/products": {
       "get": {
         "tags": ["Customer"],
+        "summary": "REST API is used to get the products list available to that DMA.",
         "operationId": "GetProducts",
         "consumes": [],
         "produces": ["text/plain", "application/json", "text/json"],
         "parameters": [
-          { "name": "dmaID", "in": "query", "required": false, "type": "string" },
-          { "name": "countryCode", "in": "query", "required": false, "type": "string" }
+          {
+            "name": "dmaID",
+            "in": "query",
+            "description": "Unique ID of the channel partner. Default value is \"001\"",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "countryCode",
+            "in": "query",
+            "description": "Country code of the ChannelPartnerID",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "returnAppChannels",
+            "in": "query",
+            "description": "Returns IAP appID and appName, appChannel. Value \"T\"",
+            "required": false,
+            "type": "string"
+          }
         ],
         "responses": {
           "200": {
@@ -223,6 +260,21 @@
       }
     },
     "/v1/account/Customer/subscription": {
+      "get": {
+        "tags": ["Customer"],
+        "operationId": "GetActiveSubscription",
+        "consumes": [],
+        "produces": ["text/plain", "application/json", "text/json"],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/Britbox.API.Account.Models.Customer.GetActiveSubscriptionsResponse"
+            }
+          }
+        }
+      },
       "post": {
         "tags": ["Customer"],
         "operationId": "AddSubscription",
@@ -1121,6 +1173,18 @@
         }
       }
     },
+    "Britbox.API.Account.Models.Customer.GetAccountDetailsResponse": {
+      "type": "object",
+      "properties": {
+        "lastName": { "type": "string" },
+        "isAlertNotificationEmail": { "type": "string" },
+        "country": { "type": "string" },
+        "phoneNumber": { "type": "string" },
+        "email": { "type": "string" },
+        "accountStatus": { "type": "string" },
+        "firstName": { "type": "string" }
+      }
+    },
     "Britbox.API.Account.Models.Customer.GetProductsResponse": {
       "type": "object",
       "properties": {
@@ -1255,7 +1319,7 @@
     "Britbox.Data.Evergent.Models.TransactionReferenceMsg": {
       "type": "object",
       "properties": {
-        "amount": { "type": "string" },
+        "amount": { "format": "double", "type": "number" },
         "txID": { "type": "string" },
         "txMsg": { "type": "string" },
         "rokuPucId": { "type": "string" }
@@ -1282,6 +1346,81 @@
           "type": "array",
           "items": { "$ref": "#/definitions/Britbox.Data.Evergent.Models.FailureMessage" }
         }
+      }
+    },
+    "Britbox.API.Account.Models.Customer.GetActiveSubscriptionsResponse": {
+      "type": "object",
+      "properties": {
+        "response": {
+          "$ref": "#/definitions/Britbox.Data.Evergent.Models.GetActiveSubscriptionsResponseMessageBase+Response"
+        }
+      }
+    },
+    "Britbox.Data.Evergent.Models.GetActiveSubscriptionsResponseMessageBase+Response": {
+      "type": "object",
+      "properties": {
+        "country": { "type": "string" },
+        "accountServiceMessage": {
+          "uniqueItems": false,
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Britbox.Data.Evergent.Models.GetActiveSubscriptionsResponseMessageBase+AccountServiceMessage"
+          }
+        },
+        "message": { "type": "string" },
+        "responseCode": { "type": "string" },
+        "status": { "type": "string" },
+        "failureMessage": {
+          "uniqueItems": false,
+          "type": "array",
+          "items": { "$ref": "#/definitions/Britbox.Data.Evergent.Models.FailureMessage" }
+        }
+      }
+    },
+    "Britbox.Data.Evergent.Models.GetActiveSubscriptionsResponseMessageBase+AccountServiceMessage": {
+      "type": "object",
+      "properties": {
+        "startDate": { "type": "string" },
+        "duration": { "type": "string" },
+        "retailPrice": { "format": "double", "type": "number" },
+        "orderID": { "type": "string" },
+        "status": { "type": "string" },
+        "description": { "type": "string" },
+        "serviceID": { "type": "string" },
+        "isRenewal": { "type": "boolean" },
+        "validityTill": { "format": "int64", "type": "integer" },
+        "isInFreeTrail": { "type": "boolean" },
+        "period": { "type": "string" },
+        "serviceName": { "type": "string" },
+        "displayName": { "type": "string" },
+        "type": { "type": "string" },
+        "validityPeriod": { "type": "string" },
+        "subscriptionType": { "type": "string" },
+        "startDateInMillis": { "format": "int64", "type": "integer" },
+        "paymentMethod": { "type": "string" },
+        "currencyCode": { "type": "string" },
+        "promotions": {
+          "uniqueItems": false,
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Britbox.Data.Evergent.Models.GetActiveSubscriptionsResponseMessageBase+Promotion"
+          }
+        }
+      }
+    },
+    "Britbox.Data.Evergent.Models.GetActiveSubscriptionsResponseMessageBase+Promotion": {
+      "type": "object",
+      "properties": {
+        "isDefaultPromo": { "type": "boolean" },
+        "promotionName": { "type": "string" },
+        "promotionType": { "type": "string" },
+        "amount": { "format": "int32", "type": "integer" },
+        "endDate": { "type": "string" },
+        "isVODPromotion": { "type": "boolean" },
+        "promotionalPrice": { "format": "double", "type": "number" },
+        "isFreeTrail": { "type": "boolean" },
+        "promotionId": { "type": "string" },
+        "startDate": { "type": "string" }
       }
     },
     "Britbox.API.Account.Models.Customer.CreateUserV2Request": {
@@ -1379,7 +1518,6 @@
         "lastName": { "type": "string" },
         "country": { "type": "string" },
         "status": { "type": "string" },
-        "phoneNumber": { "type": "string" },
         "watched": {
           "type": "object",
           "additionalProperties": { "$ref": "#/definitions/MassiveSDK.Model.Watched" }
@@ -1391,6 +1529,7 @@
         },
         "bookmarkList": { "$ref": "#/definitions/MassiveSDK.Model.ItemList" },
         "subscriptionStatus": { "type": "string" },
+        "analyticsSubscriptionStatus": { "type": "string" },
         "isInFreeTrail": { "type": "boolean" },
         "canStream": { "type": "boolean" },
         "parentalControl": { "type": "boolean" },
@@ -1862,9 +2001,10 @@
       "properties": { "pageSize": { "format": "int64", "type": "integer" } }
     },
     "Britbox.API.Account.Models.Profile.UpdateProfileRequest": {
-      "required": ["firstName", "lastName", "mobileNumber", "alertNotificationEmail"],
+      "required": ["email", "firstName", "lastName", "alertNotificationEmail"],
       "type": "object",
       "properties": {
+        "email": { "type": "string" },
         "firstName": { "type": "string" },
         "lastName": { "type": "string" },
         "mobileNumber": { "type": "string" },
@@ -1893,19 +2033,23 @@
       }
     },
     "Britbox.API.Account.Models.Profile.ResetPasswordRequest": {
-      "required": ["email", "contactPassword"],
+      "required": ["oldPassword", "newPassword", "confirmNewpassword"],
       "type": "object",
-      "properties": { "email": { "type": "string" }, "contactPassword": { "type": "string" } }
+      "properties": {
+        "oldPassword": { "type": "string" },
+        "newPassword": { "type": "string" },
+        "confirmNewpassword": { "type": "string" }
+      }
     },
     "Britbox.API.Account.Models.Profile.ResetPasswordResponse": {
       "type": "object",
       "properties": {
         "response": {
-          "$ref": "#/definitions/Britbox.Data.Evergent.Models.ResetPasswordResponseMessageBase+Response"
+          "$ref": "#/definitions/Britbox.Data.Evergent.Models.ChangePasswordResponseMessageBase+Response"
         }
       }
     },
-    "Britbox.Data.Evergent.Models.ResetPasswordResponseMessageBase+Response": {
+    "Britbox.Data.Evergent.Models.ChangePasswordResponseMessageBase+Response": {
       "type": "object",
       "properties": {
         "message": { "type": "string" },
@@ -2174,6 +2318,10 @@
         },
         "newParentalControlPin": {
           "description": "Secure pin of parental control.",
+          "type": "string"
+        },
+        "oldParentalControlPin": {
+          "description": "Old secure pin of parental control.",
           "type": "string"
         }
       }

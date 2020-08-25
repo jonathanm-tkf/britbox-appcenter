@@ -79,6 +79,16 @@ export interface BritboxAPIAccountModelsAuthorizationValidateContactPasswordResp
   response?: BritboxDataEvergentModelsValidateContactPasswordResponseMessageBaseResponse;
 }
 
+export interface BritboxAPIAccountModelsCustomerGetAccountDetailsResponse {
+  lastName?: string;
+  isAlertNotificationEmail?: string;
+  country?: string;
+  phoneNumber?: string;
+  email?: string;
+  accountStatus?: string;
+  firstName?: string;
+}
+
 export interface BritboxAPIAccountModelsCustomerGetProductsResponse {
   response?: BritboxDataEvergentModelsGetProductsResponseMessageBaseResponse;
 }
@@ -119,7 +129,7 @@ export interface BritboxDataEvergentModelsPaymentMethodInfo {
 }
 
 export interface BritboxDataEvergentModelsTransactionReferenceMsg {
-  amount?: string;
+  amount?: number;
   txID?: string;
   txMsg?: string;
   rokuPucId?: string;
@@ -127,6 +137,10 @@ export interface BritboxDataEvergentModelsTransactionReferenceMsg {
 
 export interface BritboxAPIAccountModelsCustomerAddSubscriptionResponse {
   response?: BritboxDataEvergentModelsAddSubscriptionResponseMessageBaseResponse;
+}
+
+export interface BritboxAPIAccountModelsCustomerGetActiveSubscriptionsResponse {
+  response?: BritboxDataEvergentModelsGetActiveSubscriptionsResponseMessageBaseResponse;
 }
 
 export interface BritboxAPIAccountModelsCustomerCreateUserV2Request {
@@ -166,12 +180,12 @@ export interface BritboxAPIAccountModelsProfileGetProfileResponse {
   lastName?: string;
   country?: string;
   status?: string;
-  phoneNumber?: string;
   watched?: Record<string, MassiveSDKModelWatched>;
   watchedList?: MassiveSDKModelItemList;
   bookmarks?: Record<string, string>;
   bookmarkList?: MassiveSDKModelItemList;
   subscriptionStatus?: string;
+  analyticsSubscriptionStatus?: string;
   isInFreeTrail?: boolean;
   canStream?: boolean;
   parentalControl?: boolean;
@@ -507,9 +521,10 @@ export interface MassiveSDKModelOptions {
 }
 
 export interface BritboxAPIAccountModelsProfileUpdateProfileRequest {
+  email: string;
   firstName: string;
   lastName: string;
-  mobileNumber: string;
+  mobileNumber?: string;
   alertNotificationEmail: boolean;
 }
 
@@ -518,12 +533,13 @@ export interface BritboxAPIAccountModelsProfileUpdateProfileResponse {
 }
 
 export interface BritboxAPIAccountModelsProfileResetPasswordRequest {
-  email: string;
-  contactPassword: string;
+  oldPassword: string;
+  newPassword: string;
+  confirmNewpassword: string;
 }
 
 export interface BritboxAPIAccountModelsProfileResetPasswordResponse {
-  response?: BritboxDataEvergentModelsResetPasswordResponseMessageBaseResponse;
+  response?: BritboxDataEvergentModelsChangePasswordResponseMessageBaseResponse;
 }
 
 export interface BritboxAPIAccountModelsProfileGetWatchedResponse {
@@ -692,6 +708,9 @@ export interface BritboxAPIAccountModelsProfileUpdateParentalControlDetailsReque
 
   /** Secure pin of parental control. */
   newParentalControlPin?: string;
+
+  /** Old secure pin of parental control. */
+  oldParentalControlPin?: string;
 }
 
 export interface BritboxAPIAccountModelsProfileUpdateParentalControlDetailsResponse {
@@ -819,6 +838,51 @@ export interface BritboxDataEvergentModelsAddSubscriptionResponseMessageBaseResp
   failureMessage?: BritboxDataEvergentModelsFailureMessage[];
 }
 
+export interface BritboxDataEvergentModelsGetActiveSubscriptionsResponseMessageBaseResponse {
+  country?: string;
+  accountServiceMessage?: BritboxDataEvergentModelsGetActiveSubscriptionsResponseMessageBaseAccountServiceMessage[];
+  message?: string;
+  responseCode?: string;
+  status?: string;
+  failureMessage?: BritboxDataEvergentModelsFailureMessage[];
+}
+
+export interface BritboxDataEvergentModelsGetActiveSubscriptionsResponseMessageBaseAccountServiceMessage {
+  startDate?: string;
+  duration?: string;
+  retailPrice?: number;
+  orderID?: string;
+  status?: string;
+  description?: string;
+  serviceID?: string;
+  isRenewal?: boolean;
+  validityTill?: number;
+  isInFreeTrail?: boolean;
+  period?: string;
+  serviceName?: string;
+  displayName?: string;
+  type?: string;
+  validityPeriod?: string;
+  subscriptionType?: string;
+  startDateInMillis?: number;
+  paymentMethod?: string;
+  currencyCode?: string;
+  promotions?: BritboxDataEvergentModelsGetActiveSubscriptionsResponseMessageBasePromotion[];
+}
+
+export interface BritboxDataEvergentModelsGetActiveSubscriptionsResponseMessageBasePromotion {
+  isDefaultPromo?: boolean;
+  promotionName?: string;
+  promotionType?: string;
+  amount?: number;
+  endDate?: string;
+  isVODPromotion?: boolean;
+  promotionalPrice?: number;
+  isFreeTrail?: boolean;
+  promotionId?: string;
+  startDate?: string;
+}
+
 export interface BritboxDataEvergentModelsRegisterDeviceResponseMessageBaseResponse {
   message?: string;
   responseCode?: string;
@@ -846,7 +910,7 @@ export interface BritboxDataEvergentModelsUpdateProfileResponseMessageBaseRespon
   failureMessage?: BritboxDataEvergentModelsFailureMessage[];
 }
 
-export interface BritboxDataEvergentModelsResetPasswordResponseMessageBaseResponse {
+export interface BritboxDataEvergentModelsChangePasswordResponseMessageBaseResponse {
   message?: string;
   responseCode?: string;
   status?: string;
@@ -1101,12 +1165,40 @@ export class Api<SecurityDataType = any> extends HttpClient<SecurityDataType> {
 
     /**
      * @tags Customer
+     * @name GetAccountDetails
+     * @request GET:/v1/account/Customer
+     */
+    getAccountDetails: (params?: RequestParams) =>
+      this.request<BritboxAPIAccountModelsCustomerGetAccountDetailsResponse, any>(
+        `/v1/account/Customer`,
+        'GET',
+        params
+      ),
+
+    /**
+     * @tags Customer
      * @name GetProducts
+     * @summary REST API is used to get the products list available to that DMA.
      * @request GET:/v1/account/Customer/products
      */
-    getProducts: (query?: { dmaID?: string; countryCode?: string }, params?: RequestParams) =>
+    getProducts: (
+      query?: { dmaID?: string; countryCode?: string; returnAppChannels?: string },
+      params?: RequestParams
+    ) =>
       this.request<BritboxAPIAccountModelsCustomerGetProductsResponse, any>(
         `/v1/account/Customer/products${this.addQueryParams(query)}`,
+        'GET',
+        params
+      ),
+
+    /**
+     * @tags Customer
+     * @name GetActiveSubscription
+     * @request GET:/v1/account/Customer/subscription
+     */
+    getActiveSubscription: (params?: RequestParams) =>
+      this.request<BritboxAPIAccountModelsCustomerGetActiveSubscriptionsResponse, any>(
+        `/v1/account/Customer/subscription`,
         'GET',
         params
       ),

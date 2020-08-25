@@ -249,9 +249,9 @@ const SignUp = () => {
               {errorState && (
                 <ErrorText>
                   {
-                    ((errorMessage as unknown) as EvergentSignupResponseError).failureMessage.reduce(
+                    ((errorMessage as unknown) as EvergentSignupResponseError)?.failureMessage?.reduce(
                       (item) => item
-                    ).errorMessage
+                    )?.errorMessage
                   }
                 </ErrorText>
               )}

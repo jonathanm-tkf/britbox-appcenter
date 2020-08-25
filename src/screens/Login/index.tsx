@@ -135,9 +135,9 @@ const Login = () => {
               {errorState && (
                 <ErrorText>
                   {
-                    ((access as unknown) as EvergentLoginResponseError).failureMessage.reduce(
+                    ((access as unknown) as EvergentLoginResponseError)?.failureMessage?.reduce(
                       (item) => item
-                    ).errorMessage
+                    )?.errorMessage
                   }
                 </ErrorText>
               )}

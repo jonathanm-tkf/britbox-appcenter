@@ -1,11 +1,13 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import React, { useEffect, useState, useRef } from 'react';
-import { View, TouchableOpacity, Alert, Text, StyleSheet } from 'react-native';
-import { getStatusBarHeight } from 'react-native-iphone-x-helper';
-import { ThemeState } from '@store/modules/theme/types';
-import { BackIcon, CelularIcon } from '@assets/icons';
+import React, { useState } from 'react';
+import { Text } from 'react-native';
 import MultiSlider from '@ptomasroos/react-native-multi-slider';
+import {
+  validateContactPasswordRequest,
+  getParentalControlDetail,
+  updateParentalControlDetailsRequest,
+} from '@store/modules/user/saga';
 import {
   CodeField,
   Cursor,
@@ -13,12 +15,16 @@ import {
   useClearByFocusCell,
 } from 'react-native-confirmation-code-field';
 import HeaderCustom from '@components/HeaderCustom';
-import TabsComponent from '@components/TabsComponent';
 import { Button } from '@components/Button';
 import { Input } from '@components/Input';
 import { useSelector } from 'react-redux';
 import { AppState } from '@store/modules/rootReducer';
 import { useNavigation } from '@react-navigation/native';
+import { EvergentResponseError } from '@store/modules/user/types';
+import {
+  BritboxDataEvergentModelsGetParentalControlDetailsResponseMessageBaseResponse,
+  BritboxAPIAccountModelsProfileUpdateParentalControlDetailsRequest,
+} from '@src/sdks/Britbox.API.Account.TS/api';
 import {
   Container,
   TitleWrapper,
@@ -47,6 +53,8 @@ import {
   LockIconView,
   UnLockIconView,
   PasswordContainer,
+  ErrorText,
+  DisabledOverlay,
 } from './styles';
 
 const CELL_COUNT = 4;
@@ -57,14 +65,22 @@ interface CellProps {
   isFocused: boolean;
 }
 
+const evergentResponseError: EvergentResponseError = {
+  responseCode: 0,
+  failureMessage: [],
+};
+
+const defaultParentalControlDetail: BritboxDataEvergentModelsGetParentalControlDetailsResponseMessageBaseResponse = {};
+
 export default function ParentalControls() {
   const { navigate } = useNavigation();
   const [password, setPassword] = useState('');
   const [isAuthorize, setIsAuthorize] = useState(false);
   const [isSliding, setIsSliding] = useState(false);
+  const [parentalControlDetail, setParentalControlDetail] = useState(defaultParentalControlDetail);
   const [multiSliderValue, setMultiSliderValue] = useState(100);
   const theme = useSelector((state: AppState) => state.theme.theme);
-  const loading = useSelector((state: AppState) => state.user.loading);
+  const user = useSelector((state: AppState) => state.user);
 
   const activeContainer = {
     backgroundColor: 'white',
@@ -122,7 +138,8 @@ export default function ParentalControls() {
     let textChild = null;
 
     if (symbol) {
-      textChild = enableMask ? '•' : symbol;
+      // textChild = enableMask ? '•' : symbol;
+      textChild = symbol;
     } else if (isFocused) {
       textChild = <Cursor />;
     }
@@ -138,6 +155,111 @@ export default function ParentalControls() {
     );
   };
 
+  const [loading, setLoading] = useState(false);
+  const [loadingSave, setLoadingSave] = useState(false);
+
+  const [errorState, setErrorState] = useState(false);
+  const [errorMessage, setErrorMessage] = useState(evergentResponseError);
+
+  const validateContactPassword = async () => {
+    setLoading(true);
+    setErrorState(false);
+    setErrorMessage(evergentResponseError);
+
+    const response = await validateContactPasswordRequest(user?.access?.accessToken, password);
+
+    if (response) {
+      const { response: responseData } = response;
+      if (responseData && Number(responseData.responseCode) === 1) {
+        updateParentalDetail();
+      } else {
+        setErrorMessage(responseData);
+        setErrorState(true);
+        setLoading(false);
+      }
+    }
+  };
+
+  const updateParentalDetail = async () => {
+    const {
+      response: { getParentalControlDetailsResponseMessage: parentalDetail },
+    } = await getParentalControlDetail(user?.access?.accessToken);
+    if (parentalDetail && Number(parentalDetail.responseCode) === 1) {
+      setParentalControlDetail(parentalDetail);
+      setValue(parentalDetail?.parentalControlPIN || '');
+      if (parentalDetail?.parentalControlLevel === 7) {
+        setMultiSliderValue(75);
+      } else if (parentalDetail?.parentalControlLevel === 10) {
+        setMultiSliderValue(50);
+      } else if (parentalDetail?.parentalControlLevel === 14) {
+        setMultiSliderValue(25);
+      } else {
+        setMultiSliderValue(1);
+      }
+      setLoading(false);
+      setLoadingSave(false);
+      setIsAuthorize(true);
+    } else {
+      setErrorMessage(parentalDetail);
+      setErrorState(true);
+    }
+  };
+
+  const updateParentalControlDetail = async (parentalControl: string) => {
+    if (parentalControl === 'true') {
+      setLoadingSave(true);
+    } else {
+      setLoading(true);
+    }
+
+    setErrorState(false);
+    setErrorMessage(evergentResponseError);
+
+    let parmas: BritboxAPIAccountModelsProfileUpdateParentalControlDetailsRequest = {
+      parentalControl,
+    };
+
+    if (parentalControl === 'true') {
+      let parentalControlLevel = 18;
+      if (multiSliderValue === 75) {
+        parentalControlLevel = 7;
+      } else if (multiSliderValue === 50) {
+        parentalControlLevel = 10;
+      } else if (multiSliderValue === 25) {
+        parentalControlLevel = 14;
+      }
+      parmas = {
+        ...parmas,
+        parentalControlLevel,
+        newParentalControlPin: value,
+        oldParentalControlPin: parentalControlDetail?.parentalControlPIN,
+      };
+    } else {
+      parmas = {
+        ...parmas,
+        oldParentalControlPin: parentalControlDetail?.parentalControlPIN,
+      };
+    }
+    const response = await updateParentalControlDetailsRequest(user?.access?.accessToken, parmas);
+
+    if (response) {
+      const {
+        response: { updateParentalControlDetailsResponseMessage: responseData },
+      } = response;
+      if (responseData && Number(responseData.responseCode) === 1) {
+        updateParentalDetail();
+      } else {
+        setErrorMessage(responseData);
+        setErrorState(true);
+      }
+    }
+    if (parentalControl === 'true') {
+      setLoadingSave(false);
+    } else {
+      setLoading(false);
+    }
+  };
+
   return (
     <Container>
       <HeaderCustom isBack shadow />
@@ -150,9 +272,30 @@ export default function ParentalControls() {
           <TitleWrapper>
             <Title>Enter your password</Title>
           </TitleWrapper>
+          {errorState && (
+            <ErrorText>
+              {
+                ((errorMessage as unknown) as EvergentResponseError)?.failureMessage?.reduce(
+                  (item) => item
+                )?.errorMessage
+              }
+            </ErrorText>
+          )}
           <PasswordContainer>
-            <Input label="Password" value={password} onChangeText={(text) => setPassword(text)} />
-            <Button onPress={() => setIsAuthorize(true)} stretch loading={loading} size="big">
+            <Input
+              label="Password"
+              value={password}
+              secureTextEntry
+              onChangeText={(text) => setPassword(text)}
+            />
+            <Button
+              onPress={() => validateContactPassword()}
+              stretch
+              loading={loading}
+              size="big"
+              fontWeight="medium"
+              color={theme.PRIMARY_FOREGROUND_COLOR}
+            >
               Countinue
             </Button>
           </PasswordContainer>
@@ -170,20 +313,31 @@ export default function ParentalControls() {
             <Title>Parental Controls</Title>
           </TitleWrapper>
           <Paragraph>Protect your family with the parental controls PIN</Paragraph>
-          <PinBtnView>
-            <PinBtnText>Parental controls set</PinBtnText>
-            <Button
-              onPress={() => {}}
-              style={turnOffPinStyle}
-              link
-              color={theme.SECONDARY_COLOR}
-              loading={loading}
-              size="big"
-              fontWeight="medium"
-            >
-              Turn Off PIN
-            </Button>
-          </PinBtnView>
+          {parentalControlDetail?.parentalControl && (
+            <PinBtnView>
+              <PinBtnText>Parental controls set</PinBtnText>
+              <Button
+                onPress={() => updateParentalControlDetail('false')}
+                style={turnOffPinStyle}
+                link
+                color={theme.SECONDARY_COLOR}
+                loading={loading}
+                size="big"
+                fontWeight="medium"
+              >
+                Turn Off PIN
+              </Button>
+            </PinBtnView>
+          )}
+          {errorState && (
+            <ErrorText>
+              {
+                ((errorMessage as unknown) as EvergentResponseError)?.failureMessage?.reduce(
+                  (item) => item
+                )?.errorMessage
+              }
+            </ErrorText>
+          )}
           <SubTitle>Step 1: Set your 4 digit PIN</SubTitle>
           <Paragraph>
             Your PIN will be set across all browsers and devices when you access BritBox programmes.
@@ -200,17 +354,18 @@ export default function ParentalControls() {
               renderCell={renderCell}
             />
           </PINView>
-          <Button
-            onPress={() => setValue('')}
-            link
-            color={theme.SECONDARY_COLOR}
-            loading={loading}
-            size="big"
-            fontWeight="medium"
-          >
-            Clear all
-          </Button>
-          <PINErrorText>Pin must be 4 digits.</PINErrorText>
+          {value !== '' && (
+            <Button
+              onPress={() => setValue('')}
+              link
+              color={theme.SECONDARY_COLOR}
+              size="big"
+              fontWeight="medium"
+            >
+              Clear all
+            </Button>
+          )}
+          {value !== '' && value.length !== 4 && <PINErrorText>Pin must be 4 digits.</PINErrorText>}
           <Gradient>
             <SubTitle>Step 2: Set level of viewing restriction</SubTitle>
             <Paragraph>
@@ -222,7 +377,7 @@ export default function ParentalControls() {
               <RowContainer>
                 <RowLeftContainer
                   style={multiSliderValue <= 76 && activeContainer}
-                  onPress={() => setMultiSliderValue(75)}
+                  onPress={() => setMultiSliderValue(multiSliderValue === 75 ? 100 : 75)}
                 >
                   <RowLeftTitle style={multiSliderValue <= 76 && activeText}>General</RowLeftTitle>
                   {multiSliderValue <= 76 ? <UnLockIconView /> : <LockIconView />}
@@ -247,7 +402,7 @@ export default function ParentalControls() {
               <RowContainer>
                 <RowLeftContainer
                   style={multiSliderValue <= 51 && activeContainer}
-                  onPress={() => setMultiSliderValue(50)}
+                  onPress={() => setMultiSliderValue(multiSliderValue === 50 ? 75 : 50)}
                 >
                   <RowLeftTitle style={multiSliderValue <= 51 && activeText}>
                     Older Kids
@@ -269,7 +424,7 @@ export default function ParentalControls() {
               <RowContainer>
                 <RowLeftContainer
                   style={multiSliderValue <= 26 && activeContainer}
-                  onPress={() => setMultiSliderValue(25)}
+                  onPress={() => setMultiSliderValue(multiSliderValue === 25 ? 50 : 25)}
                 >
                   <RowLeftTitle style={multiSliderValue <= 26 && activeText}>Teens</RowLeftTitle>
                   {multiSliderValue <= 26 ? <UnLockIconView /> : <LockIconView />}
@@ -289,7 +444,7 @@ export default function ParentalControls() {
               <RowContainer>
                 <RowLeftContainer
                   style={multiSliderValue <= 1 && activeContainer}
-                  onPress={() => setMultiSliderValue(1)}
+                  onPress={() => setMultiSliderValue(multiSliderValue === 1 ? 25 : 1)}
                 >
                   <RowLeftTitle style={multiSliderValue <= 1 && activeText}>Adults</RowLeftTitle>
                   {multiSliderValue <= 1 ? <UnLockIconView /> : <LockIconView />}
@@ -331,9 +486,17 @@ export default function ParentalControls() {
                 />
               </SliderContainer>
             </TableMainContainer>
-            <Button onPress={() => {}} style={saveStyle} loading={loading} size="big">
+            <Button
+              onPress={() => updateParentalControlDetail('true')}
+              style={saveStyle}
+              loading={loadingSave}
+              size="big"
+              fontWeight="medium"
+              color={theme.PRIMARY_FOREGROUND_COLOR}
+            >
               Save
             </Button>
+            {value.length !== 4 && <DisabledOverlay />}
           </Gradient>
           <Gradient>
             <Wrapper>

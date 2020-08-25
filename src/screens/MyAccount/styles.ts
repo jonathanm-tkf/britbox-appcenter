@@ -28,6 +28,13 @@ export const ScrollableContainer = styled.ScrollView.attrs({
   background-color: ${(props: ThemeState) => props.theme.PRIMARY_COLOR};
 `;
 
+export const ErrorText = styled.Text`
+  color: ${(props: ThemeState) => props.theme.ERROR_COLOR};
+  align-self: center;
+  margin-bottom: 20px;
+  font-family: ${(props: ThemeState) => props.theme.PRIMARY_FONT_FAMILY_MEDIUM};
+`;
+
 export const ScrollContent = styled.View`
   flex: 1;
   padding: 10px 0 30px;
@@ -74,7 +81,7 @@ export const Gradient = styled(LinearGradient).attrs({
 
 export const Wrapper = styled.View`
   padding-top: 10px;
-  padding-bottom: 40px;
+  padding-bottom: 20px;
 `;
 
 export const FooterTitle = styled.Text`

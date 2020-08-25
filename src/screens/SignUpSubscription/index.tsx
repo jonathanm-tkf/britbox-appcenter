@@ -10,9 +10,9 @@ import { KeyboardAvoidingView, Platform } from 'react-native';
 import { Button } from '@components/Button';
 import HeaderCustom from '@components/HeaderCustom';
 import { useSelector, useDispatch } from 'react-redux';
-import { getProductsRequest, profile } from '@store/modules/user/saga';
-import { loggedInRequest, profileRequestSuccess } from '@store/modules/user/actions';
-import { ProductsResponse } from '@store/modules/user/types';
+import { getProductsRequest, addSubscriptionRequest } from '@store/modules/user/saga';
+import { loggedInRequest, getProfileRequest } from '@store/modules/user/actions';
+import { BritboxDataEvergentModelsGetProductsResponseMessageBaseProductsResponseMsg } from '@src/sdks/Britbox.API.Account.TS/api';
 import { AppState } from '@store/modules/rootReducer';
 import Orientation from 'react-native-orientation-locker';
 import { useTranslation } from 'react-i18next';
@@ -49,7 +49,7 @@ const flex = {
   flex: 1,
 };
 
-const productsResponse: ProductsResponse[] = [];
+const productsResponse: BritboxDataEvergentModelsGetProductsResponseMessageBaseProductsResponseMsg[] = [];
 
 const SignUpSubscription = () => {
   const dispatch = useDispatch();
@@ -77,11 +77,10 @@ const SignUpSubscription = () => {
       //
     }
 
-    // console.tron.log(user.access.accessToken);
-    // const subscriptionResponse = await addSubscriptionRequest(user.access.accessToken, {
+    // const subscriptionResponse = await addSubscriptionRequest(user?.access?.accessToken, {
     //   rateType: 'App Store Billing',
     //   priceCharged: 64.99,
-    //   appServiceID: 'US MONTHLY TRIAL SVOD',
+    //   appServiceID: 'BritBox_monthly_subscription',
     //   serviceType: 'PRODUCT',
     //   paymentmethodInfo: {
     //     label: 'App Store Billing',
@@ -111,10 +110,11 @@ const SignUpSubscription = () => {
         'com.britbox.us.subscription',
       ]);
     } else {
-      await RNIap.getSubscriptions([
+      const response = await RNIap.getSubscriptions([
         'com.britbox.stage.subscription.annual',
         'com.britbox.us.staging.subscription.notrial',
       ]);
+      console.tron.log(response);
     }
 
     const { response } = await getProductsRequest();
@@ -157,7 +157,7 @@ const SignUpSubscription = () => {
     }
   };
 
-  const receiptValidateIOS = async () => {
+  const receiptValidateIOS = async (receipt) => {
     try {
       // const receiptBody = {
       //   'receipt-data': receipt,
@@ -166,32 +166,36 @@ const SignUpSubscription = () => {
 
       // await RNIap.validateReceiptIos(receiptBody, true);
 
-      // const subscriptionResponse = await addSubscriptionRequest(user.access.accessToken, {
-      //   rateType: 'App Store Billing',
-      //   // priceCharged: packageData[packageIndex]?.retailPrice,
-      //   priceCharged: 69.99,
-      //   appServiceID: 'com.britbox.us.subscription.annual',
-      //   serviceType: 'PRODUCT',
-      //   paymentmethodInfo: {
-      //     label: 'App Store Billing',
-      //     transactionReferenceMsg: {
-      //       amount: 69.99,
-      //       txID: receipt,
-      //       txMsg: 'Success',
-      //     },
-      //   },
-      // });
+      const subscriptionResponse = await addSubscriptionRequest(user?.access?.accessToken, {
+        rateType: 'App Store Billing',
+        // priceCharged: packageData[packageIndex]?.retailPrice,
+        priceCharged: 69.99,
+        appServiceID: 'BritBox_monthly_subscription',
+        serviceType: 'PRODUCT',
+        paymentmethodInfo: {
+          label: 'App Store Billing',
+          transactionReferenceMsg: {
+            amount: 69.99,
+            txID: receipt,
+            txMsg: 'Success',
+          },
+        },
+      });
 
+      alert(JSON.stringify(subscriptionResponse));
       // if (subscriptionResponse) {
-      const responseProfile = await profile(user.access?.accessToken);
-      dispatch(loggedInRequest());
-      dispatch(profileRequestSuccess(responseProfile));
+      //   _doSuccessSubscription();
       // }
     } catch (err) {
       //
     }
 
     setLoading(false);
+  };
+
+  const _doSuccessSubscription = async () => {
+    dispatch(loggedInRequest());
+    dispatch(getProfileRequest());
   };
 
   return (
@@ -219,27 +223,32 @@ const SignUpSubscription = () => {
                 <SubTitle>Choose Subscription</SubTitle>
               </TitleWrapper>
               <RowWrapper>
-                {packageData.map((item: ProductsResponse, index: number) => {
-                  return (
-                    <RadioBox
-                      key={index}
-                      onPress={() => setPackageIndex(index)}
-                      style={packageIndex === index && activeRadio}
-                    >
-                      <RadioBoxContent>
-                        <SubTitle style={textLeft}>{item.productDescription}</SubTitle>
-                        <DescriptionText style={[textLeft, { marginBottom: 10 }]}>
-                          {item.displayName}
-                        </DescriptionText>
-                      </RadioBoxContent>
-                      {packageIndex === index ? (
-                        <RadioCheckedIconView />
-                      ) : (
-                        <RadioUnCheckedIconView />
-                      )}
-                    </RadioBox>
-                  );
-                })}
+                {packageData.map(
+                  (
+                    item: BritboxDataEvergentModelsGetProductsResponseMessageBaseProductsResponseMsg,
+                    index: number
+                  ) => {
+                    return (
+                      <RadioBox
+                        key={index}
+                        onPress={() => setPackageIndex(index)}
+                        style={packageIndex === index && activeRadio}
+                      >
+                        <RadioBoxContent>
+                          <SubTitle style={textLeft}>{item.productDescription}</SubTitle>
+                          <DescriptionText style={[textLeft, { marginBottom: 10 }]}>
+                            {item.displayName}
+                          </DescriptionText>
+                        </RadioBoxContent>
+                        {packageIndex === index ? (
+                          <RadioCheckedIconView />
+                        ) : (
+                          <RadioUnCheckedIconView />
+                        )}
+                      </RadioBox>
+                    );
+                  }
+                )}
               </RowWrapper>
               <PaddingHorizontalView>
                 <RadioBottomText>
@@ -267,11 +276,11 @@ const SignUpSubscription = () => {
                   Start free trial
                 </Button>
                 <Button
+                  onPress={() => _doSuccessSubscription()}
                   outline
                   size="big"
                   fontWeight="medium"
                   style={cancelStyle}
-                  onPress={() => navigation.navigate('Login')}
                 >
                   <CancelText>Cancel</CancelText>
                 </Button>

@@ -22,6 +22,8 @@ export const loginRequestErrorClear = () => action(UserActionTypes.LOGIN_REQUEST
 
 export const logout = () => action(UserActionTypes.LOGOUT);
 
+export const getProfileRequest = () => action(UserActionTypes.GET_PROFILE_REQUEST);
+
 export const profileRequestSuccess = (data: BritboxAPIAccountModelsProfileGetProfileResponse) =>
   action(UserActionTypes.PROFILE_REQUEST_SUCCESS, { ...data });
 

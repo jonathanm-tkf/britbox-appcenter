@@ -26,8 +26,8 @@ export const TitleWrapper = styled.View`
   margin-bottom: 10px;
 `;
 
-export const PasswordContainer = styled.ScrollView`
-  flex-grow: 1;
+export const PasswordContainer = styled.View`
+  flex: 1;
   padding: 15px 15px 40px;
 `;
 
@@ -71,6 +71,14 @@ export const LinkTitle = styled.Text`
   color: ${(props: ThemeState) => props.theme.SECONDARY_COLOR};
   font-size: 15px;
   text-align: center;
+  font-family: ${(props: ThemeState) => props.theme.PRIMARY_FONT_FAMILY_MEDIUM};
+`;
+
+export const ErrorText = styled.Text`
+  color: ${(props: ThemeState) => props.theme.ERROR_COLOR};
+  align-self: center;
+  margin-top: 10px;
+  margin-bottom: 10px;
   font-family: ${(props: ThemeState) => props.theme.PRIMARY_FONT_FAMILY_MEDIUM};
 `;
 
@@ -210,4 +218,12 @@ export const UnLockIconView = styled(UnLockIcon).attrs({
   width: 40,
 })`
   margin-top: 15px;
+`;
+
+export const DisabledOverlay = styled.View`
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  background-color: ${(props: ThemeState) => props.theme.PRIMARY_TEXT_COLOR};
+  opacity: 0.4;
 `;
