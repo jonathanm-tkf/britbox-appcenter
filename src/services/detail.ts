@@ -295,7 +295,8 @@ const processCollectionPage = async (
 };
 
 export const loadCollectionPage = async (
-  path: string
+  path: string,
+  listPageSize?: number
 ): Promise<{
   response: MassiveSDKModelPage | undefined;
 }> => {
@@ -305,7 +306,7 @@ export const loadCollectionPage = async (
     const response = await getPage({
       path,
       device: getDevice(),
-      listPageSize: 18,
+      listPageSize: listPageSize || 18,
       maxListPrefetch: 15,
       listPageSizeLarge: 15,
       segments: ['US'],

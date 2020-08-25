@@ -14,6 +14,7 @@ i18next.use(initReactI18next).init({
       tabs: require('../locales/us/tabs.json'),
       home: require('../locales/us/home.json'),
       az: require('../locales/us/az.json'),
+      search: require('../locales/us/search.json'),
     },
   },
 });

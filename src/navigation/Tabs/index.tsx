@@ -1,11 +1,10 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-// import Home from '@screens/Home';
 import { HomeIcon, ExploreIcon, MoreIcon, SearchIcon } from '@assets/icons';
-import Search from '@screens/Search';
 import { useTranslation } from 'react-i18next';
 import { MoreStackScreen } from './More';
 import { HomeStackScreen } from './Home';
+import { SearchStackScreen } from './Search';
 import { ExploreStackScreen } from './Explore';
 import TabBar from './Components/TabBar';
 
@@ -32,7 +31,7 @@ const AppTabsScreen = () => {
       />
       <AppTabs.Screen
         name="Search"
-        component={Search}
+        component={SearchStackScreen}
         options={{
           tabBarLabel: t('search'),
           tabBarIcon: () => <SearchIcon width={26} height={26} />,

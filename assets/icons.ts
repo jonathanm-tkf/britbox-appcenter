@@ -2,6 +2,7 @@ export { default as HomeIcon } from './images/Home.svg';
 export { default as CloseIcon } from './images/Close.svg';
 export { default as ExploreIcon } from './images/Explore_mb.svg';
 export { default as SearchIcon } from './images/Search.svg';
+export { default as SearchDeleteIcon } from './images/SearchDelete.svg';
 export { default as MoreIcon } from './images/More_menu.svg';
 export { default as BackIcon } from './images/Arrow_back_browser.svg';
 export { default as CheckedIcon } from './images/Checked.svg';
