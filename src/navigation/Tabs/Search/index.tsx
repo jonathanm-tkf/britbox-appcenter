@@ -5,6 +5,7 @@ import AZ from '@screens/AZ';
 import { ThemeProps } from '@store/modules/theme/types';
 import { rgba } from 'polished';
 import { Animated } from 'react-native';
+import Detail from '@screens/Detail';
 import Collections from '@screens/Collections';
 import { AppState } from '@store/modules/rootReducer';
 import { useSelector } from 'react-redux';
@@ -41,6 +42,7 @@ const SearchStackScreen = () => {
     <SearchStack.Navigator headerMode="none">
       <SearchStack.Screen name="Search" component={Search} />
       <SearchStack.Screen name="AZ" component={AZ} options={ModalOptions(theme)} />
+      <SearchStack.Screen name="Detail" component={Detail} options={ModalOptions(theme)} />
       <SearchStack.Screen
         name="Collections"
         component={Collections}

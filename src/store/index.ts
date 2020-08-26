@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import createSagaMiddleware from 'redux-saga';
 import { persistStore } from 'redux-persist';
 import createStore from './createStore';

@@ -114,7 +114,6 @@ const SignUpSubscription = () => {
         'com.britbox.stage.subscription.annual',
         'com.britbox.us.staging.subscription.notrial',
       ]);
-      console.tron.log(response);
     }
 
     const { response } = await getProductsRequest();
