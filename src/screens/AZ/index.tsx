@@ -8,6 +8,7 @@ import { getStatusBarHeight } from 'react-native-iphone-x-helper';
 import Header from '@components/Header';
 import { AppState } from '@store/modules/rootReducer';
 import { useSelector } from 'react-redux';
+import RNPickerSelect from 'react-native-picker-select';
 
 import {
   MassiveSDKModelItemSummary,
@@ -18,6 +19,10 @@ import Grid from '@screens/Shared/Grid';
 import ErrorLanding from '@components/ErrorLanding';
 import { useTranslation } from 'react-i18next';
 import { Item } from '@screens/ModalFilter';
+import { ArrowBottomIcon } from '@assets/icons';
+import { white } from 'react-native-paper/lib/typescript/src/styles/colors';
+import { rgba } from 'polished';
+import { compact } from 'lodash';
 import { dataDummy } from './data';
 import {
   Container,
@@ -26,6 +31,7 @@ import {
   LetterButton,
   LetterButtonText,
   ContainerGrid,
+  Select,
 } from './styles';
 
 type RootParamList = {
@@ -106,6 +112,18 @@ const AZ = () => {
   const [order, setOrder] = useState('asc');
   const [orderBy, setOrderBy] = useState('a-z');
 
+  const stylesSelect = {
+    inputIOS: { color: theme.PRIMARY_TEXT_COLOR_OPAQUE, paddingRight: 30 },
+    inputAndroid: {
+      color: theme.PRIMARY_TEXT_COLOR_OPAQUE,
+      paddingRight: 25,
+    },
+    iconContainer: {
+      position: 'absolute',
+      top: Platform.OS === 'ios' ? 0 : 16,
+    },
+  };
+
   const back = () => {
     navigation.goBack();
   };
@@ -117,8 +135,17 @@ const AZ = () => {
         (item) => item.template === 'A to Z Continuous Scroll (BBC)'
       );
       if (alphabet.length > 0) {
-        const items = alphabetItems.reduce((a) => a).customFields as AlphabetDataType[];
-        setAlphabetData(items);
+        const items = (alphabetItems.reduce((a) => a).customFields as AlphabetDataType[]).map(
+          (item) => {
+            if (item.count > 0) {
+              return { ...item, value: item.label };
+            }
+
+            return null;
+          }
+        );
+
+        setAlphabetData(compact(items || []));
       }
     }
     if ((response?.entries || []).length === 0) {
@@ -265,6 +292,25 @@ const AZ = () => {
             >
               <ChangeOrderText>{t('layout:filter')} +</ChangeOrderText>
             </ChangeOrderButton> */}
+            {alphabetData && alphabetData?.length > 0 && (
+              <Select>
+                <RNPickerSelect
+                  placeholder={{}}
+                  InputAccessoryView={() => null}
+                  useNativeAndroidPickerStyle={false}
+                  onValueChange={(value) => filterLetter(value)}
+                  items={alphabetData as any}
+                  style={stylesSelect}
+                  Icon={() => (
+                    <ArrowBottomIcon
+                      width={15}
+                      height={15}
+                      fill={theme.PRIMARY_TEXT_COLOR_OPAQUE}
+                    />
+                  )}
+                />
+              </Select>
+            )}
             <ContainerGrid>
               <Grid
                 items={data.items || []}

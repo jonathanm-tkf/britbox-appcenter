@@ -184,3 +184,11 @@ export const LetterButtonText = styled.Text`
     );
   }};
 `;
+
+export const Select = styled.View`
+  position: absolute;
+  top: ${Platform.OS === 'ios' ? 10 : -5}px;
+  right: 20px;
+  z-index: 1;
+  /* width: 50px; */
+`;
