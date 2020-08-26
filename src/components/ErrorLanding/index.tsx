@@ -7,27 +7,31 @@ import { Container, Opaque } from './styles';
 
 type Props = {
   onPress: () => void;
+  out?: boolean;
 };
 
-const ErrorLanding = ({ onPress }: Props) => {
+const ErrorLanding = ({ onPress, out = false }: Props) => {
   const { t } = useTranslation('layout');
-
   return (
     <Container>
       <Title fontSize={60} lineHeight={80}>
-        {t('error.title')}
+        {!out ? t('error.title') : t('errorOut.title')}
       </Title>
       <Headline fontSize={28} lineHeight={40} center>
-        {t('error.subtitle')}
+        {!out ? t('error.subtitle') : t('errorOut.subtitle')}
       </Headline>
-      <Opaque>
-        <Paragraph fontSize={16} lineHeight={22}>
-          {t('error.description')}
-        </Paragraph>
-      </Opaque>
-      <Button size="big" stretch fontWeight="medium" onPress={onPress}>
-        {t('error.button')}
-      </Button>
+      {!out && (
+        <>
+          <Opaque>
+            <Paragraph fontSize={16} lineHeight={22}>
+              {t('error.description')}
+            </Paragraph>
+          </Opaque>
+          <Button size="big" stretch fontWeight="medium" onPress={onPress}>
+            {t('error.button')}
+          </Button>
+        </>
+      )}
     </Container>
   );
 };

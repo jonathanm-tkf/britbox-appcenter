@@ -10,6 +10,13 @@ import {
   MassiveSDKModelItemSummary,
   BritboxAPIContentModelsListsGetListResponse,
 } from '@src/sdks/Britbox.API.Content.TS/api';
+import { store } from '@store/index';
+import { CoreState } from '@store/modules/core/types';
+
+const getSegment = () => {
+  const { core }: { core: CoreState } = store.getState();
+  return core.segment;
+};
 
 type Detail = {
   title: string;
@@ -177,7 +184,7 @@ export const loadDetailPage = async (path: string, customId: string) => {
       device: getDevice(),
       listPageSize: 18,
       maxListPrefetch: 15,
-      segments: ['US'],
+      segments: [getSegment()],
       sub: 'Subscriber',
       useCustomId: customId !== '',
       itemDetailExpand: 'all',
@@ -198,7 +205,7 @@ export const loadRelated = async (id: string) => {
       device: getDevice(),
       page: 1,
       pageSize: 18,
-      segments: ['US'],
+      segments: [getSegment()],
       sub: 'Subscriber',
       useCustomId: true,
     });
@@ -263,7 +270,7 @@ export const loadEpisodesBySeason = async (path: string) => {
       device: getDevice(),
       listPageSize: 18,
       maxListPrefetch: 15,
-      segments: ['US'],
+      segments: [getSegment()],
       sub: 'Subscriber',
       useCustomId: true,
       itemDetailExpand: 'all',
@@ -309,7 +316,7 @@ export const loadCollectionPage = async (
       listPageSize: listPageSize || 18,
       maxListPrefetch: 15,
       listPageSizeLarge: 15,
-      segments: ['US'],
+      segments: [getSegment()],
       sub: 'Subscriber',
       useCustomId: true,
       itemDetailExpand: 'all',
@@ -367,7 +374,7 @@ export const loadCollectionList = async ({
       page,
       pageSize,
       device: getDevice(),
-      segments: ['US'],
+      segments: [getSegment()],
       useCustomId: true,
       order,
       orderBy,

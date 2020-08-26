@@ -18,7 +18,7 @@ export const ContainerGrid = styled.View`
   /* padding-bottom: ${getBottomSpace() + 74}px; */
   /* padding-bottom: 40px; */
   flex-direction: row;
-  width: ${width - 28}px;
+  /* width: ${width - 28}px; */
 `;
 
 export const Scroll = styled.ScrollView.attrs({

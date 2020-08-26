@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useState, useEffect } from 'react';
 import { NativeScrollEvent, Platform, View } from 'react-native';
 import { useNavigation, useRoute, RouteProp } from '@react-navigation/native';
@@ -268,8 +270,6 @@ const AZ = () => {
                 items={data.items || []}
                 title={t('az:title')}
                 spacing={10}
-                width={110}
-                height={155}
                 loading={animationContinuosScroll}
               />
             </ContainerGrid>
@@ -286,7 +286,7 @@ const AZ = () => {
         CollapsibleHeaderComponent={
           <>
             <Header />
-            <Alphabet {...{ alphabetData }} onPress={(value) => filterLetter(value)} />
+            {/* <Alphabet {...{ alphabetData }} onPress={(value) => filterLetter(value)} /> */}
           </>
         }
         headerContainerBackgroundColor={theme.PRIMARY_COLOR}

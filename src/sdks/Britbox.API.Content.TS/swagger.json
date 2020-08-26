@@ -44,6 +44,23 @@
         }
       }
     },
+    "/v1/content/Config/location": {
+      "get": {
+        "tags": ["Config"],
+        "operationId": "GetLocation",
+        "consumes": [],
+        "produces": ["text/plain", "application/json", "text/json"],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/Britbox.API.Content.Models.Config.GetLocationResponse"
+            }
+          }
+        }
+      }
+    },
     "/v1/content/Items/{id}": {
       "get": {
         "tags": ["Items"],
@@ -948,6 +965,14 @@
     "MassiveSDK.Model.Options": {
       "type": "object",
       "properties": { "pageSize": { "format": "int64", "type": "integer" } }
+    },
+    "Britbox.API.Content.Models.Config.GetLocationResponse": {
+      "type": "object",
+      "properties": {
+        "location": { "type": "string" },
+        "errors": { "uniqueItems": false, "type": "array", "items": { "type": "string" } },
+        "messages": { "uniqueItems": false, "type": "array", "items": { "type": "string" } }
+      }
     },
     "Britbox.API.Content.Models.Items.GetItemResponse": {
       "type": "object",

@@ -9,3 +9,8 @@ export const menuRequest = () => action(CoreActionTypes.MENU_REQUEST);
 export const menuRequestSuccess = (data: Menu) => action(CoreActionTypes.MENU_SUCCESS, { ...data });
 
 export const menuRequestError = () => action(CoreActionTypes.MENU_ERROR);
+
+export const configRequestSuccess = (data: string) =>
+  action(CoreActionTypes.CONFIG_SUCCESS, { data });
+
+export const configRequestError = () => action(CoreActionTypes.CONFIG_ERROR);

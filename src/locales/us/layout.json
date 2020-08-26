@@ -20,6 +20,10 @@
     "description": "Looks like something was unplugged.",
     "button": "Return"
   },
+  "errorOut": {
+    "title": "Oops!",
+    "subtitle": "Unfortunately, BritBox is not available in your region."
+  },
   "watchprogrammes": "Watch programmes",
   "genre": "Genre",
   "filter": "Filter",

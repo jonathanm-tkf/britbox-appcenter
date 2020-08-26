@@ -18,6 +18,8 @@ import ModalMoreInformation from '@screens/ModalMoreInformation';
 import Orientation from 'react-native-orientation-locker';
 import ModalGenre from '@screens/ModalGenre';
 import ModalFilter from '@screens/ModalFilter';
+import { Segment } from '@store/modules/core/types';
+import ErrorLanding from '@components/ErrorLanding';
 import { AppDrawerScreen } from '../Drawer';
 import { AuthStackScreen } from '../Auth';
 
@@ -47,10 +49,16 @@ const ModalOptions = (theme: ThemeProps) => ({
   cardStyleInterpolator: ({ current: { progress } }) => EffectModal(progress),
 });
 
+const Error = () => {
+  return <ErrorLanding onPress={() => {}} out />;
+};
+
 const RootStack = createStackNavigator();
 const RootStackScreen = () => {
   const [isLoading, setIsLoading] = React.useState(true);
+  const [isOut, setIsOut] = React.useState(false);
   const user = useSelector((state: AppState) => state.user);
+  const segment = useSelector((state: AppState) => state.core.segment);
   const theme = useSelector((state: AppState) => state.theme.theme);
   const dispatch = useDispatch();
   const home = useSelector((state: AppState) => state.home);
@@ -63,6 +71,12 @@ const RootStackScreen = () => {
     getConfig();
     dispatch(homeRequest());
   }, []);
+
+  useEffect(() => {
+    if (segment === Segment.OUT) {
+      setIsOut(true);
+    }
+  }, [segment]);
 
   const getConfig = async () => {
     // const response = await getConfigRequest();
@@ -78,6 +92,8 @@ const RootStackScreen = () => {
     <RootStack.Navigator headerMode="none" screenOptions={{ animationEnabled: false }} mode="modal">
       {STORYBOOK_START ? (
         <RootStack.Screen name="Storybook" component={Storybook} />
+      ) : isOut ? (
+        <RootStack.Screen name="Out" component={Error} />
       ) : isLoading ? (
         <RootStack.Screen name="Loading" component={Loading} />
       ) : user.isLogged ? (

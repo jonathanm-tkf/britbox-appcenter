@@ -1,11 +1,10 @@
-import { takeLatest, all, call, put } from 'redux-saga/effects';
-// import * as Sentry from '@sentry/react-native';
+import { takeLatest, all, call, put, select } from 'redux-saga/effects';
 
 import { BritboxContentApi } from '@src/sdks';
 import { getDevice } from '@src/utils';
 import { HomeActionTypes } from './types';
 import { homeRequestSuccess, homeRequestError } from './actions';
-// import { AppState } from '../rootReducer';
+import { AppState } from '../rootReducer';
 
 type HomeDataRequest = {
   path?: string;
@@ -22,7 +21,9 @@ type HomeDataRequest = {
   segments?: string[];
 };
 
-async function getHomeData() {
+const getSegment = (state: AppState) => state.core.segment;
+
+async function getHomeData(segment: string) {
   const { getPage } = BritboxContentApi();
 
   try {
@@ -31,7 +32,7 @@ async function getHomeData() {
       device: getDevice(),
       listPageSize: 18,
       maxListPrefetch: 15,
-      segments: ['US'],
+      segments: [segment],
       sub: 'Subscriber',
       useCustomId: true,
     });
@@ -44,10 +45,11 @@ async function getHomeData() {
 
 export function* homeRequest() {
   try {
-    const { response } = yield call(getHomeData);
+    const segment = yield select(getSegment);
+    const { response } = yield call(getHomeData, segment);
+
     yield put(homeRequestSuccess(response));
   } catch (error) {
-    // Sentry.captureException({ error, logger: 'user facebook' });
     yield put(homeRequestError(error));
   }
 }

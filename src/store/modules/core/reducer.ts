@@ -33,6 +33,14 @@ const core: Reducer<CoreState> = (state = initialState, action) => {
         draft.menu = undefined;
         break;
       }
+      case CoreActionTypes.CONFIG_SUCCESS: {
+        draft.segment = action.payload.data;
+        break;
+      }
+      case CoreActionTypes.CONFIG_ERROR: {
+        draft.segment = Segment.OUT;
+        break;
+      }
       case UserActionTypes.REGISTER_REQUEST_SUCCESS: {
         const { accessToken } = action.payload;
         draft.token = accessToken;

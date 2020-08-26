@@ -13,6 +13,7 @@ export enum Language {
 
 export enum Segment {
   US = 'us',
+  OUT = 'out',
 }
 /**
  * Action types
@@ -23,6 +24,8 @@ export enum CoreActionTypes {
   MENU_REQUEST = '@core/MENU_REQUEST',
   MENU_SUCCESS = '@core/MENU_SUCCESS',
   MENU_ERROR = '@core/MENU_ERROR',
+  CONFIG_SUCCESS = '@core/CONFIG_SUCCESS',
+  CONFIG_ERROR = '@core/CONFIG_ERROR',
 }
 
 /**

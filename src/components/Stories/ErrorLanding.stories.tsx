@@ -7,4 +7,5 @@ import Theme from './Theme';
 
 storiesOf('Error Landing', module)
   .addDecorator(Theme)
-  .add('default', () => <ErrorLanding onPress={action('onPress')} />);
+  .add('default', () => <ErrorLanding onPress={action('onPress')} />)
+  .add('out', () => <ErrorLanding onPress={action('onPress')} out />);

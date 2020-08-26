@@ -447,6 +447,12 @@ export interface MassiveSDKModelOptions {
   pageSize?: number;
 }
 
+export interface BritboxAPIContentModelsConfigGetLocationResponse {
+  location?: string;
+  errors?: string[];
+  messages?: string[];
+}
+
 export interface BritboxAPIContentModelsItemsGetItemResponse {
   externalResponse?: MassiveSDKModelItemDetail;
   errors?: string[];
@@ -727,6 +733,18 @@ export class Api<SecurityDataType = any> extends HttpClient<SecurityDataType> {
     ) =>
       this.request<BritboxAPIContentModelsConfigGetConfigResponse, any>(
         `/v1/content/Config${this.addQueryParams(query)}`,
+        'GET',
+        params
+      ),
+
+    /**
+     * @tags Config
+     * @name GetLocation
+     * @request GET:/v1/content/Config/location
+     */
+    getLocation: (params?: RequestParams) =>
+      this.request<BritboxAPIContentModelsConfigGetLocationResponse, any>(
+        `/v1/content/Config/location`,
         'GET',
         params
       ),
