@@ -22,6 +22,7 @@ export const getTemplate = (template: string) => {
     case 'S2':
       return 'genre';
     case '16:9 Tile (Reduced)':
+    case 'Pictorial Navigation (BBC)':
       return 'title-treatment';
     case 'Programme Grid (BBC)':
       return 'grid';
@@ -39,8 +40,15 @@ export const getIsCollectionDetail = (template: string) => {
   return template === 'Collection (BBC)';
 };
 
-export const getIsOurFavoritesMultiple = (customFields: { selectType?: string }) => {
-  return customFields?.selectType === 'Multiple';
+export const getIsListDetail = (template: string) => {
+  return template === 'List Page';
+};
+
+// export const getIsOurFavoritesMultiple = (customFields: { selectType?: string }) => {
+//   return customFields?.selectType === 'Multiple';
+// };
+export const getIsOurFavoritesMultiple = (items: number) => {
+  return items > 1;
 };
 
 export const getDuration = (duration: number) => {

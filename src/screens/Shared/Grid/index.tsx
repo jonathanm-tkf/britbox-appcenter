@@ -9,6 +9,7 @@ type WALLPAPER = 'wallpaper';
 type POSTER = 'poster';
 type HERO3X1 = 'hero3x1';
 type SQUARE = 'square';
+type TILE = 'square';
 
 interface Props {
   onLayout?: (event: any) => void;
@@ -18,7 +19,7 @@ interface Props {
   width?: number;
   height?: number;
   spacing?: number;
-  imageType?: WALLPAPER | POSTER | HERO3X1 | SQUARE;
+  imageType?: WALLPAPER | POSTER | HERO3X1 | SQUARE | TILE;
   cardContent?: (item: MassiveSDKModelItemList) => JSX.Element | null;
 }
 

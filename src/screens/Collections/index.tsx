@@ -9,7 +9,12 @@ import {
   MassiveSDKModelItemList,
 } from '@src/sdks/Britbox.API.Content.TS/api';
 import { loadCollectionPage, loadCollectionList } from '@src/services/detail';
-import { getTemplate, getIsCollectionDetail, getIsOurFavoritesMultiple } from '@src/utils/template';
+import {
+  getTemplate,
+  getIsCollectionDetail,
+  getIsOurFavoritesMultiple,
+  getIsListDetail,
+} from '@src/utils/template';
 import TitleTreatment from '@screens/Shared/TitleTreatment';
 import Genre from '@screens/Shared/Genre';
 import Standard from '@screens/Shared/Standard';
@@ -124,6 +129,26 @@ const Collections = () => {
 
     if ((response?.entries || []).length === 0) {
       setError(true);
+    }
+
+    if (getIsListDetail(response?.template || '')) {
+      setData({
+        ...data,
+        template: 'Collection (BBC)',
+        entries: [
+          {
+            template: 'Hero Slim (BBC)',
+            list: {
+              items: [
+                {
+                  images: response?.entries ? response?.entries[0]?.list?.images : {},
+                },
+              ],
+            },
+          },
+          ...(response?.entries || []),
+        ],
+      });
     }
 
     const checkIsContinuosScroll = getIsContinuosScroll(response || {});
@@ -425,7 +450,7 @@ const Collections = () => {
                     title={item?.title || ''}
                     width={170}
                     height={100}
-                    imageType="wallpaper"
+                    imageType="tile"
                   />
                 ) : (
                   <TitleTreatment key={key.toString()} {...{ item }} />
@@ -439,7 +464,7 @@ const Collections = () => {
               case 'collections':
                 return <Collections key={key.toString()} {...{ item }} />;
               case 'our-favorites':
-                return getIsOurFavoritesMultiple(item?.customFields || {}) ? (
+                return getIsOurFavoritesMultiple((item?.list?.items || []).length) ? (
                   <Grid
                     key={key.toString()}
                     items={item?.list?.items || []}

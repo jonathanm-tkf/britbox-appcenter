@@ -56,7 +56,7 @@ const NewSlider = ({
   const carouselData = data.map((item) => {
     const image = slim
       ? item.images?.poster
-      : item.images?.hero3x1 || item.images?.wallpaper || item.images?.square;
+      : item.images?.wallpaper || item.images?.hero3x1 || item.images?.square;
     const imageType = slim ? 'poster' : 'wallpaper';
     return {
       title: item.title,

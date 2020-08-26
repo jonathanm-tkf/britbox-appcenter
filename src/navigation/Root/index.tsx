@@ -68,13 +68,14 @@ const RootStackScreen = () => {
     if (!user.isLogged) {
       setIsLoading(false);
     }
-    getConfig();
-    dispatch(homeRequest());
+    // getConfig();
   }, []);
 
   useEffect(() => {
     if (segment === Segment.OUT) {
       setIsOut(true);
+    } else {
+      dispatch(homeRequest());
     }
   }, [segment]);
 

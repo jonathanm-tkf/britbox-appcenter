@@ -112,6 +112,7 @@ export const ImageContainer = styled.View`
   margin-bottom: ${IS_IOS ? 0 : -1}px;
   background-color: ${(props: ThemeState) => props.theme.PRIMARY_COLOR_OPAQUE};
   border-radius: ${entryBorderRadius}px;
+  overflow: hidden;
 `;
 
 type Title = {

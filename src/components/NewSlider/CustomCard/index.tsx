@@ -1,13 +1,12 @@
 import React from 'react';
 import { Image } from 'react-native';
-import { ParallaxImage } from 'react-native-snap-carousel';
 import { Logo } from '@assets/icons';
 import { MassiveSDKModelItemList } from '@src/sdks/Britbox.API.Content.TS/api';
 import { useSelector } from 'react-redux';
 import { AppState } from '@store/modules/rootReducer';
 import ContentLoader, { Rect } from 'react-content-loader/native';
 import { navigateByPath } from '@src/navigation/rootNavigation';
-import styles, {
+import {
   Gradient,
   LogoWrapper,
   TouchableScale,
@@ -33,9 +32,7 @@ interface Props {
 }
 
 const CustomCard = ({
-  even,
   parallax,
-  parallaxProps,
   data: { illustration, title, subtitle, item },
   slim,
   collection,
@@ -54,13 +51,18 @@ const CustomCard = ({
         <Logo width="70%" />
       </LogoWrapper>
     ) : parallax ? (
-      <ParallaxImage
+      // <ParallaxImage
+      //   source={{ uri: illustration }}
+      //   containerStyle={[styles.imageContainer]}
+      //   parallaxFactor={slim ? 0 : 0.35}
+      //   showSpinner
+      //   spinnerColor={even ? 'rgba(255, 255, 255, 0.4)' : 'rgba(0, 0, 0, 0.25)'}
+      //   {...parallaxProps}
+      // />
+      <Image
         source={{ uri: illustration }}
-        containerStyle={[styles.imageContainer]}
-        parallaxFactor={slim ? 0 : 0.35}
-        showSpinner
-        spinnerColor={even ? 'rgba(255, 255, 255, 0.4)' : 'rgba(0, 0, 0, 0.25)'}
-        {...parallaxProps}
+        style={{ width: '100%', height: '100%' }}
+        resizeMode="cover"
       />
     ) : (
       <Image source={{ uri: illustration }} />

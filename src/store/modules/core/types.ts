@@ -12,6 +12,7 @@ export enum Language {
 }
 
 export enum Segment {
+  LOADING = 'loading',
   US = 'us',
   OUT = 'out',
 }
