@@ -34,7 +34,7 @@ const Explore = () => {
   };
 
   const goToScreen = (item: Header) => {
-    if (/programmes|watchlist/.test(item?.path || '')) {
+    if (/watchlist/.test(item?.path || '')) {
       return false;
     }
 

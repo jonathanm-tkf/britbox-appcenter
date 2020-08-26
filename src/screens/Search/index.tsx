@@ -25,22 +25,19 @@ import {
 export default function Search() {
   const { t } = useTranslation('search');
   const theme = useSelector((state: AppState) => state.theme.theme);
+  const [searchInput, setSearchInput] = useState('');
 
   const [suggestions, setSuggestions] = useState<MassiveSDKModelPageEntry | undefined>(undefined);
   // const [error, setError] = useState(false);
 
   const getDataDetail = async () => {
     const { response } = await loadCollectionPage('/our-top-picks', 6);
-    console.tron.log({ response });
 
     if ((response?.entries || []).length === 0) {
       // setError(true);
     } else {
       const { entries } = response || {};
-
       const item = (entries || []).reduce((e) => e);
-
-      console.tron.log(item);
       setSuggestions(item);
     }
   };
@@ -48,6 +45,16 @@ export default function Search() {
   useEffect(() => {
     getDataDetail();
   }, []);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (searchInput !== '') {
+        // console.tron.log(true);
+      }
+    }, 1000);
+
+    return () => clearTimeout(timer);
+  }, [searchInput]);
 
   return (
     <Container>
@@ -61,10 +68,18 @@ export default function Search() {
           <SearchIconWrapper>
             <SearchIcon width={25} height={25} />
           </SearchIconWrapper>
-          <SearchInput placeholder={t('placeholder')} returnKeyType="done" />
-          <SearchClearButton>
-            <SearchDeleteIcon width={25} height={25} />
-          </SearchClearButton>
+          <SearchInput
+            placeholder={t('placeholder')}
+            returnKeyType="done"
+            value={searchInput}
+            onChangeText={(text) => setSearchInput(text)}
+            onSubmitEditing={() => {}}
+          />
+          {searchInput !== '' && (
+            <SearchClearButton onPress={() => setSearchInput('')}>
+              <SearchDeleteIcon width={25} height={25} />
+            </SearchClearButton>
+          )}
         </SearchWrapper>
         <SuggestionWrapper>
           <SuggestionText>{t('browse')}</SuggestionText>

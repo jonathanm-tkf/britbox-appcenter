@@ -53,7 +53,7 @@ module.exports = {
     camelcase: 'off',
     'no-use-before-define': 'off',
     'no-nested-ternary': 'off',
-    'no-console': ['error', { allow: ['tron'] }],
+    'no-console': 2,
     'react-hooks/rules-of-hooks': 'error',
     'react-hooks/exhaustive-deps': 'warn',
     'import/no-extraneous-dependencies': [
