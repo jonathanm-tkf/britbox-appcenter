@@ -40,7 +40,6 @@ export default function More() {
   const { navigate } = useNavigation();
   const dispatch = useDispatch();
   const user = useSelector((state: AppState) => state.user);
-  // console.tron.log(user);
   const logoutAction = () => dispatch(logout());
 
   return (
