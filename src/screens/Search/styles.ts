@@ -1,13 +1,20 @@
+import { Platform } from 'react-native';
 import styled from 'styled-components/native';
 import { Headline as TitleC } from '@components/Typography';
 import { ThemeState } from '@store/modules/theme/types';
 import { rgba } from 'polished';
 
-export const Container = styled.SafeAreaView``;
+export const Container = styled.SafeAreaView`
+  flex: 1;
+`;
 
 export const Scroll = styled.ScrollView.attrs({
   showsVerticalScrollIndicator: false,
-})``;
+  bounces: false,
+})`
+  flex-grow: 1;
+  margin-bottom: ${Platform.OS === 'ios' ? `100px` : `80px`};
+`;
 
 export const Title = styled(TitleC)``;
 

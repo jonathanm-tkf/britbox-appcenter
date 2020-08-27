@@ -70,3 +70,40 @@ export const Gradient = styled(LinearGradient).attrs({
   flex: 1;
   margin-top: ${getStatusBarHeight() + 77}px;
 `;
+
+export const ForgotContainer = styled.View`
+  align-self: flex-end;
+  margin-bottom: 30px;
+`;
+
+export const ForgotText = styled.Text`
+  color: ${(props: ThemeState) => props.theme.SECONDARY_COLOR};
+  font-family: ${(props: ThemeState) => props.theme.PRIMARY_FONT_FAMILY_MEDIUM};
+  font-size: 18px;
+`;
+
+export const ForgotModalContainer = styled.View`
+  padding: 10px 20px;
+`;
+
+export const ModalTitle = styled.Text`
+  margin-top: 5px;
+  margin-bottom: 15px;
+  color: ${(props: ThemeState) => props.theme.PRIMARY_TEXT_COLOR};
+  font-family: ${(props: ThemeState) => props.theme.PRIMARY_FONT_FAMILY_MEDIUM};
+  font-size: 20px;
+  opacity: 0.8;
+`;
+
+export const ModalSubTitle = styled.Text`
+  margin-bottom: 20px;
+  color: ${(props: ThemeState) => props.theme.PRIMARY_TEXT_COLOR};
+  font-family: ${(props: ThemeState) => props.theme.PRIMARY_FONT_FAMILY_LIGHT};
+  font-size: 16px;
+  line-height: 25px;
+  opacity: 0.7;
+`;
+
+export const EmailLink = styled.Text`
+  font-family: ${(props: ThemeState) => props.theme.PRIMARY_FONT_FAMILY_MEDIUM};
+`;

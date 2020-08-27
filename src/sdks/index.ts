@@ -5,7 +5,7 @@ import {
 
 import { Api as BritboxContentApiInstance } from '@src/sdks/Britbox.API.Content.TS/api';
 
-import { Api as BritboxSearchApiInstance } from '@src/sdks/Britbox.API.Content.TS/api';
+import { Api as BritboxSearchApiInstance } from '@src/sdks/Britbox.API.Search.TS/api';
 
 import Constants from '@src/config/Constants';
 

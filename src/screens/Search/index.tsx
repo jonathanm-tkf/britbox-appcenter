@@ -1,13 +1,18 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react';
 
+import { FlatList, TouchableOpacity, ActivityIndicator } from 'react-native';
 import { useTranslation } from 'react-i18next';
+import Highlighter from 'react-native-highlight-words';
 import { SearchIcon, SearchDeleteIcon } from '@assets/icons';
 import { Button } from '@components/Button';
 import { AppState } from '@store/modules/rootReducer';
 import { useSelector } from 'react-redux';
 import { navigateByPath } from '@src/navigation/rootNavigation';
 import { loadCollectionPage } from '@src/services/detail';
+import { MassiveSDKModelItemList } from '@src/sdks/Britbox.API.Account.TS/api';
 import { MassiveSDKModelPageEntry } from '@src/sdks/Britbox.API.Content.TS/api';
+import { getSearch } from '@store/modules/search/saga';
 import Grid from '@screens/Shared/Grid';
 import {
   Container,
@@ -25,7 +30,30 @@ import {
 export default function Search() {
   const { t } = useTranslation('search');
   const theme = useSelector((state: AppState) => state.theme.theme);
+  const user = useSelector((state: AppState) => state.user);
   const [searchInput, setSearchInput] = useState('');
+  const [isDone, setIsDone] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [searchingItemData, setSearchingItemData] = useState<MassiveSDKModelItemList[] | undefined>(
+    undefined
+  );
+
+  const searchResultTextStyle = {
+    color: theme.PRIMARY_TEXT_COLOR_OPAQUE,
+    fontSize: 20,
+    paddingVertical: 10,
+    fontFamily: theme.PRIMARY_FONT_FAMILY_LIGHT,
+  };
+  const searchResultHighLightTextStyle = {
+    color: theme.PRIMARY_FOREGROUND_COLOR,
+    fontFamily: theme.PRIMARY_FONT_FAMILY_MEDIUM,
+  };
+
+  const searchResultContainer = {
+    paddingLeft: 50,
+    paddingRight: 20,
+    paddingVertical: 20,
+  };
 
   const [suggestions, setSuggestions] = useState<MassiveSDKModelPageEntry | undefined>(undefined);
   // const [error, setError] = useState(false);
@@ -48,13 +76,34 @@ export default function Search() {
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      if (searchInput !== '') {
-        // console.tron.log(true);
+      if (searchInput.length >= 3) {
+        setIsDone(false);
+        doSearch(false);
       }
-    }, 1000);
+    }, 500);
+
+    if (searchInput.length < 3) {
+      setIsDone(false);
+      setSearchingItemData([]);
+    }
 
     return () => clearTimeout(timer);
   }, [searchInput]);
+
+  const doSearch = async (done: boolean) => {
+    setIsLoading(true);
+    const response = await getSearch(user?.access?.accessToken || '', searchInput, done);
+
+    if (response) {
+      const { response: responseData } = response;
+      const { externalResponse: responseSearchData } = responseData;
+
+      if (responseSearchData) {
+        setSearchingItemData(responseSearchData?.items?.items || []);
+      }
+    }
+    setIsLoading(false);
+  };
 
   return (
     <Container>
@@ -73,33 +122,67 @@ export default function Search() {
             returnKeyType="done"
             value={searchInput}
             onChangeText={(text) => setSearchInput(text)}
-            onSubmitEditing={() => {}}
+            onSubmitEditing={() => {
+              if (searchInput.length >= 3) {
+                setIsDone(true);
+                doSearch(true);
+              }
+            }}
           />
           {searchInput !== '' && (
             <SearchClearButton onPress={() => setSearchInput('')}>
-              <SearchDeleteIcon width={25} height={25} />
+              {isLoading ? (
+                <ActivityIndicator size="small" color={theme.PRIMARY_FOREGROUND_COLOR} />
+              ) : (
+                <SearchDeleteIcon width={25} height={25} />
+              )}
             </SearchClearButton>
           )}
         </SearchWrapper>
-        <SuggestionWrapper>
-          <SuggestionText>{t('browse')}</SuggestionText>
-          <Button
-            link
-            color={theme.PRIMARY_FOREGROUND_COLOR}
-            onPress={() => navigateByPath({ path: '/new_titles' })}
-          >
-            {t('new')}
-          </Button>
-          <Button
-            link
-            color={theme.PRIMARY_FOREGROUND_COLOR}
-            onPress={() => navigateByPath({ path: '/programmes' })}
-          >
-            {t('programmes')}
-          </Button>
-        </SuggestionWrapper>
-
-        <Grid items={suggestions?.list?.items || []} title={suggestions?.title || ''} />
+        {(searchingItemData || []).length > 0 ? (
+          <>
+            {isDone ? (
+              <Grid items={searchingItemData || []} title="" />
+            ) : (
+              <FlatList
+                data={searchingItemData || []}
+                contentContainerStyle={searchResultContainer}
+                renderItem={({ item }) => (
+                  <TouchableOpacity onPress={() => navigateByPath(item)} activeOpacity={1}>
+                    <Highlighter
+                      highlightStyle={searchResultHighLightTextStyle}
+                      searchWords={[searchInput]}
+                      textToHighlight={item?.title}
+                      style={searchResultTextStyle}
+                    />
+                  </TouchableOpacity>
+                )}
+                keyExtractor={(item, index) => index.toString()}
+              />
+            )}
+          </>
+        ) : (
+          <>
+            <SuggestionWrapper>
+              <SuggestionText>{t('browse')}</SuggestionText>
+              <Button
+                link
+                color={theme.PRIMARY_FOREGROUND_COLOR}
+                onPress={() => navigateByPath({ path: '/new_titles' })}
+              >
+                {t('new')}
+              </Button>
+              <Button
+                link
+                color={theme.PRIMARY_FOREGROUND_COLOR}
+                onPress={() => navigateByPath({ path: '/programmes' })}
+              >
+                {t('programmes')}
+              </Button>
+            </SuggestionWrapper>
+            <Grid items={suggestions?.list?.items || []} title={suggestions?.title || ''} />
+          </>
+        )}
       </Scroll>
     </Container>
   );
