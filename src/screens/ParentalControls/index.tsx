@@ -166,7 +166,10 @@ export default function ParentalControls() {
     setErrorState(false);
     setErrorMessage(evergentResponseError);
 
-    const response = await validateContactPasswordRequest(user?.access?.accessToken, password);
+    const response = await validateContactPasswordRequest(
+      user?.access?.accessToken || '',
+      password
+    );
 
     if (response) {
       const { response: responseData } = response;
@@ -183,7 +186,7 @@ export default function ParentalControls() {
   const updateParentalDetail = async () => {
     const {
       response: { getParentalControlDetailsResponseMessage: parentalDetail },
-    } = await getParentalControlDetail(user?.access?.accessToken);
+    } = await getParentalControlDetail(user?.access?.accessToken || '');
     if (parentalDetail && Number(parentalDetail.responseCode) === 1) {
       setParentalControlDetail(parentalDetail);
       setValue(parentalDetail?.parentalControlPIN || '');
@@ -240,7 +243,10 @@ export default function ParentalControls() {
         oldParentalControlPin: parentalControlDetail?.parentalControlPIN,
       };
     }
-    const response = await updateParentalControlDetailsRequest(user?.access?.accessToken, parmas);
+    const response = await updateParentalControlDetailsRequest(
+      user?.access?.accessToken || '',
+      parmas
+    );
 
     if (response) {
       const {

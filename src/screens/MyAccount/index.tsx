@@ -123,7 +123,7 @@ export default function MyAccount() {
         setErrorState(false);
         setErrorMessage(evergentResponseError);
 
-        const response = await updateProfileRequest(user?.access?.accessToken, {
+        const response = await updateProfileRequest(user?.access?.accessToken || '', {
           firstName,
           lastName,
           mobileNumber: mobile,
@@ -294,7 +294,7 @@ export default function MyAccount() {
         setErrorState(false);
         setErrorMessage(evergentResponseError);
 
-        const response = await resetPasswordRequest(user?.access?.accessToken, {
+        const response = await resetPasswordRequest(user?.access?.accessToken || '', {
           oldPassword: curPassword,
           newPassword,
           confirmNewpassword: confirmPassword,
@@ -433,7 +433,7 @@ export default function MyAccount() {
       setErrorState(false);
       setErrorMessage(evergentResponseError);
 
-      const response = await updateProfileRequest(user?.access?.accessToken, {
+      const response = await updateProfileRequest(user?.access?.accessToken || '', {
         firstName: user?.profile?.firstName,
         lastName: user?.profile?.lastName,
         mobileNumber: user?.profile?.phoneNumber,
