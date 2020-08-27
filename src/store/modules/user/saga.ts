@@ -7,6 +7,7 @@ import {
   BritboxAPIAccountModelsProfileUpdateProfileRequest,
   BritboxAPIAccountModelsProfileUpdateParentalControlDetailsRequest,
   BritboxAPIAccountModelsProfileResetPasswordRequest,
+  BritboxAPIAccountModelsAuthorizationForgotContactPasswordRequest,
 } from '@src/sdks/Britbox.API.Account.TS/api';
 import { PayloadAction } from 'typesafe-actions';
 import { UserActionTypes, UserLogin, EvergentLoginResponse, UserSignUp } from './types';
@@ -128,6 +129,20 @@ export async function signupRequest(payload: UserSignUp) {
   } catch (error) {
     // Sentry.captureException({ error, logger: 'signup error' });
     return null;
+  }
+}
+
+export async function forgotPasswordRequest(
+  forgotPasswordParams: BritboxAPIAccountModelsAuthorizationForgotContactPasswordRequest
+) {
+  const { forgotContactPassword } = BritboxAccountApi();
+
+  try {
+    const response = await forgotContactPassword(forgotPasswordParams);
+
+    return response;
+  } catch (error) {
+    return error;
   }
 }
 

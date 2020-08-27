@@ -1,13 +1,23 @@
+import { Platform } from 'react-native';
 import styled from 'styled-components/native';
 import { Headline as TitleC } from '@components/Typography';
 import { ThemeState } from '@store/modules/theme/types';
 import { rgba } from 'polished';
 
-export const Container = styled.SafeAreaView``;
+export const Container = styled.SafeAreaView`
+  flex: 1;
+`;
 
 export const Scroll = styled.ScrollView.attrs({
   showsVerticalScrollIndicator: false,
-})``;
+  bounces: false,
+})`
+  flex-grow: 1;
+`;
+
+export const ResultGrid = styled.View`
+  margin-bottom: ${Platform.OS === 'ios' ? `100px` : `80px`};
+`;
 
 export const Title = styled(TitleC)``;
 
@@ -64,4 +74,34 @@ export const SuggestionText = styled.Text`
   color: ${(props: ThemeState) => rgba(props.theme.PRIMARY_FOREGROUND_COLOR, 0.35)};
   font-family: ${(props: ThemeState) => props.theme.PRIMARY_FONT_FAMILY_MEDIUM};
   font-size: 16px;
+`;
+
+export const NoResultWrapper = styled.View`
+  padding: 25px 20px 40px;
+`;
+
+export const NoResultBold = styled.Text`
+  color: ${(props: ThemeState) => props.theme.PRIMARY_FOREGROUND_COLOR};
+  font-family: ${(props: ThemeState) => props.theme.PRIMARY_FONT_FAMILY_MEDIUM};
+  padding-right: 10px;
+`;
+
+export const NoResultText = styled.Text`
+  color: ${(props: ThemeState) => props.theme.PRIMARY_FOREGROUND_COLOR};
+  font-size: 15px;
+`;
+
+export const ResultWrapper = styled.View`
+  padding: 25px 20px 40px;
+`;
+
+export const ResultBold = styled.Text`
+  color: ${(props: ThemeState) => props.theme.PRIMARY_FOREGROUND_COLOR};
+  font-family: ${(props: ThemeState) => props.theme.PRIMARY_FONT_FAMILY_MEDIUM};
+  padding-right: 10px;
+`;
+
+export const ResultText = styled.Text`
+  color: ${(props: ThemeState) => props.theme.PRIMARY_FOREGROUND_COLOR};
+  font-size: 15px;
 `;

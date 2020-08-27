@@ -183,7 +183,7 @@ const SignUpSubscription = () => {
                 <SubTitle>Choose Subscription</SubTitle>
               </TitleWrapper>
               <RowWrapper>
-                {/* {packageData.map(
+                {packageData.map(
                   (
                     item: BritboxDataEvergentModelsGetProductsResponseMessageBaseProductsResponseMsg,
                     index: number
@@ -208,7 +208,7 @@ const SignUpSubscription = () => {
                       </RadioBox>
                     );
                   }
-                )} */}
+                )}
               </RowWrapper>
               <PaddingHorizontalView>
                 <RadioBottomText>

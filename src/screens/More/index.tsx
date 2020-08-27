@@ -28,7 +28,7 @@ const wrapper = {
   flexGrow: 1,
   paddingTop: Platform.OS === 'ios' ? getStatusBarHeight() + 10 : 10,
   paddingHorizontal: 30,
-  paddingBottom: Platform.OS === 'ios' ? 100 : 80,
+  paddingBottom: Platform.OS === 'ios' ? 110 : 90,
 };
 
 const CelularStyle = {
@@ -43,7 +43,7 @@ export default function More() {
   const logoutAction = () => dispatch(logout());
 
   return (
-    <ScrollView contentContainerStyle={wrapper}>
+    <ScrollView bounces={false} contentContainerStyle={wrapper}>
       <ProfileView>
         <RowContainer>
           <ProfileImageIconView />
@@ -116,7 +116,7 @@ export default function More() {
       <SeparatorLine />
       <RowContainer>
         <RowContent>
-          <TouchableOpacity onPress={() => logoutAction()}>
+          <TouchableOpacity activeOpacity={1} onPress={() => logoutAction()}>
             <ItemTitle>Sign Out</ItemTitle>
           </TouchableOpacity>
         </RowContent>
