@@ -8,7 +8,8 @@ import { ThemeProps } from '@store/modules/theme/types';
 import Carousel from 'react-native-snap-carousel';
 import { StyleSheet } from 'react-native';
 import { useTranslation } from 'react-i18next';
-import { useIsFocused } from '@react-navigation/native';
+import { useIsFocused, useNavigation } from '@react-navigation/native';
+import { navigate } from '@src/navigation/rootNavigation';
 import {
   Container,
   Button,
@@ -50,7 +51,7 @@ const Auth = () => {
   const [sliderRef, setSliderRef] = useState(null);
   const [slider1ActiveSlide, setSlider1ActiveSlide] = useState(0);
   const { t } = useTranslation('auth');
-
+  const { navigation } = useNavigation();
   useEffect(() => {
     // Orientation.lockToPortrait();
   }, []);
@@ -128,7 +129,12 @@ const Auth = () => {
               />
             </PaginationWrapper>
 
-            <Button size="big" fontWeight="medium" stretch onPress={() => {}}>
+            <Button
+              size="big"
+              fontWeight="medium"
+              stretch
+              onPress={() => navigate('SignUpSubscription')}
+            >
               {t('freetrial')}
             </Button>
           </Content>

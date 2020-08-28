@@ -302,7 +302,7 @@ export default function ParentalControls() {
               fontWeight="medium"
               color={theme.PRIMARY_FOREGROUND_COLOR}
             >
-              Countinue
+              Continue
             </Button>
           </PasswordContainer>
           <Gradient>
