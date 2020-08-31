@@ -10,6 +10,8 @@ export const menuRequestSuccess = (data: Menu) => action(CoreActionTypes.MENU_SU
 
 export const menuRequestError = () => action(CoreActionTypes.MENU_ERROR);
 
+export const configRequest = () => action(CoreActionTypes.CONFIG_REQUEST);
+
 export const configRequestSuccess = (data: string) =>
   action(CoreActionTypes.CONFIG_SUCCESS, { data });
 

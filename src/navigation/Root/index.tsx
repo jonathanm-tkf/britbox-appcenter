@@ -20,6 +20,7 @@ import ModalGenre from '@screens/ModalGenre';
 import ModalFilter from '@screens/ModalFilter';
 import { Segment } from '@store/modules/core/types';
 import ErrorLanding from '@components/ErrorLanding';
+import { loadingOn, loadingOff } from '@store/modules/layout/actions';
 import { AppDrawerScreen } from '../Drawer';
 import { AuthStackScreen } from '../Auth';
 
@@ -55,48 +56,27 @@ const Error = () => {
 
 const RootStack = createStackNavigator();
 const RootStackScreen = () => {
-  const [isLoading, setIsLoading] = React.useState(true);
-  const [isOut, setIsOut] = React.useState(false);
   const user = useSelector((state: AppState) => state.user);
-  const segment = useSelector((state: AppState) => state.core.segment);
   const theme = useSelector((state: AppState) => state.theme.theme);
+  const isLoading = useSelector((state: AppState) => state.layout.loading);
+  const isOut = useSelector((state: AppState) => state.layout.out);
   const dispatch = useDispatch();
-  const home = useSelector((state: AppState) => state.home);
 
   useEffect(() => {
     Orientation.lockToPortrait();
     if (!user.isLogged) {
-      setIsLoading(false);
+      dispatch(loadingOff());
     }
-    // getConfig();
   }, []);
-
-  useEffect(() => {
-    if (segment === Segment.OUT) {
-      setIsOut(true);
-    } else {
-      dispatch(homeRequest());
-    }
-  }, [segment]);
-
-  const getConfig = async () => {
-    // const response = await getConfigRequest();
-  };
-
-  useEffect(() => {
-    if (!home.loading && (home.data?.entries || []).length > 0) {
-      setIsLoading(false);
-    }
-  }, [home.data, home.loading, setIsLoading]);
 
   return (
     <RootStack.Navigator headerMode="none" screenOptions={{ animationEnabled: false }} mode="modal">
       {STORYBOOK_START ? (
         <RootStack.Screen name="Storybook" component={Storybook} />
-      ) : isOut ? (
-        <RootStack.Screen name="Out" component={Error} />
       ) : isLoading ? (
         <RootStack.Screen name="Loading" component={Loading} />
+      ) : isOut ? (
+        <RootStack.Screen name="Out" component={Error} />
       ) : user.isLogged ? (
         <RootStack.Screen name="AppDrawerScreen" component={AppDrawerScreen} />
       ) : (
