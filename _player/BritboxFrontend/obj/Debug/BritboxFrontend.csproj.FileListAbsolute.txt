@@ -1,6 +1,0 @@
-C:\Trabajos\Britbox\website\BritboxWebsite\BritboxFrontend\bin\BritboxFrontend.dll.config
-C:\Trabajos\Britbox\website\BritboxWebsite\BritboxFrontend\bin\BritboxFrontend.dll
-C:\Trabajos\Britbox\website\BritboxWebsite\BritboxFrontend\bin\BritboxFrontend.pdb
-C:\Trabajos\Britbox\website\BritboxWebsite\BritboxFrontend\obj\Debug\BritboxFrontend.csprojAssemblyReference.cache
-C:\Trabajos\Britbox\website\BritboxWebsite\BritboxFrontend\obj\Debug\BritboxFrontend.dll
-C:\Trabajos\Britbox\website\BritboxWebsite\BritboxFrontend\obj\Debug\BritboxFrontend.pdb
