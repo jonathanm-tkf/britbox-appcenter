@@ -1,6 +1,0 @@
-{
-  "printWidth": 100,
-  "singleQuote": true,
-  "[markdown]": { "editor.formatOnSave": false },
-  "bracketSpacing": true
-}
