@@ -1,0 +1,357 @@
+---
+layout: index
+meta-title: Collections
+---
+
+<link rel="stylesheet" href="{{ root }}assets/css/collections.css" />
+
+{{> main-navigation-logged}}
+
+<main class="main-content collections">
+  <div class="row">
+    <div class="columns">
+      <div class="navigation">
+        <nav role="navigation">
+          <ul class="breadcrumbs">
+            <li><a href="#">Home</a></li>
+            <li><a href="#" class="current">Genre</a></li>
+          </ul>
+          <a href="#" class="category">
+            <span>
+              Mystery
+              <i class="icon-arrow-down"></i>
+            </span>
+            <ul>
+              <li>
+                <a href="#">Comedy</a>
+              </li>
+              <li>
+                <a href="#">Drama</a>
+              </li>
+              <li>
+                <a href="#">Doc & Lifestyle</a>
+              </li>
+            </ul>
+          </a>
+        </nav>
+      </div>
+    </div>
+  </div>
+  <div class="navigation-overlay"></div>
+  <!-- your content here -->
+  <div class="swiper swiper-top">
+
+    <div class="swiper-container">
+
+      <div class="swiper-wrapper">
+        {{#repeat 4}}
+        <div class="swiper-slide">
+          <div class="top-banner auto">
+            <div class="content">
+              <div class="image-wrapper">
+                <div class="image-background b-lazy" data-src="{{root}}/assets/img/movie-detail.jpg"></div>
+              </div>
+              <div class="row">
+                <div class="columns">
+                  <div class="wrapper">
+                    <!-- <nav role="navigation">
+                      <ul class="breadcrumbs">
+                        <li><a href="#">HOME</a></li>
+                        <li class="active">GENRE</li>
+                      </ul>
+                    </nav> -->
+                    <h1>The Bay</h1>
+                    <p>
+                      Starring Brendan O'Carroll as Agnes Brown, the loudest, proudest mother in Ireland. This nosy,
+                      meddling matriarch makes her six children miserable with her overwhelming love for them.
+                    </p>
+                  </div>
+                  <div class="actions">
+                    <actions :data="{ test: true }"></actions>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+        {{/repeat}}
+      </div>
+      <div class="row">
+        <div class="columns">
+          <div class="swiper-pagination">
+            <div class="dot dot-circle">
+              <ul class="horizontal"></ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+
+  <div class="swiper">
+    <!-- Swiper -->
+    <div class="row">
+      <div class="columns">
+        <div class="top-wrapper">
+          <h2 class="title">Popular Mystery</h2>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="columns">
+        <div class="swiper-horizontal">
+          <div class="swiper-container">
+            <!-- Add Pagination -->
+            <div class="swiper-wrapper">
+              {{#repeat 15}}
+              <div class="swiper-slide">
+                <div class="image pulsate">
+                  <div class="b-lazy" data-src="https://via.placeholder.com/500x300"></div>
+                </div>
+              </div>
+              {{/repeat}}
+            </div>
+            <!-- Add Arrows -->
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="collection">
+
+    <grid>
+
+      <div class="row">
+        <div class="columns">
+          <div class="top-wrapper">
+            <h2 class="title">All Mystery</h2>
+
+            <div class="filters">
+              <label>
+                Type:
+                <div class="custom-select black">
+                  <select id="type">
+                    <option value="All" selected>All</option>
+                    <option value="movie">Movie</option>
+                    <option value="show">Show</option>
+                  </select>
+                </div>
+              </label>
+
+              <label>
+                Order:
+                <div class="custom-select black">
+                  <select id="order">
+                    <option value="date-added">Recently Added</option>
+                    <option value="a-z">A - Z</option>
+                  </select>
+                </div>
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+      <br>
+      <!-- <div class="row">
+        <div class="columns">
+          <div class="alphabeth">
+            <div class="letter"><a href="#a">A</a></div>
+            <div class="letter"><a href="#b">B</a></div>
+            <div class="letter"><a href="#c">C</a></div>
+            <div class="letter"><a href="">D</a></div>
+            <div class="letter"><a href="">E</a></div>
+            <div class="letter"><a href="">F</a></div>
+            <div class="letter"><a href="">G</a></div>
+            <div class="letter"><a href="">H</a></div>
+            <div class="letter"><a href="">I</a></div>
+            <div class="letter"><a href="">J</a></div>
+            <div class="letter"><a href="">K</a></div>
+            <div class="letter"><a href="">L</a></div>
+            <div class="letter"><a href="">M</a></div>
+            <div class="letter"><a href="">N</a></div>
+            <div class="letter"><a href="">Ñ</a></div>
+            <div class="letter"><a href="">O</a></div>
+            <div class="letter"><a href="">P</a></div>
+            <div class="letter"><a href="">Q</a></div>
+            <div class="letter"><a href="">R</a></div>
+            <div class="letter"><a href="">S</a></div>
+            <div class="letter"><a href="">T</a></div>
+            <div class="letter"><a href="">V</a></div>
+            <div class="letter"><a href="">W</a></div>
+            <div class="letter"><a href="">X</a></div>
+            <div class="letter"><a href="">Y</a></div>
+            <div class="letter"><a href="">Z</a></div>
+          </div>
+        </div>
+      </div> -->
+
+      <div class="row wrapper-items" slot="items">
+      {{#repeat 15}}
+      <div class="item columns small-12 medium-6 large-4">
+        <div class="card-wrapper">
+          <div class="box">
+            <div class="card">
+              <div class="image pulsate">
+                <div class="b-lazy"
+                  data-src="https://us.britbox.com/isl/api/v1/dataservice/ResizeImage/$value?Format='jpg'&Quality=60&ImageId='203231'&EntityType='Item'&EntityId='15974'&Width=1280&Height=720&device=web_browser&subscriptions=Subscriber&segmentationTags=US&imageType=title">
+                </div>
+              </div>
+              <div class="card-content">
+                <div class="card-content-inside">
+                  <div class="description">
+                    <div class="top-animation">
+                      <div class="inner-content">
+                        <div class="actions">
+                          <actions :data="{ itemid: 14511, path: '/show/Absolutely_Fabulous_5930', isDetail: true }"
+                            hover-type="jquery">
+                          </actions>
+                        </div>
+                      </div>
+                      <ul class="tags">
+                        <li class="outline">
+                          TV
+                        </li>
+                        <li class="outline">
+                          CC
+                        </li>
+                        <li class="primary">
+                          HD
+                        </li>
+                      </ul>
+                    </div>
+                    <div class="bottom">
+                      <div class="season">
+                        <a href="#">
+                          <div class="title">
+                            Title
+                          </div>
+                          <div class="description">
+                            Description
+                          </div>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      {{/repeat}}
+      </div>
+
+
+    </grid>
+
+    <div class="row">
+      <div class="columns">
+        <div class="animation load-more" data-more="true" data-next="/lists/10516?page_size=18&page=1&sub=Subscriber"
+          data-id="10516">
+          <span class="load-animation"></span>
+        </div>
+      </div>
+    </div>
+
+
+    <modal name="modal-login" :adaptive="true" height="auto">
+      <button class="close" @click="$modal.hide('modal-login')">
+        <i class="icon-wishlist"></i>
+      </button>
+      <h4>Title Modal</h4>
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Molestias possimus ullam incidunt
+        dolores? Incidunt obcaecati tenetur itaque ab quisquam quasi facere atque. Quaerat hic
+        eligendi non libero, aspernatur cumque quia.
+      </p>
+      <p class="text-center">
+        <a href="#" class="button large shadow">Sign In</a>
+      </p>
+    </modal>
+
+
+</main>
+
+{{> footer}}
+
+{{{{raw}}}}
+<script id="catalogueData" type="text/x-jquery-tmpl">
+  {{each items}}
+    <div class="item columns small-12 medium-6 large-4">
+      <div class="card-wrapper">
+        <div class="box">
+          <div class="card">
+            <div class="image pulsate">
+              <div class="b-lazy" data-src="${typeof images !== 'undefined' ? calculateSizeImage(images.tile, 'title' ) : '' }"></div>
+            </div>
+            <div class="card-content">
+              <div class="card-content-inside">
+                <div class="description">
+                  <div class="top-animation">
+                    <div class="inner-content">
+                      <actions :data="{ test: true }"></actions>
+                      <!-- <a href="${getPathURL(path)}" class="play-now">
+                        <span class="play-animation"></span>
+                        <span>
+                          Play now
+                        </span>
+                      </a>
+                      <a href="#" class="watchlist">
+                        <img src="${getUrlImageStatic('/img/plus.png')}" alt="">
+                        <span>
+                            Watchlist
+                        </span>
+                      </a>
+                      <a href="${getPathURL(path)}" class="discover">
+                        <img src="${getUrlImageStatic('/img/discover-more.png')}" alt="">
+                        <span>
+                            Discover more
+                        </span>
+                      </a> -->
+                    </div>
+                      <ul class="tags">
+                        {{if !global.isEmpty(classification)}}
+                        <li class="outline">
+                          <text>${classification.name}</text>
+                        </li>
+                        {{/if}}
+                        <li class="outline">
+                          CC
+                        </li>
+                        {{if offers.length > 0}}
+                        <li class="primary">${offers[0].resolution}</li>
+                        {{/if}}
+                      </ul>
+                  </div>
+                  <div class="bottom">
+                    <div class="season">
+                      <a href="${getPathURL(path)}">
+                        <div class="title">
+                          ${title}
+                        </div>
+                        <div class="description">
+                          ${shortDescription}
+                        </div>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  {{/each}}
+</script>
+{{{{/raw}}}}
+
+
+<script src="{{ root }}assets/js/collections.js"></script>

@@ -1,0 +1,184 @@
+@charset 'utf-8';
+@import 'mixins/helpers';
+@import 'settings';
+@import 'vendor/swiper';
+@import 'components/partials/swiper';
+@import 'components/partials/two-cols-bg';
+
+.featured-serie {
+  display: grid;
+  padding-bottom: 40px;
+
+  .top-banner {
+    min-height: 600px;
+    margin-bottom: 0;
+
+    @include MQ(XS) {
+      min-height: inherit;
+      height: auto;
+    }
+
+    .image-wrapper {
+      .image-background.b-loaded {
+
+        &:after {
+          display: none;
+        }
+      }      
+      @include MQ(XS) {
+        .image-background {
+          background-size: cover;
+        }
+      }
+    }
+
+    nav {
+      ul.breadcrumbs {
+        margin: 50px 0 40px;
+
+        @include MQ(XS) {
+          display: none;
+        }
+      }
+    }
+
+    .row {
+      .notes {
+        display: none;
+      }
+    }
+
+    .content {
+      .row {
+        opacity: 1 !important;
+
+        // Mobile Layout
+        @include MQ(XS) {
+          height: 100%;
+
+          .columns {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+
+            nav {
+              position: absolute;
+              top: 20px;
+            }
+          }
+        }
+      }
+
+      nav+h1,
+      h1 {
+        margin-top: 140px;
+        margin-bottom: 10px;
+
+        @include MQ(M) {
+          // margin-top: 120px;
+          font-size: 30px;
+          line-height: 34px;
+        }
+
+        @include MQ(XS) {
+          margin-top: 20px;
+        }
+      }
+
+      nav~p,
+      p {
+        margin-top: 0;
+        margin-bottom: 20px;
+
+        &:empty {
+          margin-bottom: 0;
+        }
+
+        @include MQ(M) {
+          margin-bottom: 20px;
+        }
+      }
+
+      .actions {
+        margin-bottom: 0;
+
+        .discover {
+          margin-left: 0;
+        }
+
+        @include MQ(M) {
+          margin-top: 0 !important;
+          margin-bottom: 40px;
+        }
+      }
+    }
+  }
+
+  .swiper {
+    &.our_favourites {
+      .swiper-slide {
+        .card {
+          .inner-content {
+            @include MQ(XM) {
+              display: block;
+            }
+          }
+        }
+      }
+    }
+
+    .swiper-slide {
+
+      // ipad pro
+      @media only screen and (min-width: 1024px) and (max-height: 1366px) and (orientation: portrait) and (-webkit-min-device-pixel-ratio: 1.5) {
+        max-width: 322px;
+
+        .box {
+          .card {
+            .image {
+
+              img,
+              img.b-loaded {
+                height: auto;
+              }
+            }
+          }
+        }
+      }
+
+      @include MQ(XM) {
+        max-width: 363px;
+
+        .box {
+          .card {
+            .image {
+
+              img,
+              img.b-loaded {
+                height: auto;
+              }
+            }
+          }
+        }
+      }
+
+      @include MQ(S) {
+        max-width: 334px;
+
+        .box {
+          .card {
+            .image {
+
+              img,
+              img.b-loaded {
+                height: auto;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+}

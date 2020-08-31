@@ -1,0 +1,164 @@
+﻿<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{2574F603-4B6C-4A30-BFDD-E3BC09EEDFDF}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>BritboxFrontend</RootNamespace>
+    <AssemblyName>BritboxFrontend</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <TypeScriptToolsVersion>3.0</TypeScriptToolsVersion>
+    <Use64BitIISExpress />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <TypeScriptTarget>ES5</TypeScriptTarget>
+    <TypeScriptJSXEmit>None</TypeScriptJSXEmit>
+    <TypeScriptCompileOnSaveEnabled>True</TypeScriptCompileOnSaveEnabled>
+    <TypeScriptNoImplicitAny>False</TypeScriptNoImplicitAny>
+    <TypeScriptModuleKind>CommonJS</TypeScriptModuleKind>
+    <TypeScriptRemoveComments>True</TypeScriptRemoveComments>
+    <TypeScriptOutFile />
+    <TypeScriptOutDir />
+    <TypeScriptGeneratesDeclarations>False</TypeScriptGeneratesDeclarations>
+    <TypeScriptNoEmitOnError>True</TypeScriptNoEmitOnError>
+    <TypeScriptSourceMap>False</TypeScriptSourceMap>
+    <TypeScriptMapRoot />
+    <TypeScriptSourceRoot />
+  </PropertyGroup>
+  <ItemGroup>
+    <Content Include="gulpfile.babel.js" />
+    <None Include="src\assets\js\lib\jquery.validate-vsdoc.js" />
+    <Content Include="index.html" />
+    <Content Include="src\assets\js\collections.js" />
+    <Content Include="src\assets\js\lib\bitmovin.js" />
+    <Content Include="src\assets\js\lib\constants.js" />
+    <Content Include="src\assets\js\lib\global.js" />
+    <Content Include="src\assets\js\lib\jquery.initialize.js" />
+    <Content Include="src\assets\js\lib\jquery.mousewheel.min.js" />
+    <Content Include="src\assets\js\lib\jquery.tmpl.js" />
+    <Content Include="src\assets\js\lib\jquery.validate.hooks.js" />
+    <Content Include="src\assets\js\lib\jquery.validate.js" />
+    <Content Include="src\assets\js\lib\jquery.validate.unobtrusive.js" />
+    <Content Include="src\assets\js\lib\jquery.vnm.percentWithinViewport.min.js" />
+    <Content Include="src\assets\js\lib\menu.js" />
+    <Content Include="src\assets\js\lib\rangeslider.js" />
+    <Content Include="src\assets\js\lib\search.js" />
+    <Content Include="src\assets\js\lib\selectboxit.js" />
+    <Content Include="src\assets\js\lib\timezone.js" />
+    <Content Include="src\assets\js\lib\translate.js" />
+    <Content Include="src\assets\js\lib\url.js" />
+    <Content Include="src\assets\js\movie-detail.js" />
+    <Content Include="src\assets\js\show.js" />
+    <Content Include="src\assets\scss\app.scss" />
+    <Content Include="src\assets\scss\components\navigation\_main-nav.scss" />
+    <Content Include="src\assets\scss\components\_footer.scss" />
+    <Content Include="src\assets\scss\global\_app-dashboard.scss" />
+    <Content Include="src\assets\scss\global\_layout.scss" />
+    <Content Include="src\assets\scss\global\_typography.scss" />
+    <Content Include="src\assets\scss\home.scss" />
+    <Content Include="src\assets\scss\mixins\_avatar.scss" />
+    <Content Include="src\assets\scss\mixins\_container-border.scss" />
+    <Content Include="src\assets\scss\mixins\_flex.scss" />
+    <Content Include="src\assets\scss\mixins\_helpers.scss" />
+    <Content Include="src\assets\scss\mixins\_pseudo.scss" />
+    <Content Include="src\assets\scss\mixins\_push-center.scss" />
+    <Content Include="src\assets\scss\mixins\_sidelines.scss" />
+    <Content Include="src\assets\scss\mixins\_zindex.scss" />
+    <Content Include="src\assets\scss\vendor\_aos.scss" />
+    <Content Include="src\assets\scss\vendor\_index-menu.scss" />
+    <Content Include="src\assets\scss\vendor\_slick-carousel.scss" />
+    <Content Include="src\assets\scss\_settings.scss" />
+    <Content Include="src\styleguide\index.md" />
+    <Content Include=".babelrc" />
+    <Content Include=".bowerrc" />
+    <Content Include=".editorconfig" />
+    <Content Include=".eslintrc" />
+    <Content Include=".gitignore" />
+    <Content Include=".prettierrc" />
+    <Content Include="config.yml" />
+    <Content Include="package.json" />
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="src\assets\js\app.js" />
+    <Content Include="src\assets\js\home.js" />
+    <Content Include="src\assets\js\lib\dependancies.js" />
+    <Content Include="src\assets\js\lib\foundation-explicit-pieces.js" />
+    <Content Include="src\helpers\bold.js" />
+    <Content Include="src\layouts\default.html" />
+    <Content Include="src\layouts\index.html" />
+    <Content Include="src\pages\home.html" />
+    <Content Include="src\pages\index.html" />
+    <Content Include="src\styleguide\template.html" />
+    <Content Include="Web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Properties\" />
+    <Folder Include="src\assets\img\" />
+    <Folder Include="src\partials\navigation\" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets')" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>10202</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:3871/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+</Project>

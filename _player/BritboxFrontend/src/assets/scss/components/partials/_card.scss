@@ -1,0 +1,154 @@
+.card {
+  box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.3);
+
+  .image {
+    overflow: hidden;
+    border-radius: 4px;
+  }
+
+  .bar {
+    position: absolute;
+    bottom: 0;
+    top: auto;
+    z-index: 3;
+  }
+
+  ul.tags {
+    flex-direction: column;
+    align-items: flex-end;
+    margin-left: auto;
+
+    li {
+      margin-bottom: 3px;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+
+      &.Ribbon {
+        padding-left: 10px;
+        padding-right: 10px;
+
+        &.Blue-normal {
+          background-color: #006eff;
+        }
+
+        &.Blue-light {
+          background-color: #00c4fe;
+        }
+
+        &.Blue-dark {
+          background-color: #172335;
+        }
+
+        &.White {
+          background-color: $white;
+          color: #0d141e;
+        }
+      }
+    }
+  }
+
+  &-content {
+    border-radius: 3px;
+  }
+
+  &-content-inside {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    .top-animation {
+      align-items: flex-start;
+      max-height: 65px;
+
+      a {
+        .play-animation {
+          max-width: 105px;
+          max-height: 75px;
+          margin: -25px 0 0 -15px;
+
+          img {
+            margin-left: 10px;
+
+            @include MQ(L) {
+              margin-left: 0;
+            }
+          }
+        }
+      }
+    }
+
+    .bottom {
+      margin: 0;
+      position: relative;
+
+      .description {
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+      }
+    }
+  }
+
+  > .text {
+    transition: all 300ms ease-in-out;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    top: 0;
+    right: 0;
+    text-align: left;
+    display: flex;
+    align-items: flex-end;
+    z-index: 2;
+
+    span {
+      position: relative;
+      color: $white;
+      padding: 0 0 15px 15px;
+      font-size: 16px;
+      line-height: 20px;
+      z-index: 3;
+    }
+
+    &:after {
+      content: '';
+      position: absolute;
+      @include linear-gradient(0deg, rgba($black, 0.5), rgba($black, 0));
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      height: 120px;
+      border-bottom-left-radius: 4px;
+      border-bottom-right-radius: 4px;
+    }
+  }
+
+  &:hover {
+    > .text {
+      opacity: 0;
+      top: 100%;
+    }
+
+    .card-content {
+      opacity: 1;
+      transition-delay: 200ms;
+
+      &-inside {
+        .bottom {
+          transform: translateY(0);
+          transition-delay: 300ms;
+        }
+
+        .top-animation {
+          transform: translateY(0);
+          transition-delay: 200ms;
+        }
+      }
+    }
+  }
+}
