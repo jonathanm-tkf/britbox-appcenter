@@ -1,0 +1,76 @@
+@import 'bourbon';
+// @import '../settings';
+// @include font-face($font-akkurat-pro-bold-italic, '../fonts/' + $font-akkurat-pro-bold-italic, ('ttf', 'woff2', 'woff', 'eot', 'svg')) {
+//   font-weight: 400;
+//   font-style: normal
+// }
+
+// @include font-face($font-akkurat-pro-bold, '../fonts/' + $font-akkurat-pro-bold, ('ttf', 'woff2', 'woff', 'eot', 'svg')) {
+//   font-weight: 400;
+//   font-style: normal
+// }
+
+// @include font-face($font-akkurat-pro-italic, '../fonts/' + $font-akkurat-pro-italic, ('ttf', 'woff2', 'woff', 'eot', 'svg')) {
+//   font-weight: 400;
+//   font-style: normal
+// }
+
+// @include font-face($font-akkurat-light-pro-regular, '../fonts/' + $font-akkurat-light-pro-regular, ('ttf', 'woff2', 'woff', 'eot', 'svg')) {
+//   font-weight: 400;
+//   font-style: normal
+// }
+
+// @include font-face($font-akkurat-light-pro-italic, '../fonts/' + $font-akkurat-light-pro-italic, ('ttf', 'woff2', 'woff', 'eot', 'svg')) {
+//   font-weight: 400;
+//   font-style: normal
+// }
+
+@include font-face(
+  $font-museo-sans-100,
+  '../fonts/' + $font-museo-sans-100,
+  ('ttf', 'woff2', 'woff', 'eot', 'svg')
+) {
+  font-weight: 100;
+  font-style: normal;
+}
+
+@include font-face(
+  $font-museo-sans-300,
+  '../fonts/' + $font-museo-sans-300,
+  ('ttf', 'woff2', 'woff', 'eot', 'svg')
+) {
+  font-weight: 300;
+  font-style: normal;
+}
+
+@include font-face(
+  $font-museo-sans-500,
+  '../fonts/' + $font-museo-sans-500,
+  ('ttf', 'woff2', 'woff', 'eot', 'svg')
+) {
+  font-weight: 500;
+  font-style: normal;
+}
+
+@include font-face(
+  $font-museo-sans-700,
+  '../fonts/' + $font-museo-sans-700,
+  ('ttf', 'woff2', 'woff', 'eot', 'svg')
+) {
+  font-weight: 700;
+  font-style: normal;
+}
+
+@include font-face(
+  $font-museo-sans-900,
+  '../fonts/' + $font-museo-sans-900,
+  ('ttf', 'woff2', 'woff', 'eot', 'svg')
+) {
+  font-weight: 100;
+  font-style: normal;
+}
+
+// @include font-face($font-akkurat-light, '../fonts/' + $font-akkurat-light, ('ttf', 'woff2', 'woff', 'eot', 'svg')) {
+//   font-weight: 400;
+//   font-style: normal
+// }

@@ -1,0 +1,112 @@
+@import '../_settings';
+
+@for $i from 0 through 3 {
+  $margin: ($i);
+
+  .mb#{$i} {
+    margin-bottom: $margin + rem !important;
+  }
+}
+
+$browser-context: 16;
+
+@function em($pixels, $context: $browser-context) {
+  @if (unitless($pixels)) {
+    $pixels: $pixels * 1px;
+  }
+
+  @if (unitless($context)) {
+    $context: $context * 1px;
+  }
+
+  @return $pixels / $context * 1em;
+}
+
+// breakpoints
+$XS: 480px;
+$S: #{map-get($breakpoints, medium)};
+$XM: #{map-get($breakpoints, xmedium)};
+$M: #{map-get($breakpoints, large)};
+$L: #{map-get($breakpoints, xlarge)};
+$XL: #{map-get($breakpoints, xxlarge)};
+$XXL: #{map-get($breakpoints, xxxlarge)};
+$XXXL: #{map-get($breakpoints, xxxxlarge)};
+$ML: #{map-get($breakpoints, large)};
+$maxL: $L - 1px;
+$SL: #{map-get($breakpoints, medium) + 1px};
+$XML: #{map-get($breakpoints, xmedium) + 1px};
+
+// media queries
+@mixin MQ($canvas) {
+  @if $canvas==XS {
+    @media only screen and (max-width: $XS) {
+      @content;
+    }
+  } @else if $canvas==S {
+    @media only screen and (max-width: $S) {
+      @content;
+    }
+  } @else if $canvas==M {
+    @media only screen and (max-width: $M) {
+      @content;
+    }
+  } @else if $canvas==XM {
+    @media only screen and (max-width: $XM) {
+      @content;
+    }
+  } @else if $canvas==L {
+    @media only screen and (max-width: $L) {
+      @content;
+    }
+  } @else if $canvas==XL {
+    @media only screen and (max-width: $XL) {
+      @content;
+    }
+  } @else if $canvas==XXL {
+    @media only screen and (max-width: $XXL) {
+      @content;
+    }
+  } @else if $canvas==XXXL {
+    @media only screen and (max-width: $XXXL) {
+      @content;
+    }
+  } @else if $canvas==maxL {
+    @media only screen and (max-width: $maxL) {
+      @content;
+    }
+  } @else if $canvas==SL {
+    @media only screen and (min-width: $SL) {
+      @content;
+    }
+  } @else if $canvas==ML {
+    @media only screen and (min-width: $ML) {
+      @content;
+    }
+  } @else if $canvas==XML {
+    @media only screen and (min-width: $XML) {
+      @content;
+    }
+  }
+}
+
+// super light grid - it works with the .cd-container class inside style.scss
+@mixin column($percentage, $float-direction: left) {
+  width: 100% * $percentage;
+  float: $float-direction;
+}
+
+@mixin hover-supported {
+  /*
+   * https://developer.mozilla.org/en-US/docs/Web/CSS/@media/pointer
+   * coarse: The primary input mechanism includes a pointing device of limited accuracy.
+   */
+  @media not all and (pointer: coarse) {
+    &:hover {
+      @content;
+    }
+  }
+}
+
+@mixin variable-icon-font($icon-code) {
+  content: #{'"\\'}#{$icon-code + '"'};
+}

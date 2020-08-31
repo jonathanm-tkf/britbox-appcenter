@@ -1,0 +1,240 @@
+@import 'settings';
+@import 'vendor/swiper';
+@import 'components/partials/swiper';
+
+.movie-detail {
+  .swiper {
+    margin-top: 50px;
+    margin-bottom: 50px;
+
+    // More like this swiper
+    &.relatedCarousel {
+      @include MQ(M) {
+        margin-top: 0;
+      }
+
+      .swiper-horizontal {
+        .swiper-wrapper {
+          .swiper-slide {
+            @include MQ(M) {
+              margin-top: 10px;
+              margin-bottom: 0;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  // Movie Hero
+  .top-banner {
+    max-height: 600px;
+
+    @include MQ(XS) {
+      max-height: inherit;
+      height: auto;
+    }
+
+    @media only screen and (min-device-width : 320px) and (max-device-width : 568px) and (orientation : landscape) {
+      max-height: inherit;
+      height: auto;
+    }
+
+    .content {
+
+      &::after {
+        content: '.';
+        display: block;
+        clear: both;
+        visibility: hidden;
+        line-height: 0;
+        height: 0;
+      }
+
+      .row {
+        height: auto;
+
+        @include MQ(S) {
+          height: 100%;
+        }
+
+        &:nth-child(2) {
+          height: calc(100% - 73px);
+
+          @include MQ(XM) {
+            height: auto;
+          }
+
+          &::after {
+            content: '.';
+            display: block;
+            clear: both;
+            visibility: hidden;
+            line-height: 0;
+            height: 0;
+          }
+
+          .info {
+            p.description {
+              overflow: auto;
+              display: block;
+            }
+          }
+
+          .actions {
+            a.watchlist {
+              .dots {
+                width: 31px;
+                height: 31px;
+
+                .dot {
+                  margin-bottom: 10px;
+                }
+              }
+            }
+          }
+        }
+
+        &:nth-child(3) {
+          margin-top: 10px;
+
+          .footer {
+            margin-bottom: 50px;
+
+            @media only screen and (max-width: 1380px) and (min-width: 1200px) {
+              margin-top: 5px;
+            }
+          }
+        }
+
+        &::after {
+          content: '.';
+          display: block;
+          clear: both;
+          visibility: hidden;
+          line-height: 0;
+          height: 0;
+        }
+      }
+
+      .title {
+        margin-bottom: 10px;
+
+        @include MQ(M) {
+          min-height: auto;
+        }
+
+        h1 {
+          font-family: $font-museo-sans-700;
+          font-size: 43px;
+          margin: 0;
+
+          @include MQ(M) {
+            font-size: 30px;
+            line-height: 34px;
+          }
+        }
+
+        img.image-brand,
+        img {
+          margin-top: 0;
+          max-height: 140px;
+          width: auto;
+          max-width: fit-content;
+
+          @include MQ(M) {
+            max-height: 70px;
+          }
+
+          @include MQ(XS) {
+            position: absolute;
+            margin-top: -180px;
+          }
+        }
+      }
+
+      p {
+        font-size: 16px;
+        line-height: 26px;
+        margin-top: 0;
+        max-width: 520px;
+        margin-bottom: 20px;
+
+        @include MQ(M) {
+          font-size: 14px;
+          line-height: 22px;
+        }
+      }
+
+      .notes {
+        font-size: 14px;
+        line-height: 22px;
+        opacity: 0.5;
+        margin-top: 10px;
+        margin-bottom: 10px;
+
+        @include MQ(M) {
+          font-size: 12px;
+          line-height: 20px;
+          margin-top: 0;
+          margin-bottom: 5px;
+        }
+      }
+
+      .actions {
+        @media only screen and (min-device-width : 320px) and (max-device-width : 568px) and (orientation : landscape) {
+          margin-bottom: 30px;
+        }
+      }
+    }
+
+    .image-wrapper {
+      &::after {
+        display: none;
+      }
+
+      .image-background {
+        background-size: cover;
+
+        @include MQ(S) {
+          height: 100%;
+          background-position: 70% 0;
+          filter: brightness(60%);
+        }
+
+        &.b-loaded {
+          background-position: center top;
+          background-size: cover;
+          filter: opacity(0.9);
+
+          @include MQ(M) {
+            background-position: 80% 0;
+            filter: opacity(0.6);
+          }
+        }
+
+        &::after {
+          bottom: 0;
+        }
+
+        &::before {
+          display: none;
+        }
+      }
+    }
+
+    nav {
+      ul.breadcrumbs {
+        margin: 50px 0 40px;
+      }
+
+      @include MQ(XS) {
+        display: none;
+      }
+    }
+
+    p.description {
+      max-height: max-content;
+    }
+  }
+}

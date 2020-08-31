@@ -1,0 +1,140 @@
+---
+layout: index
+meta-title: Movie Detail
+---
+
+<link rel="stylesheet" href="{{ root }}assets/css/movie-detail.css" />
+
+{{> main-navigation}}
+
+<main class="main-content movie-detail">
+  <!-- your content here -->
+
+  <div class="top-banner">
+    <div class="content">
+      <div class="image-wrapper">
+        <div class="image-background b-lazy" data-src="https://us.britbox.com/isl/api/v1/dataservice/ResizeImage/$value?Format=%27jpg%27&Quality=65&ImageId=%27189130%27&EntityType=%27Item%27&EntityId=%2720672%27&Width=1920&Height=1080&device=web_browser&subscriptions=Subscriber&segmentationTags=us&imageType=wallpaper"></div>
+      </div>
+      <div class="row">
+        <div class="columns">
+          <nav role="navigation">
+            <ul class="breadcrumbs">
+              <li><a href="#">Home</a></li>
+              <li><a href="#" class="current">Movie</a></li>
+            </ul>
+          </nav>
+          <!-- <img src="{{root}}/assets/img/title-training.png" alt=""> -->
+          <h1>My Boy Jack</h1>
+          <p>
+            Daniel Radcliffe, Carey Mulligan, and Kim Cattrall lead an all-star cast in this moving WWI drama about the relationship between Rudyard Kipling and his son Jack.
+          </p>
+          <div class="actions">
+            <actions :data="{ itemid: 8888, path: '/show/url', isDetail: false }"></actions>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="columns">
+          <div class="footer">
+            <ul class="left">
+              <li>
+                <b>Year: </b>2011 <b> Buration: </b> 60min
+              </li>
+              <li>
+                <b>
+                  Credits:
+                </b>
+                Keeley Hawes, Jerry Roberts, Jack Copeland, Paul Gannon, Frank Carter, Richard Youlden, Dan Younger, Michael Smith, John Scarlett.
+              </li>
+            </ul>
+
+            <ul class="right">
+              <li class="outline">
+                TV-G
+              </li>
+              <li class="outline">
+                CC
+              </li>
+              <li class="background">
+                HD
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="swiper">
+    <!-- Swiper -->
+    <div class="row">
+      <div class="columns">
+        <div class="top-wrapper">
+          <h2 class="title">More like this</h2>
+          <div class="swiper-pagination"></div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="columns">
+        <div class="swiper-horizontal">
+          <div class="swiper-container">
+            <!-- Add Pagination -->
+            <div class="swiper-wrapper">
+              {{#repeat 15}}
+              <div class="swiper-slide">
+                <div class="box">
+                  <div class="card">
+                    <div class="image pulsate">
+                      <div class="b-lazy" data-src="https://via.placeholder.com/500x280"></div>
+                    </div>
+                    <div class="card-content">
+                      <div class="card-content-inside">
+                        <div class="description">
+                          <div class="top-animation">
+                            <a href="#">
+                              <div class="top">
+                                Murder, Mystery, and My Family
+                              </div>
+                              <div class="inner-content">
+                                <div class="season">
+                                  <div class="description">
+                                    The unlikely detective duo of Frank and Lu discover that not all
+                                    is as peaceful as it seems in the picturesque
+                                    Stratford-upon-Avon, where fact is stranger than fiction and
+                                    low-life criminals get caught up in deliciously high drama.
+                                  </div>
+                                  <div class="more-info">
+                                    SHOW · S1 · E1
+                                  </div>
+                                </div>
+                              </div>
+                            </a>
+                          </div>
+                          <div class="actions bottom">
+                            <actions :data="{ itemid: 0, path: '/show/Absolutely_Fabulous_5930' }"></actions>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              {{/repeat}}
+            </div>
+            <!-- Add Arrows -->
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+</main>
+
+{{> footer}}
+
+<script src="{{ root }}assets/js/movie-detail.js"></script>

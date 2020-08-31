@@ -1,0 +1,40 @@
+@import 'global/_reset';
+@import 'global/_normalize';
+@import 'foundation';
+@import 'settings';
+@import './fonts';
+@import 'mixins/helpers';
+@include foundation-flex-classes;
+@include foundation-flex-grid;
+@include foundation-global-styles;
+@include foundation-button;
+@import 'global/layout';
+@import 'components/partials/buttons';
+@import 'components/partials/icons';
+@import 'components/navigation/main-nav';
+
+html {
+  box-sizing: border-box;
+  font-size: 100%;
+}
+
+*,
+:after,
+:before {
+  box-sizing: inherit;
+}
+
+body,
+html {
+  background-color: #171b23;
+  color: $white;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+a {
+  text-decoration: none;
+}

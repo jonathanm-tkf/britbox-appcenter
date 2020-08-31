@@ -1,0 +1,12 @@
+C:\Trabajos\Britbox\website\BritboxWebsite\BritboxFrontend\bin\BritboxFrontend.dll.config
+C:\Trabajos\Britbox\website\BritboxWebsite\BritboxFrontend\bin\BritboxFrontend.dll
+C:\Trabajos\Britbox\website\BritboxWebsite\BritboxFrontend\bin\BritboxFrontend.pdb
+C:\Trabajos\Britbox\website\BritboxWebsite\BritboxFrontend\obj\Release\BritboxFrontend.csprojAssemblyReference.cache
+C:\Trabajos\Britbox\website\BritboxWebsite\BritboxFrontend\obj\Release\BritboxFrontend.dll
+C:\Trabajos\Britbox\website\BritboxWebsite\BritboxFrontend\obj\Release\BritboxFrontend.pdb
+C:\Trabajos\Britbox\App\player\BritboxFrontend\bin\BritboxFrontend.dll.config
+C:\Trabajos\Britbox\App\player\BritboxFrontend\bin\BritboxFrontend.dll
+C:\Trabajos\Britbox\App\player\BritboxFrontend\bin\BritboxFrontend.pdb
+C:\Trabajos\Britbox\App\player\BritboxFrontend\obj\Release\BritboxFrontend.csprojAssemblyReference.cache
+C:\Trabajos\Britbox\App\player\BritboxFrontend\obj\Release\BritboxFrontend.dll
+C:\Trabajos\Britbox\App\player\BritboxFrontend\obj\Release\BritboxFrontend.pdb
