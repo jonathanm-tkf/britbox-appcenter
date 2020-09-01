@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
 import { ThemeProvider } from 'styled-components';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { AppState } from '@store/modules/rootReducer';
+import { AppState as AppStateRN } from 'react-native';
+import { configRequest } from '@store/modules/core/actions';
 import { RootStackScreen } from './Root';
 import { navigationRef } from './rootNavigation';
 
@@ -18,6 +20,18 @@ export default () => {
       border: theme.PRIMARY_COLOR,
     },
   };
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    AppStateRN.addEventListener('change', (event) => {
+      if (event === 'active') {
+        dispatch(configRequest());
+      }
+    });
+    return () => {
+      AppStateRN.removeEventListener('change', () => {});
+    };
+  }, []);
 
   return (
     <ThemeProvider theme={theme}>

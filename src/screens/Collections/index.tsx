@@ -64,6 +64,10 @@ type RootParamList = {
   };
 };
 
+type CustomFiled = {
+  description: string;
+};
+
 type CollectionScreenRouteProp = RouteProp<RootParamList, 'Collection'>;
 
 const GridContent = ({ data }: { data: MassiveSDKModelItemSummary }) => {
@@ -115,7 +119,6 @@ const Collections = () => {
         return genreList.length ? t('genre') : data?.title || '';
       }
     }
-
     return '';
   }, [data, menu, t]);
 
@@ -135,13 +138,20 @@ const Collections = () => {
       setData({
         ...data,
         template: 'Collection (BBC)',
+        title: response?.title,
         entries: [
           {
             template: 'Hero Slim (BBC)',
             list: {
               items: [
                 {
+                  title: response?.title,
                   images: response?.entries ? response?.entries[0]?.list?.images : {},
+                  customFields: {
+                    description: response?.entries
+                      ? (response?.entries[0]?.list?.customFields as CustomFiled)?.description
+                      : '',
+                  },
                 },
               ],
             },
@@ -342,7 +352,7 @@ const Collections = () => {
         <Button onPress={() => back()}>
           <BackIcon width={20} height={20} />
         </Button>
-        <TopText>{getIsCollectionDetail(data?.template || '') ? '' : isGenre}</TopText>
+        <TopText>{getIsCollectionDetail(data?.template || '') ? data?.title : isGenre}</TopText>
         {isGenre === t('genre') && (
           <ChangeGenreButton
             onPress={() => navigation.navigate('ModalGenre', { genre: data?.title || '' })}
@@ -377,9 +387,6 @@ const Collections = () => {
                     collection
                     center
                     data={item?.list?.items || []}
-                    onWatchlist={() => {}}
-                    onPlay={(element) => onPlay(element)}
-                    onDiscoverMore={(element) => onDiscoverMore(element)}
                   />
                 ) : (
                   <NewSlider
@@ -431,7 +438,15 @@ const Collections = () => {
                     </ChangeOrderButton>
                     <Grid
                       items={item?.list?.items || []}
-                      title={item?.title || ''}
+                      title={
+                        getIsCollectionDetail(data?.template || '')
+                          ? `${(item?.list?.items || []).length} ${
+                              (item?.list?.items || []).length > 1
+                                ? t('programmes')
+                                : t('programme')
+                            }`
+                          : item?.title || ''
+                      }
                       loading={animationContinuosScroll}
                     />
                   </WrapperContinuosScroll>

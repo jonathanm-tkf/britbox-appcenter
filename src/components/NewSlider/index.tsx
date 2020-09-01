@@ -9,6 +9,7 @@ import ContentLoader, { Rect } from 'react-content-loader/native';
 import { useSelector } from 'react-redux';
 import { AppState } from '@store/modules/rootReducer';
 import { getStatusBarHeight } from 'react-native-iphone-x-helper';
+import { navigateByPath } from '@src/navigation/rootNavigation';
 import CustomCard from './CustomCard';
 import { sliderWidth, itemWidth, sliderWidthSlim, itemWidthSlim } from './CustomCard/styles';
 import {
@@ -18,6 +19,7 @@ import {
   SlimDescriptionText,
   SlimDescription,
   ActionsWrapper,
+  Button,
 } from './styles';
 import Actions from './Actions';
 
@@ -31,6 +33,11 @@ const styles = StyleSheet.create({
     overflow: 'visible',
   },
 });
+
+type CustomFiled = {
+  description: string;
+  cta: string;
+};
 
 interface Props {
   data: MassiveSDKModelItemList[];
@@ -190,10 +197,33 @@ const NewSlider = ({
         />
       </SliderWrapper>
 
-      {slim && <SlimDescription>{getContent(carouselData[currentIndex].item)}</SlimDescription>}
-      {(slim || collection) && (
-        <ActionsWrapper>{getActions(carouselData[currentIndex].item)}</ActionsWrapper>
+      {slim && (
+        <SlimDescription space="no">{getContent(carouselData[currentIndex].item)}</SlimDescription>
       )}
+
+      {collection && (
+        <SlimDescription
+          {...{ collection }}
+          space={(carouselData[currentIndex].item?.customFields as CustomFiled)?.description}
+        >
+          <SlimDescriptionText {...{ collection }}>
+            {(carouselData[currentIndex].item?.customFields as CustomFiled)?.description || ''}
+          </SlimDescriptionText>
+
+          {(carouselData[currentIndex].item?.customFields as CustomFiled)?.cta && (
+            <Button
+              size="big"
+              fontWeight="medium"
+              stretch
+              onPress={() => navigateByPath({ path: carouselData[currentIndex].item.path })}
+            >
+              {(carouselData[currentIndex].item?.customFields as CustomFiled)?.cta}
+            </Button>
+          )}
+        </SlimDescription>
+      )}
+
+      {slim && <ActionsWrapper>{getActions(carouselData[currentIndex].item)}</ActionsWrapper>}
     </Container>
   );
 };
