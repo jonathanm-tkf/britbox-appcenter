@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/no-unescaped-entities */
@@ -54,6 +55,9 @@ const Login = () => {
   const navigation = useNavigation();
   const { t } = useTranslation('signin');
   const theme = useSelector((state: AppState) => state.theme.theme);
+  const britboxConfig = useSelector((state: AppState) => state.core.britboxConfig);
+  const segment = useSelector((state: AppState) => state.core.segment);
+  const country: any = segment.toLocaleLowerCase() || 'us';
 
   const [user, setUser] = useState(__DEV__ ? 'maximilianor@takeoffmedia.com' : '');
   const [password, setPassword] = useState(__DEV__ ? '8Ub4cYAiM77EzJY' : '');
@@ -87,25 +91,10 @@ const Login = () => {
   };
 
   const login = () => {
-    const hasErrorUsername = user.trim() === '';
-    const hasErrorPassword = password.trim() === '';
+    const hasErrorUsername = doValidateUsername();
+    const hasErrorPassword = doValidatePassword();
 
-    setErrorUsername(
-      hasErrorUsername
-        ? error
-        : {
-            text: '',
-          }
-    );
-    setErrorPassword(
-      hasErrorPassword
-        ? error
-        : {
-            text: '',
-          }
-    );
-
-    if (!hasErrorUsername && !hasErrorPassword) {
+    if (hasErrorUsername && hasErrorPassword) {
       dispatch(
         loginRequest({
           user,
@@ -115,22 +104,55 @@ const Login = () => {
     }
   };
 
-  useEffect(() => {
-    if (user.trim() !== '') {
-      setErrorUsername({
-        text: '',
-      });
-    }
-    if (password.trim() !== '') {
-      setErrorPassword({
-        text: '',
-      });
+  const doValidateUsername = () => {
+    const hasErrorUsername = user.trim() === '';
+
+    setErrorUsername(
+      hasErrorUsername
+        ? error
+        : {
+            text: '',
+          }
+    );
+
+    if (!hasErrorUsername) {
+      return true;
     }
 
+    return false;
+  };
+
+  const doValidatePassword = () => {
+    const hasErrorPassword = password.trim() === '';
+
+    setErrorPassword(
+      hasErrorPassword
+        ? error
+        : {
+            text: '',
+          }
+    );
+
+    if (!hasErrorPassword) {
+      return true;
+    }
+
+    return false;
+  };
+
+  useEffect(() => {
     if (errorState) {
       dispatch(loginRequestErrorClear());
     }
   }, [user, password]);
+
+  useEffect(() => {
+    doValidateUsername();
+  }, [user]);
+
+  useEffect(() => {
+    doValidatePassword();
+  }, [password]);
 
   useEffect(() => {
     if (user.trim() !== '') {
@@ -182,6 +204,13 @@ const Login = () => {
   };
 
   useEffect(() => {
+    setErrorUsername({
+      text: '',
+    });
+    setErrorPassword({
+      text: '',
+    });
+
     // Orientation.lockToPortrait();
   }, []);
 
@@ -210,12 +239,14 @@ const Login = () => {
                 label="Username"
                 value={user}
                 onChangeText={(text) => setUser(text)}
+                onBlur={() => doValidateUsername()}
                 error={errorUsername}
               />
               <Input
                 label="Password"
                 value={password}
                 onChangeText={(text) => setPassword(text)}
+                onBlur={() => doValidatePassword()}
                 secureTextEntry
                 error={errorPassword}
               />
@@ -232,18 +263,14 @@ const Login = () => {
                 fontWeight="medium"
                 color={theme.PRIMARY_FOREGROUND_COLOR}
               >
-                Sign In
+                {britboxConfig[country]?.login?.ctas[0] || ''}
               </Button>
             </Container>
 
             <Wrapper>
-              <Title>New to Britbox?</Title>
-              <Paragraph>
-                Glad you're here. Let's get you set with the best of British TV.
-              </Paragraph>
-              <Paragraph>
-                Star your 7-day FREE trial, then just $6.99/month or %69.99/year
-              </Paragraph>
+              <Title>{britboxConfig[country]?.login?.title || ''}</Title>
+              <Paragraph>{britboxConfig[country]?.login?.description || ''}</Paragraph>
+              <Paragraph>{britboxConfig[country]?.login['description-2'] || ''}</Paragraph>
 
               <Button
                 outline
@@ -252,7 +279,7 @@ const Login = () => {
                 style={suscribeStyle}
                 onPress={() => navigation.navigate('SignUp')}
               >
-                <SuscribeText>Suscribe now</SuscribeText>
+                <SuscribeText>{britboxConfig[country]?.login?.ctas[1] || ''}</SuscribeText>
               </Button>
             </Wrapper>
           </ScrollView>
