@@ -6,6 +6,7 @@ import { UserActionTypes } from '../user/types';
 export const initialState: CoreState = {
   language: Language.NO_LANGUAGE,
   segment: Segment.US,
+  britboxConfig: undefined,
   loading: false,
   token: '',
   isLogged: false,
@@ -39,6 +40,10 @@ const core: Reducer<CoreState> = (state = initialState, action) => {
       }
       case CoreActionTypes.CONFIG_ERROR: {
         draft.segment = Segment.OUT;
+        break;
+      }
+      case CoreActionTypes.BRITBOX_APP_CONFIG_SUCCESS: {
+        draft.britboxConfig = action.payload;
         break;
       }
       case UserActionTypes.REGISTER_REQUEST_SUCCESS: {

@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useEffect, useState, useRef } from 'react';
@@ -50,10 +52,29 @@ export default function MyAccount() {
   const { navigate } = useNavigation();
   const user = useSelector((state: AppState) => state.user);
   const theme = useSelector((state: AppState) => state.theme.theme);
+  const britboxConfig = useSelector((state: AppState) => state.core.britboxConfig);
+  const segment = useSelector((state: AppState) => state.core.segment);
+  const country: any = segment.toLocaleLowerCase() || 'us';
 
   const error = {
     text: 'Field is required',
   };
+
+  const matchError = {
+    text: 'Should match to password',
+  };
+
+  const tabBottomView = () => (
+    <Gradient>
+      <Wrapper>
+        <FooterTitle>
+          Customer Service: {britboxConfig[country]['customer-service']?.phone || ''}
+        </FooterTitle>
+        <Paragraph>{britboxConfig[country]['customer-service']?.availability || ''}</Paragraph>
+        <LinkTitle>{britboxConfig[country]['customer-service']?.email || ''}</LinkTitle>
+      </Wrapper>
+    </Gradient>
+  );
 
   const DetailsRoute = () => {
     const [firstName, setFirstName] = useState(user?.profile?.firstName || '');
@@ -90,35 +111,11 @@ export default function MyAccount() {
     });
 
     const updateProfile = async () => {
-      const hasErrorFirstName = firstName.trim() === '';
-      const hasErrorLastName = lastName.trim() === '';
-      const hasErrorEmail = email.trim() === '';
+      const hasErrorFirstName = doValidateFirstName();
+      const hasErrorLastName = doValidateLastName();
+      const hasErrorEmail = doValidateEmail();
 
-      setErrorFirstName(
-        hasErrorFirstName
-          ? error
-          : {
-              text: '',
-            }
-      );
-
-      setErrorLastName(
-        hasErrorLastName
-          ? error
-          : {
-              text: '',
-            }
-      );
-
-      setErrorEmail(
-        hasErrorEmail
-          ? error
-          : {
-              text: '',
-            }
-      );
-
-      if (!hasErrorFirstName && !hasErrorLastName && !hasErrorEmail) {
+      if (hasErrorFirstName && hasErrorLastName && hasErrorEmail) {
         setLoading(true);
         setErrorState(false);
         setErrorMessage(evergentResponseError);
@@ -144,26 +141,88 @@ export default function MyAccount() {
       }
     };
 
-    useEffect(() => {
-      if (firstName.trim() !== '') {
-        setErrorFirstName({
-          text: '',
-        });
-      }
-      if (lastName.trim() !== '') {
-        setErrorLastName({
-          text: '',
-        });
-      }
-      if (email.trim() !== '') {
-        setErrorEmail({
-          text: '',
-        });
+    const doValidateFirstName = () => {
+      const hasErrorFirstName = firstName.trim() === '';
+
+      setErrorFirstName(
+        hasErrorFirstName
+          ? error
+          : {
+              text: '',
+            }
+      );
+
+      if (!hasErrorFirstName) {
+        return true;
       }
 
+      return false;
+    };
+
+    const doValidateLastName = () => {
+      const hasErrorLastName = lastName.trim() === '';
+
+      setErrorLastName(
+        hasErrorLastName
+          ? error
+          : {
+              text: '',
+            }
+      );
+
+      if (!hasErrorLastName) {
+        return true;
+      }
+
+      return false;
+    };
+
+    const doValidateEmail = () => {
+      const hasErrorEmail = email.trim() === '';
+
+      setErrorEmail(
+        hasErrorEmail
+          ? error
+          : {
+              text: '',
+            }
+      );
+
+      if (!hasErrorEmail) {
+        return true;
+      }
+
+      return false;
+    };
+
+    useEffect(() => {
       setErrorState(false);
       setErrorMessage(evergentResponseError);
     }, [firstName, lastName, email]);
+
+    useEffect(() => {
+      doValidateFirstName();
+    }, [firstName]);
+
+    useEffect(() => {
+      doValidateLastName();
+    }, [lastName]);
+
+    useEffect(() => {
+      doValidateEmail();
+    }, [email]);
+
+    useEffect(() => {
+      setErrorFirstName({
+        text: '',
+      });
+      setErrorLastName({
+        text: '',
+      });
+      setErrorEmail({
+        text: '',
+      });
+    }, []);
 
     return (
       <Container>
@@ -185,18 +244,21 @@ export default function MyAccount() {
               label="First Name"
               value={firstName}
               onChangeText={(text) => setFirstName(text)}
+              onBlur={() => doValidateFirstName()}
               error={errorFirstName}
             />
             <Input
               label="Last Name"
               value={lastName}
               onChangeText={(text) => setLastName(text)}
+              onBlur={() => doValidateLastName()}
               error={errorLastName}
             />
             <Input
               label="Email"
               value={email}
               onChangeText={(text) => setEmail(text)}
+              onBlur={() => doValidateEmail()}
               error={errorEmail}
             />
             <Input
@@ -221,13 +283,7 @@ export default function MyAccount() {
               <LinkTitle>Privacy Policy</LinkTitle>.
             </Paragraph>
           </ScrollableContainerPaddingHorizontal>
-          <Gradient>
-            <Wrapper>
-              <FooterTitle>Customer Service: 1-888-636-7662</FooterTitle>
-              <Paragraph>Available from noon-midnight EST</Paragraph>
-              <LinkTitle>support-us@britbox.com</LinkTitle>
-            </Wrapper>
-          </Gradient>
+          {tabBottomView()}
         </ScrollableContainer>
       </Container>
     );
@@ -261,35 +317,11 @@ export default function MyAccount() {
     });
 
     const updatePassword = async () => {
-      const hasErrorCurPassword = curPassword.trim() === '';
-      const hasErrorNewPassword = newPassword.trim() === '';
-      const hasErrorConfirmPassword = confirmPassword.trim() === '';
+      const hasErrorCurPassword = doValidateCurPassword();
+      const hasErrorNewPassword = doValidateNewPassword();
+      const hasErrorConfirmPassword = doValidateConfirmPassword();
 
-      setErrorCurPassword(
-        hasErrorCurPassword
-          ? error
-          : {
-              text: '',
-            }
-      );
-
-      setErrorNewPassword(
-        hasErrorNewPassword
-          ? error
-          : {
-              text: '',
-            }
-      );
-
-      setErrorConfirmPassword(
-        hasErrorNewPassword
-          ? error
-          : {
-              text: '',
-            }
-      );
-
-      if (!hasErrorCurPassword && !hasErrorNewPassword && !hasErrorConfirmPassword) {
+      if (hasErrorCurPassword && hasErrorNewPassword && hasErrorConfirmPassword) {
         setLoading(true);
         setErrorState(false);
         setErrorMessage(evergentResponseError);
@@ -315,26 +347,95 @@ export default function MyAccount() {
       }
     };
 
-    useEffect(() => {
-      if (curPassword.trim() !== '') {
-        setErrorCurPassword({
-          text: '',
-        });
-      }
-      if (newPassword.trim() !== '') {
-        setErrorNewPassword({
-          text: '',
-        });
-      }
-      if (confirmPassword.trim() !== '') {
-        setErrorConfirmPassword({
-          text: '',
-        });
+    const doValidateCurPassword = () => {
+      const hasErrorCurPassword = curPassword.trim() === '';
+
+      setErrorCurPassword(
+        hasErrorCurPassword
+          ? error
+          : {
+              text: '',
+            }
+      );
+
+      if (!hasErrorCurPassword) {
+        return true;
       }
 
+      return false;
+    };
+
+    const doValidateNewPassword = () => {
+      const hasErrorNewPassword = newPassword.trim() === '';
+
+      setErrorNewPassword(
+        hasErrorNewPassword
+          ? error
+          : {
+              text: '',
+            }
+      );
+
+      if (!hasErrorNewPassword) {
+        return true;
+      }
+
+      return false;
+    };
+
+    const doValidateConfirmPassword = () => {
+      const hasErrorConfirmPassword = confirmPassword.trim() === '';
+      const hasErrorConfirmPasswordMatch = confirmPassword.trim() !== newPassword.trim();
+
+      setErrorConfirmPassword(
+        hasErrorConfirmPassword
+          ? error
+          : {
+              text: '',
+            }
+      );
+
+      if (!hasErrorConfirmPassword) {
+        if (hasErrorConfirmPasswordMatch) {
+          setErrorConfirmPassword(matchError);
+        }
+      }
+
+      if (!hasErrorConfirmPassword && !hasErrorConfirmPasswordMatch) {
+        return true;
+      }
+
+      return false;
+    };
+
+    useEffect(() => {
       setErrorState(false);
       setErrorMessage(evergentResponseError);
     }, [curPassword, newPassword, confirmPassword]);
+
+    useEffect(() => {
+      doValidateCurPassword();
+    }, [curPassword]);
+
+    useEffect(() => {
+      doValidateNewPassword();
+    }, [newPassword]);
+
+    useEffect(() => {
+      doValidateConfirmPassword();
+    }, [confirmPassword]);
+
+    useEffect(() => {
+      setErrorCurPassword({
+        text: '',
+      });
+      setErrorNewPassword({
+        text: '',
+      });
+      setErrorConfirmPassword({
+        text: '',
+      });
+    }, []);
 
     return (
       <ScrollableContainer>
@@ -356,6 +457,7 @@ export default function MyAccount() {
               label="Current password"
               value={curPassword}
               onChangeText={(text) => setCurPassword(text)}
+              onBlur={() => doValidateCurPassword()}
               secureTextEntry
               error={errorCurPassword}
             />
@@ -363,6 +465,7 @@ export default function MyAccount() {
               label="New password"
               value={newPassword}
               onChangeText={(text) => setNewPassword(text)}
+              onBlur={() => doValidateNewPassword()}
               secureTextEntry
               error={errorNewPassword}
             />
@@ -370,6 +473,7 @@ export default function MyAccount() {
               label="Confirm password"
               value={confirmPassword}
               onChangeText={(text) => setConfirmPassword(text)}
+              onBlur={() => doValidateConfirmPassword()}
               secureTextEntry
               error={errorConfirmPassword}
             />
@@ -385,13 +489,7 @@ export default function MyAccount() {
             </Button>
           </ScrollableContainerPaddingHorizontal>
         </ScrollContent>
-        <Gradient>
-          <Wrapper>
-            <FooterTitle>Customer Service: 1-888-636-7662</FooterTitle>
-            <Paragraph>Available from noon-midnight EST</Paragraph>
-            <LinkTitle>support-us@britbox.com</LinkTitle>
-          </Wrapper>
-        </Gradient>
+        {tabBottomView()}
       </ScrollableContainer>
     );
   };
@@ -408,13 +506,7 @@ export default function MyAccount() {
             update your subscription and payment details.
           </SubscriptionParagraph>
         </ScrollableContainerPaddingHorizontal>
-        <Gradient>
-          <Wrapper>
-            <FooterTitle>Customer Service: 1-888-636-7662</FooterTitle>
-            <Paragraph>Available from noon-midnight EST</Paragraph>
-            <LinkTitle>support-us@britbox.com</LinkTitle>
-          </Wrapper>
-        </Gradient>
+        {tabBottomView()}
       </ScrollableContainer>
     );
   };
@@ -494,13 +586,7 @@ export default function MyAccount() {
               <LinkTitle>Privacy Policy</LinkTitle>.
             </Paragraph>
           </ScrollableContainerPaddingHorizontal>
-          <Gradient>
-            <Wrapper>
-              <FooterTitle>Customer Service: 1-888-636-7662</FooterTitle>
-              <Paragraph>Available from noon-midnight EST</Paragraph>
-              <LinkTitle>support-us@britbox.com</LinkTitle>
-            </Wrapper>
-          </Gradient>
+          {tabBottomView()}
         </ScrollableContainer>
       </Container>
     );

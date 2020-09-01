@@ -1,5 +1,5 @@
 import { action } from 'typesafe-actions';
-import { CoreActionTypes, Menu } from './types';
+import { CoreActionTypes, Menu, BritBoxCountryConfig } from './types';
 
 export const changeLanguage = (language: string) =>
   action(CoreActionTypes.CHANGE_LANGUAGE, { language });
@@ -14,3 +14,6 @@ export const configRequestSuccess = (data: string) =>
   action(CoreActionTypes.CONFIG_SUCCESS, { data });
 
 export const configRequestError = () => action(CoreActionTypes.CONFIG_ERROR);
+
+export const britBoxAppConfigSuccess = (data: BritBoxCountryConfig) =>
+  action(CoreActionTypes.BRITBOX_APP_CONFIG_SUCCESS, { ...data });

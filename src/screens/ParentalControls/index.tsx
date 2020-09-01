@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-inferrable-types */
+/* eslint-disable radix */
 /* eslint-disable no-unused-vars */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useState } from 'react';
@@ -81,6 +83,9 @@ export default function ParentalControls() {
   const [multiSliderValue, setMultiSliderValue] = useState(100);
   const theme = useSelector((state: AppState) => state.theme.theme);
   const user = useSelector((state: AppState) => state.user);
+  const britboxConfig = useSelector((state: AppState) => state.core.britboxConfig);
+  const segment = useSelector((state: AppState) => state.core.segment);
+  const country: any = segment.toLocaleLowerCase() || 'us';
 
   const activeContainer = {
     backgroundColor: 'white',
@@ -190,15 +195,30 @@ export default function ParentalControls() {
     if (parentalDetail && Number(parentalDetail.responseCode) === 1) {
       setParentalControlDetail(parentalDetail);
       setValue(parentalDetail?.parentalControlPIN || '');
-      if (parentalDetail?.parentalControlLevel === 7) {
+      if (
+        parentalDetail?.parentalControlLevel ===
+        britboxConfig[country]['parental-controls']?.levels[1].id
+      ) {
         setMultiSliderValue(75);
-      } else if (parentalDetail?.parentalControlLevel === 10) {
+      } else if (
+        parentalDetail?.parentalControlLevel ===
+        britboxConfig[country]['parental-controls']?.levels[2].id
+      ) {
         setMultiSliderValue(50);
-      } else if (parentalDetail?.parentalControlLevel === 14) {
+      } else if (
+        parentalDetail?.parentalControlLevel ===
+        britboxConfig[country]['parental-controls']?.levels[3].id
+      ) {
         setMultiSliderValue(25);
-      } else {
+      } else if (
+        parentalDetail?.parentalControlLevel ===
+        britboxConfig[country]['parental-controls']?.levels[4].id
+      ) {
         setMultiSliderValue(1);
+      } else {
+        setMultiSliderValue(100);
       }
+
       setLoading(false);
       setLoadingSave(false);
       setIsAuthorize(true);
@@ -223,13 +243,15 @@ export default function ParentalControls() {
     };
 
     if (parentalControl === 'true') {
-      let parentalControlLevel = 18;
+      let parentalControlLevel: number = 0;
       if (multiSliderValue === 75) {
-        parentalControlLevel = 7;
+        parentalControlLevel = parseInt(britboxConfig[country]['parental-controls']?.levels[1].id);
       } else if (multiSliderValue === 50) {
-        parentalControlLevel = 10;
+        parentalControlLevel = parseInt(britboxConfig[country]['parental-controls']?.levels[2].id);
       } else if (multiSliderValue === 25) {
-        parentalControlLevel = 14;
+        parentalControlLevel = parseInt(britboxConfig[country]['parental-controls']?.levels[3].id);
+      } else if (multiSliderValue === 75) {
+        parentalControlLevel = parseInt(britboxConfig[country]['parental-controls']?.levels[4].id);
       }
       parmas = {
         ...parmas,
@@ -266,15 +288,27 @@ export default function ParentalControls() {
     }
   };
 
+  const tabBottomView = () => (
+    <Gradient>
+      <Wrapper>
+        <FooterTitle>
+          Customer Service: {britboxConfig[country]['customer-service']?.phone || ''}
+        </FooterTitle>
+        <Paragraph>{britboxConfig[country]['customer-service']?.availability || ''}</Paragraph>
+        <LinkTitle>{britboxConfig[country]['customer-service']?.email || ''}</LinkTitle>
+      </Wrapper>
+    </Gradient>
+  );
+
   return (
     <Container>
       <HeaderCustom isBack shadow />
       {!isAuthorize ? (
         <ScrollableContainer>
           <TitleWrapper>
-            <Title>Parental Controls</Title>
+            <Title>{britboxConfig[country]['parental-controls']?.title || ''}</Title>
           </TitleWrapper>
-          <Paragraph>Protect your family with the parental controls PIN</Paragraph>
+          <Paragraph>{britboxConfig[country]['parental-controls']?.description || ''}</Paragraph>
           <TitleWrapper>
             <Title>Enter your password</Title>
           </TitleWrapper>
@@ -305,20 +339,14 @@ export default function ParentalControls() {
               Continue
             </Button>
           </PasswordContainer>
-          <Gradient>
-            <Wrapper>
-              <FooterTitle>Customer Service: 1-888-636-7662</FooterTitle>
-              <Paragraph>Available from noon-midnight EST</Paragraph>
-              <LinkTitle>support-us@britbox.com</LinkTitle>
-            </Wrapper>
-          </Gradient>
+          {tabBottomView()}
         </ScrollableContainer>
       ) : (
         <ScrollableContainer scrollEnabled={!isSliding}>
           <TitleWrapper>
-            <Title>Parental Controls</Title>
+            <Title>{britboxConfig[country]['parental-controls']?.title || ''}</Title>
           </TitleWrapper>
-          <Paragraph>Protect your family with the parental controls PIN</Paragraph>
+          <Paragraph>{britboxConfig[country]['parental-controls']?.description || ''}</Paragraph>
           {parentalControlDetail?.parentalControl && (
             <PinBtnView>
               <PinBtnText>Parental controls set</PinBtnText>
@@ -375,8 +403,19 @@ export default function ParentalControls() {
           <Gradient>
             <SubTitle>Step 2: Set level of viewing restriction</SubTitle>
             <Paragraph>
-              Programmes for Teen and up will require PIN entery for viewing.{' '}
-              <LinkTitle>Learn more about TV ratings</LinkTitle>
+              {multiSliderValue === 100 &&
+                britboxConfig[country]['parental-controls']?.levels[0]['message-top']}
+              {multiSliderValue === 75 &&
+                britboxConfig[country]['parental-controls']?.levels[1]['message-top']}
+              {multiSliderValue === 50 &&
+                britboxConfig[country]['parental-controls']?.levels[2]['message-top']}
+              {multiSliderValue === 25 &&
+                britboxConfig[country]['parental-controls']?.levels[3]['message-top']}
+              {multiSliderValue === 1 &&
+                britboxConfig[country]['parental-controls']?.levels[4]['message-top']}{' '}
+              <LinkTitle>
+                {britboxConfig[country]['parental-controls']['help-text'] || ''}
+              </LinkTitle>
             </Paragraph>
 
             <TableMainContainer>
@@ -385,23 +424,23 @@ export default function ParentalControls() {
                   style={multiSliderValue <= 76 && activeContainer}
                   onPress={() => setMultiSliderValue(multiSliderValue === 75 ? 100 : 75)}
                 >
-                  <RowLeftTitle style={multiSliderValue <= 76 && activeText}>General</RowLeftTitle>
+                  <RowLeftTitle style={multiSliderValue <= 76 && activeText}>
+                    {britboxConfig[country]['parental-controls']?.levels[1].name || ''}
+                  </RowLeftTitle>
                   {multiSliderValue <= 76 ? <UnLockIconView /> : <LockIconView />}
                 </RowLeftContainer>
                 <RowContent>
                   <TableBtnContainer>
-                    <BtnContainer>
-                      <BtnText>TV-G</BtnText>
-                    </BtnContainer>
-                    <BtnContainer>
-                      <BtnText>TV-Y</BtnText>
-                    </BtnContainer>
-                    <BtnContainer>
-                      <BtnText>TV-Y7</BtnText>
-                    </BtnContainer>
+                    {britboxConfig[country]['parental-controls']?.levels[1]?.labels?.map(
+                      (item, index) => (
+                        <BtnContainer key={index}>
+                          <BtnText>{item}</BtnText>
+                        </BtnContainer>
+                      )
+                    )}
                   </TableBtnContainer>
-                  <TableRightText>
-                    Most parents would find this programs suitable for all ages.
+                  <TableRightText numberOfLines={4}>
+                    {britboxConfig[country]['parental-controls']?.levels[1]['message-box'] || ''}
                   </TableRightText>
                 </RowContent>
               </RowContainer>
@@ -411,19 +450,22 @@ export default function ParentalControls() {
                   onPress={() => setMultiSliderValue(multiSliderValue === 50 ? 75 : 50)}
                 >
                   <RowLeftTitle style={multiSliderValue <= 51 && activeText}>
-                    Older Kids
+                    {britboxConfig[country]['parental-controls']?.levels[2].name || ''}
                   </RowLeftTitle>
                   {multiSliderValue <= 51 ? <UnLockIconView /> : <LockIconView />}
                 </RowLeftContainer>
                 <RowContent>
                   <TableBtnContainer>
-                    <BtnContainer>
-                      <BtnText>TV-PG</BtnText>
-                    </BtnContainer>
+                    {britboxConfig[country]['parental-controls']?.levels[2]?.labels?.map(
+                      (item, index) => (
+                        <BtnContainer key={index}>
+                          <BtnText>{item}</BtnText>
+                        </BtnContainer>
+                      )
+                    )}
                   </TableBtnContainer>
-                  <TableRightText>
-                    This program contains material that parents may find unsuitable for younger
-                    children.
+                  <TableRightText numberOfLines={4}>
+                    {britboxConfig[country]['parental-controls']?.levels[2]['message-box'] || ''}
                   </TableRightText>
                 </RowContent>
               </RowContainer>
@@ -432,18 +474,23 @@ export default function ParentalControls() {
                   style={multiSliderValue <= 26 && activeContainer}
                   onPress={() => setMultiSliderValue(multiSliderValue === 25 ? 50 : 25)}
                 >
-                  <RowLeftTitle style={multiSliderValue <= 26 && activeText}>Teens</RowLeftTitle>
+                  <RowLeftTitle style={multiSliderValue <= 26 && activeText}>
+                    {britboxConfig[country]['parental-controls']?.levels[3].name || ''}
+                  </RowLeftTitle>
                   {multiSliderValue <= 26 ? <UnLockIconView /> : <LockIconView />}
                 </RowLeftContainer>
                 <RowContent>
                   <TableBtnContainer>
-                    <BtnContainer>
-                      <BtnText>TV-14</BtnText>
-                    </BtnContainer>
+                    {britboxConfig[country]['parental-controls']?.levels[3]?.labels?.map(
+                      (item, index) => (
+                        <BtnContainer key={index}>
+                          <BtnText>{item}</BtnText>
+                        </BtnContainer>
+                      )
+                    )}
                   </TableBtnContainer>
-                  <TableRightText>
-                    This program contains some material that parents would find unsuitable for
-                    children under 14 years of age.
+                  <TableRightText numberOfLines={4}>
+                    {britboxConfig[country]['parental-controls']?.levels[3]['message-box'] || ''}
                   </TableRightText>
                 </RowContent>
               </RowContainer>
@@ -452,21 +499,23 @@ export default function ParentalControls() {
                   style={multiSliderValue <= 1 && activeContainer}
                   onPress={() => setMultiSliderValue(multiSliderValue === 1 ? 25 : 1)}
                 >
-                  <RowLeftTitle style={multiSliderValue <= 1 && activeText}>Adults</RowLeftTitle>
+                  <RowLeftTitle style={multiSliderValue <= 1 && activeText}>
+                    {britboxConfig[country]['parental-controls']?.levels[4].name || ''}
+                  </RowLeftTitle>
                   {multiSliderValue <= 1 ? <UnLockIconView /> : <LockIconView />}
                 </RowLeftContainer>
                 <RowContent>
                   <TableBtnContainer>
-                    <BtnContainer>
-                      <BtnText>TV-MA</BtnText>
-                    </BtnContainer>
-                    <BtnContainer>
-                      <BtnText>NR</BtnText>
-                    </BtnContainer>
+                    {britboxConfig[country]['parental-controls']?.levels[4]?.labels?.map(
+                      (item, index) => (
+                        <BtnContainer key={index}>
+                          <BtnText>{item}</BtnText>
+                        </BtnContainer>
+                      )
+                    )}
                   </TableBtnContainer>
-                  <TableRightText>
-                    This program is specifically designed to be viewed by adults and therefore may
-                    be unsuitable for children under 18.
+                  <TableRightText numberOfLines={4}>
+                    {britboxConfig[country]['parental-controls']?.levels[4]['message-box'] || ''}
                   </TableRightText>
                 </RowContent>
               </RowContainer>
@@ -504,13 +553,7 @@ export default function ParentalControls() {
             </Button>
             {value.length !== 4 && <DisabledOverlay />}
           </Gradient>
-          <Gradient>
-            <Wrapper>
-              <FooterTitle>Customer Service: 1-888-636-7662</FooterTitle>
-              <Paragraph>Available from noon-midnight EST</Paragraph>
-              <LinkTitle>support-us@britbox.com</LinkTitle>
-            </Wrapper>
-          </Gradient>
+          {tabBottomView()}
         </ScrollableContainer>
       )}
     </Container>

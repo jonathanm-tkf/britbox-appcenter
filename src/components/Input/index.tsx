@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Input as InputStyle, HelperText, Container, Warning } from './styles';
+import { Input as InputStyle, HelperText, Container, Warning, Checked } from './styles';
 import { InputProps } from './props';
 
 export const Input = ({ label, error, ...rest }: InputProps) => {
@@ -9,7 +9,7 @@ export const Input = ({ label, error, ...rest }: InputProps) => {
       <InputStyle label={label} error={(error && error?.text !== '') || false} {...rest} />
       {error && error?.text !== '' && <HelperText type="error">{error.text}</HelperText>}
       {error && error?.text !== '' && <Warning />}
-      {/* <Checked /> */}
+      {rest?.value !== '' && error && error?.text === '' && <Checked />}
     </Container>
   );
 };
