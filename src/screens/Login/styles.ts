@@ -32,7 +32,7 @@ export const CloseButton = styled.TouchableOpacity`
 
 export const TitleWrapper = styled.View`
   align-self: center;
-  margin-top: 35px;
+  margin-top: 20px;
   margin-bottom: 10px;
 `;
 
@@ -68,7 +68,7 @@ export const Gradient = styled(LinearGradient).attrs({
   colors: ['#202634', '#171B23'],
 })`
   flex: 1;
-  margin-top: ${getStatusBarHeight() + 77}px;
+  margin-top: ${getStatusBarHeight() + 80}px;
 `;
 
 export const ForgotContainer = styled.View`

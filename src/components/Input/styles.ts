@@ -35,7 +35,11 @@ export const Checked = styled(CheckedIcon).attrs((props: ThemeState) => ({
   width: 27,
   height: 27,
   fill: props.theme.SUCCESS_COLOR,
-}))``;
+}))`
+  position: absolute;
+  right: 20px;
+  top: 17px;
+`;
 
 export const Warning = styled(WarningIcon).attrs((props: ThemeState) => ({
   width: 27,

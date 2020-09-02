@@ -1,3 +1,11 @@
 {
-  "signin": "Sign In"
+  "signin": "Sign In",
+  "forgotpassword": {
+    "title": "Forgot your Password?",
+    "description1": "We have sent a password reset link to",
+    "description2": "Please click this link to reset your password. If you don't see this email, please check your junk mail folder.",
+    "description3": "Enter you registered email address and we send you a link to reset your password.",
+    "okgotit": "Ok, got it.",
+    "submit": "Submit"
+  }
 }

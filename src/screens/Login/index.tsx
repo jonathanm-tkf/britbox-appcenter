@@ -1,6 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable no-unused-vars */
-/* eslint-disable react/no-unescaped-entities */
 import React, { useState, useEffect } from 'react';
 import { KeyboardAvoidingView, Platform, TouchableOpacity } from 'react-native';
 
@@ -12,7 +11,6 @@ import { forgotPasswordRequest } from '@store/modules/user/saga';
 import { AppState } from '@store/modules/rootReducer';
 import { ThemeProps } from '@store/modules/theme/types';
 import { EvergentLoginResponseError } from '@store/modules/user/types';
-import Orientation from 'react-native-orientation-locker';
 import { CloseIcon } from '@assets/icons';
 import { useTranslation } from 'react-i18next';
 import { useNavigation } from '@react-navigation/native';
@@ -52,8 +50,11 @@ const cancelStyle = { marginTop: 20, marginBottom: 10 };
 const Login = () => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
-  const { t } = useTranslation('signin');
+  const { t } = useTranslation(['signin', 'signup']);
   const theme = useSelector((state: AppState) => state.theme.theme);
+  const britboxConfig = useSelector((state: AppState) => state.core.britboxConfig);
+  const segment = useSelector((state: AppState) => state.core.segment);
+  const country: any = segment.toLocaleLowerCase() || 'us';
 
   const [user, setUser] = useState(__DEV__ ? 'maximilianor@takeoffmedia.com' : '');
   const [password, setPassword] = useState(__DEV__ ? '8Ub4cYAiM77EzJY' : '');
@@ -87,25 +88,10 @@ const Login = () => {
   };
 
   const login = () => {
-    const hasErrorUsername = user.trim() === '';
-    const hasErrorPassword = password.trim() === '';
+    const hasErrorUsername = doValidateUsername();
+    const hasErrorPassword = doValidatePassword();
 
-    setErrorUsername(
-      hasErrorUsername
-        ? error
-        : {
-            text: '',
-          }
-    );
-    setErrorPassword(
-      hasErrorPassword
-        ? error
-        : {
-            text: '',
-          }
-    );
-
-    if (!hasErrorUsername && !hasErrorPassword) {
+    if (hasErrorUsername && hasErrorPassword) {
       dispatch(
         loginRequest({
           user,
@@ -115,22 +101,55 @@ const Login = () => {
     }
   };
 
-  useEffect(() => {
-    if (user.trim() !== '') {
-      setErrorUsername({
-        text: '',
-      });
-    }
-    if (password.trim() !== '') {
-      setErrorPassword({
-        text: '',
-      });
+  const doValidateUsername = () => {
+    const hasErrorUsername = user.trim() === '';
+
+    setErrorUsername(
+      hasErrorUsername
+        ? error
+        : {
+            text: '',
+          }
+    );
+
+    if (!hasErrorUsername) {
+      return true;
     }
 
+    return false;
+  };
+
+  const doValidatePassword = () => {
+    const hasErrorPassword = password.trim() === '';
+
+    setErrorPassword(
+      hasErrorPassword
+        ? error
+        : {
+            text: '',
+          }
+    );
+
+    if (!hasErrorPassword) {
+      return true;
+    }
+
+    return false;
+  };
+
+  useEffect(() => {
     if (errorState) {
       dispatch(loginRequestErrorClear());
     }
   }, [user, password]);
+
+  useEffect(() => {
+    doValidateUsername();
+  }, [user]);
+
+  useEffect(() => {
+    doValidatePassword();
+  }, [password]);
 
   useEffect(() => {
     if (user.trim() !== '') {
@@ -182,7 +201,12 @@ const Login = () => {
   };
 
   useEffect(() => {
-    // Orientation.lockToPortrait();
+    setErrorUsername({
+      text: '',
+    });
+    setErrorPassword({
+      text: '',
+    });
   }, []);
 
   return (
@@ -207,21 +231,23 @@ const Login = () => {
                 </ErrorText>
               )}
               <Input
-                label="Username"
+                label={t('signup:field.username')}
                 value={user}
                 onChangeText={(text) => setUser(text)}
+                onBlur={() => doValidateUsername()}
                 error={errorUsername}
               />
               <Input
-                label="Password"
+                label={t('signup:field.password')}
                 value={password}
                 onChangeText={(text) => setPassword(text)}
+                onBlur={() => doValidatePassword()}
                 secureTextEntry
                 error={errorPassword}
               />
               <ForgotContainer>
                 <TouchableOpacity activeOpacity={1} onPress={() => setIsForgotModalVisible(true)}>
-                  <ForgotText>Forgot your Password?</ForgotText>
+                  <ForgotText>{t('forgotpassword.title')}</ForgotText>
                 </TouchableOpacity>
               </ForgotContainer>
               <Button
@@ -232,18 +258,14 @@ const Login = () => {
                 fontWeight="medium"
                 color={theme.PRIMARY_FOREGROUND_COLOR}
               >
-                Sign In
+                {britboxConfig[country]?.login?.ctas[0] || ''}
               </Button>
             </Container>
 
             <Wrapper>
-              <Title>New to Britbox?</Title>
-              <Paragraph>
-                Glad you're here. Let's get you set with the best of British TV.
-              </Paragraph>
-              <Paragraph>
-                Star your 7-day FREE trial, then just $6.99/month or %69.99/year
-              </Paragraph>
+              <Title>{britboxConfig[country]?.login?.title || ''}</Title>
+              <Paragraph>{britboxConfig[country]?.login?.description || ''}</Paragraph>
+              <Paragraph>{britboxConfig[country]?.login['description-2'] || ''}</Paragraph>
 
               <Button
                 outline
@@ -252,7 +274,7 @@ const Login = () => {
                 style={suscribeStyle}
                 onPress={() => navigation.navigate('SignUp')}
               >
-                <SuscribeText>Suscribe now</SuscribeText>
+                <SuscribeText>{britboxConfig[country]?.login?.ctas[1] || ''}</SuscribeText>
               </Button>
             </Wrapper>
           </ScrollView>
@@ -262,13 +284,12 @@ const Login = () => {
           onClose={() => setIsForgotModalVisible(false)}
         >
           <ForgotModalContainer>
-            <ModalTitle>Forgot your password?</ModalTitle>
+            <ModalTitle>{t('forgotpassword.title')}</ModalTitle>
             {isForgotModalSuccess ? (
               <>
                 <ModalSubTitle>
-                  We have sent a password reset link to <EmailLink>{forgotEmail}</EmailLink> Please
-                  click this link to reset your password. If you don't see this email, please check
-                  your junk mail folder.
+                  {t('forgotpassword.description1')} <EmailLink>{forgotEmail}</EmailLink>{' '}
+                  {t('forgotpassword.description2')}
                 </ModalSubTitle>
                 <Button
                   onPress={() => setIsForgotModalVisible(false)}
@@ -278,16 +299,14 @@ const Login = () => {
                   style={cancelStyle}
                   color={theme.PRIMARY_FOREGROUND_COLOR}
                 >
-                  Ok, got it.
+                  {t('forgotpassword.okgotit')}
                 </Button>
               </>
             ) : (
               <>
-                <ModalSubTitle>
-                  Enter you registered email address and we send you a link to reset your password.
-                </ModalSubTitle>
+                <ModalSubTitle>{t('forgotpassword.description3')}</ModalSubTitle>
                 <Input
-                  label="Email"
+                  label={t('signup:field.email')}
                   value={forgotEmail}
                   onChangeText={(text) => setForgotEmail(text)}
                   error={errorForgotEmail}
@@ -300,7 +319,7 @@ const Login = () => {
                   fontWeight="medium"
                   color={theme.PRIMARY_FOREGROUND_COLOR}
                 >
-                  Submit
+                  {t('forgotpassword.submit')}
                 </Button>
                 <Button
                   outline
@@ -310,7 +329,7 @@ const Login = () => {
                   style={cancelStyle}
                   onPress={() => setIsForgotModalVisible(false)}
                 >
-                  Cancel
+                  {t('signup:cancel')}
                 </Button>
               </>
             )}

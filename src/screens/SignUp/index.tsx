@@ -1,4 +1,5 @@
-/* eslint-disable no-unused-vars */
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/no-unescaped-entities */
 import React, { useState, useEffect } from 'react';
 import { KeyboardAvoidingView, Platform } from 'react-native';
@@ -11,7 +12,6 @@ import { signupRequest } from '@store/modules/user/saga';
 import { registerRequestSuccess } from '@store/modules/user/actions';
 import { EvergentSignupResponseError } from '@store/modules/user/types';
 import { AppState } from '@store/modules/rootReducer';
-import Orientation from 'react-native-orientation-locker';
 import { useTranslation } from 'react-i18next';
 
 import { useNavigation } from '@react-navigation/native';
@@ -47,7 +47,7 @@ const cancelStyle = { marginTop: 15, borderWidth: 0 };
 const SignUp = () => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
-  const { t } = useTranslation('signup');
+  const { t } = useTranslation(['signup', 'signin']);
 
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
@@ -56,6 +56,10 @@ const SignUp = () => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [isCheckPrivacy, setIsCheckPrivacy] = useState(false);
   const theme = useSelector((state: AppState) => state.theme.theme);
+  const britboxConfig = useSelector((state: AppState) => state.core.britboxConfig);
+  const segment = useSelector((state: AppState) => state.core.segment);
+  const country: any = segment.toLocaleLowerCase() || 'us';
+
   const [loading, setLoading] = useState(false);
 
   const [errorState, setErrorState] = useState(false);
@@ -100,66 +104,18 @@ const SignUp = () => {
   };
 
   const signup = async () => {
-    const hasErrorFirstName = firstName.trim() === '';
-    const hasErrorLastName = lastName.trim() === '';
-    const hasErrorEmail = email.trim() === '';
-    const hasErrorPassword = password.trim() === '';
-    const hasErrorConfirmPassword = confirmPassword.trim() === '';
-    const hasErrorConfirmPasswordMatch = confirmPassword.trim() !== password.trim();
-
-    setErrorFirstName(
-      hasErrorFirstName
-        ? error
-        : {
-            text: '',
-          }
-    );
-
-    setErrorLastName(
-      hasErrorLastName
-        ? error
-        : {
-            text: '',
-          }
-    );
-
-    setErrorEmail(
-      hasErrorEmail
-        ? error
-        : {
-            text: '',
-          }
-    );
-
-    setErrorPassword(
-      hasErrorPassword
-        ? error
-        : {
-            text: '',
-          }
-    );
-
-    setErrorConfirmPassword(
-      hasErrorConfirmPassword
-        ? error
-        : {
-            text: '',
-          }
-    );
-
-    if (!hasErrorConfirmPassword) {
-      if (hasErrorConfirmPasswordMatch) {
-        setErrorConfirmPassword(matchError);
-      }
-    }
+    const hasErrorFirstName = doValidateFirstName();
+    const hasErrorLastName = doValidateLastName();
+    const hasErrorEmail = doValidateEmail();
+    const hasErrorPassword = doValidatePassword();
+    const hasErrorConfirmPassword = doValidateConfirmPassword();
 
     if (
-      !hasErrorFirstName &&
-      !hasErrorLastName &&
-      !hasErrorEmail &&
-      !hasErrorPassword &&
-      !hasErrorConfirmPassword &&
-      !hasErrorConfirmPasswordMatch
+      hasErrorFirstName &&
+      hasErrorLastName &&
+      hasErrorEmail &&
+      hasErrorPassword &&
+      hasErrorConfirmPassword
     ) {
       setLoading(true);
       setErrorState(false);
@@ -191,39 +147,163 @@ const SignUp = () => {
     }
   };
 
-  useEffect(() => {
-    if (firstName.trim() !== '') {
-      setErrorFirstName({
-        text: '',
-      });
-    }
-    if (lastName.trim() !== '') {
-      setErrorLastName({
-        text: '',
-      });
-    }
-    if (email.trim() !== '') {
-      setErrorEmail({
-        text: '',
-      });
-    }
-    if (password.trim() !== '') {
-      setErrorPassword({
-        text: '',
-      });
-    }
-    if (confirmPassword.trim() !== '' || confirmPassword.trim() === password.trim()) {
-      setErrorConfirmPassword({
-        text: '',
-      });
+  const doValidateFirstName = () => {
+    const hasErrorFirstName = firstName.trim() === '';
+
+    setErrorFirstName(
+      hasErrorFirstName
+        ? error
+        : {
+            text: '',
+          }
+    );
+
+    if (!hasErrorFirstName) {
+      return true;
     }
 
+    return false;
+  };
+
+  const doValidateLastName = () => {
+    const hasErrorLastName = lastName.trim() === '';
+
+    setErrorLastName(
+      hasErrorLastName
+        ? error
+        : {
+            text: '',
+          }
+    );
+
+    if (!hasErrorLastName) {
+      return true;
+    }
+
+    return false;
+  };
+
+  const doValidateEmail = () => {
+    const hasErrorEmail = email.trim() === '';
+
+    setErrorEmail(
+      hasErrorEmail
+        ? error
+        : {
+            text: '',
+          }
+    );
+
+    if (!hasErrorEmail) {
+      return true;
+    }
+
+    return false;
+  };
+
+  const doValidatePassword = () => {
+    const regexp = new RegExp(
+      britboxConfig[country]?.registration?.validation['password-regex']
+        .toString()
+        .replace(/\//g, '')
+    );
+
+    const hasErrorPassword = password.trim() === '';
+    const hasErrorRegexPassword = !regexp.test(password);
+
+    setErrorPassword(
+      hasErrorPassword
+        ? error
+        : {
+            text: '',
+          }
+    );
+
+    if (!hasErrorPassword) {
+      setErrorPassword(
+        hasErrorRegexPassword
+          ? {
+              text: britboxConfig[country]?.registration?.validation?.messages['password-rule'],
+            }
+          : {
+              text: '',
+            }
+      );
+    }
+
+    if (!hasErrorPassword && !hasErrorRegexPassword) {
+      return true;
+    }
+
+    return false;
+  };
+
+  const doValidateConfirmPassword = () => {
+    const hasErrorConfirmPassword = confirmPassword.trim() === '';
+    const hasErrorConfirmPasswordMatch = confirmPassword.trim() !== password.trim();
+
+    setErrorConfirmPassword(
+      hasErrorConfirmPassword
+        ? error
+        : {
+            text: '',
+          }
+    );
+
+    if (!hasErrorConfirmPassword) {
+      if (hasErrorConfirmPasswordMatch) {
+        setErrorConfirmPassword(matchError);
+      }
+    }
+
+    if (!hasErrorConfirmPassword && !hasErrorConfirmPasswordMatch) {
+      return true;
+    }
+
+    return false;
+  };
+
+  useEffect(() => {
     setErrorState(false);
     setErrorMessage(evergentSignupResponseError);
   }, [firstName, lastName, email, password, confirmPassword]);
 
   useEffect(() => {
-    // Orientation.lockToPortrait();
+    doValidateFirstName();
+  }, [firstName]);
+
+  useEffect(() => {
+    doValidateLastName();
+  }, [lastName]);
+
+  useEffect(() => {
+    doValidateEmail();
+  }, [email]);
+
+  useEffect(() => {
+    doValidatePassword();
+  }, [password]);
+
+  useEffect(() => {
+    doValidateConfirmPassword();
+  }, [confirmPassword]);
+
+  useEffect(() => {
+    setErrorFirstName({
+      text: '',
+    });
+    setErrorLastName({
+      text: '',
+    });
+    setErrorEmail({
+      text: '',
+    });
+    setErrorPassword({
+      text: '',
+    });
+    setErrorConfirmPassword({
+      text: '',
+    });
   }, []);
 
   return (
@@ -233,7 +313,7 @@ const SignUp = () => {
         shadow
         rightComponent={
           <Button link onPress={() => navigation.goBack()} color={theme.PRIMARY_FOREGROUND_COLOR}>
-            Signin
+            {t('signin:signin')}
           </Button>
         }
       />
@@ -242,9 +322,9 @@ const SignUp = () => {
           <ScrollView bounces={false}>
             <Container>
               <TitleWrapper>
-                <Title>{t('subscribetobritbox')}</Title>
-                <Paragraph>Start your free trial then pay $69.99/year or $6.99/month</Paragraph>
-                <SubTitle>Step 1 of 2: Create Your Account</SubTitle>
+                <Title>{britboxConfig[country]?.registration?.title || ''}</Title>
+                <Paragraph>{britboxConfig[country]?.registration?.description || ''}</Paragraph>
+                <SubTitle>{britboxConfig[country]?.registration['description-2'] || ''}</SubTitle>
               </TitleWrapper>
               {errorState && (
                 <ErrorText>
@@ -256,34 +336,39 @@ const SignUp = () => {
                 </ErrorText>
               )}
               <Input
-                label="First Name"
+                label={t('field.firstname')}
                 value={firstName}
                 onChangeText={(text) => setFirstName(text)}
+                onBlur={() => doValidateFirstName()}
                 error={errorFirstName}
               />
               <Input
-                label="Last Name"
+                label={t('field.lastname')}
                 value={lastName}
                 onChangeText={(text) => setLastName(text)}
+                onBlur={() => doValidateLastName()}
                 error={errorLastName}
               />
               <Input
-                label="Email"
+                label={t('field.email')}
                 value={email}
                 onChangeText={(text) => setEmail(text)}
+                onBlur={() => doValidateEmail()}
                 error={errorEmail}
               />
               <Input
-                label="Create Password"
+                label={t('field.createpassword')}
                 value={password}
                 onChangeText={(text) => setPassword(text)}
+                onBlur={() => doValidatePassword()}
                 secureTextEntry
                 error={errorPassword}
               />
               <Input
-                label="Confirm Password"
+                label={t('field.confirmpassword')}
                 value={confirmPassword}
                 onChangeText={(text) => setConfirmPassword(text)}
+                onBlur={() => doValidateConfirmPassword()}
                 secureTextEntry
                 error={errorConfirmPassword}
               />
@@ -297,10 +382,10 @@ const SignUp = () => {
                 fontWeight="medium"
                 color={theme.PRIMARY_FOREGROUND_COLOR}
               >
-                Create Account
+                {t('createaccount')}
               </Button>
               <Button outline size="big" style={cancelStyle} onPress={() => navigation.goBack()}>
-                <CancelText>Cancel</CancelText>
+                <CancelText>{t('cancel')}</CancelText>
               </Button>
             </Container>
             <Wrapper>
