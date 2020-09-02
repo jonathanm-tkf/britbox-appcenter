@@ -38,11 +38,11 @@ export const Wrapper = styled.View`
 
 export const CustomShadow = styled.View`
   flex: 1;
-  shadow-color: #000;
-  shadow-offset: 0px 15px;
   background-color: ${(props: ThemeState) => props.theme.PRIMARY_COLOR_OPAQUE};
+  shadow-color: #000;
   shadow-opacity: 0.8;
-  shadow-radius: 15px;
+  shadow-offset: 0px 8px;
+  shadow-radius: 10px;
   elevation: 3;
   border-radius: 8px;
 `;

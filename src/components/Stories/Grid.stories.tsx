@@ -5,6 +5,8 @@ import { action } from '@storybook/addon-actions';
 import { Dimensions } from 'react-native';
 
 import Grid from '@components/Grid';
+import { widthPercentageToDP as vw } from 'react-native-responsive-screen';
+import { wp } from '@src/utils/dimension';
 import Theme from './Theme';
 
 const { width } = Dimensions.get('window');
@@ -368,7 +370,13 @@ storiesOf('Grid', module)
   .add('two column', () => (
     <Grid
       data={DATA.items}
-      element={{ width: 195, height: 280, marginBottom: 20 }}
+      numColumns={2}
+      element={{
+        width: vw(50) - wp(20),
+        height: vw(50 * 1.5),
+        marginBottom: 20,
+        marginHorizontal: wp(8),
+      }}
       imageType="poster"
       onPress={action('tapped-item')}
     />
@@ -376,7 +384,13 @@ storiesOf('Grid', module)
   .add('three column', () => (
     <Grid
       data={DATA.items}
-      element={{ width: 125, height: 165, marginBottom: 20 }}
+      element={{
+        width: vw(33.333) - wp(10),
+        height: vw(33.333 * 1.5),
+        marginBottom: 20,
+        marginHorizontal: wp(5),
+      }}
+      numColumns={3}
       imageType="poster"
       onPress={action('tapped-item')}
     />
@@ -384,7 +398,13 @@ storiesOf('Grid', module)
   .add('title', () => (
     <Grid
       data={DATA.items}
-      element={{ width: 100, height: 125 }}
+      numColumns={3}
+      element={{
+        width: vw(33.333) - wp(10),
+        height: vw(33.333 * 1.5),
+        marginBottom: 20,
+        marginHorizontal: wp(5),
+      }}
       onPress={action('tapped-item')}
       title="Title Section"
     />

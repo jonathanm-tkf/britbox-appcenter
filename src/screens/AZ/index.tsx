@@ -9,6 +9,7 @@ import Header from '@components/Header';
 import { AppState } from '@store/modules/rootReducer';
 import { useSelector } from 'react-redux';
 import RNPickerSelect from 'react-native-picker-select';
+import { widthPercentageToDP as vw } from 'react-native-responsive-screen';
 
 import {
   MassiveSDKModelItemSummary,
@@ -23,6 +24,7 @@ import { ArrowBottomIcon } from '@assets/icons';
 import { white } from 'react-native-paper/lib/typescript/src/styles/colors';
 import { rgba } from 'polished';
 import { compact } from 'lodash';
+import { wp } from '@src/utils/dimension';
 import { dataDummy } from './data';
 import {
   Container,
@@ -315,8 +317,18 @@ const AZ = () => {
               <Grid
                 items={data.items || []}
                 title={t('az:title')}
-                spacing={10}
                 loading={animationContinuosScroll}
+                numColumns={3}
+                element={{
+                  width: vw(33.333) - wp(20),
+                  height: vw(33.333 * 1.25),
+                  marginBottom: 20,
+                  marginHorizontal: wp(5),
+                }}
+                containerStyle={{
+                  marginTop: 10,
+                  paddingHorizontal: wp(15),
+                }}
               />
             </ContainerGrid>
           </WrapperContinuosScroll>

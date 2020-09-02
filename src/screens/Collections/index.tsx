@@ -2,6 +2,7 @@ import React, { useState, useEffect, useMemo } from 'react';
 import { Animated, NativeScrollEvent, Dimensions } from 'react-native';
 import { useNavigation, useRoute, RouteProp } from '@react-navigation/native';
 import { BackIcon, ArrowBottomIcon } from '@assets/icons';
+import { widthPercentageToDP as vw } from 'react-native-responsive-screen';
 
 import {
   MassiveSDKModelItemSummary,
@@ -32,6 +33,7 @@ import { useSelector } from 'react-redux';
 import { AppState } from '@store/modules/rootReducer';
 import { Header } from '@store/modules/core/types';
 import { Item } from '@screens/ModalFilter';
+import { wp } from '@src/utils/dimension';
 import { dataDummy } from './data';
 import {
   Container,
@@ -111,6 +113,11 @@ const Collections = () => {
 
   const [order, setOrder] = useState('asc');
   const [orderBy, setOrderBy] = useState('a-z');
+
+  const containerStyles = {
+    marginTop: 10,
+    paddingHorizontal: wp(15),
+  };
 
   const isGenre = useMemo(() => {
     if (menu && data) {
@@ -410,6 +417,14 @@ const Collections = () => {
                     key={key.toString()}
                     items={item?.list?.items || []}
                     title={item?.title || ''}
+                    numColumns={3}
+                    element={{
+                      width: vw(33.333) - wp(20),
+                      height: vw(33.333 * 1.25),
+                      marginBottom: 20,
+                      marginHorizontal: wp(5),
+                    }}
+                    containerStyle={containerStyles}
                   />
                 );
               case 'grid-infinite':
@@ -454,6 +469,14 @@ const Collections = () => {
                           : item?.title || ''
                       }
                       loading={animationContinuosScroll}
+                      numColumns={3}
+                      element={{
+                        width: vw(33.333) - wp(20),
+                        height: vw(33.333 * 1.25),
+                        marginBottom: 20,
+                        marginHorizontal: wp(5),
+                      }}
+                      containerStyle={containerStyles}
                     />
                   </WrapperContinuosScroll>
                 );
@@ -465,9 +488,15 @@ const Collections = () => {
                     key={key.toString()}
                     items={item?.list?.items || []}
                     title={item?.title || ''}
-                    width={170}
-                    height={100}
-                    imageType="tile"
+                    imageType={['wallpaper', 'tile']}
+                    numColumns={2}
+                    element={{
+                      width: vw(50) - wp(26),
+                      height: vw(50) - vw(26),
+                      marginBottom: 20,
+                      marginHorizontal: wp(5),
+                    }}
+                    containerStyle={containerStyles}
                   />
                 ) : (
                   <Episodes key={key.toString()} {...{ item }} />
@@ -490,8 +519,7 @@ const Collections = () => {
                     key={key.toString()}
                     items={item?.list?.items || []}
                     title={item?.list?.title || ''}
-                    width={width - 40}
-                    height={190}
+                    element={{ width: width - 40, height: 215 }}
                     imageType="wallpaper"
                     cardContent={(card: MassiveSDKModelItemSummary) => <GridContent data={card} />}
                     cardContentAfter={(card: MassiveSDKModelItemSummary) => (

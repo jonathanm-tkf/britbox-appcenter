@@ -63,7 +63,7 @@ export const SpaceNoHeroSlim = styled.View`
 
 export const GridInnerContent = styled.View`
   position: absolute;
-  bottom: 5px;
+  bottom: 0;
   width: 100%;
   align-self: center;
 `;
@@ -71,6 +71,7 @@ export const GridInnerContent = styled.View`
 export const GridInnerContentAfter = styled.View`
   width: 100%;
   align-self: center;
+  margin-bottom: 20px;
 `;
 
 export const Gradient = styled(LinearGradient).attrs((props: ThemeState) => ({
