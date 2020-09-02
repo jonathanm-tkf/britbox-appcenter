@@ -3,12 +3,13 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useEffect, useState, useRef } from 'react';
-import { View, Platform, Alert, Text, Switch } from 'react-native';
+import { View, Platform, Alert, Text, ScrollView } from 'react-native';
 import { getStatusBarHeight } from 'react-native-iphone-x-helper';
 import { ThemeState } from '@store/modules/theme/types';
 import { BackIcon, CelularIcon } from '@assets/icons';
 import { updateProfileRequest, resetPasswordRequest } from '@store/modules/user/saga';
 import { getProfileRequest } from '@store/modules/user/actions';
+import { useTranslation } from 'react-i18next';
 import HeaderCustom from '@components/HeaderCustom';
 import TabsComponent from '@components/TabsComponent';
 import { Button } from '@components/Button';
@@ -48,6 +49,7 @@ const evergentResponseError: EvergentResponseError = {
 };
 
 export default function MyAccount() {
+  const { t } = useTranslation(['myaccount', 'signup']);
   const dispatch = useDispatch();
   const { navigate } = useNavigation();
   const user = useSelector((state: AppState) => state.user);
@@ -68,7 +70,8 @@ export default function MyAccount() {
     <Gradient>
       <Wrapper>
         <FooterTitle>
-          Customer Service: {britboxConfig[country]['customer-service']?.phone || ''}
+          {t('signup:field.customerservice')}:{' '}
+          {britboxConfig[country]['customer-service']?.phone || ''}
         </FooterTitle>
         <Paragraph>{britboxConfig[country]['customer-service']?.availability || ''}</Paragraph>
         <LinkTitle>{britboxConfig[country]['customer-service']?.email || ''}</LinkTitle>
@@ -229,7 +232,7 @@ export default function MyAccount() {
         <ScrollableContainer>
           <ScrollableContainerPaddingHorizontal>
             <TitleWrapper>
-              <SubTitle>Upgrade your Details</SubTitle>
+              <SubTitle>{t('myaccount.yourdetails.screentitle')}</SubTitle>
             </TitleWrapper>
             {errorState && (
               <ErrorText>
@@ -241,28 +244,28 @@ export default function MyAccount() {
               </ErrorText>
             )}
             <Input
-              label="First Name"
+              label={t('signup:field.firstname')}
               value={firstName}
               onChangeText={(text) => setFirstName(text)}
               onBlur={() => doValidateFirstName()}
               error={errorFirstName}
             />
             <Input
-              label="Last Name"
+              label={t('signup:field.lastname')}
               value={lastName}
               onChangeText={(text) => setLastName(text)}
               onBlur={() => doValidateLastName()}
               error={errorLastName}
             />
             <Input
-              label="Email"
+              label={t('signup:field.email')}
               value={email}
               onChangeText={(text) => setEmail(text)}
               onBlur={() => doValidateEmail()}
               error={errorEmail}
             />
             <Input
-              label="Mobile"
+              label={t('signup:field.mobile')}
               value={mobile}
               onChangeText={(text) => setMobile(text)}
               error={errorMobile}
@@ -276,11 +279,10 @@ export default function MyAccount() {
               fontWeight="medium"
               color={theme.PRIMARY_FOREGROUND_COLOR}
             >
-              Update
+              {t('update')}
             </Button>
             <Paragraph>
-              Your information will be used in accordance with our{' '}
-              <LinkTitle>Privacy Policy</LinkTitle>.
+              {t('myaccount.yourdetails.bottomtext')} <LinkTitle>{t('privacypolicy')}</LinkTitle>.
             </Paragraph>
           </ScrollableContainerPaddingHorizontal>
           {tabBottomView()}
@@ -294,6 +296,12 @@ export default function MyAccount() {
     const [newPassword, setNewPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [loading, setLoading] = useState(false);
+
+    const regexp = new RegExp(
+      britboxConfig[country]?.registration?.validation['password-regex']
+        .toString()
+        .replace(/\//g, '')
+    );
 
     const [errorState, setErrorState] = useState(false);
     const [errorMessage, setErrorMessage] = useState(evergentResponseError);
@@ -349,6 +357,7 @@ export default function MyAccount() {
 
     const doValidateCurPassword = () => {
       const hasErrorCurPassword = curPassword.trim() === '';
+      const hasErrorRegexPassword = !regexp.test(curPassword);
 
       setErrorCurPassword(
         hasErrorCurPassword
@@ -359,6 +368,18 @@ export default function MyAccount() {
       );
 
       if (!hasErrorCurPassword) {
+        setErrorCurPassword(
+          hasErrorRegexPassword
+            ? {
+                text: britboxConfig[country]?.registration?.validation?.messages['password-rule'],
+              }
+            : {
+                text: '',
+              }
+        );
+      }
+
+      if (!hasErrorCurPassword && !hasErrorRegexPassword) {
         return true;
       }
 
@@ -367,6 +388,7 @@ export default function MyAccount() {
 
     const doValidateNewPassword = () => {
       const hasErrorNewPassword = newPassword.trim() === '';
+      const hasErrorRegexPassword = !regexp.test(newPassword);
 
       setErrorNewPassword(
         hasErrorNewPassword
@@ -377,6 +399,18 @@ export default function MyAccount() {
       );
 
       if (!hasErrorNewPassword) {
+        setErrorNewPassword(
+          hasErrorRegexPassword
+            ? {
+                text: britboxConfig[country]?.registration?.validation?.messages['password-rule'],
+              }
+            : {
+                text: '',
+              }
+        );
+      }
+
+      if (!hasErrorNewPassword && !hasErrorRegexPassword) {
         return true;
       }
 
@@ -442,7 +476,7 @@ export default function MyAccount() {
         <ScrollContent>
           <ScrollableContainerPaddingHorizontal>
             <TitleWrapper>
-              <SubTitle>Change Password</SubTitle>
+              <SubTitle>{t('myaccount.password.screentitle')}</SubTitle>
             </TitleWrapper>
             {errorState && (
               <ErrorText>
@@ -454,7 +488,7 @@ export default function MyAccount() {
               </ErrorText>
             )}
             <Input
-              label="Current password"
+              label={t('signup:field.currentpassword')}
               value={curPassword}
               onChangeText={(text) => setCurPassword(text)}
               onBlur={() => doValidateCurPassword()}
@@ -462,7 +496,7 @@ export default function MyAccount() {
               error={errorCurPassword}
             />
             <Input
-              label="New password"
+              label={t('signup:field.newpassword')}
               value={newPassword}
               onChangeText={(text) => setNewPassword(text)}
               onBlur={() => doValidateNewPassword()}
@@ -470,7 +504,7 @@ export default function MyAccount() {
               error={errorNewPassword}
             />
             <Input
-              label="Confirm password"
+              label={t('signup:field.confirmpassword')}
               value={confirmPassword}
               onChangeText={(text) => setConfirmPassword(text)}
               onBlur={() => doValidateConfirmPassword()}
@@ -485,7 +519,7 @@ export default function MyAccount() {
               fontWeight="medium"
               color={theme.PRIMARY_FOREGROUND_COLOR}
             >
-              Update
+              {t('update')}
             </Button>
           </ScrollableContainerPaddingHorizontal>
         </ScrollContent>
@@ -499,7 +533,7 @@ export default function MyAccount() {
       <ScrollableContainer>
         <ScrollableContainerPaddingHorizontal>
           <TitleWrapper>
-            <SubTitle>Your subscription</SubTitle>
+            <SubTitle>{t('myaccount.subscription.screentitle')}</SubTitle>
           </TitleWrapper>
           <SubscriptionParagraph>
             You are subscribed directly via Android. Please go to Google Subscription to review or
@@ -550,7 +584,7 @@ export default function MyAccount() {
         <ScrollableContainer>
           <ScrollableContainerPaddingHorizontal>
             <TitleWrapper>
-              <SubTitle>Newsletter preferences</SubTitle>
+              <SubTitle>{t('myaccount.newsletter.newsletterpreferences')}</SubTitle>
             </TitleWrapper>
             {errorState && (
               <ErrorText>
@@ -567,7 +601,7 @@ export default function MyAccount() {
                 onValueChange={(value: boolean) => setIsNewsletters(value)}
               />
               <RowContent>
-                <NewsParagraph>BritBox newsletter, special promotions and offers.</NewsParagraph>
+                <NewsParagraph>{t('myaccount.newsletter.description')}</NewsParagraph>
               </RowContent>
             </RowContainer>
             <Button
@@ -579,11 +613,10 @@ export default function MyAccount() {
               fontWeight="medium"
               color={theme.PRIMARY_FOREGROUND_COLOR}
             >
-              Update
+              {t('update')}
             </Button>
             <Paragraph>
-              Your information will be used in accordance with our{' '}
-              <LinkTitle>Privacy Policy</LinkTitle>.
+              {t('myaccount.newsletter.bottomtext')} <LinkTitle>{t('privacypolicy')}</LinkTitle>.
             </Paragraph>
           </ScrollableContainerPaddingHorizontal>
           {tabBottomView()}
@@ -595,18 +628,22 @@ export default function MyAccount() {
   const DATA = [
     {
       key: 'details',
-      title: 'Your Details ',
+      title: `${t('myaccount.yourdetails.title')} `,
       content: () => <DetailsRoute />,
     },
-    { key: 'password', title: 'Password ', content: () => <PasswordRoute /> },
+    {
+      key: 'password',
+      title: `${t('myaccount.password.title')} `,
+      content: () => <PasswordRoute />,
+    },
     {
       key: 'subscription',
-      title: 'Subscription ',
+      title: `${t('myaccount.subscription.title')} `,
       content: () => <SubscriptionRoute />,
     },
     {
       key: 'newsletter',
-      title: 'Newsletter ',
+      title: `${t('myaccount.newsletter.title')} `,
       content: () => <NewsletterRoute />,
     },
   ];
@@ -616,7 +653,7 @@ export default function MyAccount() {
       <HeaderCustom isBack shadow />
       <Container>
         <TitleWrapper>
-          <Title>Account Details</Title>
+          <Title>{t('myaccount.screentitle')}</Title>
         </TitleWrapper>
         <Container>
           <TabsComponent routes={DATA} />

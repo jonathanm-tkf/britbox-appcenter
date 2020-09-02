@@ -3,7 +3,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useState } from 'react';
-import { Text } from 'react-native';
+import { Text, Alert, Linking } from 'react-native';
 import MultiSlider from '@ptomasroos/react-native-multi-slider';
 import {
   validateContactPasswordRequest,
@@ -17,6 +17,7 @@ import {
   useClearByFocusCell,
 } from 'react-native-confirmation-code-field';
 import HeaderCustom from '@components/HeaderCustom';
+import { useTranslation } from 'react-i18next';
 import { Button } from '@components/Button';
 import { Input } from '@components/Input';
 import { useSelector } from 'react-redux';
@@ -75,6 +76,7 @@ const evergentResponseError: EvergentResponseError = {
 const defaultParentalControlDetail: BritboxDataEvergentModelsGetParentalControlDetailsResponseMessageBaseResponse = {};
 
 export default function ParentalControls() {
+  const { t } = useTranslation(['myaccount', 'signup', 'layout']);
   const { navigate } = useNavigation();
   const [password, setPassword] = useState('');
   const [isAuthorize, setIsAuthorize] = useState(false);
@@ -165,6 +167,27 @@ export default function ParentalControls() {
 
   const [errorState, setErrorState] = useState(false);
   const [errorMessage, setErrorMessage] = useState(evergentResponseError);
+
+  const openURLButton = async (link: string) => {
+    // Checking if the link is supported for links with custom URL scheme.
+    const supported = await Linking.canOpenURL(link);
+    if (supported) {
+      // Opening the link with some app, if the URL scheme is "http" the web link should be opened
+      // by some browser in the mobile
+
+      Alert.alert(
+        t('layout:openinbrowser'),
+        '',
+        [
+          { text: t('layout:cancel'), onPress: () => {}, style: 'cancel' },
+          { text: t('layout:open'), onPress: () => Linking.openURL(link.trim()) },
+        ],
+        { cancelable: false }
+      );
+    } else {
+      Alert.alert(`Don't know how to open this URL: ${link}`);
+    }
+  };
 
   const validateContactPassword = async () => {
     setLoading(true);
@@ -292,7 +315,8 @@ export default function ParentalControls() {
     <Gradient>
       <Wrapper>
         <FooterTitle>
-          Customer Service: {britboxConfig[country]['customer-service']?.phone || ''}
+          {t('signup:field.customerservice')}:{' '}
+          {britboxConfig[country]['customer-service']?.phone || ''}
         </FooterTitle>
         <Paragraph>{britboxConfig[country]['customer-service']?.availability || ''}</Paragraph>
         <LinkTitle>{britboxConfig[country]['customer-service']?.email || ''}</LinkTitle>
@@ -310,7 +334,7 @@ export default function ParentalControls() {
           </TitleWrapper>
           <Paragraph>{britboxConfig[country]['parental-controls']?.description || ''}</Paragraph>
           <TitleWrapper>
-            <Title>Enter your password</Title>
+            <Title>{t('parentalcontrols.screentitle')}</Title>
           </TitleWrapper>
           {errorState && (
             <ErrorText>
@@ -323,7 +347,7 @@ export default function ParentalControls() {
           )}
           <PasswordContainer>
             <Input
-              label="Password"
+              label={t('signup:field.password')}
               value={password}
               secureTextEntry
               onChangeText={(text) => setPassword(text)}
@@ -336,7 +360,7 @@ export default function ParentalControls() {
               fontWeight="medium"
               color={theme.PRIMARY_FOREGROUND_COLOR}
             >
-              Continue
+              {t('signup:continue')}
             </Button>
           </PasswordContainer>
           {tabBottomView()}
@@ -349,7 +373,7 @@ export default function ParentalControls() {
           <Paragraph>{britboxConfig[country]['parental-controls']?.description || ''}</Paragraph>
           {parentalControlDetail?.parentalControl && (
             <PinBtnView>
-              <PinBtnText>Parental controls set</PinBtnText>
+              <PinBtnText>{t('parentalcontrols.parentalcontrolsset')}</PinBtnText>
               <Button
                 onPress={() => updateParentalControlDetail('false')}
                 style={turnOffPinStyle}
@@ -359,7 +383,7 @@ export default function ParentalControls() {
                 size="big"
                 fontWeight="medium"
               >
-                Turn Off PIN
+                {t('parentalcontrols.turnoffPIN')}
               </Button>
             </PinBtnView>
           )}
@@ -372,10 +396,8 @@ export default function ParentalControls() {
               }
             </ErrorText>
           )}
-          <SubTitle>Step 1: Set your 4 digit PIN</SubTitle>
-          <Paragraph>
-            Your PIN will be set across all browsers and devices when you access BritBox programmes.
-          </Paragraph>
+          <SubTitle>{t('parentalcontrols.setPINText')}</SubTitle>
+          <Paragraph>{t('parentalcontrols.setPINDesc')}</Paragraph>
           <PINView>
             <CodeField
               ref={ref}
@@ -396,12 +418,14 @@ export default function ParentalControls() {
               size="big"
               fontWeight="medium"
             >
-              Clear all
+              {t('parentalcontrols.clearall')}
             </Button>
           )}
-          {value !== '' && value.length !== 4 && <PINErrorText>Pin must be 4 digits.</PINErrorText>}
+          {value !== '' && value.length !== 4 && (
+            <PINErrorText>{t('parentalcontrols.PINerror')}</PINErrorText>
+          )}
           <Gradient>
-            <SubTitle>Step 2: Set level of viewing restriction</SubTitle>
+            <SubTitle>{t('parentalcontrols.levelText')}</SubTitle>
             <Paragraph>
               {multiSliderValue === 100 &&
                 britboxConfig[country]['parental-controls']?.levels[0]['message-top']}
@@ -413,7 +437,11 @@ export default function ParentalControls() {
                 britboxConfig[country]['parental-controls']?.levels[3]['message-top']}
               {multiSliderValue === 1 &&
                 britboxConfig[country]['parental-controls']?.levels[4]['message-top']}{' '}
-              <LinkTitle>
+              <LinkTitle
+                onPress={() =>
+                  openURLButton(britboxConfig[country]['parental-controls']['help-link'] || '')
+                }
+              >
                 {britboxConfig[country]['parental-controls']['help-text'] || ''}
               </LinkTitle>
             </Paragraph>
@@ -549,7 +577,7 @@ export default function ParentalControls() {
               fontWeight="medium"
               color={theme.PRIMARY_FOREGROUND_COLOR}
             >
-              Save
+              {t('signup:save')}
             </Button>
             {value.length !== 4 && <DisabledOverlay />}
           </Gradient>

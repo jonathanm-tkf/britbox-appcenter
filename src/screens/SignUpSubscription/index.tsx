@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable no-unused-vars */
 /* eslint-disable max-len */
 /* eslint-disable import/no-extraneous-dependencies */
@@ -57,6 +58,9 @@ const SignUpSubscription = () => {
   const { t } = useTranslation('signup');
   const theme = useSelector((state: AppState) => state.theme.theme);
   const user = useSelector((state: AppState) => state.user);
+  const britboxConfig = useSelector((state: AppState) => state.core.britboxConfig);
+  const segment = useSelector((state: AppState) => state.core.segment);
+  const country: any = segment.toLocaleLowerCase() || 'us';
 
   const cancelStyle = { marginTop: 15, borderWidth: 0 };
   const textLeft = { textAlign: 'left' };
@@ -220,7 +224,6 @@ const SignUpSubscription = () => {
                 </Paragraph>
                 <SmallText>Total</SmallText>
                 <PriceTitle>
-                  {/* {`\uFE69`} */}
                   {htmlEntities.decode(packageData[packageIndex]?.currencySymbol)}{' '}
                   {packageData[packageIndex]?.retailPrice}
                 </PriceTitle>
@@ -233,7 +236,7 @@ const SignUpSubscription = () => {
                   fontWeight="medium"
                   color={theme.PRIMARY_FOREGROUND_COLOR}
                 >
-                  Start free trial
+                  {t('startfreetrial')}
                 </Button>
                 <Button
                   onPress={() => _doSuccessSubscription()}
@@ -242,14 +245,19 @@ const SignUpSubscription = () => {
                   fontWeight="medium"
                   style={cancelStyle}
                 >
-                  <CancelText>Cancel</CancelText>
+                  <CancelText>{t('cancel')}</CancelText>
                 </Button>
               </PaddingHorizontalView>
             </Container>
             <Wrapper>
-              <FooterTitle>Customer Service: 1-888-636-7662</FooterTitle>
-              <Paragraph>Available from noon-midnight EST</Paragraph>
-              <EmailTitle>support-us@britbox.com</EmailTitle>
+              <FooterTitle>
+                {t('field.customerservice')}:{' '}
+                {britboxConfig[country]['customer-service']?.phone || ''}
+              </FooterTitle>
+              <Paragraph>
+                {britboxConfig[country]['customer-service']?.availability || ''}
+              </Paragraph>
+              <EmailTitle>{britboxConfig[country]['customer-service']?.email || ''}</EmailTitle>
             </Wrapper>
           </ScrollView>
         </KeyboardAvoidingView>

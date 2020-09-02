@@ -1,7 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable no-unused-vars */
-/* eslint-disable react/no-unescaped-entities */
 import React, { useState, useEffect } from 'react';
 import { KeyboardAvoidingView, Platform, TouchableOpacity } from 'react-native';
 
@@ -13,7 +11,6 @@ import { forgotPasswordRequest } from '@store/modules/user/saga';
 import { AppState } from '@store/modules/rootReducer';
 import { ThemeProps } from '@store/modules/theme/types';
 import { EvergentLoginResponseError } from '@store/modules/user/types';
-import Orientation from 'react-native-orientation-locker';
 import { CloseIcon } from '@assets/icons';
 import { useTranslation } from 'react-i18next';
 import { useNavigation } from '@react-navigation/native';
@@ -53,7 +50,7 @@ const cancelStyle = { marginTop: 20, marginBottom: 10 };
 const Login = () => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
-  const { t } = useTranslation('signin');
+  const { t } = useTranslation(['signin', 'signup']);
   const theme = useSelector((state: AppState) => state.theme.theme);
   const britboxConfig = useSelector((state: AppState) => state.core.britboxConfig);
   const segment = useSelector((state: AppState) => state.core.segment);
@@ -210,8 +207,6 @@ const Login = () => {
     setErrorPassword({
       text: '',
     });
-
-    // Orientation.lockToPortrait();
   }, []);
 
   return (
@@ -236,14 +231,14 @@ const Login = () => {
                 </ErrorText>
               )}
               <Input
-                label="Username"
+                label={t('signup:field.username')}
                 value={user}
                 onChangeText={(text) => setUser(text)}
                 onBlur={() => doValidateUsername()}
                 error={errorUsername}
               />
               <Input
-                label="Password"
+                label={t('signup:field.password')}
                 value={password}
                 onChangeText={(text) => setPassword(text)}
                 onBlur={() => doValidatePassword()}
@@ -252,7 +247,7 @@ const Login = () => {
               />
               <ForgotContainer>
                 <TouchableOpacity activeOpacity={1} onPress={() => setIsForgotModalVisible(true)}>
-                  <ForgotText>Forgot your Password?</ForgotText>
+                  <ForgotText>{t('forgotpassword.title')}</ForgotText>
                 </TouchableOpacity>
               </ForgotContainer>
               <Button
@@ -289,13 +284,12 @@ const Login = () => {
           onClose={() => setIsForgotModalVisible(false)}
         >
           <ForgotModalContainer>
-            <ModalTitle>Forgot your password?</ModalTitle>
+            <ModalTitle>{t('forgotpassword.title')}</ModalTitle>
             {isForgotModalSuccess ? (
               <>
                 <ModalSubTitle>
-                  We have sent a password reset link to <EmailLink>{forgotEmail}</EmailLink> Please
-                  click this link to reset your password. If you don't see this email, please check
-                  your junk mail folder.
+                  {t('forgotpassword.description1')} <EmailLink>{forgotEmail}</EmailLink>{' '}
+                  {t('forgotpassword.description2')}
                 </ModalSubTitle>
                 <Button
                   onPress={() => setIsForgotModalVisible(false)}
@@ -305,16 +299,14 @@ const Login = () => {
                   style={cancelStyle}
                   color={theme.PRIMARY_FOREGROUND_COLOR}
                 >
-                  Ok, got it.
+                  {t('forgotpassword.okgotit')}
                 </Button>
               </>
             ) : (
               <>
-                <ModalSubTitle>
-                  Enter you registered email address and we send you a link to reset your password.
-                </ModalSubTitle>
+                <ModalSubTitle>{t('forgotpassword.description3')}</ModalSubTitle>
                 <Input
-                  label="Email"
+                  label={t('signup:field.email')}
                   value={forgotEmail}
                   onChangeText={(text) => setForgotEmail(text)}
                   error={errorForgotEmail}
@@ -327,7 +319,7 @@ const Login = () => {
                   fontWeight="medium"
                   color={theme.PRIMARY_FOREGROUND_COLOR}
                 >
-                  Submit
+                  {t('forgotpassword.submit')}
                 </Button>
                 <Button
                   outline
@@ -337,7 +329,7 @@ const Login = () => {
                   style={cancelStyle}
                   onPress={() => setIsForgotModalVisible(false)}
                 >
-                  Cancel
+                  {t('signup:cancel')}
                 </Button>
               </>
             )}
