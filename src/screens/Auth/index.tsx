@@ -1,11 +1,12 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 import React, { useEffect, useState } from 'react';
-
+import { useSelector } from 'react-redux';
 import Header from '@components/Header';
 import Orientation from 'react-native-orientation-locker';
 import { ThemeProps } from '@store/modules/theme/types';
 import Carousel from 'react-native-snap-carousel';
+import { AppState } from '@store/modules/rootReducer';
 import { StyleSheet } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { useIsFocused, useNavigation } from '@react-navigation/native';
@@ -52,32 +53,45 @@ const Auth = () => {
   const [slider1ActiveSlide, setSlider1ActiveSlide] = useState(0);
   const { t } = useTranslation('auth');
   const { navigation } = useNavigation();
+
+  const britboxConfig = useSelector((state: AppState) => state.core.britboxConfig);
+  const segment = useSelector((state: AppState) => state.core.segment);
+  const country: any = segment.toLocaleLowerCase() || 'us';
+
   useEffect(() => {
     // Orientation.lockToPortrait();
   }, []);
 
   const ENTRIES = [
     {
-      title: t('slider1.title'),
-      subtitle: t('slider1.description'),
+      title: (britboxConfig && britboxConfig[country]?.paywall[0]?.title) || t('slider1.title'),
+      subtitle:
+        (britboxConfig && britboxConfig[country]?.paywall[0]?.description) ||
+        t('slider1.description'),
       illustration: WellcomeImage,
       titleWidth: '100%',
     },
     {
-      title: t('slider2.title'),
-      subtitle: t('slider2.description'),
+      title: (britboxConfig && britboxConfig[country]?.paywall[1]?.title) || t('slider2.title'),
+      subtitle:
+        (britboxConfig && britboxConfig[country]?.paywall[1]?.description) ||
+        t('slider2.description'),
       illustration: AllDevice,
       titleWidth: '60%',
     },
     {
-      title: t('slider3.title'),
-      subtitle: t('slider3.description'),
+      title: (britboxConfig && britboxConfig[country]?.paywall[2]?.title) || t('slider3.title'),
+      subtitle:
+        (britboxConfig && britboxConfig[country]?.paywall[2]?.description) ||
+        t('slider3.description'),
       illustration: CancelAnyTime,
       titleWidth: '100%',
     },
     {
-      title: t('slider4.title'),
-      subtitle: t('slider4.description'),
+      title: (britboxConfig && britboxConfig[country]?.paywall[3]?.title) || t('slider4.title'),
+      subtitle:
+        (britboxConfig && britboxConfig[country]?.paywall[3]?.description) ||
+        t('slider4.description'),
       illustration: MoreWatching,
       titleWidth: '100%',
     },

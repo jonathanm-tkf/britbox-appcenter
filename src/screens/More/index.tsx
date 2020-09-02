@@ -1,5 +1,3 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import React from 'react';
 import { Platform, ScrollView, TouchableOpacity } from 'react-native';
 import { getStatusBarHeight } from 'react-native-iphone-x-helper';
@@ -7,6 +5,7 @@ import { Title } from '@components/Typography';
 import { CelularIcon, EditIcon } from '@assets/icons';
 import { useNavigation } from '@react-navigation/native';
 import { AppState } from '@store/modules/rootReducer';
+import { useTranslation } from 'react-i18next';
 import { useSelector, useDispatch } from 'react-redux';
 import { logout } from '@store/modules/user/actions';
 import { getVersion, getBuildNumber } from 'react-native-device-info';
@@ -37,6 +36,7 @@ const CelularStyle = {
 };
 
 export default function More() {
+  const { t } = useTranslation('myaccount');
   const { navigate } = useNavigation();
   const dispatch = useDispatch();
   const user = useSelector((state: AppState) => state.user);
@@ -55,7 +55,7 @@ export default function More() {
                   navigate('MyAccount');
                 }}
               >
-                <SubTitleLink>Manage Profile </SubTitleLink>
+                <SubTitleLink>{t('manageprofile')} </SubTitleLink>
                 <EditIcon width={25} height={25} />
               </EditIconContainer>
             </RowViewContainer>
@@ -69,7 +69,7 @@ export default function More() {
         }}
       >
         <RowContent>
-          <ItemTitle>My Account</ItemTitle>
+          <ItemTitle>{t('myaccount.title')}</ItemTitle>
         </RowContent>
         {/* <BackIcon height={20} width={20} /> */}
       </RowContainer>
@@ -80,26 +80,26 @@ export default function More() {
         }}
       >
         <RowContent>
-          <ItemTitle>Parental Controls</ItemTitle>
+          <ItemTitle>{t('parentalcontrols.title')}</ItemTitle>
         </RowContent>
         {/* <BackIcon height={20} width={20} /> */}
       </RowContainer>
       <SeparatorLine />
       <RowContainer>
         <RowContent>
-          <ItemTitle>Help</ItemTitle>
+          <ItemTitle>{t('help')}</ItemTitle>
         </RowContent>
         {/* <BackIcon height={20} width={20} /> */}
       </RowContainer>
       <RowContainer>
         <RowContent>
-          <ItemTitle>Terms & Conditions</ItemTitle>
+          <ItemTitle>{t('termscondition')}</ItemTitle>
         </RowContent>
         {/* <BackIcon height={20} width={20} /> */}
       </RowContainer>
       <RowContainer>
         <RowContent>
-          <ItemTitle>Privacy Policy</ItemTitle>
+          <ItemTitle>{t('privacypolicy')}</ItemTitle>
         </RowContent>
         {/* <BackIcon height={20} width={20} /> */}
       </RowContainer>
@@ -107,9 +107,9 @@ export default function More() {
       <RowContainer>
         <CelularIcon height={60} width={50} style={CelularStyle} />
         <RowContent>
-          <ItemSubTitle>APP Version</ItemSubTitle>
+          <ItemSubTitle>{t('appversion')}</ItemSubTitle>
           <DescriptionText>
-            Version: {getVersion()} build {getBuildNumber()} (code 34567), OS
+            {t('version')}: {getVersion()} {t('build')} {getBuildNumber()} (code 34567), OS
           </DescriptionText>
         </RowContent>
       </RowContainer>
@@ -117,7 +117,7 @@ export default function More() {
       <RowContainer>
         <RowContent>
           <TouchableOpacity activeOpacity={1} onPress={() => logoutAction()}>
-            <ItemTitle>Sign Out</ItemTitle>
+            <ItemTitle>{t('signout')}</ItemTitle>
           </TouchableOpacity>
         </RowContent>
       </RowContainer>

@@ -1,5 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable no-unused-vars */
 /* eslint-disable react/no-unescaped-entities */
 import React, { useState, useEffect } from 'react';
 import { KeyboardAvoidingView, Platform } from 'react-native';
@@ -12,7 +12,6 @@ import { signupRequest } from '@store/modules/user/saga';
 import { registerRequestSuccess } from '@store/modules/user/actions';
 import { EvergentSignupResponseError } from '@store/modules/user/types';
 import { AppState } from '@store/modules/rootReducer';
-import Orientation from 'react-native-orientation-locker';
 import { useTranslation } from 'react-i18next';
 
 import { useNavigation } from '@react-navigation/native';
@@ -48,7 +47,7 @@ const cancelStyle = { marginTop: 15, borderWidth: 0 };
 const SignUp = () => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
-  const { t } = useTranslation('signup');
+  const { t } = useTranslation(['signup', 'signin']);
 
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
@@ -305,8 +304,6 @@ const SignUp = () => {
     setErrorConfirmPassword({
       text: '',
     });
-
-    // Orientation.lockToPortrait();
   }, []);
 
   return (
@@ -316,7 +313,7 @@ const SignUp = () => {
         shadow
         rightComponent={
           <Button link onPress={() => navigation.goBack()} color={theme.PRIMARY_FOREGROUND_COLOR}>
-            Signin
+            {t('signin:signin')}
           </Button>
         }
       />
@@ -339,28 +336,28 @@ const SignUp = () => {
                 </ErrorText>
               )}
               <Input
-                label="First Name"
+                label={t('field.firstname')}
                 value={firstName}
                 onChangeText={(text) => setFirstName(text)}
                 onBlur={() => doValidateFirstName()}
                 error={errorFirstName}
               />
               <Input
-                label="Last Name"
+                label={t('field.lastname')}
                 value={lastName}
                 onChangeText={(text) => setLastName(text)}
                 onBlur={() => doValidateLastName()}
                 error={errorLastName}
               />
               <Input
-                label="Email"
+                label={t('field.email')}
                 value={email}
                 onChangeText={(text) => setEmail(text)}
                 onBlur={() => doValidateEmail()}
                 error={errorEmail}
               />
               <Input
-                label="Create Password"
+                label={t('field.createpassword')}
                 value={password}
                 onChangeText={(text) => setPassword(text)}
                 onBlur={() => doValidatePassword()}
@@ -368,7 +365,7 @@ const SignUp = () => {
                 error={errorPassword}
               />
               <Input
-                label="Confirm Password"
+                label={t('field.confirmpassword')}
                 value={confirmPassword}
                 onChangeText={(text) => setConfirmPassword(text)}
                 onBlur={() => doValidateConfirmPassword()}
@@ -385,10 +382,10 @@ const SignUp = () => {
                 fontWeight="medium"
                 color={theme.PRIMARY_FOREGROUND_COLOR}
               >
-                Create Account
+                {t('createaccount')}
               </Button>
               <Button outline size="big" style={cancelStyle} onPress={() => navigation.goBack()}>
-                <CancelText>Cancel</CancelText>
+                <CancelText>{t('cancel')}</CancelText>
               </Button>
             </Container>
             <Wrapper>

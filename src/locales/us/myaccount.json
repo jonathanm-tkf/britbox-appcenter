@@ -1,0 +1,45 @@
+{
+  "manageprofile": "Manage Profile",
+  "myaccount": {
+    "title": "My Account",
+    "screentitle": "Account Details",
+    "yourdetails": {
+      "title": "Your Details",
+      "screentitle": "Upgrade your Details",
+      "bottomtext": "Your information will be used in accordance with our"
+    },
+    "password": {
+      "title": "Password",
+      "screentitle": "Change Password"
+    },
+    "subscription": {
+      "title": "Subscription",
+      "screentitle": "Your subscription"
+    },
+    "newsletter": {
+      "title": "Newsletter",
+      "newsletterpreferences": "Newsletter preferences",
+      "description": "BritBox newsletter, special promotions and offers.",
+      "bottomtext": "Your information will be used in accordance with our"
+    }
+  },
+  "parentalcontrols": {
+    "title": "Parental Controls",
+    "screentitle": "Enter your password",
+    "parentalcontrolsset": "Parental controls set",
+    "turnoffPIN": "Turn Off PIN",
+    "setPINText": "Step 1: Set your 4 digit PIN",
+    "setPINDesc": "Your PIN will be set across all browsers and devices when you access BritBox programmes.",
+    "clearall": "Clear all",
+    "PINerror": "Pin must be 4 digits.",
+    "levelText": "Step 2: Set level of viewing restriction"
+  },
+  "help": "Help",
+  "termscondition": "Terms & Conditions",
+  "privacypolicy": "Privacy Policy",
+  "appversion": "App Version",
+  "version": "Version",
+  "build": "build",
+  "signout": "Sign Out",
+  "update": "Update"
+}

@@ -1,4 +1,22 @@
 {
   "signup": "Sign Up",
-  "subscribetobritbox": "Subscribe to BritBox"
+  "subscribetobritbox": "Subscribe to BritBox",
+  "field": {
+    "firstname": "First Name",
+    "lastname": "Last Name",
+    "email": "Email",
+    "mobile": "Mobile",
+    "password": "Password",
+    "createpassword": "Create Password",
+    "confirmpassword": "Confirm Password",
+    "currentpassword": "Current Password",
+    "newpassword": "New Password",
+    "customerservice": "Customer Service",
+    "username": "Username"
+  },
+  "continue": "Continue",
+  "save": "Save",
+  "createaccount": "Create Account",
+  "cancel": "Cancel",
+  "startfreetrial": "Start free trial"
 }
