@@ -35,3 +35,21 @@ export const InformationButton = styled.TouchableOpacity`
   justify-content: center;
   align-items: center;
 `;
+
+export const CreditsWrapper = styled.View``;
+
+export const CreditsList = styled.View`
+  margin-top: 10px;
+`;
+
+export const CreditsItem = styled.View`
+  flex-direction: row;
+  justify-content: space-between;
+`;
+
+export const CreditsText = styled.Text`
+  color: ${(props: ThemeState) => props.theme.PRIMARY_FOREGROUND_COLOR};
+  text-transform: capitalize;
+  line-height: 20px;
+  width: 55%;
+`;

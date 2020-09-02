@@ -29,6 +29,7 @@ type Props = {
   title?: string;
   spacing?: number;
   cardContent?: (item: MassiveSDKModelItemList) => JSX.Element | null;
+  cardContentAfter?: (item: MassiveSDKModelItemList) => JSX.Element | null;
 };
 
 const Grid = ({
@@ -40,6 +41,7 @@ const Grid = ({
   title,
   spacing,
   cardContent,
+  cardContentAfter,
 }: Props) => {
   const theme = useSelector((state: AppState) => state.theme.theme);
   return (
@@ -76,6 +78,7 @@ const Grid = ({
                 )}
                 onPress={() => (onPress ? onPress(item) : {})}
                 cardContent={(card) => (cardContent ? cardContent(card) : null)}
+                cardContentAfter={(card) => (cardContentAfter ? cardContentAfter(card) : null)}
                 cardElement={item}
                 {...{ element, containerStyle }}
               />

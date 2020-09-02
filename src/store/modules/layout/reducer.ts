@@ -7,6 +7,7 @@ import { HomeActionTypes } from '../home/types';
 export const initialState: LayoutState = {
   loading: true,
   out: false,
+  cast: false,
 };
 
 const layout: Reducer<LayoutState> = (state = initialState, action) => {
@@ -31,6 +32,12 @@ const layout: Reducer<LayoutState> = (state = initialState, action) => {
       case HomeActionTypes.HOME_REQUEST_SUCCESS:
         draft.out = false;
         draft.loading = false;
+        break;
+      case LayoutActionTypes.LAYOUT_CAST_ON:
+        draft.cast = true;
+        break;
+      case LayoutActionTypes.LAYOUT_CAST_OFF:
+        draft.cast = false;
         break;
       default:
         break;

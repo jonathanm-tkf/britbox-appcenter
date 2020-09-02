@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import React from 'react';
 import { Image } from 'react-native';
 import { Logo } from '@assets/icons';
@@ -7,7 +9,6 @@ import { AppState } from '@store/modules/rootReducer';
 import ContentLoader, { Rect } from 'react-content-loader/native';
 import { navigateByPath } from '@src/navigation/rootNavigation';
 import {
-  Gradient,
   LogoWrapper,
   TouchableScale,
   CustomShadow,
@@ -104,10 +105,10 @@ const CustomCard = ({
           {!slim && (
             <>
               <TextContainer {...{ slim, collection, center }}>
-                {getTitle}
+                {/* {getTitle} */}
                 <Subtitle numberOfLines={2}>{subtitle}</Subtitle>
               </TextContainer>
-              <Gradient />
+              {/* <Gradient /> */}
             </>
           )}
         </CustomShadow>

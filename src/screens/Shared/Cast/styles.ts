@@ -1,21 +1,31 @@
 import styled from 'styled-components/native';
-import { FAB as FABC } from 'react-native-paper';
 import { ThemeState } from '@store/modules/theme/types';
-// import { CastButton as CastButtonC } from 'react-native-google-cast';
+import { CastButton as CastButtonC } from 'react-native-google-cast';
 
 export const Container = styled.View``;
 
-export const FAB = styled(FABC)`
+export const FABView = styled.View`
   position: absolute;
   margin: 16px;
   right: 0px;
-  bottom: 0px;
+  bottom: 100px;
   background-color: ${(props: ThemeState) => props.theme.PRIMARY_COLOR};
+  width: 60px;
+  height: 60px;
+  border-radius: 30px;
+  align-items: center;
+  justify-content: center;
+  shadow-color: #000;
+  shadow-offset: 0px 15px;
+  shadow-opacity: 0.8;
+  shadow-radius: 15px;
+  elevation: 3;
 `;
 
-// export const CastButton = styled(CastButtonC).attrs((props: ThemeState) => ({
-//   tintColor: props.theme.PRIMARY_FOREGROUND_COLOR,
-// }))`
-//   height: 24px;
-//   width: 24px;
-// `;
+export const CastButton = styled(CastButtonC).attrs((props: ThemeState) => ({
+  tintColor: props.theme.PRIMARY_FOREGROUND_COLOR,
+}))`
+  width: 60px;
+  height: 60px;
+  border-radius: 30px;
+`;

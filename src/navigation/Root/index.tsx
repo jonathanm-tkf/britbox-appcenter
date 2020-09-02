@@ -45,7 +45,9 @@ const EffectModal = (progress: Animated.AnimatedInterpolation) => ({
 const ModalOptions = (theme: ThemeProps) => ({
   gestureEnabled: false,
   animationEnabled: true,
-  cardStyle: { backgroundColor: rgba(theme.PRIMARY_COLOR, 0.15) },
+  cardStyle: {
+    backgroundColor: rgba(theme.PRIMARY_COLOR, 0.15),
+  },
   cardOverlayEnabled: true,
   cardStyleInterpolator: ({ current: { progress } }) => EffectModal(progress),
 });
@@ -70,33 +72,47 @@ const RootStackScreen = () => {
   }, []);
 
   return (
-    <RootStack.Navigator headerMode="none" screenOptions={{ animationEnabled: false }} mode="modal">
-      {STORYBOOK_START ? (
-        <RootStack.Screen name="Storybook" component={Storybook} />
-      ) : isLoading ? (
-        <RootStack.Screen name="Loading" component={Loading} />
-      ) : isOut ? (
-        <RootStack.Screen name="Out" component={Error} />
-      ) : user.isLogged ? (
-        <RootStack.Screen name="AppDrawerScreen" component={AppDrawerScreen} />
-      ) : (
-        <RootStack.Screen name="AuthStackScreen" component={AuthStackScreen} />
-      )}
-      <RootStack.Screen name="Modal" component={Modal} options={{ animationEnabled: true }} />
-      <RootStack.Screen name="VideoPlayer" component={VideoPlayer} options={ModalOptions(theme)} />
-      <RootStack.Screen
-        name="ModalMoreInformation"
-        component={ModalMoreInformation}
-        options={ModalOptions(theme)}
-      />
-      <RootStack.Screen
-        name="ModalSeasons"
-        component={ModalSeasons}
-        options={ModalOptions(theme)}
-      />
-      <RootStack.Screen name="ModalGenre" component={ModalGenre} options={ModalOptions(theme)} />
-      <RootStack.Screen name="ModalFilter" component={ModalFilter} options={ModalOptions(theme)} />
-    </RootStack.Navigator>
+    <>
+      <RootStack.Navigator
+        headerMode="none"
+        screenOptions={{ animationEnabled: false }}
+        mode="modal"
+      >
+        {STORYBOOK_START ? (
+          <RootStack.Screen name="Storybook" component={Storybook} />
+        ) : isLoading ? (
+          <RootStack.Screen name="Loading" component={Loading} />
+        ) : isOut ? (
+          <RootStack.Screen name="Out" component={Error} />
+        ) : user.isLogged ? (
+          <RootStack.Screen name="AppDrawerScreen" component={AppDrawerScreen} />
+        ) : (
+          <RootStack.Screen name="AuthStackScreen" component={AuthStackScreen} />
+        )}
+        <RootStack.Screen name="Modal" component={Modal} options={{ animationEnabled: true }} />
+        <RootStack.Screen
+          name="VideoPlayer"
+          component={VideoPlayer}
+          options={ModalOptions(theme)}
+        />
+        <RootStack.Screen
+          name="ModalMoreInformation"
+          component={ModalMoreInformation}
+          options={ModalOptions(theme)}
+        />
+        <RootStack.Screen
+          name="ModalSeasons"
+          component={ModalSeasons}
+          options={ModalOptions(theme)}
+        />
+        <RootStack.Screen name="ModalGenre" component={ModalGenre} options={ModalOptions(theme)} />
+        <RootStack.Screen
+          name="ModalFilter"
+          component={ModalFilter}
+          options={ModalOptions(theme)}
+        />
+      </RootStack.Navigator>
+    </>
   );
 };
 

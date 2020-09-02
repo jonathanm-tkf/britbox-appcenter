@@ -68,7 +68,7 @@ export const SlimDescriptionText = styled.Text.attrs({
   font-family: ${(props: ThemeState) => props.theme.PRIMARY_FONT_FAMILY_LIGHT};
   text-align: center;
   min-height: 90px;
-  font-size: 14px;
+  font-size: 16px;
   line-height: 22px;
 
   ${(props: SlimDescriptionText & ThemeState) => {
@@ -89,6 +89,8 @@ type SlimDescription = {
 
 export const SlimDescription = styled.View`
   height: 100px;
+  padding-left: 40px;
+  padding-right: 40px;
 
   ${(props: SlimDescription) => {
     return (

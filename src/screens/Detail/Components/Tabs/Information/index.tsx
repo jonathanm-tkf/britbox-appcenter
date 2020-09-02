@@ -5,7 +5,16 @@ import { useTranslation } from 'react-i18next';
 import { getDuration } from '@src/utils/template';
 import { DiscoverMoreIcon } from '@assets/icons';
 import { useNavigation } from '@react-navigation/native';
-import { Container, Row, LabelBold, InformationButton } from './styles';
+import {
+  Container,
+  Row,
+  LabelBold,
+  InformationButton,
+  CreditsWrapper,
+  CreditsList,
+  CreditsText,
+  CreditsItem,
+} from './styles';
 
 interface Props {
   data: InformationDataType;
@@ -55,17 +64,21 @@ const Information = ({ data, onLayout, moreInformation }: Props) => {
         </Row>
       )}
 
-      {(data.credits || []).length > 0 && (
-        <Row>
-          <LabelBold>Credits: </LabelBold>
-          {(() => {
-            const name = (data.credits || [])
-              .filter((item) => item.character !== '')
-              .map((item) => item.character);
-            return name.join(', ');
-          })()}
-        </Row>
-      )}
+      <CreditsWrapper>
+        <LabelBold>{t('credits')}: </LabelBold>
+        <CreditsList>
+          {(data.credits || []).map((item, key) => {
+            return (
+              <CreditsItem key={key.toString()}>
+                <CreditsText>{item.role === 'actor' ? item.character : item.role}</CreditsText>
+                <CreditsText>
+                  {item.role === 'director' || item.role === 'writer' ? item.name : item.name}
+                </CreditsText>
+              </CreditsItem>
+            );
+          })}
+        </CreditsList>
+      </CreditsWrapper>
     </Container>
   );
 };

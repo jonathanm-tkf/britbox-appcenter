@@ -25,7 +25,6 @@ export const Wrapper = styled.View`
   justify-content: space-between;
   /* padding-bottom: 30px; */
   width: ${(props: ContainerProps) => props.width || 162}px;
-
   ${(props: WrapperProps & ContainerProps) => {
     return (
       props.isDetail &&
@@ -71,7 +70,6 @@ export const TextWrapper = styled.View`
   width: 100%;
   /* height: 70px; */
   margin-top: 15px;
-
   ${(props: TextWrapperProps) => {
     return props.isDetail
       ? `
@@ -90,11 +88,11 @@ export const TextWrapper = styled.View`
       ? `
       height: auto;
     `
-      : props.category
+      : props.category || props.isDetail
       ? `
       height: 70px;
     `
-      : `height: 50px;`;
+      : `height: 20px;`;
   }};
 `;
 
@@ -157,7 +155,6 @@ export const BottomWrapper = styled.View`
   align-items: center;
   justify-content: ${(props: BottomWrapper) => (!props.isContinue ? 'center' : 'space-between')};
   width: 100%;
-
   ${(props: BottomWrapper) => {
     return (
       props.isDetail &&

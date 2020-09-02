@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { NavigationState } from '@react-navigation/native';
+import Cast from '@screens/Shared/Cast';
 import { Container, Button, Label, WrapperIcon, CustomShadowTabBar, TabsWrapper } from './styles';
 
 type Props = {
@@ -19,6 +20,7 @@ const TabBar = ({ state, descriptors, navigation }: Props) => {
   return (
     <TabsWrapper>
       <CustomShadowTabBar />
+      <Cast />
       <Container>
         {state.routes.map((route, index) => {
           const { options } = descriptors[route.key];

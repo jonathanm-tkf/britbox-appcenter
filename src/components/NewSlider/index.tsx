@@ -61,9 +61,7 @@ const NewSlider = ({
   const [currentIndex, setCurrentIndex] = useState(0);
   const theme = useSelector((state: AppState) => state.theme.theme);
   const carouselData = data.map((item) => {
-    const image = slim
-      ? item.images?.poster
-      : item.images?.wallpaper || item.images?.hero3x1 || item.images?.square;
+    const image = slim ? item.images?.poster : item.images?.tile || item.images?.wallpaper;
     const imageType = slim ? 'poster' : 'wallpaper';
     return {
       title: item.title,

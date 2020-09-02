@@ -68,6 +68,11 @@ export const GridInnerContent = styled.View`
   align-self: center;
 `;
 
+export const GridInnerContentAfter = styled.View`
+  width: 100%;
+  align-self: center;
+`;
+
 export const Gradient = styled(LinearGradient).attrs((props: ThemeState) => ({
   colors: [rgba(props.theme.PRIMARY_COLOR, 0), props.theme.PRIMARY_COLOR],
 }))`
@@ -103,6 +108,14 @@ export const ActionTitle = styled.Text`
   margin-bottom: 5px;
   font-family: ${(props: ThemeState) => props.theme.PRIMARY_FONT_FAMILY_MEDIUM};
   z-index: 2;
+`;
+
+export const ActionTitleAfter = styled.Text`
+  color: ${(props: ThemeState) => props.theme.PRIMARY_FOREGROUND_COLOR};
+  font-size: 14px;
+  line-height: 24px;
+  margin-top: 15px;
+  margin-bottom: 5px;
 `;
 
 export const ChangeGenreButton = styled.TouchableOpacity`

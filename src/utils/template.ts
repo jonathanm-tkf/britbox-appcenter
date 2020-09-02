@@ -6,6 +6,7 @@ export const getTemplate = (template: string) => {
     case 'Hero Slim (BBC)':
       return 'hero-slim';
     case 'T1':
+    case '16:9 Tile (Reduced)':
       return 'episodes';
     case 'T2':
       return 'large-programing';
@@ -21,7 +22,6 @@ export const getTemplate = (template: string) => {
       return 'collections';
     case 'S2':
       return 'genre';
-    case '16:9 Tile (Reduced)':
     case 'Pictorial Navigation (BBC)':
       return 'title-treatment';
     case 'Programme Grid (BBC)':

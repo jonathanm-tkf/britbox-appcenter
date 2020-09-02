@@ -21,6 +21,7 @@ interface Props {
   spacing?: number;
   imageType?: WALLPAPER | POSTER | HERO3X1 | SQUARE | TILE;
   cardContent?: (item: MassiveSDKModelItemList) => JSX.Element | null;
+  cardContentAfter?: (item: MassiveSDKModelItemList) => JSX.Element | null;
 }
 
 const Grid = ({
@@ -33,6 +34,7 @@ const Grid = ({
   imageType,
   spacing,
   cardContent,
+  cardContentAfter,
 }: Props) => {
   const goToOtherContent = (item: MassiveSDKModelItemList) => {
     navigateByPath(item);
@@ -51,6 +53,7 @@ const Grid = ({
         imageType={imageType}
         title={title}
         cardContent={(item) => (cardContent ? cardContent(item) : null)}
+        cardContentAfter={(item) => (cardContentAfter ? cardContentAfter(item) : null)}
       />
       {loading && (
         <WrapperLoading>
