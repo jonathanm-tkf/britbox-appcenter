@@ -234,7 +234,7 @@ export default function MyAccount() {
       <Container>
         <ScrollableContainerPaddingHorizontal>
           <TitleWrapper>
-            <SubTitle>Upgrade your Details</SubTitle>
+            <SubTitle>{t('myaccount.yourdetails.screentitle')}</SubTitle>
           </TitleWrapper>
           {errorState && (
             <ErrorText>
@@ -246,28 +246,28 @@ export default function MyAccount() {
             </ErrorText>
           )}
           <Input
-            label="First Name"
+            label={t('signup:field.firstname')}
             value={firstName}
             onChangeText={(text) => setFirstName(text)}
             onBlur={() => doValidateFirstName()}
             error={errorFirstName}
           />
           <Input
-            label="Last Name"
+            label={t('signup:field.lastname')}
             value={lastName}
             onChangeText={(text) => setLastName(text)}
             onBlur={() => doValidateLastName()}
             error={errorLastName}
           />
           <Input
-            label="Email"
+            label={t('signup:field.email')}
             value={email}
             onChangeText={(text) => setEmail(text)}
             onBlur={() => doValidateEmail()}
             error={errorEmail}
           />
           <Input
-            label="Mobile"
+            label={t('signup:field.mobile')}
             value={mobile}
             onChangeText={(text) => setMobile(text)}
             error={errorMobile}
@@ -281,11 +281,10 @@ export default function MyAccount() {
             fontWeight="medium"
             color={theme.PRIMARY_FOREGROUND_COLOR}
           >
-            Update
+            {t('update')}
           </Button>
           <Paragraph>
-            Your information will be used in accordance with our{' '}
-            <LinkTitle>Privacy Policy</LinkTitle>.
+            {t('myaccount.yourdetails.bottomtext')} <LinkTitle>{t('privacypolicy')}</LinkTitle>.
           </Paragraph>
         </ScrollableContainerPaddingHorizontal>
         {tabBottomView()}
@@ -585,7 +584,7 @@ export default function MyAccount() {
       <Container>
         <ScrollableContainerPaddingHorizontal>
           <TitleWrapper>
-            <SubTitle>Newsletter preferences</SubTitle>
+            <SubTitle>{t('myaccount.newsletter.newsletterpreferences')}</SubTitle>
           </TitleWrapper>
           {errorState && (
             <ErrorText>
@@ -602,7 +601,7 @@ export default function MyAccount() {
               onValueChange={(value: boolean) => setIsNewsletters(value)}
             />
             <RowContent>
-              <NewsParagraph>BritBox newsletter, special promotions and offers.</NewsParagraph>
+              <NewsParagraph>{t('myaccount.newsletter.description')}</NewsParagraph>
             </RowContent>
           </RowContainer>
           <Button
@@ -614,11 +613,10 @@ export default function MyAccount() {
             fontWeight="medium"
             color={theme.PRIMARY_FOREGROUND_COLOR}
           >
-            Update
+            {t('update')}
           </Button>
           <Paragraph>
-            Your information will be used in accordance with our{' '}
-            <LinkTitle>Privacy Policy</LinkTitle>.
+            {t('myaccount.newsletter.bottomtext')} <LinkTitle>{t('privacypolicy')}</LinkTitle>.
           </Paragraph>
         </ScrollableContainerPaddingHorizontal>
         {tabBottomView()}
