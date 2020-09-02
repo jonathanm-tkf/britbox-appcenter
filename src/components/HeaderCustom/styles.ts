@@ -8,6 +8,7 @@ import LogoBritbox from '../../../assets/images/Logo.svg';
 
 export const Container = styled.View`
   background-color: ${(props: ThemeState) => props.theme.PRIMARY_COLOR};
+  position: relative;
 `;
 
 export const TopWrapper = styled.View`
@@ -61,4 +62,7 @@ export const Gradient = styled(LinearGradient).attrs({
   colors: [rgba('#101319', 0.9), rgba('#161a22', 0.1)],
 })`
   height: 20px;
+  position: absolute;
+  bottom: -20px;
+  width: 100%;
 `;

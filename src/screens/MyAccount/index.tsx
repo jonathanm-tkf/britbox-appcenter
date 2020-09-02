@@ -18,6 +18,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { AppState } from '@store/modules/rootReducer';
 import { useNavigation } from '@react-navigation/native';
 import { EvergentResponseError } from '@store/modules/user/types';
+import Tabs from './components/Tabs';
+
 import {
   Container,
   TitleWrapper,
@@ -37,6 +39,7 @@ import {
   ScrollableContainerPaddingHorizontal,
   ScrollContent,
   ErrorText,
+  Header,
 } from './styles';
 
 const updateBtnStyle = {
@@ -229,64 +232,62 @@ export default function MyAccount() {
 
     return (
       <Container>
-        <ScrollableContainer>
-          <ScrollableContainerPaddingHorizontal>
-            <TitleWrapper>
-              <SubTitle>{t('myaccount.yourdetails.screentitle')}</SubTitle>
-            </TitleWrapper>
-            {errorState && (
-              <ErrorText>
-                {
-                  ((errorMessage as unknown) as EvergentResponseError)?.failureMessage?.reduce(
-                    (item) => item
-                  )?.errorMessage
-                }
-              </ErrorText>
-            )}
-            <Input
-              label={t('signup:field.firstname')}
-              value={firstName}
-              onChangeText={(text) => setFirstName(text)}
-              onBlur={() => doValidateFirstName()}
-              error={errorFirstName}
-            />
-            <Input
-              label={t('signup:field.lastname')}
-              value={lastName}
-              onChangeText={(text) => setLastName(text)}
-              onBlur={() => doValidateLastName()}
-              error={errorLastName}
-            />
-            <Input
-              label={t('signup:field.email')}
-              value={email}
-              onChangeText={(text) => setEmail(text)}
-              onBlur={() => doValidateEmail()}
-              error={errorEmail}
-            />
-            <Input
-              label={t('signup:field.mobile')}
-              value={mobile}
-              onChangeText={(text) => setMobile(text)}
-              error={errorMobile}
-            />
-            <Button
-              onPress={() => updateProfile()}
-              stretch
-              style={updateBtnStyle}
-              loading={loading}
-              size="big"
-              fontWeight="medium"
-              color={theme.PRIMARY_FOREGROUND_COLOR}
-            >
-              {t('update')}
-            </Button>
-            <Paragraph>
-              {t('myaccount.yourdetails.bottomtext')} <LinkTitle>{t('privacypolicy')}</LinkTitle>.
-            </Paragraph>
-          </ScrollableContainerPaddingHorizontal>
-          {tabBottomView()}
-        </ScrollableContainer>
+        <ScrollableContainerPaddingHorizontal>
+          <TitleWrapper>
+            <SubTitle>{t('myaccount.yourdetails.screentitle')}</SubTitle>
+          </TitleWrapper>
+          {errorState && (
+            <ErrorText>
+              {
+                ((errorMessage as unknown) as EvergentResponseError)?.failureMessage?.reduce(
+                  (item) => item
+                )?.errorMessage
+              }
+            </ErrorText>
+          )}
+          <Input
+            label={t('signup:field.firstname')}
+            value={firstName}
+            onChangeText={(text) => setFirstName(text)}
+            onBlur={() => doValidateFirstName()}
+            error={errorFirstName}
+          />
+          <Input
+            label={t('signup:field.lastname')}
+            value={lastName}
+            onChangeText={(text) => setLastName(text)}
+            onBlur={() => doValidateLastName()}
+            error={errorLastName}
+          />
+          <Input
+            label={t('signup:field.email')}
+            value={email}
+            onChangeText={(text) => setEmail(text)}
+            onBlur={() => doValidateEmail()}
+            error={errorEmail}
+          />
+          <Input
+            label={t('signup:field.mobile')}
+            value={mobile}
+            onChangeText={(text) => setMobile(text)}
+            error={errorMobile}
+          />
+          <Button
+            onPress={() => updateProfile()}
+            stretch
+            style={updateBtnStyle}
+            loading={loading}
+            size="big"
+            fontWeight="medium"
+            color={theme.PRIMARY_FOREGROUND_COLOR}
+          >
+            {t('update')}
+          </Button>
+          <Paragraph>
+            {t('myaccount.yourdetails.bottomtext')} <LinkTitle>{t('privacypolicy')}</LinkTitle>.
+          </Paragraph>
+        </ScrollableContainerPaddingHorizontal>
+        {tabBottomView()}
       </Container>
     );
   };
@@ -472,7 +473,7 @@ export default function MyAccount() {
     }, []);
 
     return (
-      <ScrollableContainer>
+      <>
         <ScrollContent>
           <ScrollableContainerPaddingHorizontal>
             <TitleWrapper>
@@ -524,13 +525,13 @@ export default function MyAccount() {
           </ScrollableContainerPaddingHorizontal>
         </ScrollContent>
         {tabBottomView()}
-      </ScrollableContainer>
+      </>
     );
   };
 
   const SubscriptionRoute = () => {
     return (
-      <ScrollableContainer>
+      <>
         <ScrollableContainerPaddingHorizontal>
           <TitleWrapper>
             <SubTitle>{t('myaccount.subscription.screentitle')}</SubTitle>
@@ -541,7 +542,7 @@ export default function MyAccount() {
           </SubscriptionParagraph>
         </ScrollableContainerPaddingHorizontal>
         {tabBottomView()}
-      </ScrollableContainer>
+      </>
     );
   };
 
@@ -581,46 +582,44 @@ export default function MyAccount() {
 
     return (
       <Container>
-        <ScrollableContainer>
-          <ScrollableContainerPaddingHorizontal>
-            <TitleWrapper>
-              <SubTitle>{t('myaccount.newsletter.newsletterpreferences')}</SubTitle>
-            </TitleWrapper>
-            {errorState && (
-              <ErrorText>
-                {
-                  ((errorMessage as unknown) as EvergentResponseError)?.failureMessage?.reduce(
-                    (item) => item
-                  )?.errorMessage
-                }
-              </ErrorText>
-            )}
-            <RowContainer>
-              <SwitchContainer
-                value={isNewsletters}
-                onValueChange={(value: boolean) => setIsNewsletters(value)}
-              />
-              <RowContent>
-                <NewsParagraph>{t('myaccount.newsletter.description')}</NewsParagraph>
-              </RowContent>
-            </RowContainer>
-            <Button
-              onPress={() => updateProfile()}
-              stretch
-              style={updateBtnStyle}
-              loading={loading}
-              size="big"
-              fontWeight="medium"
-              color={theme.PRIMARY_FOREGROUND_COLOR}
-            >
-              {t('update')}
-            </Button>
-            <Paragraph>
-              {t('myaccount.newsletter.bottomtext')} <LinkTitle>{t('privacypolicy')}</LinkTitle>.
-            </Paragraph>
-          </ScrollableContainerPaddingHorizontal>
-          {tabBottomView()}
-        </ScrollableContainer>
+        <ScrollableContainerPaddingHorizontal>
+          <TitleWrapper>
+            <SubTitle>{t('myaccount.newsletter.newsletterpreferences')}</SubTitle>
+          </TitleWrapper>
+          {errorState && (
+            <ErrorText>
+              {
+                ((errorMessage as unknown) as EvergentResponseError)?.failureMessage?.reduce(
+                  (item) => item
+                )?.errorMessage
+              }
+            </ErrorText>
+          )}
+          <RowContainer>
+            <SwitchContainer
+              value={isNewsletters}
+              onValueChange={(value: boolean) => setIsNewsletters(value)}
+            />
+            <RowContent>
+              <NewsParagraph>{t('myaccount.newsletter.description')}</NewsParagraph>
+            </RowContent>
+          </RowContainer>
+          <Button
+            onPress={() => updateProfile()}
+            stretch
+            style={updateBtnStyle}
+            loading={loading}
+            size="big"
+            fontWeight="medium"
+            color={theme.PRIMARY_FOREGROUND_COLOR}
+          >
+            {t('update')}
+          </Button>
+          <Paragraph>
+            {t('myaccount.newsletter.bottomtext')} <LinkTitle>{t('privacypolicy')}</LinkTitle>.
+          </Paragraph>
+        </ScrollableContainerPaddingHorizontal>
+        {tabBottomView()}
       </Container>
     );
   };
@@ -650,15 +649,20 @@ export default function MyAccount() {
 
   return (
     <Container>
-      <HeaderCustom isBack shadow />
-      <Container>
-        <TitleWrapper>
-          <Title>{t('myaccount.screentitle')}</Title>
-        </TitleWrapper>
+      {/* <Header>
+        <HeaderCustom isBack shadow />
+      </Header> */}
+      <Tabs routes={DATA} />
+      {/* <ScrollableContainer>
         <Container>
-          <TabsComponent routes={DATA} />
+          <TitleWrapper>
+            <Title>{t('myaccount.screentitle')}</Title>
+          </TitleWrapper>
+          <Container>
+            <TabsComponent routes={DATA} />
+          </Container>
         </Container>
-      </Container>
+      </ScrollableContainer> */}
     </Container>
   );
 }
