@@ -8,6 +8,7 @@ export const initialState: LayoutState = {
   loading: true,
   out: false,
   cast: false,
+  connection: undefined,
 };
 
 const layout: Reducer<LayoutState> = (state = initialState, action) => {
@@ -38,6 +39,9 @@ const layout: Reducer<LayoutState> = (state = initialState, action) => {
         break;
       case LayoutActionTypes.LAYOUT_CAST_OFF:
         draft.cast = false;
+        break;
+      case LayoutActionTypes.CONNECTION:
+        draft.connection = action.payload.type;
         break;
       default:
         break;

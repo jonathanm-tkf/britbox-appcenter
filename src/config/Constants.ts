@@ -3,6 +3,7 @@ const Constants = {
   sdk_url: 'https://uat-api.britbox.takeoffmedia.com',
   api: 'https://cdn-uat.britbox.takeoffmedia.com/api',
   config_url: 'https://d2z3p34itxwaj7.cloudfront.net/',
+  mediaSelectorHost: 'https://open.live.bbc.co.uk',
 };
 
 export default Constants;

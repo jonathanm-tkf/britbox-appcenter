@@ -6,6 +6,9 @@ import { AppState } from '@store/modules/rootReducer';
 import { AppState as AppStateRN } from 'react-native';
 import { configRequest } from '@store/modules/core/actions';
 import KochavaTracker from 'react-native-kochava-tracker';
+import NetInfo from '@react-native-community/netinfo';
+import { isTablet } from 'react-native-device-info';
+import { connection } from '@store/modules/layout/actions';
 import { RootStackScreen } from './Root';
 import { navigationRef } from './rootNavigation';
 
@@ -29,13 +32,30 @@ export default () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    let unmonted = false;
+
     AppStateRN.addEventListener('change', (event) => {
       if (event === 'active') {
         dispatch(configRequest());
       }
     });
+
+    if (!unmonted) {
+      NetInfo.fetch().then((state) => {
+        const { type } = state;
+        const connectionType =
+          type === 'wifi' && isTablet()
+            ? 'mobile-tablet-main'
+            : type === 'wifi'
+            ? 'mobile-phone-main'
+            : 'mobile-cellular-main';
+        dispatch(connection(connectionType));
+      });
+    }
+
     return () => {
       AppStateRN.removeEventListener('change', () => {});
+      unmonted = true;
     };
   }, []);
 

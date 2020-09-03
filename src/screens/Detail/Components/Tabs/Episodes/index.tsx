@@ -8,6 +8,9 @@ import { getDuration } from '@src/utils/template';
 import { Show, MoreInformation } from '@src/services/detail';
 import { ArrowBottomIcon, DiscoverMoreIcon } from '@assets/icons';
 import { useNavigation } from '@react-navigation/native';
+import { AppState } from '@store/modules/rootReducer';
+import { useSelector } from 'react-redux';
+import { CastVideo } from '@src/services/cast';
 import { Container, ContainerFilter, SeasonButton, SeasonText, InformationButton } from './styles';
 
 interface Props {
@@ -19,6 +22,7 @@ interface Props {
 
 const Episodes = ({ onLayout, data, show, moreInformation }: Props) => {
   const { navigate } = useNavigation();
+  const isCast = useSelector((state: AppState) => state.layout.cast);
 
   const getCategories = (itemData: MassiveSDKModelEpisodesItem): any[] => {
     const dataResult = [];
@@ -55,6 +59,10 @@ const Episodes = ({ onLayout, data, show, moreInformation }: Props) => {
   };
 
   const onPlay = (item: MassiveSDKModelEpisodesItem) => {
+    if (isCast) {
+      return CastVideo(item);
+    }
+
     if (item.type === 'movie' || item.type === 'episode') {
       return navigate('VideoPlayer', { item });
     }

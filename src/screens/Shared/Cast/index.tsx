@@ -1,5 +1,5 @@
 /* eslint-disable max-len */
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import GoogleCast from 'react-native-google-cast';
 import { useDispatch } from 'react-redux';
@@ -18,6 +18,7 @@ import { CastButton } from './styles';
 
 const Cast = () => {
   const dispatch = useDispatch();
+  const [showButton, setShowButton] = useState(false);
   const registerListeners = () => {
     const events = `
       SESSION_STARTING SESSION_STARTED SESSION_START_FAILED SESSION_SUSPENDED
@@ -45,11 +46,16 @@ const Cast = () => {
     registerListeners();
 
     GoogleCast.getCastState().then((state) => {
+      if (state === 'NoDevicesAvailable') {
+        setShowButton(false);
+      } else {
+        setShowButton(true);
+      }
       dispatch(state === 'NotConnected' ? castOff() : castOn());
     });
   }, []);
 
-  return <CastButton />;
+  return showButton ? <CastButton /> : null;
 };
 
 export default Cast;
