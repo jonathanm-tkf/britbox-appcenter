@@ -5,8 +5,14 @@ import { useSelector, useDispatch } from 'react-redux';
 import { AppState } from '@store/modules/rootReducer';
 import { AppState as AppStateRN } from 'react-native';
 import { configRequest } from '@store/modules/core/actions';
+import KochavaTracker from 'react-native-kochava-tracker';
 import { RootStackScreen } from './Root';
 import { navigationRef } from './rootNavigation';
+
+const configMapObject: { [name: string]: string } = {};
+configMapObject[KochavaTracker.PARAM_ANDROID_APP_GUID_STRING_KEY] = 'kobbcww-android-test-8gnh';
+configMapObject[KochavaTracker.PARAM_IOS_APP_GUID_STRING_KEY] = 'kobbcww-ios-test-hh8756t';
+KochavaTracker.configure(configMapObject);
 
 export default () => {
   const theme = useSelector((state: AppState) => state.theme.theme);

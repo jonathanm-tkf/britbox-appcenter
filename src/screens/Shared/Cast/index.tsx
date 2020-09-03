@@ -4,7 +4,7 @@ import React, { useEffect } from 'react';
 import GoogleCast from 'react-native-google-cast';
 import { useDispatch } from 'react-redux';
 import { castOn, castOff } from '@store/modules/layout/actions';
-import { FABView, CastButton } from './styles';
+import { CastButton } from './styles';
 
 // {
 //   "title": "Casting To The Future",
@@ -49,11 +49,7 @@ const Cast = () => {
     });
   }, []);
 
-  return (
-    <FABView>
-      <CastButton />
-    </FABView>
-  );
+  return <CastButton />;
 };
 
 export default Cast;
