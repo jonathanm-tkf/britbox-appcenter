@@ -1,5 +1,5 @@
 import React from 'react';
-import { Platform, ScrollView, TouchableOpacity } from 'react-native';
+import { Platform, ScrollView, TouchableOpacity, Linking } from 'react-native';
 import { getStatusBarHeight } from 'react-native-iphone-x-helper';
 import { Title } from '@components/Typography';
 import { CelularIcon, EditIcon } from '@assets/icons';
@@ -87,7 +87,9 @@ export default function More() {
       <SeparatorLine />
       <RowContainer>
         <RowContent>
-          <ItemTitle>{t('help')}</ItemTitle>
+          <ItemTitle onPress={() => Linking.openURL('https://help.britbox.com/')}>
+            {t('help')}
+          </ItemTitle>
         </RowContent>
         {/* <BackIcon height={20} width={20} /> */}
       </RowContainer>

@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable no-unused-vars */
 /* eslint-disable max-len */
 /* eslint-disable import/no-extraneous-dependencies */
@@ -60,7 +59,7 @@ const SignUpSubscription = () => {
   const user = useSelector((state: AppState) => state.user);
   const britboxConfig = useSelector((state: AppState) => state.core.britboxConfig);
   const segment = useSelector((state: AppState) => state.core.segment);
-  const country: any = segment.toLocaleLowerCase() || 'us';
+  const country: string = segment.toLocaleLowerCase() || 'us';
 
   const cancelStyle = { marginTop: 15, borderWidth: 0 };
   const textLeft = { textAlign: 'left' };

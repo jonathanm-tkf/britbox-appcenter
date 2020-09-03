@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
 /* eslint-disable @typescript-eslint/no-unused-vars */
@@ -56,7 +55,7 @@ export default function MyAccount() {
   const theme = useSelector((state: AppState) => state.theme.theme);
   const britboxConfig = useSelector((state: AppState) => state.core.britboxConfig);
   const segment = useSelector((state: AppState) => state.core.segment);
-  const country: any = segment.toLocaleLowerCase() || 'us';
+  const country: string = segment.toLocaleLowerCase() || 'us';
 
   const error = {
     text: 'Field is required',
