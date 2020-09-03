@@ -2,6 +2,7 @@ import React, { useState, useEffect, useMemo } from 'react';
 import { Animated, NativeScrollEvent, Dimensions } from 'react-native';
 import { useNavigation, useRoute, RouteProp } from '@react-navigation/native';
 import { BackIcon, ArrowBottomIcon } from '@assets/icons';
+import { widthPercentageToDP as vw } from 'react-native-responsive-screen';
 
 import {
   MassiveSDKModelItemSummary,
@@ -27,12 +28,12 @@ import Grid from '@screens/Shared/Grid';
 import { navigateByPath } from '@src/navigation/rootNavigation';
 import ErrorLanding from '@components/ErrorLanding';
 import OurFavorites from '@screens/Shared/OurFavorites';
-import Action from '@components/Action';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import { AppState } from '@store/modules/rootReducer';
 import { Header } from '@store/modules/core/types';
 import { Item } from '@screens/ModalFilter';
+import { wp } from '@src/utils/dimension';
 import { dataDummy } from './data';
 import {
   Container,
@@ -44,14 +45,14 @@ import {
   SpaceNoHeroSlim,
   GridInnerContent,
   Gradient,
-  ActionWrapper,
-  ActionText,
   ActionTitle,
   ChangeGenreButton,
   ChangeGenreText,
   ChangeOrderButton,
   ChangeOrderText,
   WrapperContinuosScroll,
+  GridInnerContentAfter,
+  ActionTitleAfter,
 } from './styles';
 
 const { width } = Dimensions.get('window');
@@ -64,23 +65,34 @@ type RootParamList = {
   };
 };
 
+type CustomFiled = {
+  description: string;
+};
+
 type CollectionScreenRouteProp = RouteProp<RootParamList, 'Collection'>;
 
 const GridContent = ({ data }: { data: MassiveSDKModelItemSummary }) => {
-  const { t } = useTranslation('layout');
   const wrapper = {
     width: width - 40,
   };
 
   return (
     <GridInnerContent style={wrapper}>
-      <ActionWrapper>
-        <Action autoPlay loop width={60} height={60} />
-        <ActionText>{t('playnow')}</ActionText>
-      </ActionWrapper>
       <ActionTitle>{data?.contextualTitle || ''}</ActionTitle>
       <Gradient />
     </GridInnerContent>
+  );
+};
+
+const GridContentAfter = ({ data }: { data: MassiveSDKModelItemSummary }) => {
+  const wrapper = {
+    width: width - 40,
+  };
+
+  return (
+    <GridInnerContentAfter style={wrapper}>
+      <ActionTitleAfter>{(data?.customFields as CustomFiled)?.description || ''}</ActionTitleAfter>
+    </GridInnerContentAfter>
   );
 };
 
@@ -102,6 +114,11 @@ const Collections = () => {
   const [order, setOrder] = useState('asc');
   const [orderBy, setOrderBy] = useState('a-z');
 
+  const containerStyles = {
+    marginTop: 10,
+    paddingHorizontal: wp(15),
+  };
+
   const isGenre = useMemo(() => {
     if (menu && data) {
       const explore = (menu.filter((item: Header) => item.label === 'Explore') || []).reduce(
@@ -115,7 +132,6 @@ const Collections = () => {
         return genreList.length ? t('genre') : data?.title || '';
       }
     }
-
     return '';
   }, [data, menu, t]);
 
@@ -135,13 +151,20 @@ const Collections = () => {
       setData({
         ...data,
         template: 'Collection (BBC)',
+        title: response?.title,
         entries: [
           {
             template: 'Hero Slim (BBC)',
             list: {
               items: [
                 {
+                  title: response?.title,
                   images: response?.entries ? response?.entries[0]?.list?.images : {},
+                  customFields: {
+                    description: response?.entries
+                      ? (response?.entries[0]?.list?.customFields as CustomFiled)?.description
+                      : '',
+                  },
                 },
               ],
             },
@@ -342,7 +365,7 @@ const Collections = () => {
         <Button onPress={() => back()}>
           <BackIcon width={20} height={20} />
         </Button>
-        <TopText>{getIsCollectionDetail(data?.template || '') ? '' : isGenre}</TopText>
+        <TopText>{getIsCollectionDetail(data?.template || '') ? data?.title : isGenre}</TopText>
         {isGenre === t('genre') && (
           <ChangeGenreButton
             onPress={() => navigation.navigate('ModalGenre', { genre: data?.title || '' })}
@@ -377,9 +400,6 @@ const Collections = () => {
                     collection
                     center
                     data={item?.list?.items || []}
-                    onWatchlist={() => {}}
-                    onPlay={(element) => onPlay(element)}
-                    onDiscoverMore={(element) => onDiscoverMore(element)}
                   />
                 ) : (
                   <NewSlider
@@ -397,6 +417,14 @@ const Collections = () => {
                     key={key.toString()}
                     items={item?.list?.items || []}
                     title={item?.title || ''}
+                    numColumns={3}
+                    element={{
+                      width: vw(33.333) - wp(20),
+                      height: vw(33.333 * 1.25),
+                      marginBottom: 20,
+                      marginHorizontal: wp(5),
+                    }}
+                    containerStyle={containerStyles}
                   />
                 );
               case 'grid-infinite':
@@ -431,30 +459,52 @@ const Collections = () => {
                     </ChangeOrderButton>
                     <Grid
                       items={item?.list?.items || []}
-                      title={item?.title || ''}
+                      title={
+                        getIsCollectionDetail(data?.template || '')
+                          ? `${(item?.list?.items || []).length} ${
+                              (item?.list?.items || []).length > 1
+                                ? t('programmes')
+                                : t('programme')
+                            }`
+                          : item?.title || ''
+                      }
                       loading={animationContinuosScroll}
+                      numColumns={3}
+                      element={{
+                        width: vw(33.333) - wp(20),
+                        height: vw(33.333 * 1.25),
+                        marginBottom: 20,
+                        marginHorizontal: wp(5),
+                      }}
+                      containerStyle={containerStyles}
                     />
                   </WrapperContinuosScroll>
                 );
               case 'new':
                 return <New key={key.toString()} {...{ item }} />;
               case 'episodes':
-                return <Episodes key={key.toString()} {...{ item }} />;
-              case 'large-programing':
-                return <LargeProgramming key={key.toString()} {...{ item }} />;
-              case 'title-treatment':
                 return getIsCollectionDetail(data?.template || '') ? (
                   <Grid
                     key={key.toString()}
                     items={item?.list?.items || []}
                     title={item?.title || ''}
-                    width={170}
-                    height={100}
-                    imageType="tile"
+                    imageType={['wallpaper', 'tile']}
+                    numColumns={2}
+                    element={{
+                      width: vw(50) - wp(26),
+                      height: vw(50) - vw(26),
+                      marginBottom: 20,
+                      marginHorizontal: wp(5),
+                    }}
+                    containerStyle={containerStyles}
                   />
                 ) : (
-                  <TitleTreatment key={key.toString()} {...{ item }} />
+                  <Episodes key={key.toString()} {...{ item }} />
                 );
+              case 'large-programing':
+                return <LargeProgramming key={key.toString()} {...{ item }} />;
+              case 'title-treatment':
+                return <TitleTreatment key={key.toString()} {...{ item }} />;
               case 'popular':
                 return <Popular key={key.toString()} {...{ item }} />;
               case 'standard':
@@ -469,10 +519,12 @@ const Collections = () => {
                     key={key.toString()}
                     items={item?.list?.items || []}
                     title={item?.list?.title || ''}
-                    width={width - 40}
-                    height={190}
+                    element={{ width: width - 40, height: 215 }}
                     imageType="wallpaper"
                     cardContent={(card: MassiveSDKModelItemSummary) => <GridContent data={card} />}
+                    cardContentAfter={(card: MassiveSDKModelItemSummary) => (
+                      <GridContentAfter data={card} />
+                    )}
                   />
                 ) : (
                   <OurFavorites key={key.toString()} data={item?.list || {}} />

@@ -71,7 +71,6 @@ export default function More() {
         <RowContent>
           <ItemTitle>{t('myaccount.title')}</ItemTitle>
         </RowContent>
-        {/* <BackIcon height={20} width={20} /> */}
       </RowContainer>
       <SeparatorLine />
       <RowContainer
@@ -82,7 +81,6 @@ export default function More() {
         <RowContent>
           <ItemTitle>{t('parentalcontrols.title')}</ItemTitle>
         </RowContent>
-        {/* <BackIcon height={20} width={20} /> */}
       </RowContainer>
       <SeparatorLine />
       <RowContainer>
@@ -91,19 +89,16 @@ export default function More() {
             {t('help')}
           </ItemTitle>
         </RowContent>
-        {/* <BackIcon height={20} width={20} /> */}
       </RowContainer>
       <RowContainer>
         <RowContent>
           <ItemTitle>{t('termscondition')}</ItemTitle>
         </RowContent>
-        {/* <BackIcon height={20} width={20} /> */}
       </RowContainer>
       <RowContainer>
         <RowContent>
           <ItemTitle>{t('privacypolicy')}</ItemTitle>
         </RowContent>
-        {/* <BackIcon height={20} width={20} /> */}
       </RowContainer>
       <SeparatorLine />
       <RowContainer>

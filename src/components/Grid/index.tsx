@@ -2,8 +2,7 @@ import React from 'react';
 import { MassiveSDKModelItemList } from '@src/sdks/Britbox.API.Content.TS/api';
 
 import { getImage } from '@src/utils/images';
-import { FlatGrid } from 'react-native-super-grid';
-import { YellowBox, ImageStyle, ViewStyle } from 'react-native';
+import { YellowBox, ImageStyle, ViewStyle, FlatList } from 'react-native';
 import ContentLoader, { Rect } from 'react-content-loader/native';
 import { AppState } from '@store/modules/rootReducer';
 import { useSelector } from 'react-redux';
@@ -28,7 +27,9 @@ type Props = {
   onPress?: (item: MassiveSDKModelItemList) => void;
   title?: string;
   spacing?: number;
+  numColumns?: number;
   cardContent?: (item: MassiveSDKModelItemList) => JSX.Element | null;
+  cardContentAfter?: (item: MassiveSDKModelItemList) => JSX.Element | null;
 };
 
 const Grid = ({
@@ -38,10 +39,37 @@ const Grid = ({
   containerStyle,
   onPress,
   title,
-  spacing,
+  numColumns = 1,
   cardContent,
+  cardContentAfter,
 }: Props) => {
   const theme = useSelector((state: AppState) => state.theme.theme);
+  const getImageResult = (item: MassiveSDKModelItemList): string => {
+    if (Array.isArray(imageType)) {
+      let find = false;
+      let result = 'no-image';
+
+      imageType.forEach((image: string) => {
+        if (!find) {
+          const imageResult = getImage(
+            imageType && item?.images ? item?.images[image] : '',
+            image || 'poster'
+          );
+
+          if (imageResult !== 'no-image') {
+            find = true;
+            result = imageResult;
+          }
+        }
+      });
+      return result;
+    }
+    return getImage(
+      imageType && item?.images ? item?.images[imageType] : item?.images?.poster || '',
+      imageType || 'poster'
+    );
+  };
+
   return (
     <>
       {title !== '' && (
@@ -62,24 +90,20 @@ const Grid = ({
         </Row>
       )}
       <Container style={containerStyle}>
-        <FlatGrid
-          scrollEnabled={false}
-          itemDimension={Number(element?.width || 100)}
-          spacing={spacing || 0}
+        <FlatList
           data={data}
+          scrollEnabled={false}
+          numColumns={numColumns}
+          keyExtractor={(item, index) => index.toString()}
           renderItem={({ item }) => (
-            <>
-              <Card
-                url={getImage(
-                  imageType && item?.images ? item?.images[imageType] : item?.images?.poster || '',
-                  imageType || 'poster'
-                )}
-                onPress={() => (onPress ? onPress(item) : {})}
-                cardContent={(card) => (cardContent ? cardContent(card) : null)}
-                cardElement={item}
-                {...{ element, containerStyle }}
-              />
-            </>
+            <Card
+              url={getImageResult(item)}
+              onPress={() => (onPress ? onPress(item) : {})}
+              cardContent={(card) => (cardContent ? cardContent(card) : null)}
+              cardContentAfter={(card) => (cardContentAfter ? cardContentAfter(card) : null)}
+              cardElement={item}
+              {...{ element }}
+            />
           )}
         />
       </Container>

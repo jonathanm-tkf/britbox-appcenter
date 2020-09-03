@@ -2,9 +2,9 @@ import { takeLatest, all, call, put, select } from 'redux-saga/effects';
 
 import { BritboxContentApi } from '@src/sdks';
 import { getDevice } from '@src/utils';
-import { HomeActionTypes } from './types';
 import { homeRequestSuccess, homeRequestError } from './actions';
 import { AppState } from '../rootReducer';
+import { CoreActionTypes } from '../core/types';
 
 type HomeDataRequest = {
   path?: string;
@@ -54,4 +54,5 @@ export function* homeRequest() {
   }
 }
 
-export default all([takeLatest(HomeActionTypes.HOME_REQUEST, homeRequest)]);
+// export default all([takeLatest(HomeActionTypes.HOME_REQUEST, homeRequest)]);
+export default all([takeLatest(CoreActionTypes.CONFIG_SUCCESS, homeRequest)]);

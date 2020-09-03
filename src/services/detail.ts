@@ -132,7 +132,10 @@ const processDetailPage = async (
 
       episodesResponse = entries?.item?.episodes;
 
-      moreInformationResponse.credits = entries?.item?.credits;
+      moreInformationResponse.credits =
+        (entries?.item?.credits || []).length > 0
+          ? entries?.item?.credits
+          : entries?.item?.show?.credits || [];
       moreInformationResponse.title = entries?.item?.show?.title || '';
       moreInformationResponse.description = entries?.item?.show?.description || '';
       moreInformationResponse.season = entries?.item?.contextualTitle || '';

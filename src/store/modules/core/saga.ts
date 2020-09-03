@@ -1,7 +1,5 @@
-import { takeLatest, all, select, call, put } from 'redux-saga/effects';
+import { takeLatest, all, select, call, put, takeEvery } from 'redux-saga/effects';
 import axios from 'axios';
-// import * as Sentry from '@sentry/react-native';
-
 import api from '@src/services/api';
 import Constants from '@src/config/Constants';
 import { BritboxContentApi } from '@src/sdks';
@@ -40,6 +38,14 @@ export async function getConfigSDK() {
     return error;
   }
 }
+export function* getConfig() {
+  try {
+    const { response: config }: { response: { location: string } } = yield call(getConfigSDK);
+    yield put(configRequestSuccess(config.location));
+  } catch (error) {
+    yield put(configRequestError());
+  }
+}
 
 export async function getBritBoxAppConfig() {
   try {
@@ -52,23 +58,27 @@ export async function getBritBoxAppConfig() {
 
 export function* init() {
   try {
-    const segment = yield select(getSegment);
-    const { response }: { response: Menu } = yield call(getMenu, segment);
-
-    yield put(menuRequestSuccess(response));
-
     const config = yield call(getBritBoxAppConfig);
     yield put(britBoxAppConfigSuccess(config));
   } catch (error) {
-    yield put(menuRequestError());
+    //
   }
 
-  try {
-    const { response: config }: { response: { location: string } } = yield call(getConfigSDK);
-    yield put(configRequestSuccess(config.location));
-  } catch (error) {
-    yield put(configRequestError());
+  const segment = yield select(getSegment);
+
+  yield call(getConfig);
+
+  if (segment !== Segment.OUT) {
+    try {
+      const { response }: { response: Menu } = yield call(getMenu, segment);
+      yield put(menuRequestSuccess(response));
+    } catch (error) {
+      yield put(menuRequestError());
+    }
   }
 }
 
-export default all([takeLatest(CoreActionTypes.PERSIST_REHYDRATE, init)]);
+export default all([
+  takeLatest(CoreActionTypes.PERSIST_REHYDRATE, init),
+  takeEvery(CoreActionTypes.CONFIG_REQUEST, getConfig),
+]);

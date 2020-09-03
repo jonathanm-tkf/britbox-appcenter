@@ -1,6 +1,7 @@
 import styled from 'styled-components/native';
 import { ThemeState } from '@store/modules/theme/types';
 import { Animated, ImageBackground, Dimensions, Platform } from 'react-native';
+import { Button as ButtonC } from '@components/Button';
 
 const { width } = Dimensions.get('window');
 
@@ -56,6 +57,10 @@ export const Slider = styled(AnimatedImage).attrs({
   }};
 `;
 
+type SlimDescriptionText = {
+  collection?: boolean;
+};
+
 export const SlimDescriptionText = styled.Text.attrs({
   numberOfLines: 4,
 })`
@@ -63,15 +68,58 @@ export const SlimDescriptionText = styled.Text.attrs({
   font-family: ${(props: ThemeState) => props.theme.PRIMARY_FONT_FAMILY_LIGHT};
   text-align: center;
   min-height: 90px;
-  font-size: 14px;
+  font-size: 16px;
   line-height: 22px;
+
+  ${(props: SlimDescriptionText & ThemeState) => {
+    return (
+      props.collection &&
+      `
+      min-height: auto;
+      margin-bottom: 30px;
+    `
+    );
+  }};
 `;
+
+type SlimDescription = {
+  collection?: boolean;
+  space?: string | undefined;
+};
 
 export const SlimDescription = styled.View`
   height: 100px;
+  padding-left: 40px;
+  padding-right: 40px;
+
+  ${(props: SlimDescription) => {
+    return (
+      props.collection &&
+      `
+      height: auto;
+      margin-top: 30px;
+    `
+    );
+  }};
+
+  ${(props: SlimDescription) => {
+    return (
+      props.space === undefined &&
+      `
+      height: 0px;
+      background-color: red;
+    `
+    );
+  }};
 `;
 
 export const ActionsWrapper = styled.View`
   height: 120px;
+  margin-bottom: 20px;
+`;
+
+export const Button = styled(ButtonC)`
+  margin-left: 20px;
+  margin-right: 20px;
   margin-bottom: 20px;
 `;

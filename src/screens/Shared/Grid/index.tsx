@@ -3,6 +3,7 @@ import { MassiveSDKModelItemList } from '@src/sdks/Britbox.API.Content.TS/api';
 import GridC from '@components/Grid';
 import Action from '@components/Action';
 import { navigateByPath } from '@src/navigation/rootNavigation';
+import { ImageStyle, ViewStyle } from 'react-native';
 import { Container, WrapperLoading } from './styles';
 
 type WALLPAPER = 'wallpaper';
@@ -16,11 +17,12 @@ interface Props {
   items: MassiveSDKModelItemList[];
   title: string | undefined;
   loading?: boolean;
-  width?: number;
-  height?: number;
-  spacing?: number;
-  imageType?: WALLPAPER | POSTER | HERO3X1 | SQUARE | TILE;
+  imageType?: WALLPAPER | POSTER | HERO3X1 | SQUARE | TILE | string[];
   cardContent?: (item: MassiveSDKModelItemList) => JSX.Element | null;
+  cardContentAfter?: (item: MassiveSDKModelItemList) => JSX.Element | null;
+  numColumns?: number;
+  element: ImageStyle;
+  containerStyle?: ViewStyle;
 }
 
 const Grid = ({
@@ -28,11 +30,12 @@ const Grid = ({
   items,
   title,
   loading,
-  width,
-  height,
   imageType,
-  spacing,
   cardContent,
+  cardContentAfter,
+  numColumns = 1,
+  element,
+  containerStyle,
 }: Props) => {
   const goToOtherContent = (item: MassiveSDKModelItemList) => {
     navigateByPath(item);
@@ -45,12 +48,15 @@ const Grid = ({
     >
       <GridC
         data={items}
-        element={{ width: width || 112, height: height || 157, marginBottom: 5 }}
+        numColumns={numColumns}
+        {...{ element }}
+        // element={{ width: width || 112, height: height || 157, marginBottom: 5 }}
         onPress={(item) => goToOtherContent(item)}
-        spacing={spacing || 13}
         imageType={imageType}
         title={title}
+        containerStyle={containerStyle}
         cardContent={(item) => (cardContent ? cardContent(item) : null)}
+        cardContentAfter={(item) => (cardContentAfter ? cardContentAfter(item) : null)}
       />
       {loading && (
         <WrapperLoading>

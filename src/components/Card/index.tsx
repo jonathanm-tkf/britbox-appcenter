@@ -55,6 +55,7 @@ interface Props {
   element?: any;
   resizeMode?: 'cover' | 'contain' | 'stretch' | 'repeat' | 'center' | undefined;
   cardContent?: (item: MassiveSDKModelItemList) => JSX.Element | null;
+  cardContentAfter?: (item: MassiveSDKModelItemList) => JSX.Element | null;
   cardElement?: MassiveSDKModelItemList;
 }
 
@@ -75,6 +76,7 @@ const Card = ({
   element,
   resizeMode,
   cardContent,
+  cardContentAfter,
   cardElement,
 }: Props) => {
   const theme = useSelector((state: AppState) => state.theme.theme);
@@ -204,9 +206,12 @@ const Card = ({
             )}
           </Group>
         </Wrapper>
-        {isDetail && data?.summary !== '' && <SummaryText>{data?.summary}</SummaryText>}
+        {isDetail && data?.summary !== '' && (
+          <SummaryText>{(data?.summary || '').replace(/\n/g, '')}</SummaryText>
+        )}
+        {cardContent && cardContent(cardElement || {})}
       </AllWrapper>
-      {cardContent && cardContent(cardElement || {})}
+      {cardContentAfter && cardContentAfter(cardElement || {})}
     </TouchableScale>
   );
 };

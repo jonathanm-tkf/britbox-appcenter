@@ -77,7 +77,9 @@ export const SubTitle = styled.Text`
 
 export const Gradient = styled(LinearGradient).attrs({
   colors: ['#202634', '#171B23'],
-})``;
+})`
+  padding-bottom: ${getBottomSpace() + 74}px;
+`;
 
 export const Wrapper = styled.View`
   padding-top: 10px;
@@ -140,4 +142,11 @@ export const RowContainer = styled.TouchableOpacity.attrs({
 
 export const RowContent = styled.View`
   flex: 1;
+`;
+
+export const Header = styled.View`
+  /* position: absolute; */
+  /* top: 0;
+  z-index: 1;
+  width: 100%; */
 `;

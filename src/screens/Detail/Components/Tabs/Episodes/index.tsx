@@ -96,7 +96,7 @@ const Episodes = ({ onLayout, data, show, moreInformation }: Props) => {
           url={getImage(item?.images?.wallpaper || 'loading', 'wallpaper')}
           isDetail
           data={{
-            title: item?.contextualTitle || '',
+            title: `${item.episodeNumber}. ${item?.episodeName}` || '',
             description: `${getDuration(item?.duration || 0)} min`,
             summary: item?.shortDescription || '',
             category: getCategories(item || {}),

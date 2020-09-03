@@ -9,6 +9,8 @@ import home from './home/reducer';
 import { HomeState } from './home/types';
 import search from './search/reducer';
 import { SearchState } from './search/types';
+import layout from './layout/reducer';
+import { LayoutState } from './layout/types';
 
 export interface AppState {
   core: CoreState;
@@ -16,6 +18,7 @@ export interface AppState {
   home: HomeState;
   theme: ThemeState;
   search: SearchState;
+  layout: LayoutState;
 }
 
 export default combineReducers<AppState>({
@@ -24,4 +27,5 @@ export default combineReducers<AppState>({
   home,
   theme,
   search,
+  layout,
 });

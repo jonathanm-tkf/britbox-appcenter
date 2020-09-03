@@ -37,9 +37,7 @@ const Tabs = ({ data }: Props) => {
 
   const createTabs = (content: LoadDetailPageResponse | undefined) => {
     const tabs = [];
-
     const { information, related, episodes, show, moreInformation } = content || {};
-
     if (episodes) {
       tabs.push({
         key: 'first',

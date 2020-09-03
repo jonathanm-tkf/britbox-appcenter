@@ -14,6 +14,9 @@ import { MassiveSDKModelItemList } from '@src/sdks/Britbox.API.Account.TS/api';
 import { MassiveSDKModelPageEntry } from '@src/sdks/Britbox.API.Content.TS/api';
 import { getSearch } from '@store/modules/search/saga';
 import Grid from '@screens/Shared/Grid';
+import { widthPercentageToDP as vw } from 'react-native-responsive-screen';
+
+import { wp } from '@src/utils/dimension';
 import {
   Container,
   Title,
@@ -33,6 +36,12 @@ import {
   ResultText,
   ResultGrid,
 } from './styles';
+
+const containerStyles = {
+  marginTop: 10,
+  paddingHorizontal: wp(0),
+  alignItems: 'center',
+};
 
 export default function Search() {
   const { t } = useTranslation('search');
@@ -161,7 +170,18 @@ export default function Search() {
                     <ResultBold>&#34;{searchInput}&#34;</ResultBold>
                   </ResultText>
                 </ResultWrapper>
-                <Grid items={searchingItemData || []} title="" />
+                <Grid
+                  items={searchingItemData || []}
+                  title=""
+                  numColumns={3}
+                  element={{
+                    width: vw(33.333) - wp(20),
+                    height: vw(33.333 * 1.25),
+                    marginBottom: 20,
+                    marginHorizontal: wp(5),
+                  }}
+                  containerStyle={containerStyles}
+                />
               </ResultGrid>
             ) : (
               <FlatList
@@ -210,7 +230,18 @@ export default function Search() {
               </SuggestionWrapper>
             )}
 
-            <Grid items={suggestions?.list?.items || []} title={suggestions?.title || ''} />
+            <Grid
+              items={suggestions?.list?.items || []}
+              title={suggestions?.title || ''}
+              numColumns={3}
+              element={{
+                width: vw(33.333) - wp(20),
+                height: vw(33.333 * 1.25),
+                marginBottom: 20,
+                marginHorizontal: wp(5),
+              }}
+              containerStyle={containerStyles}
+            />
           </>
         )}
       </Scroll>

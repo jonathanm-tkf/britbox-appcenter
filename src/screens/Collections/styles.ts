@@ -63,9 +63,15 @@ export const SpaceNoHeroSlim = styled.View`
 
 export const GridInnerContent = styled.View`
   position: absolute;
-  bottom: 5px;
+  bottom: 0;
   width: 100%;
   align-self: center;
+`;
+
+export const GridInnerContentAfter = styled.View`
+  width: 100%;
+  align-self: center;
+  margin-bottom: 20px;
 `;
 
 export const Gradient = styled(LinearGradient).attrs((props: ThemeState) => ({
@@ -103,6 +109,14 @@ export const ActionTitle = styled.Text`
   margin-bottom: 5px;
   font-family: ${(props: ThemeState) => props.theme.PRIMARY_FONT_FAMILY_MEDIUM};
   z-index: 2;
+`;
+
+export const ActionTitleAfter = styled.Text`
+  color: ${(props: ThemeState) => props.theme.PRIMARY_FOREGROUND_COLOR};
+  font-size: 14px;
+  line-height: 24px;
+  margin-top: 15px;
+  margin-bottom: 5px;
 `;
 
 export const ChangeGenreButton = styled.TouchableOpacity`

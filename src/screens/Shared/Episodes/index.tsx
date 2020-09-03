@@ -9,7 +9,6 @@ import { slice } from 'lodash';
 import Carousel from '@components/Carousel';
 import Card from '@components/Card';
 import { getImage } from '@src/utils/images';
-import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import { AppState } from '@store/modules/rootReducer';
 import ContentLoader, { Rect } from 'react-content-loader/native';
@@ -20,7 +19,6 @@ type Props = {
 };
 
 const Episodes = ({ item }: Props) => {
-  const { t } = useTranslation('home');
   const theme = useSelector((state: AppState) => state.theme.theme);
 
   return (
@@ -43,26 +41,33 @@ const Episodes = ({ item }: Props) => {
       <Carousel
         items={slice(item?.list?.items, 0, 20)}
         listProps={{ horizontal: true }}
-        renderItem={({ item: card }: { item: MassiveSDKModelItemSummary }) => (
-          <Card
-            isEpisode
-            width={157}
-            height={107}
-            url={getImage(card.images?.wallpaper, 'wallpaper')}
-            data={{
-              title: card?.title || '',
-              description:
-                card.type === 'movie'
-                  ? card.shortDescription || ''
-                  : card.type === 'show'
-                  ? t('season', {
-                      context: 'plural',
-                      count: card?.availableSeasonCount,
-                    })
-                  : `E ${card.episodeNumber} - ${card.duration} min`,
-            }}
-          />
-        )}
+        renderItem={({ item: card }: { item: MassiveSDKModelItemSummary }) => {
+          return (
+            <Card
+              isEpisode={card.type === 'movie' || card.type === 'episode'}
+              width={157}
+              height={107}
+              url={getImage(
+                card.type === 'movie' || card.type === 'episode'
+                  ? card.images?.wallpaper
+                  : card.images?.tile,
+                'wallpaper'
+              )}
+              data={{
+                title: card?.title || '',
+                // description:
+                //   card.type === 'movie'
+                //     ? card.shortDescription || ''
+                //     : card.type === 'show'
+                //     ? t('season', {
+                //         context: 'plural',
+                //         count: card?.availableSeasonCount,
+                //       })
+                //     : `E ${card.episodeNumber} - ${card.duration} min`,
+              }}
+            />
+          );
+        }}
       />
     </>
   );

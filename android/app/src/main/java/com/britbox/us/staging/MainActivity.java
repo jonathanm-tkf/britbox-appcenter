@@ -12,8 +12,9 @@ import android.util.Log;
 import android.view.View;
 import android.content.Intent;
 import android.content.res.Configuration;
+import com.facebook.react.GoogleCastActivity;
 
-public class MainActivity extends ReactActivity {
+public class MainActivity extends GoogleCastActivity {
 
   @Override
   public void onConfigurationChanged(Configuration newConfig) {
