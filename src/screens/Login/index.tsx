@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from 'react';
 import { KeyboardAvoidingView, Platform, TouchableOpacity } from 'react-native';
@@ -54,7 +53,7 @@ const Login = () => {
   const theme = useSelector((state: AppState) => state.theme.theme);
   const britboxConfig = useSelector((state: AppState) => state.core.britboxConfig);
   const segment = useSelector((state: AppState) => state.core.segment);
-  const country: any = segment.toLocaleLowerCase() || 'us';
+  const country: string = segment.toLocaleLowerCase() || 'us';
 
   const [user, setUser] = useState(__DEV__ ? 'maximilianor@takeoffmedia.com' : '');
   const [password, setPassword] = useState(__DEV__ ? '8Ub4cYAiM77EzJY' : '');
@@ -288,7 +287,7 @@ const Login = () => {
             {isForgotModalSuccess ? (
               <>
                 <ModalSubTitle>
-                  {t('forgotpassword.description1')} <EmailLink>{forgotEmail}</EmailLink>{' '}
+                  {t('forgotpassword.description1')} <EmailLink>{forgotEmail}.</EmailLink>{' '}
                   {t('forgotpassword.description2')}
                 </ModalSubTitle>
                 <Button

@@ -3,7 +3,6 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import Header from '@components/Header';
-import Orientation from 'react-native-orientation-locker';
 import { ThemeProps } from '@store/modules/theme/types';
 import Carousel from 'react-native-snap-carousel';
 import { AppState } from '@store/modules/rootReducer';
@@ -20,6 +19,7 @@ import {
   PaginationWrapper,
   PaginationContent,
   ScrollView,
+  Paragraph,
 } from './styles';
 import SliderEntry from './SliderEntry';
 import { sliderWidth, itemWidth } from './SliderEntry/styles';
@@ -52,11 +52,10 @@ const Auth = () => {
   const [sliderRef, setSliderRef] = useState(null);
   const [slider1ActiveSlide, setSlider1ActiveSlide] = useState(0);
   const { t } = useTranslation('auth');
-  const { navigation } = useNavigation();
 
   const britboxConfig = useSelector((state: AppState) => state.core.britboxConfig);
   const segment = useSelector((state: AppState) => state.core.segment);
-  const country: any = segment.toLocaleLowerCase() || 'us';
+  const country: string = segment.toLocaleLowerCase() || 'us';
 
   useEffect(() => {
     // Orientation.lockToPortrait();
@@ -69,7 +68,7 @@ const Auth = () => {
         (britboxConfig && britboxConfig[country]?.paywall[0]?.description) ||
         t('slider1.description'),
       illustration: WellcomeImage,
-      titleWidth: '100%',
+      titleWidth: '98%',
     },
     {
       title: (britboxConfig && britboxConfig[country]?.paywall[1]?.title) || t('slider2.title'),
@@ -77,7 +76,7 @@ const Auth = () => {
         (britboxConfig && britboxConfig[country]?.paywall[1]?.description) ||
         t('slider2.description'),
       illustration: AllDevice,
-      titleWidth: '60%',
+      titleWidth: '98%',
     },
     {
       title: (britboxConfig && britboxConfig[country]?.paywall[2]?.title) || t('slider3.title'),
@@ -85,7 +84,7 @@ const Auth = () => {
         (britboxConfig && britboxConfig[country]?.paywall[2]?.description) ||
         t('slider3.description'),
       illustration: CancelAnyTime,
-      titleWidth: '100%',
+      titleWidth: '98%',
     },
     {
       title: (britboxConfig && britboxConfig[country]?.paywall[3]?.title) || t('slider4.title'),
@@ -93,7 +92,7 @@ const Auth = () => {
         (britboxConfig && britboxConfig[country]?.paywall[3]?.description) ||
         t('slider4.description'),
       illustration: MoreWatching,
-      titleWidth: '100%',
+      titleWidth: '98%',
     },
   ];
 
@@ -143,14 +142,10 @@ const Auth = () => {
               />
             </PaginationWrapper>
 
-            <Button
-              size="big"
-              fontWeight="medium"
-              stretch
-              onPress={() => navigate('SignUpSubscription')}
-            >
+            <Button size="big" fontWeight="medium" stretch onPress={() => navigate('SignUp')}>
               {t('freetrial')}
             </Button>
+            <Paragraph>{britboxConfig[country]?.login['description-2'] || ''}</Paragraph>
           </Content>
         </Container>
       </ScrollView>
