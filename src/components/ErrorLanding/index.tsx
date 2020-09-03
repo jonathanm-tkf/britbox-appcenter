@@ -17,6 +17,8 @@ const ErrorLanding = ({ onPress, out = false }: Props) => {
   const { t } = useTranslation('layout');
 
   const britboxConfig = useSelector((state: AppState) => state.core.britboxConfig);
+  const segment = useSelector((state: AppState) => state.core.segment);
+  const country: string = segment.toLocaleLowerCase() || 'us';
 
   return (
     <Container>
@@ -27,7 +29,9 @@ const ErrorLanding = ({ onPress, out = false }: Props) => {
         {!out ? t('error.title') : t('errorOut.title')}
       </Title>
       <Headline fontSize={28} lineHeight={40} center>
-        {!out ? t('error.subtitle') : britboxConfig['out-of-region']?.message || ''}
+        {!out
+          ? t('error.subtitle')
+          : (britboxConfig && britboxConfig['out-of-region']?.message) || t('errorOut.subtitle')}
       </Headline>
       {!out ? (
         <>
@@ -43,7 +47,13 @@ const ErrorLanding = ({ onPress, out = false }: Props) => {
       ) : (
         <BottomParagraph>
           {t('visitour')}{' '}
-          <LinkTitle onPress={() => Linking.openURL('https://help.britbox.com/')}>
+          <LinkTitle
+            onPress={() =>
+              Linking.openURL(
+                (britboxConfig && britboxConfig[country]?.urls?.help) || 'https://help.britbox.com/'
+              )
+            }
+          >
             {t('helpsupport')}
           </LinkTitle>
         </BottomParagraph>

@@ -394,10 +394,16 @@ const SignUp = () => {
               <RowWrapper>
                 <WrapperParagraph>
                   By Clicking 'Create Account' you agree to the BritBox{' '}
-                  <LinkText>Terms and Conditions</LinkText> and our{' '}
-                  <LinkText>Privacy Policy</LinkText>. We'll send you regular BritBox newsletters,
-                  along with other special offers and promotions. You can opt out at any time by
-                  clicking on the unsubscribe link in our emails.
+                  <LinkText onPress={() => navigation.navigate('Terms')}>
+                    Terms and Conditions
+                  </LinkText>{' '}
+                  and our{' '}
+                  <LinkText onPress={() => navigation.navigate('PrivacyPolicy')}>
+                    Privacy Policy
+                  </LinkText>
+                  . We'll send you regular BritBox newsletters, along with other special offers and
+                  promotions. You can opt out at any time by clicking on the unsubscribe link in our
+                  emails.
                 </WrapperParagraph>
               </RowWrapper>
             </Wrapper>

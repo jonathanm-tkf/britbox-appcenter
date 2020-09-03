@@ -38,6 +38,7 @@ export async function getConfigSDK() {
     return error;
   }
 }
+
 export function* getConfig() {
   try {
     const { response: config }: { response: { location: string } } = yield call(getConfigSDK);

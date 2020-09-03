@@ -142,7 +142,9 @@ const Auth = () => {
             <Button size="big" fontWeight="medium" stretch onPress={() => navigate('SignUp')}>
               {t('freetrial')}
             </Button>
-            <Paragraph>{britboxConfig[country]?.login['description-2'] || ''}</Paragraph>
+            <Paragraph>
+              {(britboxConfig && britboxConfig[country]?.login['description-2']) || ''}
+            </Paragraph>
           </Content>
         </Container>
       </ScrollView>
