@@ -40,6 +40,10 @@ export default function More() {
   const { navigate } = useNavigation();
   const dispatch = useDispatch();
   const user = useSelector((state: AppState) => state.user);
+  const britboxConfig = useSelector((state: AppState) => state.core.britboxConfig);
+  const segment = useSelector((state: AppState) => state.core.segment);
+  const country: string = segment.toLocaleLowerCase() || 'us';
+
   const logoutAction = () => dispatch(logout());
 
   return (
@@ -85,17 +89,31 @@ export default function More() {
       <SeparatorLine />
       <RowContainer>
         <RowContent>
-          <ItemTitle onPress={() => Linking.openURL('https://help.britbox.com/')}>
+          <ItemTitle
+            onPress={() =>
+              Linking.openURL(
+                (britboxConfig && britboxConfig[country]?.urls?.help) || 'https://help.britbox.com/'
+              )
+            }
+          >
             {t('help')}
           </ItemTitle>
         </RowContent>
       </RowContainer>
-      <RowContainer>
+      <RowContainer
+        onPress={() => {
+          navigate('Terms');
+        }}
+      >
         <RowContent>
           <ItemTitle>{t('termscondition')}</ItemTitle>
         </RowContent>
       </RowContainer>
-      <RowContainer>
+      <RowContainer
+        onPress={() => {
+          navigate('PrivacyPolicy');
+        }}
+      >
         <RowContent>
           <ItemTitle>{t('privacypolicy')}</ItemTitle>
         </RowContent>
