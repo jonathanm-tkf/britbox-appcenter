@@ -55,6 +55,7 @@ export type MoreInformation = {
   title: string;
   description: string;
   season: string;
+  vams: object[] | undefined;
 };
 
 export type LoadDetailPageResponse = {
@@ -103,6 +104,7 @@ const processDetailPage = async (
     title: '',
     description: '',
     season: '',
+    vams: undefined,
   };
 
   let episodesResponse;
@@ -139,6 +141,7 @@ const processDetailPage = async (
       moreInformationResponse.title = entries?.item?.show?.title || '';
       moreInformationResponse.description = entries?.item?.show?.description || '';
       moreInformationResponse.season = entries?.item?.contextualTitle || '';
+      moreInformationResponse.vams = entries?.item?.show?.vams;
     }
   }
 
@@ -163,6 +166,7 @@ const processDetailPage = async (
       moreInformationResponse.credits = entries?.item?.credits;
       moreInformationResponse.title = entries?.item?.title || '';
       moreInformationResponse.description = entries?.item?.shortDescription || '';
+      moreInformationResponse.vams = entries?.item?.vams;
     }
   }
 

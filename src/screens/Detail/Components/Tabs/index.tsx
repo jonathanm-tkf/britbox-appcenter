@@ -11,6 +11,7 @@ import { TabsWrapper, PreloadTabs, Container } from './styles';
 import Information from './Information';
 import More from './More';
 import Episodes from './Episodes';
+import BonusFeatures from './BonusFeatures';
 
 type Props = {
   data: LoadDetailPageResponse | undefined;
@@ -24,11 +25,13 @@ const Tabs = ({ data }: Props) => {
   const [firstHeight, setFirstHeight] = useState('auto');
   const [secondHeight, setSecondHeight] = useState('auto');
   const [threeHeight, setThreeHeight] = useState('auto');
+  const [fourHeight, setFourHeight] = useState('auto');
 
   const ready = {
     episodes: false,
     information: false,
     more: false,
+    bonus: false,
   };
 
   const [tabsData, setTabsData] = useState<any>([]);
@@ -94,6 +97,25 @@ const Tabs = ({ data }: Props) => {
       });
     }
 
+    if (moreInformation?.vams) {
+      tabs.push({
+        key: 'four',
+        title: t('bonus'),
+        content: () => (
+          <BonusFeatures
+            data={moreInformation.vams || []}
+            {...{ show, moreInformation }}
+            onLayout={(event) => {
+              if (!ready.bonus) {
+                setFourHeight(event.nativeEvent.layout.height);
+                ready.bonus = true;
+              }
+            }}
+          />
+        ),
+      });
+    }
+
     if (tabs.length > 0) {
       setTabsData(tabs);
     }
@@ -113,12 +135,15 @@ const Tabs = ({ data }: Props) => {
         case 'three':
           setHeight(threeHeight);
           break;
+        case 'four':
+          setHeight(fourHeight);
+          break;
         default:
           setHeight(firstHeight);
           break;
       }
     }
-  }, [firstHeight, secondHeight, threeHeight, tabsData]);
+  }, [firstHeight, secondHeight, threeHeight, fourHeight, tabsData]);
 
   const changeTab = (key: string) => {
     switch (key) {
@@ -127,6 +152,9 @@ const Tabs = ({ data }: Props) => {
         break;
       case 'three':
         setHeight(threeHeight);
+        break;
+      case 'four':
+        setHeight(fourHeight);
         break;
       default:
         setHeight(firstHeight);

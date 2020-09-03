@@ -107,7 +107,6 @@ export const SlimDescription = styled.View`
       props.space === undefined &&
       `
       height: 0px;
-      background-color: red;
     `
     );
   }};

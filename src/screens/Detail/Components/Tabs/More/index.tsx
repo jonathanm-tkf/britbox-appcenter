@@ -13,8 +13,7 @@ interface Props {
 const containerStyles = {
   marginTop: 30,
   marginBottom: 30,
-  paddingHorizontal: wp(0),
-  alignItems: 'center',
+  paddingHorizontal: wp(15),
 };
 
 const More = ({ onLayout, items }: Props) => {
