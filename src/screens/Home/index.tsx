@@ -2,8 +2,8 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable max-len */
-import React from 'react';
-import { View, Platform } from 'react-native';
+import React, { useCallback, useEffect } from 'react';
+import { View, Platform, Linking } from 'react-native';
 import { CollapsibleHeaderFlatList } from 'react-native-collapsible-header-views';
 import { getStatusBarHeight } from 'react-native-iphone-x-helper';
 import Header from '@components/Header';
@@ -32,7 +32,9 @@ import {
 } from '@screens/Shared';
 import { getImage } from '@src/utils/images';
 import UserWatching from '@components/UserWatching';
+import { getItemContent } from '@store/modules/home/saga';
 import { MassiveSDKModelItemSummary } from '@src/sdks/Britbox.API.Content.TS/api';
+import { BritboxAPIContentModelsItemsGetItemRelatedListResponse } from '@src/sdks/Britbox.API.Content.TS/api';
 import Cast from '@screens/Shared/Cast';
 import { navigateByPath } from '@src/navigation/rootNavigation';
 import { Container } from './styles';
@@ -85,6 +87,39 @@ const ContinueWatchingData = [
 
 const Home = () => {
   const theme = useSelector((state: AppState) => state.theme.theme);
+
+  const appWokeUp = useCallback(async (url) => {
+    if (url) {
+      if (Platform.OS === 'ios') {
+        const route = url?.split('://');
+
+        if (route && route[1]) {
+          const routeName = route[1]?.split('/');
+
+          if (routeName && routeName[0]) {
+            if (routeName[0] === 'watch' || routeName[0] === 'open') {
+              const response: BritboxAPIContentModelsItemsGetItemRelatedListResponse = await getItemContent(
+                routeName[1]
+              );
+
+              if (response && response?.externalResponse) {
+                const { externalResponse } = response;
+                navigateByPath(externalResponse);
+              }
+            }
+          }
+        }
+      }
+    }
+  }, []);
+
+  useEffect(() => {
+    Linking.getInitialURL().then((url: string | null) => {
+      if (url) {
+        appWokeUp(url);
+      }
+    });
+  }, [appWokeUp]);
 
   return (
     <View style={wrapper}>
