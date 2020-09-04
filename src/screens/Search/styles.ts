@@ -3,6 +3,7 @@ import styled from 'styled-components/native';
 import { Headline as TitleC } from '@components/Typography';
 import { ThemeState } from '@store/modules/theme/types';
 import { rgba } from 'polished';
+import { StarIcon } from '@assets/icons';
 
 export const Container = styled.SafeAreaView`
   flex: 1;
@@ -104,4 +105,21 @@ export const ResultBold = styled.Text`
 export const ResultText = styled.Text`
   color: ${(props: ThemeState) => props.theme.PRIMARY_FOREGROUND_COLOR};
   font-size: 15px;
+`;
+
+export const ResultCastWrapper = styled.View`
+  padding: 25px 20px 0px;
+`;
+
+export const CastStarIcon = styled(StarIcon).attrs((props: ThemeState) => ({
+  width: 20,
+  height: 20,
+  fill: props.theme.SUCCESS_COLOR,
+}))`
+  margin-bottom: 3px;
+`;
+
+export const CastFirstNameWrapper = styled.View`
+  flex-direction: row;
+  align-items: center;
 `;

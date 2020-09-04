@@ -5,6 +5,7 @@
   "programmes": "All Programmes",
   "subtitle": "Our top picks",
   "findResults": "These are the results for your search: ",
+  "castFindResults": "Cast related to your search: ",
   "noResults": {
     "bold": "We are sorry! ",
     "text": "We did not find results for your search. But surely you may be interested..."

@@ -19,3 +19,4 @@ export { default as ProfileImageIcon } from './images/Profile.svg';
 export { default as Logo } from './images/Logo.svg';
 export { default as ArrowBottomIcon } from './images/Arrow_bottom.svg';
 export { default as HelpIcon } from './images/Help.svg';
+export { default as StarIcon } from './images/Star.svg';
