@@ -16,7 +16,7 @@ export const Container = styled.View`
 
 export const ErrorText = styled.Text`
   color: ${(props: ThemeState) => props.theme.ERROR_COLOR};
-  align-self: center;
+  text-align: center;
   margin-bottom: 20px;
   font-family: ${(props: ThemeState) => props.theme.PRIMARY_FONT_FAMILY_MEDIUM};
 `;

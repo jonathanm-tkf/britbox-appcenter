@@ -54,5 +54,19 @@ export function* homeRequest() {
   }
 }
 
+export async function getItemContent(id: string) {
+  const { getItem } = BritboxContentApi();
+
+  try {
+    const response = await getItem(id, {
+      useCustomId: true,
+    });
+
+    return response;
+  } catch (error) {
+    return error;
+  }
+}
+
 // export default all([takeLatest(HomeActionTypes.HOME_REQUEST, homeRequest)]);
 export default all([takeLatest(CoreActionTypes.CONFIG_SUCCESS, homeRequest)]);
