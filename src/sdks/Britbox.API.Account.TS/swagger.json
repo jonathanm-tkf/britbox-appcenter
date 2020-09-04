@@ -68,6 +68,37 @@
         }
       }
     },
+    "/v1/account/Authorization/refreshTokenApp": {
+      "post": {
+        "tags": ["Authorization"],
+        "operationId": "RefreshTokenApp",
+        "consumes": [
+          "application/json-patch+json",
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "produces": ["text/plain", "application/json", "text/json"],
+        "parameters": [
+          {
+            "name": "request",
+            "in": "body",
+            "required": false,
+            "schema": {
+              "$ref": "#/definitions/Britbox.API.Account.Models.Authorization.RefreshTokenRequestApp"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/Britbox.API.Account.Models.Authorization.RefreshTokenResponse"
+            }
+          }
+        }
+      }
+    },
     "/v1/account/Authorization/refreshTokenD3": {
       "post": {
         "tags": ["Authorization"],
@@ -362,37 +393,6 @@
             "description": "Success",
             "schema": {
               "$ref": "#/definitions/Britbox.API.Account.Models.Device.RegisterDeviceResponse"
-            }
-          }
-        }
-      }
-    },
-    "/v1/account/Device/generateDeviceActivationCode": {
-      "post": {
-        "tags": ["Device"],
-        "operationId": "GenerateDeviceActivationCode",
-        "consumes": [
-          "application/json-patch+json",
-          "application/json",
-          "text/json",
-          "application/*+json"
-        ],
-        "produces": ["text/plain", "application/json", "text/json"],
-        "parameters": [
-          {
-            "name": "request",
-            "in": "body",
-            "required": false,
-            "schema": {
-              "$ref": "#/definitions/Britbox.API.Account.Models.Device.GenerateDeviceActivationCodeRequest"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Success",
-            "schema": {
-              "$ref": "#/definitions/Britbox.API.Account.Models.Device.GenerateDeviceActivationCodeResponse"
             }
           }
         }
@@ -1068,6 +1068,11 @@
       "type": "object",
       "properties": { "errorMessage": { "type": "string" }, "errorCode": { "type": "string" } }
     },
+    "Britbox.API.Account.Models.Authorization.RefreshTokenRequestApp": {
+      "required": ["refreshToken"],
+      "type": "object",
+      "properties": { "refreshToken": { "type": "string" } }
+    },
     "Britbox.API.Account.Models.Authorization.RefreshTokenRequestD3": {
       "required": ["d3Token", "deviceName", "deviceType"],
       "type": "object",
@@ -1463,34 +1468,6 @@
         "responseCode": { "type": "string" },
         "status": { "type": "string" },
         "failureMessage": { "$ref": "#/definitions/Britbox.Data.Evergent.Models.FailureMessage" }
-      }
-    },
-    "Britbox.API.Account.Models.Device.GenerateDeviceActivationCodeRequest": {
-      "type": "object",
-      "properties": {
-        "deviceDetails": { "$ref": "#/definitions/Britbox.Data.Evergent.Models.DeviceDetails" }
-      }
-    },
-    "Britbox.API.Account.Models.Device.GenerateDeviceActivationCodeResponse": {
-      "type": "object",
-      "properties": {
-        "response": {
-          "$ref": "#/definitions/Britbox.Data.Evergent.Models.GenerateDeviceActivationCodeResponseMessageBase+Response"
-        }
-      }
-    },
-    "Britbox.Data.Evergent.Models.GenerateDeviceActivationCodeResponseMessageBase+Response": {
-      "type": "object",
-      "properties": {
-        "activationCode": { "type": "string" },
-        "message": { "type": "string" },
-        "responseCode": { "type": "string" },
-        "status": { "type": "string" },
-        "failureMessage": {
-          "uniqueItems": false,
-          "type": "array",
-          "items": { "$ref": "#/definitions/Britbox.Data.Evergent.Models.FailureMessage" }
-        }
       }
     },
     "Britbox.API.Account.Models.MediaFile.GetItemMediaFilesResponse": {

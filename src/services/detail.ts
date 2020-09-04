@@ -253,6 +253,7 @@ const processEpisodesBySeason = async (
     title: '',
     description: '',
     season: '',
+    vams: undefined,
   };
 
   if ((detail?.entries || []).length > 0) {

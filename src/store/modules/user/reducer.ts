@@ -43,6 +43,7 @@ const user: Reducer<UserState> = (state = initialState, action) => {
       case UserActionTypes.PROFILE_REQUEST_SUCCESS:
         draft.profile = action.payload;
         break;
+      case UserActionTypes.REFRESH_TOKEN_SUCCESS:
       case UserActionTypes.REGISTER_REQUEST_SUCCESS:
         draft.access = action.payload;
         break;

@@ -20,6 +20,7 @@ const core: Reducer<CoreState> = (state = initialState, action) => {
         draft.language = action.payload.language;
         break;
       }
+      case UserActionTypes.REFRESH_TOKEN_SUCCESS:
       case UserActionTypes.LOGIN_REQUEST_SUCCESS: {
         const { accessToken } = action.payload;
         draft.isLogged = true;

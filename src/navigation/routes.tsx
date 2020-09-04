@@ -9,6 +9,8 @@ import KochavaTracker from 'react-native-kochava-tracker';
 import NetInfo from '@react-native-community/netinfo';
 import { isTablet } from 'react-native-device-info';
 import { connection } from '@store/modules/layout/actions';
+import { refreshToken } from '@src/services/token';
+import { refreshTokenSuccess } from '@store/modules/user/actions';
 import { RootStackScreen } from './Root';
 import { navigationRef } from './rootNavigation';
 
@@ -17,8 +19,17 @@ configMapObject[KochavaTracker.PARAM_ANDROID_APP_GUID_STRING_KEY] = 'kobbcww-and
 configMapObject[KochavaTracker.PARAM_IOS_APP_GUID_STRING_KEY] = 'kobbcww-ios-test-hh8756t';
 KochavaTracker.configure(configMapObject);
 
+type Access = {
+  refreshToken: string;
+};
+
 export default () => {
   const theme = useSelector((state: AppState) => state.theme.theme);
+  const token = useSelector((state: AppState) => state.core.token);
+  const refresh = useSelector(
+    (state: AppState) => (state.user.access as Access)?.refreshToken || ''
+  );
+
   const MyTheme = {
     ...DefaultTheme,
     colors: {
@@ -59,9 +70,21 @@ export default () => {
     };
   }, []);
 
+  const handleNavigationChange = async () => {
+    const { response } = await refreshToken(token, refresh);
+
+    if (response) {
+      dispatch(refreshTokenSuccess({ ...response }));
+    }
+  };
+
   return (
     <ThemeProvider theme={theme}>
-      <NavigationContainer theme={MyTheme} ref={navigationRef}>
+      <NavigationContainer
+        theme={MyTheme}
+        ref={navigationRef}
+        onStateChange={handleNavigationChange}
+      >
         <RootStackScreen />
       </NavigationContainer>
     </ThemeProvider>

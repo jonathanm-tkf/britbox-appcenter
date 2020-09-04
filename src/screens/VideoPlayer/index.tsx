@@ -1,6 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
 import React, { useEffect, useState } from 'react';
-import { View, Dimensions, StatusBar } from 'react-native';
+import { View, Dimensions, StatusBar, BackHandler } from 'react-native';
 import Orientation from 'react-native-orientation-locker';
 import { useNavigation, RouteProp, useRoute } from '@react-navigation/native';
 import { AppState } from '@store/modules/rootReducer';
@@ -45,10 +45,17 @@ const VideoPlayer = () => {
     }
   };
 
+  const handleBackButtonClick = () => {
+    Orientation.lockToPortrait();
+    backArrow();
+    return true;
+  };
+
   useEffect(() => {
     let unmonted = false;
     Orientation.lockToLandscape();
     StatusBar.setHidden(true);
+    BackHandler.addEventListener('hardwareBackPress', handleBackButtonClick);
 
     if (!unmonted) {
       NetInfo.fetch().then((state) => {
@@ -58,6 +65,7 @@ const VideoPlayer = () => {
     }
     return () => {
       unmonted = true;
+      BackHandler.removeEventListener('hardwareBackPress', handleBackButtonClick);
     };
   }, []);
 

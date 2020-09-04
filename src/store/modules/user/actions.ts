@@ -30,4 +30,7 @@ export const profileRequestSuccess = (data: BritboxAPIAccountModelsProfileGetPro
 export const registerRequestSuccess = (data: EvergentLoginResponse) =>
   action(UserActionTypes.REGISTER_REQUEST_SUCCESS, { ...data });
 
+export const refreshTokenSuccess = (data: EvergentLoginResponse) =>
+  action(UserActionTypes.REFRESH_TOKEN_SUCCESS, { ...data });
+
 export const loggedInRequest = () => action(UserActionTypes.LOGGEDIN_REQUEST);

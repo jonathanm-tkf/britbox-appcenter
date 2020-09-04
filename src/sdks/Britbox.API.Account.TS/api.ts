@@ -39,6 +39,10 @@ export interface BritboxDataEvergentModelsFailureMessage {
   errorCode?: string;
 }
 
+export interface BritboxAPIAccountModelsAuthorizationRefreshTokenRequestApp {
+  refreshToken: string;
+}
+
 export interface BritboxAPIAccountModelsAuthorizationRefreshTokenRequestD3 {
   d3Token: string;
   deviceName: string;
@@ -159,14 +163,6 @@ export interface BritboxAPIAccountModelsDeviceRegisterDeviceRequest {
 
 export interface BritboxAPIAccountModelsDeviceRegisterDeviceResponse {
   response?: BritboxDataEvergentModelsRegisterDeviceResponseMessageBaseResponse;
-}
-
-export interface BritboxAPIAccountModelsDeviceGenerateDeviceActivationCodeRequest {
-  deviceDetails?: BritboxDataEvergentModelsDeviceDetails;
-}
-
-export interface BritboxAPIAccountModelsDeviceGenerateDeviceActivationCodeResponse {
-  response?: BritboxDataEvergentModelsGenerateDeviceActivationCodeResponseMessageBaseResponse;
 }
 
 export interface BritboxAPIAccountModelsMediaFileGetItemMediaFilesResponse {
@@ -890,14 +886,6 @@ export interface BritboxDataEvergentModelsRegisterDeviceResponseMessageBaseRespo
   failureMessage?: BritboxDataEvergentModelsFailureMessage;
 }
 
-export interface BritboxDataEvergentModelsGenerateDeviceActivationCodeResponseMessageBaseResponse {
-  activationCode?: string;
-  message?: string;
-  responseCode?: string;
-  status?: string;
-  failureMessage?: BritboxDataEvergentModelsFailureMessage[];
-}
-
 export interface BritboxAPIAccountModelsMediaFileGetItemMediaFilesResponseResponse {
   token?: string;
   url?: string;
@@ -1093,6 +1081,22 @@ export class Api<SecurityDataType = any> extends HttpClient<SecurityDataType> {
 
     /**
      * @tags Authorization
+     * @name RefreshTokenApp
+     * @request POST:/v1/account/Authorization/refreshTokenApp
+     */
+    refreshTokenApp: (
+      request: BritboxAPIAccountModelsAuthorizationRefreshTokenRequestApp,
+      params?: RequestParams
+    ) =>
+      this.request<BritboxAPIAccountModelsAuthorizationRefreshTokenResponse, any>(
+        `/v1/account/Authorization/refreshTokenApp`,
+        'POST',
+        params,
+        request
+      ),
+
+    /**
+     * @tags Authorization
      * @name RefreshTokenD3
      * @request POST:/v1/account/Authorization/refreshTokenD3
      */
@@ -1246,22 +1250,6 @@ export class Api<SecurityDataType = any> extends HttpClient<SecurityDataType> {
     ) =>
       this.request<BritboxAPIAccountModelsDeviceRegisterDeviceResponse, any>(
         `/v1/account/Device/registerDevice`,
-        'POST',
-        params,
-        request
-      ),
-
-    /**
-     * @tags Device
-     * @name GenerateDeviceActivationCode
-     * @request POST:/v1/account/Device/generateDeviceActivationCode
-     */
-    generateDeviceActivationCode: (
-      request: BritboxAPIAccountModelsDeviceGenerateDeviceActivationCodeRequest,
-      params?: RequestParams
-    ) =>
-      this.request<BritboxAPIAccountModelsDeviceGenerateDeviceActivationCodeResponse, any>(
-        `/v1/account/Device/generateDeviceActivationCode`,
         'POST',
         params,
         request
