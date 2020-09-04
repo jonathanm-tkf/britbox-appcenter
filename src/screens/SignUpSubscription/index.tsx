@@ -12,7 +12,10 @@ import HeaderCustom from '@components/HeaderCustom';
 import { useSelector, useDispatch } from 'react-redux';
 import { getProductsRequest, addSubscriptionRequest } from '@store/modules/user/saga';
 import { loggedInRequest, getProfileRequest } from '@store/modules/user/actions';
-import { BritboxDataEvergentModelsGetProductsResponseMessageBaseProductsResponseMsg } from '@src/sdks/Britbox.API.Account.TS/api';
+import {
+  BritboxDataEvergentModelsGetProductsResponseMessageBaseProductsResponseMsg,
+  BritboxDataEvergentModelsGetProductsResponseMessageBaseAppChannels,
+} from '@src/sdks/Britbox.API.Account.TS/api';
 import { AppState } from '@store/modules/rootReducer';
 import Orientation from 'react-native-orientation-locker';
 import { useTranslation } from 'react-i18next';
@@ -41,6 +44,7 @@ import {
   RadioUnCheckedIconView,
   RadioBoxContent,
   PaddingHorizontalView,
+  ErrorText,
 } from './styles';
 
 const htmlEntities = new Html5Entities();
@@ -71,6 +75,8 @@ const SignUpSubscription = () => {
   const [loading, setLoading] = useState(false);
   const [packageData, setPackageData] = useState(productsResponse);
   const [packageIndex, setPackageIndex] = useState(0);
+  const [packageName, setPackageName] = useState('');
+  const [errorMsg, setErrorMsg] = useState('');
 
   const initialConnection = async () => {
     try {
@@ -88,38 +94,93 @@ const SignUpSubscription = () => {
   }, []);
 
   const getProducts = async () => {
-    if (Platform.OS === 'ios') {
-      await RNIap.getProducts([
-        'com.britbox.us.staging.subscription.annual.freetrial',
-        'com.britbox.us.subscription.annual',
-        'com.britbox.us.subscription',
-      ]);
-    } else {
-      await RNIap.getSubscriptions([
-        'com.britbox.stage.subscription.annual',
-        'com.britbox.us.staging.subscription.notrial',
-      ]);
-    }
-
     const { response } = await getProductsRequest();
-    if (response && Number(response.responseCode) === 1) {
-      setPackageData(response.productsResponseMessage);
+
+    if (response && Number(response?.responseCode) === 1) {
+      if (response?.productsResponseMessage?.length > 0) {
+        setPackageData(response?.productsResponseMessage);
+
+        const productApple: string[] = [];
+        const productGoogle: string[] = [];
+
+        response?.productsResponseMessage.forEach(
+          (element: BritboxDataEvergentModelsGetProductsResponseMessageBaseProductsResponseMsg) => {
+            const appIDApple:
+              | BritboxDataEvergentModelsGetProductsResponseMessageBaseAppChannels
+              | undefined = element?.appChannels?.find(
+              (e: BritboxDataEvergentModelsGetProductsResponseMessageBaseAppChannels) =>
+                e.appChannel === 'App Store Billing'
+            );
+            const appIDGoogle:
+              | BritboxDataEvergentModelsGetProductsResponseMessageBaseAppChannels
+              | undefined = element?.appChannels?.find(
+              (e: BritboxDataEvergentModelsGetProductsResponseMessageBaseAppChannels) =>
+                e.appChannel === 'Google Wallet'
+            );
+
+            if (appIDApple) {
+              const appIDAppleName: string = appIDApple?.appID;
+              productApple.push(appIDAppleName);
+            }
+
+            if (appIDGoogle) {
+              const appIDGoogleName: string = appIDGoogle?.appID;
+              productGoogle.push(appIDGoogleName);
+            }
+          }
+        );
+
+        if (Platform.OS === 'ios') {
+          await RNIap.getProducts(productApple);
+        } else {
+          await RNIap.getSubscriptions(productGoogle);
+        }
+      } else {
+        setErrorMsg("Couldn't be donen't get products");
+      }
+    } else {
+      setErrorMsg('Something went worng.');
     }
   };
 
   const initiateIAPRequest = async () => {
+    setErrorMsg('');
     setLoading(true);
     try {
-      const purchase = await RNIap.requestSubscription(
-        Platform.OS === 'ios'
-          ? 'com.britbox.us.staging.subscription.annual.freetrial'
-          : 'com.britbox.stage.subscription.annual'
+      let packageId = '';
+
+      const appIDApple:
+        | BritboxDataEvergentModelsGetProductsResponseMessageBaseAppChannels
+        | undefined = packageData[packageIndex]?.appChannels?.find(
+        (e: BritboxDataEvergentModelsGetProductsResponseMessageBaseAppChannels) =>
+          e.appChannel === 'App Store Billing'
       );
+      const appIDGoogle:
+        | BritboxDataEvergentModelsGetProductsResponseMessageBaseAppChannels
+        | undefined = packageData[packageIndex]?.appChannels?.find(
+        (e: BritboxDataEvergentModelsGetProductsResponseMessageBaseAppChannels) =>
+          e.appChannel === 'Google Wallet'
+      );
+
+      if (Platform.OS === 'ios') {
+        if (appIDApple) {
+          packageId = appIDApple?.appID;
+          setPackageName(packageId);
+        }
+      } else if (Platform.OS === 'android') {
+        if (appIDGoogle) {
+          packageId = appIDGoogle?.appID;
+          setPackageName(packageId);
+        }
+      }
+
+      const purchase = await RNIap.requestSubscription(packageId);
 
       await RNIap.finishTransaction(purchase);
 
       receiptValidateIOS(purchase?.transactionReceipt);
     } catch (err) {
+      setErrorMsg(err?.message);
       setLoading(false);
     }
   };
@@ -135,23 +196,29 @@ const SignUpSubscription = () => {
 
       const subscriptionResponse = await addSubscriptionRequest(user?.access?.accessToken || '', {
         rateType: 'App Store Billing',
-        priceCharged: 69.99,
+        priceCharged: packageData[packageIndex]?.retailPrice,
         appServiceID: 'com.britbox.us.staging.subscription.annual.freetrial',
         serviceType: 'PRODUCT',
         paymentmethodInfo: {
           label: 'App Store Billing',
           transactionReferenceMsg: {
-            amount: 69.99,
+            amount: packageData[packageIndex]?.retailPrice,
             txID: receipt,
             txMsg: 'Success',
           },
         },
       });
-      if (subscriptionResponse) {
+
+      if (subscriptionResponse && subscriptionResponse?.status) {
         _doSuccessSubscription();
+      } else {
+        setErrorMsg(
+          (subscriptionResponse && subscriptionResponse[0]?.errorMessage) ||
+            "Subscription couldn't be done."
+        );
       }
     } catch (err) {
-      //
+      setErrorMsg('Something went wrong.');
     }
 
     setLoading(false);
@@ -222,12 +289,17 @@ const SignUpSubscription = () => {
                   Please tap 'Start free trial' button to proceed with payment for your
                   Subscription, so you can start enjoying BritBox.
                 </Paragraph>
-                <SmallText>Total</SmallText>
-                <PriceTitle>
-                  {htmlEntities.decode(packageData[packageIndex]?.currencySymbol)}{' '}
-                  {packageData[packageIndex]?.retailPrice}
-                </PriceTitle>
-                <DescriptionText>per month after free trial ends</DescriptionText>
+                {packageData.length > 0 && (
+                  <>
+                    <SmallText>Total</SmallText>
+                    <PriceTitle>
+                      {htmlEntities.decode(packageData[packageIndex]?.currencySymbol)}{' '}
+                      {packageData[packageIndex]?.retailPrice}
+                    </PriceTitle>
+                    <DescriptionText>per month after free trial ends</DescriptionText>
+                  </>
+                )}
+                {errorMsg !== '' && <ErrorText>{errorMsg}</ErrorText>}
                 <Button
                   onPress={() => initiateIAPRequest()}
                   stretch
