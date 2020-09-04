@@ -16,6 +16,7 @@ import {
   PaginationWrapper,
   Pagination,
   PaginationContent,
+  WrapperButton,
 } from './styles';
 
 interface Props {
@@ -55,7 +56,9 @@ const Outstanding = ({ items, onPlay, onWatchlist, onDiscoverMore }: Props) => {
                 <Logo width="80%" />
               </LogoWrapper>
             ) : (
-              <Image style={image} source={{ uri: item.url }} resizeMode="cover" />
+              <WrapperButton onPress={() => (onDiscoverMore ? onDiscoverMore(item) : {})}>
+                <Image style={image} source={{ uri: item.url }} resizeMode="cover" />
+              </WrapperButton>
             )}
             <Gradient />
           </Container>

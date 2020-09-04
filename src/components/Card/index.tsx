@@ -42,7 +42,7 @@ interface Props {
   newEpisode?: boolean;
   data?: {
     title: string;
-    description: string;
+    description?: string;
     summary?: string;
     category?: any[];
   };

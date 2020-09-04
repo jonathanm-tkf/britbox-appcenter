@@ -2,6 +2,7 @@ import React from 'react';
 import {
   MassiveSDKModelPageEntry,
   MassiveSDKModelItemSummary,
+  MassiveSDKModelItemList,
 } from '@src/sdks/Britbox.API.Content.TS/api';
 import { Headline } from '@components/Typography';
 import { Row } from '@components/Layout';
@@ -12,6 +13,7 @@ import { getImage } from '@src/utils/images';
 import { useSelector } from 'react-redux';
 import { AppState } from '@store/modules/rootReducer';
 import ContentLoader, { Rect } from 'react-content-loader/native';
+import { navigateByPath } from '@src/navigation/rootNavigation';
 import { Container } from './styles';
 
 type Props = {
@@ -20,6 +22,10 @@ type Props = {
 
 const Episodes = ({ item }: Props) => {
   const theme = useSelector((state: AppState) => state.theme.theme);
+
+  const goToDetail = (card: MassiveSDKModelItemList) => {
+    navigateByPath(card);
+  };
 
   return (
     <>
@@ -65,6 +71,7 @@ const Episodes = ({ item }: Props) => {
                 //       })
                 //     : `E ${card.episodeNumber} - ${card.duration} min`,
               }}
+              onPress={() => ((item?.list?.title || '') !== 'loading' ? goToDetail(card) : {})}
             />
           );
         }}
