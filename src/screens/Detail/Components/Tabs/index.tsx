@@ -97,13 +97,13 @@ const Tabs = ({ data }: Props) => {
       });
     }
 
-    if (moreInformation?.vams) {
+    if ((moreInformation?.vams || [])?.length > 0) {
       tabs.push({
         key: 'four',
         title: t('bonus'),
         content: () => (
           <BonusFeatures
-            data={moreInformation.vams || []}
+            data={moreInformation?.vams || []}
             {...{ show, moreInformation }}
             onLayout={(event) => {
               if (!ready.bonus) {

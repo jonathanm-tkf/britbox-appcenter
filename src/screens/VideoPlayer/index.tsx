@@ -7,19 +7,11 @@ import { AppState } from '@store/modules/rootReducer';
 import { useSelector } from 'react-redux';
 import { WebView } from 'react-native-webview';
 import Constants from '@src/config/Constants';
-import { BackIcon } from '@assets/icons';
 import NetInfo, { NetInfoStateType } from '@react-native-community/netinfo';
 import { isTablet } from 'react-native-device-info';
 import { MassiveSDKModelItemSummary } from '@src/sdks/Britbox.API.Content.TS/api';
-import { BackButton } from './styles';
 
 const { width, height } = Dimensions.get('window');
-const webview = {
-  backgroundColor: 'transparent',
-  flex: 1,
-  width: height,
-  height: width,
-};
 
 type RootParamList = {
   VideoPlayer: {
@@ -32,11 +24,26 @@ type VideoPlayerScreenRouteProp = RouteProp<RootParamList, 'VideoPlayer'>;
 const VideoPlayer = () => {
   const theme = useSelector((state: AppState) => state.theme.theme);
   const token = useSelector((state: AppState) => state.core.token);
+  const segment = useSelector((state: AppState) => state.core.segment);
 
   const [connection, setConnection] = useState<NetInfoStateType | undefined>(undefined);
 
   const { goBack } = useNavigation();
   const { params } = useRoute<VideoPlayerScreenRouteProp>();
+  const webview = {
+    backgroundColor: 'transparent',
+    flex: 1,
+    width: height,
+    height: width,
+  };
+
+  const processMessage = (message: { [name: string]: any }) => {
+    const { close } = message;
+
+    if (close) {
+      backArrow();
+    }
+  };
 
   useEffect(() => {
     let unmonted = false;
@@ -69,13 +76,16 @@ const VideoPlayer = () => {
         alignItems: 'center',
       }}
     >
-      <BackButton onPress={() => backArrow()}>
+      {/* <BackButton onPress={() => backArrow()}>
         <BackIcon />
-      </BackButton>
+      </BackButton> */}
+
       {token && (
         <WebView
           source={{
-            uri: `${Constants.url_player}${params.item.id}?token=${token}&connection=${
+            uri: `${Constants.url_player}?country=${segment.toLocaleLowerCase()}&videoid=${
+              params.item.id
+            }&token=${token}&connection=${
               connection === 'wifi' && isTablet()
                 ? 'mobile-tablet-main'
                 : connection === 'wifi'
@@ -85,7 +95,9 @@ const VideoPlayer = () => {
           }}
           // onLoad={() =>
           //   console.tron.log({
-          //     url: `${Constants.url_player}${params.item.id}?token=${token}&connection=${
+          //     url: `${Constants.url_player}?country=${segment.toLocaleLowerCase()}&videoid=${
+          //       params.item.id
+          //     }&token=${token}&connection=${
           //       connection === 'wifi' && isTablet()
           //         ? 'mobile-tablet-main'
           //         : connection === 'wifi'
@@ -94,6 +106,13 @@ const VideoPlayer = () => {
           //     }`,
           //   })
           // }
+          // onHttpError={(error) => console.tron.log({ error })}
+          // onError={(error) => console.tron.log({ error })}
+          onMessage={(event) => {
+            const { data } = event.nativeEvent;
+            const { message } = JSON.parse(data);
+            processMessage(message);
+          }}
           allowsInlineMediaPlayback
           style={webview}
         />

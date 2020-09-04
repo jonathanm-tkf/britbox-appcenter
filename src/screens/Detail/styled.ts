@@ -76,3 +76,8 @@ export const InnerContent = styled.View`
   padding-left: 20px;
   padding-right: 20px;
 `;
+
+export const WrapperBookmarks = styled.View`
+  flex-direction: row;
+  margin-top: 20px;
+`;

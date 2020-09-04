@@ -112,7 +112,7 @@ const Collections = () => {
   const { t } = useTranslation('layout');
 
   const [order, setOrder] = useState('asc');
-  const [orderBy, setOrderBy] = useState('a-z');
+  const [orderBy, setOrderBy] = useState('date-added');
 
   const containerStyles = {
     marginTop: 10,

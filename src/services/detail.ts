@@ -46,8 +46,10 @@ export type Information = {
   credits: MassiveSDKModelCredit[] | undefined;
   genres: string[] | undefined;
   customFields: any;
+  classification: any;
   seasons: number;
   duration: number;
+  releaseYear: number | undefined;
 };
 
 export type MoreInformation = {
@@ -97,6 +99,8 @@ const processDetailPage = async (
     customFields: undefined,
     seasons: 1,
     duration: 0,
+    releaseYear: undefined,
+    classification: undefined,
   };
 
   const moreInformationResponse: MoreInformation = {
@@ -160,6 +164,8 @@ const processDetailPage = async (
       informationResponse.genres = entries?.item?.genres;
       informationResponse.customFields = entries?.item?.customFields;
       informationResponse.duration = entries?.item?.duration || 0;
+      informationResponse.releaseYear = entries?.item?.releaseYear;
+      informationResponse.classification = entries?.item?.classification;
 
       relatedResponse = entries?.item?.id ? await loadRelated(entries?.item?.id) : undefined;
 

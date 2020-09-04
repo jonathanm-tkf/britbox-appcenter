@@ -26,7 +26,7 @@
       <activity android:name="com.reactnative.googlecast.GoogleCastExpandedControlsActivity" />
       <meta-data
         android:name="com.google.android.gms.cast.framework.OPTIONS_PROVIDER_CLASS_NAME"
-        android:value="com.reactnative.googlecast.GoogleCastOptionsProvider" />
+        android:value="com.britbox.us.staging.CastOptionsProvider" />
     </application>
 
 </manifest>

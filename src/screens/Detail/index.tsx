@@ -11,6 +11,7 @@ import {
 import { loadDetailPage, LoadDetailPageResponse, loadEpisodesBySeason } from '@src/services/detail';
 import { getImage } from '@src/utils/images';
 import { fill } from 'lodash';
+import Bookmark from '@components/Bookmark';
 import {
   Container,
   Scroll,
@@ -20,6 +21,7 @@ import {
   BackgroundTop,
   Poster,
   InnerContent,
+  WrapperBookmarks,
 } from './styled';
 import Header from './Components/Header/intex';
 import Actions from './Components/Actions';
@@ -127,6 +129,36 @@ const Detail = () => {
     return null;
   };
 
+  const getCategories = (information: any): any[] => {
+    const dataResult = [];
+    const { classification, customFields } = information;
+    if (classification) {
+      dataResult.push({
+        key: 1,
+        label: classification?.name || '',
+        bold: false,
+      });
+    }
+    if (customFields) {
+      const { CCFlag: cc, HDFlag: hd } = customFields as { CCFlag: string; HDFlag: string };
+      if (JSON.parse(cc.toLowerCase())) {
+        dataResult.push({
+          key: 2,
+          label: 'cc',
+          bold: false,
+        });
+      }
+      if (JSON.parse(hd.toLowerCase())) {
+        dataResult.push({
+          key: 3,
+          label: 'hd',
+          bold: true,
+        });
+      }
+    }
+    return dataResult;
+  };
+
   return (
     <Container>
       <TopWrapper>
@@ -165,6 +197,15 @@ const Detail = () => {
         <InnerContent>
           <Actions {...{ data }} onPlay={onPlay} />
           <Description {...{ data }} />
+          {data && data.information.type !== 'show' && (
+            <WrapperBookmarks>
+              {getCategories(data?.information).map((i: any) => (
+                <Bookmark key={i.key.toString()} bold={i.bold}>
+                  {i.label}
+                </Bookmark>
+              ))}
+            </WrapperBookmarks>
+          )}
         </InnerContent>
         <Tabs {...{ data }} />
       </Scroll>

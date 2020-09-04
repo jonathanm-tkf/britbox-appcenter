@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import GoogleCast from 'react-native-google-cast';
 import { useDispatch } from 'react-redux';
 import { castOn, castOff } from '@store/modules/layout/actions';
-import { CastButton } from './styles';
+import { CastButton, FABView } from './styles';
 
 // {
 //   "title": "Casting To The Future",
@@ -51,11 +51,15 @@ const Cast = () => {
       } else {
         setShowButton(true);
       }
-      dispatch(state === 'NotConnected' ? castOff() : castOn());
+      dispatch(state === 'NotConnected' || state === 'NoDevicesAvailable' ? castOff() : castOn());
     });
   }, []);
 
-  return showButton ? <CastButton /> : null;
+  return showButton ? (
+    <FABView>
+      <CastButton />
+    </FABView>
+  ) : null;
 };
 
 export default Cast;

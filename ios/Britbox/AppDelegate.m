@@ -58,7 +58,7 @@ static void InitializeFlipper(UIApplication *application) {
   launchScreenView.frame = self.window.bounds;
   rootView.loadingView = launchScreenView;
   
-  GCKDiscoveryCriteria *criteria = [[GCKDiscoveryCriteria alloc] initWithApplicationID:kGCKDefaultMediaReceiverApplicationID];
+  GCKDiscoveryCriteria *criteria = [[GCKDiscoveryCriteria alloc] initWithApplicationID:@"01F2D9B4"];
   GCKCastOptions* options = [[GCKCastOptions alloc] initWithDiscoveryCriteria:criteria];
   [GCKCastContext setSharedInstanceWithOptions:options];
 

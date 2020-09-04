@@ -37,9 +37,10 @@ const Information = ({ data, onLayout, moreInformation }: Props) => {
           <DiscoverMoreIcon width={25} height={25} />
         </InformationButton>
       )}
-      {data?.customFields?.YearRange && (
+      {(data?.customFields?.YearRange || data.releaseYear) && (
         <Row>
-          <LabelBold>{t('years')}:</LabelBold> {data.customFields.YearRange}
+          <LabelBold>{t('years')}:</LabelBold>{' '}
+          {data?.customFields?.YearRange || data?.releaseYear || ''}
         </Row>
       )}
       {data.type === 'show' && (
