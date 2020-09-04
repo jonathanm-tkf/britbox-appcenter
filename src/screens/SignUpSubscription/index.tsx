@@ -125,33 +125,34 @@ const SignUpSubscription = () => {
   };
 
   const receiptValidateIOS = async (receipt: string) => {
-    _doSuccessSubscription();
-    // try {
-    // const receiptBody = {
-    //   'receipt-data': receipt,
-    //   password: '8b0228ae3d5a489e8b406f83be73762d',
-    // };
-    // await RNIap.validateReceiptIos(receiptBody, true);
-    // const subscriptionResponse = await addSubscriptionRequest(user?.access?.accessToken || '', {
-    //   rateType: 'App Store Billing',
-    //   priceCharged: 69.99,
-    //   appServiceID: 'BritBox_monthly_subscription',
-    //   serviceType: 'PRODUCT',
-    //   paymentmethodInfo: {
-    //     label: 'App Store Billing',
-    //     transactionReferenceMsg: {
-    //       amount: 69.99,
-    //       txID: receipt,
-    //       txMsg: 'Success',
-    //     },
-    //   },
-    // });
-    // if (subscriptionResponse) {
     // _doSuccessSubscription();
-    // }
-    // } catch (err) {
-    //   //
-    // }
+    try {
+      const receiptBody = {
+        'receipt-data': receipt,
+        password: '8b0228ae3d5a489e8b406f83be73762d',
+      };
+      await RNIap.validateReceiptIos(receiptBody, true);
+
+      const subscriptionResponse = await addSubscriptionRequest(user?.access?.accessToken || '', {
+        rateType: 'App Store Billing',
+        priceCharged: 69.99,
+        appServiceID: 'com.britbox.us.staging.subscription.annual.freetrial',
+        serviceType: 'PRODUCT',
+        paymentmethodInfo: {
+          label: 'App Store Billing',
+          transactionReferenceMsg: {
+            amount: 69.99,
+            txID: receipt,
+            txMsg: 'Success',
+          },
+        },
+      });
+      if (subscriptionResponse) {
+        _doSuccessSubscription();
+      }
+    } catch (err) {
+      //
+    }
 
     setLoading(false);
   };
