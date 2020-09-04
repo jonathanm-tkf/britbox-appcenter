@@ -68,3 +68,13 @@ export const Gradient = styled(LinearGradient).attrs({
 export const ScrollView = styled.ScrollView.attrs({
   showsVerticalScrollIndicator: false,
 })``;
+
+export const Paragraph = styled.Text`
+  text-align: center;
+  margin-left: 40px;
+  margin-right: 40px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  font-size: 16px;
+  color: ${(props: ThemeState) => props.theme.PRIMARY_FOREGROUND_COLOR};
+`;

@@ -18,9 +18,11 @@ interface Props {
   data: MassiveSDKModelEpisodesItem[];
   show: Show | undefined;
   moreInformation: MoreInformation | undefined;
+  isEpisode: boolean;
+  onScrollTo: (y: number) => void;
 }
 
-const Episodes = ({ onLayout, data, show, moreInformation }: Props) => {
+const Episodes = ({ onLayout, data, show, moreInformation, isEpisode, onScrollTo }: Props) => {
   const { navigate } = useNavigation();
   const isCast = useSelector((state: AppState) => state.layout.cast);
 
@@ -73,6 +75,10 @@ const Episodes = ({ onLayout, data, show, moreInformation }: Props) => {
     return navigate('ModalMoreInformation', { moreInformation });
   };
 
+  // useEffect(() => {
+  //   console.tron.log({ isEpisode });
+  // }, [isEpisode]);
+
   return (
     <Container onLayout={onLayout}>
       {show && (
@@ -103,6 +109,12 @@ const Episodes = ({ onLayout, data, show, moreInformation }: Props) => {
           height={107}
           url={getImage(item?.images?.wallpaper || 'loading', 'wallpaper')}
           isDetail
+          onLayout={(event) => {
+            const { layout } = event.nativeEvent;
+            if (isEpisode && show && show.episodeNumber === item?.episodeNumber) {
+              onScrollTo(layout.y);
+            }
+          }}
           data={{
             title: `${item.episodeNumber}. ${item?.episodeName}` || '',
             description: `${getDuration(item?.duration || 0)} min`,

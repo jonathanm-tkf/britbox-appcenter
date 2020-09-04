@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/no-unescaped-entities */
 import React, { useState, useEffect } from 'react';
@@ -58,7 +57,7 @@ const SignUp = () => {
   const theme = useSelector((state: AppState) => state.theme.theme);
   const britboxConfig = useSelector((state: AppState) => state.core.britboxConfig);
   const segment = useSelector((state: AppState) => state.core.segment);
-  const country: any = segment.toLocaleLowerCase() || 'us';
+  const country: string = segment.toLocaleLowerCase() || 'us';
 
   const [loading, setLoading] = useState(false);
 
@@ -183,9 +182,15 @@ const SignUp = () => {
     return false;
   };
 
-  const doValidateEmail = () => {
-    const hasErrorEmail = email.trim() === '';
+  const validateEmail = (mail: string) => {
+    if (/^\w+([\\.-]?\w+)*@\w+([\\.-]?\w+)*(\.\w{2,3})+$/.test(mail)) {
+      return true;
+    }
+    return false;
+  };
 
+  const doValidateEmail = () => {
+    const hasErrorEmail = !validateEmail(email.trim());
     setErrorEmail(
       hasErrorEmail
         ? error
@@ -354,6 +359,8 @@ const SignUp = () => {
                 value={email}
                 onChangeText={(text) => setEmail(text)}
                 onBlur={() => doValidateEmail()}
+                keyboardType="email-address"
+                autoCapitalize="none"
                 error={errorEmail}
               />
               <Input
@@ -395,10 +402,16 @@ const SignUp = () => {
               <RowWrapper>
                 <WrapperParagraph>
                   By Clicking 'Create Account' you agree to the BritBox{' '}
-                  <LinkText>Terms and Conditions</LinkText> and our{' '}
-                  <LinkText>Privacy Policy</LinkText>. We'll send you regular BritBox newsletters,
-                  along with other special offers and promotions. You can opt out at any time by
-                  clicking on the unsubscribe link in our emails.
+                  <LinkText onPress={() => navigation.navigate('Terms')}>
+                    Terms and Conditions
+                  </LinkText>{' '}
+                  and our{' '}
+                  <LinkText onPress={() => navigation.navigate('PrivacyPolicy')}>
+                    Privacy Policy
+                  </LinkText>
+                  . We'll send you regular BritBox newsletters, along with other special offers and
+                  promotions. You can opt out at any time by clicking on the unsubscribe link in our
+                  emails.
                 </WrapperParagraph>
               </RowWrapper>
             </Wrapper>

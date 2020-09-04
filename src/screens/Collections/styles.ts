@@ -108,7 +108,7 @@ export const ActionTitle = styled.Text`
   margin-left: 15px;
   margin-bottom: 5px;
   font-family: ${(props: ThemeState) => props.theme.PRIMARY_FONT_FAMILY_MEDIUM};
-  z-index: 2;
+  z-index: 4;
 `;
 
 export const ActionTitleAfter = styled.Text`

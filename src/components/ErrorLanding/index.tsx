@@ -1,9 +1,12 @@
 import React from 'react';
+import { Linking } from 'react-native';
 
+import { useSelector } from 'react-redux';
 import { Button } from '@components/Button';
 import { useTranslation } from 'react-i18next';
 import { Title, Headline, Paragraph } from '@components/Typography';
-import { Container, Opaque } from './styles';
+import { AppState } from '@store/modules/rootReducer';
+import { Container, Opaque, BottomParagraph, LinkTitle, LogoContainer, Logo } from './styles';
 
 type Props = {
   onPress: () => void;
@@ -12,15 +15,25 @@ type Props = {
 
 const ErrorLanding = ({ onPress, out = false }: Props) => {
   const { t } = useTranslation('layout');
+
+  const britboxConfig = useSelector((state: AppState) => state.core.britboxConfig);
+  const segment = useSelector((state: AppState) => state.core.segment);
+  const country: string = segment.toLocaleLowerCase() || 'us';
+
   return (
     <Container>
+      <LogoContainer>
+        <Logo />
+      </LogoContainer>
       <Title fontSize={60} lineHeight={80}>
         {!out ? t('error.title') : t('errorOut.title')}
       </Title>
       <Headline fontSize={28} lineHeight={40} center>
-        {!out ? t('error.subtitle') : t('errorOut.subtitle')}
+        {!out
+          ? t('error.subtitle')
+          : (britboxConfig && britboxConfig['out-of-region']?.message) || t('errorOut.subtitle')}
       </Headline>
-      {!out && (
+      {!out ? (
         <>
           <Opaque>
             <Paragraph fontSize={16} lineHeight={22}>
@@ -31,6 +44,19 @@ const ErrorLanding = ({ onPress, out = false }: Props) => {
             {t('error.button')}
           </Button>
         </>
+      ) : (
+        <BottomParagraph>
+          {t('visitour')}{' '}
+          <LinkTitle
+            onPress={() =>
+              Linking.openURL(
+                (britboxConfig && britboxConfig[country]?.urls?.help) || 'https://help.britbox.com/'
+              )
+            }
+          >
+            {t('helpsupport')}
+          </LinkTitle>
+        </BottomParagraph>
       )}
     </Container>
   );

@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		00E356F31AD99517003FC87E /* BritboxTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* BritboxTests.m */; };
 		039C136AFF904CED9355F1EE /* Discover_more.svg in Resources */ = {isa = PBXBuildFile; fileRef = FD7EFCC6262948F48D0B32CC /* Discover_more.svg */; };
+		04D46A752502197400AFD3DF /* Star.svg in Resources */ = {isa = PBXBuildFile; fileRef = 04D46A742502197400AFD3DF /* Star.svg */; };
 		09678E146CDB43A6AB2160AD /* Celular.svg in Resources */ = {isa = PBXBuildFile; fileRef = 382D717F5B444E81A89C59D0 /* Celular.svg */; };
 		09F3B8EF0EC44D9F9C795F5D /* MoreWatching.png in Resources */ = {isa = PBXBuildFile; fileRef = 387384A32DFF441BA72981FA /* MoreWatching.png */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
@@ -78,6 +79,7 @@
 		00E356EE1AD99517003FC87E /* BritboxTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BritboxTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* BritboxTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BritboxTests.m; sourceTree = "<group>"; };
+		04D46A742502197400AFD3DF /* Star.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = Star.svg; path = ../assets/images/Star.svg; sourceTree = "<group>"; };
 		0860A1879BC942E6BC0051C5 /* Close.svg */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Close.svg; path = ../assets/images/Close.svg; sourceTree = "<group>"; };
 		09AC4A685844492E9C61CEC8 /* MuseoSans-500.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "MuseoSans-500.ttf"; path = "../assets/fonts/MuseoSans-500.ttf"; sourceTree = "<group>"; };
 		09F7654AC705C7FB731BBC11 /* Pods-Britbox.staging.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Britbox.staging.xcconfig"; path = "Target Support Files/Pods-Britbox/Pods-Britbox.staging.xcconfig"; sourceTree = "<group>"; };
@@ -277,6 +279,7 @@
 				AF13C119D65C40E49D5C9949 /* Watchlist.svg */,
 				E3A03DF01CD0453AB37998FD /* WelcomeApp.png */,
 				0CDD674C483A43229C35581B /* tiny-home.jpg */,
+				04D46A742502197400AFD3DF /* Star.svg */,
 				73E02622E1CA4B64BFDCDC99 /* MuseoSans-100.ttf */,
 				F06FFB518996482788502A2C /* MuseoSans-300.ttf */,
 				09AC4A685844492E9C61CEC8 /* MuseoSans-500.ttf */,
@@ -467,6 +470,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				04D46A752502197400AFD3DF /* Star.svg in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
 				F01AF71E3CE44B4DAC576121 /* cook-house.jpg in Resources */,
@@ -915,7 +919,7 @@
 				CODE_SIGN_ENTITLEMENTS = Britbox/Britbox.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 8;
+				CURRENT_PROJECT_VERSION = 9;
 				DEVELOPMENT_TEAM = 99MS4LGK4X;
 				ENABLE_BITCODE = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -955,7 +959,7 @@
 				CODE_SIGN_ENTITLEMENTS = Britbox/Britbox.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 8;
+				CURRENT_PROJECT_VERSION = 9;
 				DEVELOPMENT_TEAM = 99MS4LGK4X;
 				INFOPLIST_FILE = Britbox/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1303,7 +1307,7 @@
 				CODE_SIGN_ENTITLEMENTS = Britbox/Britbox.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 8;
+				CURRENT_PROJECT_VERSION = 9;
 				DEVELOPMENT_TEAM = 99MS4LGK4X;
 				INFOPLIST_FILE = Britbox/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

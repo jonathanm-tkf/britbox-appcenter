@@ -3,7 +3,7 @@ import ContentLoader, { Rect } from 'react-content-loader/native';
 
 import { useSelector } from 'react-redux';
 import { AppState } from '@store/modules/rootReducer';
-import { TouchableOpacity, Image } from 'react-native';
+import { TouchableOpacity, Image, LayoutChangeEvent } from 'react-native';
 import Action from '@components/Action';
 import { useTranslation } from 'react-i18next';
 import { CloseIcon, Logo } from '@assets/icons';
@@ -57,6 +57,8 @@ interface Props {
   cardContent?: (item: MassiveSDKModelItemList) => JSX.Element | null;
   cardContentAfter?: (item: MassiveSDKModelItemList) => JSX.Element | null;
   cardElement?: MassiveSDKModelItemList;
+  onLayout?: (event: LayoutChangeEvent) => void;
+  ref?: any;
 }
 
 const Card = ({
@@ -78,6 +80,7 @@ const Card = ({
   cardContent,
   cardContentAfter,
   cardElement,
+  onLayout,
 }: Props) => {
   const theme = useSelector((state: AppState) => state.theme.theme);
   const [loaded, setLoaded] = useState(false);
@@ -103,6 +106,7 @@ const Card = ({
       activeScale={onPress ? 0.9 : 1}
       tension={50}
       friction={8}
+      onLayout={onLayout}
       onPress={() => (onPress && url !== 'loading' ? onPress() : {})}
     >
       <AllWrapper {...{ style }}>

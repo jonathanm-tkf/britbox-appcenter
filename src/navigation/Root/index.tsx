@@ -18,6 +18,8 @@ import ModalMoreInformation from '@screens/ModalMoreInformation';
 import Orientation from 'react-native-orientation-locker';
 import ModalGenre from '@screens/ModalGenre';
 import ModalFilter from '@screens/ModalFilter';
+import ModalTerms from '@screens/Terms';
+import ModalPrivacyPolicy from '@screens/PrivacyPolicy';
 import { Segment } from '@store/modules/core/types';
 import ErrorLanding from '@components/ErrorLanding';
 import { loadingOn, loadingOff } from '@store/modules/layout/actions';
@@ -109,6 +111,12 @@ const RootStackScreen = () => {
         <RootStack.Screen
           name="ModalFilter"
           component={ModalFilter}
+          options={ModalOptions(theme)}
+        />
+        <RootStack.Screen name="Terms" component={ModalTerms} options={ModalOptions(theme)} />
+        <RootStack.Screen
+          name="PrivacyPolicy"
+          component={ModalPrivacyPolicy}
           options={ModalOptions(theme)}
         />
       </RootStack.Navigator>

@@ -11,7 +11,10 @@ import { useSelector } from 'react-redux';
 import { navigateByPath } from '@src/navigation/rootNavigation';
 import { loadCollectionPage } from '@src/services/detail';
 import { MassiveSDKModelItemList } from '@src/sdks/Britbox.API.Account.TS/api';
-import { MassiveSDKModelPageEntry } from '@src/sdks/Britbox.API.Content.TS/api';
+import {
+  MassiveSDKModelPageEntry,
+  MassiveSDKModelPerson,
+} from '@src/sdks/Britbox.API.Content.TS/api';
 import { getSearch } from '@store/modules/search/saga';
 import Grid from '@screens/Shared/Grid';
 import { widthPercentageToDP as vw } from 'react-native-responsive-screen';
@@ -35,6 +38,9 @@ import {
   ResultBold,
   ResultText,
   ResultGrid,
+  ResultCastWrapper,
+  CastFirstNameWrapper,
+  CastStarIcon,
 } from './styles';
 
 const containerStyles = {
@@ -54,6 +60,38 @@ export default function Search() {
   const [searchingItemData, setSearchingItemData] = useState<MassiveSDKModelItemList[] | undefined>(
     undefined
   );
+  const [searchingPeopleData, setSearchingPeopleData] = useState<
+    MassiveSDKModelPerson[] | undefined
+  >(undefined);
+
+  const searchResultCastContainer = {
+    paddingLeft: 20,
+    paddingRight: 20,
+    paddingVertical: 20,
+  };
+
+  const searchResultPersonContainer = {
+    width: '50%',
+    paddingVertical: 10,
+    paddingHorizontal: 10,
+    borderLeftWidth: 0.2,
+    borderLeftColor: theme.PRIMARY_TEXT_COLOR_OPAQUE,
+  };
+
+  const searchResultPersonTextStyle = {
+    color: theme.PRIMARY_TEXT_COLOR_OPAQUE,
+    fontSize: 20,
+    paddingVertical: 2,
+    fontFamily: theme.PRIMARY_FONT_FAMILY_LIGHT,
+  };
+
+  const searchResultFirstPersonTextStyle = {
+    color: theme.PRIMARY_TEXT_COLOR_OPAQUE,
+    fontSize: 16,
+    paddingTop: 2,
+    paddingLeft: 8,
+    fontFamily: theme.PRIMARY_FONT_FAMILY_LIGHT,
+  };
 
   const searchResultTextStyle = {
     color: theme.PRIMARY_TEXT_COLOR_OPAQUE,
@@ -61,6 +99,7 @@ export default function Search() {
     paddingVertical: 10,
     fontFamily: theme.PRIMARY_FONT_FAMILY_LIGHT,
   };
+
   const searchResultHighLightTextStyle = {
     color: theme.PRIMARY_FOREGROUND_COLOR,
     fontFamily: theme.PRIMARY_FONT_FAMILY_MEDIUM,
@@ -103,6 +142,7 @@ export default function Search() {
       setIsDone(false);
       setNoResults(false);
       setSearchingItemData([]);
+      setSearchingPeopleData([]);
     }
 
     return () => clearTimeout(timer);
@@ -118,6 +158,7 @@ export default function Search() {
 
       if (responseSearchData) {
         setSearchingItemData(responseSearchData?.items?.items || []);
+        setSearchingPeopleData(responseSearchData?.people || []);
       }
       if ((responseSearchData?.items?.items || []).length === 0) {
         setNoResults(true);
@@ -181,6 +222,44 @@ export default function Search() {
                     marginHorizontal: wp(5),
                   }}
                   containerStyle={containerStyles}
+                />
+                <ResultCastWrapper>
+                  <ResultText>{t('castFindResults')}</ResultText>
+                </ResultCastWrapper>
+                <FlatList
+                  data={searchingPeopleData || []}
+                  numColumns={2}
+                  contentContainerStyle={searchResultCastContainer}
+                  renderItem={({ item }) => {
+                    const name: string[] | undefined = item?.name?.split(' ');
+                    const firstName = name && name[0];
+                    const lastName = name && name[1];
+                    return (
+                      <TouchableOpacity
+                        style={searchResultPersonContainer}
+                        onPress={() => navigateByPath(item)}
+                        activeOpacity={1}
+                      >
+                        <CastFirstNameWrapper>
+                          <CastStarIcon />
+                          <Highlighter
+                            highlightStyle={searchResultHighLightTextStyle}
+                            searchWords={[searchInput]}
+                            textToHighlight={firstName}
+                            style={searchResultFirstPersonTextStyle}
+                          />
+                        </CastFirstNameWrapper>
+
+                        <Highlighter
+                          highlightStyle={searchResultHighLightTextStyle}
+                          searchWords={[searchInput]}
+                          textToHighlight={lastName}
+                          style={searchResultPersonTextStyle}
+                        />
+                      </TouchableOpacity>
+                    );
+                  }}
+                  keyExtractor={(item, index) => index.toString()}
                 />
               </ResultGrid>
             ) : (

@@ -39,6 +39,7 @@ export type Show = {
   releaseYear: number | undefined;
   seasonNumber: number | undefined;
   id: number | undefined;
+  episodeNumber: number | undefined;
 };
 
 export type Information = {
@@ -90,6 +91,7 @@ const processDetailPage = async (
     id: undefined,
     releaseYear: undefined,
     seasonNumber: undefined,
+    episodeNumber: undefined,
   };
 
   const informationResponse: Information = {
@@ -149,7 +151,42 @@ const processDetailPage = async (
     }
   }
 
-  if (detail?.key === 'EpisodeDetail' || detail?.key === 'MovieDetail') {
+  if (detail?.key === 'EpisodeDetail') {
+    const entries = (detail.entries || []).reduce((item) => item);
+    detailResponse.title = entries?.item?.season?.show?.title || '';
+    detailResponse.description = entries?.item?.season?.show?.shortDescription || '';
+    detailResponse.images = entries?.item?.season?.show?.images || {};
+    detailResponse.relatedId = entries?.item?.season?.id;
+
+    showResponse.seasons = entries?.item?.season?.show?.seasons;
+    showResponse.seasonNumber = entries?.item?.season?.seasonNumber;
+    showResponse.releaseYear = entries?.item?.season?.releaseYear;
+    showResponse.id = parseInt(entries?.item?.season?.id || '0', 10);
+    showResponse.episodeNumber = entries?.item?.episodeNumber;
+
+    informationResponse.type = 'episode';
+    informationResponse.credits = entries?.item?.season?.show?.credits;
+    informationResponse.genres = entries?.item?.season?.show?.genres;
+    informationResponse.customFields = entries?.item?.season?.show?.customFields;
+    informationResponse.seasons = entries?.item?.season?.show?.seasons?.size || 1;
+
+    relatedResponse = entries?.item?.season?.id
+      ? await loadRelated(entries?.item?.season?.id)
+      : undefined;
+
+    episodesResponse = entries?.item?.season?.episodes;
+
+    moreInformationResponse.credits =
+      (entries?.item?.season?.credits || []).length > 0
+        ? entries?.item?.season?.credits
+        : entries?.item?.season?.show?.credits || [];
+    moreInformationResponse.title = entries?.item?.season?.show?.title || '';
+    moreInformationResponse.description = entries?.item?.season?.show?.description || '';
+    moreInformationResponse.season = entries?.item?.season?.contextualTitle || '';
+    moreInformationResponse.vams = entries?.item?.season?.show?.vams;
+  }
+
+  if (detail?.key === 'MovieDetail') {
     if ((detail.entries || []).length > 0) {
       const entries = (detail.entries || []).reduce((item) => item);
 

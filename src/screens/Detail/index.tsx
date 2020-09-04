@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Animated } from 'react-native';
 import { BackIcon } from '@assets/icons';
 import Card from '@components/Card';
@@ -42,8 +42,12 @@ const Detail = () => {
   const { item, seasonModal } = params || undefined;
   const { goBack, navigate } = useNavigation();
   const [showBlueView, setShowBlueView] = useState(false);
+  const [tabsOffset, setTabsOffset] = useState(false);
   const [animatedOpacityValue] = useState(new Animated.Value(0));
   const [data, setData] = useState<LoadDetailPageResponse | undefined>(undefined);
+  const scrollRef = useRef<any>({
+    current: undefined,
+  });
 
   const getDataDetail = async (path: string, customId: string) => {
     const { response }: { response: LoadDetailPageResponse } = await loadDetailPage(path, customId);
@@ -55,7 +59,11 @@ const Detail = () => {
   }, [item]);
 
   useEffect(() => {
-    if (data?.information.type === 'show' || data?.information.type === 'season') {
+    if (
+      data?.information.type === 'show' ||
+      data?.information.type === 'episode' ||
+      data?.information.type === 'season'
+    ) {
       const { id, releaseYear, seasonNumber, episodeCount, path } = seasonModal || {};
       const { show }: LoadDetailPageResponse = data;
       const newData: LoadDetailPageResponse = {
@@ -65,6 +73,7 @@ const Detail = () => {
           releaseYear,
           seasonNumber,
           seasons: { ...show?.seasons },
+          episodeNumber: undefined,
         },
         episodes: {
           items: fill(new Array(episodeCount), {
@@ -85,6 +94,7 @@ const Detail = () => {
             releaseYear,
             seasonNumber,
             seasons: { ...show?.seasons },
+            episodeNumber: undefined,
           },
           episodes: response?.episodes,
           moreInformation: response?.moreInformation,
@@ -159,6 +169,16 @@ const Detail = () => {
     return dataResult;
   };
 
+  const onScrollTo = (y: number) => {
+    if (scrollRef.current) {
+      scrollRef.current.scrollTo({
+        x: 0,
+        y: Number(tabsOffset) + Number(y) - 300,
+        animated: true,
+      });
+    }
+  };
+
   return (
     <Container>
       <TopWrapper>
@@ -176,7 +196,7 @@ const Detail = () => {
           }}
         />
       </TopWrapper>
-      <Scroll onScroll={(event) => handleScroll(event)} scrollEventThrottle={16}>
+      <Scroll onScroll={(event) => handleScroll(event)} scrollEventThrottle={16} ref={scrollRef}>
         <Header {...{ data }} />
         <Poster>
           <Card
@@ -197,7 +217,7 @@ const Detail = () => {
         <InnerContent>
           <Actions {...{ data }} onPlay={onPlay} />
           <Description {...{ data }} />
-          {data && data.information.type !== 'show' && (
+          {data && data.information.type !== 'show' && data.information.type !== 'episode' && (
             <WrapperBookmarks>
               {getCategories(data?.information).map((i: any) => (
                 <Bookmark key={i.key.toString()} bold={i.bold}>
@@ -207,7 +227,16 @@ const Detail = () => {
             </WrapperBookmarks>
           )}
         </InnerContent>
-        <Tabs {...{ data }} />
+        <Tabs
+          {...{ data }}
+          onScrollTo={(y) => onScrollTo(y)}
+          onLayout={(event) => {
+            const {
+              layout: { y },
+            } = event.nativeEvent;
+            setTabsOffset(y);
+          }}
+        />
       </Scroll>
     </Container>
   );

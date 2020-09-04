@@ -59,12 +59,16 @@ const Actions = ({ data, onPlay }: Props) => {
             </ActionButton>
             <ActionInformationWrapper>
               <ActionInformation>
-                {data?.information.type === 'show' || data?.information.type === 'season'
+                {data?.information.type === 'show' ||
+                data?.information.type === 'episode' ||
+                data?.information.type === 'season'
                   ? data.show?.seasons?.size
                   : getDuration(data?.information.duration || 0)}
               </ActionInformation>
               <ActionInformation>
-                {data?.information.type === 'show' || data?.information.type === 'season'
+                {data?.information.type === 'show' ||
+                data?.information.type === 'episode' ||
+                data?.information.type === 'season'
                   ? Number(data.show?.seasons?.size || 0) > 1
                     ? t('seasons')
                     : t('season')

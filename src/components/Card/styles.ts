@@ -4,6 +4,7 @@ import LinearGradient from 'react-native-linear-gradient';
 import { rgba } from 'polished';
 import RNProgressBar from 'react-native-progress/Bar';
 import TouchableScaleC from 'react-native-touchable-scale';
+import { Platform } from 'react-native';
 
 interface ContainerProps {
   width?: number;
@@ -43,7 +44,7 @@ export const CustomShadow = styled.View`
   shadow-opacity: 0.8;
   shadow-offset: 0px 8px;
   shadow-radius: 10px;
-  elevation: 3;
+  elevation: ${Platform.OS === 'ios' ? 1 : 0};
   border-radius: 8px;
 `;
 

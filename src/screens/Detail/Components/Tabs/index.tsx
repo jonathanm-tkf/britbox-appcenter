@@ -15,11 +15,13 @@ import BonusFeatures from './BonusFeatures';
 
 type Props = {
   data: LoadDetailPageResponse | undefined;
+  onScrollTo: (y: number) => void;
+  onLayout?: (event: any) => void;
 };
 
 type HeightType = string | number;
 
-const Tabs = ({ data }: Props) => {
+const Tabs = ({ data, onScrollTo, onLayout }: Props) => {
   const theme = useSelector((state: AppState) => state.theme.theme);
   const [height, setHeight] = useState<HeightType>('auto');
   const [firstHeight, setFirstHeight] = useState('auto');
@@ -48,7 +50,8 @@ const Tabs = ({ data }: Props) => {
         content: () => (
           <Episodes
             data={episodes?.items || []}
-            {...{ show, moreInformation }}
+            {...{ show, moreInformation, isEpisode: information?.type === 'episode' }}
+            onScrollTo={(y) => onScrollTo(y)}
             onLayout={(event) => {
               if (!ready.episodes) {
                 setFirstHeight(event.nativeEvent.layout.height);
@@ -173,7 +176,7 @@ const Tabs = ({ data }: Props) => {
   };
 
   return (
-    <Container>
+    <Container {...{ onLayout }}>
       <TabsWrapper>
         <Shimmer
           visible={tabsData.length > 0}

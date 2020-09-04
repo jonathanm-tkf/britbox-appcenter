@@ -2,7 +2,6 @@ import React from 'react';
 import {
   MassiveSDKModelPageEntry,
   MassiveSDKModelItemSummary,
-  MassiveSDKModelItemList,
 } from '@src/sdks/Britbox.API.Content.TS/api';
 import { Headline } from '@components/Typography';
 import { Row } from '@components/Layout';
@@ -23,7 +22,7 @@ type Props = {
 const Episodes = ({ item }: Props) => {
   const theme = useSelector((state: AppState) => state.theme.theme);
 
-  const goToDetail = (card: MassiveSDKModelItemList) => {
+  const goToDetail = (card: any) => {
     navigateByPath(card);
   };
 
