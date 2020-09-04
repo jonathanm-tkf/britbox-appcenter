@@ -1,7 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
-import { View, Dimensions } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import { View } from 'react-native';
 import { AppState } from '@store/modules/rootReducer';
 import { useSelector } from 'react-redux';
 import { WebView } from 'react-native-webview';
