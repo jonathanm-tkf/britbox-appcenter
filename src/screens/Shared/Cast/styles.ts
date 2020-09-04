@@ -4,7 +4,9 @@ import { CastButton as CastButtonC } from 'react-native-google-cast';
 
 export const Container = styled.View``;
 
-export const FABView = styled.View`
+export const CastButton = styled(CastButtonC).attrs((props: ThemeState) => ({
+  tintColor: props.theme.PRIMARY_FOREGROUND_COLOR,
+}))`
   position: absolute;
   margin: 16px;
   right: 0px;
@@ -20,12 +22,4 @@ export const FABView = styled.View`
   shadow-opacity: 0.8;
   shadow-radius: 15px;
   elevation: 3;
-`;
-
-export const CastButton = styled(CastButtonC).attrs((props: ThemeState) => ({
-  tintColor: props.theme.PRIMARY_FOREGROUND_COLOR,
-}))`
-  width: 60px;
-  height: 60px;
-  border-radius: 30px;
 `;
