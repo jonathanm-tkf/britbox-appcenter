@@ -24,6 +24,9 @@ export function navigateByPath(item: any) {
     case item?.path === '/':
       navigate('Home');
       break;
+    case /\/name\//.test(item?.path || ''):
+      push('ActorDetail', { item });
+      break;
     case /\/show\/|\/movie\/|\/episode\//.test(item?.path || ''):
       push('Detail', { item });
       break;

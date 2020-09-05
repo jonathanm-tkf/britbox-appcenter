@@ -93,6 +93,7 @@ const Grid = ({
         <FlatList
           data={data}
           scrollEnabled={false}
+          listKey={Math.random().toString()}
           numColumns={numColumns}
           keyExtractor={(item, index) => index.toString()}
           renderItem={({ item }) => (

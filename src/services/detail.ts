@@ -390,3 +390,25 @@ export const loadCollectionList = async ({
     throw new Error(error);
   }
 };
+
+export const loadActorDetailPage = async (path: string, customId: string) => {
+  const { getPage } = BritboxContentApi();
+
+  try {
+    const response = await getPage({
+      path,
+      device: getDevice(),
+      listPageSize: 18,
+      maxListPrefetch: 15,
+      segments: [getSegment()],
+      sub: 'Subscriber',
+      useCustomId: customId !== '',
+      itemDetailExpand: 'all',
+      itemDetailSelectSeason: 'first',
+    });
+
+    return response;
+  } catch (error) {
+    return error;
+  }
+};
