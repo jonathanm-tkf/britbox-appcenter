@@ -20,7 +20,8 @@
     "title": "Oops!",
     "subtitle": "Thanks for your patience while we get it fixed.",
     "description": "Looks like something was unplugged.",
-    "button": "Return"
+    "button": "Return",
+    "somethingWrong": "Something went Wrong"
   },
   "errorOut": {
     "title": "Oops!",
