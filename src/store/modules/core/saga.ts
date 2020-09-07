@@ -58,6 +58,13 @@ export async function getBritBoxAppConfig() {
 }
 
 export function* init() {
+  try {
+    const config = yield call(getBritBoxAppConfig);
+    yield put(britBoxAppConfigSuccess(config));
+  } catch (error) {
+    //
+  }
+
   const segment = yield select(getSegment);
 
   yield call(getConfig);
@@ -65,11 +72,7 @@ export function* init() {
   if (segment !== Segment.OUT) {
     try {
       const { response }: { response: Menu } = yield call(getMenu, segment);
-
       yield put(menuRequestSuccess(response));
-
-      const config = yield call(getBritBoxAppConfig);
-      yield put(britBoxAppConfigSuccess(config));
     } catch (error) {
       yield put(menuRequestError());
     }
