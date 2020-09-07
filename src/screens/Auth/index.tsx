@@ -1,5 +1,3 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable react/prop-types */
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import Header from '@components/Header';
@@ -8,7 +6,7 @@ import Carousel from 'react-native-snap-carousel';
 import { AppState } from '@store/modules/rootReducer';
 import { StyleSheet } from 'react-native';
 import { useTranslation } from 'react-i18next';
-import { useIsFocused, useNavigation } from '@react-navigation/native';
+import { useIsFocused } from '@react-navigation/native';
 import { navigate } from '@src/navigation/rootNavigation';
 import {
   Container,
@@ -52,7 +50,6 @@ const Auth = () => {
   const [sliderRef, setSliderRef] = useState(null);
   const [slider1ActiveSlide, setSlider1ActiveSlide] = useState(0);
   const { t } = useTranslation('auth');
-
   const britboxConfig = useSelector((state: AppState) => state.core.britboxConfig);
   const segment = useSelector((state: AppState) => state.core.segment);
   const country: string = segment.toLocaleLowerCase() || 'us';
