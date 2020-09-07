@@ -4,7 +4,7 @@ import { Linking } from 'react-native';
 import { useSelector } from 'react-redux';
 import { Button } from '@components/Button';
 import { useTranslation } from 'react-i18next';
-import { Title, Headline, Paragraph } from '@components/Typography';
+import { Headline, Paragraph } from '@components/Typography';
 import { AppState } from '@store/modules/rootReducer';
 import { Container, Opaque, BottomParagraph, LinkTitle, LogoContainer, Logo } from './styles';
 
@@ -25,9 +25,6 @@ const ErrorLanding = ({ onPress, out = false }: Props) => {
       <LogoContainer>
         <Logo />
       </LogoContainer>
-      <Title fontSize={60} lineHeight={80}>
-        {!out ? t('error.title') : t('errorOut.title')}
-      </Title>
       <Headline fontSize={28} lineHeight={40} center>
         {!out
           ? t('error.subtitle')
