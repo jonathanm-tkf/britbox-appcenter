@@ -2,7 +2,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useEffect, useState, useRef } from 'react';
-import { View, Platform, Alert, Text, ScrollView } from 'react-native';
+import { View, Platform, Alert, Text, ScrollView, Linking } from 'react-native';
 import { getStatusBarHeight } from 'react-native-iphone-x-helper';
 import { ThemeState } from '@store/modules/theme/types';
 import { BackIcon, CelularIcon } from '@assets/icons';
@@ -40,6 +40,7 @@ import {
   ErrorText,
   Header,
 } from './styles';
+import ErrorBlock from '@components/ErrorBlock';
 
 const updateBtnStyle = {
   marginBottom: 30,
@@ -76,7 +77,13 @@ export default function MyAccount() {
           {britboxConfig[country]['customer-service']?.phone || ''}
         </FooterTitle>
         <Paragraph>{britboxConfig[country]['customer-service']?.availability || ''}</Paragraph>
-        <LinkTitle>{britboxConfig[country]['customer-service']?.email || ''}</LinkTitle>
+        <LinkTitle
+          onPress={() =>
+            Linking.openURL(`mailto:${britboxConfig[country]['customer-service']?.email || ''}`)
+          }
+        >
+          {britboxConfig[country]['customer-service']?.email || ''}
+        </LinkTitle>
       </Wrapper>
     </Gradient>
   );
@@ -89,6 +96,7 @@ export default function MyAccount() {
     const [loading, setLoading] = useState(false);
 
     const [errorState, setErrorState] = useState(false);
+    const [isSuccess, setIsSuccess] = useState(false);
     const [errorMessage, setErrorMessage] = useState(evergentResponseError);
 
     const [errorFirstName, setErrorFirstName] = useState<{
@@ -123,6 +131,7 @@ export default function MyAccount() {
       if (hasErrorFirstName && hasErrorLastName && hasErrorEmail) {
         setLoading(true);
         setErrorState(false);
+        setIsSuccess(false);
         setErrorMessage(evergentResponseError);
 
         const response = await updateProfileRequest(user?.access?.accessToken || '', {
@@ -136,10 +145,11 @@ export default function MyAccount() {
         if (response) {
           const { response: responseData } = response;
           if (responseData && Number(responseData.responseCode) === 1) {
+            setIsSuccess(true);
             dispatch(getProfileRequest());
           } else {
-            setErrorMessage(responseData);
             setErrorState(true);
+            setErrorMessage(responseData);
           }
         }
         setLoading(false);
@@ -151,7 +161,10 @@ export default function MyAccount() {
 
       setErrorFirstName(
         hasErrorFirstName
-          ? error
+          ? {
+              text:
+                britboxConfig[country]['account-details']?.validation?.messages['first-name'] || '',
+            }
           : {
               text: '',
             }
@@ -169,7 +182,10 @@ export default function MyAccount() {
 
       setErrorLastName(
         hasErrorLastName
-          ? error
+          ? {
+              text:
+                britboxConfig[country]['account-details']?.validation?.messages['last-name'] || '',
+            }
           : {
               text: '',
             }
@@ -182,18 +198,43 @@ export default function MyAccount() {
       return false;
     };
 
+    const validateEmail = (mail: string) => {
+      if (/^\w+([\\.-]?\w+)*@\w+([\\.-]?\w+)*(\.\w{2,3})+$/.test(mail)) {
+        return true;
+      }
+      return false;
+    };
+
     const doValidateEmail = () => {
       const hasErrorEmail = email.trim() === '';
+      const hasErrorValidEmail = !validateEmail(email.trim());
 
       setErrorEmail(
         hasErrorEmail
-          ? error
+          ? {
+              text: britboxConfig[country]['account-details']?.validation?.messages['email'] || '',
+            }
           : {
               text: '',
             }
       );
 
       if (!hasErrorEmail) {
+        setErrorEmail(
+          hasErrorValidEmail
+            ? {
+                text:
+                  britboxConfig[country]['account-details']?.validation?.messages[
+                    'email-invalid'
+                  ] || '',
+              }
+            : {
+                text: '',
+              }
+        );
+      }
+
+      if (!hasErrorEmail && !hasErrorValidEmail) {
         return true;
       }
 
@@ -235,7 +276,7 @@ export default function MyAccount() {
           <TitleWrapper>
             <SubTitle>{t('myaccount.yourdetails.screentitle')}</SubTitle>
           </TitleWrapper>
-          {errorState && (
+          {/* {errorState && (
             <ErrorText>
               {
                 ((errorMessage as unknown) as EvergentResponseError)?.failureMessage?.reduce(
@@ -243,7 +284,7 @@ export default function MyAccount() {
                 )?.errorMessage
               }
             </ErrorText>
-          )}
+          )} */}
           <Input
             label={t('signup:field.firstname')}
             value={firstName}
@@ -271,6 +312,16 @@ export default function MyAccount() {
             onChangeText={(text) => setMobile(text)}
             error={errorMobile}
           />
+          <ErrorBlock
+            visible={errorState}
+            type="error"
+            text={britboxConfig[country]['account-details']?.validation['error-message']}
+          />
+          <ErrorBlock
+            visible={isSuccess}
+            type="success"
+            text={britboxConfig[country]['account-details']?.validation['success-message']}
+          />
           <Button
             onPress={() => updateProfile()}
             stretch
@@ -283,7 +334,15 @@ export default function MyAccount() {
             {t('update')}
           </Button>
           <Paragraph>
-            {t('myaccount.yourdetails.bottomtext')} <LinkTitle>{t('privacypolicy')}</LinkTitle>.
+            {t('myaccount.yourdetails.bottomtext')}{' '}
+            <LinkTitle
+              onPress={() => {
+                navigate('PrivacyPolicy');
+              }}
+            >
+              {t('privacypolicy')}
+            </LinkTitle>
+            .
           </Paragraph>
         </ScrollableContainerPaddingHorizontal>
         {tabBottomView()}
@@ -550,6 +609,7 @@ export default function MyAccount() {
       user?.profile?.isAlertNotificationEmail === 'true' ? true : false || false
     );
     const [loading, setLoading] = useState(false);
+    const [isSuccess, setIsSuccess] = useState(false);
 
     const [errorState, setErrorState] = useState(false);
     const [errorMessage, setErrorMessage] = useState(evergentResponseError);
@@ -557,6 +617,7 @@ export default function MyAccount() {
     const updateProfile = async () => {
       setLoading(true);
       setErrorState(false);
+      setIsSuccess(false);
       setErrorMessage(evergentResponseError);
 
       const response = await updateProfileRequest(user?.access?.accessToken || '', {
@@ -570,10 +631,11 @@ export default function MyAccount() {
       if (response) {
         const { response: responseData } = response;
         if (responseData && Number(responseData.responseCode) === 1) {
+          setIsSuccess(true);
           dispatch(getProfileRequest());
         } else {
-          setErrorMessage(responseData);
           setErrorState(true);
+          setErrorMessage(responseData);
         }
       }
       setLoading(false);
@@ -585,7 +647,7 @@ export default function MyAccount() {
           <TitleWrapper>
             <SubTitle>{t('myaccount.newsletter.newsletterpreferences')}</SubTitle>
           </TitleWrapper>
-          {errorState && (
+          {/* {errorState && (
             <ErrorText>
               {
                 ((errorMessage as unknown) as EvergentResponseError)?.failureMessage?.reduce(
@@ -593,7 +655,7 @@ export default function MyAccount() {
                 )?.errorMessage
               }
             </ErrorText>
-          )}
+          )} */}
           <RowContainer>
             <SwitchContainer
               value={isNewsletters}
@@ -603,6 +665,16 @@ export default function MyAccount() {
               <NewsParagraph>{t('myaccount.newsletter.description')}</NewsParagraph>
             </RowContent>
           </RowContainer>
+          <ErrorBlock
+            visible={errorState}
+            type="error"
+            text={britboxConfig[country]['account-details']?.validation['error-message']}
+          />
+          <ErrorBlock
+            visible={isSuccess}
+            type="success"
+            text={britboxConfig[country]['account-details']?.validation['success-message']}
+          />
           <Button
             onPress={() => updateProfile()}
             stretch
@@ -615,7 +687,15 @@ export default function MyAccount() {
             {t('update')}
           </Button>
           <Paragraph>
-            {t('myaccount.newsletter.bottomtext')} <LinkTitle>{t('privacypolicy')}</LinkTitle>.
+            {t('myaccount.newsletter.bottomtext')}{' '}
+            <LinkTitle
+              onPress={() => {
+                navigate('PrivacyPolicy');
+              }}
+            >
+              {t('privacypolicy')}
+            </LinkTitle>
+            .
           </Paragraph>
         </ScrollableContainerPaddingHorizontal>
         {tabBottomView()}

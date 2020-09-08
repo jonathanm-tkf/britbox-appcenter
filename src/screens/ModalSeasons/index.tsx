@@ -50,6 +50,7 @@ const ModalSeasons = () => {
           <SeasonItemTextWrapper>
             {parseInt(item.id || '0', 10) === parseInt(id.toString(), 10) && <Indicator />}
             <SeasonItemText
+              numberOfLines={1}
               active={parseInt(item.id || '0', 10) === parseInt(id.toString() || '0', 10)}
             >
               {item.contextualTitle}

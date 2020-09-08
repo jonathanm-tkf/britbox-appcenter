@@ -34,6 +34,7 @@ type SeasonItemText = {
 export const SeasonItemTextWrapper = styled.View`
   flex-direction: row;
   align-items: center;
+  margin-left: 15px;
 `;
 
 export const SeasonItemText = styled.Text`
