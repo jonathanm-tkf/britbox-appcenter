@@ -63,6 +63,25 @@ const Tabs = ({ data, onScrollTo, onLayout }: Props) => {
       });
     }
 
+    if ((moreInformation?.vams || [])?.length > 0) {
+      tabs.push({
+        key: 'four',
+        title: t('bonus'),
+        content: () => (
+          <BonusFeatures
+            data={moreInformation?.vams || []}
+            {...{ show, moreInformation }}
+            onLayout={(event) => {
+              if (!ready.bonus) {
+                setSecondHeight(event.nativeEvent.layout.height);
+                ready.bonus = true;
+              }
+            }}
+          />
+        ),
+      });
+    }
+
     if (information) {
       tabs.push({
         key: 'second',
@@ -73,7 +92,7 @@ const Tabs = ({ data, onScrollTo, onLayout }: Props) => {
             {...{ moreInformation }}
             onLayout={(event) => {
               if (!ready.information) {
-                setSecondHeight(event.nativeEvent.layout.height);
+                setThreeHeight(event.nativeEvent.layout.height);
                 ready.information = true;
               }
             }}
@@ -91,27 +110,8 @@ const Tabs = ({ data, onScrollTo, onLayout }: Props) => {
             items={related?.items || []}
             onLayout={(event) => {
               if (!ready.more) {
-                setThreeHeight(event.nativeEvent.layout.height);
-                ready.more = true;
-              }
-            }}
-          />
-        ),
-      });
-    }
-
-    if ((moreInformation?.vams || [])?.length > 0) {
-      tabs.push({
-        key: 'four',
-        title: t('bonus'),
-        content: () => (
-          <BonusFeatures
-            data={moreInformation?.vams || []}
-            {...{ show, moreInformation }}
-            onLayout={(event) => {
-              if (!ready.bonus) {
                 setFourHeight(event.nativeEvent.layout.height);
-                ready.bonus = true;
+                ready.more = true;
               }
             }}
           />

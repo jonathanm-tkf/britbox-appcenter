@@ -23,6 +23,7 @@ interface Props {
   numColumns?: number;
   element: ImageStyle;
   containerStyle?: ViewStyle;
+  isEpisode?: boolean;
 }
 
 const Grid = ({
@@ -36,6 +37,7 @@ const Grid = ({
   numColumns = 1,
   element,
   containerStyle,
+  isEpisode,
 }: Props) => {
   const goToOtherContent = (item: MassiveSDKModelItemList) => {
     navigateByPath(item);
@@ -49,10 +51,9 @@ const Grid = ({
       <GridC
         data={items}
         numColumns={numColumns}
-        {...{ element }}
+        {...{ element, imageType, isEpisode }}
         // element={{ width: width || 112, height: height || 157, marginBottom: 5 }}
         onPress={(item) => goToOtherContent(item)}
-        imageType={imageType}
         title={title}
         containerStyle={containerStyle}
         cardContent={(item) => (cardContent ? cardContent(item) : null)}

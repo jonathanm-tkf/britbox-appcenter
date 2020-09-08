@@ -15,7 +15,7 @@ const wp = (percentage: number) => {
 };
 
 // Normal
-const slideHeight = 225;
+const slideHeight = 216;
 const slideWidth = wp(85);
 const itemHorizontalMargin = wp(0);
 

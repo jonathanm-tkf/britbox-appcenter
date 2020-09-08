@@ -1,16 +1,20 @@
-import React, { useEffect } from 'react';
+/* eslint-disable no-return-assign */
+import React, { useEffect, useRef } from 'react';
 import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
 import { ThemeProvider } from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
 import { AppState } from '@store/modules/rootReducer';
-import { AppState as AppStateRN } from 'react-native';
+import { AppState as AppStateRN, View, ViewStyle } from 'react-native';
 import { configRequest } from '@store/modules/core/actions';
 import KochavaTracker from 'react-native-kochava-tracker';
 import NetInfo from '@react-native-community/netinfo';
-import { isTablet } from 'react-native-device-info';
+import { isTablet, getSystemVersion, getSystemName, getDeviceName } from 'react-native-device-info';
 import { connection } from '@store/modules/layout/actions';
 import { refreshToken } from '@src/services/token';
 import { refreshTokenSuccess } from '@store/modules/user/actions';
+import { WebView } from 'react-native-webview';
+import Constants from '@src/config/Constants';
+import { TrackPageView } from '@src/services/analytics';
 import { RootStackScreen } from './Root';
 import { navigationRef } from './rootNavigation';
 
@@ -23,12 +27,38 @@ type Access = {
   refreshToken: string;
 };
 
+const uuid = () => {
+  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (c) => {
+    const r = Math.random() * 16 || 0;
+    const v = c === 'x' ? r : (r && 0x3) || 0x8;
+    return v.toString(16);
+  });
+};
+
+type Profile = {
+  analyticsSubscriptionStatus: string;
+  isInFreeTrail: boolean;
+};
+
 export default () => {
   const theme = useSelector((state: AppState) => state.theme.theme);
   const token = useSelector((state: AppState) => state.core.token);
+  const { analyticsSubscriptionStatus, isInFreeTrail } = useSelector(
+    (state: AppState) => (state.user?.profile as Profile) || {}
+  );
+  const { isLogged } = useSelector((state: AppState) => state.user);
+
   const refresh = useSelector(
     (state: AppState) => (state.user.access as Access)?.refreshToken || ''
   );
+
+  const webViewRef = useRef<any>(undefined);
+  const routeNameRef = useRef<any>();
+
+  const webViewStyles: ViewStyle = {
+    height: 0,
+    overflow: 'hidden',
+  };
 
   const MyTheme = {
     ...DefaultTheme,
@@ -83,10 +113,49 @@ export default () => {
       <NavigationContainer
         theme={MyTheme}
         ref={navigationRef}
-        onStateChange={handleNavigationChange}
+        onReady={() => (routeNameRef.current = navigationRef.current.getCurrentRoute())}
+        onStateChange={() => {
+          const previousRoute = routeNameRef.current;
+          const currentRoute = navigationRef.current.getCurrentRoute();
+          let deviceName = '';
+
+          getDeviceName().then((name) => (deviceName = name));
+
+          if (previousRoute.name !== currentRoute.name) {
+            const { user, terms } = TrackPageView(currentRoute, token, {
+              account_status: !isLogged
+                ? 'Unauth'
+                : typeof analyticsSubscriptionStatus !== 'undefined' ||
+                  analyticsSubscriptionStatus !== ''
+                ? analyticsSubscriptionStatus
+                : 'Guest',
+              isFreeTrail: isInFreeTrail,
+              platform: getSystemName(),
+              os_version: getSystemVersion(),
+              device_name: deviceName,
+            });
+            if (webViewRef.current && terms) {
+              webViewRef.current.postMessage(
+                JSON.stringify({
+                  type: 'trackPageView',
+                  user,
+                  terms,
+                })
+              );
+            }
+          }
+
+          // Save the current route name for later comparision
+          routeNameRef.current = currentRoute;
+
+          handleNavigationChange();
+        }}
       >
         <RootStackScreen />
       </NavigationContainer>
+      <View style={webViewStyles}>
+        <WebView ref={webViewRef} source={{ uri: `${Constants.analitycs}?id=${uuid()}` }} />
+      </View>
     </ThemeProvider>
   );
 };

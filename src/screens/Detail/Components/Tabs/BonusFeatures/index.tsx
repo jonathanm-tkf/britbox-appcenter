@@ -53,10 +53,7 @@ const BonusFeatures = ({ onLayout, data }: Props) => {
   };
 
   const onPlay = (item: MassiveSDKModelEpisodesItem) => {
-    if (item.type === 'movie' || item.type === 'episode') {
-      return navigate('VideoPlayer', { item });
-    }
-    return null;
+    return navigate('VideoPlayer', { item });
   };
 
   const getMediaDuration = (media: MassiveSDKModelMedia[]) => {

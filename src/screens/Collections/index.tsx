@@ -16,7 +16,7 @@ import {
   getIsOurFavoritesMultiple,
   getIsListDetail,
 } from '@src/utils/template';
-import TitleTreatment from '@screens/Shared/TitleTreatment';
+// import TitleTreatment from '@screens/Shared/TitleTreatment';
 import Genre from '@screens/Shared/Genre';
 import Standard from '@screens/Shared/Standard';
 import Popular from '@screens/Shared/Popular';
@@ -321,6 +321,8 @@ const Collections = () => {
     navigateByPath(card);
   };
 
+  const getIsEpisodeGrid = () => true;
+
   useEffect(() => {
     if (genre) {
       setData(dataDummy);
@@ -469,14 +471,25 @@ const Collections = () => {
                           : item?.title || ''
                       }
                       loading={animationContinuosScroll}
-                      numColumns={3}
-                      element={{
-                        width: vw(33.333) - wp(20),
-                        height: vw(33.333 * 1.25),
-                        marginBottom: 20,
-                        marginHorizontal: wp(5),
-                      }}
+                      isEpisode={getIsEpisodeGrid()}
+                      numColumns={getIsEpisodeGrid() ? 2 : 3}
+                      element={
+                        getIsEpisodeGrid()
+                          ? {
+                              width: vw(50) - wp(26),
+                              height: vw(50) - vw(26),
+                              marginBottom: 70,
+                              marginHorizontal: wp(5),
+                            }
+                          : {
+                              width: vw(33.333) - wp(20),
+                              height: vw(33.333 * 1.25),
+                              marginBottom: 20,
+                              marginHorizontal: wp(5),
+                            }
+                      }
                       containerStyle={containerStyles}
+                      imageType={getIsEpisodeGrid() ? 'wallpaper' : 'poster'}
                     />
                   </WrapperContinuosScroll>
                 );
@@ -504,7 +517,22 @@ const Collections = () => {
               case 'large-programing':
                 return <LargeProgramming key={key.toString()} {...{ item }} />;
               case 'title-treatment':
-                return <TitleTreatment key={key.toString()} {...{ item }} />;
+                return (
+                  <Grid
+                    key={key.toString()}
+                    items={item?.list?.items || []}
+                    title={item?.title || ''}
+                    imageType={['wallpaper', 'tile']}
+                    numColumns={2}
+                    element={{
+                      width: vw(50) - wp(26),
+                      height: vw(50) - vw(26),
+                      marginBottom: 20,
+                      marginHorizontal: wp(5),
+                    }}
+                    containerStyle={containerStyles}
+                  />
+                );
               case 'popular':
                 return <Popular key={key.toString()} {...{ item }} />;
               case 'standard':

@@ -30,6 +30,12 @@ type Props = {
   numColumns?: number;
   cardContent?: (item: MassiveSDKModelItemList) => JSX.Element | null;
   cardContentAfter?: (item: MassiveSDKModelItemList) => JSX.Element | null;
+  isEpisode: boolean;
+};
+
+type Episode = {
+  showTitle?: string;
+  episodeNumber?: string;
 };
 
 const Grid = ({
@@ -42,6 +48,7 @@ const Grid = ({
   numColumns = 1,
   cardContent,
   cardContentAfter,
+  isEpisode,
 }: Props) => {
   const theme = useSelector((state: AppState) => state.theme.theme);
   const getImageResult = (item: MassiveSDKModelItemList): string => {
@@ -96,16 +103,30 @@ const Grid = ({
           listKey={Math.random().toString()}
           numColumns={numColumns}
           keyExtractor={(item, index) => index.toString()}
-          renderItem={({ item }) => (
-            <Card
-              url={getImageResult(item)}
-              onPress={() => (onPress ? onPress(item) : {})}
-              cardContent={(card) => (cardContent ? cardContent(card) : null)}
-              cardContentAfter={(card) => (cardContentAfter ? cardContentAfter(card) : null)}
-              cardElement={item}
-              {...{ element }}
-            />
-          )}
+          renderItem={({ item }) => {
+            return isEpisode ? (
+              <Card
+                isEpisode
+                url={getImageResult(item)}
+                onPress={() => (onPress ? onPress(item) : {})}
+                resizeMode="cover"
+                data={{
+                  title: (item as Episode)?.showTitle || '',
+                  description: `Episode ${(item as Episode)?.episodeNumber}`,
+                }}
+                {...{ element }}
+              />
+            ) : (
+              <Card
+                url={getImageResult(item)}
+                onPress={() => (onPress ? onPress(item) : {})}
+                cardContent={(card) => (cardContent ? cardContent(card) : null)}
+                cardContentAfter={(card) => (cardContentAfter ? cardContentAfter(card) : null)}
+                cardElement={item}
+                {...{ element }}
+              />
+            );
+          }}
         />
       </Container>
     </>

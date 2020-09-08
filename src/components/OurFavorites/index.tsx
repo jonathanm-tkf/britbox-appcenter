@@ -38,7 +38,7 @@ const OurFavorites = ({ data, onPress }: Props) => {
   const image = getImage(element.images?.tile || '', 'wallpaper');
   return (
     <Container>
-      <Card url={image} width={width - 40} height={215} />
+      <Card url={image} width={width - 40} height={210} />
       <BackgroundImge source={{ uri: image }} onLoad={() => setLoading(true)} />
 
       <Wrapper {...{ loading }}>

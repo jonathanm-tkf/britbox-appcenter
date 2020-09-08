@@ -13,6 +13,7 @@ import { useSelector } from 'react-redux';
 import { AppState } from '@store/modules/rootReducer';
 import ContentLoader, { Rect } from 'react-content-loader/native';
 import { navigateByPath } from '@src/navigation/rootNavigation';
+import { getDuration } from '@src/utils/template';
 import { Container } from './styles';
 
 type Props = {
@@ -50,16 +51,21 @@ const Episodes = ({ item }: Props) => {
           return (
             <Card
               isEpisode={card.type === 'movie' || card.type === 'episode'}
-              width={157}
-              height={107}
+              width={187}
+              height={105}
               url={getImage(
                 card.type === 'movie' || card.type === 'episode'
                   ? card.images?.wallpaper
                   : card.images?.tile,
                 'wallpaper'
               )}
+              resizeMode={card.type === 'movie' || card.type === 'episode' ? 'cover' : 'contain'}
               data={{
-                title: card?.title || '',
+                title: card.type === 'episode' ? card?.showTitle || '' : card?.title || '',
+                description:
+                  card.type === 'episode'
+                    ? `Episode ${card.episodeNumber}`
+                    : `${getDuration(card?.duration || 0)} min`,
                 // description:
                 //   card.type === 'movie'
                 //     ? card.shortDescription || ''

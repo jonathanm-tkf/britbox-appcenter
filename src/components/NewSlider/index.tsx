@@ -204,9 +204,9 @@ const NewSlider = ({
           {...{ collection }}
           space={(carouselData[currentIndex].item?.customFields as CustomFiled)?.description}
         >
-          <SlimDescriptionText {...{ collection }}>
+          {/* <SlimDescriptionText {...{ collection }}>
             {(carouselData[currentIndex].item?.customFields as CustomFiled)?.description || ''}
-          </SlimDescriptionText>
+          </SlimDescriptionText> */}
 
           {(carouselData[currentIndex].item?.customFields as CustomFiled)?.cta && (
             <Button
