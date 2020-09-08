@@ -1,13 +1,20 @@
 import styled from 'styled-components/native';
-import { getStatusBarHeight } from 'react-native-iphone-x-helper';
+import { ThemeState } from '@store/modules/theme/types';
 
-export const Container = styled.View``;
+export const Container = styled.View`
+  flex: 1;
+  background-color: ${(props: ThemeState) => props.theme.PRIMARY_COLOR};
+`;
 
-export const BackButton = styled.TouchableOpacity`
+export const WebViewWrapper = styled.View`
+  flex: 1;
+`;
+
+export const Wrapper = styled.View`
   position: absolute;
-  z-index: 4;
-  top: 20px;
-  left: ${`${getStatusBarHeight() + 20}px`};
-  width: 25px;
-  height: 25px;
+  height: 100%;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.4);
 `;

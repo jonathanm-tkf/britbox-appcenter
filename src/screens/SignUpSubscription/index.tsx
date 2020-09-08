@@ -5,7 +5,7 @@
 /* eslint-disable react-native/no-inline-styles */
 /* eslint-disable react/no-unescaped-entities */
 import React, { useState, useEffect } from 'react';
-import { KeyboardAvoidingView, Platform } from 'react-native';
+import { KeyboardAvoidingView, Platform, Linking } from 'react-native';
 
 import { Button } from '@components/Button';
 import HeaderCustom from '@components/HeaderCustom';
@@ -57,7 +57,6 @@ const productsResponse: BritboxDataEvergentModelsGetProductsResponseMessageBaseP
 
 const SignUpSubscription = () => {
   const dispatch = useDispatch();
-  const navigation = useNavigation();
   const { t } = useTranslation('signup');
   const theme = useSelector((state: AppState) => state.theme.theme);
   const user = useSelector((state: AppState) => state.user);
@@ -119,13 +118,13 @@ const SignUpSubscription = () => {
             );
 
             if (appIDApple) {
-              const appIDAppleName: string = appIDApple?.appID;
-              productApple.push(appIDAppleName);
+              const appIDAppleName: string | undefined = appIDApple?.appID;
+              productApple.push(String(appIDAppleName));
             }
 
             if (appIDGoogle) {
-              const appIDGoogleName: string = appIDGoogle?.appID;
-              productGoogle.push(appIDGoogleName);
+              const appIDGoogleName: string | undefined = appIDGoogle?.appID;
+              productGoogle.push(String(appIDGoogleName));
             }
           }
         );
@@ -147,7 +146,7 @@ const SignUpSubscription = () => {
     setErrorMsg('');
     setLoading(true);
     try {
-      let packageId = '';
+      let packageId: string | undefined = '';
 
       const appIDApple:
         | BritboxDataEvergentModelsGetProductsResponseMessageBaseAppChannels
@@ -165,16 +164,16 @@ const SignUpSubscription = () => {
       if (Platform.OS === 'ios') {
         if (appIDApple) {
           packageId = appIDApple?.appID;
-          setPackageName(packageId);
+          setPackageName(String(packageId));
         }
       } else if (Platform.OS === 'android') {
         if (appIDGoogle) {
           packageId = appIDGoogle?.appID;
-          setPackageName(packageId);
+          setPackageName(String(packageId));
         }
       }
 
-      const purchase = await RNIap.requestSubscription(packageId);
+      const purchase = await RNIap.requestSubscription(String(packageId));
 
       await RNIap.finishTransaction(purchase);
 
@@ -197,7 +196,7 @@ const SignUpSubscription = () => {
       const subscriptionResponse = await addSubscriptionRequest(user?.access?.accessToken || '', {
         rateType: 'App Store Billing',
         priceCharged: packageData[packageIndex]?.retailPrice,
-        appServiceID: 'com.britbox.us.staging.subscription.annual.freetrial',
+        appServiceID: packageName,
         serviceType: 'PRODUCT',
         paymentmethodInfo: {
           label: 'App Store Billing',
@@ -231,27 +230,17 @@ const SignUpSubscription = () => {
 
   return (
     <>
-      <HeaderCustom
-        isBack
-        shadow
-        rightComponent={
-          <Button
-            link
-            onPress={() => navigation.navigate('Login')}
-            color={theme.PRIMARY_FOREGROUND_COLOR}
-          >
-            Signin
-          </Button>
-        }
-      />
+      <HeaderCustom isBack shadow />
       <Gradient>
         <KeyboardAvoidingView style={flex} behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
           <ScrollView bounces={false}>
             <Container>
               <TitleWrapper>
-                <Title>{t('subscribetobritbox')}</Title>
-                <Paragraph>You've Successfully Created Your Account</Paragraph>
-                <SubTitle>Choose Subscription</SubTitle>
+                <Title>{britboxConfig[country]['plan-selection']?.title || ''}</Title>
+                <Paragraph>{britboxConfig[country]['plan-selection']?.description || ''}</Paragraph>
+                <SubTitle>
+                  {britboxConfig[country]['plan-selection']['description-2'] || ''}
+                </SubTitle>
               </TitleWrapper>
               <RowWrapper>
                 {packageData.map(
@@ -283,20 +272,19 @@ const SignUpSubscription = () => {
               </RowWrapper>
               <PaddingHorizontalView>
                 <RadioBottomText>
-                  Prices may be subject to local sales tax, where applicable.
+                  {britboxConfig[country]['plan-selection']?.legal || ''}
                 </RadioBottomText>
-                <Paragraph>
-                  Please tap 'Start free trial' button to proceed with payment for your
-                  Subscription, so you can start enjoying BritBox.
-                </Paragraph>
+                <Paragraph>{britboxConfig[country]['plan-selection']?.summary || ''}</Paragraph>
                 {packageData.length > 0 && (
                   <>
-                    <SmallText>Total</SmallText>
+                    <SmallText>{t('total')}</SmallText>
                     <PriceTitle>
                       {htmlEntities.decode(packageData[packageIndex]?.currencySymbol)}{' '}
                       {packageData[packageIndex]?.retailPrice}
                     </PriceTitle>
-                    <DescriptionText>per month after free trial ends</DescriptionText>
+                    <DescriptionText>
+                      {britboxConfig[country]['plan-selection']['sub-price'] || ''}
+                    </DescriptionText>
                   </>
                 )}
                 {errorMsg !== '' && <ErrorText>{errorMsg}</ErrorText>}
@@ -308,7 +296,7 @@ const SignUpSubscription = () => {
                   fontWeight="medium"
                   color={theme.PRIMARY_FOREGROUND_COLOR}
                 >
-                  {t('startfreetrial')}
+                  {britboxConfig[country]['plan-selection']?.ctas[0] || ''}
                 </Button>
                 <Button
                   onPress={() => _doSuccessSubscription()}
@@ -317,7 +305,7 @@ const SignUpSubscription = () => {
                   fontWeight="medium"
                   style={cancelStyle}
                 >
-                  <CancelText>{t('cancel')}</CancelText>
+                  <CancelText>{britboxConfig[country]['plan-selection']?.ctas[1] || ''}</CancelText>
                 </Button>
               </PaddingHorizontalView>
             </Container>
@@ -329,7 +317,15 @@ const SignUpSubscription = () => {
               <Paragraph>
                 {britboxConfig[country]['customer-service']?.availability || ''}
               </Paragraph>
-              <EmailTitle>{britboxConfig[country]['customer-service']?.email || ''}</EmailTitle>
+              <EmailTitle
+                onPress={() =>
+                  Linking.openURL(
+                    `mailto:${britboxConfig[country]['customer-service']?.email || ''}`
+                  )
+                }
+              >
+                {britboxConfig[country]['customer-service']?.email || ''}
+              </EmailTitle>
             </Wrapper>
           </ScrollView>
         </KeyboardAvoidingView>

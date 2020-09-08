@@ -317,15 +317,7 @@ const SignUp = () => {
 
   return (
     <>
-      <HeaderCustom
-        isBack
-        shadow
-        rightComponent={
-          <Button link onPress={() => navigation.goBack()} color={theme.PRIMARY_FOREGROUND_COLOR}>
-            {t('signin:signin')}
-          </Button>
-        }
-      />
+      <HeaderCustom isBack shadow />
       <Gradient>
         <KeyboardAvoidingView style={flex} behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
           <ScrollView bounces={false}>

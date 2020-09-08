@@ -281,7 +281,7 @@ export default function Search() {
             )}
           </>
         ) : (
-          <>
+          <ResultGrid>
             {noResults ? (
               <NoResultWrapper>
                 <NoResultText>
@@ -321,7 +321,7 @@ export default function Search() {
               }}
               containerStyle={containerStyles}
             />
-          </>
+          </ResultGrid>
         )}
       </Scroll>
     </Container>

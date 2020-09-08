@@ -319,7 +319,13 @@ export default function ParentalControls() {
           {britboxConfig[country]['customer-service']?.phone || ''}
         </FooterTitle>
         <Paragraph>{britboxConfig[country]['customer-service']?.availability || ''}</Paragraph>
-        <LinkTitle>{britboxConfig[country]['customer-service']?.email || ''}</LinkTitle>
+        <LinkTitle
+          onPress={() =>
+            Linking.openURL(`mailto:${britboxConfig[country]['customer-service']?.email || ''}`)
+          }
+        >
+          {britboxConfig[country]['customer-service']?.email || ''}
+        </LinkTitle>
       </Wrapper>
     </Gradient>
   );

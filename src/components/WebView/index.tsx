@@ -1,10 +1,11 @@
 /* eslint-disable react-native/no-inline-styles */
-import React from 'react';
-import { View } from 'react-native';
+import React, { useState } from 'react';
 import { AppState } from '@store/modules/rootReducer';
 import { useSelector } from 'react-redux';
 import { WebView } from 'react-native-webview';
 import HeaderCustom from '@components/HeaderCustom';
+import Action from '@components/Action';
+import { Container, WebViewWrapper, Wrapper } from './styles';
 
 const webview = {
   flex: 1,
@@ -16,23 +17,32 @@ interface Props {
 
 const WebViewComponent = ({ uri = '' }: Props) => {
   const theme = useSelector((state: AppState) => state.theme.theme);
+  const [loading, setLaoding] = useState(true);
 
   return (
-    <View
+    <Container
       style={{
         backgroundColor: theme.PRIMARY_COLOR,
         flex: 1,
       }}
     >
       <HeaderCustom isBack shadow />
-      <WebView
-        source={{
-          uri,
-        }}
-        allowsInlineMediaPlayback
-        style={webview}
-      />
-    </View>
+      <WebViewWrapper>
+        <WebView
+          source={{
+            uri,
+          }}
+          allowsInlineMediaPlayback
+          style={webview}
+          onLoad={() => setLaoding(false)}
+        />
+        {loading && (
+          <Wrapper>
+            <Action autoPlay loop loading width={70} height={70} />
+          </Wrapper>
+        )}
+      </WebViewWrapper>
+    </Container>
   );
 };
 
