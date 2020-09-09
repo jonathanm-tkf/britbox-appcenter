@@ -34,8 +34,10 @@ type Props = {
 };
 
 type Episode = {
+  type?: string;
   showTitle?: string;
   episodeNumber?: string;
+  contextualTitle?: string;
 };
 
 const Grid = ({
@@ -102,7 +104,7 @@ const Grid = ({
           scrollEnabled={false}
           listKey={Math.random().toString()}
           numColumns={numColumns}
-          keyExtractor={(item, index) => index.toString()}
+          keyExtractor={(_, index) => index.toString()}
           renderItem={({ item }) => {
             return isEpisode ? (
               <Card
@@ -110,14 +112,20 @@ const Grid = ({
                 url={getImageResult(item)}
                 onPress={() => (onPress ? onPress(item) : {})}
                 resizeMode="cover"
+                cardElement={item}
                 data={{
-                  title: (item as Episode)?.showTitle || '',
-                  description: `Episode ${(item as Episode)?.episodeNumber}`,
+                  title:
+                    item.type === 'episode'
+                      ? (item as Episode)?.showTitle || ''
+                      : item?.contextualTitle || '',
+                  description:
+                    item.type === 'episode' ? `Episode ${(item as Episode)?.episodeNumber}` : ``,
                 }}
                 {...{ element }}
               />
             ) : (
               <Card
+                isGrid
                 url={getImageResult(item)}
                 onPress={() => (onPress ? onPress(item) : {})}
                 cardContent={(card) => (cardContent ? cardContent(card) : null)}

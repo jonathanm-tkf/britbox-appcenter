@@ -2,11 +2,14 @@ import React, { useState, useEffect, useRef } from 'react';
 import ContentLoader, { Rect } from 'react-content-loader/native';
 
 import { LoadDetailPageResponse } from '@src/services/detail';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { AppState } from '@store/modules/rootReducer';
 import Shimmer from '@components/Shimmer';
 import TabsComponent from '@components/TabsComponent';
 import { useTranslation } from 'react-i18next';
+import { View } from 'react-native';
+import { sheetComponent } from '@store/modules/layout/actions';
+import { Headline } from '@components/Typography';
 import { TabsWrapper, PreloadTabs, Container } from './styles';
 import Information from './Information';
 import More from './More';
@@ -23,11 +26,17 @@ type HeightType = string | number;
 
 const Tabs = ({ data, onScrollTo, onLayout }: Props) => {
   const theme = useSelector((state: AppState) => state.theme.theme);
+
+  const britboxConfig = useSelector((state: AppState) => state.core.britboxConfig);
+  const segment = useSelector((state: AppState) => state.core.segment);
+  const country: string = segment.toLocaleLowerCase() || 'us';
+
   const [height, setHeight] = useState<HeightType>('auto');
   const [firstHeight, setFirstHeight] = useState('auto');
   const [secondHeight, setSecondHeight] = useState('auto');
   const [threeHeight, setThreeHeight] = useState('auto');
   const [fourHeight, setFourHeight] = useState('auto');
+  const dispatch = useDispatch();
 
   const ready = {
     episodes: false,
@@ -39,6 +48,28 @@ const Tabs = ({ data, onScrollTo, onLayout }: Props) => {
   const [tabsData, setTabsData] = useState<any>([]);
   const { t } = useTranslation(['detail', 'layout']);
   const ref = useRef();
+
+  const renderBottomContent = () => (
+    <View
+      style={{
+        backgroundColor: 'white',
+        padding: 16,
+        height: 450,
+      }}
+    >
+      <Headline color={theme.PRIMARY_TEXT_COLOR}>
+        {(britboxConfig && britboxConfig[country]?.noplan) || t('errorOut.subtitle')}
+      </Headline>
+    </View>
+  );
+
+  useEffect(() => {
+    dispatch(sheetComponent(450, () => renderBottomContent()));
+
+    return () => {
+      dispatch(sheetComponent(0, () => <></>));
+    };
+  }, []);
 
   const createTabs = (content: LoadDetailPageResponse | undefined) => {
     const tabs = [];

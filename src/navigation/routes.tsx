@@ -9,16 +9,18 @@ import { configRequest } from '@store/modules/core/actions';
 import KochavaTracker from 'react-native-kochava-tracker';
 import NetInfo from '@react-native-community/netinfo';
 import { isTablet, getSystemVersion, getSystemName, getDeviceName } from 'react-native-device-info';
-import { connection } from '@store/modules/layout/actions';
+import { connection, hideSheetBottom } from '@store/modules/layout/actions';
 import { refreshToken } from '@src/services/token';
 import { refreshTokenSuccess } from '@store/modules/user/actions';
 import { WebView } from 'react-native-webview';
 import Constants from '@src/config/Constants';
 import { TrackPageView } from '@src/services/analytics';
+import RBSheet from 'react-native-raw-bottom-sheet';
 import { RootStackScreen } from './Root';
 import { navigationRef } from './rootNavigation';
 
 const configMapObject: { [name: string]: string } = {};
+
 configMapObject[KochavaTracker.PARAM_ANDROID_APP_GUID_STRING_KEY] = 'kobbcww-android-test-8gnh';
 configMapObject[KochavaTracker.PARAM_IOS_APP_GUID_STRING_KEY] = 'kobbcww-ios-test-hh8756t';
 KochavaTracker.configure(configMapObject);
@@ -42,18 +44,19 @@ type Profile = {
 
 export default () => {
   const theme = useSelector((state: AppState) => state.theme.theme);
+  const { sheet, isSheetVisible } = useSelector((state: AppState) => state.layout);
   const token = useSelector((state: AppState) => state.core.token);
   const { analyticsSubscriptionStatus, isInFreeTrail } = useSelector(
     (state: AppState) => (state.user?.profile as Profile) || {}
   );
   const { isLogged } = useSelector((state: AppState) => state.user);
-
   const refresh = useSelector(
     (state: AppState) => (state.user.access as Access)?.refreshToken || ''
   );
 
   const webViewRef = useRef<any>(undefined);
   const routeNameRef = useRef<any>();
+  const sheetRef = useRef<any>(null);
 
   const webViewStyles: ViewStyle = {
     height: 0,
@@ -99,6 +102,13 @@ export default () => {
       unmonted = true;
     };
   }, []);
+
+  useEffect(() => {
+    if (isSheetVisible) {
+      // sheetRef.current!.snapTo(1);
+      sheetRef.current!.open();
+    }
+  }, [isSheetVisible]);
 
   const handleNavigationChange = async () => {
     const { response } = await refreshToken(token, refresh);
@@ -156,6 +166,25 @@ export default () => {
       <View style={webViewStyles}>
         <WebView ref={webViewRef} source={{ uri: `${Constants.analitycs}?id=${uuid()}` }} />
       </View>
+      <RBSheet
+        ref={sheetRef}
+        height={sheet.height}
+        closeOnDragDown
+        closeOnPressMask={false}
+        customStyles={{
+          container: {
+            alignItems: 'center',
+            borderTopRightRadius: 15,
+            borderTopLeftRadius: 15,
+          },
+          draggableIcon: {
+            backgroundColor: theme.PRIMARY_TEXT_COLOR_OPAQUE,
+          },
+        }}
+        onClose={() => dispatch(hideSheetBottom())}
+      >
+        {sheet.content()}
+      </RBSheet>
     </ThemeProvider>
   );
 };

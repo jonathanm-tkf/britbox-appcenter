@@ -16,6 +16,7 @@ import {
   loginRequestSuccess,
   loginRequestError,
   profileRequestSuccess,
+  logoutSuccess,
 } from './actions';
 import { AppState } from '../rootReducer';
 
@@ -312,7 +313,32 @@ export async function getConfigRequest() {
   }
 }
 
+async function logoutRequest(accessToken: string) {
+  const { logoutCustomer } = BritboxAccountApi({
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
+  try {
+    const response = await logoutCustomer();
+    return response;
+  } catch (error) {
+    return error;
+  }
+}
+
+export function* logout() {
+  try {
+    const { accessToken } = yield select(getToken);
+    yield call(logoutRequest, accessToken);
+    yield put(logoutSuccess());
+  } catch (error) {
+    // Sentry.captureException({ error, logger: 'user get profile' });
+  }
+}
+
 export default all([
   takeLatest(UserActionTypes.LOGIN_REQUEST, loginRequest),
+  takeLatest(UserActionTypes.LOGOUT, logout),
   takeLatest(UserActionTypes.GET_PROFILE_REQUEST, getProfileRequest),
 ]);

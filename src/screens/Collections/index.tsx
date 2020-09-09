@@ -321,7 +321,8 @@ const Collections = () => {
     navigateByPath(card);
   };
 
-  const getIsEpisodeGrid = () => true;
+  const getIsEpisodeGrid = (items: MassiveSDKModelItemSummary[]) =>
+    items.length > 0 ? items.reduce((i) => i).type === 'episode' : false;
 
   useEffect(() => {
     if (genre) {
@@ -471,10 +472,10 @@ const Collections = () => {
                           : item?.title || ''
                       }
                       loading={animationContinuosScroll}
-                      isEpisode={getIsEpisodeGrid()}
-                      numColumns={getIsEpisodeGrid() ? 2 : 3}
+                      isEpisode={getIsEpisodeGrid(item?.list?.items || [])}
+                      numColumns={getIsEpisodeGrid(item?.list?.items || []) ? 2 : 3}
                       element={
-                        getIsEpisodeGrid()
+                        getIsEpisodeGrid(item?.list?.items || [])
                           ? {
                               width: vw(50) - wp(26),
                               height: vw(50) - vw(26),
@@ -489,7 +490,7 @@ const Collections = () => {
                             }
                       }
                       containerStyle={containerStyles}
-                      imageType={getIsEpisodeGrid() ? 'wallpaper' : 'poster'}
+                      imageType={getIsEpisodeGrid(item?.list?.items || []) ? 'wallpaper' : 'poster'}
                     />
                   </WrapperContinuosScroll>
                 );

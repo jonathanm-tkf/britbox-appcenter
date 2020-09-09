@@ -44,7 +44,9 @@ export default function More() {
   const segment = useSelector((state: AppState) => state.core.segment);
   const country: string = segment.toLocaleLowerCase() || 'us';
 
-  const logoutAction = () => dispatch(logout());
+  const logoutAction = () => {
+    dispatch(logout());
+  };
 
   return (
     <ScrollView bounces={false} contentContainerStyle={wrapper}>

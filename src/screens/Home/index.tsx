@@ -33,8 +33,11 @@ import {
 import { getImage } from '@src/utils/images';
 import UserWatching from '@components/UserWatching';
 import { getItemContent } from '@store/modules/home/saga';
-import { MassiveSDKModelItemSummary } from '@src/sdks/Britbox.API.Content.TS/api';
-import { BritboxAPIContentModelsItemsGetItemRelatedListResponse } from '@src/sdks/Britbox.API.Content.TS/api';
+import {
+  MassiveSDKModelItemSummary,
+  BritboxAPIContentModelsItemsGetItemRelatedListResponse,
+} from '@src/sdks/Britbox.API.Content.TS/api';
+
 import Cast from '@screens/Shared/Cast';
 import { navigateByPath } from '@src/navigation/rootNavigation';
 import { Container } from './styles';

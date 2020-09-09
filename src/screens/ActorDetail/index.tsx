@@ -110,8 +110,7 @@ const Item = () => {
 
   const containerStyles = {
     marginTop: 20,
-    paddingHorizontal: wp(0),
-    alignItems: 'center',
+    paddingHorizontal: wp(15),
   };
 
   return (
@@ -130,7 +129,7 @@ const Item = () => {
         <>
           {data &&
             data.entries &&
-            data.entries.map((innerItem) => {
+            data.entries.map((innerItem, index) => {
               if ((innerItem?.list?.items || []).length === 0) {
                 return null;
               }
@@ -138,7 +137,7 @@ const Item = () => {
               switch (innerItem.title) {
                 case 'Movies':
                   return (
-                    <GridContainer>
+                    <GridContainer key={index.toString()}>
                       <Grid
                         title={
                           loading
@@ -149,9 +148,10 @@ const Item = () => {
                         }
                         items={innerItem?.list?.items || []}
                         imageType="poster"
+                        numColumns={3}
                         element={{
-                          width: vw(90),
-                          height: vw(33.333 * 1.5),
+                          width: vw(33.333) - wp(20),
+                          height: vw(33.333 * 1.25),
                           marginBottom: 20,
                           marginHorizontal: wp(5),
                         }}
@@ -161,7 +161,7 @@ const Item = () => {
                   );
                 case 'Shows':
                   return (
-                    <GridContainer>
+                    <GridContainer key={index.toString()}>
                       <Grid
                         title={
                           loading
@@ -171,9 +171,10 @@ const Item = () => {
                               }"` || ''
                         }
                         items={innerItem?.list?.items || []}
+                        numColumns={3}
                         element={{
-                          width: vw(90),
-                          height: vw(33.333 * 1.5),
+                          width: vw(33.333) - wp(20),
+                          height: vw(33.333 * 1.25),
                           marginBottom: 20,
                           marginHorizontal: wp(5),
                         }}

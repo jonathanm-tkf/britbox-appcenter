@@ -24,6 +24,7 @@ type VideoPlayerScreenRouteProp = RouteProp<RootParamList, 'VideoPlayer'>;
 const VideoPlayer = () => {
   const theme = useSelector((state: AppState) => state.theme.theme);
   const token = useSelector((state: AppState) => state.core.token);
+  const refreshToken = useSelector((state: AppState) => state.user?.access?.refreshToken || '');
   const segment = useSelector((state: AppState) => state.core.segment);
 
   const [connection, setConnection] = useState<NetInfoStateType | undefined>(undefined);
@@ -93,7 +94,7 @@ const VideoPlayer = () => {
           source={{
             uri: `${Constants.url_player}?country=${segment.toLocaleLowerCase()}&videoid=${
               params.item.id
-            }&token=${token}&connection=${
+            }&token=${token}&ert=${refreshToken}&isTrailer=false&connection=${
               connection === 'wifi' && isTablet()
                 ? 'mobile-tablet-main'
                 : connection === 'wifi'
@@ -105,7 +106,7 @@ const VideoPlayer = () => {
           //   console.tron.log({
           //     uri: `${Constants.url_player}?country=${segment.toLocaleLowerCase()}&videoid=${
           //       params.item.id
-          //     }&token=${token}&connection=${
+          //     }&token=${token}&ert=${refreshToken}&isTrailer=false&connection=${
           //       connection === 'wifi' && isTablet()
           //         ? 'mobile-tablet-main'
           //         : connection === 'wifi'

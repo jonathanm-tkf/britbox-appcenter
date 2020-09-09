@@ -21,6 +21,7 @@ export const loginRequestFailure = () => action(UserActionTypes.LOGIN_REQUEST_FA
 export const loginRequestErrorClear = () => action(UserActionTypes.LOGIN_REQUEST_ERROR_CLEAR);
 
 export const logout = () => action(UserActionTypes.LOGOUT);
+export const logoutSuccess = () => action(UserActionTypes.LOGOUT_SUCCESS);
 
 export const getProfileRequest = () => action(UserActionTypes.GET_PROFILE_REQUEST);
 

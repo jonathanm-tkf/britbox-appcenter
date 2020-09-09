@@ -233,3 +233,39 @@ export const TouchableScale = styled(TouchableScaleC)`
     );
   }};
 `;
+
+type Bagge = {
+  isGrid: boolean;
+};
+
+export const Badge = styled.View`
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 0;
+  z-index: 1;
+  background-color: ${(props: ThemeState) => props.theme.SECONDARY_COLOR};
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-left: 20px;
+  padding-right: 20px;
+  border-bottom-right-radius: 8px;
+  ${(props: Bagge & ThemeState) => {
+    return (
+      props.isGrid &&
+      `
+      width: 100%;
+      padding-left: 0px;
+      padding-right: 0px;
+      border-bottom-right-radius: 0px;
+    `
+    );
+  }};
+`;
+
+export const BadgeText = styled.Text`
+  color: ${(props: ThemeState) => props.theme.PRIMARY_FOREGROUND_COLOR};
+  font-family: ${(props: ThemeState) => props.theme.PRIMARY_FONT_FAMILY};
+  font-size: 9px;
+  text-transform: uppercase;
+`;

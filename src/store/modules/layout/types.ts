@@ -14,6 +14,9 @@ export enum LayoutActionTypes {
   LAYOUT_CAST_ON = '@layout/LAYOUT_LOADING_CAST_ON',
   LAYOUT_CAST_OFF = '@layout/LAYOUT_LOADING_CAST_OFF',
   CONNECTION = '@layout/CONNECTION',
+  LAYOUT_SHEET_COMPONENT = '@layout/LAYOUT_SHEET_COMPONENT',
+  LAYOUT_SHOW_SHEET_BOTTOM = '@layout/LAYOUT_SHOW_SHEET_BOTTOM',
+  LAYOUT_HIDE_SHEET_BOTTOM = '@layout/LAYOUT_HIDE_SHEET_BOTTOM',
 }
 
 /**
@@ -25,6 +28,11 @@ export interface LayoutState {
   out: boolean;
   cast: boolean;
   connection: string | undefined;
+  sheet: {
+    content: () => JSX.Element | null;
+    height: number;
+  };
+  isSheetVisible: boolean;
 }
 
 export interface MediaSelectorResponse {
@@ -83,6 +91,15 @@ export interface Connection {
   href: string;
   transferFormat: TransferFormat;
   dpw: string;
+}
+
+export interface Subtitles {
+  priority: number;
+  protocol: string;
+  supplier: string;
+  href: string;
+  transferFormat: string;
+  dpw: number;
 }
 
 export enum Protocol {

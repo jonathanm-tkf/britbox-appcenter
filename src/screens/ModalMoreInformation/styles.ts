@@ -83,3 +83,7 @@ export const BackgroundTop = styled(Animated.View)`
   width: 100%;
   padding-top: ${Platform.OS === 'ios' ? getStatusBarHeight() + 50 : 50}px;
 `;
+
+export const YearWrapper = styled.View`
+  margin-top: 30px;
+`;

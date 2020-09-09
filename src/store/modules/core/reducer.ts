@@ -56,7 +56,7 @@ const core: Reducer<CoreState> = (state = initialState, action) => {
         draft.isLogged = true;
         break;
       }
-      case UserActionTypes.LOGOUT: {
+      case UserActionTypes.LOGOUT_SUCCESS: {
         draft.isLogged = false;
         draft.token = '';
         break;

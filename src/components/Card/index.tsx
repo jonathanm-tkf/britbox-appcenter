@@ -31,6 +31,8 @@ import {
   AllWrapper,
   LogoWrapper,
   TouchableScale,
+  Badge,
+  BadgeText,
 } from './styles';
 
 interface Props {
@@ -39,6 +41,7 @@ interface Props {
   url: string;
   isEpisode?: boolean;
   isDetail?: boolean;
+  isGrid?: boolean;
   newEpisode?: boolean;
   data?: {
     title: string;
@@ -67,6 +70,7 @@ const Card = ({
   height,
   isEpisode,
   isDetail,
+  isGrid,
   newEpisode,
   data = undefined,
   isContinue,
@@ -85,7 +89,7 @@ const Card = ({
   const theme = useSelector((state: AppState) => state.theme.theme);
   const [loaded, setLoaded] = useState(false);
   const { t } = useTranslation('layout');
-
+  const { badge } = cardElement || {};
   const imageStyle = {
     width: width || element?.width || 162,
     height: height || element?.height || 243,
@@ -108,12 +112,18 @@ const Card = ({
       friction={8}
       onLayout={onLayout}
       onPress={() => (onPress && url !== 'loading' ? onPress() : {})}
+      onLongPress={() => (onPress && url !== 'loading' ? onPress() : {})}
     >
       <AllWrapper {...{ style }}>
         <Wrapper {...{ width: imageStyle.width, isDetail }} style={element}>
           <Container {...{ width: imageStyle.width, height: imageStyle.height }}>
             <CustomShadow>
               <ImageWrapper>
+                {badge && (
+                  <Badge {...{ isGrid: isGrid || false }}>
+                    <BadgeText>{badge}</BadgeText>
+                  </Badge>
+                )}
                 {(newEpisode || isEpisode || isDetail) && loaded && (
                   <ActionWrapper>
                     <Action

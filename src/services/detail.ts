@@ -58,6 +58,7 @@ export type MoreInformation = {
   title: string;
   description: string;
   season: string;
+  year: number | undefined;
   vams: object[] | undefined;
 };
 
@@ -111,6 +112,7 @@ const processDetailPage = async (
     description: '',
     season: '',
     vams: undefined,
+    year: undefined,
   };
 
   let episodesResponse;
@@ -148,6 +150,7 @@ const processDetailPage = async (
       moreInformationResponse.description = entries?.item?.show?.description || '';
       moreInformationResponse.season = entries?.item?.contextualTitle || '';
       moreInformationResponse.vams = entries?.item?.show?.vams;
+      moreInformationResponse.year = entries?.item?.releaseYear;
     }
   }
 
@@ -184,6 +187,7 @@ const processDetailPage = async (
     moreInformationResponse.description = entries?.item?.season?.show?.description || '';
     moreInformationResponse.season = entries?.item?.season?.contextualTitle || '';
     moreInformationResponse.vams = entries?.item?.season?.show?.vams;
+    moreInformationResponse.year = entries?.item?.season?.releaseYear;
   }
 
   if (detail?.key === 'MovieDetail') {
@@ -210,6 +214,7 @@ const processDetailPage = async (
       moreInformationResponse.title = entries?.item?.title || '';
       moreInformationResponse.description = entries?.item?.shortDescription || '';
       moreInformationResponse.vams = entries?.item?.vams;
+      moreInformationResponse.year = entries?.item?.releaseYear;
     }
   }
 

@@ -18,6 +18,7 @@ import {
   Button,
   BackgroundTop,
   TopText,
+  YearWrapper,
 } from './styles';
 
 type RootParamList = {
@@ -80,21 +81,31 @@ const ModalMoreInformation = () => {
           <Headline>{params.moreInformation.season}</Headline>
         )}
         <Paragraph>{params.moreInformation.description}</Paragraph>
-        <CreditsWrapper>
-          <CreditsList>
-            <Headline>{t('credits')}</Headline>
-            {(params.moreInformation?.credits || []).map((item, key) => {
-              return (
-                <CreditsItem key={key.toString()}>
-                  <CreditsText>{item.role === 'actor' ? item.character : item.role}</CreditsText>
-                  <CreditsText>
-                    {item.role === 'director' || item.role === 'writer' ? item.name : item.name}
-                  </CreditsText>
-                </CreditsItem>
-              );
-            })}
-          </CreditsList>
-        </CreditsWrapper>
+
+        {params.moreInformation.year && (
+          <YearWrapper>
+            <Headline>{t('year')}</Headline>
+            <Paragraph>{params.moreInformation.year}</Paragraph>
+          </YearWrapper>
+        )}
+
+        {(params.moreInformation?.credits || []).length > 0 && (
+          <CreditsWrapper>
+            <CreditsList>
+              <Headline>{t('credits')}</Headline>
+              {(params.moreInformation?.credits || []).map((item, key) => {
+                return (
+                  <CreditsItem key={key.toString()}>
+                    <CreditsText>{item.role === 'actor' ? item.character : item.role}</CreditsText>
+                    <CreditsText>
+                      {item.role === 'director' || item.role === 'writer' ? item.name : item.name}
+                    </CreditsText>
+                  </CreditsItem>
+                );
+              })}
+            </CreditsList>
+          </CreditsWrapper>
+        )}
       </Scroll>
     </Container>
   );

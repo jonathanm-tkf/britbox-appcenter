@@ -24,6 +24,7 @@ interface Props {
 
 const Episodes = ({ onLayout, data, show, moreInformation, isEpisode, onScrollTo }: Props) => {
   const { navigate } = useNavigation();
+
   const isCast = useSelector((state: AppState) => state.layout.cast);
 
   const getCategories = (itemData: MassiveSDKModelEpisodesItem): any[] => {
@@ -61,6 +62,10 @@ const Episodes = ({ onLayout, data, show, moreInformation, isEpisode, onScrollTo
   };
 
   const onPlay = (item: MassiveSDKModelEpisodesItem) => {
+    // dispatch(showSheetBottom());
+
+    // return false;
+
     if (isCast) {
       return CastVideo(item);
     }
@@ -74,10 +79,6 @@ const Episodes = ({ onLayout, data, show, moreInformation, isEpisode, onScrollTo
   const goToMoreInformation = () => {
     return navigate('ModalMoreInformation', { moreInformation });
   };
-
-  // useEffect(() => {
-  //   console.tron.log({ isEpisode });
-  // }, [isEpisode]);
 
   return (
     <Container onLayout={onLayout}>

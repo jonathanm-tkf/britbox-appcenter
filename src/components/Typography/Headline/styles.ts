@@ -8,6 +8,7 @@ interface HeadlineComponentProps {
   fontSize?: number;
   lineHeight?: number;
   center?: boolean;
+  color?: string;
 }
 
 export const HeadlineComponent = styled(Headline)`
@@ -30,6 +31,15 @@ export const HeadlineComponent = styled(Headline)`
       props.lineHeight &&
       `
       line-height: ${props.lineHeight}px;
+    `
+    );
+  }};
+
+  ${(props: HeadlineComponentProps & ThemeState) => {
+    return (
+      props.color &&
+      `
+      color: ${props.color};
     `
     );
   }};

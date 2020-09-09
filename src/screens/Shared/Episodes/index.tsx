@@ -60,6 +60,7 @@ const Episodes = ({ item }: Props) => {
                 'wallpaper'
               )}
               resizeMode={card.type === 'movie' || card.type === 'episode' ? 'cover' : 'contain'}
+              cardElement={card}
               data={{
                 title: card.type === 'episode' ? card?.showTitle || '' : card?.title || '',
                 description:

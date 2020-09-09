@@ -35,7 +35,7 @@ const user: Reducer<UserState> = (state = initialState, action) => {
         draft.error = false;
         draft.access = undefined;
         break;
-      case UserActionTypes.LOGOUT:
+      case UserActionTypes.LOGOUT_SUCCESS:
         draft.isLogged = false;
         draft.access = undefined;
         draft.profile = undefined;

@@ -9,6 +9,11 @@ export const initialState: LayoutState = {
   out: false,
   cast: false,
   connection: undefined,
+  sheet: {
+    content: () => null,
+    height: 0,
+  },
+  isSheetVisible: false,
 };
 
 const layout: Reducer<LayoutState> = (state = initialState, action) => {
@@ -42,6 +47,18 @@ const layout: Reducer<LayoutState> = (state = initialState, action) => {
         break;
       case LayoutActionTypes.CONNECTION:
         draft.connection = action.payload.type;
+        break;
+      case LayoutActionTypes.LAYOUT_SHEET_COMPONENT:
+        draft.sheet = {
+          height: action.payload.height,
+          content: action.payload.content,
+        };
+        break;
+      case LayoutActionTypes.LAYOUT_SHOW_SHEET_BOTTOM:
+        draft.isSheetVisible = true;
+        break;
+      case LayoutActionTypes.LAYOUT_HIDE_SHEET_BOTTOM:
+        draft.isSheetVisible = false;
         break;
       default:
         break;
