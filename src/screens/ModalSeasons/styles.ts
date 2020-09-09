@@ -24,6 +24,7 @@ export const FlatList = styled(RNFlatList).attrs({
     paddingTop: 60,
     paddingLeft: 20,
     paddingRight: 20,
+    paddingBottom: 120,
   },
 })``;
 
