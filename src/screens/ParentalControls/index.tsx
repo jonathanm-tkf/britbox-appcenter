@@ -87,7 +87,7 @@ export default function ParentalControls() {
   const user = useSelector((state: AppState) => state.user);
   const britboxConfig = useSelector((state: AppState) => state.core.britboxConfig);
   const segment = useSelector((state: AppState) => state.core.segment);
-  const country: string = segment.toLocaleLowerCase() || 'us';
+  const country: string = segment?.toLocaleLowerCase() || 'us';
 
   const activeContainer = {
     backgroundColor: 'white',

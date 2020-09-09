@@ -150,3 +150,8 @@ export const Header = styled.View`
   z-index: 1;
   width: 100%; */
 `;
+
+export const SuscribeText = styled.Text`
+  margin-left: 40px;
+  margin-right: 40px;
+`;

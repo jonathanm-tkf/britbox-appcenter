@@ -6,7 +6,12 @@ import { View, Platform, Alert, Text, ScrollView, Linking } from 'react-native';
 import { getStatusBarHeight } from 'react-native-iphone-x-helper';
 import { ThemeState } from '@store/modules/theme/types';
 import { BackIcon, CelularIcon } from '@assets/icons';
-import { updateProfileRequest, resetPasswordRequest } from '@store/modules/user/saga';
+import {
+  updateProfileRequest,
+  resetPasswordRequest,
+  getActiveSubscriptionRequest,
+} from '@store/modules/user/saga';
+import { BritboxDataEvergentModelsGetActiveSubscriptionsResponseMessageBaseAccountServiceMessage } from '@src/sdks/Britbox.API.Account.TS/api';
 import { getProfileRequest } from '@store/modules/user/actions';
 import { useTranslation } from 'react-i18next';
 import HeaderCustom from '@components/HeaderCustom';
@@ -39,6 +44,7 @@ import {
   ScrollContent,
   ErrorText,
   Header,
+  SuscribeText,
 } from './styles';
 import ErrorBlock from '@components/ErrorBlock';
 
@@ -59,7 +65,7 @@ export default function MyAccount() {
   const theme = useSelector((state: AppState) => state.theme.theme);
   const britboxConfig = useSelector((state: AppState) => state.core.britboxConfig);
   const segment = useSelector((state: AppState) => state.core.segment);
-  const country: string = segment.toLocaleLowerCase() || 'us';
+  const country: string = segment?.toLocaleLowerCase() || 'us';
 
   const error = {
     text: 'Field is required',
@@ -588,16 +594,69 @@ export default function MyAccount() {
   };
 
   const SubscriptionRoute = () => {
+    const [subscriptionDetail, setSubscriptionDetail] = useState<
+      BritboxDataEvergentModelsGetActiveSubscriptionsResponseMessageBaseAccountServiceMessage
+    >({});
+
+    const getActiveSubscription = async () => {
+      const { response } = await getActiveSubscriptionRequest(user?.access?.accessToken || '');
+
+      if (response && Number(response?.responseCode) === 1) {
+        if (response?.accountServiceMessage[0]) {
+          setSubscriptionDetail(response?.accountServiceMessage[0]);
+        }
+      }
+    };
+
+    useEffect(() => {
+      getActiveSubscription();
+    }, []);
+
+    const suscribeStyle = { paddingLeft: 65, paddingRight: 65, marginBottom: 30, marginTop: 20 };
+
     return (
       <>
         <ScrollableContainerPaddingHorizontal>
           <TitleWrapper>
             <SubTitle>{t('myaccount.subscription.screentitle')}</SubTitle>
           </TitleWrapper>
-          <SubscriptionParagraph>
-            You are subscribed directly via Android. Please go to Google Subscription to review or
-            update your subscription and payment details.
-          </SubscriptionParagraph>
+          {subscriptionDetail?.paymentMethod === 'Credit/Debit Card' ? (
+            <SubscriptionParagraph>
+              {britboxConfig[country]['account-subscription']?.web || ''}
+            </SubscriptionParagraph>
+          ) : subscriptionDetail?.paymentMethod === 'Google Wallet' ? (
+            <SubscriptionParagraph>
+              {britboxConfig[country]['account-subscription']?.android || ''}
+            </SubscriptionParagraph>
+          ) : subscriptionDetail?.paymentMethod === 'App Store Billing' ? (
+            <SubscriptionParagraph>
+              {britboxConfig[country]['account-subscription']?.ios || ''}
+            </SubscriptionParagraph>
+          ) : subscriptionDetail?.paymentMethod === 'Roku Payment' ? (
+            <SubscriptionParagraph>
+              {britboxConfig[country]['account-subscription']?.roku || ''}
+            </SubscriptionParagraph>
+          ) : (
+            <>
+              <FooterTitle>
+                {britboxConfig[country]['account-subscription']['not-purchased'][0] || ''}
+              </FooterTitle>
+              <Paragraph>
+                {britboxConfig[country]['account-subscription']['not-purchased'][1] || ''}
+              </Paragraph>
+              <Button
+                outline
+                size="big"
+                fontWeight="medium"
+                style={suscribeStyle}
+                onPress={() => {}}
+              >
+                <SuscribeText>
+                  {britboxConfig[country]['account-subscription']['not-purchased'][2] || ''}
+                </SuscribeText>
+              </Button>
+            </>
+          )}
         </ScrollableContainerPaddingHorizontal>
         {tabBottomView()}
       </>
