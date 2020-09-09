@@ -3,6 +3,7 @@ import { ThemeState } from '@store/modules/theme/types';
 import { getStatusBarHeight } from 'react-native-iphone-x-helper';
 import { Platform } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
+import LogoBritbox from '../../../assets/images/Logo.svg';
 
 export const Container = styled.View`
   flex: 1;
@@ -21,6 +22,12 @@ export const ErrorText = styled.Text`
 
 export const ScrollView = styled.ScrollView`
   /* margin-top: 77px; */
+`;
+
+export const Logo = styled(LogoBritbox).attrs({
+  width: 100,
+})`
+  margin: 0 0 0 30px;
 `;
 
 export const CloseButton = styled.TouchableOpacity`

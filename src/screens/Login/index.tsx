@@ -15,6 +15,7 @@ import { useTranslation } from 'react-i18next';
 import { useNavigation } from '@react-navigation/native';
 import ModalCustom from '@components/ModalCustom';
 import {
+  Logo,
   Container,
   ErrorText,
   ScrollView,
@@ -53,7 +54,7 @@ const Login = () => {
   const theme = useSelector((state: AppState) => state.theme.theme);
   const britboxConfig = useSelector((state: AppState) => state.core.britboxConfig);
   const segment = useSelector((state: AppState) => state.core.segment);
-  const country: string = segment.toLocaleLowerCase() || 'us';
+  const country: string = segment?.toLocaleLowerCase() || 'us';
 
   const [user, setUser] = useState(__DEV__ ? 'maximilianor@takeoffmedia.com' : '');
   const [password, setPassword] = useState(__DEV__ ? '8Ub4cYAiM77EzJY' : '');
@@ -62,6 +63,8 @@ const Login = () => {
   const [isForgotModalLoading, setIsForgotModalLoading] = useState(false);
   const [isForgotModalSuccess, setIsForgotModalSuccess] = useState(false);
   const [isForgotModalVisible, setIsForgotModalVisible] = useState(false);
+
+  const [isDisabled, setIsDisabled] = useState(true);
 
   const loading = useSelector((state: AppState) => state.user.loading);
   const { error: errorState, access } = useSelector((state: AppState) => state.user);
@@ -100,9 +103,15 @@ const Login = () => {
     }
   };
 
-  const doValidateUsername = () => {
-    const hasErrorUsername = user.trim() === '';
+  const validateEmail = (mail: string) => {
+    if (/^\w+([\\.-]?\w+)*@\w+([\\.-]?\w+)*(\.\w{2,3})+$/.test(mail)) {
+      return true;
+    }
+    return true;
+  };
 
+  const doValidateUsername = () => {
+    const hasErrorUsername = !validateEmail(user.trim());
     setErrorUsername(
       hasErrorUsername
         ? error
@@ -137,6 +146,10 @@ const Login = () => {
   };
 
   useEffect(() => {
+    if (doValidateUsername() && doValidatePassword()) {
+      setIsDisabled(false);
+    }
+
     if (errorState) {
       dispatch(loginRequestErrorClear());
     }
@@ -210,6 +223,7 @@ const Login = () => {
 
   return (
     <>
+      {Platform.OS === 'android' && <Logo />}
       <CloseButton onPress={() => navigation.goBack()}>
         <CloseIcon width={32} height={32} />
       </CloseButton>
@@ -252,6 +266,7 @@ const Login = () => {
               <Button
                 onPress={() => login()}
                 stretch
+                disabled={isDisabled}
                 loading={loading}
                 size="big"
                 fontWeight="medium"
