@@ -62,7 +62,7 @@ const SignUpSubscription = () => {
   const user = useSelector((state: AppState) => state.user);
   const britboxConfig = useSelector((state: AppState) => state.core.britboxConfig);
   const segment = useSelector((state: AppState) => state.core.segment);
-  const country: string = segment.toLocaleLowerCase() || 'us';
+  const country: string = segment?.toLocaleLowerCase() || 'us';
 
   const cancelStyle = { marginTop: 15, borderWidth: 0 };
   const textLeft = { textAlign: 'left' };
@@ -194,12 +194,12 @@ const SignUpSubscription = () => {
       await RNIap.validateReceiptIos(receiptBody, true);
 
       const subscriptionResponse = await addSubscriptionRequest(user?.access?.accessToken || '', {
-        rateType: 'App Store Billing',
+        rateType: Platform.OS === 'ios' ? 'App Store Billing' : 'Google Wallet',
         priceCharged: packageData[packageIndex]?.retailPrice,
         appServiceID: packageName,
         serviceType: 'PRODUCT',
         paymentmethodInfo: {
-          label: 'App Store Billing',
+          label: Platform.OS === 'ios' ? 'App Store Billing' : 'Google Wallet',
           transactionReferenceMsg: {
             amount: packageData[packageIndex]?.retailPrice,
             txID: receipt,

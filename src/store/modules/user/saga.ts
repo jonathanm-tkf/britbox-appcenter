@@ -192,6 +192,21 @@ export function* getProfileRequest() {
   }
 }
 
+export async function getActiveSubscriptionRequest(token: string) {
+  const { getActiveSubscription } = BritboxAccountApi({
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  try {
+    const response = await getActiveSubscription();
+    return response;
+  } catch (error) {
+    return error;
+  }
+}
+
 export async function updateProfileRequest(
   accessToken: string,
   updateProfileParams: BritboxAPIAccountModelsProfileUpdateProfileRequest
