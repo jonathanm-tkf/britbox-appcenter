@@ -228,11 +228,11 @@ const Login = () => {
               </TitleWrapper>
               {errorState && (
                 <ErrorText>
-                  {
-                    ((access as unknown) as EvergentLoginResponseError)?.failureMessage?.reduce(
-                      (item) => item
-                    )?.errorMessage
-                  }
+                  {((access as unknown) as EvergentLoginResponseError)?.failureMessage?.reduce(
+                    (item) => item
+                  )?.errorMessage ||
+                    britboxConfig[country]?.login['error-messages']['error-message'] ||
+                    t('error')}
                 </ErrorText>
               )}
               <Input

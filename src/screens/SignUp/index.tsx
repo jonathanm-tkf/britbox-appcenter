@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/no-unescaped-entities */
 import React, { useState, useEffect } from 'react';
@@ -307,14 +309,6 @@ const SignUp = () => {
   }, []);
 
   const termsPrivacyView = () => {
-    // if ((britboxConfig[country]?.registration['statement-1'] || '').includes('[LINK]')) {
-    //   console.tron.log(
-    //     "By clicking 'Create Account' you agree to the BritBox [LINK]terms and conditions|terms-and-conditions[LINK] and our [LINK]privacy policy|privacy-policy[LINK]. We'll send you regular BritBox newsletters, along with other special offers and promotions. You can opt out at any time by clicking on the unsubscribe link in our emails."?.split(
-    //       '[LINK]'
-    //     )
-    //   );
-    // }
-
     const renderLink = (str: string) => {
       const splitStr = str.split('|');
 
