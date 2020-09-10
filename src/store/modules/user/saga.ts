@@ -17,6 +17,8 @@ import {
   loginRequestError,
   profileRequestSuccess,
   logoutSuccess,
+  watchlistRequestAdd,
+  watchlistRequestRemove,
 } from './actions';
 import { AppState } from '../rootReducer';
 
@@ -352,8 +354,56 @@ export function* logout() {
   }
 }
 
+type WatchListItem = {
+  itemId: string;
+  isInWatchlist: boolean;
+};
+
+async function watchlistRequest({ itemId, isInWatchlist }: WatchListItem, accessToken: string) {
+  const { bookmarkItem, deleteItemBookmark } = BritboxAccountApi({
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
+  try {
+    let response;
+    if (isInWatchlist) {
+      response = await deleteItemBookmark(itemId).then(() => ({
+        itemId,
+        type: 'remove',
+      }));
+    } else {
+      response = await bookmarkItem(itemId).then((e) => ({
+        ...e,
+        type: 'add',
+      }));
+    }
+    return { response };
+  } catch (error) {
+    return error;
+  }
+}
+
+export function* watchlistToggleRequest({ payload }: any) {
+  try {
+    const { accessToken } = yield select(getToken);
+    const { response } = yield call(watchlistRequest, payload, accessToken);
+    if (response.type === 'add') {
+      yield put(watchlistRequestAdd(response));
+    }
+
+    if (response.type === 'remove') {
+      yield put(watchlistRequestRemove(response));
+    }
+  } catch (error) {
+    // error
+  }
+}
+
 export default all([
   takeLatest(UserActionTypes.LOGIN_REQUEST, loginRequest),
+  takeLatest(UserActionTypes.WATCHLIST_TOGGLE_REQUEST, watchlistToggleRequest),
   takeLatest(UserActionTypes.LOGOUT, logout),
   takeLatest(UserActionTypes.GET_PROFILE_REQUEST, getProfileRequest),
+  takeLatest(UserActionTypes.PERSIST_REHYDRATE, getProfileRequest),
 ]);

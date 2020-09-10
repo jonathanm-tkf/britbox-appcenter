@@ -20,6 +20,7 @@ export function navigateByPath(item: any) {
       navigate('AZ');
       break;
     case item?.path === '/account/watchlist':
+      navigate('Watchlist');
       break;
     case item?.path === '/':
       navigate('Home');

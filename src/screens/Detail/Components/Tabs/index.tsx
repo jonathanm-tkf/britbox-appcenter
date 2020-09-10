@@ -96,7 +96,7 @@ const Tabs = ({ data, onScrollTo, onLayout }: Props) => {
 
     if ((moreInformation?.vams || [])?.length > 0) {
       tabs.push({
-        key: 'four',
+        key: 'second',
         title: t('bonus'),
         content: () => (
           <BonusFeatures
@@ -115,7 +115,7 @@ const Tabs = ({ data, onScrollTo, onLayout }: Props) => {
 
     if (information) {
       tabs.push({
-        key: 'second',
+        key: 'three',
         title: t('information'),
         content: () => (
           <Information
@@ -134,7 +134,7 @@ const Tabs = ({ data, onScrollTo, onLayout }: Props) => {
 
     if (related) {
       tabs.push({
-        key: 'three',
+        key: 'four',
         title: t('more'),
         content: () => (
           <More

@@ -12,5 +12,6 @@ export const connection = (type: string) => action(LayoutActionTypes.CONNECTION,
 export const sheetComponent = (height: number, content: () => JSX.Element | null) =>
   action(LayoutActionTypes.LAYOUT_SHEET_COMPONENT, { height, content });
 
-export const showSheetBottom = () => action(LayoutActionTypes.LAYOUT_SHOW_SHEET_BOTTOM);
+export const showSheetBottom = (data?: object) =>
+  action(LayoutActionTypes.LAYOUT_SHOW_SHEET_BOTTOM, { ...data });
 export const hideSheetBottom = () => action(LayoutActionTypes.LAYOUT_HIDE_SHEET_BOTTOM);

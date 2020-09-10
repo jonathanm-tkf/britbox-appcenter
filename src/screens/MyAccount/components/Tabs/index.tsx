@@ -49,6 +49,7 @@ const TabScene = ({
     <Animated.FlatList
       scrollToOverflowEnabled
       ref={onGetRef}
+      bounces={false}
       scrollEventThrottle={16}
       onScroll={Animated.event([{ nativeEvent: { contentOffset: { y: scrollY } } }], {
         useNativeDriver: true,

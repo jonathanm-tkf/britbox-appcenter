@@ -34,10 +34,6 @@ const Explore = () => {
   };
 
   const goToScreen = (item: Header) => {
-    if (/watchlist/.test(item?.path || '')) {
-      return false;
-    }
-
     if (item.label === 'Help') {
       return openURLButton(item?.path || '');
     }

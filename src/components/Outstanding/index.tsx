@@ -2,8 +2,11 @@ import React from 'react';
 import { Image, StyleProp, ImageStyle } from 'react-native';
 import Swiper from 'react-native-swiper';
 import { useTranslation } from 'react-i18next';
-import { Logo, WatchlistIcon, DiscoverMoreIcon } from '@assets/icons';
+import { Logo, WatchlistIcon, DiscoverMoreIcon, CheckedIcon } from '@assets/icons';
 import Action from '@components/Action';
+import { useSelector } from 'react-redux';
+import { AppState } from '@store/modules/rootReducer';
+import { checkIsInWatchingList } from '@src/services/watchlist';
 import {
   Container,
   Gradient,
@@ -23,7 +26,7 @@ interface Props {
   items: {
     url: string;
   }[];
-  onWatchlist?: () => void;
+  onWatchlist?: (item: any, isInWatchlist: boolean) => void;
   onDiscoverMore?: (item: any) => void;
   onPlay?: (item: any) => void;
   isContinue?: boolean;
@@ -37,6 +40,10 @@ const image: StyleProp<ImageStyle> = {
 
 const Outstanding = ({ items, onPlay, onWatchlist, onDiscoverMore }: Props) => {
   const { t } = useTranslation('layout');
+  const bookmarklist = useSelector((state: AppState) => state.user.profile?.bookmarkList || []);
+
+  const getIsInWatchlist = (id: string) =>
+    checkIsInWatchingList(bookmarklist.items, id || '0') === 3;
 
   return (
     <Swiper
@@ -63,8 +70,16 @@ const Outstanding = ({ items, onPlay, onWatchlist, onDiscoverMore }: Props) => {
             <Gradient />
           </Container>
           <Actions>
-            <ActionButton onPress={() => (onWatchlist ? onWatchlist() : {})}>
-              <WatchlistIcon width={32} height={32} />
+            <ActionButton
+              onPress={() =>
+                onWatchlist ? onWatchlist(item, getIsInWatchlist(item?.id || '0')) : {}
+              }
+            >
+              {getIsInWatchlist(item?.id || '0') ? (
+                <CheckedIcon fill="#FFFFFF" width={32} height={32} />
+              ) : (
+                <WatchlistIcon width={32} height={32} />
+              )}
             </ActionButton>
             <ActionButton onPress={() => (onPlay ? onPlay(item) : {})}>
               <Action autoPlay loop width={100} height={100} />

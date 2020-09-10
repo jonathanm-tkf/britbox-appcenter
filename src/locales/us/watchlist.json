@@ -1,0 +1,14 @@
+{
+  "title": "Watchlist",
+  "description": "Pick up where you left off, or find a programme you've been saving",
+  "programmes": "Programmes",
+  "program": "Program",
+  "filter": "Filter +",
+  "remove": {
+    "title": "Remove from your Watchlist?",
+    "button": {
+      "ok": "Yes, remove",
+      "cancel": "Cancel"
+    }
+  }
+}

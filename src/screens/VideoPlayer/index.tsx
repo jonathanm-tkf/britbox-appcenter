@@ -64,6 +64,7 @@ const VideoPlayer = () => {
         setConnection(type || undefined);
       });
     }
+
     return () => {
       unmonted = true;
       BackHandler.removeEventListener('hardwareBackPress', handleBackButtonClick);

@@ -35,3 +35,17 @@ export const refreshTokenSuccess = (data: EvergentLoginResponse) =>
   action(UserActionTypes.REFRESH_TOKEN_SUCCESS, { ...data });
 
 export const loggedInRequest = () => action(UserActionTypes.LOGGEDIN_REQUEST);
+
+export const watchlistToggleRequest = ({
+  itemId,
+  isInWatchlist,
+}: {
+  itemId: string;
+  isInWatchlist: boolean;
+}) => action(UserActionTypes.WATCHLIST_TOGGLE_REQUEST, { itemId, isInWatchlist });
+
+export const watchlistRequestAdd = (data: any) =>
+  action(UserActionTypes.WATCHLIST_TOGGLE_REQUEST_ADD, { ...data });
+
+export const watchlistRequestRemove = (data: any) =>
+  action(UserActionTypes.WATCHLIST_TOGGLE_REQUEST_REMOVE, { ...data });

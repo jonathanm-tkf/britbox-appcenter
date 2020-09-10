@@ -5,10 +5,11 @@ import { LoadDetailPageResponse } from '@src/services/detail';
 import { useSelector } from 'react-redux';
 import { AppState } from '@store/modules/rootReducer';
 import Shimmer from '@components/Shimmer';
-import { WatchlistIcon } from '@assets/icons';
+import { WatchlistIcon, CheckedIcon } from '@assets/icons';
 import Action from '@components/Action';
 import { getDuration } from '@src/utils/template';
 import { useTranslation } from 'react-i18next';
+import { checkIsInWatchingList } from '@src/services/watchlist';
 import {
   Container,
   ActionWrapper,
@@ -25,11 +26,16 @@ const { width } = Dimensions.get('window');
 type Props = {
   data: LoadDetailPageResponse | undefined;
   onPlay: () => void;
+  onWatchlist: () => void;
+  id?: string;
 };
 
-const Actions = ({ data, onPlay }: Props) => {
+const Actions = ({ data, onPlay, onWatchlist, id }: Props) => {
   const theme = useSelector((state: AppState) => state.theme.theme);
   const { t } = useTranslation(['layout']);
+  const bookmarklist = useSelector((state: AppState) => state.user.profile?.bookmarkList || []);
+
+  const getIsInWatchlist = () => checkIsInWatchingList(bookmarklist.items, id || '0') === 3;
   return (
     <Container>
       <ActionWrapper>
@@ -50,8 +56,12 @@ const Actions = ({ data, onPlay }: Props) => {
           )}
         >
           <ActionInnerContent>
-            <ActionButton>
-              <WatchlistIcon width={35} height={35} />
+            <ActionButton onPress={onWatchlist}>
+              {getIsInWatchlist() ? (
+                <CheckedIcon fill={theme.PRIMARY_FOREGROUND_COLOR} width={35} height={35} />
+              ) : (
+                <WatchlistIcon width={35} height={35} />
+              )}
             </ActionButton>
             <ActionButton play onPress={onPlay}>
               <Action isContinue={false} loop autoPlay width={80} height={80} />
