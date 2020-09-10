@@ -18,7 +18,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import { AppState } from '@store/modules/rootReducer';
 import { useNavigation } from '@react-navigation/native';
 import { EvergentResponseError } from '@store/modules/user/types';
-import ErrorBlock from '@components/ErrorBlock';
 import { validateEmail } from '@src/utils/validations';
 import Tabs from './components/Tabs';
 import {
