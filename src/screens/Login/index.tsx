@@ -86,7 +86,7 @@ const Login = () => {
   });
 
   const error = {
-    text: 'Field is required',
+    text: ' ',
   };
 
   const login = () => {
@@ -107,11 +107,13 @@ const Login = () => {
     if (/^\w+([\\.-]?\w+)*@\w+([\\.-]?\w+)*(\.\w{2,3})+$/.test(mail)) {
       return true;
     }
-    return true;
+    return false;
   };
 
   const doValidateUsername = () => {
-    const hasErrorUsername = !validateEmail(user.trim());
+    const hasErrorUsername = user.trim() === '';
+    const hasErrorValidUsername = !validateEmail(user.trim());
+
     setErrorUsername(
       hasErrorUsername
         ? error
@@ -121,6 +123,20 @@ const Login = () => {
     );
 
     if (!hasErrorUsername) {
+      setErrorUsername(
+        hasErrorValidUsername
+          ? {
+              text:
+                britboxConfig[country]['account-details']?.validation?.messages['email-invalid'] ||
+                '',
+            }
+          : {
+              text: '',
+            }
+      );
+    }
+
+    if (!hasErrorUsername && !hasErrorValidUsername) {
       return true;
     }
 
@@ -219,6 +235,8 @@ const Login = () => {
     setErrorPassword({
       text: '',
     });
+
+    dispatch(loginRequestErrorClear());
   }, []);
 
   return (
@@ -234,15 +252,6 @@ const Login = () => {
               <TitleWrapper>
                 <Title>{t('signin')}</Title>
               </TitleWrapper>
-              {errorState && (
-                <ErrorText>
-                  {
-                    ((access as unknown) as EvergentLoginResponseError)?.failureMessage?.reduce(
-                      (item) => item
-                    )?.errorMessage
-                  }
-                </ErrorText>
-              )}
               <Input
                 label={t('signup:field.username')}
                 value={user}
@@ -263,6 +272,15 @@ const Login = () => {
                   <ForgotText>{t('forgotpassword.title')}</ForgotText>
                 </TouchableOpacity>
               </ForgotContainer>
+              {errorState && (
+                <ErrorText>
+                  {
+                    ((access as unknown) as EvergentLoginResponseError)?.failureMessage?.reduce(
+                      (item) => item
+                    )?.errorMessage
+                  }
+                </ErrorText>
+              )}
               <Button
                 onPress={() => login()}
                 stretch
@@ -275,12 +293,10 @@ const Login = () => {
                 {britboxConfig[country]?.login?.ctas[0] || ''}
               </Button>
             </Container>
-
             <Wrapper>
               <Title>{britboxConfig[country]?.login?.title || ''}</Title>
               <Paragraph>{britboxConfig[country]?.login?.description || ''}</Paragraph>
               <Paragraph>{britboxConfig[country]?.login['description-2'] || ''}</Paragraph>
-
               <Button
                 outline
                 size="big"

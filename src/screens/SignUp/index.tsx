@@ -1,5 +1,4 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable react/no-unescaped-entities */
 import React, { useState, useEffect } from 'react';
 import { KeyboardAvoidingView, Platform } from 'react-native';
 
@@ -96,11 +95,11 @@ const SignUp = () => {
   });
 
   const error = {
-    text: 'Field is required',
+    text: ' ',
   };
 
   const matchError = {
-    text: 'Should match to password',
+    text: britboxConfig[country]?.registration?.validation?.messages['password-mismatch'] || '',
   };
 
   const signup = async () => {
@@ -121,12 +120,20 @@ const SignUp = () => {
       setErrorState(false);
       setErrorMessage(evergentSignupResponseError);
 
+      let alertNotificationEmail = 'true';
+
+      if (country === 'ca') {
+        alertNotificationEmail = isCheckPrivacy.toString();
+      } else if (country === 'au') {
+        alertNotificationEmail = (!isCheckPrivacy).toString();
+      }
+
       const response = await signupRequest({
         firstName,
         lastName,
         email,
         password,
-        alertNotificationEmail: email,
+        alertNotificationEmail,
       });
 
       if (response) {
@@ -191,7 +198,9 @@ const SignUp = () => {
   };
 
   const doValidateEmail = () => {
-    const hasErrorEmail = !validateEmail(email.trim());
+    const hasErrorEmail = email.trim() === '';
+    const hasErrorValidEmail = !validateEmail(email.trim());
+
     setErrorEmail(
       hasErrorEmail
         ? error
@@ -201,6 +210,19 @@ const SignUp = () => {
     );
 
     if (!hasErrorEmail) {
+      setErrorEmail(
+        hasErrorValidEmail
+          ? {
+              text:
+                britboxConfig[country]?.registration?.validation?.messages['email-invalid'] || ' ',
+            }
+          : {
+              text: '',
+            }
+      );
+    }
+
+    if (!hasErrorEmail && !hasErrorValidEmail) {
       return true;
     }
 
@@ -313,14 +335,6 @@ const SignUp = () => {
   }, []);
 
   const termsPrivacyView = () => {
-    // if ((britboxConfig[country]?.registration['statement-1'] || '').includes('[LINK]')) {
-    //   console.tron.log(
-    //     "By clicking 'Create Account' you agree to the BritBox [LINK]terms and conditions|terms-and-conditions[LINK] and our [LINK]privacy policy|privacy-policy[LINK]. We'll send you regular BritBox newsletters, along with other special offers and promotions. You can opt out at any time by clicking on the unsubscribe link in our emails."?.split(
-    //       '[LINK]'
-    //     )
-    //   );
-    // }
-
     const renderLink = (str: string) => {
       const splitStr = str.split('|');
 
@@ -329,13 +343,11 @@ const SignUp = () => {
           <LinkText
             onPress={() =>
               navigation.navigate(
-                splitStr[1]?.replace('[END-LINK]', '') === 'terms-and-conditions'
-                  ? 'Terms'
-                  : 'PrivacyPolicy'
+                splitStr[1] === 'terms-and-conditions' ? 'Terms' : 'PrivacyPolicy'
               )
             }
           >
-            {splitStr[0].replace('[LINK]', '')}
+            {splitStr[0]}
           </LinkText>
         );
       }
@@ -343,24 +355,22 @@ const SignUp = () => {
       return null;
     };
 
+    const statement1Arr = (britboxConfig[country]?.registration['statement-1'] || '').split(
+      '[LINK]'
+    );
+
     return (
       <MainWrapper>
         <Wrapper>
           <RowWrapper>
             <WrapperParagraph>
-              {/* {renderLink('[LINK]terms and conditions|terms-and-conditions[END-LINK]')} */}
-              {/* {britboxConfig[country]?.registration['statement-1'] || ''} */}
-              By Clicking 'Create Account' you agree to the BritBox{' '}
-              <LinkText onPress={() => navigation.navigate('Terms')}>
-                Terms and Conditions
-              </LinkText>{' '}
-              and our{' '}
-              <LinkText onPress={() => navigation.navigate('PrivacyPolicy')}>
-                Privacy Policy
-              </LinkText>
-              . We'll send you regular BritBox newsletters, along with other special offers and
-              promotions. You can opt out at any time by clicking on the unsubscribe link in our
-              emails.
+              {(statement1Arr || []).map((item: string) => {
+                return (
+                  <WrapperParagraph key={item}>
+                    {item.includes('|') ? renderLink(item) : item}
+                  </WrapperParagraph>
+                );
+              })}
             </WrapperParagraph>
           </RowWrapper>
         </Wrapper>
@@ -399,15 +409,6 @@ const SignUp = () => {
                 <Paragraph>{britboxConfig[country]?.registration?.description || ''}</Paragraph>
                 <SubTitle>{britboxConfig[country]?.registration['description-2'] || ''}</SubTitle>
               </TitleWrapper>
-              {errorState && (
-                <ErrorText>
-                  {
-                    ((errorMessage as unknown) as EvergentSignupResponseError)?.failureMessage?.reduce(
-                      (item) => item
-                    )?.errorMessage
-                  }
-                </ErrorText>
-              )}
               <Input
                 label={t('field.firstname')}
                 value={firstName}
@@ -447,6 +448,15 @@ const SignUp = () => {
                 secureTextEntry
                 error={errorConfirmPassword}
               />
+              {errorState && (
+                <ErrorText>
+                  {
+                    ((errorMessage as unknown) as EvergentSignupResponseError)?.failureMessage?.reduce(
+                      (item) => item
+                    )?.errorMessage
+                  }
+                </ErrorText>
+              )}
               <Button
                 onPress={() => {
                   signup();

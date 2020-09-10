@@ -75,7 +75,7 @@ export const Paragraph = styled.Text`
 `;
 
 export const MainWrapper = styled.View`
-  padding-top: 25px;
+  padding-top: 10px;
   padding-bottom: 55px;
 `;
 
