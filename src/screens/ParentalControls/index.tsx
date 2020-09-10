@@ -16,13 +16,14 @@ import {
   useBlurOnFulfill,
   useClearByFocusCell,
 } from 'react-native-confirmation-code-field';
+import ErrorBlock from '@components/ErrorBlock';
 import HeaderCustom from '@components/HeaderCustom';
 import { useTranslation } from 'react-i18next';
 import { Button } from '@components/Button';
 import { Input } from '@components/Input';
 import { useSelector } from 'react-redux';
 import { AppState } from '@store/modules/rootReducer';
-import { useNavigation } from '@react-navigation/native';
+import { useFocusEffect } from '@react-navigation/native';
 import { EvergentResponseError } from '@store/modules/user/types';
 import {
   BritboxDataEvergentModelsGetParentalControlDetailsResponseMessageBaseResponse,
@@ -58,6 +59,7 @@ import {
   PasswordContainer,
   ErrorText,
   DisabledOverlay,
+  ErrorContent,
 } from './styles';
 
 const CELL_COUNT = 4;
@@ -77,7 +79,6 @@ const defaultParentalControlDetail: BritboxDataEvergentModelsGetParentalControlD
 
 export default function ParentalControls() {
   const { t } = useTranslation(['myaccount', 'signup', 'layout']);
-  const { navigate } = useNavigation();
   const [password, setPassword] = useState('');
   const [isAuthorize, setIsAuthorize] = useState(false);
   const [isSliding, setIsSliding] = useState(false);
@@ -165,8 +166,22 @@ export default function ParentalControls() {
   const [loading, setLoading] = useState(false);
   const [loadingSave, setLoadingSave] = useState(false);
 
+  const [isSuccess, setIsSuccess] = useState(false);
   const [errorState, setErrorState] = useState(false);
   const [errorMessage, setErrorMessage] = useState(evergentResponseError);
+
+  useFocusEffect(
+    React.useCallback(() => {
+      return () => {
+        setPassword('');
+        setIsAuthorize(false);
+        setIsSliding(false);
+        setMultiSliderValue(100);
+        setErrorState(false);
+        setErrorMessage(evergentResponseError);
+      };
+    }, [])
+  );
 
   const openURLButton = async (link: string) => {
     // Checking if the link is supported for links with custom URL scheme.
@@ -253,6 +268,7 @@ export default function ParentalControls() {
 
   const updateParentalControlDetail = async (parentalControl: string) => {
     if (parentalControl === 'true') {
+      setIsSuccess(false);
       setLoadingSave(true);
     } else {
       setLoading(true);
@@ -273,7 +289,7 @@ export default function ParentalControls() {
         parentalControlLevel = parseInt(britboxConfig[country]['parental-controls']?.levels[2].id);
       } else if (multiSliderValue === 25) {
         parentalControlLevel = parseInt(britboxConfig[country]['parental-controls']?.levels[3].id);
-      } else if (multiSliderValue === 75) {
+      } else if (multiSliderValue === 1) {
         parentalControlLevel = parseInt(britboxConfig[country]['parental-controls']?.levels[4].id);
       }
       parmas = {
@@ -298,6 +314,9 @@ export default function ParentalControls() {
         response: { updateParentalControlDetailsResponseMessage: responseData },
       } = response;
       if (responseData && Number(responseData.responseCode) === 1) {
+        if (parentalControl === 'true') {
+          setIsSuccess(true);
+        }
         updateParentalDetail();
       } else {
         setErrorMessage(responseData);
@@ -334,7 +353,7 @@ export default function ParentalControls() {
     <Container>
       <HeaderCustom isBack shadow />
       {!isAuthorize ? (
-        <ScrollableContainer>
+        <ScrollableContainer key={Number(isAuthorize)}>
           <TitleWrapper>
             <Title>{britboxConfig[country]['parental-controls']?.title || ''}</Title>
           </TitleWrapper>
@@ -342,15 +361,6 @@ export default function ParentalControls() {
           <TitleWrapper>
             <Title>{t('parentalcontrols.screentitle')}</Title>
           </TitleWrapper>
-          {errorState && (
-            <ErrorText>
-              {
-                ((errorMessage as unknown) as EvergentResponseError)?.failureMessage?.reduce(
-                  (item) => item
-                )?.errorMessage
-              }
-            </ErrorText>
-          )}
           <PasswordContainer>
             <Input
               label={t('signup:field.password')}
@@ -358,6 +368,15 @@ export default function ParentalControls() {
               secureTextEntry
               onChangeText={(text) => setPassword(text)}
             />
+            {errorState && (
+              <ErrorText>
+                {
+                  ((errorMessage as unknown) as EvergentResponseError)?.failureMessage?.reduce(
+                    (item) => item
+                  )?.errorMessage
+                }
+              </ErrorText>
+            )}
             <Button
               onPress={() => validateContactPassword()}
               stretch
@@ -392,15 +411,6 @@ export default function ParentalControls() {
                 {t('parentalcontrols.turnoffPIN')}
               </Button>
             </PinBtnView>
-          )}
-          {errorState && (
-            <ErrorText>
-              {
-                ((errorMessage as unknown) as EvergentResponseError)?.failureMessage?.reduce(
-                  (item) => item
-                )?.errorMessage
-              }
-            </ErrorText>
           )}
           <SubTitle>{t('parentalcontrols.setPINText')}</SubTitle>
           <Paragraph>{t('parentalcontrols.setPINDesc')}</Paragraph>
@@ -575,6 +585,23 @@ export default function ParentalControls() {
                 />
               </SliderContainer>
             </TableMainContainer>
+            {errorState && (
+              <ErrorText>
+                {
+                  ((errorMessage as unknown) as EvergentResponseError)?.failureMessage?.reduce(
+                    (item) => item
+                  )?.errorMessage
+                }
+              </ErrorText>
+            )}
+            <ErrorContent>
+              <ErrorBlock
+                key="success"
+                visible={isSuccess}
+                type="success"
+                text={britboxConfig[country]['account-details']?.validation['success-message']}
+              />
+            </ErrorContent>
             <Button
               onPress={() => updateParentalControlDetail('true')}
               style={saveStyle}

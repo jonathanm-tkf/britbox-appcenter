@@ -3,7 +3,6 @@ import { ThemeState } from '@store/modules/theme/types';
 import LinearGradient from 'react-native-linear-gradient';
 import { UnLockIcon, LockIcon } from '@assets/icons';
 import { getBottomSpace } from 'react-native-iphone-x-helper';
-// import { Dimensions } from 'react-native';
 
 export const Container = styled.View`
   flex: 1;
@@ -77,8 +76,7 @@ export const LinkTitle = styled.Text`
 export const ErrorText = styled.Text`
   color: ${(props: ThemeState) => props.theme.ERROR_COLOR};
   align-self: center;
-  margin-top: 10px;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
   font-family: ${(props: ThemeState) => props.theme.PRIMARY_FONT_FAMILY_MEDIUM};
 `;
 
@@ -226,4 +224,10 @@ export const DisabledOverlay = styled.View`
   position: absolute;
   background-color: ${(props: ThemeState) => props.theme.PRIMARY_TEXT_COLOR};
   opacity: 0.4;
+`;
+
+export const ErrorContent = styled.View`
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-bottom: 10px;
 `;
