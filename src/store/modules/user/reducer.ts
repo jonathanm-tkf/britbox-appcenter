@@ -33,6 +33,7 @@ const user: Reducer<UserState> = (state = initialState, action) => {
         draft.access = action.payload;
         break;
       case UserActionTypes.LOGIN_REQUEST_ERROR_CLEAR:
+        draft.loading = false;
         draft.error = false;
         draft.access = undefined;
         break;
