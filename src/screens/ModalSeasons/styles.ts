@@ -24,6 +24,7 @@ export const FlatList = styled(RNFlatList).attrs({
     paddingTop: 60,
     paddingLeft: 20,
     paddingRight: 20,
+    paddingBottom: 120,
   },
 })``;
 
@@ -34,6 +35,7 @@ type SeasonItemText = {
 export const SeasonItemTextWrapper = styled.View`
   flex-direction: row;
   align-items: center;
+  margin-left: 15px;
 `;
 
 export const SeasonItemText = styled.Text`

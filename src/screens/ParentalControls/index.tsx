@@ -87,7 +87,7 @@ export default function ParentalControls() {
   const user = useSelector((state: AppState) => state.user);
   const britboxConfig = useSelector((state: AppState) => state.core.britboxConfig);
   const segment = useSelector((state: AppState) => state.core.segment);
-  const country: string = segment.toLocaleLowerCase() || 'us';
+  const country: string = segment?.toLocaleLowerCase() || 'us';
 
   const activeContainer = {
     backgroundColor: 'white',
@@ -319,7 +319,13 @@ export default function ParentalControls() {
           {britboxConfig[country]['customer-service']?.phone || ''}
         </FooterTitle>
         <Paragraph>{britboxConfig[country]['customer-service']?.availability || ''}</Paragraph>
-        <LinkTitle>{britboxConfig[country]['customer-service']?.email || ''}</LinkTitle>
+        <LinkTitle
+          onPress={() =>
+            Linking.openURL(`mailto:${britboxConfig[country]['customer-service']?.email || ''}`)
+          }
+        >
+          {britboxConfig[country]['customer-service']?.email || ''}
+        </LinkTitle>
       </Wrapper>
     </Gradient>
   );

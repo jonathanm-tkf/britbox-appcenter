@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 
-import { Row } from '@components/Layout';
 import { Header } from '@store/modules/core/types';
 import { AppState } from '@store/modules/rootReducer';
 import { useSelector } from 'react-redux';
@@ -75,19 +74,17 @@ const ExploreMenu = ({ data, onPress }: Props) => {
           );
         })}
       </HeaderWrapper>
-      <Row>
-        <TabHeader>
-          {dataMenu.map((item: Header, index: number) => (
-            <TabHeaderItem
-              key={item.label.toString() + index.toString()}
-              onPress={() => changeTab(item.label)}
-            >
-              {active === item.label && <TabHeaderItemIndicator />}
-              <TabHeaderItemText active={active === item.label}>{item.label}</TabHeaderItemText>
-            </TabHeaderItem>
-          ))}
-        </TabHeader>
-      </Row>
+      <TabHeader>
+        {dataMenu.map((item: Header, index: number) => (
+          <TabHeaderItem
+            key={item.label.toString() + index.toString()}
+            onPress={() => changeTab(item.label)}
+          >
+            {active === item.label && <TabHeaderItemIndicator />}
+            <TabHeaderItemText active={active === item.label}>{item.label}</TabHeaderItemText>
+          </TabHeaderItem>
+        ))}
+      </TabHeader>
       {dataMenu.map((item: Header) => (
         <TabContent key={item.label.toString()} active={active === item.label}>
           {(item.children || []).map((link, index) => {

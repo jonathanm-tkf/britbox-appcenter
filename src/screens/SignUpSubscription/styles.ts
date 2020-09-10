@@ -74,7 +74,7 @@ export const RowWrapper = styled(ScrollViewList).attrs({
   contentContainerStyle: {
     flexGrow: 1,
     justifyContent: 'center',
-    paddingHorizontal: 15,
+    paddingHorizontal: 10,
   },
   bounces: false,
 })`
@@ -109,11 +109,11 @@ export const SmallText = styled.Text`
 export const RadioBox = styled.TouchableOpacity.attrs({
   activeOpacity: 1,
 })`
-  width: 180px;
+  width: 170px;
   height: 100%;
   border-width: 1px;
   margin-horizontal: 5px;
-  padding-horizontal: 20px;
+  padding-horizontal: 15px;
   padding-bottom: 10px;
   border-color: ${(props: ThemeState) => props.theme.PRIMARY_FOREGROUND_COLOR};
 `;

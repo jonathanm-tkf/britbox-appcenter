@@ -31,6 +31,13 @@ const Loading = () => {
             }
           }
         }
+      } else {
+        const route = url?.split('www.britbox.com');
+        if (route[1] && route[1] !== '') {
+          if (/\/show\/|\/movie\/|\/season\/|\/episode\//.test(route[1] || '')) {
+            navigateByPath({ path: route[1], customId: true });
+          }
+        }
       }
     }
   }, []);

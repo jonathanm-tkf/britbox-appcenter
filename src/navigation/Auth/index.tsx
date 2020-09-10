@@ -6,8 +6,9 @@ import SignUp from '@screens/SignUp';
 import SignUpSubscription from '@screens/SignUpSubscription';
 
 const AuthStack = createStackNavigator();
+
 const AuthStackScreen = () => (
-  <AuthStack.Navigator headerMode="none">
+  <AuthStack.Navigator headerMode="none" mode="modal">
     <AuthStack.Screen name="Auth" component={Auth} />
     <AuthStack.Screen
       name="Login"
@@ -19,8 +20,20 @@ const AuthStackScreen = () => (
         ...TransitionPresets.ModalSlideFromBottomIOS,
       }}
     />
-    <AuthStack.Screen name="SignUp" component={SignUp} />
-    <AuthStack.Screen name="SignUpSubscription" component={SignUpSubscription} />
+    <AuthStack.Screen
+      name="SignUp"
+      component={SignUp}
+      options={{
+        ...TransitionPresets.SlideFromRightIOS,
+      }}
+    />
+    <AuthStack.Screen
+      name="SignUpSubscription"
+      component={SignUpSubscription}
+      options={{
+        ...TransitionPresets.SlideFromRightIOS,
+      }}
+    />
   </AuthStack.Navigator>
 );
 

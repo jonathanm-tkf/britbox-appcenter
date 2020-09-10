@@ -20,7 +20,7 @@ export const ErrorText = styled.Text`
 `;
 
 export const ScrollView = styled.ScrollView`
-  /* margin-top: 77px; */
+  margin-top: ${getStatusBarHeight() + (Platform.OS === 'ios' ? 80 : 40)}px;
 `;
 
 export const CloseButton = styled.TouchableOpacity`
@@ -68,7 +68,6 @@ export const Gradient = styled(LinearGradient).attrs({
   colors: ['#202634', '#171B23'],
 })`
   flex: 1;
-  margin-top: ${getStatusBarHeight() + 80}px;
 `;
 
 export const ForgotContainer = styled.View`

@@ -92,7 +92,7 @@ const VideoPlayer = () => {
       {token && (
         <WebView
           source={{
-            uri: `${Constants.url_player}?country=${segment.toLocaleLowerCase()}&videoid=${
+            uri: `${Constants.url_player}?country=${segment?.toLocaleLowerCase()}&videoid=${
               params.item.id
             }&token=${token}&ert=${refreshToken}&isTrailer=false&connection=${
               connection === 'wifi' && isTablet()
@@ -104,7 +104,7 @@ const VideoPlayer = () => {
           }}
           // onLoad={() =>
           //   console.tron.log({
-          //     uri: `${Constants.url_player}?country=${segment.toLocaleLowerCase()}&videoid=${
+          //     uri: `${Constants.url_player}?country=${segment?.toLocaleLowerCase()}&videoid=${
           //       params.item.id
           //     }&token=${token}&ert=${refreshToken}&isTrailer=false&connection=${
           //       connection === 'wifi' && isTablet()

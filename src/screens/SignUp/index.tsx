@@ -14,6 +14,7 @@ import { AppState } from '@store/modules/rootReducer';
 import { useTranslation } from 'react-i18next';
 
 import { useNavigation } from '@react-navigation/native';
+import { validateEmail } from '@src/utils/validations';
 import {
   Container,
   ScrollView,
@@ -22,6 +23,7 @@ import {
   SubTitle,
   Paragraph,
   WrapperParagraph,
+  MainWrapper,
   Wrapper,
   CheckBoxView,
   RowWrapper,
@@ -57,7 +59,7 @@ const SignUp = () => {
   const theme = useSelector((state: AppState) => state.theme.theme);
   const britboxConfig = useSelector((state: AppState) => state.core.britboxConfig);
   const segment = useSelector((state: AppState) => state.core.segment);
-  const country: string = segment.toLocaleLowerCase() || 'us';
+  const country: string = segment?.toLocaleLowerCase() || 'us';
 
   const [loading, setLoading] = useState(false);
 
@@ -179,17 +181,6 @@ const SignUp = () => {
       return true;
     }
 
-    return false;
-  };
-
-  const validateEmail = (mail: string) => {
-    if (
-      /^(([^<>()\\[\]\\.,;:\s@"]+(\.[^<>()\\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(
-        mail
-      )
-    ) {
-      return true;
-    }
     return false;
   };
 
@@ -315,17 +306,84 @@ const SignUp = () => {
     });
   }, []);
 
+  const termsPrivacyView = () => {
+    // if ((britboxConfig[country]?.registration['statement-1'] || '').includes('[LINK]')) {
+    //   console.tron.log(
+    //     "By clicking 'Create Account' you agree to the BritBox [LINK]terms and conditions|terms-and-conditions[LINK] and our [LINK]privacy policy|privacy-policy[LINK]. We'll send you regular BritBox newsletters, along with other special offers and promotions. You can opt out at any time by clicking on the unsubscribe link in our emails."?.split(
+    //       '[LINK]'
+    //     )
+    //   );
+    // }
+
+    const renderLink = (str: string) => {
+      const splitStr = str.split('|');
+
+      if (splitStr[0] && splitStr[1]) {
+        return (
+          <LinkText
+            onPress={() =>
+              navigation.navigate(
+                splitStr[1]?.replace('[END-LINK]', '') === 'terms-and-conditions'
+                  ? 'Terms'
+                  : 'PrivacyPolicy'
+              )
+            }
+          >
+            {splitStr[0].replace('[LINK]', '')}
+          </LinkText>
+        );
+      }
+
+      return null;
+    };
+
+    return (
+      <MainWrapper>
+        <Wrapper>
+          <RowWrapper>
+            <WrapperParagraph>
+              {/* {renderLink('[LINK]terms and conditions|terms-and-conditions[END-LINK]')} */}
+              {/* {britboxConfig[country]?.registration['statement-1'] || ''} */}
+              By Clicking 'Create Account' you agree to the BritBox{' '}
+              <LinkText onPress={() => navigation.navigate('Terms')}>
+                Terms and Conditions
+              </LinkText>{' '}
+              and our{' '}
+              <LinkText onPress={() => navigation.navigate('PrivacyPolicy')}>
+                Privacy Policy
+              </LinkText>
+              . We'll send you regular BritBox newsletters, along with other special offers and
+              promotions. You can opt out at any time by clicking on the unsubscribe link in our
+              emails.
+            </WrapperParagraph>
+          </RowWrapper>
+        </Wrapper>
+        {(britboxConfig[country]?.registration['statement-2'] || '') !== '' && (
+          <Wrapper>
+            {(britboxConfig[country]?.registration['statement-2'] || '').includes(
+              '[CHECK-UNCHECKED]'
+            ) && (
+              <CheckBoxView onPress={() => setIsCheckPrivacy(!isCheckPrivacy)}>
+                {isCheckPrivacy ? <RadioCheckedIconView /> : <RadioUnCheckedIconView />}
+              </CheckBoxView>
+            )}
+            <RowWrapper>
+              <WrapperParagraph>
+                {(britboxConfig[country]?.registration['statement-2'] || '').replace(
+                  '[CHECK-UNCHECKED] ',
+                  ''
+                )}
+              </WrapperParagraph>
+            </RowWrapper>
+          </Wrapper>
+        )}
+      </MainWrapper>
+    );
+  };
+
   return (
     <>
-      <HeaderCustom
-        isBack
-        shadow
-        rightComponent={
-          <Button link onPress={() => navigation.goBack()} color={theme.PRIMARY_FOREGROUND_COLOR}>
-            {t('signin:signin')}
-          </Button>
-        }
-      />
+      <HeaderCustom isBack shadow />
       <Gradient>
         <KeyboardAvoidingView style={flex} behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
           <ScrollView bounces={false}>
@@ -399,26 +457,7 @@ const SignUp = () => {
                 <CancelText>{t('cancel')}</CancelText>
               </Button>
             </Container>
-            <Wrapper>
-              <CheckBoxView onPress={() => setIsCheckPrivacy(!isCheckPrivacy)}>
-                {isCheckPrivacy ? <RadioCheckedIconView /> : <RadioUnCheckedIconView />}
-              </CheckBoxView>
-              <RowWrapper>
-                <WrapperParagraph>
-                  By Clicking 'Create Account' you agree to the BritBox{' '}
-                  <LinkText onPress={() => navigation.navigate('Terms')}>
-                    Terms and Conditions
-                  </LinkText>{' '}
-                  and our{' '}
-                  <LinkText onPress={() => navigation.navigate('PrivacyPolicy')}>
-                    Privacy Policy
-                  </LinkText>
-                  . We'll send you regular BritBox newsletters, along with other special offers and
-                  promotions. You can opt out at any time by clicking on the unsubscribe link in our
-                  emails.
-                </WrapperParagraph>
-              </RowWrapper>
-            </Wrapper>
+            {termsPrivacyView()}
           </ScrollView>
         </KeyboardAvoidingView>
       </Gradient>

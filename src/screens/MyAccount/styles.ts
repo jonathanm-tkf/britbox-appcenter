@@ -79,6 +79,8 @@ export const Gradient = styled(LinearGradient).attrs({
   colors: ['#202634', '#171B23'],
 })`
   padding-bottom: ${getBottomSpace() + 74}px;
+  margin-left: -20px;
+  margin-right: -20px;
 `;
 
 export const Wrapper = styled.View`
@@ -149,4 +151,9 @@ export const Header = styled.View`
   /* top: 0;
   z-index: 1;
   width: 100%; */
+`;
+
+export const SuscribeText = styled.Text`
+  margin-left: 40px;
+  margin-right: 40px;
 `;

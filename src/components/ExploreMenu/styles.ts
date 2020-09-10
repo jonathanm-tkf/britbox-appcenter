@@ -11,13 +11,13 @@ export const TabHeader = styled.View`
   flex-direction: row;
   margin-top: 18px;
   width: 100%;
-  justify-content: space-between;
 `;
 
 export const TabHeaderItem = styled.TouchableOpacity`
+  flex: 1;
   flex-direction: row;
   align-items: center;
-  margin-right: 100px;
+  justify-content: center;
 `;
 
 interface ItemText {
@@ -35,7 +35,6 @@ export const TabHeaderItemText = styled.Text`
       : `
         opacity: 0.6;
         font-family: ${props.theme.PRIMARY_FONT_FAMILY};
-        padding-left: 15px;
       `;
   }};
 `;
@@ -70,7 +69,7 @@ type TabContent = {
 export const TabContent = styled.View<TabContent>`
   flex-direction: column;
   margin-top: 15px;
-  padding-left: 35px;
+  align-items: center;
   ${(props: TabContent) => {
     return (
       !props.active &&

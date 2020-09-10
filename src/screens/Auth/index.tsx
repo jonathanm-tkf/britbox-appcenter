@@ -52,7 +52,7 @@ const Auth = () => {
   const { t } = useTranslation('auth');
   const britboxConfig = useSelector((state: AppState) => state.core.britboxConfig);
   const segment = useSelector((state: AppState) => state.core.segment);
-  const country: string = segment.toLocaleLowerCase() || 'us';
+  const country: string = segment?.toLocaleLowerCase() || 'us';
 
   useEffect(() => {
     // Orientation.lockToPortrait();

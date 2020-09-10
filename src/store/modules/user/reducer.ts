@@ -25,6 +25,7 @@ const user: Reducer<UserState> = (state = initialState, action) => {
         draft.error = false;
         draft.access = action.payload;
         break;
+      case UserActionTypes.LOGIN_REQUEST_FAILURE:
       case UserActionTypes.LOGIN_REQUEST_ERROR:
         draft.isLogged = false;
         draft.loading = false;

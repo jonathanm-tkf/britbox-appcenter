@@ -50,12 +50,13 @@ export const RowWrapper = styled.View`
 `;
 
 export const WrapperParagraph = styled.Text`
-  margin-left: 15px;
+  margin-left: 20px;
   margin-right: 20px;
   margin-top: 10px;
   margin-bottom: 10px;
   font-size: 16px;
   line-height: 22px;
+  text-align: justify;
   color: ${(props: ThemeState) => props.theme.PRIMARY_FOREGROUND_COLOR};
 `;
 
@@ -73,10 +74,14 @@ export const Paragraph = styled.Text`
   color: ${(props: ThemeState) => props.theme.PRIMARY_FOREGROUND_COLOR};
 `;
 
+export const MainWrapper = styled.View`
+  padding-top: 25px;
+  padding-bottom: 55px;
+`;
+
 export const Wrapper = styled.View`
   flex-direction: row;
   padding-top: 25px;
-  padding-bottom: 55px;
 `;
 
 export const CheckBoxView = styled.TouchableOpacity`

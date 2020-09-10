@@ -7,7 +7,7 @@ import { Container } from './styles';
 export default function PrivacyPolicy() {
   const britboxConfig = useSelector((state: AppState) => state.core.britboxConfig);
   const segment = useSelector((state: AppState) => state.core.segment);
-  const country: string = segment.toLocaleLowerCase() || 'us';
+  const country: string = segment?.toLocaleLowerCase() || 'us';
 
   return (
     <Container>

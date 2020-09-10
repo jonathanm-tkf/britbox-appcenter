@@ -14,6 +14,7 @@ import { CloseIcon } from '@assets/icons';
 import { useTranslation } from 'react-i18next';
 import { useNavigation } from '@react-navigation/native';
 import ModalCustom from '@components/ModalCustom';
+import { validateEmail } from '@src/utils/validations';
 import {
   Container,
   ErrorText,
@@ -53,7 +54,7 @@ const Login = () => {
   const theme = useSelector((state: AppState) => state.theme.theme);
   const britboxConfig = useSelector((state: AppState) => state.core.britboxConfig);
   const segment = useSelector((state: AppState) => state.core.segment);
-  const country: string = segment.toLocaleLowerCase() || 'us';
+  const country: string = segment?.toLocaleLowerCase() || 'us';
 
   const [user, setUser] = useState(__DEV__ ? 'maximilianor@takeoffmedia.com' : '');
   const [password, setPassword] = useState(__DEV__ ? '8Ub4cYAiM77EzJY' : '');
@@ -62,6 +63,8 @@ const Login = () => {
   const [isForgotModalLoading, setIsForgotModalLoading] = useState(false);
   const [isForgotModalSuccess, setIsForgotModalSuccess] = useState(false);
   const [isForgotModalVisible, setIsForgotModalVisible] = useState(false);
+
+  const [isDisabled, setIsDisabled] = useState(true);
 
   const loading = useSelector((state: AppState) => state.user.loading);
   const { error: errorState, access } = useSelector((state: AppState) => state.user);
@@ -101,8 +104,7 @@ const Login = () => {
   };
 
   const doValidateUsername = () => {
-    const hasErrorUsername = user.trim() === '';
-
+    const hasErrorUsername = !validateEmail(user.trim());
     setErrorUsername(
       hasErrorUsername
         ? error
@@ -137,6 +139,10 @@ const Login = () => {
   };
 
   useEffect(() => {
+    if (doValidateUsername() && doValidatePassword()) {
+      setIsDisabled(false);
+    }
+
     if (errorState) {
       dispatch(loginRequestErrorClear());
     }
@@ -213,9 +219,9 @@ const Login = () => {
       <CloseButton onPress={() => navigation.goBack()}>
         <CloseIcon width={32} height={32} />
       </CloseButton>
-      <Gradient>
-        <KeyboardAvoidingView style={flex} behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
-          <ScrollView bounces={false}>
+      <KeyboardAvoidingView style={flex} behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
+        <ScrollView bounces={false}>
+          <Gradient>
             <Container>
               <TitleWrapper>
                 <Title>{t('signin')}</Title>
@@ -252,6 +258,7 @@ const Login = () => {
               <Button
                 onPress={() => login()}
                 stretch
+                disabled={isDisabled}
                 loading={loading}
                 size="big"
                 fontWeight="medium"
@@ -276,65 +283,62 @@ const Login = () => {
                 <SuscribeText>{britboxConfig[country]?.login?.ctas[1] || ''}</SuscribeText>
               </Button>
             </Wrapper>
-          </ScrollView>
-        </KeyboardAvoidingView>
-        <ModalCustom
-          isVisible={isForgotModalVisible}
-          onClose={() => setIsForgotModalVisible(false)}
-        >
-          <ForgotModalContainer>
-            <ModalTitle>{t('forgotpassword.title')}</ModalTitle>
-            {isForgotModalSuccess ? (
-              <>
-                <ModalSubTitle>
-                  {t('forgotpassword.description1')} <EmailLink>{forgotEmail}.</EmailLink>{' '}
-                  {t('forgotpassword.description2')}
-                </ModalSubTitle>
-                <Button
-                  onPress={() => setIsForgotModalVisible(false)}
-                  stretch
-                  size="big"
-                  fontWeight="medium"
-                  style={cancelStyle}
-                  color={theme.PRIMARY_FOREGROUND_COLOR}
-                >
-                  {t('forgotpassword.okgotit')}
-                </Button>
-              </>
-            ) : (
-              <>
-                <ModalSubTitle>{t('forgotpassword.description3')}</ModalSubTitle>
-                <Input
-                  label={t('signup:field.email')}
-                  value={forgotEmail}
-                  onChangeText={(text) => setForgotEmail(text)}
-                  error={errorForgotEmail}
-                />
-                <Button
-                  onPress={() => forgorPassword()}
-                  stretch
-                  loading={isForgotModalLoading}
-                  size="big"
-                  fontWeight="medium"
-                  color={theme.PRIMARY_FOREGROUND_COLOR}
-                >
-                  {t('forgotpassword.submit')}
-                </Button>
-                <Button
-                  outline
-                  stretch
-                  size="big"
-                  fontWeight="medium"
-                  style={cancelStyle}
-                  onPress={() => setIsForgotModalVisible(false)}
-                >
-                  {t('signup:cancel')}
-                </Button>
-              </>
-            )}
-          </ForgotModalContainer>
-        </ModalCustom>
-      </Gradient>
+          </Gradient>
+        </ScrollView>
+      </KeyboardAvoidingView>
+      <ModalCustom isVisible={isForgotModalVisible} onClose={() => setIsForgotModalVisible(false)}>
+        <ForgotModalContainer>
+          <ModalTitle>{t('forgotpassword.title')}</ModalTitle>
+          {isForgotModalSuccess ? (
+            <>
+              <ModalSubTitle>
+                {t('forgotpassword.description1')} <EmailLink>{forgotEmail}.</EmailLink>{' '}
+                {t('forgotpassword.description2')}
+              </ModalSubTitle>
+              <Button
+                onPress={() => setIsForgotModalVisible(false)}
+                stretch
+                size="big"
+                fontWeight="medium"
+                style={cancelStyle}
+                color={theme.PRIMARY_FOREGROUND_COLOR}
+              >
+                {t('forgotpassword.okgotit')}
+              </Button>
+            </>
+          ) : (
+            <>
+              <ModalSubTitle>{t('forgotpassword.description3')}</ModalSubTitle>
+              <Input
+                label={t('signup:field.email')}
+                value={forgotEmail}
+                onChangeText={(text) => setForgotEmail(text)}
+                error={errorForgotEmail}
+              />
+              <Button
+                onPress={() => forgorPassword()}
+                stretch
+                loading={isForgotModalLoading}
+                size="big"
+                fontWeight="medium"
+                color={theme.PRIMARY_FOREGROUND_COLOR}
+              >
+                {t('forgotpassword.submit')}
+              </Button>
+              <Button
+                outline
+                stretch
+                size="big"
+                fontWeight="medium"
+                style={cancelStyle}
+                onPress={() => setIsForgotModalVisible(false)}
+              >
+                {t('signup:cancel')}
+              </Button>
+            </>
+          )}
+        </ForgotModalContainer>
+      </ModalCustom>
     </>
   );
 };
