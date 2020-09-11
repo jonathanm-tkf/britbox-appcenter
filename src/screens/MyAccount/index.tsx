@@ -1,11 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import React, { useEffect, useState, useRef } from 'react';
-import { View, Platform, Alert, Text, ScrollView, Linking } from 'react-native';
-import { getStatusBarHeight } from 'react-native-iphone-x-helper';
-import { ThemeState } from '@store/modules/theme/types';
-import { BackIcon, CelularIcon } from '@assets/icons';
+import React, { useEffect, useState } from 'react';
+import { Linking } from 'react-native';
 import {
   updateProfileRequest,
   resetPasswordRequest,
@@ -14,24 +11,19 @@ import {
 import { BritboxDataEvergentModelsGetActiveSubscriptionsResponseMessageBaseAccountServiceMessage } from '@src/sdks/Britbox.API.Account.TS/api';
 import { getProfileRequest } from '@store/modules/user/actions';
 import { useTranslation } from 'react-i18next';
-import HeaderCustom from '@components/HeaderCustom';
-import TabsComponent from '@components/TabsComponent';
+import ErrorBlock from '@components/ErrorBlock';
 import { Button } from '@components/Button';
 import { Input } from '@components/Input';
 import { useSelector, useDispatch } from 'react-redux';
 import { AppState } from '@store/modules/rootReducer';
 import { useNavigation } from '@react-navigation/native';
 import { EvergentResponseError } from '@store/modules/user/types';
-import ErrorBlock from '@components/ErrorBlock';
 import { validateEmail } from '@src/utils/validations';
 import Tabs from './components/Tabs';
-
 import {
   Container,
   TitleWrapper,
-  Title,
   SubTitle,
-  ScrollableContainer,
   Gradient,
   Wrapper,
   FooterTitle,
@@ -45,7 +37,6 @@ import {
   ScrollableContainerPaddingHorizontal,
   ScrollContent,
   ErrorText,
-  Header,
   SuscribeText,
 } from './styles';
 
@@ -69,11 +60,11 @@ export default function MyAccount() {
   const country: string = segment?.toLocaleLowerCase() || 'us';
 
   const error = {
-    text: 'Field is required',
+    text: ' ',
   };
 
   const matchError = {
-    text: 'Should match to password',
+    text: britboxConfig[country]?.registration?.validation?.messages['password-mismatch'] || '',
   };
 
   const tabBottomView = () => (
@@ -276,15 +267,6 @@ export default function MyAccount() {
           <TitleWrapper>
             <SubTitle>{t('myaccount.yourdetails.screentitle')}</SubTitle>
           </TitleWrapper>
-          {/* {errorState && (
-            <ErrorText>
-              {
-                ((errorMessage as unknown) as EvergentResponseError)?.failureMessage?.reduce(
-                  (item) => item
-                )?.errorMessage
-              }
-            </ErrorText>
-          )} */}
           <Input
             label={t('signup:field.firstname')}
             value={firstName}
@@ -313,11 +295,13 @@ export default function MyAccount() {
             error={errorMobile}
           />
           <ErrorBlock
+            key="error"
             visible={errorState}
             type="error"
             text={britboxConfig[country]['account-details']?.validation['error-message']}
           />
           <ErrorBlock
+            key="success"
             visible={isSuccess}
             type="success"
             text={britboxConfig[country]['account-details']?.validation['success-message']}
@@ -355,6 +339,7 @@ export default function MyAccount() {
     const [newPassword, setNewPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [loading, setLoading] = useState(false);
+    const [isSuccess, setIsSuccess] = useState(false);
 
     const regexp = new RegExp(
       britboxConfig[country]?.registration?.validation['password-regex']
@@ -391,6 +376,7 @@ export default function MyAccount() {
       if (hasErrorCurPassword && hasErrorNewPassword && hasErrorConfirmPassword) {
         setLoading(true);
         setErrorState(false);
+        setIsSuccess(false);
         setErrorMessage(evergentResponseError);
 
         const response = await resetPasswordRequest(user?.access?.accessToken || '', {
@@ -402,6 +388,7 @@ export default function MyAccount() {
         if (response) {
           const { response: responseData } = response;
           if (responseData && Number(responseData.responseCode) === 1) {
+            setIsSuccess(true);
             setCurPassword('');
             setNewPassword('');
             setConfirmPassword('');
@@ -507,15 +494,21 @@ export default function MyAccount() {
     }, [curPassword, newPassword, confirmPassword]);
 
     useEffect(() => {
-      doValidateCurPassword();
+      if (!isSuccess) {
+        doValidateCurPassword();
+      }
     }, [curPassword]);
 
     useEffect(() => {
-      doValidateNewPassword();
+      if (!isSuccess) {
+        doValidateNewPassword();
+      }
     }, [newPassword]);
 
     useEffect(() => {
-      doValidateConfirmPassword();
+      if (!isSuccess) {
+        doValidateConfirmPassword();
+      }
     }, [confirmPassword]);
 
     useEffect(() => {
@@ -537,15 +530,6 @@ export default function MyAccount() {
             <TitleWrapper>
               <SubTitle>{t('myaccount.password.screentitle')}</SubTitle>
             </TitleWrapper>
-            {errorState && (
-              <ErrorText>
-                {
-                  ((errorMessage as unknown) as EvergentResponseError)?.failureMessage?.reduce(
-                    (item) => item
-                  )?.errorMessage
-                }
-              </ErrorText>
-            )}
             <Input
               label={t('signup:field.currentpassword')}
               value={curPassword}
@@ -569,6 +553,21 @@ export default function MyAccount() {
               onBlur={() => doValidateConfirmPassword()}
               secureTextEntry
               error={errorConfirmPassword}
+            />
+            {errorState && (
+              <ErrorText>
+                {
+                  ((errorMessage as unknown) as EvergentResponseError)?.failureMessage?.reduce(
+                    (item) => item
+                  )?.errorMessage
+                }
+              </ErrorText>
+            )}
+            <ErrorBlock
+              key="success"
+              visible={isSuccess}
+              type="success"
+              text={britboxConfig[country]['account-details']?.validation['success-message']}
             />
             <Button
               onPress={() => updatePassword()}
@@ -643,7 +642,7 @@ export default function MyAccount() {
                 size="big"
                 fontWeight="medium"
                 style={suscribeStyle}
-                onPress={() => {}}
+                onPress={() => navigate('AccountSubscription', { account: true })}
               >
                 <SuscribeText>
                   {britboxConfig[country]['account-subscription']['not-purchased'][2] || ''}
@@ -674,10 +673,10 @@ export default function MyAccount() {
       setErrorMessage(evergentResponseError);
 
       const response = await updateProfileRequest(user?.access?.accessToken || '', {
-        firstName: user?.profile?.firstName,
-        lastName: user?.profile?.lastName,
-        mobileNumber: user?.profile?.phoneNumber,
-        email: user?.profile?.email,
+        firstName: user?.profile?.firstName || '',
+        lastName: user?.profile?.lastName || '',
+        mobileNumber: user?.profile?.phoneNumber || '',
+        email: user?.profile?.email || '',
         alertNotificationEmail: isNewsletters,
       });
 
@@ -700,15 +699,6 @@ export default function MyAccount() {
           <TitleWrapper>
             <SubTitle>{t('myaccount.newsletter.newsletterpreferences')}</SubTitle>
           </TitleWrapper>
-          {/* {errorState && (
-            <ErrorText>
-              {
-                ((errorMessage as unknown) as EvergentResponseError)?.failureMessage?.reduce(
-                  (item) => item
-                )?.errorMessage
-              }
-            </ErrorText>
-          )} */}
           <RowContainer>
             <SwitchContainer
               value={isNewsletters}
@@ -719,11 +709,13 @@ export default function MyAccount() {
             </RowContent>
           </RowContainer>
           <ErrorBlock
+            key="error"
             visible={errorState}
             type="error"
             text={britboxConfig[country]['account-details']?.validation['error-message']}
           />
           <ErrorBlock
+            key="success"
             visible={isSuccess}
             type="success"
             text={britboxConfig[country]['account-details']?.validation['success-message']}

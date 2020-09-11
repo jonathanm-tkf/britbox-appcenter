@@ -16,11 +16,12 @@ export const Button = ({
   size,
   loading,
   style,
+  disabled,
   ...rest
 }: ButtonProps) => {
   return (
     <ButtonStyle
-      disabled={loading}
+      disabled={disabled || loading}
       onPress={() => onPress()}
       {...{ outline, opaque, link, stretch, size, style, secondary }}
       {...rest}

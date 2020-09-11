@@ -1,25 +1,23 @@
 /* eslint-disable no-unused-vars */
-/* eslint-disable max-len */
 /* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable react/no-array-index-key */
 /* eslint-disable react-native/no-inline-styles */
-/* eslint-disable react/no-unescaped-entities */
 import React, { useState, useEffect } from 'react';
-import { KeyboardAvoidingView, Platform, Linking } from 'react-native';
+import { KeyboardAvoidingView, Platform, Linking, View } from 'react-native';
 
 import { Button } from '@components/Button';
 import HeaderCustom from '@components/HeaderCustom';
 import { useSelector, useDispatch } from 'react-redux';
+import { useRoute, RouteProp, useNavigation } from '@react-navigation/native';
 import { getProductsRequest, addSubscriptionRequest } from '@store/modules/user/saga';
 import { loggedInRequest, getProfileRequest } from '@store/modules/user/actions';
 import {
   BritboxDataEvergentModelsGetProductsResponseMessageBaseProductsResponseMsg,
   BritboxDataEvergentModelsGetProductsResponseMessageBaseAppChannels,
+  BritboxDataEvergentModelsPaymentMethodInfo,
 } from '@src/sdks/Britbox.API.Account.TS/api';
 import { AppState } from '@store/modules/rootReducer';
-import Orientation from 'react-native-orientation-locker';
 import { useTranslation } from 'react-i18next';
-import { useNavigation } from '@react-navigation/native';
 import { Html5Entities } from 'html-entities';
 import * as RNIap from 'react-native-iap';
 import {
@@ -55,8 +53,19 @@ const flex = {
 
 const productsResponse: BritboxDataEvergentModelsGetProductsResponseMessageBaseProductsResponseMsg[] = [];
 
+type RootParamList = {
+  SignUpSubscription: {
+    account: boolean;
+  };
+};
+
+type SubscriptionScreenRouteProp = RouteProp<RootParamList, 'SignUpSubscription'>;
+
 const SignUpSubscription = () => {
   const dispatch = useDispatch();
+  const navigation = useNavigation();
+  const { params } = useRoute<SubscriptionScreenRouteProp>();
+  const account: boolean | undefined = params?.account;
   const { t } = useTranslation('signup');
   const theme = useSelector((state: AppState) => state.theme.theme);
   const user = useSelector((state: AppState) => state.user);
@@ -135,10 +144,10 @@ const SignUpSubscription = () => {
           await RNIap.getSubscriptions(productGoogle);
         }
       } else {
-        setErrorMsg("Couldn't be donen't get products");
+        setErrorMsg("Couldn't get products");
       }
     } else {
-      setErrorMsg('Something went worng.');
+      setErrorMsg("Couldn't get products");
     }
   };
 
@@ -193,19 +202,21 @@ const SignUpSubscription = () => {
       };
       await RNIap.validateReceiptIos(receiptBody, true);
 
+      const paymentmethodInfo: BritboxDataEvergentModelsPaymentMethodInfo = {
+        label: Platform.OS === 'ios' ? 'App Store Billing' : 'Google Wallet',
+        transactionReferenceMsg: {
+          amount: packageData[packageIndex]?.retailPrice,
+          txID: receipt,
+          txMsg: 'Success',
+        },
+      };
+
       const subscriptionResponse = await addSubscriptionRequest(user?.access?.accessToken || '', {
         rateType: Platform.OS === 'ios' ? 'App Store Billing' : 'Google Wallet',
         priceCharged: packageData[packageIndex]?.retailPrice,
         appServiceID: packageName,
         serviceType: 'PRODUCT',
-        paymentmethodInfo: {
-          label: Platform.OS === 'ios' ? 'App Store Billing' : 'Google Wallet',
-          transactionReferenceMsg: {
-            amount: packageData[packageIndex]?.retailPrice,
-            txID: receipt,
-            txMsg: 'Success',
-          },
-        },
+        paymentmethodInfo,
       });
 
       if (subscriptionResponse && subscriptionResponse?.status) {
@@ -224,14 +235,18 @@ const SignUpSubscription = () => {
   };
 
   const _doSuccessSubscription = async () => {
-    dispatch(loggedInRequest());
     dispatch(getProfileRequest());
+    if (account) {
+      navigation.goBack();
+    } else {
+      dispatch(loggedInRequest());
+    }
   };
 
   return (
     <>
       <HeaderCustom isBack shadow />
-      <Gradient>
+      <Gradient style={{ marginBottom: account ? 90 : 0 }}>
         <KeyboardAvoidingView style={flex} behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
           <ScrollView bounces={false}>
             <Container>
@@ -255,9 +270,9 @@ const SignUpSubscription = () => {
                         style={packageIndex === index && activeRadio}
                       >
                         <RadioBoxContent>
-                          <SubTitle style={textLeft}>{item.productDescription}</SubTitle>
+                          <SubTitle style={textLeft}>{item?.productDescription}</SubTitle>
                           <DescriptionText style={[textLeft, { marginBottom: 10 }]}>
-                            {item.displayName}
+                            {item?.displayName}
                           </DescriptionText>
                         </RadioBoxContent>
                         {packageIndex === index ? (

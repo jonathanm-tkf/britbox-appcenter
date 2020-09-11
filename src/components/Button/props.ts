@@ -15,6 +15,7 @@ export interface ButtonProps {
   loading?: boolean;
   style?: any;
   rest?: any;
+  disabled?: boolean;
 }
 
 export interface ButtonTextProps {

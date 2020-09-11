@@ -223,9 +223,11 @@ export default function Search() {
                   }}
                   containerStyle={containerStyles}
                 />
-                <ResultCastWrapper>
-                  <ResultText>{t('castFindResults')}</ResultText>
-                </ResultCastWrapper>
+                {(searchingPeopleData || [])?.length > 0 && (
+                  <ResultCastWrapper>
+                    <ResultText>{t('castFindResults')}</ResultText>
+                  </ResultCastWrapper>
+                )}
                 <FlatList
                   data={searchingPeopleData || []}
                   numColumns={2}
