@@ -5,6 +5,7 @@ import { BackIcon } from '@assets/icons';
 import Card from '@components/Card';
 import { useRoute, useNavigation, RouteProp } from '@react-navigation/native';
 import {
+  MassiveSDKModelItemList,
   MassiveSDKModelItemSummary,
   MassiveSDKModelSeasonsItem,
 } from '@src/sdks/Britbox.API.Content.TS/api';
@@ -17,6 +18,7 @@ import { AppState } from '@store/modules/rootReducer';
 import { useSelector, useDispatch } from 'react-redux';
 import { watchlistToggleRequest } from '@store/modules/user/actions';
 import { checkIsInWatchingList } from '@src/services/watchlist';
+import { showSheetBottom } from '@store/modules/layout/actions';
 import {
   Container,
   Scroll,
@@ -52,10 +54,13 @@ const Detail = () => {
   const [data, setData] = useState<LoadDetailPageResponse | undefined>(undefined);
   const isCast = useSelector((state: AppState) => state.layout.cast);
   const dispatch = useDispatch();
-  const bookmarklist = useSelector((state: AppState) => state.user.profile?.bookmarkList || []);
+  const bookmarklist = useSelector(
+    (state: AppState) => state.user.profile?.bookmarkList || []
+  ) as MassiveSDKModelItemList;
+  const user = useSelector((state: AppState) => state.user);
 
   const getIsInWatchlist = (id: string) =>
-    checkIsInWatchingList(bookmarklist.items, id || '0') === 3;
+    checkIsInWatchingList(bookmarklist?.items || [], id || '0') === 3;
 
   const scrollRef = useRef<any>({
     current: undefined,
@@ -145,6 +150,11 @@ const Detail = () => {
   };
 
   const onPlay = () => {
+    if (!user.profile?.canStream || false) {
+      dispatch(showSheetBottom());
+      return false;
+    }
+
     if (isCast) {
       return CastVideo(item);
     }

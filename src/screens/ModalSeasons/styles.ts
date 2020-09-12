@@ -1,6 +1,8 @@
 import styled from 'styled-components/native';
 import { ThemeState } from '@store/modules/theme/types';
 import { FlatList as RNFlatList } from 'react-native';
+import LinearGradient from 'react-native-linear-gradient';
+import { rgba } from 'polished';
 
 export const Container = styled.SafeAreaView`
   flex: 1;
@@ -16,6 +18,7 @@ export const CloseButtonWrapper = styled.View`
 export const CloseButton = styled.TouchableOpacity`
   align-self: center;
   margin-bottom: 50px;
+  z-index: 2;
 `;
 
 export const FlatList = styled(RNFlatList).attrs({
@@ -60,4 +63,14 @@ export const Indicator = styled.View`
   border-radius: 4px;
   position: absolute;
   margin-left: -20px;
+`;
+
+export const Gradient = styled(LinearGradient).attrs((props: ThemeState) => ({
+  colors: [rgba(props.theme.PRIMARY_COLOR, 0.25), rgba(props.theme.PRIMARY_COLOR, 1)],
+}))`
+  height: 120px;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
 `;

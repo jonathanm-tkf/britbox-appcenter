@@ -1,8 +1,8 @@
 /* eslint-disable no-plusplus */
 /* eslint-disable prefer-destructuring */
-export const getUrlVars = (url: string): any => {
+export const getUrlVars = (url: string): { [key: string]: string } => {
   let hash;
-  const myJson: any = {};
+  const myJson: { [key: string]: string } = {};
   const hashes = url.slice(url.indexOf('?') + 1).split('&');
   for (let i = 0; i < hashes.length; i++) {
     hash = hashes[i].split('=');

@@ -28,7 +28,7 @@ export function navigateByPath(item: any) {
     case /\/name\//.test(item?.path || ''):
       push('ActorDetail', { item });
       break;
-    case /\/show\/|\/movie\/|\/episode\//.test(item?.path || ''):
+    case /\/show\/|\/season\/|\/movie\/|\/episode\//.test(item?.path || ''):
       push('Detail', { item });
       break;
     default:

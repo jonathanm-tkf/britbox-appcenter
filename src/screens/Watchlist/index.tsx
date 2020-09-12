@@ -17,7 +17,15 @@ import { MassiveSDKModelItemSummary } from '@src/sdks/Britbox.API.Content.TS/api
 import { store } from '@store/index';
 import { LayoutState } from '@store/modules/layout/types';
 import { watchlistToggleRequest } from '@store/modules/user/actions';
-import { Container, Title, Paragraph, GridWrapper, RemoveButtonWrapper, Headline } from './styles';
+import {
+  Container,
+  Title,
+  Paragraph,
+  GridWrapper,
+  RemoveButtonWrapper,
+  Headline,
+  BottomSheetWrapper,
+} from './styles';
 
 const wrapper = {
   flex: 1,
@@ -31,16 +39,28 @@ const getItemId = () => {
   return layout.sheet.data?.itemId || '0';
 };
 
+const getSheetHeight = () => {
+  const { layout }: { layout: LayoutState } = store.getState();
+  return layout.sheet.height || 0;
+};
+
 const Watchlist = () => {
   const theme = useSelector((state: AppState) => state.theme.theme);
   const bookmarkList = useSelector((state: AppState) => state.user.profile.bookmarkList);
   const dispatch = useDispatch();
   const { t } = useTranslation(['watchlist']);
 
+  const showSheetBottomContent = (item: MassiveSDKModelItemSummary) => {
+    if (getSheetHeight() === 0) {
+      dispatch(sheetComponent(300, () => renderBottomContent()));
+    }
+    dispatch(showSheetBottom({ itemId: item?.id || '0' }));
+  };
+
   const removeIcon = (item: MassiveSDKModelItemSummary) => {
     return (
       <RemoveButtonWrapper>
-        <TouchableOpacity onPress={() => dispatch(showSheetBottom({ itemId: item?.id || '0' }))}>
+        <TouchableOpacity onPress={() => showSheetBottomContent(item)}>
           <CloseIcon width={30} height={30} />
         </TouchableOpacity>
       </RemoveButtonWrapper>
@@ -84,14 +104,7 @@ const Watchlist = () => {
   };
 
   const renderBottomContent = () => (
-    <View
-      style={{
-        backgroundColor: theme.PRIMARY_FOREGROUND_COLOR,
-        height: 300,
-        paddingHorizontal: 20,
-        alignSelf: 'stretch',
-      }}
-    >
+    <BottomSheetWrapper>
       <Headline center color={theme.PRIMARY_TEXT_COLOR}>
         {t('watchlist:remove.title')}
       </Headline>
@@ -115,12 +128,11 @@ const Watchlist = () => {
       >
         {t('watchlist:remove.button.cancel')}
       </Button>
-    </View>
+    </BottomSheetWrapper>
   );
 
   useEffect(() => {
     dispatch(sheetComponent(300, () => renderBottomContent()));
-
     return () => {
       dispatch(sheetComponent(0, () => <></>));
     };

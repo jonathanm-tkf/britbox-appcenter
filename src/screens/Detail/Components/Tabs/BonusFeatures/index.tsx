@@ -10,6 +10,10 @@ import { getImage } from '@src/utils/images';
 import { getDuration } from '@src/utils/template';
 import { Show, MoreInformation } from '@src/services/detail';
 import { useNavigation } from '@react-navigation/native';
+import { CastVideo } from '@src/services/cast';
+import { useDispatch, useSelector } from 'react-redux';
+import { AppState } from '@store/modules/rootReducer';
+import { showSheetBottom } from '@store/modules/layout/actions';
 import { Container } from './styles';
 
 interface Props {
@@ -21,6 +25,9 @@ interface Props {
 
 const BonusFeatures = ({ onLayout, data }: Props) => {
   const { navigate } = useNavigation();
+  const dispatch = useDispatch();
+  const isCast = useSelector((state: AppState) => state.layout.cast);
+  const user = useSelector((state: AppState) => state.user);
 
   const getCategories = (itemData: MassiveSDKModelEpisodesItem): any[] => {
     const dataResult = [];
@@ -53,6 +60,15 @@ const BonusFeatures = ({ onLayout, data }: Props) => {
   };
 
   const onPlay = (item: MassiveSDKModelEpisodesItem) => {
+    if (!user?.profile?.canStream || false) {
+      dispatch(showSheetBottom());
+      return false;
+    }
+
+    if (isCast) {
+      return CastVideo(item);
+    }
+
     return navigate('VideoPlayer', { item });
   };
 

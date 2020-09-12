@@ -7,6 +7,7 @@ import Action from '@components/Action';
 import { useSelector } from 'react-redux';
 import { AppState } from '@store/modules/rootReducer';
 import { checkIsInWatchingList } from '@src/services/watchlist';
+import { MassiveSDKModelItemList } from '@src/sdks/Britbox.API.Content.TS/api';
 import {
   Container,
   Gradient,
@@ -40,10 +41,12 @@ const image: StyleProp<ImageStyle> = {
 
 const Outstanding = ({ items, onPlay, onWatchlist, onDiscoverMore }: Props) => {
   const { t } = useTranslation('layout');
-  const bookmarklist = useSelector((state: AppState) => state.user.profile?.bookmarkList || []);
+  const bookmarklist = useSelector(
+    (state: AppState) => state.user.profile?.bookmarkList || []
+  ) as MassiveSDKModelItemList;
 
   const getIsInWatchlist = (id: string) =>
-    checkIsInWatchingList(bookmarklist.items, id || '0') === 3;
+    checkIsInWatchingList(bookmarklist?.items || [], id || '0') === 3;
 
   return (
     <Swiper

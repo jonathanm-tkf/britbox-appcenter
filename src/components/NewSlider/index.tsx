@@ -60,6 +60,7 @@ const NewSlider = ({
 }: Props) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const theme = useSelector((state: AppState) => state.theme.theme);
+
   const carouselData = data.map((item) => {
     const image = slim ? item.images?.poster : item.images?.tile || item.images?.wallpaper;
     const imageType = slim ? 'poster' : 'wallpaper';
@@ -128,6 +129,7 @@ const NewSlider = ({
     return (
       <>
         <Actions
+          id={item?.id || '0'}
           onWatchlist={() => (onWatchlist ? onWatchlist(item) : {})}
           onPlay={() => (onPlay ? onPlay(item) : {})}
           onDiscoverMore={() => (onDiscoverMore ? onDiscoverMore(item) : {})}

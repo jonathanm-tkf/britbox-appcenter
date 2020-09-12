@@ -29,7 +29,6 @@ const Hero = ({ item, onWatchlist, onDiscoverMore, onPlay }: Props) => {
           data?.images?.square || data?.images?.hero3x1 || data?.images?.wallpaper,
           'square'
         ) || '',
-      // isInWatchlist: checkIsInWatchingList(bookmarklist, data?.id || '0') === 3,
     };
   });
 

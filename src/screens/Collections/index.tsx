@@ -29,11 +29,13 @@ import { navigateByPath } from '@src/navigation/rootNavigation';
 import ErrorLanding from '@components/ErrorLanding';
 import OurFavorites from '@screens/Shared/OurFavorites';
 import { useTranslation } from 'react-i18next';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { AppState } from '@store/modules/rootReducer';
 import { Header } from '@store/modules/core/types';
 import { Item } from '@screens/ModalFilter';
 import { wp } from '@src/utils/dimension';
+import { checkIsInWatchingList } from '@src/services/watchlist';
+import { watchlistToggleRequest } from '@store/modules/user/actions';
 import { dataDummy } from './data';
 import {
   Container,
@@ -113,6 +115,14 @@ const Collections = () => {
 
   const [order, setOrder] = useState('asc');
   const [orderBy, setOrderBy] = useState('date-added');
+
+  const dispatch = useDispatch();
+  const bookmarklist = useSelector(
+    (state: AppState) => state.user.profile?.bookmarkList || []
+  ) as MassiveSDKModelItemList;
+
+  const getIsInWatchlist = (id: string) =>
+    checkIsInWatchingList(bookmarklist?.items || [], id || '0') === 3;
 
   const containerStyles = {
     marginTop: 10,
@@ -317,6 +327,15 @@ const Collections = () => {
     navigateByPath(card);
   };
 
+  const onWatchlist = (card: MassiveSDKModelItemList) => {
+    dispatch(
+      watchlistToggleRequest({
+        itemId: card?.id || '0',
+        isInWatchlist: getIsInWatchlist(card?.id || '0'),
+      })
+    );
+  };
+
   const onDiscoverMore = (card: MassiveSDKModelItemList) => {
     navigateByPath(card);
   };
@@ -409,8 +428,8 @@ const Collections = () => {
                     key={key.toString()}
                     slim
                     data={item?.list?.items || []}
-                    onWatchlist={() => {}}
                     onPlay={(element) => onPlay(element)}
+                    onWatchlist={(element) => onWatchlist(element)}
                     onDiscoverMore={(element) => onDiscoverMore(element)}
                   />
                 );

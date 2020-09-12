@@ -34,3 +34,11 @@ export const RemoveButtonWrapper = styled.View`
   margin-bottom: 20px;
   margin-top: -10px;
 `;
+
+export const BottomSheetWrapper = styled.View`
+  background-color: ${(props: ThemeState) => props.theme.PRIMARY_FOREGROUND_COLOR};
+  height: 300px;
+  padding-left: 20px;
+  padding-right: 20px;
+  align-self: stretch;
+`;

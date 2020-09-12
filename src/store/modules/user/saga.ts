@@ -10,7 +10,13 @@ import {
   BritboxAPIAccountModelsAuthorizationForgotContactPasswordRequest,
 } from '@src/sdks/Britbox.API.Account.TS/api';
 import { PayloadAction } from 'typesafe-actions';
-import { UserActionTypes, UserLogin, EvergentLoginResponse, UserSignUp } from './types';
+import {
+  UserActionTypes,
+  UserLogin,
+  EvergentLoginResponse,
+  UserSignUp,
+  WatchListItem,
+} from './types';
 import {
   loginRequestFailure,
   loginRequestSuccess,
@@ -32,7 +38,9 @@ export async function profile(token: string) {
   });
 
   try {
-    const response = await getProfile();
+    const response = await getProfile({
+      useCustomId: true,
+    });
     return { response };
   } catch (error) {
     return error;
@@ -354,11 +362,6 @@ export function* logout() {
   }
 }
 
-type WatchListItem = {
-  itemId: string;
-  isInWatchlist: boolean;
-};
-
 async function watchlistRequest({ itemId, isInWatchlist }: WatchListItem, accessToken: string) {
   const { bookmarkItem, deleteItemBookmark } = BritboxAccountApi({
     headers: {
@@ -384,7 +387,7 @@ async function watchlistRequest({ itemId, isInWatchlist }: WatchListItem, access
   }
 }
 
-export function* watchlistToggleRequest({ payload }: any) {
+export function* watchlistToggleRequest({ payload }: { payload: WatchListItem }) {
   try {
     const { accessToken } = yield select(getToken);
     const { response } = yield call(watchlistRequest, payload, accessToken);

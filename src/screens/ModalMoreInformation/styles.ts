@@ -28,6 +28,7 @@ export const CreditsWrapper = styled.View``;
 
 export const CreditsList = styled.View`
   margin-top: 30px;
+  margin-bottom: 100px;
 `;
 
 export const CreditsItem = styled.View`

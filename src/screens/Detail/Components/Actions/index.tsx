@@ -10,6 +10,7 @@ import Action from '@components/Action';
 import { getDuration } from '@src/utils/template';
 import { useTranslation } from 'react-i18next';
 import { checkIsInWatchingList } from '@src/services/watchlist';
+import { MassiveSDKModelItemList } from '@src/sdks/Britbox.API.Content.TS/api';
 import {
   Container,
   ActionWrapper,
@@ -33,9 +34,11 @@ type Props = {
 const Actions = ({ data, onPlay, onWatchlist, id }: Props) => {
   const theme = useSelector((state: AppState) => state.theme.theme);
   const { t } = useTranslation(['layout']);
-  const bookmarklist = useSelector((state: AppState) => state.user.profile?.bookmarkList || []);
+  const bookmarklist = useSelector(
+    (state: AppState) => state.user.profile?.bookmarkList || []
+  ) as MassiveSDKModelItemList;
 
-  const getIsInWatchlist = () => checkIsInWatchingList(bookmarklist.items, id || '0') === 3;
+  const getIsInWatchlist = () => checkIsInWatchingList(bookmarklist?.items || [], id || '0') === 3;
   return (
     <Container>
       <ActionWrapper>

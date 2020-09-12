@@ -16,7 +16,7 @@ import { Button } from '@components/Button';
 import { Input } from '@components/Input';
 import { useSelector, useDispatch } from 'react-redux';
 import { AppState } from '@store/modules/rootReducer';
-import { useNavigation } from '@react-navigation/native';
+import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
 import { EvergentResponseError } from '@store/modules/user/types';
 import { validateEmail } from '@src/utils/validations';
 import Tabs from './components/Tabs';
@@ -49,7 +49,18 @@ const evergentResponseError: EvergentResponseError = {
   failureMessage: [],
 };
 
+type RootParamList = {
+  MyAccount: {
+    subscriptionSelected: boolean;
+  };
+};
+
+type MyAccountScreenRouteProp = RouteProp<RootParamList, 'MyAccount'>;
+
 export default function MyAccount() {
+  const { params } = useRoute<MyAccountScreenRouteProp>();
+  const { subscriptionSelected } = params || { subscriptionSelected: false };
+
   const { t } = useTranslation(['myaccount', 'signup']);
   const dispatch = useDispatch();
   const { navigate } = useNavigation();
@@ -773,7 +784,7 @@ export default function MyAccount() {
 
   return (
     <Container>
-      <Tabs routes={DATA} />
+      <Tabs {...{ subscriptionSelected }} routes={DATA} />
     </Container>
   );
 }

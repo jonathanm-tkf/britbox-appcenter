@@ -52,16 +52,16 @@ export enum UserActionTypes {
 
 type Access = EvergentLoginResponse | EvergentLoginError | undefined;
 
+type Profile = BritboxAPIAccountModelsProfileGetProfileResponse &
+  BritboxAPIAccountModelsCustomerGetAccountDetailsResponse;
+
 export interface UserState {
   isLogged: boolean;
   loading: boolean;
   error: boolean;
   data: User;
   access: Access;
-  profile:
-    | BritboxAPIAccountModelsProfileGetProfileResponse
-    | BritboxAPIAccountModelsCustomerGetAccountDetailsResponse
-    | undefined;
+  profile: Profile | undefined;
 }
 
 export interface EvergentLogin {
@@ -105,3 +105,8 @@ export interface EvergentResponseError {
   responseCode: 1 | 0;
   failureMessage: FailureMessage[];
 }
+
+export type WatchListItem = {
+  itemId: string;
+  isInWatchlist: boolean;
+};
