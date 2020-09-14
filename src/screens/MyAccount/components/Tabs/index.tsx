@@ -49,6 +49,7 @@ const TabScene = ({
     <Animated.FlatList
       scrollToOverflowEnabled
       ref={onGetRef}
+      bounces={false}
       scrollEventThrottle={16}
       onScroll={Animated.event([{ nativeEvent: { contentOffset: { y: scrollY } } }], {
         useNativeDriver: true,
@@ -81,9 +82,10 @@ type State = {
 
 interface Props {
   routes: State[];
+  subscriptionSelected: boolean;
 }
 
-const Tabs = ({ routes }: Props) => {
+const Tabs = ({ routes, subscriptionSelected }: Props) => {
   const [tabIndex, setIndex] = useState(0);
   const scrollY: any = useRef(new Animated.Value(0)).current;
   const listRefArr: any = useRef([]);
@@ -100,6 +102,13 @@ const Tabs = ({ routes }: Props) => {
       scrollY.removeAllListeners();
     };
   }, [routes, tabIndex]);
+
+  useEffect(() => {
+    if (subscriptionSelected) {
+      // Index 2 is equal subscription
+      setIndex(2);
+    }
+  }, [subscriptionSelected]);
 
   const syncScrollOffset = () => {
     const curRouteKey = routes[tabIndex].key;

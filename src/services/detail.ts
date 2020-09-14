@@ -119,7 +119,7 @@ const processDetailPage = async (
 
   let relatedResponse;
 
-  if (detail?.key === 'ShowDetail') {
+  if (detail?.key === 'ShowDetail' || detail?.key === 'SeasonDetail') {
     if ((detail.entries || []).length > 0) {
       const entries = (detail.entries || []).reduce((item) => item);
       detailResponse.title = entries?.item?.show?.title || '';
@@ -296,6 +296,7 @@ const processEpisodesBySeason = async (
     description: '',
     season: '',
     vams: undefined,
+    year: undefined,
   };
 
   if ((detail?.entries || []).length > 0) {

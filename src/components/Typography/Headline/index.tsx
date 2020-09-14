@@ -8,12 +8,15 @@ interface Props {
   lineHeight?: number;
   center?: boolean;
   color?: string;
+  style?: any;
 }
 
-const Header = ({ children, fontSize, lineHeight, center, color }: Props) => {
+const Header = ({ children, fontSize, lineHeight, center, color, style, ...rest }: Props) => {
   return (
     <Container>
-      <HeadlineComponent {...{ fontSize, lineHeight, center, color }}>{children}</HeadlineComponent>
+      <HeadlineComponent {...{ fontSize, lineHeight, center, color, style, rest }}>
+        {children}
+      </HeadlineComponent>
     </Container>
   );
 };

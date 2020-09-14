@@ -105,8 +105,9 @@ export default () => {
 
   useEffect(() => {
     if (isSheetVisible) {
-      // sheetRef.current!.snapTo(1);
       sheetRef.current!.open();
+    } else {
+      sheetRef.current!.close();
     }
   }, [isSheetVisible]);
 
@@ -179,6 +180,8 @@ export default () => {
           },
           draggableIcon: {
             backgroundColor: theme.PRIMARY_TEXT_COLOR_OPAQUE,
+            width: 50,
+            marginTop: 20,
           },
         }}
         onClose={() => dispatch(hideSheetBottom())}

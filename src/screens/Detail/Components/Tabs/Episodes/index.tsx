@@ -9,8 +9,9 @@ import { Show, MoreInformation } from '@src/services/detail';
 import { ArrowBottomIcon, DiscoverMoreIcon } from '@assets/icons';
 import { useNavigation } from '@react-navigation/native';
 import { AppState } from '@store/modules/rootReducer';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { CastVideo } from '@src/services/cast';
+import { showSheetBottom } from '@store/modules/layout/actions';
 import { Container, ContainerFilter, SeasonButton, SeasonText, InformationButton } from './styles';
 
 interface Props {
@@ -24,7 +25,8 @@ interface Props {
 
 const Episodes = ({ onLayout, data, show, moreInformation, isEpisode, onScrollTo }: Props) => {
   const { navigate } = useNavigation();
-
+  const user = useSelector((state: AppState) => state.user);
+  const dispatch = useDispatch();
   const isCast = useSelector((state: AppState) => state.layout.cast);
 
   const getCategories = (itemData: MassiveSDKModelEpisodesItem): any[] => {
@@ -62,18 +64,16 @@ const Episodes = ({ onLayout, data, show, moreInformation, isEpisode, onScrollTo
   };
 
   const onPlay = (item: MassiveSDKModelEpisodesItem) => {
-    // dispatch(showSheetBottom());
-
-    // return false;
+    if (!user?.profile?.canStream || false) {
+      dispatch(showSheetBottom());
+      return false;
+    }
 
     if (isCast) {
       return CastVideo(item);
     }
 
-    if (item.type === 'movie' || item.type === 'episode') {
-      return navigate('VideoPlayer', { item });
-    }
-    return null;
+    return navigate('VideoPlayer', { item });
   };
 
   const goToMoreInformation = () => {

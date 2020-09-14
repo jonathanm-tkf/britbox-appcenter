@@ -20,6 +20,7 @@ export function navigateByPath(item: any) {
       navigate('AZ');
       break;
     case item?.path === '/account/watchlist':
+      navigate('Watchlist');
       break;
     case item?.path === '/':
       navigate('Home');
@@ -27,7 +28,7 @@ export function navigateByPath(item: any) {
     case /\/name\//.test(item?.path || ''):
       push('ActorDetail', { item });
       break;
-    case /\/show\/|\/movie\/|\/episode\//.test(item?.path || ''):
+    case /\/show\/|\/season\/|\/movie\/|\/episode\//.test(item?.path || ''):
       push('Detail', { item });
       break;
     default:

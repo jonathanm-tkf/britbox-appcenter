@@ -1,4 +1,3 @@
-/* eslint-disable max-len */
 import { action } from 'typesafe-actions';
 import { BritboxAPIContentModelsPageGetPageResponse } from '@src/sdks/Britbox.API.Content.TS/api';
 import { HomeActionTypes } from './types';

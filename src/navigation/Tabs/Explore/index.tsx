@@ -9,6 +9,7 @@ import Collections from '@screens/Collections';
 import { AppState } from '@store/modules/rootReducer';
 import { useSelector } from 'react-redux';
 import AZ from '@screens/AZ';
+import Watchlist from '@screens/Watchlist';
 
 const EffectModal = (progress: Animated.AnimatedInterpolation) => ({
   cardStyle: {
@@ -42,6 +43,7 @@ const ExploreStackScreen = () => {
     <ExploreStack.Navigator headerMode="none">
       <ExploreStack.Screen name="Explore" component={Explore} />
       <ExploreStack.Screen name="AZ" component={AZ} options={ModalOptions(theme)} />
+      <ExploreStack.Screen name="Watchlist" component={Watchlist} options={ModalOptions(theme)} />
       <ExploreStack.Screen name="Detail" component={Detail} options={ModalOptions(theme)} />
       <ExploreStack.Screen
         name="Collections"

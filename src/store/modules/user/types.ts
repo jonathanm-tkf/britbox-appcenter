@@ -28,6 +28,7 @@ export interface UserSignUp {
  * Action types
  */
 export enum UserActionTypes {
+  PERSIST_REHYDRATE = 'persist/REHYDRATE',
   LOGIN_REQUEST = '@user/LOGIN_REQUEST',
   LOGIN_REQUEST_SUCCESS = '@user/LOGIN_REQUEST_SUCCESS',
   LOGIN_REQUEST_ERROR = '@user/LOGIN_REQUEST_ERROR',
@@ -40,6 +41,9 @@ export enum UserActionTypes {
   REGISTER_REQUEST_SUCCESS = '@user/REGISTER_REQUEST_SUCCESS',
   REFRESH_TOKEN_SUCCESS = '@user/REFRESH_TOKEN_SUCCESS',
   LOGGEDIN_REQUEST = '@user/LOGGEDIN_REQUEST',
+  WATCHLIST_TOGGLE_REQUEST = '@user/WATCHLIST_TOGGLE_REQUEST',
+  WATCHLIST_TOGGLE_REQUEST_ADD = '@user/WATCHLIST_TOGGLE_REQUEST_ADD',
+  WATCHLIST_TOGGLE_REQUEST_REMOVE = '@user/WATCHLIST_TOGGLE_REQUEST_REMOVE',
 }
 
 /**
@@ -48,16 +52,16 @@ export enum UserActionTypes {
 
 type Access = EvergentLoginResponse | EvergentLoginError | undefined;
 
+type Profile = BritboxAPIAccountModelsProfileGetProfileResponse &
+  BritboxAPIAccountModelsCustomerGetAccountDetailsResponse;
+
 export interface UserState {
   isLogged: boolean;
   loading: boolean;
   error: boolean;
   data: User;
   access: Access;
-  profile:
-    | BritboxAPIAccountModelsProfileGetProfileResponse
-    | BritboxAPIAccountModelsCustomerGetAccountDetailsResponse
-    | undefined;
+  profile: Profile | undefined;
 }
 
 export interface EvergentLogin {
@@ -101,3 +105,8 @@ export interface EvergentResponseError {
   responseCode: 1 | 0;
   failureMessage: FailureMessage[];
 }
+
+export type WatchListItem = {
+  itemId: string;
+  isInWatchlist: boolean;
+};

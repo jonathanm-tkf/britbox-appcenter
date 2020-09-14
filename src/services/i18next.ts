@@ -16,6 +16,7 @@ i18next.use(initReactI18next).init({
       az: require('../locales/us/az.json'),
       search: require('../locales/us/search.json'),
       myaccount: require('../locales/us/myaccount.json'),
+      watchlist: require('../locales/us/watchlist.json'),
     },
   },
 });

@@ -12,8 +12,6 @@ import {
   ItemText,
   Wrapper,
   Indicator,
-  ListTitle,
-  ModalTitle,
 } from './styles';
 
 export type Item = {
@@ -40,7 +38,7 @@ type ModalFilterScreenRouteProp = RouteProp<RootParamList, 'ModalFilter'>;
 const ModalFilter = () => {
   const { params } = useRoute<ModalFilterScreenRouteProp>();
   const { goBack, navigate } = useNavigation();
-  const { data, title, previusRoute } = params;
+  const { data, previusRoute } = params;
 
   const goToDetail = (item: Item) => {
     navigate(previusRoute, { filter: item });
@@ -61,14 +59,12 @@ const ModalFilter = () => {
 
   return (
     <Container>
-      {title && <ModalTitle>{title}</ModalTitle>}
       {data.length > 0 &&
         data.map((item, index) => {
           return (
             <FlatList
               key={index.toString()}
               data={item.data}
-              ListHeaderComponent={() => <ListTitle>{item.title}</ListTitle>}
               renderItem={renderItem}
               keyExtractor={(_, i: number) => `${i.toString()}_flatList`}
             />

@@ -7,10 +7,17 @@ import { AppState } from '@store/modules/rootReducer';
 import Shimmer from '@components/Shimmer';
 import TabsComponent from '@components/TabsComponent';
 import { useTranslation } from 'react-i18next';
-import { View } from 'react-native';
-import { sheetComponent } from '@store/modules/layout/actions';
+import { hideSheetBottom, sheetComponent } from '@store/modules/layout/actions';
 import { Headline } from '@components/Typography';
-import { TabsWrapper, PreloadTabs, Container } from './styles';
+import { Button } from '@components/Button';
+import { useNavigation } from '@react-navigation/native';
+import {
+  TabsWrapper,
+  PreloadTabs,
+  Container,
+  WrapperButtons,
+  WrapperBottomContent,
+} from './styles';
 import Information from './Information';
 import More from './More';
 import Episodes from './Episodes';
@@ -26,7 +33,7 @@ type HeightType = string | number;
 
 const Tabs = ({ data, onScrollTo, onLayout }: Props) => {
   const theme = useSelector((state: AppState) => state.theme.theme);
-
+  const { navigate } = useNavigation();
   const britboxConfig = useSelector((state: AppState) => state.core.britboxConfig);
   const segment = useSelector((state: AppState) => state.core.segment);
   const country: string = segment.toLocaleLowerCase() || 'us';
@@ -49,22 +56,45 @@ const Tabs = ({ data, onScrollTo, onLayout }: Props) => {
   const { t } = useTranslation(['detail', 'layout']);
   const ref = useRef();
 
+  const goToAccount = () => {
+    dispatch(hideSheetBottom());
+    setTimeout(() => {
+      return navigate('More', { screen: 'MyAccount', params: { subscriptionSelected: true } });
+    }, 250);
+  };
+
   const renderBottomContent = () => (
-    <View
-      style={{
-        backgroundColor: 'white',
-        padding: 16,
-        height: 450,
-      }}
-    >
+    <WrapperBottomContent>
       <Headline color={theme.PRIMARY_TEXT_COLOR}>
-        {(britboxConfig && britboxConfig[country]?.noplan) || t('errorOut.subtitle')}
+        {(britboxConfig && britboxConfig[country]?.['no-plan']?.message) || t('errorOut.subtitle')}
       </Headline>
-    </View>
+      <WrapperButtons>
+        <Button
+          stretch
+          size="big"
+          fontWeight="medium"
+          onPress={() => goToAccount()}
+          style={{ marginBottom: 20 }}
+        >
+          {(britboxConfig && britboxConfig[country]?.['no-plan']['ctas'][0]) || ''}
+        </Button>
+        <Button
+          outline
+          stretch
+          size="big"
+          fontWeight="medium"
+          onPress={() => {
+            dispatch(hideSheetBottom());
+          }}
+        >
+          {(britboxConfig && britboxConfig[country]?.['no-plan']['ctas'][1]) || ''}
+        </Button>
+      </WrapperButtons>
+    </WrapperBottomContent>
   );
 
   useEffect(() => {
-    dispatch(sheetComponent(450, () => renderBottomContent()));
+    dispatch(sheetComponent(380, () => renderBottomContent()));
 
     return () => {
       dispatch(sheetComponent(0, () => <></>));
@@ -96,7 +126,7 @@ const Tabs = ({ data, onScrollTo, onLayout }: Props) => {
 
     if ((moreInformation?.vams || [])?.length > 0) {
       tabs.push({
-        key: 'four',
+        key: 'second',
         title: t('bonus'),
         content: () => (
           <BonusFeatures
@@ -115,7 +145,7 @@ const Tabs = ({ data, onScrollTo, onLayout }: Props) => {
 
     if (information) {
       tabs.push({
-        key: 'second',
+        key: 'three',
         title: t('information'),
         content: () => (
           <Information
@@ -134,7 +164,7 @@ const Tabs = ({ data, onScrollTo, onLayout }: Props) => {
 
     if (related) {
       tabs.push({
-        key: 'three',
+        key: 'four',
         title: t('more'),
         content: () => (
           <More

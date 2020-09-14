@@ -5,6 +5,7 @@ import {
   UserLogin,
   EvergentLoginResponse,
   EvergentLoginResponseError,
+  WatchListItem,
 } from './types';
 
 export const loginRequest = ({ user, password }: UserLogin) =>
@@ -35,3 +36,12 @@ export const refreshTokenSuccess = (data: EvergentLoginResponse) =>
   action(UserActionTypes.REFRESH_TOKEN_SUCCESS, { ...data });
 
 export const loggedInRequest = () => action(UserActionTypes.LOGGEDIN_REQUEST);
+
+export const watchlistToggleRequest = ({ itemId, isInWatchlist }: WatchListItem) =>
+  action(UserActionTypes.WATCHLIST_TOGGLE_REQUEST, { itemId, isInWatchlist });
+
+export const watchlistRequestAdd = (data: any) =>
+  action(UserActionTypes.WATCHLIST_TOGGLE_REQUEST_ADD, { ...data });
+
+export const watchlistRequestRemove = (data: any) =>
+  action(UserActionTypes.WATCHLIST_TOGGLE_REQUEST_REMOVE, { ...data });

@@ -5,6 +5,7 @@ import { BackIcon } from '@assets/icons';
 import Card from '@components/Card';
 import { useRoute, useNavigation, RouteProp } from '@react-navigation/native';
 import {
+  MassiveSDKModelItemList,
   MassiveSDKModelItemSummary,
   MassiveSDKModelSeasonsItem,
 } from '@src/sdks/Britbox.API.Content.TS/api';
@@ -12,6 +13,12 @@ import { loadDetailPage, LoadDetailPageResponse, loadEpisodesBySeason } from '@s
 import { getImage } from '@src/utils/images';
 import { fill } from 'lodash';
 import Bookmark from '@components/Bookmark';
+import { CastVideo } from '@src/services/cast';
+import { AppState } from '@store/modules/rootReducer';
+import { useSelector, useDispatch } from 'react-redux';
+import { watchlistToggleRequest } from '@store/modules/user/actions';
+import { checkIsInWatchingList } from '@src/services/watchlist';
+import { showSheetBottom } from '@store/modules/layout/actions';
 import {
   Container,
   Scroll,
@@ -45,6 +52,16 @@ const Detail = () => {
   const [tabsOffset, setTabsOffset] = useState(false);
   const [animatedOpacityValue] = useState(new Animated.Value(0));
   const [data, setData] = useState<LoadDetailPageResponse | undefined>(undefined);
+  const isCast = useSelector((state: AppState) => state.layout.cast);
+  const dispatch = useDispatch();
+  const bookmarklist = useSelector(
+    (state: AppState) => state.user.profile?.bookmarkList || []
+  ) as MassiveSDKModelItemList;
+  const user = useSelector((state: AppState) => state.user);
+
+  const getIsInWatchlist = (id: string) =>
+    checkIsInWatchingList(bookmarklist?.items || [], id || '0') === 3;
+
   const scrollRef = useRef<any>({
     current: undefined,
   });
@@ -133,10 +150,16 @@ const Detail = () => {
   };
 
   const onPlay = () => {
-    if (data?.information.type === 'movie' || data?.information.type === 'episode') {
-      return navigate('VideoPlayer', { item });
+    if (!user.profile?.canStream || false) {
+      dispatch(showSheetBottom());
+      return false;
     }
-    return null;
+
+    if (isCast) {
+      return CastVideo(item);
+    }
+
+    return navigate('VideoPlayer', { item });
   };
 
   const getCategories = (information: any): any[] => {
@@ -179,6 +202,15 @@ const Detail = () => {
     }
   };
 
+  const onWatchlist = () => {
+    dispatch(
+      watchlistToggleRequest({
+        itemId: item?.id || '0',
+        isInWatchlist: getIsInWatchlist(item?.id || '0'),
+      })
+    );
+  };
+
   return (
     <Container>
       <TopWrapper>
@@ -215,7 +247,7 @@ const Detail = () => {
           />
         </Poster>
         <InnerContent>
-          <Actions {...{ data }} onPlay={onPlay} />
+          <Actions {...{ data }} id={item?.id || '0'} onPlay={onPlay} onWatchlist={onWatchlist} />
           <Description {...{ data }} />
           {data && data.information.type !== 'show' && data.information.type !== 'episode' && (
             <WrapperBookmarks>
