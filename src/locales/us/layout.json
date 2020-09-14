@@ -34,5 +34,10 @@
   "recent": "Recently Added",
   "order": "Order",
   "visitour": "Visit our",
-  "helpsupport": "Help & Support"
+  "helpsupport": "Help & Support",
+  "updateNeeded": {
+    "title": "Please update",
+    "message": "You will have to update your app to the latest version to continue using.",
+    "button": "Update"
+  }
 }
