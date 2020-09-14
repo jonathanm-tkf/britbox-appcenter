@@ -2,10 +2,15 @@ import { StyleSheet, Dimensions } from 'react-native';
 import styled from 'styled-components/native';
 import { ThemeState } from '@store/modules/theme/types';
 
-const { width: viewportWidth } = Dimensions.get('window');
+const { width: viewportWidth, height: viewportHeight } = Dimensions.get('window');
 
 function wp(percentage: any) {
   const value = (percentage * viewportWidth) / 100;
+  return Math.round(value);
+}
+
+function hp(percentage: any) {
+  const value = (percentage * viewportHeight) / 100;
   return Math.round(value);
 }
 
@@ -18,6 +23,8 @@ export const itemWidth = slideWidth + itemHorizontalMargin * 2;
 export default StyleSheet.create({
   slideInnerContainer: {},
   image: {
+    height: '100%',
+    width: '100%',
     alignSelf: 'center',
   },
   textContainer: {
@@ -26,6 +33,9 @@ export default StyleSheet.create({
   },
   imageContainer: {
     minHeight: 350,
+    height: hp(50),
+    paddingHorizontal: wp(10),
+    alignItems: 'center',
     justifyContent: 'center',
   },
 });
