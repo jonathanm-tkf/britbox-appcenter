@@ -39,5 +39,10 @@
     "title": "Please update",
     "message": "You will have to update your app to the latest version to continue using.",
     "button": "Update"
+  },
+  "offline": {
+    "title": "You're offline",
+    "message": "Please, check your connection.",
+    "button": "Try again"
   }
 }

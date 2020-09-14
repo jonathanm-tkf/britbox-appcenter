@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import React, { useEffect, useCallback } from 'react';
+import React, { useEffect, useCallback, useState } from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { useSelector, useDispatch } from 'react-redux';
 import { AppState } from '@store/modules/rootReducer';
@@ -25,6 +25,8 @@ import ErrorLanding from '@components/ErrorLanding';
 import { loadingOn, loadingOff } from '@store/modules/layout/actions';
 import VersionCheck from 'react-native-version-check';
 import { useTranslation } from 'react-i18next';
+import NetInfo from '@react-native-community/netinfo';
+import LostConnection from '@screens/LostConnection';
 import { AppDrawerScreen } from '../Drawer';
 import { AuthStackScreen } from '../Auth';
 
@@ -68,6 +70,7 @@ const RootStackScreen = () => {
   const isOut = useSelector((state: AppState) => state.layout.out);
   const dispatch = useDispatch();
   const { t } = useTranslation('layout');
+  const [lostConnection, setLostConnection] = useState(false);
 
   const checkVersion = async () => {
     try {
@@ -102,6 +105,17 @@ const RootStackScreen = () => {
     }
 
     checkVersion();
+
+    const unsubscribe = NetInfo.addEventListener((state) => {
+      if (!state.isConnected) {
+        setLostConnection(true);
+      } else {
+        setLostConnection(false);
+      }
+    });
+    return () => {
+      unsubscribe();
+    };
   }, []);
 
   return (
@@ -115,6 +129,8 @@ const RootStackScreen = () => {
           <RootStack.Screen name="Storybook" component={Storybook} />
         ) : isLoading ? (
           <RootStack.Screen name="Loading" component={Loading} />
+        ) : lostConnection ? (
+          <RootStack.Screen name="LostConnection" component={LostConnection} />
         ) : isOut ? (
           <RootStack.Screen name="Out" component={Error} />
         ) : user.isLogged ? (
