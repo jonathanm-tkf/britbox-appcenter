@@ -5,7 +5,7 @@
     "screentitle": "Account Details",
     "yourdetails": {
       "title": "Your Details",
-      "screentitle": "Upgrade your Details",
+      "screentitle": "Upgrade your details",
       "bottomtext": "Your information will be used in accordance with our"
     },
     "password": {
@@ -32,7 +32,7 @@
     "setPINDesc": "Your PIN will be set across all browsers and devices when you access BritBox programmes.",
     "clearall": "Clear all",
     "PINerror": "Pin must be 4 digits.",
-    "levelText": "Step 2: Set level of viewing restriction"
+    "levelText": "Step 2: Set level for viewing restriction"
   },
   "help": "Help",
   "termscondition": "Terms & Conditions",

@@ -67,6 +67,10 @@ export const Gradient = styled(LinearGradient).attrs({
 
 export const ScrollView = styled.ScrollView.attrs({
   showsVerticalScrollIndicator: false,
+  contentContainerStyle: {
+    flexGrow: 1,
+    justifyContent: 'center',
+  },
 })``;
 
 export const Paragraph = styled.Text`
