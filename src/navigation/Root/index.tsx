@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import React, { useEffect } from 'react';
+import React, { useEffect, useCallback } from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { useSelector, useDispatch } from 'react-redux';
 import { AppState } from '@store/modules/rootReducer';
@@ -12,7 +12,7 @@ import Loading from '@screens/Loading';
 // import { getConfigRequest } from '@store/modules/user/saga';
 import { homeRequest } from '@store/modules/home/actions';
 import ModalSeasons from '@screens/ModalSeasons';
-import { Animated } from 'react-native';
+import { Animated, Alert, Linking, BackHandler } from 'react-native';
 import { ThemeProps } from '@store/modules/theme/types';
 import ModalMoreInformation from '@screens/ModalMoreInformation';
 import Orientation from 'react-native-orientation-locker';
@@ -23,6 +23,8 @@ import ModalPrivacyPolicy from '@screens/PrivacyPolicy';
 import { Segment } from '@store/modules/core/types';
 import ErrorLanding from '@components/ErrorLanding';
 import { loadingOn, loadingOff } from '@store/modules/layout/actions';
+import VersionCheck from 'react-native-version-check';
+import { useTranslation } from 'react-i18next';
 import { AppDrawerScreen } from '../Drawer';
 import { AuthStackScreen } from '../Auth';
 
@@ -65,12 +67,41 @@ const RootStackScreen = () => {
   const isLoading = useSelector((state: AppState) => state.layout.loading);
   const isOut = useSelector((state: AppState) => state.layout.out);
   const dispatch = useDispatch();
+  const { t } = useTranslation('layout');
+
+  const checkVersion = async () => {
+    try {
+      const updatedNeeded = await VersionCheck.needUpdate();
+
+      if (updatedNeeded && updatedNeeded.isNeeded) {
+        Alert.alert(
+          t('updateNeeded.title'),
+          t('updateNeeded.message'),
+          [
+            {
+              text: t('updateNeeded.button'),
+              onPress: () => {
+                BackHandler.exitApp();
+                Linking.openURL(updatedNeeded.storeUrl);
+              },
+            },
+          ],
+          {
+            cancelable: false,
+          }
+        );
+      }
+      // eslint-disable-next-line no-empty
+    } catch (error) {}
+  };
 
   useEffect(() => {
     Orientation.lockToPortrait();
     if (!user.isLogged) {
       dispatch(loadingOff());
     }
+
+    checkVersion();
   }, []);
 
   return (
