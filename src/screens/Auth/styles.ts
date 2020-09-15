@@ -61,7 +61,6 @@ export const Content = styled.View``;
 export const Gradient = styled(LinearGradient).attrs({
   colors: ['#202634', '#171B23'],
 })`
-  flex: 1;
   justify-content: center;
 `;
 
@@ -77,8 +76,8 @@ export const Paragraph = styled.Text`
   text-align: center;
   margin-left: 40px;
   margin-right: 40px;
-  margin-top: 20px;
-  margin-bottom: 20px;
+  margin-top: 15px;
+  margin-bottom: 5px;
   font-size: 16px;
   color: ${(props: ThemeState) => props.theme.PRIMARY_FOREGROUND_COLOR};
 `;

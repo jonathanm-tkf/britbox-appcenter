@@ -1,5 +1,3 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from 'react';
 import { KeyboardAvoidingView, Platform } from 'react-native';
@@ -34,17 +32,25 @@ import {
   RadioUnCheckedIconView,
   LinkText,
   ErrorText,
+  SeparatorWrapper,
+  LoginTitle,
 } from './styles';
 
 const flex = {
   flex: 1,
 };
+
 const evergentSignupResponseError: EvergentSignupResponseError = {
   responseCode: 0,
   failureMessage: [],
 };
 
 const cancelStyle = { marginTop: 15, borderWidth: 0 };
+
+const loginStyle = {
+  paddingLeft: 65,
+  paddingRight: 65,
+};
 
 const SignUp = () => {
   const dispatch = useDispatch();
@@ -469,6 +475,18 @@ const SignUp = () => {
                 <CancelText>{t('cancel')}</CancelText>
               </Button>
             </Container>
+            <SeparatorWrapper>
+              <LoginTitle>Already have an account?</LoginTitle>
+              <Button
+                onPress={() => navigation.navigate('Login')}
+                outline
+                size="big"
+                fontWeight="medium"
+                style={loginStyle}
+              >
+                <CancelText>{t('signin:signin')}</CancelText>
+              </Button>
+            </SeparatorWrapper>
             {termsPrivacyView()}
           </ScrollView>
         </KeyboardAvoidingView>

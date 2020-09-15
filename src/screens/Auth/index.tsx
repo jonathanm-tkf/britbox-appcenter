@@ -120,7 +120,7 @@ const Auth = () => {
   return (
     <>
       <HeaderWrapper>
-        <Header hideSignIn={!isFocused} />
+        <Header hideSignIn={!isFocused} isCenter />
       </HeaderWrapper>
       <ScrollView>
         <ImageCacheProvider urlsToPreload={images}>
