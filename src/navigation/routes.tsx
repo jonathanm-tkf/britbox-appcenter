@@ -10,7 +10,7 @@ import KochavaTracker from 'react-native-kochava-tracker';
 import NetInfo from '@react-native-community/netinfo';
 import { isTablet, getSystemVersion, getSystemName, getDeviceName } from 'react-native-device-info';
 import { connection, hideSheetBottom } from '@store/modules/layout/actions';
-import { refreshToken } from '@src/services/token';
+import { randomString, refreshToken } from '@src/services/token';
 import { refreshTokenSuccess } from '@store/modules/user/actions';
 import { WebView } from 'react-native-webview';
 import Constants from '@src/config/Constants';
@@ -27,14 +27,6 @@ KochavaTracker.configure(configMapObject);
 
 type Access = {
   refreshToken: string;
-};
-
-const uuid = () => {
-  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (c) => {
-    const r = Math.random() * 16 || 0;
-    const v = c === 'x' ? r : (r && 0x3) || 0x8;
-    return v.toString(16);
-  });
 };
 
 type Profile = {
@@ -165,7 +157,12 @@ export default () => {
         <RootStackScreen />
       </NavigationContainer>
       <View style={webViewStyles}>
-        <WebView ref={webViewRef} source={{ uri: `${Constants.analitycs}?id=${uuid()}` }} />
+        <WebView
+          ref={webViewRef}
+          source={{
+            uri: `${Constants.analitycs}?id=${randomString()}&platform=${getSystemName()}`,
+          }}
+        />
       </View>
       <RBSheet
         ref={sheetRef}

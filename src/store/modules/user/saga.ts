@@ -10,6 +10,7 @@ import {
   BritboxAPIAccountModelsAuthorizationForgotContactPasswordRequest,
 } from '@src/sdks/Britbox.API.Account.TS/api';
 import { PayloadAction } from 'typesafe-actions';
+import { refreshToken } from '@src/services/token';
 import {
   UserActionTypes,
   UserLogin,
@@ -25,10 +26,13 @@ import {
   logoutSuccess,
   watchlistRequestAdd,
   watchlistRequestRemove,
+  refreshTokenSuccess,
 } from './actions';
 import { AppState } from '../rootReducer';
 
 const getToken = (state: AppState) => state.user.access as EvergentLoginResponse;
+
+const getRefreshToken = (state: AppState) => state.user.access as EvergentLoginResponse;
 
 export async function profile(token: string) {
   const { getProfile } = BritboxAccountApi({
@@ -195,6 +199,18 @@ export async function addSubscriptionRequest(
 export function* getProfileRequest() {
   try {
     const { accessToken } = yield select(getToken);
+    const { refreshToken: refreshTokenState } = yield select(getRefreshToken);
+
+    const { response: responseRefreshToken } = yield call(
+      refreshToken,
+      accessToken,
+      refreshTokenState
+    );
+
+    if (responseRefreshToken) {
+      yield put(refreshTokenSuccess(responseRefreshToken));
+    }
+
     const { response: responseProfile } = yield call(profile, accessToken);
     const { response: responseAccountDetail } = yield call(getAccountDetail, accessToken);
     yield put(profileRequestSuccess({ ...responseProfile, ...responseAccountDetail }));

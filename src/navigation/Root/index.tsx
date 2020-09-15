@@ -104,7 +104,7 @@ const RootStackScreen = () => {
       dispatch(loadingOff());
     }
 
-    checkVersion();
+    // checkVersion();
 
     const unsubscribe = NetInfo.addEventListener((state) => {
       if (!state.isConnected) {

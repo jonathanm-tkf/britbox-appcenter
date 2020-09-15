@@ -86,23 +86,16 @@ const VideoPlayer = () => {
         alignItems: 'center',
       }}
     >
-      {/* <BackButton onPress={() => backArrow()}>
-        <BackIcon />
-      </BackButton> */}
-
       {token && (
         <WebView
-          source={{
-            uri: `${Constants.url_player}?country=${segment?.toLocaleLowerCase()}&videoid=${
-              params.item.id
-            }&token=${token}&ert=${refreshToken}&isTrailer=false&connection=${
-              connection === 'wifi' && isTablet()
-                ? 'mobile-tablet-main'
-                : connection === 'wifi'
-                ? 'mobile-phone-main'
-                : 'mobile-cellular-main'
-            }`,
+          style={webview}
+          onMessage={(event) => {
+            const { data } = event.nativeEvent;
+            const { message } = JSON.parse(data);
+            processMessage(message);
           }}
+          // onError={(error) => console.tron.log(error)}
+          cacheEnabled={false}
           // onLoad={() =>
           //   console.tron.log({
           //     uri: `${Constants.url_player}?country=${segment?.toLocaleLowerCase()}&videoid=${
@@ -116,15 +109,21 @@ const VideoPlayer = () => {
           //     }`,
           //   })
           // }
-          // onHttpError={(error) => console.tron.log({ error })}
-          // onError={(error) => console.tron.log({ error })}
-          onMessage={(event) => {
-            const { data } = event.nativeEvent;
-            const { message } = JSON.parse(data);
-            processMessage(message);
-          }}
+          allowsLinkPreview={false}
+          originWhitelist={['*']}
+          javaScriptEnabled
           allowsInlineMediaPlayback
-          style={webview}
+          source={{
+            uri: `${Constants.url_player}?country=${segment?.toLocaleLowerCase()}&videoid=${
+              params.item.id
+            }&token=${token}&ert=${refreshToken}&isTrailer=false&connection=${
+              connection === 'wifi' && isTablet()
+                ? 'mobile-tablet-main'
+                : connection === 'wifi'
+                ? 'mobile-phone-main'
+                : 'mobile-cellular-main'
+            }`,
+          }}
         />
       )}
     </View>

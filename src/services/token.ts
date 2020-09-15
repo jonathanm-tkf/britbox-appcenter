@@ -1,3 +1,5 @@
+/* eslint-disable no-plusplus */
+/* eslint-disable @typescript-eslint/camelcase */
 import { decode as atob } from 'base-64';
 import { BritboxAccountApi } from '@src/sdks';
 
@@ -39,4 +41,23 @@ export const refreshToken = async (token: string, refresh: string) => {
   }
 
   return false;
+};
+
+export const randomString = () => {
+  const chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz';
+  const string_length = 8;
+  let randomstring = '';
+  for (let i = 0; i < string_length; i++) {
+    const rnum = Math.floor(Math.random() * chars.length);
+    randomstring += chars.substring(rnum, rnum + 1);
+  }
+  return randomstring;
+};
+
+export const uuid = () => {
+  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (c) => {
+    const r = Math.random() * 16 || 0;
+    const v = c === 'x' ? r : (r && 0x3) || 0x8;
+    return v.toString(16);
+  });
 };
