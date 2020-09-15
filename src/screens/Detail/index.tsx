@@ -47,7 +47,8 @@ type DetailScreenRouteProp = RouteProp<RootParamList, 'Detail'>;
 const Detail = () => {
   const { params } = useRoute<DetailScreenRouteProp>();
   const { item, seasonModal } = params || undefined;
-  const { goBack, navigate } = useNavigation();
+  // const { goBack, navigate } = useNavigation();
+  const navigation = useNavigation();
   const [showBlueView, setShowBlueView] = useState(false);
   const [tabsOffset, setTabsOffset] = useState(false);
   const [animatedOpacityValue] = useState(new Animated.Value(0));
@@ -122,7 +123,8 @@ const Detail = () => {
   }, [seasonModal]);
 
   const back = () => {
-    goBack();
+    // goBack();
+    navigation.goBack();
   };
 
   useEffect(() => {
@@ -159,7 +161,7 @@ const Detail = () => {
       return CastVideo(item);
     }
 
-    return navigate('VideoPlayer', { item });
+    return navigation.navigate('VideoPlayer', { item });
   };
 
   const getCategories = (information: any): any[] => {

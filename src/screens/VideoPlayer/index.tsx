@@ -10,6 +10,7 @@ import Constants from '@src/config/Constants';
 import NetInfo, { NetInfoStateType } from '@react-native-community/netinfo';
 import { isTablet } from 'react-native-device-info';
 import { MassiveSDKModelItemSummary } from '@src/sdks/Britbox.API.Content.TS/api';
+import { immersiveModeOn, immersiveModeOff } from 'react-native-android-immersive-mode';
 
 const { width, height } = Dimensions.get('window');
 
@@ -48,6 +49,7 @@ const VideoPlayer = () => {
 
   const handleBackButtonClick = () => {
     Orientation.lockToPortrait();
+    immersiveModeOff();
     backArrow();
     return true;
   };
@@ -55,6 +57,7 @@ const VideoPlayer = () => {
   useEffect(() => {
     let unmonted = false;
     Orientation.lockToLandscape();
+    immersiveModeOn();
     StatusBar.setHidden(true);
     BackHandler.addEventListener('hardwareBackPress', handleBackButtonClick);
 
@@ -73,6 +76,7 @@ const VideoPlayer = () => {
 
   const backArrow = () => {
     Orientation.lockToPortrait();
+    immersiveModeOff();
     StatusBar.setHidden(false);
     goBack();
   };

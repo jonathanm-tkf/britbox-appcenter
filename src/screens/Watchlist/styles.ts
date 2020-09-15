@@ -6,6 +6,7 @@ import {
   Paragraph as ParagraphC,
   Headline as HeadlineC,
 } from '@components/Typography';
+import { rgba } from 'polished';
 
 export const Container = styled.View`
   flex: 1;
@@ -41,4 +42,22 @@ export const BottomSheetWrapper = styled.View`
   padding-left: 20px;
   padding-right: 20px;
   align-self: stretch;
+`;
+
+export const FilterText = styled.Text`
+  font-family: ${(props: ThemeState) => props.theme.PRIMARY_FONT_FAMILY};
+  color: ${(props: ThemeState) => rgba(props.theme.PRIMARY_FOREGROUND_COLOR, 0.6)};
+  margin-right: 10px;
+`;
+
+export const FilterButton = styled.TouchableOpacity`
+  flex-direction: row;
+  position: absolute;
+  height: 50px;
+  line-height: 50px;
+  right: 10px;
+  top: 0;
+  justify-content: center;
+  align-items: center;
+  z-index: 2;
 `;
