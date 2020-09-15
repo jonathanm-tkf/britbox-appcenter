@@ -2,15 +2,10 @@ import { StyleSheet, Dimensions } from 'react-native';
 import styled from 'styled-components/native';
 import { ThemeState } from '@store/modules/theme/types';
 
-const { width: viewportWidth, height: viewportHeight } = Dimensions.get('window');
+const { width: viewportWidth } = Dimensions.get('window');
 
 function wp(percentage: any) {
   const value = (percentage * viewportWidth) / 100;
-  return Math.round(value);
-}
-
-function hp(percentage: any) {
-  const value = (percentage * viewportHeight) / 100;
   return Math.round(value);
 }
 
@@ -32,16 +27,13 @@ export default StyleSheet.create({
     alignItems: 'center',
   },
   imageContainer: {
-    minHeight: 350,
-    height: hp(50),
-    paddingHorizontal: wp(10),
-    alignItems: 'center',
-    justifyContent: 'center',
+    flex: 1,
+    paddingHorizontal: wp(5),
   },
 });
 
 export const Title = styled.Text`
-  margin-top: 6px;
+  margin-top: 15px;
   color: ${(props: ThemeState) => props.theme.PRIMARY_FOREGROUND_COLOR};
   font-family: ${(props: ThemeState) => props.theme.PRIMARY_FONT_FAMILY};
   font-size: 30px;
@@ -52,6 +44,7 @@ export const Subtitle = styled.Text`
   margin-left: 10px;
   margin-right: 10px;
   margin-top: 6px;
+  margin-bottom: 6px;
   color: ${(props: ThemeState) => props.theme.PRIMARY_FOREGROUND_COLOR};
   font-family: ${(props: ThemeState) => props.theme.PRIMARY_FONT_FAMILY};
   font-size: 14px;
