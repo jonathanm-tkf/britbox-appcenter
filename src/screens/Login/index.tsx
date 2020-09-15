@@ -16,6 +16,7 @@ import { useNavigation } from '@react-navigation/native';
 import ModalCustom from '@components/ModalCustom';
 import { validateEmail } from '@src/utils/validations';
 import {
+  Logo,
   Container,
   ErrorText,
   ScrollView,
@@ -234,6 +235,7 @@ const Login = () => {
 
   return (
     <>
+      {Platform.OS === 'android' && <Logo />}
       <CloseButton onPress={() => navigation.goBack()}>
         <CloseIcon width={32} height={32} />
       </CloseButton>
