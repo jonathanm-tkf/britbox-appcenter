@@ -98,7 +98,7 @@ export const TextWrapper = styled.View`
 `;
 
 export const Title = styled.Text.attrs({
-  numberOfLines: 2,
+  numberOfLines: 1,
 })`
   color: ${(props: ThemeState) => props.theme.PRIMARY_FOREGROUND_COLOR};
   font-family: ${(props: ThemeState) => props.theme.PRIMARY_FONT_FAMILY_MEDIUM};

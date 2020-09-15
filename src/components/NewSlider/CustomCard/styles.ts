@@ -5,6 +5,7 @@ import LinearGradient from 'react-native-linear-gradient';
 import { rgba } from 'polished';
 import { ThemeState } from '@store/modules/theme/types';
 import TouchableScaleC from 'react-native-touchable-scale';
+import { widthPercentageToDP as vw } from 'react-native-responsive-screen';
 
 const IS_IOS = Platform.OS === 'ios';
 const { width: viewportWidth } = Dimensions.get('window');
@@ -15,7 +16,7 @@ const wp = (percentage: number) => {
 };
 
 // Normal
-const slideHeight = 216;
+const slideHeight = vw(52);
 const slideWidth = wp(85);
 const itemHorizontalMargin = wp(0);
 
@@ -23,8 +24,8 @@ export const sliderWidth = viewportWidth;
 export const itemWidth = slideWidth + itemHorizontalMargin * 2;
 
 // Slim
-const slideHeightSlim = 275;
-const slideWidthSlim = 185;
+const slideHeightSlim = 274;
+const slideWidthSlim = 171;
 const itemHorizontalMarginSlim = 7;
 
 export const sliderWidthSlim = viewportWidth;
@@ -97,14 +98,14 @@ export const TouchableScale = styled(TouchableScaleC)`
     props.slim ? itemHorizontalMarginSlim : itemHorizontalMargin}px;
   padding-bottom: 18px;
 
-  ${(props: TouchableScale) => {
+  /* ${(props: TouchableScale) => {
     return (
       props.slim &&
       `
       height: 275px;
     `
     );
-  }};
+  }}; */
 `;
 
 export const ImageContainer = styled.View`

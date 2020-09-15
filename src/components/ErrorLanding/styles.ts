@@ -37,7 +37,7 @@ export const LinkTitle = styled.Text`
 
 export const LogoContainer = styled.View`
   position: absolute;
-  top: ${getStatusBarHeight()}px;
+  top: ${getStatusBarHeight() + 40}px;
   width: 100%;
   align-items: center;
   padding-bottom: 20px;

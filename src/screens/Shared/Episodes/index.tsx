@@ -50,13 +50,11 @@ const Episodes = ({ item }: Props) => {
         renderItem={({ item: card }: { item: MassiveSDKModelItemSummary }) => {
           return (
             <Card
-              isEpisode={card.type === 'movie' || card.type === 'episode'}
+              isEpisode={card.type === 'episode'}
               width={187}
               height={105}
               url={getImage(
-                card.type === 'movie' || card.type === 'episode'
-                  ? card.images?.wallpaper
-                  : card.images?.tile,
+                card.type === 'episode' ? card.images?.wallpaper : card.images?.tile,
                 'wallpaper'
               )}
               resizeMode={card.type === 'movie' || card.type === 'episode' ? 'cover' : 'contain'}
@@ -65,7 +63,7 @@ const Episodes = ({ item }: Props) => {
                 title: card.type === 'episode' ? card?.showTitle || '' : card?.title || '',
                 description:
                   card.type === 'episode'
-                    ? `Episode ${card.episodeNumber}`
+                    ? `${card.seasonTitle}・${card.episodeName}`
                     : `${getDuration(card?.duration || 0)} min`,
                 // description:
                 //   card.type === 'movie'

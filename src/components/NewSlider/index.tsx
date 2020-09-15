@@ -1,15 +1,13 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useState } from 'react';
-import { StyleSheet, Dimensions, Platform } from 'react-native';
+import { StyleSheet, Dimensions } from 'react-native';
 import Carousel from 'react-native-snap-carousel';
 import { MassiveSDKModelItemList } from '@src/sdks/Britbox.API.Content.TS/api';
 import { getImage } from '@src/utils/images';
 import ContentLoader, { Rect } from 'react-content-loader/native';
 import { useSelector } from 'react-redux';
 import { AppState } from '@store/modules/rootReducer';
-import { getStatusBarHeight } from 'react-native-iphone-x-helper';
 import { navigateByPath } from '@src/navigation/rootNavigation';
+import { hp } from '@src/utils/dimension';
 import CustomCard from './CustomCard';
 import { sliderWidth, itemWidth, sliderWidthSlim, itemWidthSlim } from './CustomCard/styles';
 import {
@@ -141,9 +139,7 @@ const NewSlider = ({
   const stylesContainer =
     slim || collection
       ? {
-          top: slim
-            ? getStatusBarHeight() + (Platform.OS === 'ios' ? 50 : 20)
-            : getStatusBarHeight() + (Platform.OS === 'ios' ? 90 : 60),
+          bottom: slim ? -hp(40) : 0,
           position: 'absolute',
         }
       : {};

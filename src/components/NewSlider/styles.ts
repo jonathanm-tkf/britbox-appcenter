@@ -2,6 +2,8 @@ import styled from 'styled-components/native';
 import { ThemeState } from '@store/modules/theme/types';
 import { Animated, ImageBackground, Dimensions, Platform } from 'react-native';
 import { Button as ButtonC } from '@components/Button';
+import { hp } from '@src/utils/dimension';
+import { getStatusBarHeight } from 'react-native-iphone-x-helper';
 
 const { width } = Dimensions.get('window');
 
@@ -19,12 +21,11 @@ type CarouselProps = {
 
 export const SliderWrapper = styled.View`
   width: ${width}px;
-  margin-bottom: 23px;
   ${(props: CarouselProps) => {
     return (
       props.collection &&
       `
-      min-height: 300px;
+      min-height: 280px;
     `
     );
   }};
@@ -32,7 +33,7 @@ export const SliderWrapper = styled.View`
     return (
       props.slim &&
       `
-      min-height: 300px;
+      min-height: 280px;
       margin-bottom: 50px;
     `
     );
@@ -46,14 +47,17 @@ export const Slider = styled(AnimatedImage).attrs({
   width: ${width}px;
   align-items: center;
   justify-content: center;
-  margin-bottom: 10px;
   opacity: 0.3;
+  margin-top: 10px;
   ${(props: CarouselProps) => {
     return props.slim || props.collection
       ? Platform.OS === 'ios'
-        ? `min-height: 300px;`
+        ? `min-height: ${hp(230)}px;`
         : `min-height: 270px;`
       : ``;
+  }};
+  ${(props: CarouselProps) => {
+    return (props.slim || props.collection) && `margin-bottom: ${getStatusBarHeight() + 20}px;`;
   }};
 `;
 

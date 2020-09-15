@@ -13,6 +13,7 @@ import Shimmer from '@components/Shimmer';
 import { Title, Paragraph } from '@components/Typography';
 import { Button } from '@components/Button';
 import { useTranslation } from 'react-i18next';
+import { widthPercentageToDP as vw } from 'react-native-responsive-screen';
 import { Container, BackgroundImge, Card, Wrapper, InnerContent, TextWrapper } from './styles';
 
 const { width } = Dimensions.get('window');
@@ -38,7 +39,7 @@ const OurFavorites = ({ data, onPress }: Props) => {
   const image = getImage(element.images?.tile || '', 'wallpaper');
   return (
     <Container>
-      <Card url={image} width={width - 40} height={210} />
+      <Card url={image} width={width - 40} height={vw(50)} />
       <BackgroundImge source={{ uri: image }} onLoad={() => setLoading(true)} />
 
       <Wrapper {...{ loading }}>

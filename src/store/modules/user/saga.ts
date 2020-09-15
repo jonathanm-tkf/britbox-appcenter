@@ -206,13 +206,14 @@ export function* getProfileRequest() {
       accessToken,
       refreshTokenState
     );
-
+    let token = accessToken;
     if (responseRefreshToken) {
       yield put(refreshTokenSuccess(responseRefreshToken));
+      token = responseRefreshToken.accessToken;
     }
 
-    const { response: responseProfile } = yield call(profile, accessToken);
-    const { response: responseAccountDetail } = yield call(getAccountDetail, accessToken);
+    const { response: responseProfile } = yield call(profile, token);
+    const { response: responseAccountDetail } = yield call(getAccountDetail, token);
     yield put(profileRequestSuccess({ ...responseProfile, ...responseAccountDetail }));
   } catch (error) {
     // Sentry.captureException({ error, logger: 'user get profile' });
@@ -424,5 +425,4 @@ export default all([
   takeLatest(UserActionTypes.WATCHLIST_TOGGLE_REQUEST, watchlistToggleRequest),
   takeLatest(UserActionTypes.LOGOUT, logout),
   takeLatest(UserActionTypes.GET_PROFILE_REQUEST, getProfileRequest),
-  takeLatest(UserActionTypes.PERSIST_REHYDRATE, getProfileRequest),
 ]);

@@ -11,7 +11,7 @@ import NetInfo from '@react-native-community/netinfo';
 import { isTablet, getSystemVersion, getSystemName, getDeviceName } from 'react-native-device-info';
 import { connection, hideSheetBottom } from '@store/modules/layout/actions';
 import { randomString, refreshToken } from '@src/services/token';
-import { refreshTokenSuccess } from '@store/modules/user/actions';
+import { getProfileRequest, refreshTokenSuccess } from '@store/modules/user/actions';
 import { WebView } from 'react-native-webview';
 import Constants from '@src/config/Constants';
 import { TrackPageView } from '@src/services/analytics';
@@ -73,6 +73,7 @@ export default () => {
     AppStateRN.addEventListener('change', (event) => {
       if (event === 'active') {
         dispatch(configRequest());
+        dispatch(getProfileRequest());
       }
     });
 
