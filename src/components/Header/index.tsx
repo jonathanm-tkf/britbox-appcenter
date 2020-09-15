@@ -8,7 +8,7 @@ import { AppState } from '@store/modules/rootReducer';
 import Animated from 'react-native-reanimated';
 import { useNavigation } from '@react-navigation/native';
 import { navigateByPath } from '@src/navigation/rootNavigation';
-import { Container, Logo, LinksList, Gradient } from './styles';
+import { Container, Logo, LinksList, Gradient, CenterLogoWrapper, Content } from './styles';
 
 interface DataElement {
   text: string;
@@ -34,6 +34,7 @@ interface Item {
 interface Props {
   hideSignIn?: boolean;
   shadow?: boolean;
+  isCenter?: boolean;
 }
 
 type MenuItem = {
@@ -42,7 +43,7 @@ type MenuItem = {
   goTo: string;
 };
 
-export default function Header({ hideSignIn, shadow }: Props) {
+export default function Header({ hideSignIn, shadow, isCenter }: Props) {
   const { t } = useTranslation('layout');
   const isLogged = useSelector((state: AppState) => state.core.isLogged);
   const menu = useSelector((state: AppState) => state.core.menu?.navigation?.header); // TODO: get data from properties
@@ -69,9 +70,19 @@ export default function Header({ hideSignIn, shadow }: Props) {
   const toggleSignIn = (goTo: string) => {
     navigate(goTo);
   };
+
   return (
     <Container>
-      <Logo />
+      {isCenter ? (
+        <>
+          <CenterLogoWrapper>
+            <Logo />
+          </CenterLogoWrapper>
+          <Content />
+        </>
+      ) : (
+        <Logo />
+      )}
       {!hideSignIn && (
         <Animated.View>
           {!isLogged ? (

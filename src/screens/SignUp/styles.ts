@@ -7,7 +7,6 @@ export const Container = styled.View`
   flex: 1;
   padding: 30px 20px 15px 20px;
   justify-content: center;
-  margin-bottom: 10px;
   border-bottom-width: 1px;
   border-color: ${(props: ThemeState) => props.theme.PRIMARY_COLOR_OPAQUE};
   background-color: ${(props: ThemeState) => props.theme.PRIMARY_COLOR};
@@ -109,3 +108,20 @@ export const RadioUnCheckedIconView = styled(RadioUnCheckedIcon).attrs({
   height: 30,
   width: 30,
 })``;
+
+export const SeparatorWrapper = styled.View`
+  border-bottom-width: 1px;
+  background-color: ${(props: ThemeState) => props.theme.PRIMARY_COLOR};
+  border-color: ${(props: ThemeState) => props.theme.PRIMARY_COLOR_OPAQUE};
+  padding-bottom: 25px;
+`;
+
+export const LoginTitle = styled.Text`
+  margin-top: 30px;
+  margin-bottom: 20px;
+  color: ${(props: ThemeState) => props.theme.PRIMARY_FOREGROUND_COLOR};
+  font-size: 20px;
+  font-weight: 700;
+  text-align: center;
+  font-family: ${(props: ThemeState) => props.theme.PRIMARY_FONT_FAMILY_BOLD};
+`;

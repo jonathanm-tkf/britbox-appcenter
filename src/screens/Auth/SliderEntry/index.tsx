@@ -1,28 +1,22 @@
 /* eslint-disable react/prop-types */
 import React, { Component } from 'react';
-import { View, Image } from 'react-native';
-import { ParallaxImage } from 'react-native-snap-carousel';
+import { View, ActivityIndicator } from 'react-native';
+import { CachedImage } from 'react-native-cached-image';
 import styles, { Subtitle, Title } from './styles';
 
 export default class SliderEntry extends Component {
   get image() {
     const {
       data: { illustration },
-      parallax,
-      parallaxProps,
     } = this.props;
 
-    return parallax ? (
-      <ParallaxImage
+    return (
+      <CachedImage
         source={{ uri: illustration }}
         style={styles.image}
-        parallaxFactor={0.35}
-        showSpinner
-        spinnerColor="rgba(255, 255, 255, 1)"
-        {...parallaxProps}
+        loadingIndicator={() => <ActivityIndicator size="large" color="rgba(255, 255, 255, 1)" />}
+        resizeMode="contain"
       />
-    ) : (
-      <Image source={illustration} style={styles.image} resizeMode="contain" />
     );
   }
 

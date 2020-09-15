@@ -232,27 +232,23 @@ const Login = () => {
     dispatch(loginRequestErrorClear());
   }, []);
 
+  const contentContainer = {
+    flexgrow: 1,
+    backgroundColor: theme.PRIMARY_COLOR,
+  };
+
   return (
     <>
       <CloseButton onPress={() => navigation.goBack()}>
         <CloseIcon width={32} height={32} />
       </CloseButton>
       <KeyboardAvoidingView style={flex} behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
-        <ScrollView bounces={false}>
+        <ScrollView style={contentContainer} bounces={false}>
           <Gradient>
             <Container>
               <TitleWrapper>
                 <Title>{t('signin')}</Title>
               </TitleWrapper>
-              {errorState && (
-                <ErrorText>
-                  {((access as unknown) as EvergentLoginResponseError)?.failureMessage?.reduce(
-                    (item) => item
-                  )?.errorMessage ||
-                    britboxConfig[country]?.login['error-messages']['error-message'] ||
-                    t('error')}
-                </ErrorText>
-              )}
               <Input
                 label={t('signup:field.username')}
                 value={user}
@@ -275,11 +271,11 @@ const Login = () => {
               </ForgotContainer>
               {errorState && (
                 <ErrorText>
-                  {
-                    ((access as unknown) as EvergentLoginResponseError)?.failureMessage?.reduce(
-                      (item) => item
-                    )?.errorMessage
-                  }
+                  {((access as unknown) as EvergentLoginResponseError)?.failureMessage?.reduce(
+                    (item) => item
+                  )?.errorMessage ||
+                    britboxConfig[country]?.login['error-messages']['error-message'] ||
+                    t('error')}
                 </ErrorText>
               )}
               <Button
@@ -317,8 +313,13 @@ const Login = () => {
           {isForgotModalSuccess ? (
             <>
               <ModalSubTitle>
-                {t('forgotpassword.description1')} <EmailLink>{forgotEmail}.</EmailLink>{' '}
-                {t('forgotpassword.description2')}
+                {britboxConfig[country]?.login['forgot-password']['post-message'].split(
+                  '[EMAIL-ADDRESS]'
+                )[0] || t('forgotpassword.description1')}
+                <EmailLink>{forgotEmail}</EmailLink>
+                {britboxConfig[country]?.login['forgot-password']['post-message'].split(
+                  '[EMAIL-ADDRESS]'
+                )[1] || t('forgotpassword.description2')}
               </ModalSubTitle>
               <Button
                 onPress={() => setIsForgotModalVisible(false)}
@@ -333,7 +334,10 @@ const Login = () => {
             </>
           ) : (
             <>
-              <ModalSubTitle>{t('forgotpassword.description3')}</ModalSubTitle>
+              <ModalSubTitle>
+                {britboxConfig[country]?.login['forgot-password']['pre-message'] ||
+                  t('forgotpassword.description3')}
+              </ModalSubTitle>
               <Input
                 label={t('signup:field.email')}
                 value={forgotEmail}

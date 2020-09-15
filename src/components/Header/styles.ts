@@ -1,10 +1,12 @@
 import styled from 'styled-components/native';
 import { ThemeState } from '@store/modules/theme/types';
-import { FlatList, Platform } from 'react-native';
+import { FlatList, Platform, Dimensions } from 'react-native';
 import { getStatusBarHeight } from 'react-native-iphone-x-helper';
 import LinearGradient from 'react-native-linear-gradient';
 import { rgba } from 'polished';
 import LogoBritbox from '../../../assets/images/Logo.svg';
+
+const { width } = Dimensions.get('window');
 
 export const Container = styled.View`
   align-self: stretch;
@@ -15,6 +17,16 @@ export const Container = styled.View`
   padding: 0 0 0 30px;
   /* margin-top: ${`${Platform.OS === 'ios' ? getStatusBarHeight() : 0}px`}; */
   flex-direction: row;
+`;
+
+export const CenterLogoWrapper = styled.View`
+  position: absolute;
+  width: ${width}px;
+  align-items: center;
+`;
+
+export const Content = styled.View`
+  flex: 1;
 `;
 
 export const Logo = styled(LogoBritbox).attrs({

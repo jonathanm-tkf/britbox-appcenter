@@ -483,7 +483,7 @@ export default function ParentalControls() {
                       )
                     )}
                   </TableBtnContainer>
-                  <TableRightText numberOfLines={4}>
+                  <TableRightText>
                     {britboxConfig[country]['parental-controls']?.levels[1]['message-box'] || ''}
                   </TableRightText>
                 </RowContent>
@@ -508,7 +508,7 @@ export default function ParentalControls() {
                       )
                     )}
                   </TableBtnContainer>
-                  <TableRightText numberOfLines={4}>
+                  <TableRightText>
                     {britboxConfig[country]['parental-controls']?.levels[2]['message-box'] || ''}
                   </TableRightText>
                 </RowContent>
@@ -533,7 +533,7 @@ export default function ParentalControls() {
                       )
                     )}
                   </TableBtnContainer>
-                  <TableRightText numberOfLines={4}>
+                  <TableRightText>
                     {britboxConfig[country]['parental-controls']?.levels[3]['message-box'] || ''}
                   </TableRightText>
                 </RowContent>
@@ -558,7 +558,7 @@ export default function ParentalControls() {
                       )
                     )}
                   </TableBtnContainer>
-                  <TableRightText numberOfLines={4}>
+                  <TableRightText>
                     {britboxConfig[country]['parental-controls']?.levels[4]['message-box'] || ''}
                   </TableRightText>
                 </RowContent>
