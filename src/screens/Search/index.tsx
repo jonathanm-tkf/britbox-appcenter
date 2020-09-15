@@ -8,7 +8,6 @@ import { SearchIcon, SearchDeleteIcon } from '@assets/icons';
 import { Button } from '@components/Button';
 import { AppState } from '@store/modules/rootReducer';
 import { useSelector } from 'react-redux';
-import { useFocusEffect } from '@react-navigation/native';
 import { navigateByPath } from '@src/navigation/rootNavigation';
 import { loadCollectionPage } from '@src/services/detail';
 import { MassiveSDKModelItemList } from '@src/sdks/Britbox.API.Account.TS/api';
