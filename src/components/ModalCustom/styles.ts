@@ -10,7 +10,7 @@ export const ModalCenterView = styled.View`
 
 export const ModalView = styled.View`
   width: 90%;
-  max-height: 80%;
+  max-height: 95%;
   background-color: ${(props: ThemeState) => props.theme.PRIMARY_FOREGROUND_COLOR};
   padding-top: 10px;
   padding-bottom: 10px;

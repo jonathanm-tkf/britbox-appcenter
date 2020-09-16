@@ -26,7 +26,9 @@ export default function ModalCustom({
           <CloseModalButton onPress={() => onClose()}>
             <CloseIcon width={32} height={32} fill={theme.PRIMARY_TEXT_COLOR} />
           </CloseModalButton>
-          <ScrollView bounces={false}>{children}</ScrollView>
+          <ScrollView bounces={false} keyboardShouldPersistTaps="handled">
+            {children}
+          </ScrollView>
         </ModalView>
       </ModalCenterView>
     </Modal>
