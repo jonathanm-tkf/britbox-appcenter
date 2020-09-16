@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from 'react';
-import { KeyboardAvoidingView, Platform, TouchableOpacity } from 'react-native';
+import { KeyboardAvoidingView, Platform, TouchableOpacity, Keyboard } from 'react-native';
 
 import { Button } from '@components/Button';
 import { Input } from '@components/Input';
@@ -94,6 +94,7 @@ const Login = () => {
     const hasErrorPassword = doValidatePassword();
 
     if (hasErrorUsername && hasErrorPassword) {
+      Keyboard.dismiss();
       dispatch(
         loginRequest({
           user,
@@ -173,11 +174,7 @@ const Login = () => {
   }, [password]);
 
   useEffect(() => {
-    if (user.trim() !== '') {
-      setErrorForgotEmail({
-        text: '',
-      });
-    }
+    doValidateForgotEmail();
   }, [forgotEmail]);
 
   useEffect(() => {
@@ -189,8 +186,9 @@ const Login = () => {
     setIsForgotModalSuccess(false);
   }, [isForgotModalVisible]);
 
-  const forgorPassword = async () => {
+  const doValidateForgotEmail = () => {
     const hasErrorForgotEmail = forgotEmail.trim() === '';
+    const hasErrorValidEmail = !validateEmail(forgotEmail.trim());
 
     setErrorForgotEmail(
       hasErrorForgotEmail
@@ -201,6 +199,31 @@ const Login = () => {
     );
 
     if (!hasErrorForgotEmail) {
+      setErrorForgotEmail(
+        hasErrorValidEmail
+          ? {
+              text:
+                britboxConfig[country]['account-details']?.validation?.messages['email-invalid'] ||
+                '',
+            }
+          : {
+              text: '',
+            }
+      );
+    }
+
+    if (!hasErrorForgotEmail && !hasErrorValidEmail) {
+      return true;
+    }
+
+    return false;
+  };
+
+  const forgorPassword = async () => {
+    const hasErrorEmail = doValidateForgotEmail();
+
+    if (hasErrorEmail) {
+      Keyboard.dismiss();
       setIsForgotModalLoading(true);
 
       const response = await forgotPasswordRequest({
@@ -243,7 +266,7 @@ const Login = () => {
         <CloseIcon width={32} height={32} />
       </CloseButton>
       <KeyboardAvoidingView style={flex} behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
-        <ScrollView style={contentContainer} bounces={false}>
+        <ScrollView style={contentContainer} keyboardShouldPersistTaps="handled" bounces={false}>
           <Gradient>
             <Container>
               <TitleWrapper>
@@ -342,6 +365,7 @@ const Login = () => {
                 label={t('signup:field.email')}
                 value={forgotEmail}
                 onChangeText={(text) => setForgotEmail(text)}
+                onBlur={() => doValidateForgotEmail()}
                 error={errorForgotEmail}
               />
               <Button

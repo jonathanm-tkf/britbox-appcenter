@@ -309,7 +309,10 @@ export default function MyAccount() {
             key="error"
             visible={errorState}
             type="error"
-            text={britboxConfig[country]['account-details']?.validation['error-message']}
+            text={
+              errorMessage?.failureMessage[0]?.errorMessage ||
+              britboxConfig[country]['account-details']?.validation['error-message']
+            }
           />
           <ErrorBlock
             key="success"

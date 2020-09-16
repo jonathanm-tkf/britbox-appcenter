@@ -107,13 +107,10 @@ export function* loginRequest({
   }
 }
 
-async function signup({
-  firstName,
-  lastName,
-  email,
-  password,
-  alertNotificationEmail,
-}: UserSignUp) {
+async function signup(
+  { firstName, lastName, email, password, alertNotificationEmail }: UserSignUp,
+  country: string
+) {
   const { register } = BritboxAccountApi();
 
   try {
@@ -122,7 +119,7 @@ async function signup({
       lastName,
       email,
       customerPassword: password,
-      country: 'US',
+      country,
       alertNotificationEmail,
       deviceDetails: {
         deviceType: 'android',
@@ -137,9 +134,9 @@ async function signup({
   }
 }
 
-export async function signupRequest(payload: UserSignUp) {
+export async function signupRequest(payload: UserSignUp, country: string) {
   try {
-    const response = await signup(payload);
+    const response = await signup(payload, country);
     return response;
   } catch (error) {
     // Sentry.captureException({ error, logger: 'signup error' });
@@ -161,12 +158,12 @@ export async function forgotPasswordRequest(
   }
 }
 
-export async function getProductsRequest() {
+export async function getProductsRequest(country: string) {
   const { getProducts } = BritboxAccountApi();
 
   try {
     const response = await getProducts({
-      countryCode: 'US',
+      countryCode: country,
       returnAppChannels: 'T',
     });
 
