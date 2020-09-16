@@ -10,7 +10,7 @@ import KochavaTracker from 'react-native-kochava-tracker';
 import NetInfo from '@react-native-community/netinfo';
 import { isTablet, getSystemVersion, getSystemName, getDeviceName } from 'react-native-device-info';
 import { connection, hideSheetBottom } from '@store/modules/layout/actions';
-import { randomString, refreshToken } from '@src/services/token';
+import { randomString, refreshTokenWithExpiresIn } from '@src/services/token';
 import { getProfileRequest, refreshTokenSuccess } from '@store/modules/user/actions';
 import { WebView } from 'react-native-webview';
 import Constants from '@src/config/Constants';
@@ -27,6 +27,7 @@ KochavaTracker.configure(configMapObject);
 
 type Access = {
   refreshToken: string;
+  expiresIn: string;
 };
 
 type Profile = {
@@ -44,6 +45,9 @@ export default () => {
   const { isLogged } = useSelector((state: AppState) => state.user);
   const refresh = useSelector(
     (state: AppState) => (state.user.access as Access)?.refreshToken || ''
+  );
+  const expiresIn = useSelector(
+    (state: AppState) => (state.user.access as Access)?.expiresIn || ''
   );
 
   const webViewRef = useRef<any>(undefined);
@@ -73,9 +77,10 @@ export default () => {
     AppStateRN.addEventListener('change', (event) => {
       if (event === 'active') {
         dispatch(configRequest());
-        dispatch(getProfileRequest());
       }
     });
+
+    dispatch(getProfileRequest());
 
     if (!unmonted) {
       NetInfo.fetch().then((state) => {
@@ -105,7 +110,7 @@ export default () => {
   }, [isSheetVisible]);
 
   const handleNavigationChange = async () => {
-    const { response } = await refreshToken(token, refresh);
+    const { response } = await refreshTokenWithExpiresIn(expiresIn, refresh);
 
     if (response) {
       dispatch(refreshTokenSuccess({ ...response }));

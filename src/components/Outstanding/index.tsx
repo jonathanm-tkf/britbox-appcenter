@@ -21,6 +21,7 @@ import {
   Pagination,
   PaginationContent,
   WrapperButton,
+  Wrapper,
 } from './styles';
 
 interface Props {
@@ -49,52 +50,54 @@ const Outstanding = ({ items, onPlay, onWatchlist, onDiscoverMore }: Props) => {
     checkIsInWatchingList(bookmarklist?.items || [], id || '0') === 3;
 
   return (
-    <Swiper
-      renderPagination={(index, total) => (
-        <PaginationWrapper>
-          <PaginationContent />
-          <Pagination dotsLength={total} activeDotIndex={index} />
-        </PaginationWrapper>
-      )}
-    >
-      {items.map((item: any, key: any) => (
-        <Slider key={key.toString()}>
-          <Container>
-            <GradientTop />
-            {item.url === 'no-image' ? (
-              <LogoWrapper>
-                <Logo width="80%" />
-              </LogoWrapper>
-            ) : (
-              <WrapperButton onPress={() => (onDiscoverMore ? onDiscoverMore(item) : {})}>
-                <Image style={image} source={{ uri: item.url }} resizeMode="cover" />
-              </WrapperButton>
-            )}
-            <Gradient />
-          </Container>
-          <Actions>
-            <ActionButton
-              onPress={() =>
-                onWatchlist ? onWatchlist(item, getIsInWatchlist(item?.id || '0')) : {}
-              }
-            >
-              {getIsInWatchlist(item?.id || '0') ? (
-                <CheckedIcon fill="#FFFFFF" width={32} height={32} />
+    <Wrapper>
+      <Swiper
+        renderPagination={(index, total) => (
+          <PaginationWrapper>
+            <PaginationContent />
+            <Pagination dotsLength={total} activeDotIndex={index} />
+          </PaginationWrapper>
+        )}
+      >
+        {items.map((item: any, key: any) => (
+          <Slider key={key.toString()}>
+            <Container>
+              <GradientTop />
+              {item.url === 'no-image' ? (
+                <LogoWrapper>
+                  <Logo width="80%" />
+                </LogoWrapper>
               ) : (
-                <WatchlistIcon width={32} height={32} />
+                <WrapperButton onPress={() => (onDiscoverMore ? onDiscoverMore(item) : {})}>
+                  <Image style={image} source={{ uri: item.url }} resizeMode="cover" />
+                </WrapperButton>
               )}
-            </ActionButton>
-            <ActionButton onPress={() => (onPlay ? onPlay(item) : {})}>
-              <Action autoPlay loop width={100} height={100} />
-            </ActionButton>
-            <ActionButton onPress={() => (onDiscoverMore ? onDiscoverMore(item) : {})}>
-              <DiscoverMoreIcon width={32} height={32} />
-            </ActionButton>
-          </Actions>
-          <ActionText>{t('playnow')}</ActionText>
-        </Slider>
-      ))}
-    </Swiper>
+              <Gradient />
+            </Container>
+            <Actions>
+              <ActionButton
+                onPress={() =>
+                  onWatchlist ? onWatchlist(item, getIsInWatchlist(item?.id || '0')) : {}
+                }
+              >
+                {getIsInWatchlist(item?.id || '0') ? (
+                  <CheckedIcon fill="#FFFFFF" width={32} height={32} />
+                ) : (
+                  <WatchlistIcon width={32} height={32} />
+                )}
+              </ActionButton>
+              <ActionButton onPress={() => (onPlay ? onPlay(item) : {})}>
+                <Action autoPlay loop width={100} height={100} />
+              </ActionButton>
+              <ActionButton onPress={() => (onDiscoverMore ? onDiscoverMore(item) : {})}>
+                <DiscoverMoreIcon width={32} height={32} />
+              </ActionButton>
+            </Actions>
+            <ActionText>{t('playnow')}</ActionText>
+          </Slider>
+        ))}
+      </Swiper>
+    </Wrapper>
   );
 };
 

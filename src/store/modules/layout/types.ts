@@ -31,7 +31,7 @@ export interface LayoutState {
   sheet: {
     content: () => JSX.Element | null;
     height: number;
-    data: object;
+    data: { [name: string]: any };
   };
   isSheetVisible: boolean;
 }

@@ -105,3 +105,7 @@ export const Pagination = styled(PaginationC).attrs((props: ThemeState) => ({
 }))``;
 
 export const WrapperButton = styled.TouchableWithoutFeedback``;
+
+export const Wrapper = styled.View`
+  flex: 1;
+`;

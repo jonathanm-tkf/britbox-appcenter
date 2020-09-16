@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import React, { useEffect, useCallback, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { useSelector, useDispatch } from 'react-redux';
 import { AppState } from '@store/modules/rootReducer';
@@ -9,8 +9,6 @@ import { rgba } from 'polished';
 import VideoPlayer from '@screens/VideoPlayer';
 import Modal from '@screens/Modal';
 import Loading from '@screens/Loading';
-// import { getConfigRequest } from '@store/modules/user/saga';
-import { homeRequest } from '@store/modules/home/actions';
 import ModalSeasons from '@screens/ModalSeasons';
 import { Animated, Alert, Linking, BackHandler } from 'react-native';
 import { ThemeProps } from '@store/modules/theme/types';
@@ -20,9 +18,8 @@ import ModalGenre from '@screens/ModalGenre';
 import ModalFilter from '@screens/ModalFilter';
 import ModalTerms from '@screens/Terms';
 import ModalPrivacyPolicy from '@screens/PrivacyPolicy';
-import { Segment } from '@store/modules/core/types';
 import ErrorLanding from '@components/ErrorLanding';
-import { loadingOn, loadingOff } from '@store/modules/layout/actions';
+import { loadingOff } from '@store/modules/layout/actions';
 import VersionCheck from 'react-native-version-check';
 import { useTranslation } from 'react-i18next';
 import NetInfo from '@react-native-community/netinfo';

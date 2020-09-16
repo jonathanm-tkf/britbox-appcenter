@@ -104,7 +104,7 @@ const VideoPlayer = () => {
           //   console.tron.log({
           //     uri: `${Constants.url_player}?country=${segment?.toLocaleLowerCase()}&videoid=${
           //       params.item.id
-          //     }&token=${token}&ert=${refreshToken}&isTrailer=false&connection=${
+          //     }&token=${token}&ert=${refreshToken}&allow=autoplay&isTrailer=false&connection=${
           //       connection === 'wifi' && isTablet()
           //         ? 'mobile-tablet-main'
           //         : connection === 'wifi'
@@ -117,10 +117,11 @@ const VideoPlayer = () => {
           originWhitelist={['*']}
           javaScriptEnabled
           allowsInlineMediaPlayback
+          mediaPlaybackRequiresUserAction={false}
           source={{
             uri: `${Constants.url_player}?country=${segment?.toLocaleLowerCase()}&videoid=${
               params.item.id
-            }&token=${token}&ert=${refreshToken}&isTrailer=false&connection=${
+            }&token=${token}&ert=${refreshToken}&allow=autoplay&isTrailer=false&connection=${
               connection === 'wifi' && isTablet()
                 ? 'mobile-tablet-main'
                 : connection === 'wifi'

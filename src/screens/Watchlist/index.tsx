@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { getStatusBarHeight } from 'react-native-iphone-x-helper';
 import { Platform, View, TouchableOpacity } from 'react-native';
@@ -17,6 +17,10 @@ import { MassiveSDKModelItemSummary } from '@src/sdks/Britbox.API.Content.TS/api
 import { store } from '@store/index';
 import { LayoutState } from '@store/modules/layout/types';
 import { watchlistToggleRequest } from '@store/modules/user/actions';
+import { fill, sortBy } from 'lodash';
+import { profile } from '@store/modules/user/saga';
+import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
+import { Item } from '@screens/ModalFilter';
 import {
   Container,
   Title,
@@ -25,6 +29,8 @@ import {
   RemoveButtonWrapper,
   Headline,
   BottomSheetWrapper,
+  FilterButton,
+  FilterText,
 } from './styles';
 
 const wrapper = {
@@ -44,11 +50,81 @@ const getSheetHeight = () => {
   return layout.sheet.height || 0;
 };
 
+const gridContainer = {
+  marginTop: 10,
+  paddingHorizontal: wp(15),
+};
+
+type Access = {
+  accessToken: string;
+};
+
+type RootParamList = {
+  Watchlist: {
+    filter: Item;
+  };
+};
+
+type WatchlistScreenRouteProp = RouteProp<RootParamList, 'Watchlist'>;
+
 const Watchlist = () => {
+  const { params } = useRoute<WatchlistScreenRouteProp>();
   const theme = useSelector((state: AppState) => state.theme.theme);
-  const bookmarkList = useSelector((state: AppState) => state.user.profile.bookmarkList);
+  const bookmarkList = useSelector((state: AppState) => state.user?.profile?.bookmarkList);
+  const { accessToken: token } = useSelector((state: AppState) => state.user?.access) as Access;
   const dispatch = useDispatch();
   const { t } = useTranslation(['watchlist']);
+  const navigation = useNavigation();
+  const [type, setType] = useState('all');
+  const [orderBy, setOrderBy] = useState('date-added');
+  const { filter } = params || {};
+
+  const [list, setList] = useState<MassiveSDKModelItemSummary[]>([]);
+
+  const getProfile = async () => {
+    const { response } = await profile(token);
+    setList(response?.bookmarkList?.items || []);
+  };
+
+  useEffect(() => {
+    const dataDummy = {
+      items: fill(new Array((bookmarkList?.items || []).length), {
+        images: {
+          poster: 'loading',
+        },
+      }),
+    };
+
+    setList(dataDummy.items);
+
+    getProfile();
+  }, []);
+
+  useEffect(() => {
+    let items = bookmarkList?.items || [];
+
+    if (type !== 'all') {
+      items = items.filter((item) => item.type === type);
+    }
+
+    if (orderBy !== 'date-added') {
+      items = sortBy(items, ['contextualTitle'], ['asc']);
+    }
+
+    setList(items);
+  }, [type, orderBy]);
+
+  useEffect(() => {
+    if (filter) {
+      if (filter.list === 'type') {
+        setType(filter.value);
+      }
+
+      if (filter.list === 'order') {
+        setOrderBy(filter.value);
+      }
+    }
+  }, [filter]);
 
   const showSheetBottomContent = (item: MassiveSDKModelItemSummary) => {
     if (getSheetHeight() === 0) {
@@ -80,11 +156,58 @@ const Watchlist = () => {
           <Paragraph>{t('description')}</Paragraph>
         </Container>
         <GridWrapper>
+          <FilterButton
+            onPress={() =>
+              navigation.navigate('ModalFilter', {
+                title: t('filter'),
+                data: [
+                  {
+                    title: t('type'),
+                    list: 'type',
+                    data: [
+                      {
+                        title: t('all'),
+                        value: 'all',
+                        selected: type === 'all',
+                      },
+                      {
+                        title: t('movie'),
+                        value: 'movie',
+                        selected: type === 'movie',
+                      },
+                      {
+                        title: t('show'),
+                        value: 'show',
+                        selected: type === 'show',
+                      },
+                    ],
+                  },
+                  {
+                    title: t('order'),
+                    list: 'order',
+                    data: [
+                      {
+                        title: t('recent'),
+                        value: 'date-added',
+                        selected: orderBy === 'date-added',
+                      },
+                      {
+                        title: t('az'),
+                        value: 'a-z',
+                        selected: orderBy === 'a-z',
+                      },
+                    ],
+                  },
+                ],
+                previusRoute: 'Watchlist',
+              })
+            }
+          >
+            <FilterText>{t('filter')} +</FilterText>
+          </FilterButton>
           <Grid
-            items={bookmarkList.items || []}
-            title={`${(bookmarkList.items || []).length} ${
-              (bookmarkList.items || []).length === 1 ? t('program') : t('programmes')
-            }`}
+            items={list}
+            title={`${list.length} ${list.length === 1 ? t('program') : t('programmes')}`}
             numColumns={3}
             element={{
               width: vw(33.333) - wp(20),
@@ -92,10 +215,7 @@ const Watchlist = () => {
               marginBottom: 20,
               marginHorizontal: wp(5),
             }}
-            containerStyle={{
-              marginTop: 10,
-              paddingHorizontal: wp(15),
-            }}
+            containerStyle={gridContainer}
             cardContentAfter={(item) => removeIcon(item)}
           />
         </GridWrapper>

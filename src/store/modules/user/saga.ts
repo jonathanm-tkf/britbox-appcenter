@@ -1,4 +1,4 @@
-import { takeLatest, all, call, put, select } from 'redux-saga/effects';
+import { takeLatest, all, call, put, select, takeEvery } from 'redux-saga/effects';
 // import * as Sentry from '@sentry/react-native';
 
 import { BritboxAccountApi, BritboxContentApi } from '@src/sdks';
@@ -7,10 +7,13 @@ import {
   BritboxAPIAccountModelsProfileUpdateProfileRequest,
   BritboxAPIAccountModelsProfileUpdateParentalControlDetailsRequest,
   BritboxAPIAccountModelsProfileResetPasswordRequest,
+  BritboxAPIAccountModelsProfileGetProfileResponse,
   BritboxAPIAccountModelsAuthorizationForgotContactPasswordRequest,
 } from '@src/sdks/Britbox.API.Account.TS/api';
 import { PayloadAction } from 'typesafe-actions';
-import { refreshToken } from '@src/services/token';
+import { refreshTokenWithExpiresIn } from '@src/services/token';
+import { getDeviceName, getUniqueId } from 'react-native-device-info';
+import { Platform } from 'react-native';
 import {
   UserActionTypes,
   UserLogin,
@@ -32,9 +35,13 @@ import { AppState } from '../rootReducer';
 
 const getToken = (state: AppState) => state.user.access as EvergentLoginResponse;
 
+const getExiresIn = (state: AppState) => state.user.access as EvergentLoginResponse;
+
 const getRefreshToken = (state: AppState) => state.user.access as EvergentLoginResponse;
 
-export async function profile(token: string) {
+export async function profile(
+  token: string
+): Promise<{ response: BritboxAPIAccountModelsProfileGetProfileResponse }> {
   const { getProfile } = BritboxAccountApi({
     headers: {
       Authorization: `Bearer ${token}`,
@@ -70,14 +77,15 @@ async function login({ user, password }: UserLogin) {
   const { authenticateCustomer } = BritboxAccountApi();
 
   try {
-    // TODO: Change devices data
+    const deviceName = await getDeviceName().then((name) => name);
+
     const response = await authenticateCustomer({
       contactUserName: user,
       contactPassword: password,
       deviceDetails: {
-        deviceType: 'android',
-        deviceName: 'sony',
-        serialNo: 'M7676273462',
+        deviceName,
+        deviceType: Platform.OS,
+        serialNo: getUniqueId(),
       },
     });
 
@@ -115,6 +123,7 @@ async function signup({
   alertNotificationEmail,
 }: UserSignUp) {
   const { register } = BritboxAccountApi();
+  const deviceName = await getDeviceName().then((name) => name);
 
   try {
     const response = await register({
@@ -125,9 +134,9 @@ async function signup({
       country: 'US',
       alertNotificationEmail,
       deviceDetails: {
-        deviceType: 'android',
-        deviceName: 'sony',
-        serialNo: 'M7676273462',
+        deviceName,
+        deviceType: Platform.OS,
+        serialNo: getUniqueId(),
       },
     });
 
@@ -198,12 +207,13 @@ export async function addSubscriptionRequest(
 
 export function* getProfileRequest() {
   try {
+    const { expiresIn } = yield select(getExiresIn);
     const { accessToken } = yield select(getToken);
     const { refreshToken: refreshTokenState } = yield select(getRefreshToken);
 
     const { response: responseRefreshToken } = yield call(
-      refreshToken,
-      accessToken,
+      refreshTokenWithExpiresIn,
+      expiresIn,
       refreshTokenState
     );
     let token = accessToken;
@@ -424,5 +434,5 @@ export default all([
   takeLatest(UserActionTypes.LOGIN_REQUEST, loginRequest),
   takeLatest(UserActionTypes.WATCHLIST_TOGGLE_REQUEST, watchlistToggleRequest),
   takeLatest(UserActionTypes.LOGOUT, logout),
-  takeLatest(UserActionTypes.GET_PROFILE_REQUEST, getProfileRequest),
+  takeEvery(UserActionTypes.GET_PROFILE_REQUEST, getProfileRequest),
 ]);

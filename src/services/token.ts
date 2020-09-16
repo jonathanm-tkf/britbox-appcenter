@@ -43,6 +43,28 @@ export const refreshToken = async (token: string, refresh: string) => {
   return false;
 };
 
+export const refreshTokenWithExpiresIn = async (expiresIn: string, refresh: string) => {
+  if (!expiresIn) {
+    return false;
+  }
+
+  if (isExpired(Number(expiresIn))) {
+    const { refreshTokenApp: getRefreshToken } = BritboxAccountApi();
+
+    try {
+      const response = await getRefreshToken({
+        refreshToken: refresh,
+      });
+
+      return response;
+    } catch (error) {
+      return error;
+    }
+  }
+
+  return false;
+};
+
 export const randomString = () => {
   const chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz';
   const string_length = 8;

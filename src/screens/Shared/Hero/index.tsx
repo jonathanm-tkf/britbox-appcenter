@@ -6,7 +6,12 @@ import {
 import { slice } from 'lodash';
 import Outstanding from '@components/Outstanding';
 import { getImage } from '@src/utils/images';
+import { isTablet } from 'react-native-device-info';
+import { heightPercentageToDP as vh } from 'react-native-responsive-screen';
+import { Dimensions } from 'react-native';
 import { Container } from './styles';
+
+const { width } = Dimensions.get('window');
 
 type Props = {
   item: MassiveSDKModelPageEntry;
@@ -26,14 +31,16 @@ const Hero = ({ item, onWatchlist, onDiscoverMore, onPlay }: Props) => {
       ...data,
       url:
         getImage(
-          data?.images?.square || data?.images?.hero3x1 || data?.images?.wallpaper,
+          (isTablet() ? data?.images?.tile : data?.images?.square) ||
+            data?.images?.hero3x1 ||
+            data?.images?.wallpaper,
           'square'
         ) || '',
     };
   });
 
   return (
-    <Container>
+    <Container width={width} height={vh(60)}>
       <Outstanding
         items={items}
         onWatchlist={(i, y) => (onWatchlist ? onWatchlist(i, y) : {})}

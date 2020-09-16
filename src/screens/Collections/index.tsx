@@ -455,10 +455,10 @@ const Collections = () => {
                     <ChangeOrderButton
                       onPress={() =>
                         navigation.navigate('ModalFilter', {
-                          title: t('filter'),
+                          // title: t('filter'),
                           data: [
                             {
-                              title: t('order'),
+                              // title: t('order'),
                               data: [
                                 {
                                   title: t('recent'),

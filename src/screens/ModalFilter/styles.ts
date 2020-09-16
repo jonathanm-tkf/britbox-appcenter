@@ -8,11 +8,17 @@ export const Container = styled.SafeAreaView`
   background-color: ${(props: ThemeState) => props.theme.PRIMARY_COLOR};
 `;
 
+export const ContainerList = styled.View`
+  padding-top: 30px;
+`;
+
 export const CloseButtonWrapper = styled.View`
   position: absolute;
   width: 100%;
   bottom: 0;
 `;
+
+export const WrapperList = styled.View``;
 
 export const CloseButton = styled.TouchableOpacity`
   align-self: center;
@@ -22,9 +28,10 @@ export const CloseButton = styled.TouchableOpacity`
 export const FlatList = styled(RNFlatList).attrs({
   showVerticaScrollIndicator: false,
   contentContainerStyle: {
-    paddingTop: 30,
+    // paddingTop: 30,
     paddingLeft: 20,
     paddingRight: 20,
+    marginBottom: 40,
   },
 })``;
 

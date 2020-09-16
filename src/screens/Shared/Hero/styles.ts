@@ -3,17 +3,21 @@ import LinearGradient from 'react-native-linear-gradient';
 import { rgba } from 'polished';
 import { ThemeState } from '@store/modules/theme/types';
 
-import { Dimensions } from 'react-native';
-
-const { width } = Dimensions.get('window');
+type Container = {
+  width: number;
+  height: number;
+};
 
 export const Container = styled.View`
-  /* width: 100%; */
-  width: ${width}px;
-  height: 500px;
   margin-bottom: 30px;
   overflow: hidden;
   flex-direction: row;
+  ${(props: Container) => {
+    return `
+      width: ${props.width}px;
+      height: ${props.height}px;
+    `;
+  }};
 `;
 
 export const Gradient = styled(LinearGradient).attrs((props: ThemeState) => ({
