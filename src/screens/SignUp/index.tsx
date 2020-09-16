@@ -137,13 +137,16 @@ const SignUp = () => {
         alertNotificationEmail = (!isCheckPrivacy).toString();
       }
 
-      const response = await signupRequest({
-        firstName,
-        lastName,
-        email,
-        password,
-        alertNotificationEmail,
-      });
+      const response = await signupRequest(
+        {
+          firstName,
+          lastName,
+          email,
+          password,
+          alertNotificationEmail,
+        },
+        country
+      );
 
       if (response) {
         const { response: responseData } = response;

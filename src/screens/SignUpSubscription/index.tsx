@@ -102,7 +102,7 @@ const SignUpSubscription = () => {
   }, []);
 
   const getProducts = async () => {
-    const { response } = await getProductsRequest();
+    const { response } = await getProductsRequest(country);
 
     if (response && Number(response?.responseCode) === 1) {
       if (response?.productsResponseMessage?.length > 0) {

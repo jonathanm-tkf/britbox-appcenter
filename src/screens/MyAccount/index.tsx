@@ -207,13 +207,6 @@ export default function MyAccount() {
       return false;
     };
 
-    const validateEmail = (mail: string) => {
-      if (/^\w+([\\.-]?\w+)*@\w+([\\.-]?\w+)*(\.\w{2,3})+$/.test(mail)) {
-        return true;
-      }
-      return false;
-    };
-
     const doValidateEmail = () => {
       const hasErrorEmail = email.trim() === '';
       const hasErrorValidEmail = !validateEmail(email.trim());
@@ -316,7 +309,10 @@ export default function MyAccount() {
             key="error"
             visible={errorState}
             type="error"
-            text={britboxConfig[country]['account-details']?.validation['error-message']}
+            text={
+              errorMessage?.failureMessage[0]?.errorMessage ||
+              britboxConfig[country]['account-details']?.validation['error-message']
+            }
           />
           <ErrorBlock
             key="success"
