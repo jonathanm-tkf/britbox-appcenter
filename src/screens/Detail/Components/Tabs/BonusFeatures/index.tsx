@@ -1,6 +1,4 @@
-/* eslint-disable max-len */
 import React from 'react';
-
 import Card from '@components/Card';
 import {
   MassiveSDKModelEpisodesItem,
@@ -8,12 +6,12 @@ import {
 } from '@src/sdks/Britbox.API.Content.TS/api';
 import { getImage } from '@src/utils/images';
 import { getDuration } from '@src/utils/template';
-import { Show, MoreInformation } from '@src/services/detail';
 import { useNavigation } from '@react-navigation/native';
 import { CastVideo } from '@src/services/cast';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppState } from '@store/modules/rootReducer';
 import { showSheetBottom } from '@store/modules/layout/actions';
+import { Show, MoreInformation } from '@store/modules/detail/types';
 import { Container } from './styles';
 
 interface Props {

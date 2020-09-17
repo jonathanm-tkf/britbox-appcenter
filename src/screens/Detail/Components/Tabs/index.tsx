@@ -1,7 +1,7 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect, useRef } from 'react';
 import ContentLoader, { Rect } from 'react-content-loader/native';
 
-import { LoadDetailPageResponse } from '@src/services/detail';
 import { useSelector, useDispatch } from 'react-redux';
 import { AppState } from '@store/modules/rootReducer';
 import Shimmer from '@components/Shimmer';
@@ -11,6 +11,7 @@ import { hideSheetBottom, sheetComponent } from '@store/modules/layout/actions';
 import { Headline } from '@components/Typography';
 import { Button } from '@components/Button';
 import { useNavigation } from '@react-navigation/native';
+import { LoadDetailPageResponse } from '@store/modules/detail/types';
 import {
   TabsWrapper,
   PreloadTabs,

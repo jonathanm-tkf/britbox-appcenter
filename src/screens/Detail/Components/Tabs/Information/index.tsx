@@ -1,10 +1,9 @@
 import React from 'react';
-
-import { Information as InformationDataType, MoreInformation } from '@src/services/detail';
 import { useTranslation } from 'react-i18next';
 import { getDuration } from '@src/utils/template';
 import { DiscoverMoreIcon } from '@assets/icons';
 import { useNavigation } from '@react-navigation/native';
+import { Information as InformationDataType, MoreInformation } from '@store/modules/detail/types';
 import {
   Container,
   Row,

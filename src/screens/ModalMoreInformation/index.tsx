@@ -1,10 +1,11 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from 'react';
 
-import { MoreInformation } from '@src/services/detail';
 import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
 import { BackIcon } from '@assets/icons';
 import { useTranslation } from 'react-i18next';
 import { Animated } from 'react-native';
+import { MoreInformation } from '@store/modules/detail/types';
 import {
   Container,
   Scroll,

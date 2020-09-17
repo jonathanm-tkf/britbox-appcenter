@@ -2,17 +2,22 @@ import { BritboxContentApi, BritboxAccountApi } from '@src/sdks';
 import { getDevice } from '@src/utils';
 import {
   BritboxAPIContentModelsPageGetPageResponse,
-  MassiveSDKModelCredit,
   MassiveSDKModelItemList,
-  MassiveSDKModelSeasons,
   MassiveSDKModelEpisodes,
   MassiveSDKModelPage,
-  MassiveSDKModelItemSummary,
   BritboxAPIContentModelsListsGetListResponse,
 } from '@src/sdks/Britbox.API.Content.TS/api';
 import { store } from '@store/index';
+
 import { CoreState } from '@store/modules/core/types';
 import { UserState } from '@store/modules/user/types';
+import {
+  Detail,
+  Information,
+  LoadDetailPageResponse,
+  MoreInformation,
+  Show,
+} from '@store/modules/detail/types';
 
 const getSegment = () => {
   const { core }: { core: CoreState } = store.getState();
@@ -26,59 +31,6 @@ type Access = {
 const getToken = () => {
   const { user }: { user: UserState } = store.getState();
   return (user.access as Access)?.accessToken || '';
-};
-
-type Detail = {
-  title: string;
-  description: string;
-  relatedId: string | undefined;
-  originalItem: MassiveSDKModelItemSummary | undefined;
-  images: {
-    tile?: string;
-    brand?: string;
-    poster?: string;
-    block?: string;
-    wallpaper?: string;
-    hero3x1?: string;
-    square?: string;
-  };
-};
-
-export type Show = {
-  seasons: MassiveSDKModelSeasons | undefined;
-  releaseYear: number | undefined;
-  seasonNumber: number | undefined;
-  id: number | undefined;
-  episodeNumber: number | undefined;
-};
-
-export type Information = {
-  type: string;
-  credits: MassiveSDKModelCredit[] | undefined;
-  genres: string[] | undefined;
-  customFields: any;
-  classification: any;
-  seasons: number;
-  duration: number;
-  releaseYear: number | undefined;
-};
-
-export type MoreInformation = {
-  credits: MassiveSDKModelCredit[] | undefined;
-  title: string;
-  description: string;
-  season: string;
-  year: number | undefined;
-  vams: object[] | undefined;
-};
-
-export type LoadDetailPageResponse = {
-  detail: Detail;
-  show: Show | undefined;
-  information: Information;
-  related: MassiveSDKModelItemList | undefined;
-  episodes: MassiveSDKModelEpisodes | undefined;
-  moreInformation: MoreInformation;
 };
 
 const processDetailPage = async (

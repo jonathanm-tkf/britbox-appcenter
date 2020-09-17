@@ -1,5 +1,4 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from 'react';
 import { NativeScrollEvent, Platform, View } from 'react-native';
 import { useNavigation, useRoute, RouteProp } from '@react-navigation/native';
@@ -21,8 +20,6 @@ import ErrorLanding from '@components/ErrorLanding';
 import { useTranslation } from 'react-i18next';
 import { Item } from '@screens/ModalFilter';
 import { ArrowBottomIcon } from '@assets/icons';
-import { white } from 'react-native-paper/lib/typescript/src/styles/colors';
-import { rgba } from 'polished';
 import { compact } from 'lodash';
 import { wp } from '@src/utils/dimension';
 import { dataDummy } from './data';

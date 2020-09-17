@@ -1,5 +1,3 @@
-/* eslint-disable react/prop-types */
-/* eslint-disable max-len */
 import React, { useCallback, useEffect } from 'react';
 import { View, Platform, Linking } from 'react-native';
 import { CollapsibleHeaderFlatList } from 'react-native-collapsible-header-views';
