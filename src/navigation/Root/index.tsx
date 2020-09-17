@@ -4,6 +4,7 @@
 import React, { useEffect, useState } from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { useSelector, useDispatch } from 'react-redux';
+import { getVersion } from 'react-native-device-info';
 import { AppState } from '@store/modules/rootReducer';
 import Storybook from '@screens/Storybook';
 import { rgba } from 'polished';
@@ -20,6 +21,7 @@ import ModalFilter from '@screens/ModalFilter';
 import ModalTerms from '@screens/Terms';
 import ModalPrivacyPolicy from '@screens/PrivacyPolicy';
 import ErrorLanding from '@components/ErrorLanding';
+import VersionUpgrade from '@components/VersionUpgrade';
 import { loadingOff } from '@store/modules/layout/actions';
 import VersionCheck from 'react-native-version-check';
 import { useTranslation } from 'react-i18next';
@@ -60,6 +62,10 @@ const Error = () => {
   return <ErrorLanding onPress={() => {}} out />;
 };
 
+const VersionModal = () => {
+  return <VersionUpgrade />;
+};
+
 const RootStack = createStackNavigator();
 const RootStackScreen = () => {
   const user = useSelector((state: AppState) => state.user);
@@ -69,40 +75,35 @@ const RootStackScreen = () => {
   const dispatch = useDispatch();
   const { t } = useTranslation('layout');
   const [lostConnection, setLostConnection] = useState(false);
+  const [versionModal, setVersionModal] = useState(false);
+
+  const britboxConfig = useSelector((state: AppState) => state.core.britboxConfig);
+  const segment = useSelector((state: AppState) => state.core.segment);
+  const country: string = segment?.toLocaleLowerCase() || 'us';
 
   const checkVersion = async () => {
     try {
-      const updatedNeeded = await VersionCheck.needUpdate();
+      const minVersion =
+        (britboxConfig && britboxConfig[country]['force-upgrade']['min-version']) || '';
+      const curVersion = getVersion();
 
-      if (updatedNeeded && updatedNeeded.isNeeded) {
-        Alert.alert(
-          t('updateNeeded.title'),
-          t('updateNeeded.message'),
-          [
-            {
-              text: t('updateNeeded.button'),
-              onPress: () => {
-                BackHandler.exitApp();
-                Linking.openURL(updatedNeeded.storeUrl);
-              },
-            },
-          ],
-          {
-            cancelable: false,
-          }
-        );
+      if (curVersion < minVersion) {
+        setVersionModal(true);
       }
-      // eslint-disable-next-line no-empty
-    } catch (error) {}
+    } catch (error) {
+      //
+    }
   };
+
+  useEffect(() => {
+    checkVersion();
+  }, [britboxConfig]);
 
   useEffect(() => {
     Orientation.lockToPortrait();
     if (!user.isLogged) {
       dispatch(loadingOff());
     }
-
-    // checkVersion();
 
     const unsubscribe = NetInfo.addEventListener((state) => {
       if (!state.isConnected) {
@@ -131,6 +132,8 @@ const RootStackScreen = () => {
           <RootStack.Screen name="LostConnection" component={LostConnection} />
         ) : isOut ? (
           <RootStack.Screen name="Out" component={Error} />
+        ) : versionModal ? (
+          <RootStack.Screen name="Out" component={VersionModal} />
         ) : user.isLogged ? (
           <RootStack.Screen name="AppDrawerScreen" component={AppDrawerScreen} />
         ) : (
