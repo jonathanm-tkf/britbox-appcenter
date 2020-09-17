@@ -11,6 +11,8 @@ import search from './search/reducer';
 import { SearchState } from './search/types';
 import layout from './layout/reducer';
 import { LayoutState } from './layout/types';
+import detail from './detail/reducer';
+import { DetailState } from './detail/types';
 
 export interface AppState {
   core: CoreState;
@@ -19,6 +21,7 @@ export interface AppState {
   theme: ThemeState;
   search: SearchState;
   layout: LayoutState;
+  detail: DetailState;
 }
 
 export default combineReducers<AppState>({
@@ -28,4 +31,5 @@ export default combineReducers<AppState>({
   theme,
   search,
   layout,
+  detail,
 });

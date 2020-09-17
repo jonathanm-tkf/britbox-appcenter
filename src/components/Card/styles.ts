@@ -126,7 +126,7 @@ export const ActionWrapper = styled.View`
   width: 100%;
   bottom: 0;
   margin-right: 10px;
-  margin-bottom: 5px;
+  margin-bottom: 10px;
   z-index: 2;
   flex-direction: row;
   align-items: center;
@@ -134,9 +134,9 @@ export const ActionWrapper = styled.View`
 
 export const ActionText = styled.Text`
   color: ${(props: ThemeState) => props.theme.SECONDARY_COLOR_LIGHT};
-  font-size: 12px;
+  font-size: 10px;
   line-height: 24px;
-  margin-left: -2px;
+  margin-left: 2px;
   font-family: ${(props: ThemeState) => props.theme.PRIMARY_FONT_FAMILY_MEDIUM};
 `;
 

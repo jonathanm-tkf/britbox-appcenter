@@ -20,6 +20,12 @@ import { watchlistToggleRequest } from '@store/modules/user/actions';
 import { checkIsInWatchingList } from '@src/services/watchlist';
 import { showSheetBottom } from '@store/modules/layout/actions';
 import {
+  detailClear,
+  detailRequestSuccess,
+  detailWatchedSuccess,
+} from '@store/modules/detail/actions';
+import { MassiveSDKModelWatched } from '@src/sdks/Britbox.API.Account.TS/api';
+import {
   Container,
   Scroll,
   TopWrapper,
@@ -47,13 +53,13 @@ type DetailScreenRouteProp = RouteProp<RootParamList, 'Detail'>;
 const Detail = () => {
   const { params } = useRoute<DetailScreenRouteProp>();
   const { item, seasonModal } = params || undefined;
-  // const { goBack, navigate } = useNavigation();
   const navigation = useNavigation();
   const [showBlueView, setShowBlueView] = useState(false);
   const [tabsOffset, setTabsOffset] = useState(false);
   const [animatedOpacityValue] = useState(new Animated.Value(0));
-  const [data, setData] = useState<LoadDetailPageResponse | undefined>(undefined);
   const isCast = useSelector((state: AppState) => state.layout.cast);
+  const data = useSelector((state: AppState) => state.detail.data);
+
   const dispatch = useDispatch();
   const bookmarklist = useSelector(
     (state: AppState) => state.user.profile?.bookmarkList || []
@@ -68,12 +74,21 @@ const Detail = () => {
   });
 
   const getDataDetail = async (path: string, customId: string) => {
-    const { response }: { response: LoadDetailPageResponse } = await loadDetailPage(path, customId);
-    setData(response);
+    const {
+      response,
+      watched,
+    }: {
+      response: LoadDetailPageResponse;
+      watched: Record<string, MassiveSDKModelWatched>;
+    } = await loadDetailPage(path, customId);
+    dispatch(detailWatchedSuccess(watched));
+    dispatch(detailRequestSuccess(response));
   };
 
   useEffect(() => {
-    getDataDetail(item?.path || '', item?.customId || '');
+    if (item) {
+      getDataDetail(item?.path || '', item?.customId || '');
+    }
   }, [item]);
 
   useEffect(() => {
@@ -101,7 +116,7 @@ const Detail = () => {
       };
 
       if (seasonModal) {
-        setData(newData);
+        dispatch(detailRequestSuccess(newData));
       }
 
       loadEpisodesBySeason(path || '').then(({ response }) => {
@@ -117,7 +132,7 @@ const Detail = () => {
           episodes: response?.episodes,
           moreInformation: response?.moreInformation,
         };
-        setData(afterResponse);
+        dispatch(detailRequestSuccess(afterResponse));
       });
     }
   }, [seasonModal]);
@@ -133,6 +148,10 @@ const Detail = () => {
       duration: 0,
       useNativeDriver: true,
     }).start(() => setShowBlueView(true));
+
+    return () => {
+      dispatch(detailClear());
+    };
   }, []);
 
   const handleScroll = (event: any) => {
@@ -212,7 +231,6 @@ const Detail = () => {
       })
     );
   };
-
   return (
     <Container>
       <TopWrapper>
@@ -220,7 +238,6 @@ const Detail = () => {
           <BackIcon width={20} height={20} />
         </Button>
         <TopText>{data?.information.type}</TopText>
-
         <BackgroundTop
           style={{
             opacity: animatedOpacityValue.interpolate({

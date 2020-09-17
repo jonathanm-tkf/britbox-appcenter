@@ -12,6 +12,8 @@ import { AppState } from '@store/modules/rootReducer';
 import { useDispatch, useSelector } from 'react-redux';
 import { CastVideo } from '@src/services/cast';
 import { showSheetBottom } from '@store/modules/layout/actions';
+import { MassiveSDKModelWatched } from '@src/sdks/Britbox.API.Account.TS/api';
+import { pickBy } from 'lodash';
 import { Container, ContainerFilter, SeasonButton, SeasonText, InformationButton } from './styles';
 
 interface Props {
@@ -26,6 +28,7 @@ interface Props {
 const Episodes = ({ onLayout, data, show, moreInformation, isEpisode, onScrollTo }: Props) => {
   const { navigate } = useNavigation();
   const user = useSelector((state: AppState) => state.user);
+  const { watched } = useSelector((state: AppState) => state.detail);
   const dispatch = useDispatch();
   const isCast = useSelector((state: AppState) => state.layout.cast);
 
@@ -80,6 +83,21 @@ const Episodes = ({ onLayout, data, show, moreInformation, isEpisode, onScrollTo
     return navigate('ModalMoreInformation', { moreInformation });
   };
 
+  const getProgress = (item: MassiveSDKModelEpisodesItem) => {
+    const filter = pickBy(watched, (value, key) => key.startsWith(item?.id || ''));
+
+    if (filter[item?.id || '']) {
+      const { isFullyWatched, position } = filter[item?.id || ''];
+
+      if (isFullyWatched) {
+        return 1;
+      }
+      return Math.round((Number(position || 0) * 100) / Number(item.duration)) / 100;
+    }
+
+    return 0;
+  };
+
   return (
     <Container onLayout={onLayout}>
       {show && (
@@ -123,6 +141,9 @@ const Episodes = ({ onLayout, data, show, moreInformation, isEpisode, onScrollTo
             category: getCategories(item || {}),
           }}
           onPress={() => onPlay(item)}
+          progress={getProgress(item)}
+          isContinue={getProgress(item) > 0}
+          cardElement={item}
         />
       ))}
     </Container>

@@ -62,6 +62,7 @@ interface Props {
   cardElement?: MassiveSDKModelItemList;
   onLayout?: (event: LayoutChangeEvent) => void;
   ref?: any;
+  progress?: number;
 }
 
 const Card = ({
@@ -85,6 +86,7 @@ const Card = ({
   cardContentAfter,
   cardElement,
   onLayout,
+  progress = 0,
 }: Props) => {
   const theme = useSelector((state: AppState) => state.theme.theme);
   const [loaded, setLoaded] = useState(false);
@@ -128,8 +130,8 @@ const Card = ({
                   <ActionWrapper>
                     <Action
                       isContinue={isContinue}
-                      width={60}
-                      height={60}
+                      width={40}
+                      height={40}
                       autoPlay
                       loop={!isContinue}
                     />
@@ -166,7 +168,7 @@ const Card = ({
                   </Shimmer>
                 )}
                 {(newEpisode || isEpisode || isDetail) && <Gradient />}
-                {isDetail && <ProgressBar progress={0.5} />}
+                {isDetail && <ProgressBar {...{ progress }} />}
               </ImageWrapper>
             </CustomShadow>
           </Container>

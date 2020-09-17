@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Dimensions } from 'react-native';
 import ContentLoader, { Rect } from 'react-content-loader/native';
 import { LoadDetailPageResponse } from '@src/services/detail';
@@ -10,7 +10,10 @@ import Action from '@components/Action';
 import { getDuration } from '@src/utils/template';
 import { useTranslation } from 'react-i18next';
 import { checkIsInWatchingList } from '@src/services/watchlist';
-import { MassiveSDKModelItemList } from '@src/sdks/Britbox.API.Content.TS/api';
+import {
+  MassiveSDKModelItemList,
+  MassiveSDKModelItemSummary,
+} from '@src/sdks/Britbox.API.Content.TS/api';
 import {
   Container,
   ActionWrapper,
@@ -38,7 +41,23 @@ const Actions = ({ data, onPlay, onWatchlist, id }: Props) => {
     (state: AppState) => state.user.profile?.bookmarkList || []
   ) as MassiveSDKModelItemList;
 
+  const watchedlist = useSelector(
+    (state: AppState) => state.user.profile?.watchedList?.items || []
+  ) as MassiveSDKModelItemSummary[];
   const getIsInWatchlist = () => checkIsInWatchingList(bookmarklist?.items || [], id || '0') === 3;
+
+  const getIsContinueWatching = () => {
+    const filter = watchedlist.filter(
+      (watched) =>
+        parseInt(
+          data?.information.type === 'movie' ? watched?.id || '0' : watched?.showId || '0',
+          10
+        ) === parseInt(id || '0', 10)
+    );
+
+    return filter.length > 0;
+  };
+
   return (
     <Container>
       <ActionWrapper>
@@ -67,8 +86,14 @@ const Actions = ({ data, onPlay, onWatchlist, id }: Props) => {
               )}
             </ActionButton>
             <ActionButton play onPress={onPlay}>
-              <Action isContinue={false} loop autoPlay width={80} height={80} />
-              <ActionText>Play now</ActionText>
+              <Action
+                isContinue={getIsContinueWatching()}
+                loop={!getIsContinueWatching()}
+                autoPlay
+                width={80}
+                height={80}
+              />
+              <ActionText>{getIsContinueWatching() ? t('continue') : t('playnow')}</ActionText>
             </ActionButton>
             <ActionInformationWrapper>
               <ActionInformation>

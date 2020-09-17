@@ -1,4 +1,4 @@
-import { BritboxContentApi } from '@src/sdks';
+import { BritboxContentApi, BritboxAccountApi } from '@src/sdks';
 import { getDevice } from '@src/utils';
 import {
   BritboxAPIContentModelsPageGetPageResponse,
@@ -12,10 +12,20 @@ import {
 } from '@src/sdks/Britbox.API.Content.TS/api';
 import { store } from '@store/index';
 import { CoreState } from '@store/modules/core/types';
+import { UserState } from '@store/modules/user/types';
 
 const getSegment = () => {
   const { core }: { core: CoreState } = store.getState();
   return core.segment;
+};
+
+type Access = {
+  accessToken?: string;
+};
+
+const getToken = () => {
+  const { user }: { user: UserState } = store.getState();
+  return (user.access as Access)?.accessToken || '';
 };
 
 type Detail = {
@@ -232,6 +242,11 @@ const processDetailPage = async (
 
 export const loadDetailPage = async (path: string, customId: string) => {
   const { getPage } = BritboxContentApi();
+  const { getWatched } = BritboxAccountApi({
+    headers: {
+      Authorization: `Bearer ${getToken()}`,
+    },
+  });
 
   try {
     const response = await getPage({
@@ -246,7 +261,11 @@ export const loadDetailPage = async (path: string, customId: string) => {
       itemDetailSelectSeason: 'first',
     });
 
-    return await processDetailPage(response);
+    const { response: responseDetail } = await processDetailPage(response);
+    const responseWatched = await getWatched()
+      .then((watched) => watched.externalResponse)
+      .catch((error) => error);
+    return { response: responseDetail, watched: responseWatched };
   } catch (error) {
     return error;
   }
