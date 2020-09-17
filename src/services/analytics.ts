@@ -1,3 +1,4 @@
+/* eslint-disable default-case */
 import { MassiveSDKModelItemSummary } from '@src/sdks/Britbox.API.Content.TS/api';
 import { decode as atob } from 'base-64';
 
@@ -56,7 +57,7 @@ const getUserId = (token?: string) => {
 };
 
 export const TrackPageView = (
-  { params }: PageView,
+  { name, params }: PageView,
   token: string,
   userInformation: UserInformation
 ) => {
@@ -71,15 +72,13 @@ export const TrackPageView = (
     os_version: osVersion,
   } = userInformation;
 
-  if (user) {
-    result.user = {
-      id: user,
-      platform,
-      account_status: accountStatus,
-      device_name: deviceName,
-      os_version: osVersion,
-    };
-  }
+  result.user = {
+    id: user || '',
+    platform,
+    account_status: accountStatus,
+    device_name: deviceName,
+    os_version: osVersion,
+  };
 
   if (params) {
     const pathArray = (params.item?.path || '').slice(1, (params.item?.path || '')?.length);
@@ -90,6 +89,53 @@ export const TrackPageView = (
         .reduceRight((item) => item),
       page: `${(pathArray || '').replace('/', '.')}.page`,
     };
+  } else {
+    let pathName = '';
+    let pageName = '';
+    switch (name) {
+      case 'Auth':
+        pathName = '/paywall';
+        pageName = 'paywall';
+        break;
+      case 'Login':
+        pathName = '/signin';
+        pageName = 'sign_in';
+        break;
+      case 'SignUp':
+        pathName = '/signup';
+        pageName = 'account.register';
+        break;
+      case 'SignUpSubscription':
+        pathName = '/selectplan';
+        pageName = 'account.add_card';
+        break;
+      case 'Home':
+        pathName = '/';
+        pageName = 'home';
+        break;
+      case 'More':
+        pathName = '/more';
+        pageName = 'more';
+        break;
+      case 'ParentalControls':
+        pathName = '/account/userprofile';
+        pageName = 'account.parental_control';
+        break;
+      case 'PrivacyPolicy':
+        pathName = '/privacy';
+        pageName = 'information.privacy';
+        break;
+      case 'Terms':
+        pathName = '/terms-and-conditions';
+        pageName = 'terms_and_conditions';
+        break;
+    }
+    if (pathName && pageName) {
+      result.terms = {
+        name: pathName,
+        page: `${pageName}.page`,
+      };
+    }
   }
 
   return result;
