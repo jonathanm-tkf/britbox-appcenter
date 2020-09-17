@@ -63,6 +63,7 @@ interface Props {
   onLayout?: (event: LayoutChangeEvent) => void;
   ref?: any;
   progress?: number;
+  isWatchlist?: boolean;
 }
 
 const Card = ({
@@ -86,6 +87,7 @@ const Card = ({
   cardContentAfter,
   cardElement,
   onLayout,
+  isWatchlist,
   progress = 0,
 }: Props) => {
   const theme = useSelector((state: AppState) => state.theme.theme);
@@ -202,19 +204,32 @@ const Card = ({
               </TextWrapper>
             )}
             {loaded && (
-              <BottomWrapper {...{ isContinue: isContinue || false, isDetail }}>
+              <BottomWrapper
+                {...{
+                  isContinue: isContinue || false,
+                  isDetail,
+                  isWatchlist: isWatchlist || false,
+                }}
+              >
                 {(isContinue || isDetail) && data?.category && data?.category?.length > 0 && (
                   <WrapperBookmarks>
-                    {data?.category?.map((item: any) => (
-                      <Bookmark key={item.key.toString()} bold={item.bold}>
-                        {item.label}
-                      </Bookmark>
-                    ))}
+                    {data?.category?.map((item: any) => {
+                      return (
+                        item?.key && (
+                          <Bookmark key={item.key.toString()} bold={item.bold}>
+                            {item.label}
+                          </Bookmark>
+                        )
+                      );
+                    })}
                   </WrapperBookmarks>
                 )}
 
                 {onRemove && (
-                  <TouchableOpacity onPress={() => onRemove()}>
+                  <TouchableOpacity
+                    style={!isWatchlist ? { marginLeft: 'auto' } : {}}
+                    onPress={() => onRemove()}
+                  >
                     <CloseIcon width={25} height={25} />
                   </TouchableOpacity>
                 )}

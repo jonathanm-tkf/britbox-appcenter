@@ -26,6 +26,7 @@ const BonusFeatures = ({ onLayout, data }: Props) => {
   const dispatch = useDispatch();
   const isCast = useSelector((state: AppState) => state.layout.cast);
   const user = useSelector((state: AppState) => state.user);
+  const { watched } = useSelector((state: AppState) => state.detail);
 
   const getCategories = (itemData: MassiveSDKModelEpisodesItem): any[] => {
     const dataResult = [];
@@ -78,6 +79,21 @@ const BonusFeatures = ({ onLayout, data }: Props) => {
     return 0;
   };
 
+  const getProgress = (item: MassiveSDKModelEpisodesItem) => {
+    const filter = pickBy(watched, (value, key) => key.startsWith(item?.id || ''));
+
+    if (filter[item?.id || '']) {
+      const { isFullyWatched, position } = filter[item?.id || ''];
+
+      if (isFullyWatched) {
+        return 1;
+      }
+      return Math.round((Number(position || 0) * 100) / Number(item.duration)) / 100;
+    }
+
+    return 0;
+  };
+
   return (
     <Container onLayout={onLayout}>
       {data.map((item, index) => (
@@ -94,6 +110,9 @@ const BonusFeatures = ({ onLayout, data }: Props) => {
             category: getCategories(item || {}),
           }}
           onPress={() => onPlay(item)}
+          progress={getProgress(item)}
+          isContinue={getProgress(item) > 0}
+          cardElement={item}
         />
       ))}
     </Container>

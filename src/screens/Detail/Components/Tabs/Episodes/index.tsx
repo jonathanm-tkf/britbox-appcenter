@@ -41,14 +41,14 @@ const Episodes = ({ onLayout, data, show, moreInformation, isEpisode, onScrollTo
     }
     if (customFields) {
       const { CCFlag: cc, HDFlag: hd } = customFields as { CCFlag: string; HDFlag: string };
-      if (JSON.parse(cc.toLowerCase())) {
+      if (JSON.parse((cc || 'False').toLowerCase())) {
         dataResult.push({
           key: 2,
           label: 'cc',
           bold: false,
         });
       }
-      if (JSON.parse(hd.toLowerCase())) {
+      if (JSON.parse((hd || 'False').toLowerCase())) {
         dataResult.push({
           key: 3,
           label: 'hd',

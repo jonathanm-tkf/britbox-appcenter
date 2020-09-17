@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useCallback, useEffect } from 'react';
 import { View, Platform, Linking } from 'react-native';
 import { CollapsibleHeaderFlatList } from 'react-native-collapsible-header-views';
@@ -5,10 +6,6 @@ import { getStatusBarHeight } from 'react-native-iphone-x-helper';
 import Header from '@components/Header';
 import { useSelector, useDispatch } from 'react-redux';
 import { AppState } from '@store/modules/rootReducer';
-// import Outstanding from '@components/Outstanding';
-// import Carousel from '@components/Carousel';
-// import Card from '@components/Card';
-// import UserWatching from '@components/UserWatching';
 import { useNavigation } from '@react-navigation/native';
 import { getTemplate } from '@src/utils/template';
 import {
@@ -30,57 +27,16 @@ import {
 
 import { navigateByPath } from '@src/navigation/rootNavigation';
 import { watchlistToggleRequest } from '@store/modules/user/actions';
+import ContinueWatching from '@screens/Shared/ContinueWatching';
 import { Container } from './styles';
-// import { continueWatchingItems } from './data';
 
 const wrapper = {
   flex: 1,
   paddingTop: Platform.OS === 'ios' ? getStatusBarHeight() + 10 : 10,
 };
 
-// const ContinueWatchingData = [
-//   {
-//     key: 0,
-//     label: 'Continue Watching',
-//     active: true,
-//     content: () => (
-//       <Carousel
-//         items={continueWatchingItems}
-//         listProps={{ horizontal: true }}
-//         renderItem={({ item: card }) => (
-//           <Card
-//             isContinue
-//             newEpisode
-//             width={157}
-//             height={107}
-//             url={card.url}
-//             data={card.data}
-//             actionText={card.data.actionText}
-//             onRemove={() => {}}
-//           />
-//         )}
-//       />
-//     ),
-//   },
-//   {
-//     key: 1,
-//     label: 'Watchlist',
-//     active: false,
-//     content: () => (
-//       <Carousel
-//         items={continueWatchingItems}
-//         listProps={{ horizontal: true }}
-//         renderItem={({ item: card }) => (
-//           <Card width={122} height={162} url={card.url} data={card.data} onRemove={() => {}} />
-//         )}
-//       />
-//     ),
-//   },
-// ];
-
 const Home = () => {
   const theme = useSelector((state: AppState) => state.theme.theme);
-
   const appWokeUp = useCallback(async (url) => {
     if (url) {
       if (Platform.OS === 'ios') {
@@ -165,19 +121,15 @@ const Item = () => {
 
   return (
     <Container>
-      {/* <UserWatching data={ContinueWatchingData} /> */}
-
       {home &&
         home.entries &&
         home.entries.map((item, key) => {
-          // if (item.template === 'user-watching') {
-          //   return <UserWatching key={key.toString()} data={ContinueWatchingData} />;
-          // }
-
-          if ((item?.list?.items || []).length === 0) {
+          if (
+            (item?.list?.items || []).length === 0 &&
+            getTemplate(item.template || '') !== 'user-watching'
+          ) {
             return null;
           }
-
           switch (getTemplate(item.template || '')) {
             case 'hero':
               return (
@@ -191,6 +143,8 @@ const Item = () => {
                   onDiscoverMore={(i) => heroDiscoverMore(i)}
                 />
               );
+            case 'user-watching':
+              return <ContinueWatching key={key.toString()} />;
             case 'new':
               return <New key={key.toString()} {...{ item }} />;
             case 'episodes':

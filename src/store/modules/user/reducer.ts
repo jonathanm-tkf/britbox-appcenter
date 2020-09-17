@@ -1,4 +1,6 @@
+/* eslint-disable consistent-return */
 import produce from 'immer';
+import { pickBy } from 'lodash';
 import { Reducer } from 'redux';
 import { UserState, UserActionTypes } from './types';
 
@@ -83,6 +85,25 @@ const user: Reducer<UserState> = (state = initialState, action) => {
           },
         };
 
+        draft.profile = profile;
+        break;
+      }
+      case UserActionTypes.CONTINUE_WATCHING_REMOVE_REQUEST_SUCCESS: {
+        const profile = {
+          ...state.profile,
+          watched: pickBy(state.profile.watched, (value, key) => {
+            if (key !== action.payload.itemId) {
+              return { [key]: value };
+            }
+          }),
+          watchedList: {
+            ...state.profile.watchedList,
+            items: state.profile.watchedList.items.filter(
+              (item: { id: string }) =>
+                parseInt(item.id, 10) !== parseInt(action.payload.itemId, 10)
+            ),
+          },
+        };
         draft.profile = profile;
         break;
       }
