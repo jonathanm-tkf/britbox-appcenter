@@ -1,6 +1,4 @@
-/* eslint-disable max-len */
 import React from 'react';
-
 import Card from '@components/Card';
 import {
   MassiveSDKModelEpisodesItem,
@@ -8,12 +6,12 @@ import {
 } from '@src/sdks/Britbox.API.Content.TS/api';
 import { getImage } from '@src/utils/images';
 import { getDuration } from '@src/utils/template';
-import { Show, MoreInformation } from '@src/services/detail';
 import { useNavigation } from '@react-navigation/native';
 import { CastVideo } from '@src/services/cast';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppState } from '@store/modules/rootReducer';
 import { showSheetBottom } from '@store/modules/layout/actions';
+import { Show, MoreInformation } from '@store/modules/detail/types';
 import { Container } from './styles';
 
 interface Props {
@@ -28,6 +26,7 @@ const BonusFeatures = ({ onLayout, data }: Props) => {
   const dispatch = useDispatch();
   const isCast = useSelector((state: AppState) => state.layout.cast);
   const user = useSelector((state: AppState) => state.user);
+  const { watched } = useSelector((state: AppState) => state.detail);
 
   const getCategories = (itemData: MassiveSDKModelEpisodesItem): any[] => {
     const dataResult = [];
@@ -80,6 +79,21 @@ const BonusFeatures = ({ onLayout, data }: Props) => {
     return 0;
   };
 
+  const getProgress = (item: MassiveSDKModelEpisodesItem) => {
+    const filter = pickBy(watched, (value, key) => key.startsWith(item?.id || ''));
+
+    if (filter[item?.id || '']) {
+      const { isFullyWatched, position } = filter[item?.id || ''];
+
+      if (isFullyWatched) {
+        return 1;
+      }
+      return Math.round((Number(position || 0) * 100) / Number(item.duration)) / 100;
+    }
+
+    return 0;
+  };
+
   return (
     <Container onLayout={onLayout}>
       {data.map((item, index) => (
@@ -96,6 +110,9 @@ const BonusFeatures = ({ onLayout, data }: Props) => {
             category: getCategories(item || {}),
           }}
           onPress={() => onPlay(item)}
+          progress={getProgress(item)}
+          isContinue={getProgress(item) > 0}
+          cardElement={item}
         />
       ))}
     </Container>

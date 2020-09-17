@@ -1,11 +1,11 @@
 import React from 'react';
 
-import { LoadDetailPageResponse } from '@src/services/detail';
 import { AppState } from '@store/modules/rootReducer';
 import Shimmer from '@components/Shimmer';
 import { useSelector } from 'react-redux';
 import { Headline, Paragraph } from '@components/Typography';
 import ContentLoader, { Rect } from 'react-content-loader/native';
+import { LoadDetailPageResponse } from '@store/modules/detail/types';
 import { Container, PreloadDescription } from './styles';
 
 type Props = {

@@ -4,7 +4,6 @@ import api from '@src/services/api';
 import Constants from '@src/config/Constants';
 import { BritboxContentApi } from '@src/sdks';
 import { CoreActionTypes, Menu, Segment } from './types';
-import { AppState } from '../rootReducer';
 import {
   menuRequestSuccess,
   menuRequestError,
@@ -13,7 +12,7 @@ import {
   britBoxAppConfigSuccess,
 } from './actions';
 
-const getSegment = (state: AppState) => state.core.segment || Segment.US;
+const getSegment = (state: { core: { segment: any } }) => state.core.segment || Segment.US;
 
 export async function getMenu(segment: string) {
   try {

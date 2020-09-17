@@ -44,6 +44,8 @@ export enum UserActionTypes {
   WATCHLIST_TOGGLE_REQUEST = '@user/WATCHLIST_TOGGLE_REQUEST',
   WATCHLIST_TOGGLE_REQUEST_ADD = '@user/WATCHLIST_TOGGLE_REQUEST_ADD',
   WATCHLIST_TOGGLE_REQUEST_REMOVE = '@user/WATCHLIST_TOGGLE_REQUEST_REMOVE',
+  CONTINUE_WATCHING_REMOVE_REQUEST = '@user/CONTINUE_WATCHING_REMOVE_REQUEST',
+  CONTINUE_WATCHING_REMOVE_REQUEST_SUCCESS = '@user/CONTINUE_WATCHING_REMOVE_REQUEST_SUCCESS',
 }
 
 /**
@@ -109,4 +111,8 @@ export interface EvergentResponseError {
 export type WatchListItem = {
   itemId: string;
   isInWatchlist: boolean;
+};
+
+export type ContinueWatchingItem = {
+  itemId: string;
 };

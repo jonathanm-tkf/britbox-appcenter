@@ -5,6 +5,8 @@ export const getTemplate = (template: string) => {
       return 'hero';
     case 'Hero Slim (BBC)':
       return 'hero-slim';
+    case 'Continue Watching (BBC)':
+      return 'user-watching';
     case 'T1':
     case '16:9 Tile (Reduced)':
       return 'episodes';

@@ -1,7 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Dimensions } from 'react-native';
 import ContentLoader, { Rect } from 'react-content-loader/native';
-import { LoadDetailPageResponse } from '@src/services/detail';
 import { useSelector } from 'react-redux';
 import { AppState } from '@store/modules/rootReducer';
 import Shimmer from '@components/Shimmer';
@@ -14,6 +13,7 @@ import {
   MassiveSDKModelItemList,
   MassiveSDKModelItemSummary,
 } from '@src/sdks/Britbox.API.Content.TS/api';
+import { LoadDetailPageResponse } from '@store/modules/detail/types';
 import {
   Container,
   ActionWrapper,

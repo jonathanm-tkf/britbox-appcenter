@@ -6,6 +6,7 @@ import {
   EvergentLoginResponse,
   EvergentLoginResponseError,
   WatchListItem,
+  ContinueWatchingItem,
 } from './types';
 
 export const loginRequest = ({ user, password }: UserLogin) =>
@@ -45,3 +46,9 @@ export const watchlistRequestAdd = (data: any) =>
 
 export const watchlistRequestRemove = (data: any) =>
   action(UserActionTypes.WATCHLIST_TOGGLE_REQUEST_REMOVE, { ...data });
+
+export const continueWatchingRemoveRequest = ({ itemId }: ContinueWatchingItem) =>
+  action(UserActionTypes.CONTINUE_WATCHING_REMOVE_REQUEST, { itemId });
+
+export const continueWatchingRemoveRequestSuccess = (data: any) =>
+  action(UserActionTypes.CONTINUE_WATCHING_REMOVE_REQUEST_SUCCESS, { ...data });

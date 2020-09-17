@@ -20,6 +20,7 @@ import {
   EvergentLoginResponse,
   UserSignUp,
   WatchListItem,
+  ContinueWatchingItem,
 } from './types';
 import {
   loginRequestFailure,
@@ -30,10 +31,12 @@ import {
   watchlistRequestAdd,
   watchlistRequestRemove,
   refreshTokenSuccess,
+  continueWatchingRemoveRequestSuccess,
 } from './actions';
 import { AppState } from '../rootReducer';
 
 const getToken = (state: AppState) => state.user.access as EvergentLoginResponse;
+const getSegment = (state: AppState) => state.core.segment;
 
 const getExiresIn = (state: AppState) => state.user.access as EvergentLoginResponse;
 
@@ -427,9 +430,57 @@ export function* watchlistToggleRequest({ payload }: { payload: WatchListItem })
   }
 }
 
+async function continueWatchingRemoveRequest(
+  { itemId }: ContinueWatchingItem,
+  accessToken: string,
+  segment: string
+) {
+  const { deleteWatched } = BritboxAccountApi({
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+      'content-type': 'application/json',
+    },
+  });
+  try {
+    const response = await deleteWatched(
+      {
+        itemIds: [itemId],
+      },
+      {
+        segments: [(segment || 'us').toLowerCase()],
+      }
+    ).then(() => ({
+      itemId,
+      type: 'remove',
+    }));
+
+    return { response };
+  } catch (error) {
+    return error;
+  }
+}
+
+export function* continueWatchingRemoveRequestAction({
+  payload,
+}: {
+  payload: ContinueWatchingItem;
+}) {
+  try {
+    const { accessToken } = yield select(getToken);
+    const segment = yield select(getSegment);
+    const { response } = yield call(continueWatchingRemoveRequest, payload, accessToken, segment);
+    if (response.type === 'remove') {
+      yield put(continueWatchingRemoveRequestSuccess(response));
+    }
+  } catch (error) {
+    // error
+  }
+}
+
 export default all([
   takeLatest(UserActionTypes.LOGIN_REQUEST, loginRequest),
   takeLatest(UserActionTypes.WATCHLIST_TOGGLE_REQUEST, watchlistToggleRequest),
+  takeLatest(UserActionTypes.CONTINUE_WATCHING_REMOVE_REQUEST, continueWatchingRemoveRequestAction),
   takeLatest(UserActionTypes.LOGOUT, logout),
   takeEvery(UserActionTypes.GET_PROFILE_REQUEST, getProfileRequest),
 ]);

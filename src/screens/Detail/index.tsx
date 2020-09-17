@@ -9,7 +9,7 @@ import {
   MassiveSDKModelItemSummary,
   MassiveSDKModelSeasonsItem,
 } from '@src/sdks/Britbox.API.Content.TS/api';
-import { loadDetailPage, LoadDetailPageResponse, loadEpisodesBySeason } from '@src/services/detail';
+import { loadDetailPage, loadEpisodesBySeason } from '@src/services/detail';
 import { getImage } from '@src/utils/images';
 import { fill } from 'lodash';
 import Bookmark from '@components/Bookmark';
@@ -25,6 +25,7 @@ import {
   detailWatchedSuccess,
 } from '@store/modules/detail/actions';
 import { MassiveSDKModelWatched } from '@src/sdks/Britbox.API.Account.TS/api';
+import { LoadDetailPageResponse } from '@store/modules/detail/types';
 import {
   Container,
   Scroll,

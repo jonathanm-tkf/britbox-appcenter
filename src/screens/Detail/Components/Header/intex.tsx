@@ -1,12 +1,12 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react';
-
-import { LoadDetailPageResponse } from '@src/services/detail';
 import { Animated } from 'react-native';
 import Shimmer from '@components/Shimmer';
 import { AppState } from '@store/modules/rootReducer';
 import { useSelector } from 'react-redux';
 import ContentLoader, { Rect } from 'react-content-loader/native';
 import { getImage } from '@src/utils/images';
+import { LoadDetailPageResponse } from '@store/modules/detail/types';
 import { Container, HeaderBackgroundImage, ImageTop } from './styles';
 
 type Props = {

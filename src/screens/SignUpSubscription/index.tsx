@@ -1,9 +1,9 @@
-/* eslint-disable no-unused-vars */
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable react/no-array-index-key */
 /* eslint-disable react-native/no-inline-styles */
 import React, { useState, useEffect } from 'react';
-import { KeyboardAvoidingView, Platform, Linking, View } from 'react-native';
+import { KeyboardAvoidingView, Platform, Linking } from 'react-native';
 
 import { Button } from '@components/Button';
 import HeaderCustom from '@components/HeaderCustom';
@@ -96,7 +96,6 @@ const SignUpSubscription = () => {
   };
 
   useEffect(() => {
-    // Orientation.lockToPortrait();
     initialConnection();
     getProducts();
   }, []);

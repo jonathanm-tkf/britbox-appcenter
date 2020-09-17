@@ -91,7 +91,7 @@ export const TextWrapper = styled.View`
     `
       : props.category || props.isDetail
       ? `
-      height: 70px;
+      height: 50px;
     `
       : `height: 20px;`;
   }};
@@ -148,6 +148,7 @@ export const WrapperBookmarks = styled.View`
 interface BottomWrapper {
   isContinue: boolean;
   isDetail?: boolean;
+  isWatchlist?: boolean;
 }
 
 export const BottomWrapper = styled.View`
@@ -162,6 +163,14 @@ export const BottomWrapper = styled.View`
       `
       justify-content: flex-start;
       padding-left: 5px;
+    `
+    );
+  }};
+  ${(props: BottomWrapper) => {
+    return (
+      props.isWatchlist &&
+      `
+      justify-content: center;
     `
     );
   }};

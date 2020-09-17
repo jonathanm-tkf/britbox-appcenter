@@ -1,7 +1,6 @@
 import { MassiveSDKModelWatched } from '@src/sdks/Britbox.API.Account.TS/api';
-import { LoadDetailPageResponse } from '@src/services/detail';
 import { action } from 'typesafe-actions';
-import { DetailActionTypes } from './types';
+import { DetailActionTypes, LoadDetailPageResponse } from './types';
 
 export const detailRequest = () => action(DetailActionTypes.DETAIL_REQUEST);
 

@@ -1,19 +1,16 @@
-/* eslint-disable max-len */
 import React from 'react';
-
 import Card from '@components/Card';
 import { MassiveSDKModelEpisodesItem } from '@src/sdks/Britbox.API.Content.TS/api';
 import { getImage } from '@src/utils/images';
 import { getDuration } from '@src/utils/template';
-import { Show, MoreInformation } from '@src/services/detail';
 import { ArrowBottomIcon, DiscoverMoreIcon } from '@assets/icons';
 import { useNavigation } from '@react-navigation/native';
 import { AppState } from '@store/modules/rootReducer';
 import { useDispatch, useSelector } from 'react-redux';
 import { CastVideo } from '@src/services/cast';
 import { showSheetBottom } from '@store/modules/layout/actions';
-import { MassiveSDKModelWatched } from '@src/sdks/Britbox.API.Account.TS/api';
 import { pickBy } from 'lodash';
+import { MoreInformation, Show } from '@store/modules/detail/types';
 import { Container, ContainerFilter, SeasonButton, SeasonText, InformationButton } from './styles';
 
 interface Props {
@@ -44,14 +41,14 @@ const Episodes = ({ onLayout, data, show, moreInformation, isEpisode, onScrollTo
     }
     if (customFields) {
       const { CCFlag: cc, HDFlag: hd } = customFields as { CCFlag: string; HDFlag: string };
-      if (JSON.parse(cc.toLowerCase())) {
+      if (JSON.parse((cc || 'False').toLowerCase())) {
         dataResult.push({
           key: 2,
           label: 'cc',
           bold: false,
         });
       }
-      if (JSON.parse(hd.toLowerCase())) {
+      if (JSON.parse((hd || 'False').toLowerCase())) {
         dataResult.push({
           key: 3,
           label: 'hd',

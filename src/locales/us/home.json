@@ -4,5 +4,13 @@
   "keyWithCount": "{{count}} item",
   "keyWithCount_plural": "{{count}} items",
   "show": "Show",
-  "Show": "Movie"
+  "Show": "Movie",
+  "continue": "Continue Watching",
+  "remove": {
+    "title": "Remove from your Continue Watching?",
+    "button": {
+      "ok": "Yes, remove",
+      "cancel": "Cancel"
+    }
+  }
 }
