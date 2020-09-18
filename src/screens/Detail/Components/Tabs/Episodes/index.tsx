@@ -11,6 +11,7 @@ import { CastVideo } from '@src/services/cast';
 import { showSheetBottom } from '@store/modules/layout/actions';
 import { pickBy } from 'lodash';
 import { MoreInformation, Show } from '@store/modules/detail/types';
+import { castDetail } from '@store/modules/core/actions';
 import { Container, ContainerFilter, SeasonButton, SeasonText, InformationButton } from './styles';
 
 interface Props {
@@ -70,6 +71,7 @@ const Episodes = ({ onLayout, data, show, moreInformation, isEpisode, onScrollTo
     }
 
     if (isCast) {
+      dispatch(castDetail(item));
       return CastVideo(item);
     }
 

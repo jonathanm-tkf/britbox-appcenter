@@ -11,6 +11,8 @@ export const initialState: CoreState = {
   token: '',
   isLogged: false,
   menu: undefined,
+  casting: false,
+  castDetail: undefined,
 };
 
 const core: Reducer<CoreState> = (state = initialState, action) => {
@@ -43,6 +45,14 @@ const core: Reducer<CoreState> = (state = initialState, action) => {
         draft.segment = Segment.OUT;
         break;
       }
+      case CoreActionTypes.CASTING_ON: {
+        draft.casting = true;
+        break;
+      }
+      case CoreActionTypes.CASTING_OFF: {
+        draft.casting = false;
+        break;
+      }
       case CoreActionTypes.BRITBOX_APP_CONFIG_SUCCESS: {
         draft.britboxConfig = action.payload;
         break;
@@ -59,6 +69,14 @@ const core: Reducer<CoreState> = (state = initialState, action) => {
       case UserActionTypes.LOGOUT_SUCCESS: {
         draft.isLogged = false;
         draft.token = '';
+        break;
+      }
+      case CoreActionTypes.CAST_DETAIL: {
+        draft.castDetail = action.payload;
+        break;
+      }
+      case CoreActionTypes.CAST_DETAIL_CLEAR: {
+        draft.castDetail = undefined;
         break;
       }
       default:

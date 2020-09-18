@@ -12,6 +12,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { AppState } from '@store/modules/rootReducer';
 import { showSheetBottom } from '@store/modules/layout/actions';
 import { Show, MoreInformation } from '@store/modules/detail/types';
+import { castDetail } from '@store/modules/core/actions';
+import { pickBy } from 'lodash';
 import { Container } from './styles';
 
 interface Props {
@@ -65,6 +67,7 @@ const BonusFeatures = ({ onLayout, data }: Props) => {
     }
 
     if (isCast) {
+      dispatch(castDetail(item));
       return CastVideo(item);
     }
 

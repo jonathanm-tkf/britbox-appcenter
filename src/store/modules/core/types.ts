@@ -130,6 +130,10 @@ export enum CoreActionTypes {
   CONFIG_SUCCESS = '@core/CONFIG_SUCCESS',
   CONFIG_ERROR = '@core/CONFIG_ERROR',
   BRITBOX_APP_CONFIG_SUCCESS = '@core/BRITBOX_APP_CONFIG_SUCCESS',
+  CASTING_ON = '@core/CASTING_ON',
+  CASTING_OFF = '@core/CASTING_OFF',
+  CAST_DETAIL = '@core/CAST_DETAIL',
+  CAST_DETAIL_CLEAR = '@core/CAST_DETAIL_CLEAR',
 }
 
 /**
@@ -144,6 +148,8 @@ export interface CoreState {
   token: string;
   isLogged: boolean;
   menu: Menu | undefined;
+  casting: boolean;
+  castDetail: any;
 }
 
 export interface Menu {

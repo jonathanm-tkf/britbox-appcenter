@@ -10,7 +10,7 @@ import {
  * @param dimension directly taken from design wireframes
  * @returns {string} percentage string e.g. '25%'
  */
-export const wp = (dimension: number) => {
+export const wp = (dimension: number): number => {
   return wp2dp(`${(dimension / 360) * 100}%`);
 };
 
@@ -21,6 +21,6 @@ export const wp = (dimension: number) => {
  * @param dimension directly taken from design wireframes
  * @returns {string} percentage string e.g. '25%'
  */
-export const hp = (dimension: number) => {
+export const hp = (dimension: number): number => {
   return hp2dp(`${(dimension / 760) * 100}%`);
 };
