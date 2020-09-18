@@ -1,6 +1,8 @@
-import { getSystemName } from 'react-native-device-info';
+import { getSystemName, isTablet } from 'react-native-device-info';
 
 export const getDevice = () => {
-  // return isTablet() ? 'tablet' : getSystemName() === 'Android' ? 'phone_android' : 'phone_iOS';
+  if (isTablet()) {
+    return getSystemName() === 'Android' ? 'tablet_iOS' : 'tablet_android';
+  }
   return getSystemName() === 'Android' ? 'phone_android' : 'phone_iOS';
 };

@@ -86,7 +86,6 @@ const RootStackScreen = () => {
       const minVersion =
         (britboxConfig && britboxConfig[country]['force-upgrade']['min-version']) || '';
       const curVersion = getVersion();
-
       if (curVersion < minVersion) {
         setVersionModal(true);
       }

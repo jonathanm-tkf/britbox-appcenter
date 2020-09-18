@@ -26,6 +26,7 @@ import {
 } from '@store/modules/detail/actions';
 import { MassiveSDKModelWatched } from '@src/sdks/Britbox.API.Account.TS/api';
 import { LoadDetailPageResponse } from '@store/modules/detail/types';
+import { castDetail } from '@store/modules/core/actions';
 import {
   Container,
   Scroll,
@@ -178,6 +179,7 @@ const Detail = () => {
     }
 
     if (isCast) {
+      dispatch(castDetail(item));
       return CastVideo(item);
     }
 

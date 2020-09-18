@@ -12,6 +12,9 @@ export const menuRequestError = () => action(CoreActionTypes.MENU_ERROR);
 
 export const configRequest = () => action(CoreActionTypes.CONFIG_REQUEST);
 
+export const castingOn = () => action(CoreActionTypes.CASTING_ON);
+export const castingOff = () => action(CoreActionTypes.CASTING_OFF);
+
 export const configRequestSuccess = (data: string) =>
   action(CoreActionTypes.CONFIG_SUCCESS, { data });
 
@@ -19,3 +22,7 @@ export const configRequestError = () => action(CoreActionTypes.CONFIG_ERROR);
 
 export const britBoxAppConfigSuccess = (data: BritBoxCountryConfig) =>
   action(CoreActionTypes.BRITBOX_APP_CONFIG_SUCCESS, { ...data });
+
+export const castDetail = (data: any) => action(CoreActionTypes.CAST_DETAIL, { ...data });
+
+export const castDetailClear = () => action(CoreActionTypes.CAST_DETAIL_CLEAR);
