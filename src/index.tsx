@@ -11,16 +11,17 @@ import './config/ReactotronConfig';
 import './config/SentryConfig';
 import { DefaultTheme, Provider as PaperProvider, configureFonts } from 'react-native-paper';
 import { lightTheme, base } from '@store/modules/theme/theme';
-import { YellowBox } from 'react-native';
+import { LogBox } from 'react-native';
 import { persistor, store } from './store';
 import App from './App';
 import i18n from './services/i18next';
 
 enableScreens();
 
-YellowBox.ignoreWarnings([
+LogBox.ignoreLogs([
   'CheckBox has been extracted from react-native core',
   'No info about this app',
+  'rn-fetch-blob',
 ]);
 
 type FontWeight =
