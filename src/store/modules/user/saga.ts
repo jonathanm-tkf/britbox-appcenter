@@ -1,5 +1,5 @@
 import { takeLatest, all, call, put, select, takeEvery } from 'redux-saga/effects';
-// import * as Sentry from '@sentry/react-native';
+import * as Sentry from '@sentry/react-native';
 
 import { BritboxAccountApi, BritboxContentApi } from '@src/sdks';
 import {
@@ -198,7 +198,9 @@ export async function addSubscriptionRequest(
 
   try {
     const response = await addSubscription(addSubscriptionRequestObject);
-
+    Sentry.setExtra('response', response);
+    Sentry.setExtra('addSubscriptionRequestObject', addSubscriptionRequestObject);
+    Sentry.captureMessage('addSubscription');
     return response;
   } catch (error) {
     return error;

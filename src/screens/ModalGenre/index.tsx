@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unused-prop-types */
 import React, { useEffect, useState } from 'react';
 
 import { RouteProp, useRoute, useNavigation } from '@react-navigation/native';

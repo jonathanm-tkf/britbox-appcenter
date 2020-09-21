@@ -11,7 +11,7 @@ import { CastVideo } from '@src/services/cast';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppState } from '@store/modules/rootReducer';
 import { showSheetBottom } from '@store/modules/layout/actions';
-import { Show, MoreInformation } from '@store/modules/detail/types';
+// import { Show, MoreInformation } from '@store/modules/detail/types';
 import { castDetail } from '@store/modules/core/actions';
 import { pickBy } from 'lodash';
 import { Container } from './styles';
@@ -19,8 +19,8 @@ import { Container } from './styles';
 interface Props {
   onLayout?: (event: any) => void;
   data: MassiveSDKModelEpisodesItem[];
-  show: Show | undefined;
-  moreInformation: MoreInformation | undefined;
+  // show: Show | undefined;
+  // moreInformation: MoreInformation | undefined;
 }
 
 const BonusFeatures = ({ onLayout, data }: Props) => {

@@ -6,21 +6,6 @@ import { homeRequestSuccess, homeRequestError } from './actions';
 import { AppState } from '../rootReducer';
 import { CoreActionTypes } from '../core/types';
 
-type HomeDataRequest = {
-  path?: string;
-  useCustomId?: boolean;
-  listPageSize?: number;
-  listPageSizeLarge?: number;
-  maxListPrefetch?: number;
-  itemDetailExpand?: string;
-  itemDetailSelectSeason?: string;
-  textEntryFormat?: string;
-  maxRating?: string;
-  device?: string;
-  sub?: string;
-  segments?: string[];
-};
-
 const getSegment = (state: AppState) => state.core.segment;
 
 async function getHomeData(segment: string) {

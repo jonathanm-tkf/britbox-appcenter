@@ -8,53 +8,25 @@
 
 /* Begin PBXBuildFile section */
 		00E356F31AD99517003FC87E /* BritboxTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* BritboxTests.m */; };
-		039C136AFF904CED9355F1EE /* Discover_more.svg in Resources */ = {isa = PBXBuildFile; fileRef = FD7EFCC6262948F48D0B32CC /* Discover_more.svg */; };
-		04D46A752502197400AFD3DF /* Star.svg in Resources */ = {isa = PBXBuildFile; fileRef = 04D46A742502197400AFD3DF /* Star.svg */; };
-		09678E146CDB43A6AB2160AD /* Celular.svg in Resources */ = {isa = PBXBuildFile; fileRef = 382D717F5B444E81A89C59D0 /* Celular.svg */; };
-		09F3B8EF0EC44D9F9C795F5D /* MoreWatching.png in Resources */ = {isa = PBXBuildFile; fileRef = 387384A32DFF441BA72981FA /* MoreWatching.png */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
-		13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB11A68108700A75B9A /* LaunchScreen.xib */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
-		2CB69BB17E4CD696606E38E5 /* libPods-Britbox-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 86968EF2390112BFC512B77F /* libPods-Britbox-tvOS.a */; };
 		2D02E4BC1E0B4A80006451C7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		2D02E4BD1E0B4A84006451C7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		2D02E4BF1E0B4AB3006451C7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		2DCD954D1E0B4F2C00145EB5 /* BritboxTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* BritboxTests.m */; };
-		36BCDFAB258947BA88EDE4E2 /* Close.svg in Resources */ = {isa = PBXBuildFile; fileRef = 0860A1879BC942E6BC0051C5 /* Close.svg */; };
-		51D074C57883481EBFC2EED8 /* Play_now.svg in Resources */ = {isa = PBXBuildFile; fileRef = 24E5D4B241174CCE899F5CE0 /* Play_now.svg */; };
-		59E2A391ED67D91A9C367004 /* libPods-Britbox.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DE9DDEB993704CC30DB0E0D /* libPods-Britbox.a */; };
-		626CD53F0A3F459A8788632F /* Help.svg in Resources */ = {isa = PBXBuildFile; fileRef = 67DC3AD720BD4263B0F0CBCE /* Help.svg */; };
-		63EFFCFCF390A616AAEFC1F6 /* libPods-Britbox-BritboxTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BD4F2901314135F60555D0AE /* libPods-Britbox-BritboxTests.a */; };
-		6698080B7D1D4F2EA2D1F6BF /* MuseoSans-900.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DD3CD0A7496D40AB84D16D16 /* MuseoSans-900.ttf */; };
-		66D52D8CB4D346A1A939A7A5 /* AllDevice.png in Resources */ = {isa = PBXBuildFile; fileRef = 4B13AEFB49094574AD9D2483 /* AllDevice.png */; };
-		66EEA3F934824173B790F9F4 /* Offline.svg in Resources */ = {isa = PBXBuildFile; fileRef = AA8367000ECC4914BDD87152 /* Offline.svg */; };
-		793ECF8B70CD00AD7B5EB006 /* libPods-Britbox-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9638FCA477944A63EFA8D7C8 /* libPods-Britbox-tvOSTests.a */; };
-		7E07783F78494747BF7D8838 /* CancelAnyTime.png in Resources */ = {isa = PBXBuildFile; fileRef = AF7AC4CC51E64009A9189080 /* CancelAnyTime.png */; };
-		815D76FC4E7F415C88BD786E /* Watchlist.svg in Resources */ = {isa = PBXBuildFile; fileRef = AF13C119D65C40E49D5C9949 /* Watchlist.svg */; };
-		8E38F6996B734C46AE778660 /* Chromecast.svg in Resources */ = {isa = PBXBuildFile; fileRef = C6AA26CB40824E038D15F7C8 /* Chromecast.svg */; };
-		90EC32D9C5C64AA49132A206 /* MuseoSans-500.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 09AC4A685844492E9C61CEC8 /* MuseoSans-500.ttf */; };
-		9A31BE6785B3465196F7A38E /* host.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 98727A3900204438B173CF13 /* host.jpg */; };
-		A55659A2AAEC4C158E7D9295 /* Explore_mb.svg in Resources */ = {isa = PBXBuildFile; fileRef = EDBB238BAF1C43CBBA08CD0E /* Explore_mb.svg */; };
-		A9C13C832493D20D00CB0044 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A9C13C822493D20D00CB0044 /* StoreKit.framework */; };
-		A9DDFAA924DB0F6600F08D53 /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9DDFAA824DB0F6600F08D53 /* File.swift */; };
-		A9DDFAAA24DB0F6600F08D53 /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9DDFAA824DB0F6600F08D53 /* File.swift */; };
-		A9DDFAAB24DB0F6600F08D53 /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9DDFAA824DB0F6600F08D53 /* File.swift */; };
-		A9DDFAAC24DB0F6600F08D53 /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9DDFAA824DB0F6600F08D53 /* File.swift */; };
-		AB351D6207D443EE85DC1DD5 /* MuseoSans-100.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 73E02622E1CA4B64BFDCDC99 /* MuseoSans-100.ttf */; };
-		B9AC06F15F524C5394CCD61C /* More_menu.svg in Resources */ = {isa = PBXBuildFile; fileRef = F8535627104544378435F763 /* More_menu.svg */; };
-		C3F49FF54367439D9BE133CB /* MuseoSans-700.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 57601D08C4924C64A55352F3 /* MuseoSans-700.ttf */; };
-		C86255F1B53545CA9D75C22A /* Profile.svg in Resources */ = {isa = PBXBuildFile; fileRef = 390517AAD5C04C73A0A86341 /* Profile.svg */; };
-		CB018159D1614B7084DF541C /* Arrow_bottom.svg in Resources */ = {isa = PBXBuildFile; fileRef = 6FD935706C56436D8CE34AA7 /* Arrow_bottom.svg */; };
-		CEC2BB47BBB347AD9FA035BD /* tiny-home.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0CDD674C483A43229C35581B /* tiny-home.jpg */; };
-		D38705DC667340EC95BEF4BD /* Loading_more.svg in Resources */ = {isa = PBXBuildFile; fileRef = 3EA22149FEAB48BB8C17BA50 /* Loading_more.svg */; };
-		D90E45DEAD944E7AB02B4693 /* WelcomeApp.png in Resources */ = {isa = PBXBuildFile; fileRef = E3A03DF01CD0453AB37998FD /* WelcomeApp.png */; };
-		DA3BEFE3D4FF4C609F4A1ED7 /* Arrow_back_browser.svg in Resources */ = {isa = PBXBuildFile; fileRef = 876060987FFA4FB4B9E5E685 /* Arrow_back_browser.svg */; };
-		DB8DB16DA148429486A615C5 /* Logo.svg in Resources */ = {isa = PBXBuildFile; fileRef = 953D74F793C34FE48C3CEA6C /* Logo.svg */; };
-		DD94731D0167404EA313EABE /* MuseoSans-300.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F06FFB518996482788502A2C /* MuseoSans-300.ttf */; };
-		DE83A6DC86A64FA1B8DDC8EC /* Search.svg in Resources */ = {isa = PBXBuildFile; fileRef = 2C284B2E87F049A982E22BF9 /* Search.svg */; };
-		F01AF71E3CE44B4DAC576121 /* cook-house.jpg in Resources */ = {isa = PBXBuildFile; fileRef = CCEBA4ED99224E868D54CA02 /* cook-house.jpg */; };
-		F7AB4D1AD8EC43E19F53ADE5 /* Home.svg in Resources */ = {isa = PBXBuildFile; fileRef = D7212EE376D441C0B37DFDE2 /* Home.svg */; };
+		34AF428A2B1339E713915357 /* libPods-Britbox-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E21BF26E8ED2D7E220237FA9 /* libPods-Britbox-tvOSTests.a */; };
+		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
+		8DB145D6D436BFDA735E9A85 /* libPods-Britbox-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 558ECBAB4C5854C7EE23AADE /* libPods-Britbox-tvOS.a */; };
+		A957AA0C251934F800765DCE /* MuseoSans-900.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A957AA07251934F800765DCE /* MuseoSans-900.ttf */; };
+		A957AA0D251934F800765DCE /* MuseoSans-100.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A957AA08251934F800765DCE /* MuseoSans-100.ttf */; };
+		A957AA0E251934F800765DCE /* MuseoSans-700.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A957AA09251934F800765DCE /* MuseoSans-700.ttf */; };
+		A957AA0F251934F800765DCE /* MuseoSans-500.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A957AA0A251934F800765DCE /* MuseoSans-500.ttf */; };
+		A957AA10251934F800765DCE /* MuseoSans-300.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A957AA0B251934F800765DCE /* MuseoSans-300.ttf */; };
+		A957AA1C251936A400765DCE /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = A957AA1B251936A400765DCE /* File.swift */; };
+		A957AA22251936E700765DCE /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A957AA21251936E700765DCE /* StoreKit.framework */; };
+		BB4EB7EC9DD0D87497C74F3D /* libPods-Britbox-BritboxTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9153F216D9EF4DC955CE2FCD /* libPods-Britbox-BritboxTests.a */; };
+		F63DE00671DC59F3B6F44D2D /* libPods-Britbox.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B6B2B8E73565A2F450A7E107 /* libPods-Britbox.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -79,70 +51,38 @@
 		00E356EE1AD99517003FC87E /* BritboxTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BritboxTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* BritboxTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BritboxTests.m; sourceTree = "<group>"; };
-		04D46A742502197400AFD3DF /* Star.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = Star.svg; path = ../assets/images/Star.svg; sourceTree = "<group>"; };
-		06E67379333ECBC2C7F0FDBE /* Pods-Britbox-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Britbox-tvOSTests.debug.xcconfig"; path = "Target Support Files/Pods-Britbox-tvOSTests/Pods-Britbox-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
-		0778D903ED0FA22FCCAB7A2D /* Pods-Britbox-BritboxTests.staging.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Britbox-BritboxTests.staging.xcconfig"; path = "Target Support Files/Pods-Britbox-BritboxTests/Pods-Britbox-BritboxTests.staging.xcconfig"; sourceTree = "<group>"; };
-		0860A1879BC942E6BC0051C5 /* Close.svg */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Close.svg; path = ../assets/images/Close.svg; sourceTree = "<group>"; };
-		09AC4A685844492E9C61CEC8 /* MuseoSans-500.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "MuseoSans-500.ttf"; path = "../assets/fonts/MuseoSans-500.ttf"; sourceTree = "<group>"; };
-		0CDD674C483A43229C35581B /* tiny-home.jpg */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "tiny-home.jpg"; path = "../assets/tiny-home.jpg"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* Britbox.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Britbox.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = Britbox/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = Britbox/AppDelegate.m; sourceTree = "<group>"; };
-		13B07FB21A68108700A75B9A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = Britbox/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = Britbox/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = Britbox/main.m; sourceTree = "<group>"; };
-		1964D51567F52B1BE3A9560C /* Pods-Britbox.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Britbox.debug.xcconfig"; path = "Target Support Files/Pods-Britbox/Pods-Britbox.debug.xcconfig"; sourceTree = "<group>"; };
-		24E5D4B241174CCE899F5CE0 /* Play_now.svg */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Play_now.svg; path = ../assets/images/Play_now.svg; sourceTree = "<group>"; };
-		2C284B2E87F049A982E22BF9 /* Search.svg */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Search.svg; path = ../assets/images/Search.svg; sourceTree = "<group>"; };
+		2C5E6FA08F8FFDFA63909A0D /* Pods-Britbox-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Britbox-tvOS.debug.xcconfig"; path = "Target Support Files/Pods-Britbox-tvOS/Pods-Britbox-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
 		2D02E47B1E0B4A5D006451C7 /* Britbox-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Britbox-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D02E4901E0B4A5D006451C7 /* Britbox-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Britbox-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		382D717F5B444E81A89C59D0 /* Celular.svg */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Celular.svg; path = ../assets/images/Celular.svg; sourceTree = "<group>"; };
-		387384A32DFF441BA72981FA /* MoreWatching.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MoreWatching.png; path = ../assets/images/MoreWatching.png; sourceTree = "<group>"; };
-		390517AAD5C04C73A0A86341 /* Profile.svg */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Profile.svg; path = ../assets/images/Profile.svg; sourceTree = "<group>"; };
-		3EA22149FEAB48BB8C17BA50 /* Loading_more.svg */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Loading_more.svg; path = ../assets/images/Loading_more.svg; sourceTree = "<group>"; };
-		43F8472F87F29AAB05C78D0F /* Pods-Britbox-tvOS.staging.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Britbox-tvOS.staging.xcconfig"; path = "Target Support Files/Pods-Britbox-tvOS/Pods-Britbox-tvOS.staging.xcconfig"; sourceTree = "<group>"; };
-		4B13AEFB49094574AD9D2483 /* AllDevice.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = AllDevice.png; path = ../assets/images/AllDevice.png; sourceTree = "<group>"; };
-		57601D08C4924C64A55352F3 /* MuseoSans-700.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "MuseoSans-700.ttf"; path = "../assets/fonts/MuseoSans-700.ttf"; sourceTree = "<group>"; };
-		5DE9DDEB993704CC30DB0E0D /* libPods-Britbox.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Britbox.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		67DC3AD720BD4263B0F0CBCE /* Help.svg */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Help.svg; path = ../assets/images/Help.svg; sourceTree = "<group>"; };
-		6B9079DAB1C744E2910FBD22 /* Pods-Britbox-BritboxTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Britbox-BritboxTests.debug.xcconfig"; path = "Target Support Files/Pods-Britbox-BritboxTests/Pods-Britbox-BritboxTests.debug.xcconfig"; sourceTree = "<group>"; };
-		6F3B371DD1A025B58B788FFF /* Pods-Britbox.staging.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Britbox.staging.xcconfig"; path = "Target Support Files/Pods-Britbox/Pods-Britbox.staging.xcconfig"; sourceTree = "<group>"; };
-		6FD935706C56436D8CE34AA7 /* Arrow_bottom.svg */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Arrow_bottom.svg; path = ../assets/images/Arrow_bottom.svg; sourceTree = "<group>"; };
-		73E02622E1CA4B64BFDCDC99 /* MuseoSans-100.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "MuseoSans-100.ttf"; path = "../assets/fonts/MuseoSans-100.ttf"; sourceTree = "<group>"; };
-		86968EF2390112BFC512B77F /* libPods-Britbox-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Britbox-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		876060987FFA4FB4B9E5E685 /* Arrow_back_browser.svg */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Arrow_back_browser.svg; path = ../assets/images/Arrow_back_browser.svg; sourceTree = "<group>"; };
-		8B5C1BEDDF800F57961F530B /* Pods-Britbox-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Britbox-tvOSTests.release.xcconfig"; path = "Target Support Files/Pods-Britbox-tvOSTests/Pods-Britbox-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
-		953D74F793C34FE48C3CEA6C /* Logo.svg */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Logo.svg; path = ../assets/images/Logo.svg; sourceTree = "<group>"; };
-		9638FCA477944A63EFA8D7C8 /* libPods-Britbox-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Britbox-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		98727A3900204438B173CF13 /* host.jpg */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = host.jpg; path = ../assets/host.jpg; sourceTree = "<group>"; };
-		A286DE8EBBEAAA593EAA12FE /* Pods-Britbox-tvOSTests.staging.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Britbox-tvOSTests.staging.xcconfig"; path = "Target Support Files/Pods-Britbox-tvOSTests/Pods-Britbox-tvOSTests.staging.xcconfig"; sourceTree = "<group>"; };
-		A9A291ED24DB60E9007526BB /* Britbox.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = Britbox.entitlements; path = Britbox/Britbox.entitlements; sourceTree = "<group>"; };
-		A9C13C822493D20D00CB0044 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
-		A9DDFAA524DB0F6500F08D53 /* BritboxTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "BritboxTests-Bridging-Header.h"; sourceTree = "<group>"; };
-		A9DDFAA624DB0F6500F08D53 /* Britbox-tvOS-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Britbox-tvOS-Bridging-Header.h"; sourceTree = "<group>"; };
-		A9DDFAA724DB0F6500F08D53 /* Britbox-tvOSTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Britbox-tvOSTests-Bridging-Header.h"; sourceTree = "<group>"; };
-		A9DDFAA824DB0F6600F08D53 /* File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
-		A9F423C9245D19A700D04F5E /* Britbox-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Britbox-Bridging-Header.h"; sourceTree = "<group>"; };
-		AA8367000ECC4914BDD87152 /* Offline.svg */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Offline.svg; path = ../assets/images/Offline.svg; sourceTree = "<group>"; };
-		AB91737726964B95BA729DD0 /* Pods-Britbox.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Britbox.release.xcconfig"; path = "Target Support Files/Pods-Britbox/Pods-Britbox.release.xcconfig"; sourceTree = "<group>"; };
-		ACABCBA5F3AF3D97240F375B /* Pods-Britbox-BritboxTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Britbox-BritboxTests.release.xcconfig"; path = "Target Support Files/Pods-Britbox-BritboxTests/Pods-Britbox-BritboxTests.release.xcconfig"; sourceTree = "<group>"; };
-		AF13C119D65C40E49D5C9949 /* Watchlist.svg */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Watchlist.svg; path = ../assets/images/Watchlist.svg; sourceTree = "<group>"; };
-		AF7AC4CC51E64009A9189080 /* CancelAnyTime.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = CancelAnyTime.png; path = ../assets/images/CancelAnyTime.png; sourceTree = "<group>"; };
-		BD4F2901314135F60555D0AE /* libPods-Britbox-BritboxTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Britbox-BritboxTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		C6AA26CB40824E038D15F7C8 /* Chromecast.svg */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Chromecast.svg; path = ../assets/images/Chromecast.svg; sourceTree = "<group>"; };
-		CCEBA4ED99224E868D54CA02 /* cook-house.jpg */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "cook-house.jpg"; path = "../assets/cook-house.jpg"; sourceTree = "<group>"; };
-		D7212EE376D441C0B37DFDE2 /* Home.svg */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Home.svg; path = ../assets/images/Home.svg; sourceTree = "<group>"; };
-		DD3CD0A7496D40AB84D16D16 /* MuseoSans-900.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "MuseoSans-900.ttf"; path = "../assets/fonts/MuseoSans-900.ttf"; sourceTree = "<group>"; };
-		E180231D14241FFB15EC8F20 /* Pods-Britbox-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Britbox-tvOS.release.xcconfig"; path = "Target Support Files/Pods-Britbox-tvOS/Pods-Britbox-tvOS.release.xcconfig"; sourceTree = "<group>"; };
-		E3A03DF01CD0453AB37998FD /* WelcomeApp.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = WelcomeApp.png; path = ../assets/images/WelcomeApp.png; sourceTree = "<group>"; };
+		558ECBAB4C5854C7EE23AADE /* libPods-Britbox-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Britbox-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = Britbox/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		8CE6D2B3A41F998DBEE98C6B /* Pods-Britbox-BritboxTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Britbox-BritboxTests.release.xcconfig"; path = "Target Support Files/Pods-Britbox-BritboxTests/Pods-Britbox-BritboxTests.release.xcconfig"; sourceTree = "<group>"; };
+		9153F216D9EF4DC955CE2FCD /* libPods-Britbox-BritboxTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Britbox-BritboxTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		91D34EA563451703D27DE35F /* Pods-Britbox-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Britbox-tvOSTests.release.xcconfig"; path = "Target Support Files/Pods-Britbox-tvOSTests/Pods-Britbox-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
+		A1B36E78123A971B3006E56F /* Pods-Britbox.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Britbox.release.xcconfig"; path = "Target Support Files/Pods-Britbox/Pods-Britbox.release.xcconfig"; sourceTree = "<group>"; };
+		A484501A745B029225E9A0C9 /* Pods-Britbox-BritboxTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Britbox-BritboxTests.debug.xcconfig"; path = "Target Support Files/Pods-Britbox-BritboxTests/Pods-Britbox-BritboxTests.debug.xcconfig"; sourceTree = "<group>"; };
+		A957AA07251934F800765DCE /* MuseoSans-900.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "MuseoSans-900.ttf"; sourceTree = "<group>"; };
+		A957AA08251934F800765DCE /* MuseoSans-100.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "MuseoSans-100.ttf"; sourceTree = "<group>"; };
+		A957AA09251934F800765DCE /* MuseoSans-700.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "MuseoSans-700.ttf"; sourceTree = "<group>"; };
+		A957AA0A251934F800765DCE /* MuseoSans-500.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "MuseoSans-500.ttf"; sourceTree = "<group>"; };
+		A957AA0B251934F800765DCE /* MuseoSans-300.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "MuseoSans-300.ttf"; sourceTree = "<group>"; };
+		A957AA1A251936A300765DCE /* Britbox-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Britbox-Bridging-Header.h"; sourceTree = "<group>"; };
+		A957AA1B251936A400765DCE /* File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
+		A957AA21251936E700765DCE /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		A957AA23251936ED00765DCE /* Britbox.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = Britbox.entitlements; path = Britbox/Britbox.entitlements; sourceTree = "<group>"; };
+		B6B2B8E73565A2F450A7E107 /* libPods-Britbox.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Britbox.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		CF062EA44D6CF511EE364902 /* Pods-Britbox-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Britbox-tvOSTests.debug.xcconfig"; path = "Target Support Files/Pods-Britbox-tvOSTests/Pods-Britbox-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
+		D31EAE21F4BC8429F24D3D19 /* Pods-Britbox-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Britbox-tvOS.release.xcconfig"; path = "Target Support Files/Pods-Britbox-tvOS/Pods-Britbox-tvOS.release.xcconfig"; sourceTree = "<group>"; };
+		E21BF26E8ED2D7E220237FA9 /* libPods-Britbox-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Britbox-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		EB089E5074379FBEAAD907C9 /* Pods-Britbox.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Britbox.debug.xcconfig"; path = "Target Support Files/Pods-Britbox/Pods-Britbox.debug.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
-		EDBB238BAF1C43CBBA08CD0E /* Explore_mb.svg */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Explore_mb.svg; path = ../assets/images/Explore_mb.svg; sourceTree = "<group>"; };
-		F06FFB518996482788502A2C /* MuseoSans-300.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "MuseoSans-300.ttf"; path = "../assets/fonts/MuseoSans-300.ttf"; sourceTree = "<group>"; };
-		F8535627104544378435F763 /* More_menu.svg */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = More_menu.svg; path = ../assets/images/More_menu.svg; sourceTree = "<group>"; };
-		FA25C79A101A4529F16FB814 /* Pods-Britbox-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Britbox-tvOS.debug.xcconfig"; path = "Target Support Files/Pods-Britbox-tvOS/Pods-Britbox-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
-		FD7EFCC6262948F48D0B32CC /* Discover_more.svg */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Discover_more.svg; path = ../assets/images/Discover_more.svg; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -150,7 +90,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				63EFFCFCF390A616AAEFC1F6 /* libPods-Britbox-BritboxTests.a in Frameworks */,
+				BB4EB7EC9DD0D87497C74F3D /* libPods-Britbox-BritboxTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -158,8 +98,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A9C13C832493D20D00CB0044 /* StoreKit.framework in Frameworks */,
-				59E2A391ED67D91A9C367004 /* libPods-Britbox.a in Frameworks */,
+				F63DE00671DC59F3B6F44D2D /* libPods-Britbox.a in Frameworks */,
+				A957AA22251936E700765DCE /* StoreKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -167,7 +107,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2CB69BB17E4CD696606E38E5 /* libPods-Britbox-tvOS.a in Frameworks */,
+				8DB145D6D436BFDA735E9A85 /* libPods-Britbox-tvOS.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -175,7 +115,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				793ECF8B70CD00AD7B5EB006 /* libPods-Britbox-tvOSTests.a in Frameworks */,
+				34AF428A2B1339E713915357 /* libPods-Britbox-tvOSTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -202,91 +142,47 @@
 		13B07FAE1A68108700A75B9A /* Britbox */ = {
 			isa = PBXGroup;
 			children = (
-				A9A291ED24DB60E9007526BB /* Britbox.entitlements */,
+				A957AA23251936ED00765DCE /* Britbox.entitlements */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
 				13B07FB61A68108700A75B9A /* Info.plist */,
-				13B07FB11A68108700A75B9A /* LaunchScreen.xib */,
+				81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */,
 				13B07FB71A68108700A75B9A /* main.m */,
-				A9F423C9245D19A700D04F5E /* Britbox-Bridging-Header.h */,
-				A9DDFAA824DB0F6600F08D53 /* File.swift */,
-				A9DDFAA524DB0F6500F08D53 /* BritboxTests-Bridging-Header.h */,
-				A9DDFAA624DB0F6500F08D53 /* Britbox-tvOS-Bridging-Header.h */,
-				A9DDFAA724DB0F6500F08D53 /* Britbox-tvOSTests-Bridging-Header.h */,
+				A957AA1B251936A400765DCE /* File.swift */,
+				A957AA1A251936A300765DCE /* Britbox-Bridging-Header.h */,
 			);
 			name = Britbox;
+			sourceTree = "<group>";
+		};
+		1B7042197F75B998C71CD448 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				EB089E5074379FBEAAD907C9 /* Pods-Britbox.debug.xcconfig */,
+				A1B36E78123A971B3006E56F /* Pods-Britbox.release.xcconfig */,
+				A484501A745B029225E9A0C9 /* Pods-Britbox-BritboxTests.debug.xcconfig */,
+				8CE6D2B3A41F998DBEE98C6B /* Pods-Britbox-BritboxTests.release.xcconfig */,
+				2C5E6FA08F8FFDFA63909A0D /* Pods-Britbox-tvOS.debug.xcconfig */,
+				D31EAE21F4BC8429F24D3D19 /* Pods-Britbox-tvOS.release.xcconfig */,
+				CF062EA44D6CF511EE364902 /* Pods-Britbox-tvOSTests.debug.xcconfig */,
+				91D34EA563451703D27DE35F /* Pods-Britbox-tvOSTests.release.xcconfig */,
+			);
+			path = Pods;
 			sourceTree = "<group>";
 		};
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				A9C13C822493D20D00CB0044 /* StoreKit.framework */,
+				A957AA21251936E700765DCE /* StoreKit.framework */,
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
 				ED2971642150620600B7C4FE /* JavaScriptCore.framework */,
-				5DE9DDEB993704CC30DB0E0D /* libPods-Britbox.a */,
-				BD4F2901314135F60555D0AE /* libPods-Britbox-BritboxTests.a */,
-				86968EF2390112BFC512B77F /* libPods-Britbox-tvOS.a */,
-				9638FCA477944A63EFA8D7C8 /* libPods-Britbox-tvOSTests.a */,
+				B6B2B8E73565A2F450A7E107 /* libPods-Britbox.a */,
+				9153F216D9EF4DC955CE2FCD /* libPods-Britbox-BritboxTests.a */,
+				558ECBAB4C5854C7EE23AADE /* libPods-Britbox-tvOS.a */,
+				E21BF26E8ED2D7E220237FA9 /* libPods-Britbox-tvOSTests.a */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		543ADA2DB24EBD8EEA171E2E /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				1964D51567F52B1BE3A9560C /* Pods-Britbox.debug.xcconfig */,
-				AB91737726964B95BA729DD0 /* Pods-Britbox.release.xcconfig */,
-				6F3B371DD1A025B58B788FFF /* Pods-Britbox.staging.xcconfig */,
-				6B9079DAB1C744E2910FBD22 /* Pods-Britbox-BritboxTests.debug.xcconfig */,
-				ACABCBA5F3AF3D97240F375B /* Pods-Britbox-BritboxTests.release.xcconfig */,
-				0778D903ED0FA22FCCAB7A2D /* Pods-Britbox-BritboxTests.staging.xcconfig */,
-				FA25C79A101A4529F16FB814 /* Pods-Britbox-tvOS.debug.xcconfig */,
-				E180231D14241FFB15EC8F20 /* Pods-Britbox-tvOS.release.xcconfig */,
-				43F8472F87F29AAB05C78D0F /* Pods-Britbox-tvOS.staging.xcconfig */,
-				06E67379333ECBC2C7F0FDBE /* Pods-Britbox-tvOSTests.debug.xcconfig */,
-				8B5C1BEDDF800F57961F530B /* Pods-Britbox-tvOSTests.release.xcconfig */,
-				A286DE8EBBEAAA593EAA12FE /* Pods-Britbox-tvOSTests.staging.xcconfig */,
-			);
-			path = Pods;
-			sourceTree = "<group>";
-		};
-		7D7FF73552584F418B24FDC8 /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-				CCEBA4ED99224E868D54CA02 /* cook-house.jpg */,
-				98727A3900204438B173CF13 /* host.jpg */,
-				4B13AEFB49094574AD9D2483 /* AllDevice.png */,
-				876060987FFA4FB4B9E5E685 /* Arrow_back_browser.svg */,
-				6FD935706C56436D8CE34AA7 /* Arrow_bottom.svg */,
-				AF7AC4CC51E64009A9189080 /* CancelAnyTime.png */,
-				382D717F5B444E81A89C59D0 /* Celular.svg */,
-				C6AA26CB40824E038D15F7C8 /* Chromecast.svg */,
-				0860A1879BC942E6BC0051C5 /* Close.svg */,
-				FD7EFCC6262948F48D0B32CC /* Discover_more.svg */,
-				EDBB238BAF1C43CBBA08CD0E /* Explore_mb.svg */,
-				67DC3AD720BD4263B0F0CBCE /* Help.svg */,
-				D7212EE376D441C0B37DFDE2 /* Home.svg */,
-				3EA22149FEAB48BB8C17BA50 /* Loading_more.svg */,
-				953D74F793C34FE48C3CEA6C /* Logo.svg */,
-				F8535627104544378435F763 /* More_menu.svg */,
-				387384A32DFF441BA72981FA /* MoreWatching.png */,
-				AA8367000ECC4914BDD87152 /* Offline.svg */,
-				24E5D4B241174CCE899F5CE0 /* Play_now.svg */,
-				390517AAD5C04C73A0A86341 /* Profile.svg */,
-				2C284B2E87F049A982E22BF9 /* Search.svg */,
-				AF13C119D65C40E49D5C9949 /* Watchlist.svg */,
-				E3A03DF01CD0453AB37998FD /* WelcomeApp.png */,
-				0CDD674C483A43229C35581B /* tiny-home.jpg */,
-				04D46A742502197400AFD3DF /* Star.svg */,
-				73E02622E1CA4B64BFDCDC99 /* MuseoSans-100.ttf */,
-				F06FFB518996482788502A2C /* MuseoSans-300.ttf */,
-				09AC4A685844492E9C61CEC8 /* MuseoSans-500.ttf */,
-				57601D08C4924C64A55352F3 /* MuseoSans-700.ttf */,
-				DD3CD0A7496D40AB84D16D16 /* MuseoSans-900.ttf */,
-			);
-			name = Resources;
 			sourceTree = "<group>";
 		};
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
@@ -304,8 +200,8 @@
 				00E356EF1AD99517003FC87E /* BritboxTests */,
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
-				543ADA2DB24EBD8EEA171E2E /* Pods */,
-				7D7FF73552584F418B24FDC8 /* Resources */,
+				1B7042197F75B998C71CD448 /* Pods */,
+				A957AA152519350100765DCE /* Resources */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -323,6 +219,18 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		A957AA152519350100765DCE /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				A957AA08251934F800765DCE /* MuseoSans-100.ttf */,
+				A957AA0B251934F800765DCE /* MuseoSans-300.ttf */,
+				A957AA0A251934F800765DCE /* MuseoSans-500.ttf */,
+				A957AA09251934F800765DCE /* MuseoSans-700.ttf */,
+				A957AA07251934F800765DCE /* MuseoSans-900.ttf */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -330,11 +238,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "BritboxTests" */;
 			buildPhases = (
-				9071DAA181F8078D1E5DE07D /* [CP] Check Pods Manifest.lock */,
+				03F66F6E2AB6294E229369CF /* [CP] Check Pods Manifest.lock */,
 				00E356EA1AD99517003FC87E /* Sources */,
 				00E356EB1AD99517003FC87E /* Frameworks */,
 				00E356EC1AD99517003FC87E /* Resources */,
-				2273164C22AADACDA727EA3B /* [CP] Copy Pods Resources */,
+				D562567D60D73840C70D406A /* [CP] Copy Pods Resources */,
+				F3ABF00B5EA0CEAEA5CF03AA /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -350,13 +259,14 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "Britbox" */;
 			buildPhases = (
-				E7148F1F5C3C5FD705CE5D08 /* [CP] Check Pods Manifest.lock */,
+				7E79CB810A1775EF82921F03 /* [CP] Check Pods Manifest.lock */,
 				FD10A7F022414F080027D42C /* Start Packager */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
-				5DF170BC4AE07CEA4DCD485F /* [CP] Copy Pods Resources */,
+				C90E03FE8409A98A9526815B /* [CP] Copy Pods Resources */,
+				932D4959D99F1D1A4CCE77D1 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -371,7 +281,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2D02E4BA1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "Britbox-tvOS" */;
 			buildPhases = (
-				493CDA3BBC83983E594C83D8 /* [CP] Check Pods Manifest.lock */,
+				D9BF8A2C6DBFFCFE335120E3 /* [CP] Check Pods Manifest.lock */,
 				FD10A7F122414F3F0027D42C /* Start Packager */,
 				2D02E4771E0B4A5D006451C7 /* Sources */,
 				2D02E4781E0B4A5D006451C7 /* Frameworks */,
@@ -391,7 +301,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2D02E4BB1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "Britbox-tvOSTests" */;
 			buildPhases = (
-				9468E86CD7E7F29079245477 /* [CP] Check Pods Manifest.lock */,
+				C5C1C7E0E0A5161A1E422CFF /* [CP] Check Pods Manifest.lock */,
 				2D02E48C1E0B4A5D006451C7 /* Sources */,
 				2D02E48D1E0B4A5D006451C7 /* Frameworks */,
 				2D02E48E1E0B4A5D006451C7 /* Resources */,
@@ -416,22 +326,19 @@
 				TargetAttributes = {
 					00E356ED1AD99517003FC87E = {
 						CreatedOnToolsVersion = 6.2;
-						LastSwiftMigration = 1160;
 						TestTargetID = 13B07F861A680F5B00A75B9A;
 					};
 					13B07F861A680F5B00A75B9A = {
 						DevelopmentTeam = 99MS4LGK4X;
-						LastSwiftMigration = 1140;
+						LastSwiftMigration = 1200;
 						ProvisioningStyle = Manual;
 					};
 					2D02E47A1E0B4A5D006451C7 = {
 						CreatedOnToolsVersion = 8.2.1;
-						LastSwiftMigration = 1160;
 						ProvisioningStyle = Automatic;
 					};
 					2D02E48F1E0B4A5D006451C7 = {
 						CreatedOnToolsVersion = 8.2.1;
-						LastSwiftMigration = 1160;
 						ProvisioningStyle = Automatic;
 						TestTargetID = 2D02E47A1E0B4A5D006451C7;
 					};
@@ -470,38 +377,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				04D46A752502197400AFD3DF /* Star.svg in Resources */,
+				A957AA0C251934F800765DCE /* MuseoSans-900.ttf in Resources */,
+				A957AA0D251934F800765DCE /* MuseoSans-100.ttf in Resources */,
+				A957AA0E251934F800765DCE /* MuseoSans-700.ttf in Resources */,
+				A957AA0F251934F800765DCE /* MuseoSans-500.ttf in Resources */,
+				A957AA10251934F800765DCE /* MuseoSans-300.ttf in Resources */,
+				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
-				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
-				F01AF71E3CE44B4DAC576121 /* cook-house.jpg in Resources */,
-				9A31BE6785B3465196F7A38E /* host.jpg in Resources */,
-				66D52D8CB4D346A1A939A7A5 /* AllDevice.png in Resources */,
-				DA3BEFE3D4FF4C609F4A1ED7 /* Arrow_back_browser.svg in Resources */,
-				CB018159D1614B7084DF541C /* Arrow_bottom.svg in Resources */,
-				7E07783F78494747BF7D8838 /* CancelAnyTime.png in Resources */,
-				09678E146CDB43A6AB2160AD /* Celular.svg in Resources */,
-				8E38F6996B734C46AE778660 /* Chromecast.svg in Resources */,
-				36BCDFAB258947BA88EDE4E2 /* Close.svg in Resources */,
-				039C136AFF904CED9355F1EE /* Discover_more.svg in Resources */,
-				A55659A2AAEC4C158E7D9295 /* Explore_mb.svg in Resources */,
-				626CD53F0A3F459A8788632F /* Help.svg in Resources */,
-				F7AB4D1AD8EC43E19F53ADE5 /* Home.svg in Resources */,
-				D38705DC667340EC95BEF4BD /* Loading_more.svg in Resources */,
-				DB8DB16DA148429486A615C5 /* Logo.svg in Resources */,
-				B9AC06F15F524C5394CCD61C /* More_menu.svg in Resources */,
-				09F3B8EF0EC44D9F9C795F5D /* MoreWatching.png in Resources */,
-				66EEA3F934824173B790F9F4 /* Offline.svg in Resources */,
-				51D074C57883481EBFC2EED8 /* Play_now.svg in Resources */,
-				C86255F1B53545CA9D75C22A /* Profile.svg in Resources */,
-				DE83A6DC86A64FA1B8DDC8EC /* Search.svg in Resources */,
-				815D76FC4E7F415C88BD786E /* Watchlist.svg in Resources */,
-				D90E45DEAD944E7AB02B4693 /* WelcomeApp.png in Resources */,
-				CEC2BB47BBB347AD9FA035BD /* tiny-home.jpg in Resources */,
-				AB351D6207D443EE85DC1DD5 /* MuseoSans-100.ttf in Resources */,
-				DD94731D0167404EA313EABE /* MuseoSans-300.ttf in Resources */,
-				90EC32D9C5C64AA49132A206 /* MuseoSans-500.ttf in Resources */,
-				C3F49FF54367439D9BE133CB /* MuseoSans-700.ttf in Resources */,
-				6698080B7D1D4F2EA2D1F6BF /* MuseoSans-900.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -537,56 +419,26 @@
 			shellPath = /bin/sh;
 			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh";
 		};
-		2273164C22AADACDA727EA3B /* [CP] Copy Pods Resources */ = {
+		03F66F6E2AB6294E229369CF /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Britbox-BritboxTests/Pods-Britbox-BritboxTests-resources.sh",
-				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/AntDesign.ttf",
-				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Entypo.ttf",
-				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/EvilIcons.ttf",
-				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Feather.ttf",
-				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/FontAwesome.ttf",
-				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Brands.ttf",
-				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Regular.ttf",
-				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Solid.ttf",
-				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Fontisto.ttf",
-				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Foundation.ttf",
-				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Ionicons.ttf",
-				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/MaterialCommunityIcons.ttf",
-				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/MaterialIcons.ttf",
-				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Octicons.ttf",
-				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/SimpleLineIcons.ttf",
-				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Zocial.ttf",
-				"${PODS_ROOT}/google-cast-sdk-no-bluetooth/GoogleCastSDK-ios-4.5.0_static/GoogleCast.framework/GoogleCastCoreResources.bundle",
-				"${PODS_ROOT}/google-cast-sdk-no-bluetooth/GoogleCastSDK-ios-4.5.0_static/GoogleCast.framework/GoogleCastUIResources.bundle",
+			inputFileListPaths = (
 			);
-			name = "[CP] Copy Pods Resources";
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
 			outputPaths = (
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/AntDesign.ttf",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Entypo.ttf",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/EvilIcons.ttf",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Feather.ttf",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FontAwesome.ttf",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FontAwesome5_Brands.ttf",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FontAwesome5_Regular.ttf",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FontAwesome5_Solid.ttf",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Fontisto.ttf",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Foundation.ttf",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Ionicons.ttf",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MaterialCommunityIcons.ttf",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MaterialIcons.ttf",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Octicons.ttf",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/SimpleLineIcons.ttf",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Zocial.ttf",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleCastCoreResources.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleCastUIResources.bundle",
+				"$(DERIVED_FILE_DIR)/Pods-Britbox-BritboxTests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Britbox-BritboxTests/Pods-Britbox-BritboxTests-resources.sh\"\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 		2D02E4CB1E0B4B27006451C7 /* Bundle React Native Code And Images */ = {
@@ -603,7 +455,7 @@
 			shellPath = /bin/sh;
 			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh";
 		};
-		493CDA3BBC83983E594C83D8 /* [CP] Check Pods Manifest.lock */ = {
+		7E79CB810A1775EF82921F03 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -618,14 +470,54 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-Britbox-tvOS-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-Britbox-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		5DF170BC4AE07CEA4DCD485F /* [CP] Copy Pods Resources */ = {
+		932D4959D99F1D1A4CCE77D1 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Britbox/Pods-Britbox-frameworks.sh",
+				"${PODS_ROOT}/google-cast-sdk/GoogleCastSDK-ios-4.3.0/GoogleCast.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleCast.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Britbox/Pods-Britbox-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C5C1C7E0E0A5161A1E422CFF /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Britbox-tvOSTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C90E03FE8409A98A9526815B /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -648,8 +540,7 @@
 				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Octicons.ttf",
 				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/SimpleLineIcons.ttf",
 				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Zocial.ttf",
-				"${PODS_ROOT}/google-cast-sdk-no-bluetooth/GoogleCastSDK-ios-4.5.0_static/GoogleCast.framework/GoogleCastCoreResources.bundle",
-				"${PODS_ROOT}/google-cast-sdk-no-bluetooth/GoogleCastSDK-ios-4.5.0_static/GoogleCast.framework/GoogleCastUIResources.bundle",
+				"${PODS_CONFIGURATION_BUILD_DIR}/React-Core/AccessibilityResources.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
@@ -669,15 +560,64 @@
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Octicons.ttf",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/SimpleLineIcons.ttf",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Zocial.ttf",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleCastCoreResources.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleCastUIResources.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/AccessibilityResources.bundle",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Britbox/Pods-Britbox-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		9071DAA181F8078D1E5DE07D /* [CP] Check Pods Manifest.lock */ = {
+		D562567D60D73840C70D406A /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Britbox-BritboxTests/Pods-Britbox-BritboxTests-resources.sh",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/AntDesign.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Entypo.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/EvilIcons.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Feather.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/FontAwesome.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Brands.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Regular.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Solid.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Fontisto.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Foundation.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Ionicons.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/MaterialCommunityIcons.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/MaterialIcons.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Octicons.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/SimpleLineIcons.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Zocial.ttf",
+				"${PODS_CONFIGURATION_BUILD_DIR}/React-Core/AccessibilityResources.bundle",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/AntDesign.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Entypo.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/EvilIcons.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Feather.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FontAwesome.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FontAwesome5_Brands.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FontAwesome5_Regular.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FontAwesome5_Solid.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Fontisto.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Foundation.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Ionicons.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MaterialCommunityIcons.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MaterialIcons.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Octicons.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/SimpleLineIcons.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Zocial.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/AccessibilityResources.bundle",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Britbox-BritboxTests/Pods-Britbox-BritboxTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D9BF8A2C6DBFFCFE335120E3 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -692,55 +632,29 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-Britbox-BritboxTests-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-Britbox-tvOS-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		9468E86CD7E7F29079245477 /* [CP] Check Pods Manifest.lock */ = {
+		F3ABF00B5EA0CEAEA5CF03AA /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
-			inputFileListPaths = (
-			);
 			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
+				"${PODS_ROOT}/Target Support Files/Pods-Britbox-BritboxTests/Pods-Britbox-BritboxTests-frameworks.sh",
+				"${PODS_ROOT}/google-cast-sdk/GoogleCastSDK-ios-4.3.0/GoogleCast.framework",
 			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
+			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-Britbox-tvOSTests-checkManifestLockResult.txt",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleCast.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		E7148F1F5C3C5FD705CE5D08 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-Britbox-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Britbox-BritboxTests/Pods-Britbox-BritboxTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		FD10A7F022414F080027D42C /* Start Packager */ = {
@@ -789,7 +703,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				00E356F31AD99517003FC87E /* BritboxTests.m in Sources */,
-				A9DDFAAA24DB0F6600F08D53 /* File.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -798,7 +711,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
-				A9DDFAA924DB0F6600F08D53 /* File.swift in Sources */,
+				A957AA1C251936A400765DCE /* File.swift in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -808,7 +721,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				2D02E4BF1E0B4AB3006451C7 /* main.m in Sources */,
-				A9DDFAAB24DB0F6600F08D53 /* File.swift in Sources */,
 				2D02E4BC1E0B4A80006451C7 /* AppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -818,7 +730,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				2DCD954D1E0B4F2C00145EB5 /* BritboxTests.m in Sources */,
-				A9DDFAAC24DB0F6600F08D53 /* File.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -837,37 +748,20 @@
 		};
 /* End PBXTargetDependency section */
 
-/* Begin PBXVariantGroup section */
-		13B07FB11A68108700A75B9A /* LaunchScreen.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				13B07FB21A68108700A75B9A /* Base */,
-			);
-			name = LaunchScreen.xib;
-			path = Britbox;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
-
 /* Begin XCBuildConfiguration section */
 		00E356F61AD99517003FC87E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 6B9079DAB1C744E2910FBD22 /* Pods-Britbox-BritboxTests.debug.xcconfig */;
+			baseConfigurationReference = A484501A745B029225E9A0C9 /* Pods-Britbox-BritboxTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				CLANG_ENABLE_MODULES = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = BritboxTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				OTHER_CFLAGS = (
-					"$(inherited)",
-					"-DFB_SONARKIT_ENABLED=1",
-				);
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-lc++",
@@ -875,28 +769,20 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "BritboxTests-Bridging-Header.h";
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 5.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Britbox.app/Britbox";
 			};
 			name = Debug;
 		};
 		00E356F71AD99517003FC87E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = ACABCBA5F3AF3D97240F375B /* Pods-Britbox-BritboxTests.release.xcconfig */;
+			baseConfigurationReference = 8CE6D2B3A41F998DBEE98C6B /* Pods-Britbox-BritboxTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				CLANG_ENABLE_MODULES = YES;
 				COPY_PHASE_STRIP = NO;
 				INFOPLIST_FILE = BritboxTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				OTHER_CFLAGS = (
-					"$(inherited)",
-					"-DFB_SONARKIT_ENABLED=1",
-				);
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-lc++",
@@ -904,35 +790,25 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "BritboxTests-Bridging-Header.h";
-				SWIFT_VERSION = 5.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Britbox.app/Britbox";
 			};
 			name = Release;
 		};
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 1964D51567F52B1BE3A9560C /* Pods-Britbox.debug.xcconfig */;
+			baseConfigurationReference = EB089E5074379FBEAAD907C9 /* Pods-Britbox.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Britbox/Britbox.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 11;
+				CURRENT_PROJECT_VERSION = 13;
 				DEVELOPMENT_TEAM = 99MS4LGK4X;
 				ENABLE_BITCODE = NO;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"$(inherited)",
-					"FB_SONARKIT_ENABLED=1",
-				);
 				INFOPLIST_FILE = Britbox/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MARKETING_VERSION = 1;
-				OTHER_CFLAGS = (
-					"$(inherited)",
-					"-DFB_SONARKIT_ENABLED=1",
-				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -945,29 +821,24 @@
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				VALID_ARCHS = "arm64 arm64e";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = AB91737726964B95BA729DD0 /* Pods-Britbox.release.xcconfig */;
+			baseConfigurationReference = A1B36E78123A971B3006E56F /* Pods-Britbox.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Britbox/Britbox.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 11;
+				CURRENT_PROJECT_VERSION = 13;
 				DEVELOPMENT_TEAM = 99MS4LGK4X;
 				INFOPLIST_FILE = Britbox/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MARKETING_VERSION = 1;
-				OTHER_CFLAGS = (
-					"$(inherited)",
-					"-DFB_SONARKIT_ENABLED=1",
-				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -979,19 +850,17 @@
 				SWIFT_OBJC_BRIDGING_HEADER = "Britbox-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				VALID_ARCHS = "arm64 arm64e";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;
 		};
 		2D02E4971E0B4A5E006451C7 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = FA25C79A101A4529F16FB814 /* Pods-Britbox-tvOS.debug.xcconfig */;
+			baseConfigurationReference = 2C5E6FA08F8FFDFA63909A0D /* Pods-Britbox-tvOS.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -1000,10 +869,6 @@
 				GCC_NO_COMMON_BLOCKS = YES;
 				INFOPLIST_FILE = "Britbox-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				OTHER_CFLAGS = (
-					"$(inherited)",
-					"-DFB_SONARKIT_ENABLED=1",
-				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -1012,22 +877,18 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.Britbox-tvOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = appletvos;
-				SWIFT_OBJC_BRIDGING_HEADER = "Britbox-tvOS-Bridging-Header.h";
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 3;
-				TVOS_DEPLOYMENT_TARGET = 9.2;
+				TVOS_DEPLOYMENT_TARGET = 10.0;
 			};
 			name = Debug;
 		};
 		2D02E4981E0B4A5E006451C7 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = E180231D14241FFB15EC8F20 /* Pods-Britbox-tvOS.release.xcconfig */;
+			baseConfigurationReference = D31EAE21F4BC8429F24D3D19 /* Pods-Britbox-tvOS.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -1036,10 +897,6 @@
 				GCC_NO_COMMON_BLOCKS = YES;
 				INFOPLIST_FILE = "Britbox-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				OTHER_CFLAGS = (
-					"$(inherited)",
-					"-DFB_SONARKIT_ENABLED=1",
-				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -1048,21 +905,17 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.Britbox-tvOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = appletvos;
-				SWIFT_OBJC_BRIDGING_HEADER = "Britbox-tvOS-Bridging-Header.h";
-				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 3;
-				TVOS_DEPLOYMENT_TARGET = 9.2;
+				TVOS_DEPLOYMENT_TARGET = 10.0;
 			};
 			name = Release;
 		};
 		2D02E4991E0B4A5E006451C7 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 06E67379333ECBC2C7F0FDBE /* Pods-Britbox-tvOSTests.debug.xcconfig */;
+			baseConfigurationReference = CF062EA44D6CF511EE364902 /* Pods-Britbox-tvOSTests.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -1071,10 +924,6 @@
 				GCC_NO_COMMON_BLOCKS = YES;
 				INFOPLIST_FILE = "Britbox-tvOSTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				OTHER_CFLAGS = (
-					"$(inherited)",
-					"-DFB_SONARKIT_ENABLED=1",
-				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -1083,9 +932,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.Britbox-tvOSTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = appletvos;
-				SWIFT_OBJC_BRIDGING_HEADER = "Britbox-tvOSTests-Bridging-Header.h";
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 5.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Britbox-tvOS.app/Britbox-tvOS";
 				TVOS_DEPLOYMENT_TARGET = 10.1;
 			};
@@ -1093,12 +939,10 @@
 		};
 		2D02E49A1E0B4A5E006451C7 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 8B5C1BEDDF800F57961F530B /* Pods-Britbox-tvOSTests.release.xcconfig */;
+			baseConfigurationReference = 91D34EA563451703D27DE35F /* Pods-Britbox-tvOSTests.release.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -1107,10 +951,6 @@
 				GCC_NO_COMMON_BLOCKS = YES;
 				INFOPLIST_FILE = "Britbox-tvOSTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				OTHER_CFLAGS = (
-					"$(inherited)",
-					"-DFB_SONARKIT_ENABLED=1",
-				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -1119,8 +959,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.Britbox-tvOSTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = appletvos;
-				SWIFT_OBJC_BRIDGING_HEADER = "Britbox-tvOSTests-Bridging-Header.h";
-				SWIFT_VERSION = 5.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Britbox-tvOS.app/Britbox-tvOS";
 				TVOS_DEPLOYMENT_TARGET = 10.1;
 			};
@@ -1154,9 +992,7 @@
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODEPUSH_KEY = "";
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
@@ -1175,7 +1011,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "/usr/lib/swift $(inherited)";
 				LIBRARY_SEARCH_PATHS = (
 					"\"$(TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME)\"",
@@ -1216,9 +1052,7 @@
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODEPUSH_KEY = arUqMGPouHNScYqW0_EzGWDe8YHKVKgcB_f7G;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -1230,7 +1064,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "/usr/lib/swift $(inherited)";
 				LIBRARY_SEARCH_PATHS = (
 					"\"$(TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME)\"",
@@ -1243,194 +1077,6 @@
 			};
 			name = Release;
 		};
-		A9F423C4245D174400D04F5E /* Staging */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_COMMA = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INFINITE_RECURSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
-				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
-				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
-				CLANG_WARN_STRICT_PROTOTYPES = YES;
-				CLANG_WARN_SUSPICIOUS_MOVE = YES;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODEPUSH_KEY = k5_jmbh3XCjnvzndyowSdMaT8K25MOxTl6AKk;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
-				COPY_PHASE_STRIP = YES;
-				ENABLE_NS_ASSERTIONS = NO;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
-				LD_RUNPATH_SEARCH_PATHS = "/usr/lib/swift $(inherited)";
-				LIBRARY_SEARCH_PATHS = (
-					"\"$(TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME)\"",
-					"\"$(TOOLCHAIN_DIR)/usr/lib/swift-5.0/$(PLATFORM_NAME)\"",
-					"\"$(inherited)\"",
-				);
-				MTL_ENABLE_DEBUG_INFO = NO;
-				SDKROOT = iphoneos;
-				VALIDATE_PRODUCT = YES;
-			};
-			name = Staging;
-		};
-		A9F423C5245D174400D04F5E /* Staging */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 6F3B371DD1A025B58B788FFF /* Pods-Britbox.staging.xcconfig */;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_ENTITLEMENTS = Britbox/Britbox.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 11;
-				DEVELOPMENT_TEAM = 99MS4LGK4X;
-				INFOPLIST_FILE = Britbox/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 1;
-				OTHER_CFLAGS = (
-					"$(inherited)",
-					"-DFB_SONARKIT_ENABLED=1",
-				);
-				OTHER_LDFLAGS = (
-					"$(inherited)",
-					"-ObjC",
-					"-lc++",
-				);
-				PODS_CONFIGURATION_BUILD_DIR = "${PODS_BUILD_DIR}/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)";
-				PRODUCT_BUNDLE_IDENTIFIER = com.britbox.us.staging;
-				PRODUCT_NAME = Britbox;
-				PROVISIONING_PROFILE_SPECIFIER = "iOS Development Al - Staging";
-				SWIFT_OBJC_BRIDGING_HEADER = "Britbox-Bridging-Header.h";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VALID_ARCHS = "arm64 arm64e";
-				VERSIONING_SYSTEM = "apple-generic";
-			};
-			name = Staging;
-		};
-		A9F423C6245D174400D04F5E /* Staging */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0778D903ED0FA22FCCAB7A2D /* Pods-Britbox-BritboxTests.staging.xcconfig */;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CLANG_ENABLE_MODULES = YES;
-				COPY_PHASE_STRIP = NO;
-				INFOPLIST_FILE = BritboxTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				OTHER_CFLAGS = (
-					"$(inherited)",
-					"-DFB_SONARKIT_ENABLED=1",
-				);
-				OTHER_LDFLAGS = (
-					"-ObjC",
-					"-lc++",
-					"$(inherited)",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "BritboxTests-Bridging-Header.h";
-				SWIFT_VERSION = 5.0;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Britbox.app/Britbox";
-			};
-			name = Staging;
-		};
-		A9F423C7245D174400D04F5E /* Staging */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 43F8472F87F29AAB05C78D0F /* Pods-Britbox-tvOS.staging.xcconfig */;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_INFINITE_RECURSION = YES;
-				CLANG_WARN_SUSPICIOUS_MOVE = YES;
-				COPY_PHASE_STRIP = NO;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				GCC_NO_COMMON_BLOCKS = YES;
-				INFOPLIST_FILE = "Britbox-tvOS/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				OTHER_CFLAGS = (
-					"$(inherited)",
-					"-DFB_SONARKIT_ENABLED=1",
-				);
-				OTHER_LDFLAGS = (
-					"$(inherited)",
-					"-ObjC",
-					"-lc++",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.Britbox-tvOS";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = appletvos;
-				SWIFT_OBJC_BRIDGING_HEADER = "Britbox-tvOS-Bridging-Header.h";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 3;
-				TVOS_DEPLOYMENT_TARGET = 9.2;
-			};
-			name = Staging;
-		};
-		A9F423C8245D174400D04F5E /* Staging */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = A286DE8EBBEAAA593EAA12FE /* Pods-Britbox-tvOSTests.staging.xcconfig */;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_INFINITE_RECURSION = YES;
-				CLANG_WARN_SUSPICIOUS_MOVE = YES;
-				COPY_PHASE_STRIP = NO;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				GCC_NO_COMMON_BLOCKS = YES;
-				INFOPLIST_FILE = "Britbox-tvOSTests/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				OTHER_CFLAGS = (
-					"$(inherited)",
-					"-DFB_SONARKIT_ENABLED=1",
-				);
-				OTHER_LDFLAGS = (
-					"$(inherited)",
-					"-ObjC",
-					"-lc++",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.Britbox-tvOSTests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = appletvos;
-				SWIFT_OBJC_BRIDGING_HEADER = "Britbox-tvOSTests-Bridging-Header.h";
-				SWIFT_VERSION = 5.0;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Britbox-tvOS.app/Britbox-tvOS";
-				TVOS_DEPLOYMENT_TARGET = 10.1;
-			};
-			name = Staging;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1439,7 +1085,6 @@
 			buildConfigurations = (
 				00E356F61AD99517003FC87E /* Debug */,
 				00E356F71AD99517003FC87E /* Release */,
-				A9F423C6245D174400D04F5E /* Staging */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1449,7 +1094,6 @@
 			buildConfigurations = (
 				13B07F941A680F5B00A75B9A /* Debug */,
 				13B07F951A680F5B00A75B9A /* Release */,
-				A9F423C5245D174400D04F5E /* Staging */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1459,7 +1103,6 @@
 			buildConfigurations = (
 				2D02E4971E0B4A5E006451C7 /* Debug */,
 				2D02E4981E0B4A5E006451C7 /* Release */,
-				A9F423C7245D174400D04F5E /* Staging */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1469,7 +1112,6 @@
 			buildConfigurations = (
 				2D02E4991E0B4A5E006451C7 /* Debug */,
 				2D02E49A1E0B4A5E006451C7 /* Release */,
-				A9F423C8245D174400D04F5E /* Staging */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1479,7 +1121,6 @@
 			buildConfigurations = (
 				83CBBA201A601CBA00E9B192 /* Debug */,
 				83CBBA211A601CBA00E9B192 /* Release */,
-				A9F423C4245D174400D04F5E /* Staging */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

@@ -28,9 +28,6 @@ function Item({ text, goTo, onPressTouch }: DataElement) {
   );
 }
 
-interface Item {
-  id: string;
-}
 interface Props {
   hideSignIn?: boolean;
   shadow?: boolean;

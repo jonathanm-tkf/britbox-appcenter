@@ -477,7 +477,7 @@ export default function ParentalControls() {
                   <TableBtnContainer>
                     {britboxConfig[country]['parental-controls']?.levels[1]?.labels?.map(
                       (item: string, index: number) => (
-                        <BtnContainer key={index}>
+                        <BtnContainer key={index.toString()}>
                           <BtnText>{item}</BtnText>
                         </BtnContainer>
                       )
@@ -502,7 +502,7 @@ export default function ParentalControls() {
                   <TableBtnContainer>
                     {britboxConfig[country]['parental-controls']?.levels[2]?.labels?.map(
                       (item: string, index: number) => (
-                        <BtnContainer key={index}>
+                        <BtnContainer key={index.toString()}>
                           <BtnText>{item}</BtnText>
                         </BtnContainer>
                       )
@@ -527,7 +527,7 @@ export default function ParentalControls() {
                   <TableBtnContainer>
                     {britboxConfig[country]['parental-controls']?.levels[3]?.labels?.map(
                       (item: string, index: number) => (
-                        <BtnContainer key={index}>
+                        <BtnContainer key={index.toString()}>
                           <BtnText>{item}</BtnText>
                         </BtnContainer>
                       )
@@ -552,7 +552,7 @@ export default function ParentalControls() {
                   <TableBtnContainer>
                     {britboxConfig[country]['parental-controls']?.levels[4]?.labels?.map(
                       (item: string, index: number) => (
-                        <BtnContainer key={index}>
+                        <BtnContainer key={index.toString()}>
                           <BtnText>{item}</BtnText>
                         </BtnContainer>
                       )

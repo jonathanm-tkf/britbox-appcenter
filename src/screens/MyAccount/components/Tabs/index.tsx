@@ -113,7 +113,10 @@ const Tabs = ({ routes, subscriptionSelected }: Props) => {
   const syncScrollOffset = () => {
     const curRouteKey = routes[tabIndex].key;
     listRefArr.current.forEach(
-      (item: { value: { scrollToOffset: (item: object) => void }; key: string }) => {
+      (item: {
+        value: { scrollToOffset: (item: Record<string, unknown>) => void };
+        key: string;
+      }) => {
         if (item.key !== curRouteKey) {
           if (scrollY._value < HeaderHeight && scrollY._value >= 0) {
             if (item.value) {

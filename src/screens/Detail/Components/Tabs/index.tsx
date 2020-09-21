@@ -77,7 +77,7 @@ const Tabs = ({ data, onScrollTo, onLayout }: Props) => {
           onPress={() => goToAccount()}
           style={{ marginBottom: 20 }}
         >
-          {(britboxConfig && britboxConfig[country]?.['no-plan']['ctas'][0]) || ''}
+          {(britboxConfig && britboxConfig[country]?.['no-plan']?.ctas[0]) || ''}
         </Button>
         <Button
           outline
@@ -88,7 +88,7 @@ const Tabs = ({ data, onScrollTo, onLayout }: Props) => {
             dispatch(hideSheetBottom());
           }}
         >
-          {(britboxConfig && britboxConfig[country]?.['no-plan']['ctas'][1]) || ''}
+          {(britboxConfig && britboxConfig[country]?.['no-plan']?.ctas[1]) || ''}
         </Button>
       </WrapperButtons>
     </WrapperBottomContent>

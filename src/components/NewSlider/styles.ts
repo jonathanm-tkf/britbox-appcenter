@@ -61,7 +61,7 @@ export const Slider = styled(AnimatedImage).attrs({
   }};
 `;
 
-type SlimDescriptionText = {
+type SlimDescriptionTextProps = {
   collection?: boolean;
 };
 
@@ -75,7 +75,7 @@ export const SlimDescriptionText = styled.Text.attrs({
   font-size: 16px;
   line-height: 22px;
 
-  ${(props: SlimDescriptionText & ThemeState) => {
+  ${(props: SlimDescriptionTextProps & ThemeState) => {
     return (
       props.collection &&
       `
@@ -86,7 +86,7 @@ export const SlimDescriptionText = styled.Text.attrs({
   }};
 `;
 
-type SlimDescription = {
+type SlimDescriptionProps = {
   collection?: boolean;
   space?: string | undefined;
 };
@@ -96,7 +96,7 @@ export const SlimDescription = styled.View`
   padding-left: 40px;
   padding-right: 40px;
 
-  ${(props: SlimDescription) => {
+  ${(props: SlimDescriptionProps) => {
     return (
       props.collection &&
       `

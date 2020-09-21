@@ -35,7 +35,7 @@ export const FlatList = styled(RNFlatList).attrs({
   },
 })``;
 
-type ItemText = {
+type ItemTextProps = {
   active: boolean;
 };
 
@@ -50,7 +50,7 @@ export const ItemText = styled.Text`
   font-size: 24px;
   line-height: 48px;
 
-  ${(props: ItemText & ThemeState) => {
+  ${(props: ItemTextProps & ThemeState) => {
     return props.active ? `opacity: 1; font-size: 28px;` : `opacity: 0.6;`;
   }};
 `;

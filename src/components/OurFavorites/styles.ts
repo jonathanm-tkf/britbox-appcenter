@@ -24,7 +24,7 @@ export const Card = styled(CardC)`
   margin-top: -60px;
 `;
 
-type Wrapper = {
+type WrapperProps = {
   loading: boolean;
 };
 
@@ -33,7 +33,7 @@ export const Wrapper = styled.View`
   padding: 0 5%;
   margin-top: -20px;
   width: 100%;
-  ${(props: Wrapper) => {
+  ${(props: WrapperProps) => {
     return (
       !props.loading &&
       `

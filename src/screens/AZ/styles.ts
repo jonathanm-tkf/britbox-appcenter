@@ -168,14 +168,14 @@ export const LetterButton = styled.TouchableOpacity`
   justify-content: center;
 `;
 
-type LetterButtonText = {
+type LetterButtonTextProps = {
   desactivate?: boolean;
 };
 export const LetterButtonText = styled.Text`
   color: ${(props: ThemeState) => props.theme.PRIMARY_FOREGROUND_COLOR};
   margin-top: 5px;
   opacity: 1;
-  ${(props: LetterButtonText & ThemeState) => {
+  ${(props: LetterButtonTextProps & ThemeState) => {
     return (
       props.desactivate &&
       `

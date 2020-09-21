@@ -27,14 +27,14 @@ export const TabBar = styled(TabBarC).attrs((props: ThemeState) => ({
 
 export const TabWrapper = styled.View``;
 
-interface TabLabel {
+interface TabLabelProps {
   color: string;
   focused: boolean;
 }
 export const TabLabel = styled.Text`
   color: ${(props: TabLabel & ThemeState) => props.color};
   font-size: 16px;
-  ${(props: TabLabel & ThemeState) => {
+  ${(props: TabLabelProps & ThemeState) => {
     return props.focused
       ? `font-family: ${props.theme.PRIMARY_FONT_FAMILY_MEDIUM}`
       : `font-family: ${props.theme.PRIMARY_FONT_FAMILY}`;

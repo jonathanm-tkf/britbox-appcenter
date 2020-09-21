@@ -19,7 +19,7 @@ export const ActionText = styled.Text`
   font-size: 14px;
 `;
 
-interface ActionButton {
+interface ActionButtonProps {
   play?: boolean;
 }
 
@@ -27,5 +27,5 @@ export const ActionButton = styled.TouchableOpacity`
   align-items: center;
   justify-content: center;
   padding: 10px;
-  margin-top: ${(props: ActionButton) => (props.play ? 10 : 0)}px;
+  margin-top: ${(props: ActionButtonProps) => (props.play ? 10 : 0)}px;
 `;

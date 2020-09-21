@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 import React, { useEffect, useState } from 'react';
 import { Animated } from 'react-native';
 import { AppState } from '@store/modules/rootReducer';
