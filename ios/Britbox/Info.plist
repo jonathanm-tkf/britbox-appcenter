@@ -86,6 +86,12 @@
   <array>
     <string>_googlecast._tcp</string>
     <string>_com.britbox.us.staging._googlecast._tcp</string>
-  <array>
+  </array>
+  <key>NSBluetoothPeripheralUsageDescription</key>
+  <string>Our app uses bluetooth to find, connect and transfer data between different devices</string>
+  <key>NSBluetoothAlwaysUsageDescription</key>
+  <string>Our app uses bluetooth to find, connect and transfer data between different devices</string>
+  <key>NSMicrophoneUsageDescription</key>
+  <string>Our app does not request this permission or utilize this functionality but it is included in our info.plist since our app utilizes the react-native-permissions library, which references this permission in its code.</string>
 </dict>
 </plist>
