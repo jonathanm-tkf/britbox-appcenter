@@ -214,7 +214,7 @@ export default function MyAccount() {
       setErrorEmail(
         hasErrorEmail
           ? {
-              text: britboxConfig[country]['account-details']?.validation?.messages['email'] || '',
+              text: britboxConfig[country]['account-details']?.validation?.messages?.email || '',
             }
           : {
               text: '',

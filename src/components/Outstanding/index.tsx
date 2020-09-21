@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unused-prop-types */
 import React from 'react';
 import { Image, StyleProp, ImageStyle } from 'react-native';
 import Swiper from 'react-native-swiper';

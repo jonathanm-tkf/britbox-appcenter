@@ -85,27 +85,18 @@ export const CustomShadow = styled.View`
   border-radius: 8px;
 `;
 
-type TouchableScale = {
+type TouchableScaleProps = {
   slim: boolean;
 };
 
 export const TouchableScale = styled(TouchableScaleC)`
-  width: ${(props: TouchableScale) => (props.slim ? itemWidthSlim : itemWidth)}px;
-  height: ${(props: TouchableScale) => (props.slim ? slideHeightSlim : slideHeight)}px;
-  padding-left: ${(props: TouchableScale) =>
+  width: ${(props: TouchableScaleProps) => (props.slim ? itemWidthSlim : itemWidth)}px;
+  height: ${(props: TouchableScaleProps) => (props.slim ? slideHeightSlim : slideHeight)}px;
+  padding-left: ${(props: TouchableScaleProps) =>
     props.slim ? itemHorizontalMarginSlim : itemHorizontalMargin}px;
-  padding-right: ${(props: TouchableScale) =>
+  padding-right: ${(props: TouchableScaleProps) =>
     props.slim ? itemHorizontalMarginSlim : itemHorizontalMargin}px;
   padding-bottom: 18px;
-
-  /* ${(props: TouchableScale) => {
-    return (
-      props.slim &&
-      `
-      height: 275px;
-    `
-    );
-  }}; */
 `;
 
 export const ImageContainer = styled.View`
@@ -116,7 +107,7 @@ export const ImageContainer = styled.View`
   overflow: hidden;
 `;
 
-type Title = {
+type TitleProps = {
   collection?: boolean;
 };
 
@@ -124,7 +115,7 @@ export const Title = styled.Text`
   font-size: 16px;
   font-family: ${(props: ThemeState) => props.theme.PRIMARY_FONT_FAMILY_MEDIUM};
   color: ${(props: ThemeState) => props.theme.PRIMARY_FOREGROUND_COLOR};
-  ${(props: Title & ThemeState) => {
+  ${(props: TitleProps & ThemeState) => {
     return props.collection && `font-size: 18px;`;
   }};
 `;
@@ -135,13 +126,13 @@ export const Subtitle = styled.Text`
   color: ${(props: ThemeState) => props.theme.PRIMARY_FOREGROUND_COLOR};
 `;
 
-type TextContainer = {
+type TextContainerProps = {
   slim?: boolean;
   center?: boolean;
 };
 
 export const TextContainer = styled.View<TextContainer>`
-  position: ${(props: TextContainer) => (props.slim ? 'relative' : 'absolute')};
+  position: ${(props: TextContainerProps) => (props.slim ? 'relative' : 'absolute')};
   bottom: 0;
   justify-content: center;
   width: 100%;
@@ -149,7 +140,7 @@ export const TextContainer = styled.View<TextContainer>`
   border-bottom-left-radius: ${entryBorderRadius}px;
   border-bottom-right-radius: ${entryBorderRadius}px;
   z-index: 2;
-  ${(props: TextContainer) => {
+  ${(props: TextContainerProps) => {
     return props.center && `align-items: center;`;
   }};
 `;

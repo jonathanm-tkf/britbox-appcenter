@@ -17,16 +17,6 @@ import { getImage } from '@src/utils/images';
 import { Platform } from 'react-native';
 import { shuffle } from 'lodash';
 
-export type CastVideo = {
-  title: string;
-  subtitle: string;
-  studio: string;
-  duration: number;
-  mediaUrl: string;
-  imageUrl: string;
-  posterUrl: string;
-};
-
 const getSegment = () => {
   const { core }: { core: CoreState } = store.getState();
   return core.segment;

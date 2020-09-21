@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from 'react';
 import { NativeScrollEvent, Platform, View } from 'react-native';
@@ -61,12 +63,12 @@ const alphabet = String.fromCharCode(...Array(123).keys())
   .split('');
 
 type AlphabetDataType = { label: string; count: number; param: string };
-type Alphabet = {
+type AlphabetProps = {
   alphabetData: AlphabetDataType[] | undefined;
   onPress: (letter: string) => void;
 };
 
-const Alphabet = ({ alphabetData, onPress }: Alphabet) => {
+const Alphabet = ({ alphabetData, onPress }: AlphabetProps) => {
   const [selected, setSelected] = useState('All');
   const filter = (item: string) => {
     setSelected(item);

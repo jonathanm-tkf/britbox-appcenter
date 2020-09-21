@@ -3,7 +3,7 @@ import LinearGradient from 'react-native-linear-gradient';
 import { rgba } from 'polished';
 import { ThemeState } from '@store/modules/theme/types';
 
-type Container = {
+type ContainerProps = {
   width: number;
   height: number;
 };
@@ -12,7 +12,7 @@ export const Container = styled.View`
   margin-bottom: 30px;
   overflow: hidden;
   flex-direction: row;
-  ${(props: Container) => {
+  ${(props: ContainerProps) => {
     return `
       width: ${props.width}px;
       height: ${props.height}px;

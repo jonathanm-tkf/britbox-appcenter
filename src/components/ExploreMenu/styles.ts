@@ -62,15 +62,15 @@ export const TabHeaderItemIndicator = styled.View`
   margin-right: 10px;
 `;
 
-type TabContent = {
+type TabContentProps = {
   active: boolean;
 };
 
-export const TabContent = styled.View<TabContent>`
+export const TabContent = styled.View<TabContentProps>`
   flex-direction: column;
   margin-top: 15px;
   align-items: center;
-  ${(props: TabContent) => {
+  ${(props: TabContentProps) => {
     return (
       !props.active &&
       `

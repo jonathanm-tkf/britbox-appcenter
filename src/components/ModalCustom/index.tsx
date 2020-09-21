@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import React from 'react';
 import { Modal, ScrollView } from 'react-native';
 import { useSelector } from 'react-redux';
@@ -9,7 +8,7 @@ import { ModalCenterView, ModalView, CloseModalButton, EmptyView } from './style
 interface Props {
   children?: any;
   isVisible?: boolean;
-  onClose?: Function;
+  onClose?: () => void;
 }
 
 export default function ModalCustom({

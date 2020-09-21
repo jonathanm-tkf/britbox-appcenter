@@ -8,7 +8,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { loginRequest, loginRequestErrorClear } from '@store/modules/user/actions';
 import { forgotPasswordRequest } from '@store/modules/user/saga';
 import { AppState } from '@store/modules/rootReducer';
-import { ThemeProps } from '@store/modules/theme/types';
 import { EvergentLoginResponseError } from '@store/modules/user/types';
 import { CloseIcon } from '@assets/icons';
 import { useTranslation } from 'react-i18next';
@@ -33,12 +32,6 @@ import {
   ModalSubTitle,
   EmailLink,
 } from './styles';
-
-interface Props {
-  screenProps: {
-    theme: ThemeProps;
-  };
-}
 
 const flex = {
   flex: 1,

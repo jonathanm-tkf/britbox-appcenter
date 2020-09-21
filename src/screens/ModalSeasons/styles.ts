@@ -31,7 +31,7 @@ export const FlatList = styled(RNFlatList).attrs({
   },
 })``;
 
-type SeasonItemText = {
+type SeasonItemTextProps = {
   active: boolean;
 };
 
@@ -47,7 +47,7 @@ export const SeasonItemText = styled.Text`
   font-size: 24px;
   line-height: 48px;
 
-  ${(props: SeasonItemText & ThemeState) => {
+  ${(props: SeasonItemTextProps & ThemeState) => {
     return props.active ? `opacity: 1; font-size: 28px;` : `opacity: 0.6;`;
   }};
 `;

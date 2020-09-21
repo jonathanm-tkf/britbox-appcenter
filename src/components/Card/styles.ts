@@ -145,7 +145,7 @@ export const WrapperBookmarks = styled.View`
   padding-left: 10px;
 `;
 
-interface BottomWrapper {
+interface BottomWrapperProps {
   isContinue: boolean;
   isDetail?: boolean;
   isWatchlist?: boolean;
@@ -155,7 +155,8 @@ export const BottomWrapper = styled.View`
   margin-top: 10px;
   flex-direction: row;
   align-items: center;
-  justify-content: ${(props: BottomWrapper) => (!props.isContinue ? 'center' : 'space-between')};
+  justify-content: ${(props: BottomWrapperProps) =>
+    !props.isContinue ? 'center' : 'space-between'};
   width: 100%;
   ${(props: BottomWrapper) => {
     return (

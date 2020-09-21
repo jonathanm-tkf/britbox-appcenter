@@ -1,5 +1,5 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 /* eslint-disable no-plusplus */
-/* eslint-disable @typescript-eslint/camelcase */
 import { decode as atob } from 'base-64';
 import { BritboxAccountApi } from '@src/sdks';
 

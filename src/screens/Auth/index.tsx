@@ -3,7 +3,6 @@ import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { ImageCacheProvider, ImageCacheManager } from 'react-native-cached-image';
 import Header from '@components/Header';
-import { ThemeProps } from '@store/modules/theme/types';
 import { isTablet } from 'react-native-device-info';
 import Carousel from 'react-native-snap-carousel';
 import { AppState } from '@store/modules/rootReducer';
@@ -22,12 +21,6 @@ import {
 } from './styles';
 import SliderEntry from './SliderEntry';
 import { sliderWidth, itemWidth } from './SliderEntry/styles';
-
-interface Props {
-  screenProps: {
-    theme: ThemeProps;
-  };
-}
 
 const styles = StyleSheet.create({
   slider: {

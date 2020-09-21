@@ -3,7 +3,7 @@ import { ThemeState } from '@store/modules/theme/types';
 import { TextInput, DefaultTheme, HelperText as HelperTextP } from 'react-native-paper';
 import { CheckedIcon, WarningIcon } from '@assets/icons';
 
-interface Input {
+interface InputProps {
   error: boolean;
 }
 
@@ -19,7 +19,7 @@ export const Input = styled(TextInput).attrs((props: ThemeState) => ({
       error: props.theme.ERROR_COLOR,
     },
   },
-}))<Input & ThemeState>``;
+}))<InputProps & ThemeState>``;
 
 export const Container = styled.View`
   margin-bottom: 30px;
