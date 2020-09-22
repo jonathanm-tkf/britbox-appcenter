@@ -15,6 +15,7 @@ export const initialState: LayoutState = {
     data: {},
   },
   isSheetVisible: false,
+  event: undefined,
 };
 
 const layout: Reducer<LayoutState> = (state = initialState, action) => {
@@ -63,6 +64,9 @@ const layout: Reducer<LayoutState> = (state = initialState, action) => {
       case LayoutActionTypes.LAYOUT_HIDE_SHEET_BOTTOM:
         draft.isSheetVisible = false;
         draft.sheet.data = {};
+        break;
+      case LayoutActionTypes.LAYOUT_EVENT:
+        draft.event = action.payload;
         break;
       default:
         break;

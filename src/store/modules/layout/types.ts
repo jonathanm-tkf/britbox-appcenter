@@ -17,6 +17,7 @@ export enum LayoutActionTypes {
   LAYOUT_SHEET_COMPONENT = '@layout/LAYOUT_SHEET_COMPONENT',
   LAYOUT_SHOW_SHEET_BOTTOM = '@layout/LAYOUT_SHOW_SHEET_BOTTOM',
   LAYOUT_HIDE_SHEET_BOTTOM = '@layout/LAYOUT_HIDE_SHEET_BOTTOM',
+  LAYOUT_EVENT = '@layout/LAYOUT_EVENT',
 }
 
 /**
@@ -34,6 +35,7 @@ export interface LayoutState {
     data: { [name: string]: any };
   };
   isSheetVisible: boolean;
+  event: Record<string, unknown> | undefined;
 }
 
 export interface MediaSelectorResponse {

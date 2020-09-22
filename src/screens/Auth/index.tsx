@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { ImageCacheProvider, ImageCacheManager } from 'react-native-cached-image';
 import Header from '@components/Header';
 import { isTablet } from 'react-native-device-info';
@@ -10,6 +10,7 @@ import { StyleSheet } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { useIsFocused } from '@react-navigation/native';
 import { navigate } from '@src/navigation/rootNavigation';
+import { atiEventTracking } from '@store/modules/layout/actions';
 import {
   Button,
   Pagination,
@@ -44,6 +45,7 @@ const Auth = () => {
   const britboxConfig = useSelector((state: AppState) => state.core.britboxConfig);
   const segment = useSelector((state: AppState) => state.core.segment);
   const country: string = segment?.toLocaleLowerCase() || 'us';
+  const dispatch = useDispatch();
 
   const images = isTablet()
     ? [
@@ -111,10 +113,21 @@ const Auth = () => {
     );
   };
 
+  const onPressSignIn = () => {
+    dispatch(
+      atiEventTracking('Submit', 'Sign-IN', {
+        is_background: false,
+        container: 'Application',
+        result: '',
+        metadata: '',
+      })
+    );
+  };
+
   return (
     <>
       <HeaderWrapper>
-        <Header hideSignIn={!isFocused} isCenter />
+        <Header hideSignIn={!isFocused} isCenter onPressSignIn={() => onPressSignIn()} />
       </HeaderWrapper>
       <ScrollView>
         <ImageCacheProvider urlsToPreload={images}>

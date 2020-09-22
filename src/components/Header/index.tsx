@@ -32,6 +32,7 @@ interface Props {
   hideSignIn?: boolean;
   shadow?: boolean;
   isCenter?: boolean;
+  onPressSignIn: () => void;
 }
 
 type MenuItem = {
@@ -40,7 +41,7 @@ type MenuItem = {
   goTo: string;
 };
 
-export default function Header({ hideSignIn, shadow, isCenter }: Props) {
+export default function Header({ hideSignIn, shadow, isCenter, onPressSignIn }: Props) {
   const { t } = useTranslation('layout');
   const isLogged = useSelector((state: AppState) => state.core.isLogged);
   const menu = useSelector((state: AppState) => state.core.menu?.navigation?.header); // TODO: get data from properties
@@ -65,6 +66,9 @@ export default function Header({ hideSignIn, shadow, isCenter }: Props) {
   }, [menu]);
 
   const toggleSignIn = (goTo: string) => {
+    if (onPressSignIn) {
+      onPressSignIn();
+    }
     navigate(goTo);
   };
 

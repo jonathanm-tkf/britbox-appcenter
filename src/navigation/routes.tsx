@@ -5,16 +5,14 @@ import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
 import { ThemeProvider } from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
 import { AppState } from '@store/modules/rootReducer';
-import { AppState as AppStateRN, View, ViewStyle } from 'react-native';
+import { AppState as AppStateRN } from 'react-native';
 import { configRequest } from '@store/modules/core/actions';
 import KochavaTracker from 'react-native-kochava-tracker';
 import NetInfo from '@react-native-community/netinfo';
 import { isTablet, getSystemVersion, getSystemName, getDeviceName } from 'react-native-device-info';
 import { connection, hideSheetBottom } from '@store/modules/layout/actions';
-import { randomString, refreshTokenWithExpiresIn } from '@src/services/token';
+import { refreshTokenWithExpiresIn } from '@src/services/token';
 import { getProfileRequest, refreshTokenSuccess } from '@store/modules/user/actions';
-import { WebView } from 'react-native-webview';
-import Constants from '@src/config/Constants';
 import { TrackPageView } from '@src/services/analytics';
 import RBSheet from 'react-native-raw-bottom-sheet';
 import { RootStackScreen } from './Root';
@@ -36,9 +34,13 @@ type Profile = {
   isInFreeTrail: boolean;
 };
 
-export default () => {
+type Props = {
+  onTrackEvent: (data: Record<string, unknown>) => void;
+};
+
+export default ({ onTrackEvent }: Props) => {
   const theme = useSelector((state: AppState) => state.theme.theme);
-  const { sheet, isSheetVisible } = useSelector((state: AppState) => state.layout);
+  const { sheet, isSheetVisible, event } = useSelector((state: AppState) => state.layout);
   const token = useSelector((state: AppState) => state.core.token);
   const { analyticsSubscriptionStatus, isInFreeTrail } = useSelector(
     (state: AppState) => (state.user?.profile as Profile) || {}
@@ -51,14 +53,8 @@ export default () => {
     (state: AppState) => (state.user.access as Access)?.expiresIn || ''
   );
 
-  const webViewRef = useRef<any>(undefined);
   const routeNameRef = useRef<any>();
   const sheetRef = useRef<any>(null);
-
-  const webViewStyles: ViewStyle = {
-    height: 0,
-    overflow: 'hidden',
-  };
 
   const MyTheme = {
     ...DefaultTheme,
@@ -73,10 +69,22 @@ export default () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    if (event) {
+      const { actionType, actionName, eventProperties } = event;
+      onTrackEvent({
+        type: 'event',
+        actionType,
+        actionName,
+        eventProperties,
+      });
+    }
+  }, [event]);
+
+  useEffect(() => {
     let unmonted = false;
 
-    AppStateRN.addEventListener('change', (event) => {
-      if (event === 'active') {
+    AppStateRN.addEventListener('change', (action) => {
+      if (action === 'active') {
         dispatch(configRequest());
       }
     });
@@ -144,15 +152,12 @@ export default () => {
               os_version: getSystemVersion(),
               device_name: deviceName,
             });
-            if (webViewRef.current && terms) {
-              webViewRef.current.postMessage(
-                JSON.stringify({
-                  type: 'trackPageView',
-                  user,
-                  terms,
-                })
-              );
-            }
+
+            onTrackEvent({
+              type: 'trackPageView',
+              user,
+              terms,
+            });
           }
 
           // Save the current route name for later comparision
@@ -163,14 +168,6 @@ export default () => {
       >
         <RootStackScreen />
       </NavigationContainer>
-      <View style={webViewStyles}>
-        <WebView
-          ref={webViewRef}
-          source={{
-            uri: `${Constants.analitycs}?id=${randomString()}&platform=${getSystemName()}`,
-          }}
-        />
-      </View>
       <RBSheet
         ref={sheetRef}
         height={sheet.height}

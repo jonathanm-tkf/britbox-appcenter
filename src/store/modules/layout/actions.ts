@@ -15,3 +15,9 @@ export const sheetComponent = (height: number, content: () => JSX.Element | null
 export const showSheetBottom = (data?: Record<string, unknown>) =>
   action(LayoutActionTypes.LAYOUT_SHOW_SHEET_BOTTOM, { ...data });
 export const hideSheetBottom = () => action(LayoutActionTypes.LAYOUT_HIDE_SHEET_BOTTOM);
+
+export const atiEventTracking = (
+  actionType: string,
+  actionName: string,
+  eventProperties: Record<string, unknown>
+) => action(LayoutActionTypes.LAYOUT_EVENT, { actionType, actionName, eventProperties });
