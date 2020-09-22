@@ -5,7 +5,6 @@
 /* eslint-disable react-native/no-inline-styles */
 import React, { useState, useEffect } from 'react';
 import { KeyboardAvoidingView, Platform, Linking } from 'react-native';
-
 import { Button } from '@components/Button';
 import HeaderCustom from '@components/HeaderCustom';
 import { useSelector, useDispatch } from 'react-redux';
@@ -21,6 +20,7 @@ import { AppState } from '@store/modules/rootReducer';
 import { useTranslation } from 'react-i18next';
 import { Html5Entities } from 'html-entities';
 import * as RNIap from 'react-native-iap';
+import { encode } from 'base-64';
 import {
   Container,
   ScrollView,
@@ -101,6 +101,12 @@ const SignUpSubscription = () => {
     getProducts();
   }, []);
 
+  useEffect(() => {
+    if (packageData) {
+      changePackageName();
+    }
+  }, [packageData, packageIndex]);
+
   const getProducts = async () => {
     const { response } = await getProductsRequest(country);
 
@@ -151,6 +157,31 @@ const SignUpSubscription = () => {
     }
   };
 
+  const changePackageName = () => {
+    const appIDApple:
+      | BritboxDataEvergentModelsGetProductsResponseMessageBaseAppChannels
+      | undefined = packageData[packageIndex]?.appChannels?.find(
+      (e: BritboxDataEvergentModelsGetProductsResponseMessageBaseAppChannels) =>
+        e.appChannel === 'App Store Billing'
+    );
+    const appIDGoogle:
+      | BritboxDataEvergentModelsGetProductsResponseMessageBaseAppChannels
+      | undefined = packageData[packageIndex]?.appChannels?.find(
+      (e: BritboxDataEvergentModelsGetProductsResponseMessageBaseAppChannels) =>
+        e.appChannel === 'Google Wallet'
+    );
+
+    if (Platform.OS === 'ios') {
+      if (appIDApple) {
+        setPackageName(appIDApple?.appID || '');
+      }
+    } else if (Platform.OS === 'android') {
+      if (appIDGoogle) {
+        setPackageName(appIDGoogle?.appID || '');
+      }
+    }
+  };
+
   const initiateIAPRequest = async () => {
     setErrorMsg('');
     setLoading(true);
@@ -173,12 +204,10 @@ const SignUpSubscription = () => {
       if (Platform.OS === 'ios') {
         if (appIDApple) {
           packageId = appIDApple?.appID;
-          setPackageName(String(packageId));
         }
       } else if (Platform.OS === 'android') {
         if (appIDGoogle) {
           packageId = appIDGoogle?.appID;
-          setPackageName(String(packageId));
         }
       }
 
@@ -206,7 +235,7 @@ const SignUpSubscription = () => {
         label: Platform.OS === 'ios' ? 'App Store Billing' : 'Google Wallet',
         transactionReferenceMsg: {
           amount: packageData[packageIndex]?.retailPrice,
-          txID: receipt,
+          txID: Platform.OS === 'ios' ? receipt : encode(receipt.purchaseToken),
           txMsg: 'Success',
         },
       };
