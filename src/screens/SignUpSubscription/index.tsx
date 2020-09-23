@@ -11,6 +11,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useRoute, RouteProp, useNavigation } from '@react-navigation/native';
 import { getProductsRequest, addSubscriptionRequest } from '@store/modules/user/saga';
 import { loggedInRequest, getProfileRequest } from '@store/modules/user/actions';
+import { atiEventTracking } from '@store/modules/layout/actions';
 import {
   BritboxDataEvergentModelsGetProductsResponseMessageBaseProductsResponseMsg,
   BritboxDataEvergentModelsGetProductsResponseMessageBaseAppChannels,
@@ -212,12 +213,15 @@ const SignUpSubscription = () => {
         }
       }
 
+      trackEvent(`2_details_${packageData[packageIndex]?.productDescription}`);
+
       const purchase = await RNIap.requestSubscription(String(packageId));
 
       await RNIap.finishTransaction(purchase);
 
       receiptValidateIOS(purchase?.transactionReceipt);
     } catch (err) {
+      trackEvent(err?.message);
       setErrorMsg(err?.message);
       setLoading(false);
     }
@@ -252,6 +256,9 @@ const SignUpSubscription = () => {
       if (subscriptionResponse && Number(subscriptionResponse?.responseCode || 1) === 1) {
         _doSuccessSubscription();
       } else {
+        trackEvent(
+          `${subscriptionResponse[0]?.errorCode}: ${subscriptionResponse[0]?.errorMessage}`
+        );
         setErrorMsg(
           (subscriptionResponse && subscriptionResponse[0]?.errorMessage) ||
             "Subscription couldn't be done."
@@ -275,6 +282,17 @@ const SignUpSubscription = () => {
     }
   };
 
+  const trackEvent = (result: string) => {
+    dispatch(
+      atiEventTracking('submit', 'bb_sub_flow', {
+        is_background: false,
+        container: 'Application',
+        result,
+        source: 'Britbox~App',
+        metadata: '',
+      })
+    );
+  };
   return (
     <>
       <HeaderCustom isBack shadow />
@@ -346,7 +364,10 @@ const SignUpSubscription = () => {
                   {britboxConfig[country]['plan-selection']?.ctas[0] || ''}
                 </Button>
                 <Button
-                  onPress={() => _doSuccessSubscription()}
+                  onPress={() => {
+                    trackEvent('cancel');
+                    _doSuccessSubscription();
+                  }}
                   outline
                   size="big"
                   fontWeight="medium"

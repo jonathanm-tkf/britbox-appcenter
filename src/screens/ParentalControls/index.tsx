@@ -21,10 +21,11 @@ import HeaderCustom from '@components/HeaderCustom';
 import { useTranslation } from 'react-i18next';
 import { Button } from '@components/Button';
 import { Input } from '@components/Input';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { AppState } from '@store/modules/rootReducer';
 import { useFocusEffect } from '@react-navigation/native';
 import { EvergentResponseError } from '@store/modules/user/types';
+import { atiEventTracking } from '@store/modules/layout/actions';
 import {
   BritboxDataEvergentModelsGetParentalControlDetailsResponseMessageBaseResponse,
   BritboxAPIAccountModelsProfileUpdateParentalControlDetailsRequest,
@@ -78,6 +79,7 @@ const evergentResponseError: EvergentResponseError = {
 const defaultParentalControlDetail: BritboxDataEvergentModelsGetParentalControlDetailsResponseMessageBaseResponse = {};
 
 export default function ParentalControls() {
+  const dispatch = useDispatch();
   const { t } = useTranslation(['myaccount', 'signup', 'layout']);
   const [password, setPassword] = useState('');
   const [isAuthorize, setIsAuthorize] = useState(false);
@@ -281,16 +283,30 @@ export default function ParentalControls() {
       parentalControl,
     };
 
+    let parentalControlLevel: number = 0;
+    let parentalControlLebels: string = '';
+
     if (parentalControl === 'true') {
-      let parentalControlLevel: number = 0;
       if (multiSliderValue === 75) {
         parentalControlLevel = parseInt(britboxConfig[country]['parental-controls']?.levels[1].id);
+        parentalControlLebels = (
+          britboxConfig[country]['parental-controls']?.levels[1]?.labels || []
+        ).join(',');
       } else if (multiSliderValue === 50) {
         parentalControlLevel = parseInt(britboxConfig[country]['parental-controls']?.levels[2].id);
+        parentalControlLebels = (
+          britboxConfig[country]['parental-controls']?.levels[2]?.labels || []
+        ).join(',');
       } else if (multiSliderValue === 25) {
         parentalControlLevel = parseInt(britboxConfig[country]['parental-controls']?.levels[3].id);
+        parentalControlLebels = (
+          britboxConfig[country]['parental-controls']?.levels[3]?.labels || []
+        ).join(',');
       } else if (multiSliderValue === 1) {
         parentalControlLevel = parseInt(britboxConfig[country]['parental-controls']?.levels[4].id);
+        parentalControlLebels = (
+          britboxConfig[country]['parental-controls']?.levels[4]?.labels || []
+        ).join(',');
       }
       parmas = {
         ...parmas,
@@ -317,6 +333,15 @@ export default function ParentalControls() {
         if (parentalControl === 'true') {
           setIsSuccess(true);
         }
+        dispatch(
+          atiEventTracking('submit', 'bb_profile_edit', {
+            is_background: false,
+            container: 'Application',
+            result: `Parental Controls: ${parentalControl === 'true' ? parentalControlLebels : ''}`,
+            source: 'Britbox~App',
+            metadata: '',
+          })
+        );
         updateParentalDetail();
       } else {
         setErrorMessage(responseData);

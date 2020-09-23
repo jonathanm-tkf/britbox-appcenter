@@ -3,11 +3,12 @@ import React, { useEffect, useState } from 'react';
 
 import { Button } from '@components/Button';
 import { useTranslation } from 'react-i18next';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { AppState } from '@store/modules/rootReducer';
 import Animated from 'react-native-reanimated';
 import { useNavigation } from '@react-navigation/native';
 import { navigateByPath } from '@src/navigation/rootNavigation';
+import { atiEventTracking } from '@store/modules/layout/actions';
 import { Container, Logo, LinksList, Gradient, CenterLogoWrapper, Content } from './styles';
 
 interface DataElement {
@@ -42,6 +43,7 @@ type MenuItem = {
 };
 
 export default function Header({ hideSignIn, shadow, isCenter, onPressSignIn }: Props) {
+  const dispatch = useDispatch();
   const { t } = useTranslation('layout');
   const isLogged = useSelector((state: AppState) => state.core.isLogged);
   const menu = useSelector((state: AppState) => state.core.menu?.navigation?.header); // TODO: get data from properties
@@ -112,7 +114,18 @@ export default function Header({ hideSignIn, shadow, isCenter, onPressSignIn }: 
                 <Item
                   text={item.text}
                   goTo={item.goTo}
-                  onPressTouch={() => navigateByPath({ path: item.goTo })}
+                  onPressTouch={() => {
+                    navigateByPath({ path: item.goTo });
+                    dispatch(
+                      atiEventTracking('select', item.text.toLocaleLowerCase(), {
+                        is_background: false,
+                        container: 'Application',
+                        result: item.text,
+                        source: 'Britbox~App',
+                        metadata: '',
+                      })
+                    );
+                  }}
                 />
               )}
             />
