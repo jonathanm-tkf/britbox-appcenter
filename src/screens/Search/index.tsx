@@ -7,7 +7,7 @@ import Highlighter from 'react-native-highlight-words';
 import { SearchIcon, SearchDeleteIcon } from '@assets/icons';
 import { Button } from '@components/Button';
 import { AppState } from '@store/modules/rootReducer';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { navigateByPath } from '@src/navigation/rootNavigation';
 import { loadCollectionPage } from '@src/services/detail';
 import { MassiveSDKModelItemList } from '@src/sdks/Britbox.API.Account.TS/api';
@@ -16,6 +16,7 @@ import {
   MassiveSDKModelPerson,
 } from '@src/sdks/Britbox.API.Content.TS/api';
 import { getSearch } from '@store/modules/search/saga';
+import { atiEventTracking } from '@store/modules/layout/actions';
 import Grid from '@screens/Shared/Grid';
 import { widthPercentageToDP as vw } from 'react-native-responsive-screen';
 
@@ -50,6 +51,7 @@ const containerStyles = {
 };
 
 export default function Search() {
+  const dispatch = useDispatch();
   const { t } = useTranslation('search');
   const theme = useSelector((state: AppState) => state.theme.theme);
   const user = useSelector((state: AppState) => state.user);
@@ -157,6 +159,15 @@ export default function Search() {
       const { externalResponse: responseSearchData } = responseData;
 
       if (responseSearchData) {
+        dispatch(
+          atiEventTracking('search', 'ns_search_terms', {
+            is_background: false,
+            container: 'Application',
+            result: `${searchInput}: ${(responseSearchData?.items?.items || []).length}`,
+            source: 'Britbox~App',
+            metadata: '',
+          })
+        );
         setSearchingItemData(responseSearchData?.items?.items || []);
         setSearchingPeopleData(responseSearchData?.people || []);
       }

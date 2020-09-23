@@ -8,6 +8,7 @@ import HeaderCustom from '@components/HeaderCustom';
 import { useSelector, useDispatch } from 'react-redux';
 import { signupRequest } from '@store/modules/user/saga';
 import { registerRequestSuccess } from '@store/modules/user/actions';
+import { atiEventTracking } from '@store/modules/layout/actions';
 import { EvergentSignupResponseError } from '@store/modules/user/types';
 import { AppState } from '@store/modules/rootReducer';
 import { useTranslation } from 'react-i18next';
@@ -152,6 +153,15 @@ const SignUp = () => {
         const { response: responseData } = response;
         if (responseData && Number(responseData.responseCode) === 1) {
           dispatch(registerRequestSuccess(responseData));
+          dispatch(
+            atiEventTracking('submit', 'bb_sub_flow', {
+              is_background: false,
+              container: 'Application',
+              result: '1_Create_Account',
+              source: 'Britbox~App',
+              metadata: '',
+            })
+          );
           navigation.navigate('SignUpSubscription');
         } else {
           const responseError: EvergentSignupResponseError = {

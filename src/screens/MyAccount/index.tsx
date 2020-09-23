@@ -10,6 +10,7 @@ import {
 } from '@store/modules/user/saga';
 import { BritboxDataEvergentModelsGetActiveSubscriptionsResponseMessageBaseAccountServiceMessage } from '@src/sdks/Britbox.API.Account.TS/api';
 import { getProfileRequest } from '@store/modules/user/actions';
+import { atiEventTracking } from '@store/modules/layout/actions';
 import { useTranslation } from 'react-i18next';
 import ErrorBlock from '@components/ErrorBlock';
 import { Button } from '@components/Button';
@@ -156,9 +157,27 @@ export default function MyAccount() {
           if (responseData && Number(responseData.responseCode) === 1) {
             setIsSuccess(true);
             dispatch(getProfileRequest());
+            dispatch(
+              atiEventTracking('submit', 'bb_profile_edit', {
+                is_background: false,
+                container: 'Application',
+                result: 'Account Info Edit',
+                source: 'Britbox~App',
+                metadata: '',
+              })
+            );
           } else {
             setErrorState(true);
             setErrorMessage(responseData);
+            dispatch(
+              atiEventTracking('error', 'bb_profile_edit', {
+                is_background: false,
+                container: 'Application',
+                result: `${responseData?.failureMessage[0]?.errorCode}: ${responseData?.failureMessage[0]?.errorMessage}`,
+                source: 'Britbox~App',
+                metadata: '',
+              })
+            );
           }
         }
         setLoading(false);
@@ -403,6 +422,15 @@ export default function MyAccount() {
           const { response: responseData } = response;
           if (responseData && Number(responseData.responseCode) === 1) {
             setIsSuccess(true);
+            dispatch(
+              atiEventTracking('submit', 'bb_profile_edit', {
+                is_background: false,
+                container: 'Application',
+                result: 'Account Info Edit',
+                source: 'Britbox~App',
+                metadata: '',
+              })
+            );
             setCurPassword('');
             setNewPassword('');
             setConfirmPassword('');
@@ -698,6 +726,15 @@ export default function MyAccount() {
         const { response: responseData } = response;
         if (responseData && Number(responseData.responseCode) === 1) {
           setIsSuccess(true);
+          dispatch(
+            atiEventTracking('submit', 'bb_newsletter_update', {
+              is_background: false,
+              container: 'Application',
+              result: isNewsletters.toString(),
+              source: 'Britbox~App',
+              metadata: '',
+            })
+          );
           dispatch(getProfileRequest());
         } else {
           setErrorState(true);
