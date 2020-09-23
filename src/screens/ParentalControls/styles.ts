@@ -219,9 +219,10 @@ export const UnLockIconView = styled(UnLockIcon).attrs({
 `;
 
 export const DisabledOverlay = styled.View`
-  height: 100%;
+  height: 82%;
   width: 100%;
   position: absolute;
+  bottom: 0;
   background-color: ${(props: ThemeState) => props.theme.PRIMARY_TEXT_COLOR};
   opacity: 0.4;
 `;

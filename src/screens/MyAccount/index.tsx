@@ -417,7 +417,6 @@ export default function MyAccount() {
 
     const doValidateCurPassword = () => {
       const hasErrorCurPassword = curPassword.trim() === '';
-      const hasErrorRegexPassword = !regexp.test(curPassword);
 
       setErrorCurPassword(
         hasErrorCurPassword
@@ -428,18 +427,6 @@ export default function MyAccount() {
       );
 
       if (!hasErrorCurPassword) {
-        setErrorCurPassword(
-          hasErrorRegexPassword
-            ? {
-                text: britboxConfig[country]?.registration?.validation?.messages['password-rule'],
-              }
-            : {
-                text: '',
-              }
-        );
-      }
-
-      if (!hasErrorCurPassword && !hasErrorRegexPassword) {
         return true;
       }
 
