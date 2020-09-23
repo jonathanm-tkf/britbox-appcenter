@@ -6,6 +6,7 @@ import { Button } from '@components/Button';
 import { Input } from '@components/Input';
 import { useDispatch, useSelector } from 'react-redux';
 import { loginRequest, loginRequestErrorClear } from '@store/modules/user/actions';
+import { atiEventTracking } from '@store/modules/layout/actions';
 import { forgotPasswordRequest } from '@store/modules/user/saga';
 import { AppState } from '@store/modules/rootReducer';
 import { EvergentLoginResponseError } from '@store/modules/user/types';
@@ -237,6 +238,19 @@ const Login = () => {
     }
   };
 
+  const navigateToSignUp = () => {
+    dispatch(
+      atiEventTracking('submit', 'bb_sub_flow', {
+        is_background: false,
+        container: 'Application',
+        result: 'Subscribe now',
+        source: 'Britbox~App',
+        metadata: '',
+      })
+    );
+    navigation.navigate('SignUp');
+  };
+
   useEffect(() => {
     setErrorUsername({
       text: '',
@@ -315,7 +329,7 @@ const Login = () => {
                 size="big"
                 fontWeight="medium"
                 style={suscribeStyle}
-                onPress={() => navigation.navigate('SignUp')}
+                onPress={() => navigateToSignUp()}
               >
                 <SuscribeText>{britboxConfig[country]?.login?.ctas[1] || ''}</SuscribeText>
               </Button>

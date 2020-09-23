@@ -124,6 +124,19 @@ const Auth = () => {
     );
   };
 
+  const navigateToSignUp = () => {
+    dispatch(
+      atiEventTracking('submit', 'bb_sub_flow', {
+        is_background: false,
+        container: 'Application',
+        result: 'Free Trial',
+        source: 'Britbox~App',
+        metadata: '',
+      })
+    );
+    navigate('SignUp');
+  };
+
   return (
     <>
       <HeaderWrapper>
@@ -158,7 +171,7 @@ const Auth = () => {
             tappableDots={!!sliderRef}
           />
         </PaginationWrapper>
-        <Button size="big" fontWeight="medium" stretch onPress={() => navigate('SignUp')}>
+        <Button size="big" fontWeight="medium" stretch onPress={() => navigateToSignUp()}>
           {t('freetrial')}
         </Button>
         <Paragraph>

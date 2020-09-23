@@ -14,6 +14,7 @@ import { PayloadAction } from 'typesafe-actions';
 import { refreshTokenWithExpiresIn } from '@src/services/token';
 import { getDeviceName, getUniqueId } from 'react-native-device-info';
 import { Platform } from 'react-native';
+import { atiEventTracking } from '../layout/actions';
 import {
   UserActionTypes,
   UserLogin,
@@ -105,12 +106,30 @@ export function* loginRequest({
     const { response } = yield call(login, payload);
     if (Number(response.responseCode) === 1) {
       yield put(loginRequestSuccess(response));
+      yield put(
+        atiEventTracking('auth', 'bb_logged_in', {
+          is_background: false,
+          container: 'Application',
+          result: '',
+          source: 'Britbox~App',
+          metadata: '',
+        })
+      );
       const { accessToken } = yield select(getToken);
       const { response: responseProfile } = yield call(profile, accessToken);
       const { response: responseAccountDetail } = yield call(getAccountDetail, accessToken);
       yield put(profileRequestSuccess({ ...responseProfile, ...responseAccountDetail }));
     } else {
       yield put(loginRequestError(response));
+      yield put(
+        atiEventTracking('error', 'bb_logged_in', {
+          is_background: false,
+          container: 'Application',
+          result: `${response?.failureMessage[0]?.errorCode}: ${response?.failureMessage[0]?.errorMessage}`,
+          source: 'Britbox~App',
+          metadata: '',
+        })
+      );
     }
   } catch (error) {
     // Sentry.captureException({ error, logger: 'user facebook' });
