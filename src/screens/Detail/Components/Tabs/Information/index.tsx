@@ -42,12 +42,12 @@ const Information = ({ data, onLayout, moreInformation }: Props) => {
           {data?.customFields?.YearRange || data?.releaseYear || ''}
         </Row>
       )}
-      {data.type === 'show' && (
+      {data.type === 'show' && data.seasons && (
         <Row>
           <LabelBold>{data.seasons > 1 ? t('seasons') : t('season')}:</LabelBold> {data.seasons}
         </Row>
       )}
-      {data.type === 'movie' && (
+      {data.type === 'movie' && data?.duration && (
         <Row>
           <LabelBold>{t('duration')}:</LabelBold> {getDuration(data.duration)} min
         </Row>
@@ -64,21 +64,23 @@ const Information = ({ data, onLayout, moreInformation }: Props) => {
         </Row>
       )}
 
-      <CreditsWrapper>
-        <LabelBold>{t('credits')}: </LabelBold>
-        <CreditsList>
-          {(data.credits || []).map((item, key) => {
-            return (
-              <CreditsItem key={key.toString()}>
-                <CreditsText>{item.role === 'actor' ? item.character : item.role}</CreditsText>
-                <CreditsText>
-                  {item.role === 'director' || item.role === 'writer' ? item.name : item.name}
-                </CreditsText>
-              </CreditsItem>
-            );
-          })}
-        </CreditsList>
-      </CreditsWrapper>
+      {(data.credits || []).length > 0 && (
+        <CreditsWrapper>
+          <LabelBold>{t('credits')}: </LabelBold>
+          <CreditsList>
+            {(data.credits || []).map((item, key) => {
+              return (
+                <CreditsItem key={key.toString()}>
+                  <CreditsText>{item.role === 'actor' ? item.character : item.role}</CreditsText>
+                  <CreditsText>
+                    {item.role === 'director' || item.role === 'writer' ? item.name : item.name}
+                  </CreditsText>
+                </CreditsItem>
+              );
+            })}
+          </CreditsList>
+        </CreditsWrapper>
+      )}
     </Container>
   );
 };
