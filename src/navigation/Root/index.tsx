@@ -12,7 +12,7 @@ import VideoPlayer from '@screens/VideoPlayer';
 import Modal from '@screens/Modal';
 import Loading from '@screens/Loading';
 import ModalSeasons from '@screens/ModalSeasons';
-import { Animated, Alert, Linking, BackHandler } from 'react-native';
+import { Animated, Platform, Alert, Linking, BackHandler } from 'react-native';
 import { ThemeProps } from '@store/modules/theme/types';
 import ModalMoreInformation from '@screens/ModalMoreInformation';
 import Orientation from 'react-native-orientation-locker';
@@ -84,7 +84,8 @@ const RootStackScreen = () => {
   const checkVersion = async () => {
     try {
       const minVersion =
-        (britboxConfig && britboxConfig[country]['force-upgrade']['min-version']) || '';
+        (britboxConfig && britboxConfig[country]['force-upgrade'][`min-version-${Platform.OS}`]) ||
+        '';
       const curVersion = getVersion();
       if (curVersion < minVersion) {
         setVersionModal(true);
