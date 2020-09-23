@@ -16,6 +16,8 @@ export const initialState: LayoutState = {
   },
   isSheetVisible: false,
   event: undefined,
+  device: '',
+  autoPlay: false,
 };
 
 const layout: Reducer<LayoutState> = (state = initialState, action) => {
@@ -67,6 +69,15 @@ const layout: Reducer<LayoutState> = (state = initialState, action) => {
         break;
       case LayoutActionTypes.LAYOUT_EVENT:
         draft.event = action.payload;
+        break;
+      case LayoutActionTypes.LAYOUT_DEVICE:
+        draft.device = action.payload.type;
+        break;
+      case LayoutActionTypes.LAYOUT_AUTOPLAY_OFF:
+        draft.autoPlay = false;
+        break;
+      case LayoutActionTypes.LAYOUT_AUTOPLAY_ON:
+        draft.autoPlay = true;
         break;
       default:
         break;

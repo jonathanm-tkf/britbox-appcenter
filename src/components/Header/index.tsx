@@ -32,7 +32,7 @@ interface Props {
   hideSignIn?: boolean;
   shadow?: boolean;
   isCenter?: boolean;
-  onPressSignIn: () => void;
+  onPressSignIn?: () => void;
 }
 
 type MenuItem = {

@@ -10,7 +10,12 @@ import {
   MassiveSDKModelItemSummary,
 } from '@src/sdks/Britbox.API.Account.TS/api';
 import { getImage } from '@src/utils/images';
-import { hideSheetBottom, sheetComponent, showSheetBottom } from '@store/modules/layout/actions';
+import {
+  autoPlayOn,
+  hideSheetBottom,
+  sheetComponent,
+  showSheetBottom,
+} from '@store/modules/layout/actions';
 import { pickBy } from 'lodash';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
@@ -121,8 +126,11 @@ const ContinueWatching = () => {
     });
   };
 
-  const goToDetail = (card: any) => {
-    navigateByPath(card);
+  const goToDetail = (card: any, autoPlay: boolean) => {
+    if (autoPlay) {
+      dispatch(autoPlayOn());
+    }
+    navigateByPath(card, autoPlay);
   };
 
   const removeItemContinueWatching = () => {
@@ -226,7 +234,9 @@ const ContinueWatching = () => {
                 data={card.data}
                 actionText={card?.data?.actionText}
                 onPress={() =>
-                  (card.original?.list?.title || '') !== 'loading' ? goToDetail(card.original) : {}
+                  (card.original?.list?.title || '') !== 'loading'
+                    ? goToDetail(card.original, true)
+                    : {}
                 }
                 onRemove={() => showSheetBottomContent(card.original)}
               />
@@ -253,7 +263,9 @@ const ContinueWatching = () => {
                 url={card.url}
                 data={card.data}
                 onPress={() =>
-                  (card.original?.list?.title || '') !== 'loading' ? goToDetail(card.original) : {}
+                  (card.original?.list?.title || '') !== 'loading'
+                    ? goToDetail(card.original, false)
+                    : {}
                 }
                 onRemove={() => showSheetBottomContentWatchlist(card.original)}
               />

@@ -24,7 +24,7 @@ const Episodes = ({ item }: Props) => {
   const theme = useSelector((state: AppState) => state.theme.theme);
 
   const goToDetail = (card: any) => {
-    navigateByPath(card);
+    navigateByPath(card, true);
   };
 
   return (

@@ -21,9 +21,18 @@ interface Props {
   moreInformation: MoreInformation | undefined;
   isEpisode: boolean;
   onScrollTo: (y: number) => void;
+  autoPlay: boolean;
 }
 
-const Episodes = ({ onLayout, data, show, moreInformation, isEpisode, onScrollTo }: Props) => {
+const Episodes = ({
+  onLayout,
+  data,
+  show,
+  moreInformation,
+  isEpisode,
+  onScrollTo,
+  autoPlay,
+}: Props) => {
   const { navigate } = useNavigation();
   const user = useSelector((state: AppState) => state.user);
   const { watched } = useSelector((state: AppState) => state.detail);
@@ -129,7 +138,7 @@ const Episodes = ({ onLayout, data, show, moreInformation, isEpisode, onScrollTo
           isDetail
           onLayout={(event) => {
             const { layout } = event.nativeEvent;
-            if (isEpisode && show && show.episodeNumber === item?.episodeNumber) {
+            if ((isEpisode && show && show.episodeNumber === item?.episodeNumber) || autoPlay) {
               onScrollTo(layout.y);
             }
           }}

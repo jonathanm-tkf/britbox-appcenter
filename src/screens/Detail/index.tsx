@@ -18,15 +18,13 @@ import { AppState } from '@store/modules/rootReducer';
 import { useSelector, useDispatch } from 'react-redux';
 import { watchlistToggleRequest } from '@store/modules/user/actions';
 import { checkIsInWatchingList } from '@src/services/watchlist';
-import { showSheetBottom } from '@store/modules/layout/actions';
-import {
-  detailClear,
-  detailRequestSuccess,
-  detailWatchedSuccess,
-} from '@store/modules/detail/actions';
+import { autoPlayOff, autoPlayOn, showSheetBottom } from '@store/modules/layout/actions';
+import { detailClear, detailWatchedSuccess } from '@store/modules/detail/actions';
 import { MassiveSDKModelWatched } from '@src/sdks/Britbox.API.Account.TS/api';
 import { LoadDetailPageResponse } from '@store/modules/detail/types';
 import { castDetail } from '@store/modules/core/actions';
+import { store } from '@store/index';
+import { LayoutState } from '@store/modules/layout/types';
 import {
   Container,
   Scroll,
@@ -46,21 +44,29 @@ import Tabs from './Components/Tabs';
 type RootParamList = {
   Detail: {
     item: MassiveSDKModelItemSummary;
+    autoPlay: boolean;
     seasonModal: MassiveSDKModelSeasonsItem;
   };
 };
 
 type DetailScreenRouteProp = RouteProp<RootParamList, 'Detail'>;
 
+const getAutoPlay = () => {
+  const { layout }: { layout: LayoutState } = store.getState();
+  return layout.autoPlay;
+};
+
 const Detail = () => {
   const { params } = useRoute<DetailScreenRouteProp>();
-  const { item, seasonModal } = params || undefined;
+  const { item, seasonModal, autoPlay } = params || undefined;
   const navigation = useNavigation();
   const [showBlueView, setShowBlueView] = useState(false);
   const [tabsOffset, setTabsOffset] = useState(false);
   const [animatedOpacityValue] = useState(new Animated.Value(0));
   const isCast = useSelector((state: AppState) => state.layout.cast);
-  const data = useSelector((state: AppState) => state.detail.data);
+  const { navigate } = useNavigation();
+
+  const [data, setData] = useState<LoadDetailPageResponse | undefined>(undefined);
 
   const dispatch = useDispatch();
   const bookmarklist = useSelector(
@@ -84,7 +90,8 @@ const Detail = () => {
       watched: Record<string, MassiveSDKModelWatched>;
     } = await loadDetailPage(path, customId);
     dispatch(detailWatchedSuccess(watched));
-    dispatch(detailRequestSuccess(response));
+    setData(response);
+    // dispatch(detailRequestSuccess(response));
   };
 
   useEffect(() => {
@@ -92,6 +99,12 @@ const Detail = () => {
       getDataDetail(item?.path || '', item?.customId || '');
     }
   }, [item]);
+
+  useEffect(() => {
+    if (autoPlay) {
+      dispatch(autoPlayOn());
+    }
+  }, [autoPlay]);
 
   useEffect(() => {
     if (
@@ -118,7 +131,7 @@ const Detail = () => {
       };
 
       if (seasonModal) {
-        dispatch(detailRequestSuccess(newData));
+        setData(newData);
       }
 
       loadEpisodesBySeason(path || '').then(({ response }) => {
@@ -134,7 +147,7 @@ const Detail = () => {
           episodes: response?.episodes,
           moreInformation: response?.moreInformation,
         };
-        dispatch(detailRequestSuccess(afterResponse));
+        setData(afterResponse);
       });
     }
   }, [seasonModal]);
@@ -153,6 +166,7 @@ const Detail = () => {
 
     return () => {
       dispatch(detailClear());
+      dispatch(autoPlayOff());
     };
   }, []);
 
@@ -223,6 +237,19 @@ const Detail = () => {
         y: Number(tabsOffset) + Number(y) - 300,
         animated: true,
       });
+      if (getAutoPlay()) {
+        setTimeout(() => {
+          if (!user?.profile?.canStream || false) {
+            dispatch(showSheetBottom());
+            return false;
+          }
+          if (isCast) {
+            dispatch(castDetail(item));
+            return CastVideo(item);
+          }
+          return navigate('VideoPlayer', { item });
+        }, 1000);
+      }
     }
   };
 
@@ -282,7 +309,7 @@ const Detail = () => {
           )}
         </InnerContent>
         <Tabs
-          {...{ data }}
+          {...{ data, autoPlay }}
           onScrollTo={(y) => onScrollTo(y)}
           onLayout={(event) => {
             const {

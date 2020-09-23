@@ -6,7 +6,6 @@ import { getStatusBarHeight } from 'react-native-iphone-x-helper';
 import Header from '@components/Header';
 import { useSelector, useDispatch } from 'react-redux';
 import { AppState } from '@store/modules/rootReducer';
-import { useNavigation } from '@react-navigation/native';
 import { getTemplate } from '@src/utils/template';
 import {
   New,
@@ -28,6 +27,7 @@ import {
 import { navigateByPath } from '@src/navigation/rootNavigation';
 import { watchlistToggleRequest } from '@store/modules/user/actions';
 import ContinueWatching from '@screens/Shared/ContinueWatching';
+import { autoPlayOn } from '@store/modules/layout/actions';
 import { Container } from './styles';
 
 const wrapper = {
@@ -100,14 +100,11 @@ type WatchlistToggleRequest = MassiveSDKModelItemSummary & {
 };
 
 const Item = () => {
-  const navigation = useNavigation();
   const dispatch = useDispatch();
 
   const modal = (item: MassiveSDKModelItemSummary) => {
-    if (item.type === 'movie' || item.type === 'episode') {
-      return navigation.navigate('VideoPlayer', { item });
-    }
-    return navigateByPath(item);
+    dispatch(autoPlayOn());
+    return navigateByPath(item, true);
   };
   const home = useSelector((state: AppState) => state.home.data);
 

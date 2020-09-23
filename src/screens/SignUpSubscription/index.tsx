@@ -21,6 +21,7 @@ import { useTranslation } from 'react-i18next';
 import { Html5Entities } from 'html-entities';
 import * as RNIap from 'react-native-iap';
 import { encode } from 'base-64';
+import * as Sentry from '@sentry/react-native';
 import {
   Container,
   ScrollView,
@@ -235,7 +236,7 @@ const SignUpSubscription = () => {
         label: Platform.OS === 'ios' ? 'App Store Billing' : 'Google Wallet',
         transactionReferenceMsg: {
           amount: packageData[packageIndex]?.retailPrice,
-          txID: Platform.OS === 'ios' ? receipt : encode(receipt.purchaseToken),
+          txID: Platform.OS === 'ios' ? receipt : encode(receipt),
           txMsg: 'Success',
         },
       };
@@ -248,7 +249,7 @@ const SignUpSubscription = () => {
         paymentmethodInfo,
       });
 
-      if (subscriptionResponse && subscriptionResponse?.status) {
+      if (subscriptionResponse && Number(subscriptionResponse?.responseCode || 1) === 1) {
         _doSuccessSubscription();
       } else {
         setErrorMsg(
@@ -257,6 +258,8 @@ const SignUpSubscription = () => {
         );
       }
     } catch (err) {
+      Sentry.setExtra('error', err);
+      Sentry.captureMessage('receiptValidate');
       setErrorMsg('Something went wrong.');
     }
 

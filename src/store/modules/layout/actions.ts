@@ -21,3 +21,9 @@ export const atiEventTracking = (
   actionName: string,
   eventProperties: Record<string, unknown>
 ) => action(LayoutActionTypes.LAYOUT_EVENT, { actionType, actionName, eventProperties });
+
+export const device = (type: string) => action(LayoutActionTypes.LAYOUT_DEVICE, { type });
+
+export const autoPlayOn = () => action(LayoutActionTypes.LAYOUT_AUTOPLAY_ON);
+
+export const autoPlayOff = () => action(LayoutActionTypes.LAYOUT_AUTOPLAY_OFF);

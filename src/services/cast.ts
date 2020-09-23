@@ -1,8 +1,12 @@
+/* eslint-disable no-return-assign */
+/* eslint-disable no-unused-vars */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { MassiveSDKModelEpisodesItem } from '@src/sdks/Britbox.API.Content.TS/api';
 import { BritboxAccountApi } from '@src/sdks';
 import { getDevice } from '@src/utils';
 import { store } from '@store/index';
 import { CoreState } from '@store/modules/core/types';
+import { UserState } from '@store/modules/user/types';
 import Constants from '@src/config/Constants';
 import {
   LayoutState,
@@ -16,6 +20,8 @@ import GoogleCast from 'react-native-google-cast';
 import { getImage } from '@src/utils/images';
 import { Platform } from 'react-native';
 import { shuffle } from 'lodash';
+import { getSystemVersion } from 'react-native-device-info';
+import { getUserId } from './analytics';
 
 const getSegment = () => {
   const { core }: { core: CoreState } = store.getState();
@@ -25,6 +31,25 @@ const getSegment = () => {
 const getToken = () => {
   const { core }: { core: CoreState } = store.getState();
   return core.token;
+};
+
+const getUser = async () => {
+  const { user: userState }: { user: UserState } = store.getState();
+  const { layout }: { layout: LayoutState } = store.getState();
+  const { user } = getUserId(getToken());
+
+  return {
+    token: getToken(),
+    ert: userState?.access?.refreshToken || '',
+    user_id: user,
+    platform: Platform.OS === 'ios' ? 'iOS' : 'Android',
+    device_name: layout.device,
+    country: getSegment(),
+    os_version: getSystemVersion(),
+    expiresIn: userState?.access?.expiresIn || '',
+    analyticsSubscriptionStatus: userState?.profile?.analyticsSubscriptionStatus || '',
+    staging: true,
+  };
 };
 
 const getConnection = () => {
@@ -103,6 +128,8 @@ export const CastVideo = async (item: MassiveSDKModelEpisodesItem) => {
         responseMediaSelector.data
       ).then((subs) => subs);
 
+      const user = await getUser();
+
       parseResponseMediaSelector(responseMediaSelector.data).then((dataVideo) => {
         const video = {
           title: item?.contextualTitle || '',
@@ -112,6 +139,12 @@ export const CastVideo = async (item: MassiveSDKModelEpisodesItem) => {
           duration: item?.duration || 0,
           posterUrl: getImage(item?.images?.square, 'wallpaper'),
           customData: {
+            user,
+            media: {
+              itemVideoCustomId: url,
+              itemVideoMassiveId: item?.id,
+              itemVideoTitle: item?.title,
+            },
             subtitles,
           },
         };

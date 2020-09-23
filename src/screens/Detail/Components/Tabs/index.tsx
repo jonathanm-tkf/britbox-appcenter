@@ -28,11 +28,12 @@ type Props = {
   data: LoadDetailPageResponse | undefined;
   onScrollTo: (y: number) => void;
   onLayout?: (event: any) => void;
+  autoPlay: boolean;
 };
 
 type HeightType = string | number;
 
-const Tabs = ({ data, onScrollTo, onLayout }: Props) => {
+const Tabs = ({ data, onScrollTo, onLayout, autoPlay }: Props) => {
   const theme = useSelector((state: AppState) => state.theme.theme);
   const { navigate } = useNavigation();
   const britboxConfig = useSelector((state: AppState) => state.core.britboxConfig);
@@ -112,7 +113,7 @@ const Tabs = ({ data, onScrollTo, onLayout }: Props) => {
         content: () => (
           <Episodes
             data={episodes?.items || []}
-            {...{ show, moreInformation, isEpisode: information?.type === 'episode' }}
+            {...{ show, moreInformation, isEpisode: information?.type === 'episode', autoPlay }}
             onScrollTo={(y) => onScrollTo(y)}
             onLayout={(event) => {
               if (!ready.episodes) {

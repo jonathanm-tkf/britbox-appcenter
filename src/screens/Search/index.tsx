@@ -160,7 +160,10 @@ export default function Search() {
         setSearchingItemData(responseSearchData?.items?.items || []);
         setSearchingPeopleData(responseSearchData?.people || []);
       }
-      if ((responseSearchData?.items?.items || []).length === 0) {
+      if (
+        (responseSearchData?.items?.items || []).length === 0 &&
+        (responseSearchData?.people || []).length === 0
+      ) {
         setNoResults(true);
       }
     }
@@ -201,7 +204,7 @@ export default function Search() {
             </SearchClearButton>
           )}
         </SearchWrapper>
-        {(searchingItemData || []).length > 0 ? (
+        {(searchingItemData || []).length > 0 || (searchingPeopleData || []).length > 0 ? (
           <>
             {isDone ? (
               <ResultGrid>
@@ -266,14 +269,14 @@ export default function Search() {
               </ResultGrid>
             ) : (
               <FlatList
-                data={searchingItemData || []}
+                data={[...searchingItemData, ...searchingPeopleData] || []}
                 contentContainerStyle={searchResultContainer}
                 renderItem={({ item }) => (
                   <TouchableOpacity onPress={() => navigateByPath(item)} activeOpacity={1}>
                     <Highlighter
                       highlightStyle={searchResultHighLightTextStyle}
                       searchWords={[searchInput]}
-                      textToHighlight={item?.title}
+                      textToHighlight={item?.title || item?.name}
                       style={searchResultTextStyle}
                     />
                   </TouchableOpacity>

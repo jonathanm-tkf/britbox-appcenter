@@ -1,17 +1,18 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react-native/no-inline-styles */
-import React, { useEffect, useState } from 'react';
-import { View, Dimensions, StatusBar, BackHandler } from 'react-native';
+import React, { useEffect, useRef, useState } from 'react';
+import { View, Dimensions, StatusBar, BackHandler, Platform } from 'react-native';
 import Orientation from 'react-native-orientation-locker';
 import { useNavigation, RouteProp, useRoute } from '@react-navigation/native';
 import { AppState } from '@store/modules/rootReducer';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { WebView } from 'react-native-webview';
 import Constants from '@src/config/Constants';
 import NetInfo, { NetInfoStateType } from '@react-native-community/netinfo';
-import { isTablet } from 'react-native-device-info';
+import { getSystemVersion, isTablet } from 'react-native-device-info';
 import { MassiveSDKModelItemSummary } from '@src/sdks/Britbox.API.Content.TS/api';
 import { immersiveModeOn, immersiveModeOff } from 'react-native-android-immersive-mode';
+import { autoPlayOff } from '@store/modules/layout/actions';
 
 const { width, height } = Dimensions.get('window');
 
@@ -27,10 +28,11 @@ const VideoPlayer = () => {
   const theme = useSelector((state: AppState) => state.theme.theme);
   const token = useSelector((state: AppState) => state.core.token);
   const refreshToken = useSelector((state: AppState) => state.user?.access?.refreshToken || '');
+  const layout = useSelector((state: AppState) => state.layout);
   const segment = useSelector((state: AppState) => state.core.segment);
-
+  const webViewRef = useRef<any>(undefined);
+  const dispatch = useDispatch();
   const [connection, setConnection] = useState<NetInfoStateType | undefined>(undefined);
-
   const { goBack } = useNavigation();
   const { params } = useRoute<VideoPlayerScreenRouteProp>();
   const webview = {
@@ -69,6 +71,8 @@ const VideoPlayer = () => {
       });
     }
 
+    dispatch(autoPlayOff());
+
     return () => {
       unmonted = true;
       BackHandler.removeEventListener('hardwareBackPress', handleBackButtonClick);
@@ -79,7 +83,33 @@ const VideoPlayer = () => {
     Orientation.lockToPortrait();
     immersiveModeOff();
     StatusBar.setHidden(false);
+    // setParamsToNavigation({ autoPlay: false });
+    // navigation.state.params.onSelect({ autoPlay: false });
     goBack();
+  };
+
+  const onTrackEvent = () => {
+    if (webViewRef.current) {
+      webViewRef.current.postMessage(
+        JSON.stringify({
+          type: 'player',
+          country: segment,
+          connection:
+            connection === 'wifi' && isTablet()
+              ? 'mobile-tablet-main'
+              : connection === 'wifi'
+              ? 'mobile-phone-main'
+              : 'mobile-cellular-main',
+          platform: Platform.OS === 'ios' ? 'iOS' : 'Android',
+          device_name: layout.device,
+          os_version: getSystemVersion(),
+          videoid: params.item.id,
+          staging: true,
+          token,
+          ert: refreshToken,
+        })
+      );
+    }
   };
 
   return (
@@ -93,6 +123,7 @@ const VideoPlayer = () => {
     >
       {token && (
         <WebView
+          ref={webViewRef}
           style={webview}
           onMessage={(event) => {
             const { data } = event.nativeEvent;
@@ -101,6 +132,7 @@ const VideoPlayer = () => {
           }}
           // onError={(error) => console.tron.log(error)}
           cacheEnabled={false}
+          onLoad={onTrackEvent}
           // onLoad={() =>
           //   console.tron.log({
           //     uri: `${Constants.url_player}?country=${segment?.toLocaleLowerCase()}&videoid=${

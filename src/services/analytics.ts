@@ -48,7 +48,7 @@ const parseJwt = (token: string): User => {
   return JSON.parse(jsonPayload);
 };
 
-const getUserId = (token?: string) => {
+export const getUserId = (token?: string) => {
   if (token && token !== '') {
     const { uid } = parseJwt(token);
     userId = uid;

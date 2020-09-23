@@ -11,7 +11,7 @@ export function push(name: string, ...args: any[]) {
   navigationRef.current?.dispatch(StackActions.push(name, ...args));
 }
 
-export function navigateByPath(item: any) {
+export function navigateByPath(item: any, autoPlay?: boolean) {
   switch (true) {
     // case /\/show\//.test(item?.path || ''):
     //   push('Detail', { item });
@@ -29,10 +29,10 @@ export function navigateByPath(item: any) {
       push('ActorDetail', { item });
       break;
     case /\/show\/|\/season\/|\/movie\/|\/episode\//.test(item?.path || ''):
-      push('Detail', { item });
+      push('Detail', { item, autoPlay });
       break;
     default:
-      push('Collections', { item });
+      push('Collections', { item, autoPlay });
       break;
   }
 }

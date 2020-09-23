@@ -10,7 +10,7 @@ import { configRequest } from '@store/modules/core/actions';
 import KochavaTracker from 'react-native-kochava-tracker';
 import NetInfo from '@react-native-community/netinfo';
 import { isTablet, getSystemVersion, getSystemName, getDeviceName } from 'react-native-device-info';
-import { connection, hideSheetBottom } from '@store/modules/layout/actions';
+import { connection, device, hideSheetBottom } from '@store/modules/layout/actions';
 import { refreshTokenWithExpiresIn } from '@src/services/token';
 import { getProfileRequest, refreshTokenSuccess } from '@store/modules/user/actions';
 import { TrackPageView } from '@src/services/analytics';
@@ -136,9 +136,10 @@ export default ({ onTrackEvent }: Props) => {
           const previousRoute = routeNameRef.current;
           const currentRoute = navigationRef.current.getCurrentRoute();
           let deviceName = '';
-
-          getDeviceName().then((name) => (deviceName = name));
-
+          getDeviceName().then((name) => {
+            deviceName = name;
+            dispatch(device(name));
+          });
           if (previousRoute.name !== currentRoute.name) {
             const { user, terms } = TrackPageView(currentRoute, token, {
               account_status: !isLogged
