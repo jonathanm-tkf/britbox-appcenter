@@ -18,6 +18,7 @@ export const initialState: LayoutState = {
   event: undefined,
   device: '',
   autoPlay: false,
+  welcomeMessage: false,
 };
 
 const layout: Reducer<LayoutState> = (state = initialState, action) => {
@@ -78,6 +79,12 @@ const layout: Reducer<LayoutState> = (state = initialState, action) => {
         break;
       case LayoutActionTypes.LAYOUT_AUTOPLAY_ON:
         draft.autoPlay = true;
+        break;
+      case LayoutActionTypes.LAYOUT_WELCOME_MESSAGE_ON:
+        draft.welcomeMessage = true;
+        break;
+      case LayoutActionTypes.LAYOUT_WELCOME_MESSAGE_OFF:
+        draft.welcomeMessage = false;
         break;
       default:
         break;

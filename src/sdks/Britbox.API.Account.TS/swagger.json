@@ -278,6 +278,20 @@
             "description": "Returns IAP appID and appName, appChannel. Value \"T\"",
             "required": false,
             "type": "string"
+          },
+          {
+            "name": "salesChannel",
+            "in": "query",
+            "description": "Device operating system platform. Expected Values: Android/ iOS/ Roku",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "offerType",
+            "in": "query",
+            "description": "Eligible offer Types of the customer. Expected Value: New Customer",
+            "required": false,
+            "type": "string"
           }
         ],
         "responses": {
@@ -361,7 +375,7 @@
           "200": {
             "description": "Success",
             "schema": {
-              "$ref": "#/definitions/Britbox.API.Account.Models.Customer.AddSubscriptionResponse"
+              "$ref": "#/definitions/Britbox.API.Account.Models.Customer.CreateUserV2Response"
             }
           }
         }
@@ -1447,6 +1461,31 @@
         "country": { "type": "string" },
         "alertNotificationEmail": { "type": "string" },
         "deviceDetails": { "$ref": "#/definitions/Britbox.Data.Evergent.Models.DeviceDetails" }
+      }
+    },
+    "Britbox.API.Account.Models.Customer.CreateUserV2Response": {
+      "type": "object",
+      "properties": {
+        "response": {
+          "$ref": "#/definitions/Britbox.Data.Evergent.Models.CreateUserV2ResponseMessageBase+Response"
+        }
+      }
+    },
+    "Britbox.Data.Evergent.Models.CreateUserV2ResponseMessageBase+Response": {
+      "type": "object",
+      "properties": {
+        "accessToken": { "type": "string" },
+        "refreshToken": { "type": "string" },
+        "tokenType": { "type": "string" },
+        "expiresIn": { "type": "string" },
+        "message": { "type": "string" },
+        "responseCode": { "type": "string" },
+        "status": { "type": "string" },
+        "failureMessage": {
+          "uniqueItems": false,
+          "type": "array",
+          "items": { "$ref": "#/definitions/Britbox.Data.Evergent.Models.FailureMessage" }
+        }
       }
     },
     "Britbox.API.Account.Models.Device.RegisterDeviceRequest": {

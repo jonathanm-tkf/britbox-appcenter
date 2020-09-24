@@ -12,6 +12,7 @@ import { showSheetBottom } from '@store/modules/layout/actions';
 import { pickBy } from 'lodash';
 import { MoreInformation, Show } from '@store/modules/detail/types';
 import { castDetail } from '@store/modules/core/actions';
+import { showSheet } from '@src/utils/sheetBottom';
 import { Container, ContainerFilter, SeasonButton, SeasonText, InformationButton } from './styles';
 
 interface Props {
@@ -76,6 +77,7 @@ const Episodes = ({
   const onPlay = (item: MassiveSDKModelEpisodesItem) => {
     if (!user?.profile?.canStream || false) {
       dispatch(showSheetBottom());
+      showSheet();
       return false;
     }
 

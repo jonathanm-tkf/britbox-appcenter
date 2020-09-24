@@ -21,6 +21,8 @@ export enum LayoutActionTypes {
   LAYOUT_DEVICE = '@layout/LAYOUT_DEVICE',
   LAYOUT_AUTOPLAY_ON = '@layout/LAYOUT_AUTOPLAY_ON',
   LAYOUT_AUTOPLAY_OFF = '@layout/LAYOUT_AUTOPLAY_OFF',
+  LAYOUT_WELCOME_MESSAGE_ON = '@layout/LAYOUT_WELCOME_MESSAGE_ON',
+  LAYOUT_WELCOME_MESSAGE_OFF = '@layout/LAYOUT_WELCOME_MESSAGE_OFF',
 }
 
 /**
@@ -41,6 +43,7 @@ export interface LayoutState {
   event: Record<string, unknown> | undefined;
   device: string;
   autoPlay: boolean;
+  welcomeMessage: boolean;
 }
 
 export interface MediaSelectorResponse {

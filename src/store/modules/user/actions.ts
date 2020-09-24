@@ -52,3 +52,5 @@ export const continueWatchingRemoveRequest = ({ itemId }: ContinueWatchingItem) 
 
 export const continueWatchingRemoveRequestSuccess = (data: any) =>
   action(UserActionTypes.CONTINUE_WATCHING_REMOVE_REQUEST_SUCCESS, { ...data });
+
+export const loginAfterRegister = () => action(UserActionTypes.LOGIN_AFTER_REGISTER);

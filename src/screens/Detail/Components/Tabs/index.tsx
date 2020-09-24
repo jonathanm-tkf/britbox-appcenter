@@ -12,6 +12,7 @@ import { Headline } from '@components/Typography';
 import { Button } from '@components/Button';
 import { useNavigation } from '@react-navigation/native';
 import { LoadDetailPageResponse } from '@store/modules/detail/types';
+import { hideSheet } from '@src/utils/sheetBottom';
 import {
   TabsWrapper,
   PreloadTabs,
@@ -80,15 +81,7 @@ const Tabs = ({ data, onScrollTo, onLayout, autoPlay }: Props) => {
         >
           {(britboxConfig && britboxConfig[country]?.['no-plan']?.ctas[0]) || ''}
         </Button>
-        <Button
-          outline
-          stretch
-          size="big"
-          fontWeight="medium"
-          onPress={() => {
-            dispatch(hideSheetBottom());
-          }}
-        >
+        <Button outline stretch size="big" fontWeight="medium" onPress={hideSheet}>
           {(britboxConfig && britboxConfig[country]?.['no-plan']?.ctas[1]) || ''}
         </Button>
       </WrapperButtons>

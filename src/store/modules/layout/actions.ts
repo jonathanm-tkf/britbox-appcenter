@@ -27,3 +27,7 @@ export const device = (type: string) => action(LayoutActionTypes.LAYOUT_DEVICE, 
 export const autoPlayOn = () => action(LayoutActionTypes.LAYOUT_AUTOPLAY_ON);
 
 export const autoPlayOff = () => action(LayoutActionTypes.LAYOUT_AUTOPLAY_OFF);
+
+export const welcomeMessageOn = () => action(LayoutActionTypes.LAYOUT_WELCOME_MESSAGE_ON);
+
+export const welcomeMessageOff = () => action(LayoutActionTypes.LAYOUT_WELCOME_MESSAGE_OFF);

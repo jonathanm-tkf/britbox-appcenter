@@ -50317,7 +50317,7 @@ and limitations under the License.
                           </div>
                         </td>
                       </tr>
-                      <tr class="last undefined">
+                      <tr>
                         <td
                           class="sc-cSHVUG sc-chPdSV bIrgla"
                           kind="field"
@@ -50335,6 +50335,47 @@ and limitations under the License.
                               <div class="sc-jWBwVP sc-iRbamj kjegA">
                                 <p>
                                   Returns IAP appID and appName, appChannel. Value &quot;T&quot;
+                                </p>
+                              </div>
+                            </div>
+                          </div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td class="sc-cSHVUG sc-chPdSV bIrgla" kind="field" title="salesChannel">
+                          <span class="sc-kGXeez bcLONg"></span>salesChannel
+                        </td>
+                        <td class="sc-kgoBCf kGwPhO">
+                          <div>
+                            <div>
+                              <span class="sc-cHGsZl sc-TOsTZ fKyGWc"></span
+                              ><span class="sc-cHGsZl sc-kgAjT hqYVjx">string</span>
+                            </div>
+                            <div>
+                              <div class="sc-jWBwVP sc-iRbamj kjegA">
+                                <p>
+                                  Device operating system platform. Expected Values: Android/ iOS/
+                                  Roku
+                                </p>
+                              </div>
+                            </div>
+                          </div>
+                        </td>
+                      </tr>
+                      <tr class="last undefined">
+                        <td class="sc-cSHVUG sc-chPdSV bIrgla" kind="field" title="offerType">
+                          <span class="sc-kGXeez bcLONg"></span>offerType
+                        </td>
+                        <td class="sc-kgoBCf kGwPhO">
+                          <div>
+                            <div>
+                              <span class="sc-cHGsZl sc-TOsTZ fKyGWc"></span
+                              ><span class="sc-cHGsZl sc-kgAjT hqYVjx">string</span>
+                            </div>
+                            <div>
+                              <div class="sc-jWBwVP sc-iRbamj kjegA">
+                                <p>
+                                  Eligible offer Types of the customer. Expected Value: New Customer
                                 </p>
                               </div>
                             </div>
@@ -56317,6 +56358,22 @@ and limitations under the License.
                       required: false,
                       schema: { type: 'string' },
                     },
+                    {
+                      name: 'salesChannel',
+                      in: 'query',
+                      description:
+                        'Device operating system platform. Expected Values: Android/ iOS/ Roku',
+                      required: false,
+                      schema: { type: 'string' },
+                    },
+                    {
+                      name: 'offerType',
+                      in: 'query',
+                      description:
+                        'Eligible offer Types of the customer. Expected Value: New Customer',
+                      required: false,
+                      schema: { type: 'string' },
+                    },
                   ],
                   responses: {
                     200: {
@@ -56472,19 +56529,19 @@ and limitations under the License.
                         'text/plain': {
                           schema: {
                             $ref:
-                              '#/components/schemas/Britbox.API.Account.Models.Customer.AddSubscriptionResponse',
+                              '#/components/schemas/Britbox.API.Account.Models.Customer.CreateUserV2Response',
                           },
                         },
                         'application/json': {
                           schema: {
                             $ref:
-                              '#/components/schemas/Britbox.API.Account.Models.Customer.AddSubscriptionResponse',
+                              '#/components/schemas/Britbox.API.Account.Models.Customer.CreateUserV2Response',
                           },
                         },
                         'text/json': {
                           schema: {
                             $ref:
-                              '#/components/schemas/Britbox.API.Account.Models.Customer.AddSubscriptionResponse',
+                              '#/components/schemas/Britbox.API.Account.Models.Customer.CreateUserV2Response',
                           },
                         },
                       },
@@ -57763,6 +57820,15 @@ and limitations under the License.
                     },
                   },
                 },
+                'Britbox.API.Account.Models.Customer.CreateUserV2Response': {
+                  type: 'object',
+                  properties: {
+                    response: {
+                      $ref:
+                        '#/components/schemas/Britbox.Data.Evergent.Models.CreateUserV2ResponseMessageBase_Response',
+                    },
+                  },
+                },
                 'Britbox.API.Account.Models.Device.RegisterDeviceRequest': {
                   type: 'object',
                   properties: { activationCode: { type: 'string' } },
@@ -58907,6 +58973,25 @@ and limitations under the License.
                     isFreeTrail: { type: 'boolean' },
                     promotionId: { type: 'string' },
                     startDate: { type: 'string' },
+                  },
+                },
+                'Britbox.Data.Evergent.Models.CreateUserV2ResponseMessageBase_Response': {
+                  type: 'object',
+                  properties: {
+                    accessToken: { type: 'string' },
+                    refreshToken: { type: 'string' },
+                    tokenType: { type: 'string' },
+                    expiresIn: { type: 'string' },
+                    message: { type: 'string' },
+                    responseCode: { type: 'string' },
+                    status: { type: 'string' },
+                    failureMessage: {
+                      uniqueItems: false,
+                      type: 'array',
+                      items: {
+                        $ref: '#/components/schemas/Britbox.Data.Evergent.Models.FailureMessage',
+                      },
+                    },
                   },
                 },
                 'Britbox.Data.Evergent.Models.RegisterDeviceResponseMessageBase_Response': {

@@ -14,6 +14,7 @@ import { showSheetBottom } from '@store/modules/layout/actions';
 // import { Show, MoreInformation } from '@store/modules/detail/types';
 import { castDetail } from '@store/modules/core/actions';
 import { pickBy } from 'lodash';
+import { showSheet } from '@src/utils/sheetBottom';
 import { Container } from './styles';
 
 interface Props {
@@ -63,6 +64,7 @@ const BonusFeatures = ({ onLayout, data }: Props) => {
   const onPlay = (item: MassiveSDKModelEpisodesItem) => {
     if (!user?.profile?.canStream || false) {
       dispatch(showSheetBottom());
+      showSheet();
       return false;
     }
 

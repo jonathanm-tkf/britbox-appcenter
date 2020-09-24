@@ -10,7 +10,7 @@ import HeaderCustom from '@components/HeaderCustom';
 import { useSelector, useDispatch } from 'react-redux';
 import { useRoute, RouteProp, useNavigation } from '@react-navigation/native';
 import { getProductsRequest, addSubscriptionRequest } from '@store/modules/user/saga';
-import { loggedInRequest, getProfileRequest } from '@store/modules/user/actions';
+import { loginAfterRegister } from '@store/modules/user/actions';
 import { atiEventTracking } from '@store/modules/layout/actions';
 import {
   BritboxDataEvergentModelsGetProductsResponseMessageBaseProductsResponseMsg,
@@ -273,12 +273,10 @@ const SignUpSubscription = () => {
     setLoading(false);
   };
 
-  const _doSuccessSubscription = async () => {
-    dispatch(getProfileRequest());
+  const _doSuccessSubscription = () => {
+    dispatch(loginAfterRegister());
     if (account) {
       navigation.goBack();
-    } else {
-      dispatch(loggedInRequest());
     }
   };
 

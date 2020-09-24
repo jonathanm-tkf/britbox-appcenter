@@ -37,6 +37,7 @@ const wrapper = {
 
 const Home = () => {
   const theme = useSelector((state: AppState) => state.theme.theme);
+
   const appWokeUp = useCallback(async (url) => {
     if (url) {
       if (Platform.OS === 'ios') {

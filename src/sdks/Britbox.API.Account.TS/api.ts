@@ -157,6 +157,10 @@ export interface BritboxAPIAccountModelsCustomerCreateUserV2Request {
   deviceDetails: BritboxDataEvergentModelsDeviceDetails;
 }
 
+export interface BritboxAPIAccountModelsCustomerCreateUserV2Response {
+  response?: BritboxDataEvergentModelsCreateUserV2ResponseMessageBaseResponse;
+}
+
 export interface BritboxAPIAccountModelsDeviceRegisterDeviceRequest {
   activationCode?: string;
 }
@@ -879,6 +883,17 @@ export interface BritboxDataEvergentModelsGetActiveSubscriptionsResponseMessageB
   startDate?: string;
 }
 
+export interface BritboxDataEvergentModelsCreateUserV2ResponseMessageBaseResponse {
+  accessToken?: string;
+  refreshToken?: string;
+  tokenType?: string;
+  expiresIn?: string;
+  message?: string;
+  responseCode?: string;
+  status?: string;
+  failureMessage?: BritboxDataEvergentModelsFailureMessage[];
+}
+
 export interface BritboxDataEvergentModelsRegisterDeviceResponseMessageBaseResponse {
   message?: string;
   responseCode?: string;
@@ -1186,7 +1201,13 @@ export class Api<SecurityDataType = any> extends HttpClient<SecurityDataType> {
      * @request GET:/v1/account/Customer/products
      */
     getProducts: (
-      query?: { dmaID?: string; countryCode?: string; returnAppChannels?: string },
+      query?: {
+        dmaID?: string;
+        countryCode?: string;
+        returnAppChannels?: string;
+        salesChannel?: string;
+        offerType?: string;
+      },
       params?: RequestParams
     ) =>
       this.request<BritboxAPIAccountModelsCustomerGetProductsResponse, any>(
@@ -1232,7 +1253,7 @@ export class Api<SecurityDataType = any> extends HttpClient<SecurityDataType> {
       request: BritboxAPIAccountModelsCustomerCreateUserV2Request,
       params?: RequestParams
     ) =>
-      this.request<BritboxAPIAccountModelsCustomerAddSubscriptionResponse, any>(
+      this.request<BritboxAPIAccountModelsCustomerCreateUserV2Response, any>(
         `/v1/account/Customer/register`,
         'POST',
         params,

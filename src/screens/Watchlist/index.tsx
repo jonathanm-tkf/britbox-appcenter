@@ -7,7 +7,7 @@ import { CollapsibleHeaderFlatList } from 'react-native-collapsible-header-views
 import { useSelector, useDispatch } from 'react-redux';
 import { AppState } from '@store/modules/rootReducer';
 import Header from '@components/Header';
-import { sheetComponent, showSheetBottom, hideSheetBottom } from '@store/modules/layout/actions';
+import { sheetComponent, showSheetBottom } from '@store/modules/layout/actions';
 import { useTranslation } from 'react-i18next';
 import { wp } from '@src/utils/dimension';
 import { widthPercentageToDP as vw } from 'react-native-responsive-screen';
@@ -22,6 +22,7 @@ import { fill, sortBy } from 'lodash';
 import { profile } from '@store/modules/user/saga';
 import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
 import { Item } from '@screens/ModalFilter';
+import { hideSheet, showSheet } from '@src/utils/sheetBottom';
 import {
   Container,
   Title,
@@ -132,6 +133,7 @@ const Watchlist = () => {
       dispatch(sheetComponent(300, () => renderBottomContent()));
     }
     dispatch(showSheetBottom({ itemId: item?.id || '0' }));
+    showSheet();
   };
 
   const removeIcon = (item: MassiveSDKModelItemSummary) => {
@@ -146,7 +148,7 @@ const Watchlist = () => {
 
   const removeItem = () => {
     dispatch(watchlistToggleRequest({ itemId: getItemId(), isInWatchlist: true }));
-    dispatch(hideSheetBottom());
+    hideSheet();
   };
 
   const renderContent = () => {
@@ -244,7 +246,7 @@ const Watchlist = () => {
         size="big"
         fontWeight="medium"
         onPress={() => {
-          dispatch(hideSheetBottom());
+          hideSheet();
         }}
       >
         {t('watchlist:remove.button.cancel')}

@@ -14,16 +14,8 @@ import { PayloadAction } from 'typesafe-actions';
 import { refreshTokenWithExpiresIn } from '@src/services/token';
 import { getDeviceName, getUniqueId } from 'react-native-device-info';
 import { Platform } from 'react-native';
-import { atiEventTracking } from '../layout/actions';
 import {
-  UserActionTypes,
-  UserLogin,
-  EvergentLoginResponse,
-  UserSignUp,
-  WatchListItem,
-  ContinueWatchingItem,
-} from './types';
-import {
+  loggedInRequest as loggedInRequestSuccess,
   loginRequestFailure,
   loginRequestSuccess,
   loginRequestError,
@@ -33,7 +25,18 @@ import {
   watchlistRequestRemove,
   refreshTokenSuccess,
   continueWatchingRemoveRequestSuccess,
-} from './actions';
+} from '@store/modules/user/actions';
+import { atiEventTracking, welcomeMessageOn } from '../layout/actions';
+
+import {
+  UserActionTypes,
+  UserLogin,
+  EvergentLoginResponse,
+  UserSignUp,
+  WatchListItem,
+  ContinueWatchingItem,
+} from './types';
+
 import { AppState } from '../rootReducer';
 
 const getToken = (state: AppState) => state.user.access as EvergentLoginResponse;
@@ -498,10 +501,21 @@ export function* continueWatchingRemoveRequestAction({
   }
 }
 
+export function* loginAfterRegisterRequest() {
+  try {
+    yield call(getProfileRequest);
+    yield put(loggedInRequestSuccess());
+    yield put(welcomeMessageOn());
+  } catch (error) {
+    // error
+  }
+}
+
 export default all([
   takeLatest(UserActionTypes.LOGIN_REQUEST, loginRequest),
   takeLatest(UserActionTypes.WATCHLIST_TOGGLE_REQUEST, watchlistToggleRequest),
   takeLatest(UserActionTypes.CONTINUE_WATCHING_REMOVE_REQUEST, continueWatchingRemoveRequestAction),
   takeLatest(UserActionTypes.LOGOUT, logout),
   takeEvery(UserActionTypes.GET_PROFILE_REQUEST, getProfileRequest),
+  takeEvery(UserActionTypes.LOGIN_AFTER_REGISTER, loginAfterRegisterRequest),
 ]);

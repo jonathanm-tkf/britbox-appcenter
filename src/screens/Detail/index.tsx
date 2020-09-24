@@ -25,6 +25,7 @@ import { LoadDetailPageResponse } from '@store/modules/detail/types';
 import { castDetail } from '@store/modules/core/actions';
 import { store } from '@store/index';
 import { LayoutState } from '@store/modules/layout/types';
+import { showSheet } from '@src/utils/sheetBottom';
 import {
   Container,
   Scroll,
@@ -189,6 +190,7 @@ const Detail = () => {
   const onPlay = () => {
     if (!user.profile?.canStream || false) {
       dispatch(showSheetBottom());
+      showSheet();
       return false;
     }
 
@@ -241,6 +243,7 @@ const Detail = () => {
         setTimeout(() => {
           if (!user?.profile?.canStream || false) {
             dispatch(showSheetBottom());
+            showSheet();
             return false;
           }
           if (isCast) {
