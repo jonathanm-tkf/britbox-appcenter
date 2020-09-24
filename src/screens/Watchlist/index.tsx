@@ -72,6 +72,7 @@ type WatchlistScreenRouteProp = RouteProp<RootParamList, 'Watchlist'>;
 const Watchlist = () => {
   const { params } = useRoute<WatchlistScreenRouteProp>();
   const theme = useSelector((state: AppState) => state.theme.theme);
+  const segment = useSelector((state: AppState) => state.core.segment);
   const bookmarkList = useSelector((state: AppState) => state.user?.profile?.bookmarkList);
   const { accessToken: token } = useSelector((state: AppState) => state.user?.access) as Access;
   const dispatch = useDispatch();
@@ -84,7 +85,7 @@ const Watchlist = () => {
   const [list, setList] = useState<MassiveSDKModelItemSummary[]>([]);
 
   const getProfile = async () => {
-    const { response } = await profile(token);
+    const { response } = await profile(token, segment);
     setList(response?.bookmarkList?.items || []);
   };
 

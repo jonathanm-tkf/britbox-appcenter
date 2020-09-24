@@ -1,6 +1,5 @@
 import { takeLatest, all, call, put, select, takeEvery } from 'redux-saga/effects';
 import * as Sentry from '@sentry/react-native';
-
 import { BritboxAccountApi, BritboxContentApi } from '@src/sdks';
 import {
   BritboxAPIAccountModelsCustomerAddSubscriptionRequest,
@@ -47,7 +46,8 @@ const getExiresIn = (state: AppState) => state.user.access as EvergentLoginRespo
 const getRefreshToken = (state: AppState) => state.user.access as EvergentLoginResponse;
 
 export async function profile(
-  token: string
+  token: string,
+  segment?: string
 ): Promise<{ response: BritboxAPIAccountModelsProfileGetProfileResponse }> {
   const { getProfile } = BritboxAccountApi({
     headers: {
@@ -58,6 +58,7 @@ export async function profile(
   try {
     const response = await getProfile({
       useCustomId: true,
+      segments: [segment || ''],
     });
     return { response };
   } catch (error) {
@@ -119,7 +120,8 @@ export function* loginRequest({
         })
       );
       const { accessToken } = yield select(getToken);
-      const { response: responseProfile } = yield call(profile, accessToken);
+      const segment = yield select(getSegment);
+      const { response: responseProfile } = yield call(profile, accessToken, segment);
       const { response: responseAccountDetail } = yield call(getAccountDetail, accessToken);
       yield put(profileRequestSuccess({ ...responseProfile, ...responseAccountDetail }));
     } else {
@@ -199,6 +201,8 @@ export async function getProductsRequest(country: string) {
     const response = await getProducts({
       countryCode: country,
       returnAppChannels: 'T',
+      salesChannel: Platform.OS === 'ios' ? 'iOS' : 'Android',
+      offerType: 'New Customer',
     });
 
     return response;
