@@ -269,8 +269,6 @@ const SignUpSubscription = () => {
       Sentry.captureMessage('receiptValidate');
       setErrorMsg('Something went wrong.');
     }
-
-    setLoading(false);
   };
 
   const _doSuccessSubscription = () => {
@@ -278,6 +276,7 @@ const SignUpSubscription = () => {
     if (account) {
       navigation.goBack();
     }
+    setLoading(false);
   };
 
   const trackEvent = (result: string) => {
@@ -352,6 +351,7 @@ const SignUpSubscription = () => {
                 )}
                 {errorMsg !== '' && <ErrorText>{errorMsg}</ErrorText>}
                 <Button
+                  disabled={loading}
                   onPress={() => initiateIAPRequest()}
                   stretch
                   loading={loading}

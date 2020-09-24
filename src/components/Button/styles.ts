@@ -28,6 +28,15 @@ export const Button = styled.TouchableOpacity.attrs({
 
   ${(props: ButtonProps & ThemeState) => {
     return (
+      props.disabled &&
+      `
+      opacity: 0.7;
+    `
+    );
+  }};
+
+  ${(props: ButtonProps & ThemeState) => {
+    return (
       props.link &&
       `
       background-color: transparent;
