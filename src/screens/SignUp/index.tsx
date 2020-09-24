@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from 'react';
-import { KeyboardAvoidingView, Platform } from 'react-native';
+import { KeyboardAvoidingView, Platform, Keyboard } from 'react-native';
 
 import { Button } from '@components/Button';
 import { Input } from '@components/Input';
@@ -126,6 +126,7 @@ const SignUp = () => {
       hasErrorPassword &&
       hasErrorConfirmPassword
     ) {
+      Keyboard.dismiss();
       setLoading(true);
       setErrorState(false);
       setErrorMessage(evergentSignupResponseError);
@@ -417,7 +418,7 @@ const SignUp = () => {
       <HeaderCustom isBack shadow />
       <Gradient>
         <KeyboardAvoidingView style={flex} behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
-          <ScrollView bounces={false}>
+          <ScrollView keyboardShouldPersistTaps="handled" bounces={false}>
             <Container>
               <TitleWrapper>
                 <Title>{britboxConfig[country]?.registration?.title || ''}</Title>

@@ -172,10 +172,11 @@ const Auth = () => {
           />
         </PaginationWrapper>
         <Button size="big" fontWeight="medium" stretch onPress={() => navigateToSignUp()}>
-          {t('freetrial')}
+          {(britboxConfig && britboxConfig[country]?.paywall[4]?.cta) || t('freetrial')}
         </Button>
         <Paragraph>
-          {(britboxConfig && britboxConfig[country]?.login['description-2']) || ''}
+          {(britboxConfig && britboxConfig[country]?.['pricing-marketing']['pricing-message']) ||
+            ''}
         </Paragraph>
       </ScrollView>
     </>
