@@ -2,7 +2,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useEffect, useState } from 'react';
-import { Linking } from 'react-native';
+import { Linking, ScrollView, Keyboard } from 'react-native';
 import {
   updateProfileRequest,
   resetPasswordRequest,
@@ -139,6 +139,7 @@ export default function MyAccount() {
       const hasErrorEmail = doValidateEmail();
 
       if (hasErrorFirstName && hasErrorLastName && hasErrorEmail) {
+        Keyboard.dismiss();
         setLoading(true);
         setErrorState(false);
         setIsSuccess(false);
@@ -292,7 +293,7 @@ export default function MyAccount() {
     }, []);
 
     return (
-      <Container>
+      <ScrollView keyboardShouldPersistTaps="handled" bounces={false}>
         <ScrollableContainerPaddingHorizontal>
           <TitleWrapper>
             <SubTitle>{t('myaccount.yourdetails.screentitle')}</SubTitle>
@@ -363,7 +364,7 @@ export default function MyAccount() {
           </Paragraph>
         </ScrollableContainerPaddingHorizontal>
         {tabBottomView()}
-      </Container>
+      </ScrollView>
     );
   };
 
@@ -407,6 +408,7 @@ export default function MyAccount() {
       const hasErrorConfirmPassword = doValidateConfirmPassword();
 
       if (hasErrorCurPassword && hasErrorNewPassword && hasErrorConfirmPassword) {
+        Keyboard.dismiss();
         setLoading(true);
         setErrorState(false);
         setIsSuccess(false);
@@ -553,7 +555,7 @@ export default function MyAccount() {
     }, []);
 
     return (
-      <>
+      <ScrollView keyboardShouldPersistTaps="handled" bounces={false}>
         <ScrollContent>
           <ScrollableContainerPaddingHorizontal>
             <TitleWrapper>
@@ -611,7 +613,7 @@ export default function MyAccount() {
           </ScrollableContainerPaddingHorizontal>
         </ScrollContent>
         {tabBottomView()}
-      </>
+      </ScrollView>
     );
   };
 
