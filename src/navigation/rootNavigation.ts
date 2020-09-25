@@ -32,7 +32,7 @@ export function navigateByPath(item: any, autoPlay?: boolean) {
       push('Detail', { item, autoPlay });
       break;
     default:
-      push('Collections', { item, autoPlay });
+      push('Collections', { item });
       break;
   }
 }

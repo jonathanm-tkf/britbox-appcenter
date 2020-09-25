@@ -61,6 +61,7 @@ const Tabs = ({ data, onScrollTo, onLayout, autoPlay }: Props) => {
 
   const goToAccount = () => {
     dispatch(hideSheetBottom());
+    hideSheet();
     setTimeout(() => {
       return navigate('More', { screen: 'MyAccount', params: { subscriptionSelected: true } });
     }, 250);
@@ -89,7 +90,7 @@ const Tabs = ({ data, onScrollTo, onLayout, autoPlay }: Props) => {
   );
 
   useEffect(() => {
-    dispatch(sheetComponent(380, () => renderBottomContent()));
+    dispatch(sheetComponent(470, () => renderBottomContent()));
 
     return () => {
       dispatch(sheetComponent(0, () => <></>));

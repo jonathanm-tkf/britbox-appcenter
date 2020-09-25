@@ -106,7 +106,9 @@ const Tabs = ({ routes, subscriptionSelected }: Props) => {
   useEffect(() => {
     if (subscriptionSelected) {
       // Index 2 is equal subscription
-      setIndex(2);
+      setTimeout(() => {
+        setIndex(2);
+      }, 1000);
     }
   }, [subscriptionSelected]);
 

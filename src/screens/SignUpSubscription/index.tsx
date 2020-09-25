@@ -263,6 +263,7 @@ const SignUpSubscription = () => {
           (subscriptionResponse && subscriptionResponse[0]?.errorMessage) ||
             "Subscription couldn't be done."
         );
+        setLoading(false);
       }
     } catch (err) {
       Sentry.setExtra('error', err);
@@ -276,7 +277,6 @@ const SignUpSubscription = () => {
     if (account) {
       navigation.goBack();
     }
-    setLoading(false);
   };
 
   const trackEvent = (result: string) => {
