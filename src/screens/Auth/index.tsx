@@ -1,16 +1,16 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { ImageCacheProvider, ImageCacheManager } from 'react-native-cached-image';
 import Header from '@components/Header';
 import { isTablet } from 'react-native-device-info';
 import Carousel from 'react-native-snap-carousel';
-import { AppState } from '@store/modules/rootReducer';
 import { StyleSheet } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { useIsFocused } from '@react-navigation/native';
 import { navigate } from '@src/navigation/rootNavigation';
 import { atiEventTracking } from '@store/modules/layout/actions';
+import { getTextInConfigJSON } from '@src/utils/object';
 import {
   Button,
   Pagination,
@@ -42,23 +42,20 @@ const Auth = () => {
   const [sliderRef, setSliderRef] = useState(null);
   const [slider1ActiveSlide, setSlider1ActiveSlide] = useState(0);
   const { t } = useTranslation('auth');
-  const britboxConfig = useSelector((state: AppState) => state.core.britboxConfig);
-  const segment = useSelector((state: AppState) => state.core.segment);
-  const country: string = segment?.toLocaleLowerCase() || 'us';
   const dispatch = useDispatch();
 
   const images = isTablet()
     ? [
-        britboxConfig && britboxConfig[country]?.paywall[0]['imageURL-tablet'],
-        britboxConfig && britboxConfig[country]?.paywall[1]['imageURL-tablet'],
-        britboxConfig && britboxConfig[country]?.paywall[2]['imageURL-tablet'],
-        britboxConfig && britboxConfig[country]?.paywall[3]['imageURL-tablet'],
+        getTextInConfigJSON(['paywall', '0', 'imageURL-tablet'], ''),
+        getTextInConfigJSON(['paywall', '1', 'imageURL-tablet'], ''),
+        getTextInConfigJSON(['paywall', '2', 'imageURL-tablet'], ''),
+        getTextInConfigJSON(['paywall', '3', 'imageURL-tablet'], ''),
       ]
     : [
-        britboxConfig && britboxConfig[country]?.paywall[0]?.imageURL,
-        britboxConfig && britboxConfig[country]?.paywall[1]?.imageURL,
-        britboxConfig && britboxConfig[country]?.paywall[2]?.imageURL,
-        britboxConfig && britboxConfig[country]?.paywall[3]?.imageURL,
+        getTextInConfigJSON(['paywall', '0', 'imageURL'], ''),
+        getTextInConfigJSON(['paywall', '1', 'imageURL'], ''),
+        getTextInConfigJSON(['paywall', '2', 'imageURL'], ''),
+        getTextInConfigJSON(['paywall', '3', 'imageURL'], ''),
       ];
 
   useEffect(() => {
@@ -69,34 +66,26 @@ const Auth = () => {
 
   const ENTRIES = [
     {
-      title: (britboxConfig && britboxConfig[country]?.paywall[0]?.title) || t('slider1.title'),
-      subtitle:
-        (britboxConfig && britboxConfig[country]?.paywall[0]?.description) ||
-        t('slider1.description'),
+      title: getTextInConfigJSON(['paywall', '0', 'title'], t('slider1.title')),
+      subtitle: getTextInConfigJSON(['paywall', '0', 'description'], t('slider1.description')),
       illustration: (images && images[0]) || '',
       titleWidth: '98%',
     },
     {
-      title: (britboxConfig && britboxConfig[country]?.paywall[1]?.title) || t('slider2.title'),
-      subtitle:
-        (britboxConfig && britboxConfig[country]?.paywall[1]?.description) ||
-        t('slider2.description'),
+      title: getTextInConfigJSON(['paywall', '1', 'title'], t('slider2.title')),
+      subtitle: getTextInConfigJSON(['paywall', '1', 'description'], t('slider2.description')),
       illustration: (images && images[1]) || '',
       titleWidth: '98%',
     },
     {
-      title: (britboxConfig && britboxConfig[country]?.paywall[2]?.title) || t('slider3.title'),
-      subtitle:
-        (britboxConfig && britboxConfig[country]?.paywall[2]?.description) ||
-        t('slider3.description'),
+      title: getTextInConfigJSON(['paywall', '2', 'title'], t('slider3.title')),
+      subtitle: getTextInConfigJSON(['paywall', '2', 'description'], t('slider3.description')),
       illustration: (images && images[2]) || '',
       titleWidth: '98%',
     },
     {
-      title: (britboxConfig && britboxConfig[country]?.paywall[3]?.title) || t('slider4.title'),
-      subtitle:
-        (britboxConfig && britboxConfig[country]?.paywall[3]?.description) ||
-        t('slider4.description'),
+      title: getTextInConfigJSON(['paywall', '3', 'title'], t('slider4.title')),
+      subtitle: getTextInConfigJSON(['paywall', '3', 'description'], t('slider4.description')),
       illustration: (images && images[3]) || '',
       titleWidth: '98%',
     },
@@ -172,11 +161,10 @@ const Auth = () => {
           />
         </PaginationWrapper>
         <Button size="big" fontWeight="medium" stretch onPress={() => navigateToSignUp()}>
-          {(britboxConfig && britboxConfig[country]?.paywall[4]?.cta) || t('freetrial')}
+          {getTextInConfigJSON(['paywall', '4', 'cta'], t('freetrial'))}
         </Button>
         <Paragraph>
-          {(britboxConfig && britboxConfig[country]?.['pricing-marketing']['pricing-message']) ||
-            ''}
+          {getTextInConfigJSON(['pricing-marketing', 'pricing-message'], t('freetrial'))}
         </Paragraph>
       </ScrollView>
     </>

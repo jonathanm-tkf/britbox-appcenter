@@ -23,6 +23,7 @@ import ModalPrivacyPolicy from '@screens/PrivacyPolicy';
 import ErrorLanding from '@components/ErrorLanding';
 import VersionUpgrade from '@components/VersionUpgrade';
 import { loadingOff } from '@store/modules/layout/actions';
+import { getTextInConfigJSON } from '@src/utils/object';
 import VersionCheck from 'react-native-version-check';
 import { useTranslation } from 'react-i18next';
 import NetInfo from '@react-native-community/netinfo';
@@ -78,14 +79,10 @@ const RootStackScreen = () => {
   const [versionModal, setVersionModal] = useState(false);
 
   const britboxConfig = useSelector((state: AppState) => state.core.britboxConfig);
-  const segment = useSelector((state: AppState) => state.core.segment);
-  const country: string = segment?.toLocaleLowerCase() || 'us';
 
   const checkVersion = async () => {
     try {
-      const minVersion =
-        (britboxConfig && britboxConfig[country]['force-upgrade'][`min-version-${Platform.OS}`]) ||
-        '';
+      const minVersion = getTextInConfigJSON(['force-upgrade', `min-version-${Platform.OS}`], '');
       const curVersion = getVersion();
       if (curVersion < minVersion) {
         setVersionModal(true);

@@ -1,16 +1,11 @@
 import React from 'react';
 import { Linking, Text, Platform } from 'react-native';
 
-import { useSelector } from 'react-redux';
 import { Headline } from '@components/Typography';
-import { AppState } from '@store/modules/rootReducer';
+import { getTextInConfigJSON } from '@src/utils/object';
 import { Container, LinkTitle, LogoContainer, Logo } from './styles';
 
 const VersionUpgrade = () => {
-  const britboxConfig = useSelector((state: AppState) => state.core.britboxConfig);
-  const segment = useSelector((state: AppState) => state.core.segment);
-  const country: string = segment?.toLocaleLowerCase() || 'us';
-
   const renderLink = (str: string) => {
     const splitStr = str.split('|');
 
@@ -20,8 +15,8 @@ const VersionUpgrade = () => {
           onPress={() =>
             Linking.openURL(
               Platform.OS === 'ios'
-                ? britboxConfig && britboxConfig[country]['force-upgrade']['apple-link']
-                : britboxConfig && britboxConfig[country]['force-upgrade']['android-link']
+                ? getTextInConfigJSON(['force-upgrade', 'apple-link'], '')
+                : getTextInConfigJSON(['force-upgrade', 'android-link'], '')
             )
           }
         >
@@ -33,10 +28,9 @@ const VersionUpgrade = () => {
     return null;
   };
 
-  const upgradeTextArr = (
-    (britboxConfig && britboxConfig[country]['force-upgrade']['upgrade message']) ||
-    ''
-  ).split('[LINK]');
+  const upgradeTextArr = getTextInConfigJSON(['force-upgrade', 'upgrade message'], '').split(
+    '[LINK]'
+  );
 
   return (
     <Container>

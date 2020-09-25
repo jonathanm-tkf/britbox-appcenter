@@ -13,6 +13,7 @@ import { Button } from '@components/Button';
 import { useNavigation } from '@react-navigation/native';
 import { LoadDetailPageResponse } from '@store/modules/detail/types';
 import { hideSheet } from '@src/utils/sheetBottom';
+import { getTextInConfigJSON } from '@src/utils/object';
 import {
   TabsWrapper,
   PreloadTabs,
@@ -37,9 +38,6 @@ type HeightType = string | number;
 const Tabs = ({ data, onScrollTo, onLayout, autoPlay }: Props) => {
   const theme = useSelector((state: AppState) => state.theme.theme);
   const { navigate } = useNavigation();
-  const britboxConfig = useSelector((state: AppState) => state.core.britboxConfig);
-  const segment = useSelector((state: AppState) => state.core.segment);
-  const country: string = segment.toLocaleLowerCase() || 'us';
 
   const [height, setHeight] = useState<HeightType>('auto');
   const [firstHeight, setFirstHeight] = useState('auto');
@@ -69,7 +67,7 @@ const Tabs = ({ data, onScrollTo, onLayout, autoPlay }: Props) => {
   const renderBottomContent = () => (
     <WrapperBottomContent>
       <Headline color={theme.PRIMARY_TEXT_COLOR}>
-        {(britboxConfig && britboxConfig[country]?.['no-plan']?.message) || t('errorOut.subtitle')}
+        {getTextInConfigJSON(['no-plan', 'message'], t('errorOut.subtitle'))}
       </Headline>
       <WrapperButtons>
         <Button
@@ -79,10 +77,10 @@ const Tabs = ({ data, onScrollTo, onLayout, autoPlay }: Props) => {
           onPress={() => goToAccount()}
           style={{ marginBottom: 20 }}
         >
-          {(britboxConfig && britboxConfig[country]?.['no-plan']?.ctas[0]) || ''}
+          {getTextInConfigJSON(['no-plan', 'ctas', '0'], '')}
         </Button>
         <Button outline stretch size="big" fontWeight="medium" onPress={hideSheet}>
-          {(britboxConfig && britboxConfig[country]?.['no-plan']?.ctas[1]) || ''}
+          {getTextInConfigJSON(['no-plan', 'ctas', '1'], '')}
         </Button>
       </WrapperButtons>
     </WrapperBottomContent>

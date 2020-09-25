@@ -10,6 +10,7 @@ import { atiEventTracking } from '@store/modules/layout/actions';
 import { forgotPasswordRequest } from '@store/modules/user/saga';
 import { AppState } from '@store/modules/rootReducer';
 import { EvergentLoginResponseError } from '@store/modules/user/types';
+import { getTextInConfigJSON } from '@src/utils/object';
 import { CloseIcon } from '@assets/icons';
 import { useTranslation } from 'react-i18next';
 import { useNavigation } from '@react-navigation/native';
@@ -46,9 +47,6 @@ const Login = () => {
   const navigation = useNavigation();
   const { t } = useTranslation(['signin', 'signup']);
   const theme = useSelector((state: AppState) => state.theme.theme);
-  const britboxConfig = useSelector((state: AppState) => state.core.britboxConfig);
-  const segment = useSelector((state: AppState) => state.core.segment);
-  const country: string = segment?.toLocaleLowerCase() || 'us';
 
   const [user, setUser] = useState(__DEV__ ? 'maximilianor@takeoffmedia.com' : '');
   const [password, setPassword] = useState(__DEV__ ? '8Ub4cYAiM77EzJY' : '');
@@ -114,9 +112,10 @@ const Login = () => {
       setErrorUsername(
         hasErrorValidUsername
           ? {
-              text:
-                britboxConfig[country]['account-details']?.validation?.messages['email-invalid'] ||
-                '',
+              text: getTextInConfigJSON(
+                ['account-details', 'validation', 'messages', 'email-invalid'],
+                ''
+              ),
             }
           : {
               text: '',
@@ -196,9 +195,10 @@ const Login = () => {
       setErrorForgotEmail(
         hasErrorValidEmail
           ? {
-              text:
-                britboxConfig[country]['account-details']?.validation?.messages['email-invalid'] ||
-                '',
+              text: getTextInConfigJSON(
+                ['account-details', 'validation', 'messages', 'email-invalid'],
+                ''
+              ),
             }
           : {
               text: '',
@@ -304,8 +304,7 @@ const Login = () => {
                   {((access as unknown) as EvergentLoginResponseError)?.failureMessage?.reduce(
                     (item) => item
                   )?.errorMessage ||
-                    britboxConfig[country]?.login['error-messages']['error-message'] ||
-                    t('error')}
+                    getTextInConfigJSON(['login', 'error-messages', 'error-message'], t('error'))}
                 </ErrorText>
               )}
               <Button
@@ -317,13 +316,13 @@ const Login = () => {
                 fontWeight="medium"
                 color={theme.PRIMARY_FOREGROUND_COLOR}
               >
-                {britboxConfig[country]?.login?.ctas[0] || ''}
+                {getTextInConfigJSON(['login', 'ctas', '0'], '')}
               </Button>
             </Container>
             <Wrapper>
-              <Title>{britboxConfig[country]?.login?.title || ''}</Title>
-              <Paragraph>{britboxConfig[country]?.login?.description || ''}</Paragraph>
-              <Paragraph>{britboxConfig[country]?.login['description-2'] || ''}</Paragraph>
+              <Title>{getTextInConfigJSON(['login', 'title'], '')}</Title>
+              <Paragraph>{getTextInConfigJSON(['login', 'description'], '')}</Paragraph>
+              <Paragraph>{getTextInConfigJSON(['login', 'description-2'], '')}</Paragraph>
               <Button
                 outline
                 size="big"
@@ -331,7 +330,7 @@ const Login = () => {
                 style={suscribeStyle}
                 onPress={() => navigateToSignUp()}
               >
-                <SuscribeText>{britboxConfig[country]?.login?.ctas[1] || ''}</SuscribeText>
+                <SuscribeText>{getTextInConfigJSON(['login', 'ctas', '1'], '')}</SuscribeText>
               </Button>
             </Wrapper>
           </Gradient>
@@ -343,11 +342,11 @@ const Login = () => {
           {isForgotModalSuccess ? (
             <>
               <ModalSubTitle>
-                {britboxConfig[country]?.login['forgot-password']['post-message'].split(
+                {getTextInConfigJSON(['login', 'forgot-password', 'post-message'], '').split(
                   '[EMAIL-ADDRESS]'
                 )[0] || t('forgotpassword.description1')}
                 <EmailLink>{forgotEmail}</EmailLink>
-                {britboxConfig[country]?.login['forgot-password']['post-message'].split(
+                {getTextInConfigJSON(['login', 'forgot-password', 'post-message'], '').split(
                   '[EMAIL-ADDRESS]'
                 )[1] || t('forgotpassword.description2')}
               </ModalSubTitle>
@@ -365,8 +364,10 @@ const Login = () => {
           ) : (
             <>
               <ModalSubTitle>
-                {britboxConfig[country]?.login['forgot-password']['pre-message'] ||
-                  t('forgotpassword.description3')}
+                {getTextInConfigJSON(
+                  ['login', 'forgot-password', 'pre-message'],
+                  t('forgotpassword.description3')
+                )}
               </ModalSubTitle>
               <Input
                 label={t('signup:field.email')}

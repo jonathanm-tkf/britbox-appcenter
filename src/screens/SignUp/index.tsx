@@ -11,6 +11,7 @@ import { registerRequestSuccess } from '@store/modules/user/actions';
 import { atiEventTracking } from '@store/modules/layout/actions';
 import { EvergentSignupResponseError } from '@store/modules/user/types';
 import { AppState } from '@store/modules/rootReducer';
+import { getTextInConfigJSON, getSegment } from '@src/utils/object';
 import { useTranslation } from 'react-i18next';
 
 import { useNavigation } from '@react-navigation/native';
@@ -65,9 +66,7 @@ const SignUp = () => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [isCheckPrivacy, setIsCheckPrivacy] = useState(false);
   const theme = useSelector((state: AppState) => state.theme.theme);
-  const britboxConfig = useSelector((state: AppState) => state.core.britboxConfig);
-  const segment = useSelector((state: AppState) => state.core.segment);
-  const country: string = segment?.toLocaleLowerCase() || 'us';
+  const country: string = getSegment();
 
   const [loading, setLoading] = useState(false);
 
@@ -109,7 +108,7 @@ const SignUp = () => {
   };
 
   const matchError = {
-    text: britboxConfig[country]?.registration?.validation?.messages['password-mismatch'] || '',
+    text: getTextInConfigJSON(['registration', 'validation', 'messages', 'password-mismatch'], ''),
   };
 
   const signup = async () => {
@@ -227,8 +226,10 @@ const SignUp = () => {
       setErrorEmail(
         hasErrorValidEmail
           ? {
-              text:
-                britboxConfig[country]?.registration?.validation?.messages['email-invalid'] || ' ',
+              text: getTextInConfigJSON(
+                ['registration', 'validation', 'messages', 'email-invalid'],
+                ''
+              ),
             }
           : {
               text: '',
@@ -245,7 +246,7 @@ const SignUp = () => {
 
   const doValidatePassword = () => {
     const regexp = new RegExp(
-      britboxConfig[country]?.registration?.validation['password-regex']
+      getTextInConfigJSON(['registration', 'validation', 'password-regex'], '')
         .toString()
         .replace(/\//g, '')
     );
@@ -265,7 +266,10 @@ const SignUp = () => {
       setErrorPassword(
         hasErrorRegexPassword
           ? {
-              text: britboxConfig[country]?.registration?.validation?.messages['password-rule'],
+              text: getTextInConfigJSON(
+                ['registration', 'validation', 'messages', 'password-rule'],
+                ''
+              ),
             }
           : {
               text: '',
@@ -369,9 +373,7 @@ const SignUp = () => {
       return null;
     };
 
-    const statement1Arr = (britboxConfig[country]?.registration['statement-1'] || '').split(
-      '[LINK]'
-    );
+    const statement1Arr = getTextInConfigJSON(['registration', 'statement-1'], '').split('[LINK]');
 
     return (
       <MainWrapper>
@@ -388,9 +390,9 @@ const SignUp = () => {
             </WrapperParagraph>
           </RowWrapper>
         </Wrapper>
-        {(britboxConfig[country]?.registration['statement-2'] || '') !== '' && (
+        {getTextInConfigJSON(['registration', 'statement-2'], '') !== '' && (
           <Wrapper>
-            {(britboxConfig[country]?.registration['statement-2'] || '').includes(
+            {getTextInConfigJSON(['registration', 'statement-2'], '').includes(
               '[CHECK-UNCHECKED]'
             ) && (
               <CheckBoxView onPress={() => setIsCheckPrivacy(!isCheckPrivacy)}>
@@ -399,7 +401,7 @@ const SignUp = () => {
             )}
             <RowWrapper>
               <WrapperParagraph>
-                {(britboxConfig[country]?.registration['statement-2'] || '').replace(
+                {getTextInConfigJSON(['registration', 'statement-2'], '').replace(
                   '[CHECK-UNCHECKED] ',
                   ''
                 )}
@@ -419,9 +421,9 @@ const SignUp = () => {
           <ScrollView keyboardShouldPersistTaps="handled" bounces={false}>
             <Container>
               <TitleWrapper>
-                <Title>{britboxConfig[country]?.registration?.title || ''}</Title>
-                <Paragraph>{britboxConfig[country]?.registration?.description || ''}</Paragraph>
-                <SubTitle>{britboxConfig[country]?.registration['description-2'] || ''}</SubTitle>
+                <Title>{getTextInConfigJSON(['registration', 'title'], '')}</Title>
+                <Paragraph>{getTextInConfigJSON(['registration', 'description'], '')}</Paragraph>
+                <SubTitle>{getTextInConfigJSON(['registration', 'description-2'], '')}</SubTitle>
               </TitleWrapper>
               <Input
                 label={t('field.firstname')}

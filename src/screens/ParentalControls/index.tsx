@@ -26,6 +26,7 @@ import { AppState } from '@store/modules/rootReducer';
 import { useFocusEffect } from '@react-navigation/native';
 import { EvergentResponseError } from '@store/modules/user/types';
 import { atiEventTracking } from '@store/modules/layout/actions';
+import { getTextInConfigJSON } from '@src/utils/object';
 import {
   BritboxDataEvergentModelsGetParentalControlDetailsResponseMessageBaseResponse,
   BritboxAPIAccountModelsProfileUpdateParentalControlDetailsRequest,
@@ -88,9 +89,6 @@ export default function ParentalControls() {
   const [multiSliderValue, setMultiSliderValue] = useState(100);
   const theme = useSelector((state: AppState) => state.theme.theme);
   const user = useSelector((state: AppState) => state.user);
-  const britboxConfig = useSelector((state: AppState) => state.core.britboxConfig);
-  const segment = useSelector((state: AppState) => state.core.segment);
-  const country: string = segment?.toLocaleLowerCase() || 'us';
 
   const activeContainer = {
     backgroundColor: 'white',
@@ -237,22 +235,22 @@ export default function ParentalControls() {
       setValue(parentalDetail?.parentalControlPIN || '');
       if (
         parentalDetail?.parentalControlLevel ===
-        britboxConfig[country]['parental-controls']?.levels[1].id
+        getTextInConfigJSON(['parental-controls', 'levels', '1', 'id'], '')
       ) {
         setMultiSliderValue(75);
       } else if (
         parentalDetail?.parentalControlLevel ===
-        britboxConfig[country]['parental-controls']?.levels[2].id
+        getTextInConfigJSON(['parental-controls', 'levels', '2', 'id'], '')
       ) {
         setMultiSliderValue(50);
       } else if (
         parentalDetail?.parentalControlLevel ===
-        britboxConfig[country]['parental-controls']?.levels[3].id
+        getTextInConfigJSON(['parental-controls', 'levels', '3', 'id'], '')
       ) {
         setMultiSliderValue(25);
       } else if (
         parentalDetail?.parentalControlLevel ===
-        britboxConfig[country]['parental-controls']?.levels[4].id
+        getTextInConfigJSON(['parental-controls', 'levels', '4', 'id'], '')
       ) {
         setMultiSliderValue(1);
       } else {
@@ -288,24 +286,36 @@ export default function ParentalControls() {
 
     if (parentalControl === 'true') {
       if (multiSliderValue === 75) {
-        parentalControlLevel = parseInt(britboxConfig[country]['parental-controls']?.levels[1].id);
-        parentalControlLebels = (
-          britboxConfig[country]['parental-controls']?.levels[1]?.labels || []
+        parentalControlLevel = parseInt(
+          getTextInConfigJSON(['parental-controls', 'levels', '1', 'id'], '')
+        );
+        parentalControlLebels = getTextInConfigJSON(
+          ['parental-controls', 'levels', '1', 'labels'],
+          ''
         ).join(',');
       } else if (multiSliderValue === 50) {
-        parentalControlLevel = parseInt(britboxConfig[country]['parental-controls']?.levels[2].id);
-        parentalControlLebels = (
-          britboxConfig[country]['parental-controls']?.levels[2]?.labels || []
+        parentalControlLevel = parseInt(
+          getTextInConfigJSON(['parental-controls', 'levels', '2', 'id'], '')
+        );
+        parentalControlLebels = getTextInConfigJSON(
+          ['parental-controls', 'levels', '2', 'labels'],
+          ''
         ).join(',');
       } else if (multiSliderValue === 25) {
-        parentalControlLevel = parseInt(britboxConfig[country]['parental-controls']?.levels[3].id);
-        parentalControlLebels = (
-          britboxConfig[country]['parental-controls']?.levels[3]?.labels || []
+        parentalControlLevel = parseInt(
+          getTextInConfigJSON(['parental-controls', 'levels', '3', 'id'], '')
+        );
+        parentalControlLebels = getTextInConfigJSON(
+          ['parental-controls', 'levels', '3', 'labels'],
+          ''
         ).join(',');
       } else if (multiSliderValue === 1) {
-        parentalControlLevel = parseInt(britboxConfig[country]['parental-controls']?.levels[4].id);
-        parentalControlLebels = (
-          britboxConfig[country]['parental-controls']?.levels[4]?.labels || []
+        parentalControlLevel = parseInt(
+          getTextInConfigJSON(['parental-controls', 'levels', '4', 'id'], '')
+        );
+        parentalControlLebels = getTextInConfigJSON(
+          ['parental-controls', 'levels', '4', 'labels'],
+          ''
         ).join(',');
       }
       parmas = {
@@ -360,15 +370,15 @@ export default function ParentalControls() {
       <Wrapper>
         <FooterTitle>
           {t('signup:field.customerservice')}:{' '}
-          {britboxConfig[country]['customer-service']?.phone || ''}
+          {getTextInConfigJSON(['customer-service', 'phone'], '')}
         </FooterTitle>
-        <Paragraph>{britboxConfig[country]['customer-service']?.availability || ''}</Paragraph>
+        <Paragraph>{getTextInConfigJSON(['customer-service', 'availability'], '')}</Paragraph>
         <LinkTitle
           onPress={() =>
-            Linking.openURL(`mailto:${britboxConfig[country]['customer-service']?.email || ''}`)
+            Linking.openURL(`mailto:${getTextInConfigJSON(['customer-service', 'email'], '')}`)
           }
         >
-          {britboxConfig[country]['customer-service']?.email || ''}
+          {getTextInConfigJSON(['customer-service', 'email'], '')}
         </LinkTitle>
       </Wrapper>
     </Gradient>
@@ -380,9 +390,9 @@ export default function ParentalControls() {
       {!isAuthorize ? (
         <ScrollableContainer key={Number(isAuthorize)}>
           <TitleWrapper>
-            <Title>{britboxConfig[country]['parental-controls']?.title || ''}</Title>
+            <Title>{getTextInConfigJSON(['parental-controls', 'title'], '')}</Title>
           </TitleWrapper>
-          <Paragraph>{britboxConfig[country]['parental-controls']?.description || ''}</Paragraph>
+          <Paragraph>{getTextInConfigJSON(['parental-controls', 'description'], '')}</Paragraph>
           <TitleWrapper>
             <Title>{t('parentalcontrols.screentitle')}</Title>
           </TitleWrapper>
@@ -418,9 +428,9 @@ export default function ParentalControls() {
       ) : (
         <ScrollableContainer scrollEnabled={!isSliding}>
           <TitleWrapper>
-            <Title>{britboxConfig[country]['parental-controls']?.title || ''}</Title>
+            <Title>{getTextInConfigJSON(['parental-controls', 'title'], '')}</Title>
           </TitleWrapper>
-          <Paragraph>{britboxConfig[country]['parental-controls']?.description || ''}</Paragraph>
+          <Paragraph>{getTextInConfigJSON(['parental-controls', 'description'], '')}</Paragraph>
           {parentalControlDetail?.parentalControl && (
             <PinBtnView>
               <PinBtnText>{t('parentalcontrols.parentalcontrolsset')}</PinBtnText>
@@ -469,21 +479,21 @@ export default function ParentalControls() {
             <SubTitle>{t('parentalcontrols.levelText')}</SubTitle>
             <Paragraph>
               {multiSliderValue === 100 &&
-                britboxConfig[country]['parental-controls']?.levels[0]['message-top']}
+                getTextInConfigJSON(['parental-controls', 'levels', '0', 'message-top'], '')}
               {multiSliderValue === 75 &&
-                britboxConfig[country]['parental-controls']?.levels[1]['message-top']}
+                getTextInConfigJSON(['parental-controls', 'levels', '1', 'message-top'], '')}
               {multiSliderValue === 50 &&
-                britboxConfig[country]['parental-controls']?.levels[2]['message-top']}
+                getTextInConfigJSON(['parental-controls', 'levels', '2', 'message-top'], '')}
               {multiSliderValue === 25 &&
-                britboxConfig[country]['parental-controls']?.levels[3]['message-top']}
+                getTextInConfigJSON(['parental-controls', 'levels', '3', 'message-top'], '')}
               {multiSliderValue === 1 &&
-                britboxConfig[country]['parental-controls']?.levels[4]['message-top']}{' '}
+                getTextInConfigJSON(['parental-controls', 'levels', '4', 'message-top'], '')}{' '}
               <LinkTitle
                 onPress={() =>
-                  openURLButton(britboxConfig[country]['parental-controls']['help-link'] || '')
+                  openURLButton(getTextInConfigJSON(['parental-controls', 'help-link'], ''))
                 }
               >
-                {britboxConfig[country]['parental-controls']['help-text'] || ''}
+                {getTextInConfigJSON(['parental-controls', 'help-text'], '')}
               </LinkTitle>
             </Paragraph>
 
@@ -494,13 +504,13 @@ export default function ParentalControls() {
                   onPress={() => setMultiSliderValue(multiSliderValue === 75 ? 100 : 75)}
                 >
                   <RowLeftTitle style={multiSliderValue <= 76 && activeText}>
-                    {britboxConfig[country]['parental-controls']?.levels[1].name || ''}
+                    {getTextInConfigJSON(['parental-controls', 'levels', '1', 'name'], '')}
                   </RowLeftTitle>
                   {multiSliderValue <= 76 ? <UnLockIconView /> : <LockIconView />}
                 </RowLeftContainer>
                 <RowContent>
                   <TableBtnContainer>
-                    {britboxConfig[country]['parental-controls']?.levels[1]?.labels?.map(
+                    {getTextInConfigJSON(['parental-controls', 'levels', '1', 'labels'], '')?.map(
                       (item: string, index: number) => (
                         <BtnContainer key={index.toString()}>
                           <BtnText>{item}</BtnText>
@@ -509,7 +519,7 @@ export default function ParentalControls() {
                     )}
                   </TableBtnContainer>
                   <TableRightText>
-                    {britboxConfig[country]['parental-controls']?.levels[1]['message-box'] || ''}
+                    {getTextInConfigJSON(['parental-controls', 'levels', '1', 'message-box'], '')}
                   </TableRightText>
                 </RowContent>
               </RowContainer>
@@ -519,13 +529,13 @@ export default function ParentalControls() {
                   onPress={() => setMultiSliderValue(multiSliderValue === 50 ? 75 : 50)}
                 >
                   <RowLeftTitle style={multiSliderValue <= 51 && activeText}>
-                    {britboxConfig[country]['parental-controls']?.levels[2].name || ''}
+                    {getTextInConfigJSON(['parental-controls', 'levels', '2', 'name'], '')}
                   </RowLeftTitle>
                   {multiSliderValue <= 51 ? <UnLockIconView /> : <LockIconView />}
                 </RowLeftContainer>
                 <RowContent>
                   <TableBtnContainer>
-                    {britboxConfig[country]['parental-controls']?.levels[2]?.labels?.map(
+                    {getTextInConfigJSON(['parental-controls', 'levels', '2', 'labels'], '')?.map(
                       (item: string, index: number) => (
                         <BtnContainer key={index.toString()}>
                           <BtnText>{item}</BtnText>
@@ -534,7 +544,7 @@ export default function ParentalControls() {
                     )}
                   </TableBtnContainer>
                   <TableRightText>
-                    {britboxConfig[country]['parental-controls']?.levels[2]['message-box'] || ''}
+                    {getTextInConfigJSON(['parental-controls', 'levels', '2', 'message-box'], '')}
                   </TableRightText>
                 </RowContent>
               </RowContainer>
@@ -544,13 +554,13 @@ export default function ParentalControls() {
                   onPress={() => setMultiSliderValue(multiSliderValue === 25 ? 50 : 25)}
                 >
                   <RowLeftTitle style={multiSliderValue <= 26 && activeText}>
-                    {britboxConfig[country]['parental-controls']?.levels[3].name || ''}
+                    {getTextInConfigJSON(['parental-controls', 'levels', '3', 'name'], '')}
                   </RowLeftTitle>
                   {multiSliderValue <= 26 ? <UnLockIconView /> : <LockIconView />}
                 </RowLeftContainer>
                 <RowContent>
                   <TableBtnContainer>
-                    {britboxConfig[country]['parental-controls']?.levels[3]?.labels?.map(
+                    {getTextInConfigJSON(['parental-controls', 'levels', '3', 'labels'], '')?.map(
                       (item: string, index: number) => (
                         <BtnContainer key={index.toString()}>
                           <BtnText>{item}</BtnText>
@@ -559,7 +569,7 @@ export default function ParentalControls() {
                     )}
                   </TableBtnContainer>
                   <TableRightText>
-                    {britboxConfig[country]['parental-controls']?.levels[3]['message-box'] || ''}
+                    {getTextInConfigJSON(['parental-controls', 'levels', '3', 'message-box'], '')}
                   </TableRightText>
                 </RowContent>
               </RowContainer>
@@ -569,13 +579,13 @@ export default function ParentalControls() {
                   onPress={() => setMultiSliderValue(multiSliderValue === 1 ? 25 : 1)}
                 >
                   <RowLeftTitle style={multiSliderValue <= 1 && activeText}>
-                    {britboxConfig[country]['parental-controls']?.levels[4].name || ''}
+                    {getTextInConfigJSON(['parental-controls', 'levels', '4', 'name'], '')}
                   </RowLeftTitle>
                   {multiSliderValue <= 1 ? <UnLockIconView /> : <LockIconView />}
                 </RowLeftContainer>
                 <RowContent>
                   <TableBtnContainer>
-                    {britboxConfig[country]['parental-controls']?.levels[4]?.labels?.map(
+                    {getTextInConfigJSON(['parental-controls', 'levels', '4', 'labels'], '')?.map(
                       (item: string, index: number) => (
                         <BtnContainer key={index.toString()}>
                           <BtnText>{item}</BtnText>
@@ -584,7 +594,7 @@ export default function ParentalControls() {
                     )}
                   </TableBtnContainer>
                   <TableRightText>
-                    {britboxConfig[country]['parental-controls']?.levels[4]['message-box'] || ''}
+                    {getTextInConfigJSON(['parental-controls', 'levels', '4', 'message-box'], '')}
                   </TableRightText>
                 </RowContent>
               </RowContainer>
@@ -624,7 +634,7 @@ export default function ParentalControls() {
                 key="success"
                 visible={isSuccess}
                 type="success"
-                text={britboxConfig[country]['account-details']?.validation['success-message']}
+                text={getTextInConfigJSON(['account-details', 'validation', 'success-message'], '')}
               />
             </ErrorContent>
             <Button

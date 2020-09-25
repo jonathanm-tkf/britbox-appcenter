@@ -18,6 +18,7 @@ import {
   BritboxDataEvergentModelsPaymentMethodInfo,
 } from '@src/sdks/Britbox.API.Account.TS/api';
 import { AppState } from '@store/modules/rootReducer';
+import { getTextInConfigJSON, getSegment } from '@src/utils/object';
 import { useTranslation } from 'react-i18next';
 import { Html5Entities } from 'html-entities';
 import * as RNIap from 'react-native-iap';
@@ -72,9 +73,7 @@ const SignUpSubscription = () => {
   const { t } = useTranslation('signup');
   const theme = useSelector((state: AppState) => state.theme.theme);
   const user = useSelector((state: AppState) => state.user);
-  const britboxConfig = useSelector((state: AppState) => state.core.britboxConfig);
-  const segment = useSelector((state: AppState) => state.core.segment);
-  const country: string = segment?.toLocaleLowerCase() || 'us';
+  const country: string = getSegment();
 
   const cancelStyle = { marginTop: 15, borderWidth: 0 };
   const textLeft = { textAlign: 'left' };
@@ -298,11 +297,9 @@ const SignUpSubscription = () => {
           <ScrollView bounces={false}>
             <Container>
               <TitleWrapper>
-                <Title>{britboxConfig[country]['plan-selection']?.title || ''}</Title>
-                <Paragraph>{britboxConfig[country]['plan-selection']?.description || ''}</Paragraph>
-                <SubTitle>
-                  {britboxConfig[country]['plan-selection']['description-2'] || ''}
-                </SubTitle>
+                <Title>{getTextInConfigJSON(['plan-selection', 'title'], '')}</Title>
+                <Paragraph>{getTextInConfigJSON(['plan-selection', 'description'], '')}</Paragraph>
+                <SubTitle>{getTextInConfigJSON(['plan-selection', 'description-2'], '')}</SubTitle>
               </TitleWrapper>
               <RowWrapper>
                 {packageData.map(
@@ -334,9 +331,9 @@ const SignUpSubscription = () => {
               </RowWrapper>
               <PaddingHorizontalView>
                 <RadioBottomText>
-                  {britboxConfig[country]['plan-selection']?.legal || ''}
+                  {getTextInConfigJSON(['plan-selection', 'legal'], '')}
                 </RadioBottomText>
-                <Paragraph>{britboxConfig[country]['plan-selection']?.summary || ''}</Paragraph>
+                <Paragraph>{getTextInConfigJSON(['plan-selection', 'summary'], '')}</Paragraph>
                 {packageData.length > 0 && (
                   <>
                     <SmallText>{t('total')}</SmallText>
@@ -345,7 +342,7 @@ const SignUpSubscription = () => {
                       {packageData[packageIndex]?.retailPrice}
                     </PriceTitle>
                     <DescriptionText>
-                      {britboxConfig[country]['plan-selection']['sub-price'] || ''}
+                      {getTextInConfigJSON(['plan-selection', 'sub-price'], '')}
                     </DescriptionText>
                   </>
                 )}
@@ -359,7 +356,7 @@ const SignUpSubscription = () => {
                   fontWeight="medium"
                   color={theme.PRIMARY_FOREGROUND_COLOR}
                 >
-                  {britboxConfig[country]['plan-selection']?.ctas[0] || ''}
+                  {getTextInConfigJSON(['plan-selection', 'ctas', '0'], '')}
                 </Button>
                 <Button
                   onPress={() => {
@@ -371,26 +368,26 @@ const SignUpSubscription = () => {
                   fontWeight="medium"
                   style={cancelStyle}
                 >
-                  <CancelText>{britboxConfig[country]['plan-selection']?.ctas[1] || ''}</CancelText>
+                  <CancelText>
+                    {getTextInConfigJSON(['plan-selection', 'ctas', '1'], '')}
+                  </CancelText>
                 </Button>
               </PaddingHorizontalView>
             </Container>
             <Wrapper>
               <FooterTitle>
                 {t('field.customerservice')}:{' '}
-                {britboxConfig[country]['customer-service']?.phone || ''}
+                {getTextInConfigJSON(['customer-service', 'phone'], '')}
               </FooterTitle>
-              <Paragraph>
-                {britboxConfig[country]['customer-service']?.availability || ''}
-              </Paragraph>
+              <Paragraph>{getTextInConfigJSON(['customer-service', 'availability'], '')}</Paragraph>
               <EmailTitle
                 onPress={() =>
                   Linking.openURL(
-                    `mailto:${britboxConfig[country]['customer-service']?.email || ''}`
+                    `mailto:${getTextInConfigJSON(['customer-service', 'email'], '')}`
                   )
                 }
               >
-                {britboxConfig[country]['customer-service']?.email || ''}
+                {getTextInConfigJSON(['customer-service', 'email'], '')}
               </EmailTitle>
             </Wrapper>
           </ScrollView>
