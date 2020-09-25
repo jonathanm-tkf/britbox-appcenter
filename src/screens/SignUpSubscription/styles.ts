@@ -8,7 +8,6 @@ export const Container = styled.View`
   flex: 1;
   padding: 30px 0px 15px 0px;
   justify-content: center;
-  margin-bottom: 10px;
   border-bottom-width: 1px;
   border-color: ${(props: ThemeState) => props.theme.PRIMARY_COLOR_OPAQUE};
   background-color: ${(props: ThemeState) => props.theme.PRIMARY_COLOR};
@@ -55,10 +54,12 @@ export const SubTitle = styled.Text`
 
 export const FooterTitle = styled.Text`
   margin-top: 10px;
+  margin-bottom: 20px;
   color: ${(props: ThemeState) => props.theme.PRIMARY_FOREGROUND_COLOR};
   font-size: 20px;
   font-weight: 700;
   text-align: center;
+  font-family: ${(props: ThemeState) => props.theme.PRIMARY_FONT_FAMILY_MEDIUM};
 `;
 
 export const EmailTitle = styled.Text`
@@ -66,6 +67,7 @@ export const EmailTitle = styled.Text`
   color: ${(props: ThemeState) => props.theme.SECONDARY_COLOR};
   font-size: 16px;
   text-align: center;
+  font-family: ${(props: ThemeState) => props.theme.PRIMARY_FONT_FAMILY_MEDIUM};
 `;
 
 export const RowWrapper = styled(ScrollViewList).attrs({
@@ -147,8 +149,8 @@ export const PriceTitle = styled.Text`
 `;
 
 export const Wrapper = styled.View`
-  padding-top: 10px;
-  padding-bottom: 40px;
+  padding-top: 15px;
+  padding-bottom: 50px;
 `;
 
 export const CancelText = styled.Text`

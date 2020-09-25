@@ -1,21 +1,15 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
-import { AppState } from '@store/modules/rootReducer';
 import WebViewComponent from '@components/WebView';
+import { getTextInConfigJSON, getSegment } from '@src/utils/object';
 import { Container } from './styles';
 
 export default function PrivacyPolicy() {
-  const britboxConfig = useSelector((state: AppState) => state.core.britboxConfig);
-  const segment = useSelector((state: AppState) => state.core.segment);
-  const country: string = segment?.toLocaleLowerCase() || 'us';
+  const country: string = getSegment();
 
   return (
     <Container>
       <WebViewComponent
-        uri={
-          (britboxConfig && britboxConfig[country]?.urls?.privacy) ||
-          `https://www.britbox.com/${country}/privacy`
-        }
+        uri={getTextInConfigJSON(['urls', 'privacy'], `https://www.britbox.com/${country}/privacy`)}
       />
     </Container>
   );

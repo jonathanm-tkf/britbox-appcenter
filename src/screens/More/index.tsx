@@ -10,6 +10,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { logout } from '@store/modules/user/actions';
 import { getVersion, getBuildNumber } from 'react-native-device-info';
 import { atiEventTracking } from '@store/modules/layout/actions';
+import { getTextInConfigJSON } from '@src/utils/object';
 import {
   ProfileView,
   RowContainer,
@@ -41,9 +42,6 @@ export default function More() {
   const { navigate } = useNavigation();
   const dispatch = useDispatch();
   const user = useSelector((state: AppState) => state.user);
-  const britboxConfig = useSelector((state: AppState) => state.core.britboxConfig);
-  const segment = useSelector((state: AppState) => state.core.segment);
-  const country: string = segment?.toLocaleLowerCase() || 'us';
 
   const logoutAction = () => {
     dispatch(logout());
@@ -103,9 +101,7 @@ export default function More() {
         <RowContent>
           <ItemTitle
             onPress={() =>
-              Linking.openURL(
-                (britboxConfig && britboxConfig[country]?.urls?.help) || 'https://help.britbox.com/'
-              )
+              Linking.openURL(getTextInConfigJSON(['urls', 'help'], 'https://help.britbox.com/'))
             }
           >
             {t('help')}

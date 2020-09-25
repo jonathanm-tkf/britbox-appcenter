@@ -1,11 +1,10 @@
 import React from 'react';
 import { Linking } from 'react-native';
 
-import { useSelector } from 'react-redux';
 import { Button } from '@components/Button';
 import { useTranslation } from 'react-i18next';
 import { Headline, Paragraph } from '@components/Typography';
-import { AppState } from '@store/modules/rootReducer';
+import { getTextInConfigJSON, getGlobalTextInConfigJSON } from '@src/utils/object';
 import { Container, Opaque, BottomParagraph, LinkTitle, LogoContainer, Logo } from './styles';
 
 type Props = {
@@ -16,10 +15,6 @@ type Props = {
 const ErrorLanding = ({ onPress, out = false }: Props) => {
   const { t } = useTranslation('layout');
 
-  const britboxConfig = useSelector((state: AppState) => state.core.britboxConfig);
-  const segment = useSelector((state: AppState) => state.core.segment);
-  const country: string = segment?.toLocaleLowerCase() || 'us';
-
   return (
     <Container>
       <LogoContainer>
@@ -28,7 +23,7 @@ const ErrorLanding = ({ onPress, out = false }: Props) => {
       <Headline fontSize={28} lineHeight={40} center>
         {!out
           ? t('error.subtitle')
-          : (britboxConfig && britboxConfig['out-of-region']?.message) || t('errorOut.subtitle')}
+          : getGlobalTextInConfigJSON(['out-of-region', 'message'], t('errorOut.subtitle'))}
       </Headline>
       {!out ? (
         <>
@@ -46,9 +41,7 @@ const ErrorLanding = ({ onPress, out = false }: Props) => {
           {t('visitour')}{' '}
           <LinkTitle
             onPress={() =>
-              Linking.openURL(
-                (britboxConfig && britboxConfig[country]?.urls?.help) || 'https://help.britbox.com/'
-              )
+              Linking.openURL(getTextInConfigJSON(['urls', 'help'], 'https://help.britbox.com/'))
             }
           >
             {t('helpsupport')}

@@ -17,6 +17,7 @@ import { Button } from '@components/Button';
 import { Input } from '@components/Input';
 import { useSelector, useDispatch } from 'react-redux';
 import { AppState } from '@store/modules/rootReducer';
+import { getTextInConfigJSON } from '@src/utils/object';
 import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
 import { EvergentResponseError } from '@store/modules/user/types';
 import { validateEmail } from '@src/utils/validations';
@@ -67,32 +68,25 @@ export default function MyAccount() {
   const { navigate } = useNavigation();
   const user = useSelector((state: AppState) => state.user);
   const theme = useSelector((state: AppState) => state.theme.theme);
-  const britboxConfig = useSelector((state: AppState) => state.core.britboxConfig);
-  const segment = useSelector((state: AppState) => state.core.segment);
-  const country: string = segment?.toLocaleLowerCase() || 'us';
 
   const error = {
     text: ' ',
   };
 
   const matchError = {
-    text: britboxConfig[country]?.registration?.validation?.messages['password-mismatch'] || '',
+    text: getTextInConfigJSON(['registration', 'validation', 'messages', 'password-mismatch'], ''),
   };
 
   const tabBottomView = () => (
     <Gradient>
       <Wrapper>
-        <FooterTitle>
-          {t('signup:field.customerservice')}:{' '}
-          {britboxConfig[country]['customer-service']?.phone || ''}
-        </FooterTitle>
-        <Paragraph>{britboxConfig[country]['customer-service']?.availability || ''}</Paragraph>
+        <FooterTitle>{getTextInConfigJSON(['customer-service', 'title'], '')}</FooterTitle>
         <LinkTitle
           onPress={() =>
-            Linking.openURL(`mailto:${britboxConfig[country]['customer-service']?.email || ''}`)
+            Linking.openURL(`${getTextInConfigJSON(['customer-service', 'link-url'], '')}`)
           }
         >
-          {britboxConfig[country]['customer-service']?.email || ''}
+          {getTextInConfigJSON(['customer-service', 'link'], '')}
         </LinkTitle>
       </Wrapper>
     </Gradient>
@@ -169,7 +163,17 @@ export default function MyAccount() {
             );
           } else {
             setErrorState(true);
+            if (
+              responseData?.failureMessage &&
+              responseData?.failureMessage[0]?.errorCode === 'eV2788'
+            ) {
+              responseData.failureMessage[0].errorMessage = getTextInConfigJSON(
+                ['account-details', 'validation', 'messages', 'email-exists'],
+                ''
+              );
+            }
             setErrorMessage(responseData);
+
             dispatch(
               atiEventTracking('error', 'bb_profile_edit', {
                 is_background: false,
@@ -191,8 +195,10 @@ export default function MyAccount() {
       setErrorFirstName(
         hasErrorFirstName
           ? {
-              text:
-                britboxConfig[country]['account-details']?.validation?.messages['first-name'] || '',
+              text: getTextInConfigJSON(
+                ['account-details', 'validation', 'messages', 'first-name'],
+                ''
+              ),
             }
           : {
               text: '',
@@ -212,8 +218,10 @@ export default function MyAccount() {
       setErrorLastName(
         hasErrorLastName
           ? {
-              text:
-                britboxConfig[country]['account-details']?.validation?.messages['last-name'] || '',
+              text: getTextInConfigJSON(
+                ['account-details', 'validation', 'messages', 'last-name'],
+                ''
+              ),
             }
           : {
               text: '',
@@ -234,7 +242,7 @@ export default function MyAccount() {
       setErrorEmail(
         hasErrorEmail
           ? {
-              text: britboxConfig[country]['account-details']?.validation?.messages?.email || '',
+              text: getTextInConfigJSON(['account-details', 'validation', 'messages', 'email'], ''),
             }
           : {
               text: '',
@@ -245,10 +253,10 @@ export default function MyAccount() {
         setErrorEmail(
           hasErrorValidEmail
             ? {
-                text:
-                  britboxConfig[country]['account-details']?.validation?.messages[
-                    'email-invalid'
-                  ] || '',
+                text: getTextInConfigJSON(
+                  ['account-details', 'validation', 'messages', 'email-invalid'],
+                  ''
+                ),
               }
             : {
                 text: '',
@@ -331,14 +339,14 @@ export default function MyAccount() {
             type="error"
             text={
               errorMessage?.failureMessage[0]?.errorMessage ||
-              britboxConfig[country]['account-details']?.validation['error-message']
+              getTextInConfigJSON(['account-details', 'validation', 'error-message'], '')
             }
           />
           <ErrorBlock
             key="success"
             visible={isSuccess}
             type="success"
-            text={britboxConfig[country]['account-details']?.validation['success-message']}
+            text={getTextInConfigJSON(['account-details', 'validation', 'success-message'], '')}
           />
           <Button
             onPress={() => updateProfile()}
@@ -376,7 +384,7 @@ export default function MyAccount() {
     const [isSuccess, setIsSuccess] = useState(false);
 
     const regexp = new RegExp(
-      britboxConfig[country]?.registration?.validation['password-regex']
+      getTextInConfigJSON(['registration', 'validation', 'password-regex'], '')
         .toString()
         .replace(/\//g, '')
     );
@@ -479,7 +487,10 @@ export default function MyAccount() {
         setErrorNewPassword(
           hasErrorRegexPassword
             ? {
-                text: britboxConfig[country]?.registration?.validation?.messages['password-rule'],
+                text: getTextInConfigJSON(
+                  ['registration', 'validation', 'messages', 'password-rule'],
+                  ''
+                ),
               }
             : {
                 text: '',
@@ -598,7 +609,7 @@ export default function MyAccount() {
               key="success"
               visible={isSuccess}
               type="success"
-              text={britboxConfig[country]['account-details']?.validation['success-message']}
+              text={getTextInConfigJSON(['account-details', 'validation', 'success-message'], '')}
             />
             <Button
               onPress={() => updatePassword()}
@@ -646,27 +657,27 @@ export default function MyAccount() {
           </TitleWrapper>
           {subscriptionDetail?.paymentMethod === 'Credit/Debit Card' ? (
             <SubscriptionParagraph>
-              {britboxConfig[country]['account-subscription']?.web || ''}
+              {getTextInConfigJSON(['account-subscription', 'web'], '')}
             </SubscriptionParagraph>
           ) : subscriptionDetail?.paymentMethod === 'Google Wallet' ? (
             <SubscriptionParagraph>
-              {britboxConfig[country]['account-subscription']?.android || ''}
+              {getTextInConfigJSON(['account-subscription', 'android'], '')}
             </SubscriptionParagraph>
           ) : subscriptionDetail?.paymentMethod === 'App Store Billing' ? (
             <SubscriptionParagraph>
-              {britboxConfig[country]['account-subscription']?.ios || ''}
+              {getTextInConfigJSON(['account-subscription', 'ios'], '')}
             </SubscriptionParagraph>
           ) : subscriptionDetail?.paymentMethod === 'Roku Payment' ? (
             <SubscriptionParagraph>
-              {britboxConfig[country]['account-subscription']?.roku || ''}
+              {getTextInConfigJSON(['account-subscription', 'roku'], '')}
             </SubscriptionParagraph>
           ) : (
             <>
               <FooterTitle>
-                {britboxConfig[country]['account-subscription']['not-purchased'][0] || ''}
+                {getTextInConfigJSON(['account-subscription', 'not-purchased', '0'], '')}
               </FooterTitle>
               <Paragraph>
-                {britboxConfig[country]['account-subscription']['not-purchased'][1] || ''}
+                {getTextInConfigJSON(['account-subscription', 'not-purchased', '1'], '')}
               </Paragraph>
               <Button
                 outline
@@ -676,7 +687,7 @@ export default function MyAccount() {
                 onPress={() => navigate('AccountSubscription', { account: true })}
               >
                 <SuscribeText>
-                  {britboxConfig[country]['account-subscription']['not-purchased'][2] || ''}
+                  {getTextInConfigJSON(['account-subscription', 'not-purchased', '2'], '')}
                 </SuscribeText>
               </Button>
             </>
@@ -752,13 +763,13 @@ export default function MyAccount() {
             key="error"
             visible={errorState}
             type="error"
-            text={britboxConfig[country]['account-details']?.validation['error-message']}
+            text={getTextInConfigJSON(['account-details', 'validation', 'error-message'], '')}
           />
           <ErrorBlock
             key="success"
             visible={isSuccess}
             type="success"
-            text={britboxConfig[country]['account-details']?.validation['success-message']}
+            text={getTextInConfigJSON(['account-details', 'validation', 'success-message'], '')}
           />
           <Button
             onPress={() => updateProfile()}

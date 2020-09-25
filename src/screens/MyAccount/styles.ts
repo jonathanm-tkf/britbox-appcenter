@@ -84,12 +84,12 @@ export const Gradient = styled(LinearGradient).attrs({
 `;
 
 export const Wrapper = styled.View`
-  padding-top: 10px;
-  padding-bottom: 20px;
+  padding-top: 15px;
 `;
 
 export const FooterTitle = styled.Text`
   margin-top: 10px;
+  margin-bottom: 20px;
   color: ${(props: ThemeState) => props.theme.PRIMARY_FOREGROUND_COLOR};
   font-size: 20px;
   font-weight: 700;
@@ -98,7 +98,6 @@ export const FooterTitle = styled.Text`
 `;
 
 export const LinkTitle = styled.Text`
-  margin-bottom: 10px;
   color: ${(props: ThemeState) => props.theme.SECONDARY_COLOR};
   font-size: 16px;
   text-align: center;
