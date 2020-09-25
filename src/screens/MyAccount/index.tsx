@@ -80,17 +80,13 @@ export default function MyAccount() {
   const tabBottomView = () => (
     <Gradient>
       <Wrapper>
-        <FooterTitle>
-          {t('signup:field.customerservice')}:{' '}
-          {getTextInConfigJSON(['customer-service', 'phone'], '')}
-        </FooterTitle>
-        <Paragraph>{getTextInConfigJSON(['customer-service', 'availability'], '')}</Paragraph>
+        <FooterTitle>{getTextInConfigJSON(['customer-service', 'title'], '')}</FooterTitle>
         <LinkTitle
           onPress={() =>
-            Linking.openURL(`mailto:${getTextInConfigJSON(['customer-service', 'email'], '')}`)
+            Linking.openURL(`${getTextInConfigJSON(['customer-service', 'link-url'], '')}`)
           }
         >
-          {getTextInConfigJSON(['customer-service', 'email'], '')}
+          {getTextInConfigJSON(['customer-service', 'link'], '')}
         </LinkTitle>
       </Wrapper>
     </Gradient>
@@ -167,7 +163,17 @@ export default function MyAccount() {
             );
           } else {
             setErrorState(true);
+            if (
+              responseData?.failureMessage &&
+              responseData?.failureMessage[0]?.errorCode === 'eV2788'
+            ) {
+              responseData.failureMessage[0].errorMessage = getTextInConfigJSON(
+                ['account-details', 'validation', 'messages', 'email-exists'],
+                ''
+              );
+            }
             setErrorMessage(responseData);
+
             dispatch(
               atiEventTracking('error', 'bb_profile_edit', {
                 is_background: false,

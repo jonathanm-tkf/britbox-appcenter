@@ -368,17 +368,13 @@ export default function ParentalControls() {
   const tabBottomView = () => (
     <Gradient>
       <Wrapper>
-        <FooterTitle>
-          {t('signup:field.customerservice')}:{' '}
-          {getTextInConfigJSON(['customer-service', 'phone'], '')}
-        </FooterTitle>
-        <Paragraph>{getTextInConfigJSON(['customer-service', 'availability'], '')}</Paragraph>
+        <FooterTitle>{getTextInConfigJSON(['customer-service', 'title'], '')}</FooterTitle>
         <LinkTitle
           onPress={() =>
-            Linking.openURL(`mailto:${getTextInConfigJSON(['customer-service', 'email'], '')}`)
+            Linking.openURL(`${getTextInConfigJSON(['customer-service', 'link-url'], '')}`)
           }
         >
-          {getTextInConfigJSON(['customer-service', 'email'], '')}
+          {getTextInConfigJSON(['customer-service', 'link'], '')}
         </LinkTitle>
       </Wrapper>
     </Gradient>

@@ -19,7 +19,9 @@ export const Input = styled(TextInput).attrs((props: ThemeState) => ({
       error: props.theme.ERROR_COLOR,
     },
   },
-}))<InputProps & ThemeState>``;
+}))<InputProps & ThemeState>`
+  padding-right: 40px;
+`;
 
 export const Container = styled.View`
   margin-bottom: 30px;

@@ -374,22 +374,18 @@ const SignUpSubscription = () => {
                 </Button>
               </PaddingHorizontalView>
             </Container>
-            <Wrapper>
-              <FooterTitle>
-                {t('field.customerservice')}:{' '}
-                {getTextInConfigJSON(['customer-service', 'phone'], '')}
-              </FooterTitle>
-              <Paragraph>{getTextInConfigJSON(['customer-service', 'availability'], '')}</Paragraph>
-              <EmailTitle
-                onPress={() =>
-                  Linking.openURL(
-                    `mailto:${getTextInConfigJSON(['customer-service', 'email'], '')}`
-                  )
-                }
-              >
-                {getTextInConfigJSON(['customer-service', 'email'], '')}
-              </EmailTitle>
-            </Wrapper>
+            <Gradient>
+              <Wrapper>
+                <FooterTitle>{getTextInConfigJSON(['customer-service', 'title'], '')}</FooterTitle>
+                <EmailTitle
+                  onPress={() =>
+                    Linking.openURL(`${getTextInConfigJSON(['customer-service', 'link-url'], '')}`)
+                  }
+                >
+                  {getTextInConfigJSON(['customer-service', 'link'], '')}
+                </EmailTitle>
+              </Wrapper>
+            </Gradient>
           </ScrollView>
         </KeyboardAvoidingView>
       </Gradient>

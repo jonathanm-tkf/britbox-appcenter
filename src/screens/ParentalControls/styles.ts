@@ -52,12 +52,13 @@ export const Gradient = styled(LinearGradient).attrs({
 })``;
 
 export const Wrapper = styled.View`
-  padding-top: 10px;
-  padding-bottom: 40px;
+  padding-top: 20px;
+  padding-bottom: 10px;
 `;
 
 export const FooterTitle = styled.Text`
   margin-top: 10px;
+  margin-bottom: 20px;
   color: ${(props: ThemeState) => props.theme.PRIMARY_FOREGROUND_COLOR};
   font-size: 20px;
   font-weight: 700;
