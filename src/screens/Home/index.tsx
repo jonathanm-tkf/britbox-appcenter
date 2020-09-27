@@ -114,7 +114,12 @@ const Item = () => {
   };
 
   const onWatchlist = (item: WatchlistToggleRequest, isInWatchlist: boolean) => {
-    dispatch(watchlistToggleRequest({ itemId: item?.id || '0', isInWatchlist }));
+    dispatch(
+      watchlistToggleRequest({
+        itemId: item.type === 'season' ? item?.showId || '0' : item?.id || '0',
+        isInWatchlist,
+      })
+    );
   };
 
   return (

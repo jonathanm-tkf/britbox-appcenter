@@ -78,10 +78,19 @@ const Outstanding = ({ items, onPlay, onWatchlist, onDiscoverMore }: Props) => {
             <Actions>
               <ActionButton
                 onPress={() =>
-                  onWatchlist ? onWatchlist(item, getIsInWatchlist(item?.id || '0')) : {}
+                  onWatchlist
+                    ? onWatchlist(
+                        item,
+                        getIsInWatchlist(
+                          item.type === 'season' ? item?.showId || '0' : item?.id || '0'
+                        )
+                      )
+                    : {}
                 }
               >
-                {getIsInWatchlist(item?.id || '0') ? (
+                {getIsInWatchlist(
+                  item.type === 'season' ? item?.showId || '0' : item?.id || '0'
+                ) ? (
                   <CheckedIcon fill="#FFFFFF" width={32} height={32} />
                 ) : (
                   <WatchlistIcon width={32} height={32} />

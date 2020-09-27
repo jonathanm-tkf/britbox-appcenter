@@ -10,7 +10,7 @@ type Props = {
   descriptors: any;
 };
 
-const TabBar = ({ state, descriptors, navigation }: Props) => {
+const TabBar = ({ state, descriptors }: Props) => {
   const focusedOptions = descriptors[state.routes[state.index].key].options;
   const { dispatch } = useNavigation();
 
@@ -43,16 +43,16 @@ const TabBar = ({ state, descriptors, navigation }: Props) => {
             // });
 
             // if (!isFocused && !event.defaultPrevented) {
-            if (route.name === 'More') {
-              dispatch(
-                CommonActions.reset({
-                  index: 0,
-                  routes: [{ name: 'More' }],
-                })
-              );
-            } else {
-              navigation.navigate(route.name);
-            }
+            // if (route.name === 'More') {
+            dispatch(
+              CommonActions.reset({
+                index: 0,
+                routes: [{ name: route.name }],
+              })
+            );
+            // } else {
+            //   navigation.navigate(route.name);
+            // }
             // }
           };
 

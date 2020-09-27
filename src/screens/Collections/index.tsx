@@ -348,6 +348,8 @@ const Collections = () => {
     if (genre) {
       setData(dataDummy);
       getDataDetail(genre);
+      setOrder('asc');
+      setOrderBy('date-added');
     }
   }, [genre]);
 

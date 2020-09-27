@@ -159,34 +159,34 @@ export const CastVideo = async (item: MassiveSDKModelEpisodesItem, pcToken?: str
           },
         };
 
-        // GoogleCast.getCastDevice().then((device) => {
-        //   if (device) {
-        //     // GoogleCast.initChannel('urn:x-cast:com.reactnative.googlecast.britbox');
-        //     GoogleCast.castMedia(video);
-        //     GoogleCast.launchExpandedControls();
-        //   }
-        // });
+        GoogleCast.getCastDevice().then((device) => {
+          if (device) {
+            // GoogleCast.initChannel('urn:x-cast:com.reactnative.googlecast.britbox');
+            GoogleCast.castMedia(video);
+            // GoogleCast.launchExpandedControls();
+          }
+        });
       });
     }
 
-    const videoUrl =
-      'http://commondatastorage.googleapis.com/gtv-videos-bucket/CastVideos/mp4/DesigningForGoogleCast.mp4';
-    const video = {
-      title: item?.contextualTitle || '',
-      subtitle: item?.shortDescription || '',
-      mediaUrl: videoUrl,
-      imageUrl: getImage(item?.images?.wallpaper, 'wallpaper'),
-      duration: item?.duration || 0,
-      posterUrl: getImage(item?.images?.square, 'wallpaper'),
-    };
+    // const videoUrl =
+    //   'http://commondatastorage.googleapis.com/gtv-videos-bucket/CastVideos/mp4/DesigningForGoogleCast.mp4';
+    // const video = {
+    //   title: item?.contextualTitle || '',
+    //   subtitle: item?.shortDescription || '',
+    //   mediaUrl: videoUrl,
+    //   imageUrl: getImage(item?.images?.wallpaper, 'wallpaper'),
+    //   duration: item?.duration || 0,
+    //   posterUrl: getImage(item?.images?.square, 'wallpaper'),
+    // };
 
-    GoogleCast.getCastDevice().then((device) => {
-      if (device) {
-        // GoogleCast.initChannel('urn:x-cast:com.reactnative.googlecast.britbox');
-        GoogleCast.castMedia(video);
-        // GoogleCast.launchExpandedControls();
-      }
-    });
+    // GoogleCast.getCastDevice().then((device) => {
+    //   if (device) {
+    //     // GoogleCast.initChannel('urn:x-cast:com.reactnative.googlecast.britbox');
+    //     GoogleCast.castMedia(video);
+    //     // GoogleCast.launchExpandedControls();
+    //   }
+    // });
 
     return true;
   } catch (error) {

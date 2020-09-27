@@ -279,6 +279,7 @@ const processEpisodesBySeason = async (
     moreInformationResponse.title = entries?.item?.title || '';
     moreInformationResponse.description = entries?.item?.shortDescription || '';
     moreInformationResponse.season = entries?.item?.contextualTitle || '';
+    moreInformationResponse.year = entries?.item?.releaseYear;
   }
 
   return {
