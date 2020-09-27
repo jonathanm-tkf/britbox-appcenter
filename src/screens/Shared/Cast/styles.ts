@@ -69,8 +69,9 @@ export const MiniSubtitle = styled.Text`
   font-size: 10px;
 `;
 
-export const MiniExpandButton = styled.TouchableOpacity`
-  margin-left: auto;
+export const MiniExpandButton = styled.TouchableOpacity``;
+
+export const MiniExpandButtonIcon = styled.View`
   height: 100%;
   align-items: center;
   justify-content: center;

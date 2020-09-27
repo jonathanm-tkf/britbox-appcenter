@@ -79,7 +79,9 @@ export default function More() {
       <SeparatorLine />
       <RowContainer
         onPress={() => {
-          navigate('MyAccount');
+          navigate('MyAccount', {
+            subscriptionSelected: false,
+          });
         }}
       >
         <RowContent>

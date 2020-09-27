@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { NavigationState } from '@react-navigation/native';
+import { NavigationState, useNavigation, CommonActions } from '@react-navigation/native';
 import Cast from '@screens/Shared/Cast';
 import { Container, Button, Label, WrapperIcon, CustomShadowTabBar, TabsWrapper } from './styles';
 
@@ -12,6 +12,7 @@ type Props = {
 
 const TabBar = ({ state, descriptors, navigation }: Props) => {
   const focusedOptions = descriptors[state.routes[state.index].key].options;
+  const { dispatch } = useNavigation();
 
   if (focusedOptions.tabBarVisible === false) {
     return null;
@@ -35,22 +36,31 @@ const TabBar = ({ state, descriptors, navigation }: Props) => {
           const isFocused = state.index === index;
 
           const onPress = () => {
-            const event = navigation.emit({
-              type: 'tabPress',
-              target: route.key,
-              canPreventDefault: true,
-            });
+            // const event = navigation.emit({
+            //   type: 'tabPress',
+            //   target: route.key,
+            //   canPreventDefault: true,
+            // });
 
-            if (!isFocused && !event.defaultPrevented) {
+            // if (!isFocused && !event.defaultPrevented) {
+            if (route.name === 'More') {
+              dispatch(
+                CommonActions.reset({
+                  index: 0,
+                  routes: [{ name: 'More' }],
+                })
+              );
+            } else {
               navigation.navigate(route.name);
             }
+            // }
           };
 
           const onLongPress = () => {
-            navigation.emit({
-              type: 'tabLongPress',
-              target: route.key,
-            });
+            // navigation.emit({
+            //   type: 'tabLongPress',
+            //   target: route.key,
+            // });
           };
 
           return (

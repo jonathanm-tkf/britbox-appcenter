@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unused-prop-types */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React from 'react';
 
@@ -21,6 +22,7 @@ interface Props {
   title?: string;
   rightComponent?: any;
   shadow?: boolean;
+  onBack?: () => void;
 }
 
 export default function HeaderCustom({
@@ -29,6 +31,7 @@ export default function HeaderCustom({
   title = '',
   rightComponent = <EmptyView />,
   shadow = false,
+  onBack,
 }: Props) {
   const { goBack } = useNavigation();
 
@@ -37,7 +40,7 @@ export default function HeaderCustom({
       <TopWrapper>
         <SideView>
           {isBack ? (
-            <BackButton onPress={() => goBack()}>
+            <BackButton onPress={() => (onBack ? onBack() : goBack())}>
               <BackIcon width={20} height={20} />
             </BackButton>
           ) : (

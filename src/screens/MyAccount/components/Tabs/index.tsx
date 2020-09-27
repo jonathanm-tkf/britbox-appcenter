@@ -4,6 +4,8 @@ import { StyleSheet, View, Dimensions, Animated } from 'react-native';
 import { TabView } from 'react-native-tab-view';
 import HeaderCustom from '@components/HeaderCustom';
 import { useTranslation } from 'react-i18next';
+import { useNavigation, CommonActions } from '@react-navigation/native';
+
 import {
   TitleWrapper,
   Title,
@@ -92,7 +94,7 @@ const Tabs = ({ routes, subscriptionSelected }: Props) => {
   const listOffset: any = useRef({});
   const isListGliding = useRef(false);
   const { t } = useTranslation(['myaccount', 'signup']);
-
+  const { dispatch } = useNavigation();
   useEffect(() => {
     scrollY.addListener(({ value }: { value: number }) => {
       const curRoute = routes[tabIndex].key;
@@ -252,7 +254,18 @@ const Tabs = ({ routes, subscriptionSelected }: Props) => {
   return (
     <SafeAreaView>
       <View style={{ position: 'absolute', width: '100%', zIndex: 1 }}>
-        <HeaderCustom isBack shadow />
+        <HeaderCustom
+          isBack
+          shadow
+          onBack={() => {
+            dispatch(
+              CommonActions.reset({
+                index: 0,
+                routes: [{ name: 'More' }],
+              })
+            );
+          }}
+        />
       </View>
       <View style={{ flex: 1, marginTop: 75 }}>
         {renderHeader()}

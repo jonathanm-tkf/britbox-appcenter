@@ -16,6 +16,7 @@ import { autoPlayOff, castVideoPlayerDetail } from '@store/modules/layout/action
 import { PostMessage, webViewRef } from '@src/utils/videoPlayerRef';
 import GoogleCast from 'react-native-google-cast';
 import { castDetail } from '@store/modules/core/actions';
+import { continueWatchingRequest } from '@store/modules/user/actions';
 
 const { width, height } = Dimensions.get('window');
 
@@ -95,6 +96,7 @@ const VideoPlayer = () => {
     Orientation.lockToPortrait();
     immersiveModeOff();
     StatusBar.setHidden(false);
+    dispatch(continueWatchingRequest());
     // setParamsToNavigation({ autoPlay: false });
     // navigation.state.params.onSelect({ autoPlay: false });
     goBack();

@@ -123,6 +123,15 @@ const user: Reducer<UserState> = (state = initialState, action) => {
         draft.profile = profile;
         break;
       }
+      case UserActionTypes.CONTINUE_WATCHING_REQUEST_SUCCESS: {
+        const profile = {
+          ...state.profile,
+          watched: action.payload.watched.externalResponse,
+          watchedList: action.payload.watchedList.externalResponse,
+        };
+        draft.profile = profile;
+        break;
+      }
       default:
         break;
     }

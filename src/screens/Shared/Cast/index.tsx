@@ -21,6 +21,7 @@ import {
   MiniTitle,
   MiniSubtitle,
   MiniExpandButton,
+  MiniExpandButtonIcon,
 } from './styles';
 
 const getItemCastDetail = () => {
@@ -136,25 +137,27 @@ const Cast = () => {
       </FABView>
       {cast && casting && (
         <MiniController>
-          <MiniImage
-            source={{ uri: getImage(castDetail?.images?.wallpaper || 'loading', 'wallpaper') }}
-          />
-          <MiniWrapperText>
-            <MiniTitle>
-              {castDetail.type === 'program' ||
-              castDetail.type === 'movie' ||
-              castDetail.type === 'show'
-                ? castDetail?.contextualTitle
-                : castDetail?.showTitle}
-            </MiniTitle>
-            <MiniSubtitle>
-              {castDetail.type === 'episode'
-                ? `${castDetail.seasonTitle}・${castDetail.episodeName}`
-                : castDetail.type.toUpperCase()}
-            </MiniSubtitle>
-          </MiniWrapperText>
           <MiniExpandButton onPress={() => GoogleCast.launchExpandedControls()}>
-            <ChromecastIcon fill={theme.PRIMARY_TEXT_COLOR} width={25} height={35} />
+            <MiniImage
+              source={{ uri: getImage(castDetail?.images?.wallpaper || 'loading', 'wallpaper') }}
+            />
+            <MiniWrapperText>
+              <MiniTitle>
+                {castDetail.type === 'program' ||
+                castDetail.type === 'movie' ||
+                castDetail.type === 'show'
+                  ? castDetail?.contextualTitle
+                  : castDetail?.showTitle}
+              </MiniTitle>
+              <MiniSubtitle>
+                {castDetail.type === 'episode'
+                  ? `${castDetail.seasonTitle}・${castDetail.episodeName}`
+                  : castDetail.type.toUpperCase()}
+              </MiniSubtitle>
+            </MiniWrapperText>
+            <MiniExpandButtonIcon>
+              <ChromecastIcon fill={theme.PRIMARY_TEXT_COLOR} width={25} height={35} />
+            </MiniExpandButtonIcon>
           </MiniExpandButton>
         </MiniController>
       )}

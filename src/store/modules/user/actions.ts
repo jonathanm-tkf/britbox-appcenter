@@ -58,3 +58,11 @@ export const loginAfterRegister = () => action(UserActionTypes.LOGIN_AFTER_REGIS
 export const parentalControlOn = () => action(UserActionTypes.PROFILE_PARENTAL_CONTROL_ON);
 
 export const parentalControlOff = () => action(UserActionTypes.PROFILE_PARENTAL_CONTROL_OFF);
+
+export const continueWatchingRequest = () => action(UserActionTypes.CONTINUE_WATCHING_REQUEST);
+
+export const continueWatchingRequestSuccess = (data: Record<string, unknown>) =>
+  action(UserActionTypes.CONTINUE_WATCHING_REQUEST_SUCCESS, { ...data });
+
+export const continueWatchingRequestError = () =>
+  action(UserActionTypes.CONTINUE_WATCHING_REQUEST_ERROR);

@@ -24,7 +24,10 @@ import {
   watchlistRequestRemove,
   refreshTokenSuccess,
   continueWatchingRemoveRequestSuccess,
+  continueWatchingRequestError,
+  continueWatchingRequestSuccess,
 } from '@store/modules/user/actions';
+import { getDevice } from '@src/utils';
 import { atiEventTracking, welcomeMessageOn } from '../layout/actions';
 
 import {
@@ -255,7 +258,11 @@ export function* getProfileRequest() {
     const { response: responseAccountDetail } = yield call(getAccountDetail, token);
     yield put(profileRequestSuccess({ ...responseProfile, ...responseAccountDetail }));
   } catch (error) {
-    // Sentry.captureException({ error, logger: 'user get profile' });
+    Sentry.setExtras({
+      error,
+    });
+    Sentry.captureException({ logger: 'user get profile' });
+    yield call(logout);
   }
 }
 
@@ -516,6 +523,33 @@ export function* loginAfterRegisterRequest() {
   }
 }
 
+export function* getContinueWatchingRequest() {
+  try {
+    const { accessToken } = yield select(getToken);
+    const segment = yield select(getSegment);
+    const { getWatched, getWatchedList } = BritboxAccountApi({
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
+
+    const watched = yield call(getWatched);
+    const watchedList = yield call(getWatchedList, {
+      segments: [segment],
+      useCustomId: true,
+      device: getDevice(),
+      sub: 'Subbscriber',
+      page: 1,
+      pageSize: 25,
+      orderBy: 'date-modified',
+    });
+
+    yield put(continueWatchingRequestSuccess({ watched, watchedList }));
+  } catch (error) {
+    yield put(continueWatchingRequestError());
+  }
+}
+
 export default all([
   takeLatest(UserActionTypes.LOGIN_REQUEST, loginRequest),
   takeLatest(UserActionTypes.WATCHLIST_TOGGLE_REQUEST, watchlistToggleRequest),
@@ -523,4 +557,5 @@ export default all([
   takeLatest(UserActionTypes.LOGOUT, logout),
   takeEvery(UserActionTypes.GET_PROFILE_REQUEST, getProfileRequest),
   takeEvery(UserActionTypes.LOGIN_AFTER_REGISTER, loginAfterRegisterRequest),
+  takeEvery(UserActionTypes.CONTINUE_WATCHING_REQUEST, getContinueWatchingRequest),
 ]);

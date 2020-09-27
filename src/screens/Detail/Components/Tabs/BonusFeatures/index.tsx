@@ -18,7 +18,7 @@ interface Props {
 }
 
 const BonusFeatures = ({ onLayout, data, onPlay }: Props) => {
-  const { watched } = useSelector((state: AppState) => state.detail);
+  const { watched } = useSelector((state: AppState) => state.user?.profile || {});
 
   const getCategories = (itemData: MassiveSDKModelEpisodesItem): any[] => {
     const dataResult = [];

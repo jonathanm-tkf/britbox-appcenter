@@ -7,8 +7,7 @@ import ContentLoader, { Rect } from 'react-content-loader/native';
 import { AppState } from '@store/modules/rootReducer';
 import { useSelector } from 'react-redux';
 import { Row } from '@components/Layout';
-import { Headline } from '@components/Typography';
-import { Container, Card } from './styles';
+import { Container, Card, Headline } from './styles';
 
 YellowBox.ignoreWarnings([
   'VirtualizedLists should never be nested', // TODO: Remove when fixed
@@ -94,7 +93,7 @@ const Grid = ({
               </ContentLoader>
             </Container>
           ) : (
-            <Headline>{title}</Headline>
+            <Headline lineHeight={30}>{title}</Headline>
           )}
         </Row>
       )}
