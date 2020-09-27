@@ -51,8 +51,8 @@ const LargeProgramming = ({ item }: Props) => {
         renderItem={({ item: card }: { item: MassiveSDKModelItemSummary }) => (
           <Card
             hasDescription
-            width={157}
-            height={107}
+            width={220}
+            height={124}
             url={getImage(card.images?.tile, 'tile')}
             data={{
               title: card?.title || '',

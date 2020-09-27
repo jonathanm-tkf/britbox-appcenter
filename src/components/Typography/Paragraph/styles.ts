@@ -7,6 +7,7 @@ export const Container = styled.View``;
 interface ParagraphComponentProps {
   fontSize?: number;
   lineHeight?: number;
+  color?: string;
 }
 
 export const ParagraphComponent = styled(Paragraph)`
@@ -26,6 +27,15 @@ export const ParagraphComponent = styled(Paragraph)`
       props.lineHeight &&
       `
       line-height: ${props.lineHeight}px;
+    `
+    );
+  }};
+
+  ${(props: ParagraphComponentProps & ThemeState) => {
+    return (
+      props.color &&
+      `
+      color: ${props.color};
     `
     );
   }};

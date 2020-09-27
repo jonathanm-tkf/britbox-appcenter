@@ -1,3 +1,4 @@
+import { MassiveSDKModelItemSummary } from '@src/sdks/Britbox.API.Content.TS/api';
 import { action } from 'typesafe-actions';
 import { LayoutActionTypes } from './types';
 
@@ -31,3 +32,14 @@ export const autoPlayOff = () => action(LayoutActionTypes.LAYOUT_AUTOPLAY_OFF);
 export const welcomeMessageOn = () => action(LayoutActionTypes.LAYOUT_WELCOME_MESSAGE_ON);
 
 export const welcomeMessageOff = () => action(LayoutActionTypes.LAYOUT_WELCOME_MESSAGE_OFF);
+
+export const castVideoPlayerDetail = ({
+  currentTime,
+  item,
+}: {
+  currentTime: number;
+  item: MassiveSDKModelItemSummary;
+}) => action(LayoutActionTypes.LAYOUT_CAST_VIDEO_PLAYER_DETAIL, { currentTime, item });
+
+export const castVideoPlayerDetailClear = () =>
+  action(LayoutActionTypes.LAYOUT_CAST_VIDEO_PLAYER_DETAIL_CLEAR);

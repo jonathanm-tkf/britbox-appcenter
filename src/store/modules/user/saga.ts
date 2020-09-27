@@ -237,6 +237,7 @@ export function* getProfileRequest() {
   try {
     const { expiresIn } = yield select(getExiresIn);
     const { accessToken } = yield select(getToken);
+    const segment = yield select(getSegment);
     const { refreshToken: refreshTokenState } = yield select(getRefreshToken);
 
     const { response: responseRefreshToken } = yield call(
@@ -250,7 +251,7 @@ export function* getProfileRequest() {
       token = responseRefreshToken.accessToken;
     }
 
-    const { response: responseProfile } = yield call(profile, token);
+    const { response: responseProfile } = yield call(profile, token, segment);
     const { response: responseAccountDetail } = yield call(getAccountDetail, token);
     yield put(profileRequestSuccess({ ...responseProfile, ...responseAccountDetail }));
   } catch (error) {

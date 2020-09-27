@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react-native/no-inline-styles */
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Dimensions, StatusBar, BackHandler, Platform } from 'react-native';
 import Orientation from 'react-native-orientation-locker';
 import { useNavigation, RouteProp, useRoute } from '@react-navigation/native';
@@ -12,7 +12,10 @@ import NetInfo, { NetInfoStateType } from '@react-native-community/netinfo';
 import { getSystemVersion, isTablet } from 'react-native-device-info';
 import { MassiveSDKModelItemSummary } from '@src/sdks/Britbox.API.Content.TS/api';
 import { immersiveModeOn, immersiveModeOff } from 'react-native-android-immersive-mode';
-import { autoPlayOff } from '@store/modules/layout/actions';
+import { autoPlayOff, castVideoPlayerDetail } from '@store/modules/layout/actions';
+import { PostMessage, webViewRef } from '@src/utils/videoPlayerRef';
+import GoogleCast from 'react-native-google-cast';
+import { castDetail } from '@store/modules/core/actions';
 
 const { width, height } = Dimensions.get('window');
 
@@ -30,7 +33,6 @@ const VideoPlayer = () => {
   const refreshToken = useSelector((state: AppState) => state.user?.access?.refreshToken || '');
   const layout = useSelector((state: AppState) => state.layout);
   const segment = useSelector((state: AppState) => state.core.segment);
-  const webViewRef = useRef<any>(undefined);
   const dispatch = useDispatch();
   const [connection, setConnection] = useState<NetInfoStateType | undefined>(undefined);
   const { goBack } = useNavigation();
@@ -43,7 +45,17 @@ const VideoPlayer = () => {
   };
 
   const processMessage = (message: { [name: string]: any }) => {
-    const { close } = message;
+    const { close, chromecast } = message;
+
+    if (chromecast) {
+      GoogleCast.showCastPicker();
+      const { currentTime } = message;
+
+      if (currentTime) {
+        dispatch(castDetail(params.item));
+        dispatch(castVideoPlayerDetail({ currentTime, item: params.item }));
+      }
+    }
 
     if (close) {
       backArrow();
@@ -90,25 +102,23 @@ const VideoPlayer = () => {
 
   const onTrackEvent = () => {
     if (webViewRef.current) {
-      webViewRef.current.postMessage(
-        JSON.stringify({
-          type: 'player',
-          country: segment,
-          connection:
-            connection === 'wifi' && isTablet()
-              ? 'mobile-tablet-main'
-              : connection === 'wifi'
-              ? 'mobile-phone-main'
-              : 'mobile-cellular-main',
-          platform: Platform.OS === 'ios' ? 'iOS' : 'Android',
-          device_name: layout.device,
-          os_version: getSystemVersion(),
-          videoid: params.item.id,
-          staging: true,
-          token,
-          ert: refreshToken,
-        })
-      );
+      PostMessage({
+        type: 'player',
+        country: segment,
+        connection:
+          connection === 'wifi' && isTablet()
+            ? 'mobile-tablet-main'
+            : connection === 'wifi'
+            ? 'mobile-phone-main'
+            : 'mobile-cellular-main',
+        platform: Platform.OS === 'ios' ? 'iOS' : 'Android',
+        device_name: layout.device,
+        os_version: getSystemVersion(),
+        videoid: params.item.id,
+        staging: true,
+        token,
+        ert: refreshToken,
+      });
     }
   };
 

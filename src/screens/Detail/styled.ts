@@ -2,6 +2,7 @@ import styled from 'styled-components/native';
 import { ThemeState } from '@store/modules/theme/types';
 import { getStatusBarHeight, getBottomSpace } from 'react-native-iphone-x-helper';
 import { Platform, Animated } from 'react-native';
+import { rgba } from 'polished';
 
 export const Container = styled.View`
   flex: 1;
@@ -79,5 +80,22 @@ export const InnerContent = styled.View`
 
 export const WrapperBookmarks = styled.View`
   flex-direction: row;
+  margin-top: 20px;
+`;
+
+export const WrapperPin = styled.View`
+  align-items: center;
+  margin-bottom: 30px;
+`;
+
+export const ParagraphChecking = styled.Text`
+  color: ${(props: ThemeState) => rgba(props.theme.PRIMARY_TEXT_COLOR, 0.6)};
+  font-size: 14px;
+  margin-top: 20px;
+`;
+
+export const ParagraphError = styled.Text`
+  color: ${(props: ThemeState) => props.theme.ERROR_COLOR};
+  font-size: 14px;
   margin-top: 20px;
 `;

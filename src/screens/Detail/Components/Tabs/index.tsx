@@ -14,6 +14,7 @@ import { useNavigation } from '@react-navigation/native';
 import { LoadDetailPageResponse } from '@store/modules/detail/types';
 import { hideSheet } from '@src/utils/sheetBottom';
 import { getTextInConfigJSON } from '@src/utils/object';
+import { MassiveSDKModelEpisodesItem } from '@src/sdks/Britbox.API.Content.TS/api';
 import {
   TabsWrapper,
   PreloadTabs,
@@ -31,11 +32,12 @@ type Props = {
   onScrollTo: (y: number) => void;
   onLayout?: (event: any) => void;
   autoPlay: boolean;
+  onPlay: (item: MassiveSDKModelEpisodesItem) => void;
 };
 
 type HeightType = string | number;
 
-const Tabs = ({ data, onScrollTo, onLayout, autoPlay }: Props) => {
+const Tabs = ({ data, onScrollTo, onLayout, autoPlay, onPlay }: Props) => {
   const theme = useSelector((state: AppState) => state.theme.theme);
   const { navigate } = useNavigation();
 
@@ -107,6 +109,7 @@ const Tabs = ({ data, onScrollTo, onLayout, autoPlay }: Props) => {
             data={episodes?.items || []}
             {...{ show, moreInformation, isEpisode: information?.type === 'episode', autoPlay }}
             onScrollTo={(y) => onScrollTo(y)}
+            onPlay={(item) => onPlay(item)}
             onLayout={(event) => {
               if (!ready.episodes) {
                 setFirstHeight(event.nativeEvent.layout.height);
@@ -126,6 +129,7 @@ const Tabs = ({ data, onScrollTo, onLayout, autoPlay }: Props) => {
           <BonusFeatures
             data={moreInformation?.vams || []}
             {...{ show, moreInformation }}
+            onPlay={(item) => onPlay(item)}
             onLayout={(event) => {
               if (!ready.bonus) {
                 setSecondHeight(event.nativeEvent.layout.height);

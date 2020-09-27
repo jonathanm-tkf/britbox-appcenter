@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect, useRef } from 'react';
-import { Animated } from 'react-native';
+import { Animated, Text } from 'react-native';
 import { BackIcon } from '@assets/icons';
 import Card from '@components/Card';
 import { useRoute, useNavigation, RouteProp } from '@react-navigation/native';
@@ -13,7 +13,7 @@ import { loadDetailPage, loadEpisodesBySeason } from '@src/services/detail';
 import { getImage } from '@src/utils/images';
 import { fill } from 'lodash';
 import Bookmark from '@components/Bookmark';
-import { CastVideo } from '@src/services/cast';
+import { CastVideo, getVideoIdAndClassification } from '@src/services/cast';
 import { AppState } from '@store/modules/rootReducer';
 import { useSelector, useDispatch } from 'react-redux';
 import { watchlistToggleRequest } from '@store/modules/user/actions';
@@ -26,6 +26,16 @@ import { castDetail } from '@store/modules/core/actions';
 import { store } from '@store/index';
 import { LayoutState } from '@store/modules/layout/types';
 import { showSheet } from '@src/utils/sheetBottom';
+import { BottomSheetWrapper, Headline, Paragraph } from '@components/Layout';
+import { useTranslation } from 'react-i18next';
+import {
+  CodeField,
+  Cursor,
+  useBlurOnFulfill,
+  useClearByFocusCell,
+} from 'react-native-confirmation-code-field';
+import RBSheet from 'react-native-raw-bottom-sheet';
+import { BritboxAccountApi } from '@src/sdks';
 import {
   Container,
   Scroll,
@@ -36,6 +46,9 @@ import {
   Poster,
   InnerContent,
   WrapperBookmarks,
+  WrapperPin,
+  ParagraphError,
+  ParagraphChecking,
 } from './styled';
 import Header from './Components/Header/intex';
 import Actions from './Components/Actions';
@@ -57,6 +70,12 @@ const getAutoPlay = () => {
   return layout.autoPlay;
 };
 
+interface CellProps {
+  index: number;
+  symbol: string;
+  isFocused: boolean;
+}
+
 const Detail = () => {
   const { params } = useRoute<DetailScreenRouteProp>();
   const { item, seasonModal, autoPlay } = params || undefined;
@@ -65,9 +84,38 @@ const Detail = () => {
   const [tabsOffset, setTabsOffset] = useState(false);
   const [animatedOpacityValue] = useState(new Animated.Value(0));
   const isCast = useSelector((state: AppState) => state.layout.cast);
+  const theme = useSelector((state: AppState) => state.theme.theme);
+  const core = useSelector((state: AppState) => state.core);
   const { navigate } = useNavigation();
-
+  const { t } = useTranslation(['myaccount']);
   const [data, setData] = useState<LoadDetailPageResponse | undefined>(undefined);
+  const [valuePin, setValuePin] = useState('');
+  const [errorValuePin, setErrorValuePin] = useState(false);
+  const [checkingParentalControl, setCheckingParentalControl] = useState(false);
+  const [parentalControlItem, setParentalControlItem] = useState<any>(undefined);
+  const [codeProps, getCellOnLayoutHandler] = useClearByFocusCell({
+    value: valuePin,
+    setValue: setValuePin,
+  });
+  const refPin = useBlurOnFulfill({ value: valuePin, cellCount: 4 });
+  const cell = {
+    width: 60,
+    height: 60,
+    lineHeight: 50,
+    fontSize: 30,
+    borderRadius: 10,
+    marginHorizontal: 15,
+    borderWidth: 2,
+    borderColor: '#202634',
+    backgroundColor: '#202634',
+    color: theme.SECONDARY_FOREGROUND_COLOR,
+    textAlign: 'center',
+    overflow: 'hidden',
+  };
+  const focusCell = {
+    borderColor: theme.SECONDARY_FOREGROUND_COLOR,
+  };
+  const sheetRef = useRef<any>(undefined);
 
   const dispatch = useDispatch();
   const bookmarklist = useSelector(
@@ -92,7 +140,6 @@ const Detail = () => {
     } = await loadDetailPage(path, customId);
     dispatch(detailWatchedSuccess(watched));
     setData(response);
-    // dispatch(detailRequestSuccess(response));
   };
 
   useEffect(() => {
@@ -154,7 +201,6 @@ const Detail = () => {
   }, [seasonModal]);
 
   const back = () => {
-    // goBack();
     navigation.goBack();
   };
 
@@ -170,6 +216,46 @@ const Detail = () => {
       dispatch(autoPlayOff());
     };
   }, []);
+
+  useEffect(() => {
+    if (valuePin !== '' && valuePin.length === 4) {
+      setErrorValuePin(false);
+      setCheckingParentalControl(true);
+      validateParentalControl();
+    } else {
+      setErrorValuePin(false);
+    }
+  }, [valuePin]);
+
+  const validateParentalControl = async () => {
+    const { validateParentalControlPin } = BritboxAccountApi({
+      headers: {
+        Authorization: `Bearer ${core.token}`,
+        'content-type': 'application/json',
+      },
+    });
+
+    const { response: responseValidate, token: pcToken } = await validateParentalControlPin({
+      parentalControlPin: valuePin,
+      itemId: parentalControlItem?.id || '0',
+    });
+
+    if (responseValidate?.validateParentalControlPINResponseMessage?.responseCode === '0') {
+      setCheckingParentalControl(false);
+      setErrorValuePin(true);
+    } else if (
+      sheetRef.current &&
+      responseValidate?.validateParentalControlPINResponseMessage?.responseCode === '1'
+    ) {
+      sheetRef.current!.close();
+      setValuePin('');
+      setCheckingParentalControl(false);
+      dispatch(castDetail(parentalControlItem));
+      return CastVideo(parentalControlItem, pcToken || '');
+    }
+
+    return false;
+  };
 
   const handleScroll = (event: any) => {
     const scrollPosition = event.nativeEvent.contentOffset.y;
@@ -187,7 +273,25 @@ const Detail = () => {
     }
   };
 
-  const onPlay = () => {
+  const renderCell = ({ index, symbol, isFocused }: CellProps) => {
+    let textChild = null;
+    if (symbol) {
+      textChild = symbol;
+    } else if (isFocused) {
+      textChild = <Cursor />;
+    }
+    return (
+      <Text
+        key={index}
+        style={[cell, isFocused && focusCell]}
+        onLayout={getCellOnLayoutHandler(index)}
+      >
+        {textChild}
+      </Text>
+    );
+  };
+
+  const onPlay = async (episode?: any) => {
     if (!user.profile?.canStream || false) {
       dispatch(showSheetBottom());
       showSheet();
@@ -195,10 +299,32 @@ const Detail = () => {
     }
 
     if (isCast) {
-      dispatch(castDetail(item));
-      return CastVideo(item);
-    }
+      const { next } = episode ? {} : await getVideoIdAndClassification(item);
+      const itemPlayback = next || episode || item;
+      setParentalControlItem(itemPlayback);
+      if (user.profile?.parentalControl) {
+        const { checkParentalControl } = BritboxAccountApi({
+          headers: {
+            Authorization: `Bearer ${core.token}`,
+          },
+        });
 
+        const { canStream } = await checkParentalControl({
+          classificationName: itemPlayback.classification?.name || '',
+          segment: core.segment,
+        });
+
+        if (!canStream) {
+          if (sheetRef.current) {
+            sheetRef.current.open();
+          }
+          return true;
+        }
+      }
+
+      dispatch(castDetail(next || item));
+      return CastVideo(next || item);
+    }
     return navigation.navigate('VideoPlayer', { item });
   };
 
@@ -314,6 +440,7 @@ const Detail = () => {
         <Tabs
           {...{ data, autoPlay }}
           onScrollTo={(y) => onScrollTo(y)}
+          onPlay={(itemPlay) => onPlay(itemPlay)}
           onLayout={(event) => {
             const {
               layout: { y },
@@ -322,6 +449,50 @@ const Detail = () => {
           }}
         />
       </Scroll>
+      <RBSheet
+        ref={sheetRef}
+        height={280}
+        closeOnDragDown
+        closeOnPressMask={false}
+        customStyles={{
+          container: {
+            alignItems: 'center',
+            borderTopRightRadius: 15,
+            borderTopLeftRadius: 15,
+          },
+          draggableIcon: {
+            backgroundColor: theme.PRIMARY_TEXT_COLOR_OPAQUE,
+            width: 50,
+            marginTop: 20,
+          },
+        }}
+        onClose={() => {}}
+      >
+        <BottomSheetWrapper>
+          <Headline center color={theme.PRIMARY_TEXT_COLOR}>
+            {t('myaccount:parentalcontrols:title')}
+          </Headline>
+          <WrapperPin>
+            <Paragraph>{t('myaccount:parentalcontrols:enter')}</Paragraph>
+            <CodeField
+              ref={refPin}
+              {...codeProps}
+              value={valuePin}
+              onChangeText={setValuePin}
+              cellCount={4}
+              keyboardType="number-pad"
+              textContentType="oneTimeCode"
+              renderCell={renderCell}
+            />
+            {checkingParentalControl && (
+              <ParagraphChecking>{t('myaccount:parentalcontrols:checking')}</ParagraphChecking>
+            )}
+            {errorValuePin && (
+              <ParagraphError>{t('myaccount:parentalcontrols:errorpin')}</ParagraphError>
+            )}
+          </WrapperPin>
+        </BottomSheetWrapper>
+      </RBSheet>
     </Container>
   );
 };

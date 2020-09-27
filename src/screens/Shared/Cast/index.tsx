@@ -8,6 +8,10 @@ import { AppState } from '@store/modules/rootReducer';
 import { castDetailClear, castingOff, castingOn } from '@store/modules/core/actions';
 import { ChromecastIcon } from '@assets/icons';
 import { getImage } from '@src/utils/images';
+// import { PostMessage } from '@src/utils/videoPlayerRef';
+import { store } from '@store/index';
+import { CastDetail, LayoutState } from '@store/modules/layout/types';
+import { CastVideo } from '@src/services/cast';
 import {
   CastButton,
   FABView,
@@ -19,10 +23,15 @@ import {
   MiniExpandButton,
 } from './styles';
 
+const getItemCastDetail = () => {
+  const { layout }: { layout: LayoutState } = store.getState();
+  return layout?.castDetail || {};
+};
+
 const Cast = () => {
   const dispatch = useDispatch();
   const [showButton, setShowButton] = useState(false);
-  const cast = useSelector((state: AppState) => state.layout.cast);
+  const { cast } = useSelector((state: AppState) => state.layout);
   const theme = useSelector((state: AppState) => state.theme.theme);
   const casting = useSelector((state: AppState) => state.core.casting);
   const castDetail = useSelector((state: AppState) => state.core.castDetail);
@@ -41,6 +50,12 @@ const Cast = () => {
         if (event === 'SESSION_STARTED') {
           dispatch(castOn());
           timer();
+
+          const { currentTime, item } = getItemCastDetail() as CastDetail;
+
+          if (currentTime && item) {
+            CastVideo(item);
+          }
         }
 
         if (event === 'SESSION_ENDED') {
@@ -74,15 +89,45 @@ const Cast = () => {
   useEffect(() => {
     registerListeners();
 
-    GoogleCast.getCastState().then((state) => {
-      if (state === 'NoDevicesAvailable') {
-        setShowButton(false);
-      } else {
-        setShowButton(true);
-      }
-      dispatch(state === 'NotConnected' || state === 'NoDevicesAvailable' ? castOff() : castOn());
-    });
+    const intervalCheckChromecast = setInterval(() => {
+      GoogleCast.getCastState().then((state) => {
+        if (state === 'NoDevicesAvailable') {
+          setShowButton(false);
+          // TODO: check this
+          // PostMessage({
+          //   type: 'chromecast',
+          //   value: false,
+          // });
+        } else {
+          setShowButton(true);
+          // TODO: check this
+
+          // PostMessage({
+          //   type: 'chromecast',
+          //   value: true,
+          // });
+        }
+        dispatch(state === 'NotConnected' || state === 'NoDevicesAvailable' ? castOff() : castOn());
+      });
+    }, 1000);
+
+    return () => {
+      clearInterval(intervalCheckChromecast);
+    };
   }, []);
+
+  useEffect(() => {
+    GoogleCast.getCastDevice().then((device) => {
+      if (device) {
+        try {
+          // GoogleCast.launchExpandedControls();
+          // TODO: check this
+        } catch (error) {
+          //
+        }
+      }
+    });
+  }, [casting]);
 
   return showButton ? (
     <>

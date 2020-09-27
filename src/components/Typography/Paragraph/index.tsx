@@ -7,12 +7,15 @@ interface Props {
   fontSize?: number;
   lineHeight?: number;
   style?: any;
+  color?: string;
 }
 
-const Title = ({ children, fontSize, lineHeight, style, ...rest }: Props) => {
+const Title = ({ children, fontSize, lineHeight, color, style, ...rest }: Props) => {
   return (
     <Container>
-      <ParagraphComponent {...{ fontSize, lineHeight, style, rest }}>{children}</ParagraphComponent>
+      <ParagraphComponent {...{ fontSize, lineHeight, color, style, rest }}>
+        {children}
+      </ParagraphComponent>
     </Container>
   );
 };

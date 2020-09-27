@@ -31,6 +31,7 @@ import {
   BritboxDataEvergentModelsGetParentalControlDetailsResponseMessageBaseResponse,
   BritboxAPIAccountModelsProfileUpdateParentalControlDetailsRequest,
 } from '@src/sdks/Britbox.API.Account.TS/api';
+import { parentalControlOff, parentalControlOn } from '@store/modules/user/actions';
 import {
   Container,
   TitleWrapper,
@@ -82,7 +83,7 @@ const defaultParentalControlDetail: BritboxDataEvergentModelsGetParentalControlD
 export default function ParentalControls() {
   const dispatch = useDispatch();
   const { t } = useTranslation(['myaccount', 'signup', 'layout']);
-  const [password, setPassword] = useState('');
+  const [password, setPassword] = useState(__DEV__ ? '8Ub4cYAiM77EzJY' : '');
   const [isAuthorize, setIsAuthorize] = useState(false);
   const [isSliding, setIsSliding] = useState(false);
   const [parentalControlDetail, setParentalControlDetail] = useState(defaultParentalControlDetail);
@@ -342,6 +343,9 @@ export default function ParentalControls() {
       if (responseData && Number(responseData.responseCode) === 1) {
         if (parentalControl === 'true') {
           setIsSuccess(true);
+          dispatch(parentalControlOn());
+        } else {
+          dispatch(parentalControlOff());
         }
         dispatch(
           atiEventTracking('submit', 'bb_profile_edit', {

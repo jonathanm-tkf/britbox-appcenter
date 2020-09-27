@@ -15,7 +15,11 @@ if (__DEV__) {
     createSocket: (path) => new ReactotronFlipper(path),
   })
     .useReactNative({})
-    .use(reactotronRedux())
+    .use(
+      reactotronRedux({
+        except: ['@layout/LAYOUT_LOADING_CAST_ON', '@layout/LAYOUT_LOADING_CAST_OFF'],
+      })
+    )
     .use(reactotronSaga({}))
     .connect();
 

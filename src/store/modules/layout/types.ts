@@ -2,6 +2,8 @@
  * Data types
  */
 
+import { MassiveSDKModelItemSummary } from '@src/sdks/Britbox.API.Content.TS/api';
+
 /**
  * Action types
  */
@@ -23,6 +25,8 @@ export enum LayoutActionTypes {
   LAYOUT_AUTOPLAY_OFF = '@layout/LAYOUT_AUTOPLAY_OFF',
   LAYOUT_WELCOME_MESSAGE_ON = '@layout/LAYOUT_WELCOME_MESSAGE_ON',
   LAYOUT_WELCOME_MESSAGE_OFF = '@layout/LAYOUT_WELCOME_MESSAGE_OFF',
+  LAYOUT_CAST_VIDEO_PLAYER_DETAIL = '@layout/LAYOUT_CAST_VIDEO_PLAYER_DETAIL',
+  LAYOUT_CAST_VIDEO_PLAYER_DETAIL_CLEAR = '@layout/LAYOUT_CAST_VIDEO_PLAYER_DETAIL_CLEAR',
 }
 
 /**
@@ -32,7 +36,8 @@ export enum LayoutActionTypes {
 export interface LayoutState {
   loading: boolean;
   out: boolean;
-  cast: boolean;
+  cast: boolean | undefined;
+  castDetail: CastDetail | undefined;
   connection: string | undefined;
   sheet: {
     content: () => JSX.Element | null;
@@ -188,3 +193,8 @@ export interface ResponseHeaders {
 }
 
 export interface Upload {}
+
+export interface CastDetail {
+  currentTime: number;
+  item: MassiveSDKModelItemSummary;
+}

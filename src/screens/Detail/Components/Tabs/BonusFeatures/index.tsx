@@ -6,29 +6,18 @@ import {
 } from '@src/sdks/Britbox.API.Content.TS/api';
 import { getImage } from '@src/utils/images';
 import { getDuration } from '@src/utils/template';
-import { useNavigation } from '@react-navigation/native';
-import { CastVideo } from '@src/services/cast';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { AppState } from '@store/modules/rootReducer';
-import { showSheetBottom } from '@store/modules/layout/actions';
-// import { Show, MoreInformation } from '@store/modules/detail/types';
-import { castDetail } from '@store/modules/core/actions';
 import { pickBy } from 'lodash';
-import { showSheet } from '@src/utils/sheetBottom';
 import { Container } from './styles';
 
 interface Props {
   onLayout?: (event: any) => void;
   data: MassiveSDKModelEpisodesItem[];
-  // show: Show | undefined;
-  // moreInformation: MoreInformation | undefined;
+  onPlay: (item: MassiveSDKModelEpisodesItem) => void;
 }
 
-const BonusFeatures = ({ onLayout, data }: Props) => {
-  const { navigate } = useNavigation();
-  const dispatch = useDispatch();
-  const isCast = useSelector((state: AppState) => state.layout.cast);
-  const user = useSelector((state: AppState) => state.user);
+const BonusFeatures = ({ onLayout, data, onPlay }: Props) => {
   const { watched } = useSelector((state: AppState) => state.detail);
 
   const getCategories = (itemData: MassiveSDKModelEpisodesItem): any[] => {
@@ -59,21 +48,6 @@ const BonusFeatures = ({ onLayout, data }: Props) => {
       }
     }
     return dataResult;
-  };
-
-  const onPlay = (item: MassiveSDKModelEpisodesItem) => {
-    if (!user?.profile?.canStream || false) {
-      dispatch(showSheetBottom());
-      showSheet();
-      return false;
-    }
-
-    if (isCast) {
-      dispatch(castDetail(item));
-      return CastVideo(item);
-    }
-
-    return navigate('VideoPlayer', { item });
   };
 
   const getMediaDuration = (media: MassiveSDKModelMedia[]) => {

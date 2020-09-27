@@ -10,12 +10,7 @@ import {
   MassiveSDKModelItemSummary,
 } from '@src/sdks/Britbox.API.Account.TS/api';
 import { getImage } from '@src/utils/images';
-import {
-  autoPlayOn,
-  hideSheetBottom,
-  sheetComponent,
-  showSheetBottom,
-} from '@store/modules/layout/actions';
+import { autoPlayOn, sheetComponent, showSheetBottom } from '@store/modules/layout/actions';
 import { pickBy } from 'lodash';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
@@ -25,6 +20,7 @@ import { Button } from '@components/Button';
 import { store } from '@store/index';
 import { LayoutState } from '@store/modules/layout/types';
 import { continueWatchingRemoveRequest, watchlistToggleRequest } from '@store/modules/user/actions';
+import { hideSheet, showSheet } from '@src/utils/sheetBottom';
 import { BottomSheetWrapper, Headline } from './styles';
 
 const getItemId = () => {
@@ -135,12 +131,12 @@ const ContinueWatching = () => {
 
   const removeItemContinueWatching = () => {
     dispatch(continueWatchingRemoveRequest({ itemId: getItemId() }));
-    dispatch(hideSheetBottom());
+    hideSheet();
   };
 
   const removeItemWatchlist = () => {
     dispatch(watchlistToggleRequest({ itemId: getItemId(), isInWatchlist: true }));
-    dispatch(hideSheetBottom());
+    hideSheet();
   };
 
   const renderBottomContentContinueWatching = () => (
@@ -163,7 +159,7 @@ const ContinueWatching = () => {
         size="big"
         fontWeight="medium"
         onPress={() => {
-          dispatch(hideSheetBottom());
+          hideSheet();
         }}
       >
         {t('home:remove.button.cancel')}
@@ -191,7 +187,7 @@ const ContinueWatching = () => {
         size="big"
         fontWeight="medium"
         onPress={() => {
-          dispatch(hideSheetBottom());
+          hideSheet();
         }}
       >
         {t('watchlist:remove.button.cancel')}
@@ -204,6 +200,7 @@ const ContinueWatching = () => {
       dispatch(sheetComponent(300, () => renderBottomContentContinueWatching()));
     }
     dispatch(showSheetBottom({ itemId: item?.id || '0' }));
+    showSheet();
   };
 
   const showSheetBottomContentWatchlist = (item: MassiveSDKModelItemSummary) => {
@@ -211,6 +208,7 @@ const ContinueWatching = () => {
       dispatch(sheetComponent(300, () => renderBottomContentWatchlist()));
     }
     dispatch(showSheetBottom({ itemId: item?.id || '0' }));
+    showSheet();
   };
 
   useEffect(() => {

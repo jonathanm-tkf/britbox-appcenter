@@ -6,13 +6,9 @@ import { getDuration } from '@src/utils/template';
 import { ArrowBottomIcon, DiscoverMoreIcon } from '@assets/icons';
 import { useNavigation } from '@react-navigation/native';
 import { AppState } from '@store/modules/rootReducer';
-import { useDispatch, useSelector } from 'react-redux';
-import { CastVideo } from '@src/services/cast';
-import { showSheetBottom } from '@store/modules/layout/actions';
+import { useSelector } from 'react-redux';
 import { pickBy } from 'lodash';
 import { MoreInformation, Show } from '@store/modules/detail/types';
-import { castDetail } from '@store/modules/core/actions';
-import { showSheet } from '@src/utils/sheetBottom';
 import { Container, ContainerFilter, SeasonButton, SeasonText, InformationButton } from './styles';
 
 interface Props {
@@ -23,6 +19,7 @@ interface Props {
   isEpisode: boolean;
   onScrollTo: (y: number) => void;
   autoPlay: boolean;
+  onPlay: (item: MassiveSDKModelEpisodesItem) => void;
 }
 
 const Episodes = ({
@@ -33,12 +30,10 @@ const Episodes = ({
   isEpisode,
   onScrollTo,
   autoPlay,
+  onPlay,
 }: Props) => {
   const { navigate } = useNavigation();
-  const user = useSelector((state: AppState) => state.user);
   const { watched } = useSelector((state: AppState) => state.detail);
-  const dispatch = useDispatch();
-  const isCast = useSelector((state: AppState) => state.layout.cast);
 
   const getCategories = (itemData: MassiveSDKModelEpisodesItem): any[] => {
     const dataResult = [];
@@ -72,21 +67,6 @@ const Episodes = ({
 
   const goToModalSeasons = (showData: Show) => {
     navigate('ModalSeasons', { show: showData });
-  };
-
-  const onPlay = (item: MassiveSDKModelEpisodesItem) => {
-    if (!user?.profile?.canStream || false) {
-      dispatch(showSheetBottom());
-      showSheet();
-      return false;
-    }
-
-    if (isCast) {
-      dispatch(castDetail(item));
-      return CastVideo(item);
-    }
-
-    return navigate('VideoPlayer', { item });
   };
 
   const goToMoreInformation = () => {

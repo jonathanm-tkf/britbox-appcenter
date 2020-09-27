@@ -32,7 +32,10 @@
     "setPINDesc": "Your PIN will be set across all browsers and devices when you access BritBox programmes.",
     "clearall": "Clear all",
     "PINerror": "Pin must be 4 digits.",
-    "levelText": "Step 2: Set level for viewing restriction"
+    "levelText": "Step 2: Set level for viewing restriction",
+    "enter": "Enter your 4 digit PIN",
+    "errorpin": "Invalid PIN Code",
+    "checking": "Checking ..."
   },
   "help": "Help",
   "termscondition": "Terms & Conditions",

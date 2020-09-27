@@ -107,6 +107,22 @@ const user: Reducer<UserState> = (state = initialState, action) => {
         draft.profile = profile;
         break;
       }
+      case UserActionTypes.PROFILE_PARENTAL_CONTROL_ON: {
+        const profile = {
+          ...state.profile,
+          parentalControl: true,
+        };
+        draft.profile = profile;
+        break;
+      }
+      case UserActionTypes.PROFILE_PARENTAL_CONTROL_OFF: {
+        const profile = {
+          ...state.profile,
+          parentalControl: false,
+        };
+        draft.profile = profile;
+        break;
+      }
       default:
         break;
     }

@@ -7,7 +7,8 @@ import { HomeActionTypes } from '../home/types';
 export const initialState: LayoutState = {
   loading: true,
   out: false,
-  cast: false,
+  cast: undefined,
+  castDetail: undefined,
   connection: undefined,
   sheet: {
     content: () => null,
@@ -86,6 +87,15 @@ const layout: Reducer<LayoutState> = (state = initialState, action) => {
         break;
       case LayoutActionTypes.LAYOUT_WELCOME_MESSAGE_OFF:
         draft.welcomeMessage = false;
+        break;
+      case LayoutActionTypes.LAYOUT_CAST_VIDEO_PLAYER_DETAIL_CLEAR:
+        draft.castDetail = undefined;
+        break;
+      case LayoutActionTypes.LAYOUT_CAST_VIDEO_PLAYER_DETAIL:
+        draft.castDetail = {
+          currentTime: action.payload.currentTime,
+          item: action.payload.item,
+        };
         break;
       default:
         break;
