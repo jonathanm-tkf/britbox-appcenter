@@ -15,6 +15,7 @@ target 'Britbox' do
 
   # pod 'google-cast-sdk'
   # pod 'react-native-google-cast/NoBluetooth', path: '../node_modules/react-native-google-cast/ios'
+  # pod 'google-cast-sdk-no-bluetooth'
   # Enables Flipper.
   #
   # Note that if you have use_frameworks! enabled, Flipper will not work and

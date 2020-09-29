@@ -27,7 +27,7 @@ const Popular = ({ item }: Props) => {
   };
 
   return (
-    <>
+    <Container>
       <Row>
         {item.title === 'loading' ? (
           <Container>
@@ -56,7 +56,7 @@ const Popular = ({ item }: Props) => {
           />
         )}
       />
-    </>
+    </Container>
   );
 };
 

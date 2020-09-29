@@ -51,7 +51,8 @@ export type MoreInformation = {
   description: string;
   season: string;
   year: number | undefined;
-  vams: Record<string, unknown>[] | undefined;
+  vams: any[] | undefined;
+  trailers: any[] | undefined;
 };
 
 export type LoadDetailPageResponse = {

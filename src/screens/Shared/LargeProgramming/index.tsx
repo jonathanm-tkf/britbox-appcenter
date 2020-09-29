@@ -25,7 +25,7 @@ const LargeProgramming = ({ item }: Props) => {
   const { t } = useTranslation('home');
   const theme = useSelector((state: AppState) => state.theme.theme);
   const goToDetail = (card: MassiveSDKModelItemList) => {
-    navigateByPath(card);
+    navigateByPath(card, card.type === 'episode');
   };
 
   return (
@@ -50,13 +50,22 @@ const LargeProgramming = ({ item }: Props) => {
         listProps={{ horizontal: true }}
         renderItem={({ item: card }: { item: MassiveSDKModelItemSummary }) => (
           <Card
+            isEpisode={card.type === 'episode'}
             hasDescription
             width={220}
             height={124}
-            url={getImage(card.images?.tile, 'tile')}
+            url={getImage(
+              card.type === 'episode' ? card.images?.wallpaper : card.images?.tile,
+              'wallpaper'
+            )}
             data={{
-              title: card?.title || '',
-              description: card.type === 'movie' ? t('movie') : t('show'),
+              // title: card?.title || '',
+              // description: card.type === 'movie' ? t('movie') : t('show'),
+              title: card.type === 'episode' ? card?.showTitle || '' : card?.title || '',
+              description:
+                card.type === 'episode'
+                  ? `${card.seasonTitle}・${card.episodeName}`
+                  : `${card.type === 'movie' ? t('movie') : t('show')}`,
             }}
             onPress={() => ((item?.list?.title || '') !== 'loading' ? goToDetail(card) : {})}
           />

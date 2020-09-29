@@ -12,7 +12,7 @@ import { MassiveSDKModelItemList } from '@src/sdks/Britbox.API.Content.TS/api';
 import {
   Container,
   Gradient,
-  GradientTop,
+  // GradientTop,
   Actions,
   ActionButton,
   ActionText,
@@ -23,6 +23,8 @@ import {
   PaginationContent,
   WrapperButton,
   Wrapper,
+  // SpaceLink,
+  DiscoverMoreText,
 } from './styles';
 
 interface Props {
@@ -63,7 +65,7 @@ const Outstanding = ({ items, onPlay, onWatchlist, onDiscoverMore }: Props) => {
         {items.map((item: any, key: any) => (
           <Slider key={key.toString()}>
             <Container>
-              <GradientTop />
+              {/* <GradientTop /> */}
               {item.url === 'no-image' ? (
                 <LogoWrapper>
                   <Logo width="80%" />
@@ -76,34 +78,42 @@ const Outstanding = ({ items, onPlay, onWatchlist, onDiscoverMore }: Props) => {
               <Gradient />
             </Container>
             <Actions>
+              {item.type !== 'link' && (
+                <>
+                  <ActionButton
+                    onPress={() =>
+                      onWatchlist
+                        ? onWatchlist(
+                            item,
+                            getIsInWatchlist(
+                              item.type === 'season' ? item?.showId || '0' : item?.id || '0'
+                            )
+                          )
+                        : {}
+                    }
+                  >
+                    {getIsInWatchlist(
+                      item.type === 'season' ? item?.showId || '0' : item?.id || '0'
+                    ) ? (
+                      <CheckedIcon fill="#FFFFFF" width={32} height={32} />
+                    ) : (
+                      <WatchlistIcon width={32} height={32} />
+                    )}
+                  </ActionButton>
+                  <ActionButton onPress={() => (onPlay ? onPlay(item) : {})}>
+                    <Action autoPlay loop width={100} height={100} />
+                  </ActionButton>
+                </>
+              )}
               <ActionButton
-                onPress={() =>
-                  onWatchlist
-                    ? onWatchlist(
-                        item,
-                        getIsInWatchlist(
-                          item.type === 'season' ? item?.showId || '0' : item?.id || '0'
-                        )
-                      )
-                    : {}
-                }
+                link={item.type === 'link'}
+                onPress={() => (onDiscoverMore ? onDiscoverMore(item) : {})}
               >
-                {getIsInWatchlist(
-                  item.type === 'season' ? item?.showId || '0' : item?.id || '0'
-                ) ? (
-                  <CheckedIcon fill="#FFFFFF" width={32} height={32} />
-                ) : (
-                  <WatchlistIcon width={32} height={32} />
-                )}
-              </ActionButton>
-              <ActionButton onPress={() => (onPlay ? onPlay(item) : {})}>
-                <Action autoPlay loop width={100} height={100} />
-              </ActionButton>
-              <ActionButton onPress={() => (onDiscoverMore ? onDiscoverMore(item) : {})}>
                 <DiscoverMoreIcon width={32} height={32} />
+                {item.type === 'link' && <DiscoverMoreText>{t('discover')}</DiscoverMoreText>}
               </ActionButton>
             </Actions>
-            <ActionText>{t('playnow')}</ActionText>
+            {item.type !== 'link' && <ActionText>{t('playnow')}</ActionText>}
           </Slider>
         ))}
       </Swiper>

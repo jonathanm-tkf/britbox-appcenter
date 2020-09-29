@@ -36,11 +36,14 @@ import {
 } from 'react-native-confirmation-code-field';
 import RBSheet from 'react-native-raw-bottom-sheet';
 import { BritboxAccountApi } from '@src/sdks';
+import Action from '@components/Action';
 import {
   Container,
   Scroll,
   TopWrapper,
   Button,
+  ButtonTrailer,
+  ButtonTrailerText,
   TopText,
   BackgroundTop,
   Poster,
@@ -87,7 +90,7 @@ const Detail = () => {
   const theme = useSelector((state: AppState) => state.theme.theme);
   const core = useSelector((state: AppState) => state.core);
   const { navigate } = useNavigation();
-  const { t } = useTranslation(['myaccount']);
+  const { t } = useTranslation(['myaccount', 'detail']);
   const [data, setData] = useState<LoadDetailPageResponse | undefined>(undefined);
   const [valuePin, setValuePin] = useState('');
   const [errorValuePin, setErrorValuePin] = useState(false);
@@ -322,10 +325,16 @@ const Detail = () => {
         }
       }
 
-      dispatch(castDetail(next || item));
-      return CastVideo(next || item);
+      dispatch(castDetail(next || episode || item));
+      return CastVideo(next || episode || item);
     }
     return navigation.navigate('VideoPlayer', { item });
+  };
+
+  const playTrailer = () => {
+    return navigation.navigate('VideoPlayer', {
+      item: data ? data?.moreInformation?.trailers.reduce((trailer) => trailer) : {},
+    });
   };
 
   const getCategories = (information: any): any[] => {
@@ -435,6 +444,12 @@ const Detail = () => {
                 </Bookmark>
               ))}
             </WrapperBookmarks>
+          )}
+          {data && (data.moreInformation?.trailers || []).length > 0 && (
+            <ButtonTrailer onPress={() => playTrailer()}>
+              <Action isTrailer width={40} height={40} loop={false} autoPlay={false} />
+              <ButtonTrailerText>{t('detail:trailer')}</ButtonTrailerText>
+            </ButtonTrailer>
           )}
         </InnerContent>
         <Tabs

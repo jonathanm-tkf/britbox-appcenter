@@ -44,5 +44,6 @@
     "title": "You're offline",
     "message": "Please, check your connection.",
     "button": "Try again"
-  }
+  },
+  "discover": "Discover more"
 }

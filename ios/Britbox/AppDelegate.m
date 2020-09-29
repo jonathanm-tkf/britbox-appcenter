@@ -58,7 +58,13 @@ static void InitializeFlipper(UIApplication *application) {
   
   GCKDiscoveryCriteria *criteria = [[GCKDiscoveryCriteria alloc] initWithApplicationID:@"01F2D9B4"];
   GCKCastOptions* options = [[GCKCastOptions alloc] initWithDiscoveryCriteria:criteria];
+  options.physicalVolumeButtonsWillControlDeviceVolume = YES;
+  //options.disableDiscoveryAutostart = NO;
   [GCKCastContext setSharedInstanceWithOptions:options];
+  //GCKDiscoveryManager *discoverManager = [GCKDiscoveryManager init];
+  //void pepe = discoverManager.startDiscovery();
+  [[GCKDiscoveryManager alloc] startDiscovery];
+  // [GCKCastContext sharedInstance].useDefaultExpandedMediaControls = YES;
 
   return YES;
 }

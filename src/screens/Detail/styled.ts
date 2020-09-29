@@ -99,3 +99,20 @@ export const ParagraphError = styled.Text`
   font-size: 14px;
   margin-top: 20px;
 `;
+
+export const ButtonTrailer = styled.TouchableOpacity`
+  border-radius: 5px;
+  background-color: ${(props: ThemeState) => props.theme.PRIMARY_COLOR_OPAQUE};
+  margin-top: 20px;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  padding-top: 5px;
+  padding-bottom: 5px;
+`;
+
+export const ButtonTrailerText = styled.Text`
+  color: ${(props: ThemeState) => props.theme.SECONDARY_COLOR_LIGHT};
+  font-family: ${(props: ThemeState) => props.theme.PRIMARY_FONT_FAMILY_MEDIUM};
+  margin-left: 5px;
+`;

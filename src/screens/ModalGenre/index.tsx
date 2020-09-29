@@ -7,7 +7,6 @@ import { TouchableOpacity } from 'react-native';
 import { Header } from '@store/modules/core/types';
 import { useSelector } from 'react-redux';
 import { AppState } from '@store/modules/rootReducer';
-import { useTranslation } from 'react-i18next';
 import {
   Container,
   CloseButton,
@@ -17,7 +16,7 @@ import {
   SeasonItemText,
   SeasonWrapper,
   Indicator,
-  GenreTitle,
+  // GenreTitle,
 } from './styles';
 
 type RootParamList = {
@@ -29,7 +28,6 @@ type RootParamList = {
 type ModalGenreScreenRouteProp = RouteProp<RootParamList, 'ModalGenre'>;
 
 const ModalGenre = () => {
-  const { t } = useTranslation('layout');
   const { params } = useRoute<ModalGenreScreenRouteProp>();
   const { goBack, navigate } = useNavigation();
   const menu = useSelector((state: AppState) => state.core?.menu?.navigation?.header);
@@ -72,7 +70,7 @@ const ModalGenre = () => {
       {items.length > 0 && (
         <FlatList
           data={items}
-          ListHeaderComponent={() => <GenreTitle>{t('genre')}</GenreTitle>}
+          // ListHeaderComponent={() => <GenreTitle>{t('genre')}</GenreTitle>}
           renderItem={renderItem}
           keyExtractor={(_, index: number) => `${index.toString()}_flatList`}
         />

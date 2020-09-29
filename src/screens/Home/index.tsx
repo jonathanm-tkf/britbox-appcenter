@@ -104,8 +104,10 @@ const Item = () => {
   const dispatch = useDispatch();
 
   const modal = (item: MassiveSDKModelItemSummary) => {
-    dispatch(autoPlayOn());
-    return navigateByPath(item, true);
+    if (item.type !== 'link') {
+      dispatch(autoPlayOn());
+    }
+    return navigateByPath(item, item.type !== 'link');
   };
   const home = useSelector((state: AppState) => state.home.data);
 

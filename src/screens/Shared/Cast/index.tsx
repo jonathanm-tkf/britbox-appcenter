@@ -89,6 +89,7 @@ const Cast = () => {
 
   useEffect(() => {
     registerListeners();
+    // GoogleCast.showIntroductoryOverlay();
 
     const intervalCheckChromecast = setInterval(() => {
       GoogleCast.getCastState().then((state) => {
@@ -102,7 +103,6 @@ const Cast = () => {
         } else {
           setShowButton(true);
           // TODO: check this
-
           // PostMessage({
           //   type: 'chromecast',
           //   value: true,
@@ -121,7 +121,7 @@ const Cast = () => {
     GoogleCast.getCastDevice().then((device) => {
       if (device) {
         try {
-          // GoogleCast.launchExpandedControls();
+          GoogleCast.launchExpandedControls();
           // TODO: check this
         } catch (error) {
           //

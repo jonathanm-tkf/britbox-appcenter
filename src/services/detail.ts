@@ -75,6 +75,7 @@ const processDetailPage = async (
     season: '',
     vams: undefined,
     year: undefined,
+    trailers: undefined,
   };
 
   let episodesResponse;
@@ -113,6 +114,7 @@ const processDetailPage = async (
       moreInformationResponse.season = entries?.item?.contextualTitle || '';
       moreInformationResponse.vams = entries?.item?.show?.vams;
       moreInformationResponse.year = entries?.item?.releaseYear;
+      moreInformationResponse.trailers = entries?.item?.trailers;
     }
   }
 

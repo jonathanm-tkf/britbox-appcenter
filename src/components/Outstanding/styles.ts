@@ -44,8 +44,23 @@ export const Actions = styled.View`
   flex-direction: row;
 `;
 
+type ActionButtonProps = {
+  link?: boolean;
+};
+
 export const ActionButton = styled.TouchableOpacity`
   padding: 10px;
+  flex-direction: row;
+  align-items: center;
+
+  ${(props: ActionButtonProps) => {
+    return (
+      props.link &&
+      `
+      min-height: 150px;
+    `
+    );
+  }};
 `;
 
 export const ActionText = styled.Text`
@@ -108,4 +123,15 @@ export const WrapperButton = styled.TouchableWithoutFeedback``;
 
 export const Wrapper = styled.View`
   flex: 1;
+`;
+
+export const SpaceLink = styled.View`
+  width: 32px;
+  height: 32px;
+`;
+
+export const DiscoverMoreText = styled.Text`
+  color: ${(props: ThemeState) => props.theme.PRIMARY_FOREGROUND_COLOR};
+  font-size: 16px;
+  margin-left: 15px;
 `;

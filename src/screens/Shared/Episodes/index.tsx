@@ -13,7 +13,7 @@ import { useSelector } from 'react-redux';
 import { AppState } from '@store/modules/rootReducer';
 import ContentLoader, { Rect } from 'react-content-loader/native';
 import { navigateByPath } from '@src/navigation/rootNavigation';
-import { getDuration } from '@src/utils/template';
+import { useTranslation } from 'react-i18next';
 import { Container } from './styles';
 
 type Props = {
@@ -22,9 +22,10 @@ type Props = {
 
 const Episodes = ({ item }: Props) => {
   const theme = useSelector((state: AppState) => state.theme.theme);
+  const { t } = useTranslation('home');
 
   const goToDetail = (card: any) => {
-    navigateByPath(card, true);
+    navigateByPath(card, card.type === 'episode');
   };
 
   return (
@@ -51,6 +52,7 @@ const Episodes = ({ item }: Props) => {
           return (
             <Card
               isEpisode={card.type === 'episode'}
+              hasDescription
               width={187}
               height={105}
               url={getImage(
@@ -64,7 +66,7 @@ const Episodes = ({ item }: Props) => {
                 description:
                   card.type === 'episode'
                     ? `${card.seasonTitle}・${card.episodeName}`
-                    : `${getDuration(card?.duration || 0)} min`,
+                    : `${card.type === 'movie' ? t('movie') : t('show')}`,
                 // description:
                 //   card.type === 'movie'
                 //     ? card.shortDescription || ''

@@ -43,7 +43,6 @@ export function* getConfig() {
     const { response: config }: { response: { location: string } } = yield call(getConfigSDK);
     yield put(configRequestSuccess(config.location));
   } catch (error) {
-    // console.tron.log({ error });
     yield put(configRequestError());
     // yield put(configRequestSuccess('us'));
   }

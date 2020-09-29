@@ -180,7 +180,7 @@ export const CastVideo = async (item: MassiveSDKModelEpisodesItem, pcToken?: str
     //   posterUrl: getImage(item?.images?.square, 'wallpaper'),
     // };
 
-    // GoogleCast.getCastDevice().then((device) => {
+    // await GoogleCast.getCastDevice().then((device) => {
     //   if (device) {
     //     // GoogleCast.initChannel('urn:x-cast:com.reactnative.googlecast.britbox');
     //     GoogleCast.castMedia(video);

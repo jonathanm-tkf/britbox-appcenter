@@ -50,13 +50,16 @@ export const MiniController = styled.View`
 
 export const MiniImage = styled.Image`
   width: 120px;
-  height: 100%;
+  height: 70px;
   background-color: ${(props: ThemeState) => props.theme.SECONDARY_COLOR};
 `;
 
 export const MiniWrapperText = styled.View`
   padding-left: 10px;
   padding-right: 10px;
+  align-content: center;
+  justify-content: center;
+  flex: 1;
 `;
 
 export const MiniTitle = styled.Text`
@@ -69,7 +72,10 @@ export const MiniSubtitle = styled.Text`
   font-size: 10px;
 `;
 
-export const MiniExpandButton = styled.TouchableOpacity``;
+export const MiniExpandButton = styled.TouchableOpacity`
+  flex-direction: row;
+  align-content: center;
+`;
 
 export const MiniExpandButtonIcon = styled.View`
   height: 100%;
