@@ -60,14 +60,18 @@ const BonusFeatures = ({ onLayout, data, onPlay }: Props) => {
 
   const getProgress = (item: MassiveSDKModelEpisodesItem) => {
     const filter = pickBy(watched, (value, key) => key.startsWith(item?.id || ''));
-
     if (filter[item?.id || '']) {
       const { isFullyWatched, position } = filter[item?.id || ''];
 
       if (isFullyWatched) {
         return 1;
       }
-      return Math.round((Number(position || 0) * 100) / Number(item.duration)) / 100;
+      if (position && (item.media || []).length > 0) {
+        const duration = item.media?.reduce((media) => media)?.duration || 0;
+        return Math.round((Number(position || 0) * 100) / Number(duration)) / 100;
+      }
+
+      return 0;
     }
 
     return 0;

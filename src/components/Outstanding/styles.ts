@@ -1,8 +1,11 @@
+import { Dimensions } from 'react-native';
 import styled from 'styled-components/native';
 import { ThemeState } from '@store/modules/theme/types';
 import LinearGradient from 'react-native-linear-gradient';
 import { rgba } from 'polished';
 import { Pagination as PaginationC } from 'react-native-snap-carousel';
+
+const { width } = Dimensions.get('window');
 
 export const Container = styled.View`
   flex: 1;
@@ -78,7 +81,7 @@ export const LogoWrapper = styled.View`
 `;
 
 export const Slider = styled.View`
-  flex: 1;
+  width: ${width}px;
   /* background-color: ${(props: ThemeState) => props.theme.PRIMARY_COLOR}; */
 `;
 

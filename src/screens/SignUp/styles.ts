@@ -114,6 +114,8 @@ export const SeparatorWrapper = styled.View`
   background-color: ${(props: ThemeState) => props.theme.PRIMARY_COLOR};
   border-color: ${(props: ThemeState) => props.theme.PRIMARY_COLOR_OPAQUE};
   padding-bottom: 25px;
+  padding-left: 20px;
+  padding-right: 20px;
 `;
 
 export const LoginTitle = styled.Text`

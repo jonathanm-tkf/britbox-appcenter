@@ -146,7 +146,8 @@ const VideoPlayer = () => {
           // onError={(error) => console.tron.log(error)}
           cacheEnabled={false}
           onLoad={onTrackEvent}
-          // onLoad={() =>
+          // onLoad={() => {
+          //   onTrackEvent();
           //   console.tron.log({
           //     uri: `${Constants.url_player}?country=${segment?.toLocaleLowerCase()}&videoid=${
           //       params.item.id
@@ -159,8 +160,8 @@ const VideoPlayer = () => {
           //         ? 'mobile-phone-main'
           //         : 'mobile-cellular-main'
           //     }`,
-          //   })
-          // }
+          //   });
+          // }}
           allowsLinkPreview={false}
           originWhitelist={['*']}
           javaScriptEnabled

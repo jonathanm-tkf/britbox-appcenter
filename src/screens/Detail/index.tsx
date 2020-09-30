@@ -329,7 +329,7 @@ const Detail = () => {
       dispatch(castDetail(next || episode || item));
       return CastVideo(next || episode || item);
     }
-    return navigation.navigate('VideoPlayer', { item });
+    return navigation.navigate('VideoPlayer', { item: episode || item });
   };
 
   const playTrailer = () => {
