@@ -213,7 +213,7 @@ const ContinueWatching = () => {
 
   useEffect(() => {
     const continueWatchingItemsElements = [];
-    if ((bookmarkList?.items || []).length > 0) {
+    if ((watchedList?.items || []).length > 0) {
       continueWatchingItemsElements.push({
         key: 0,
         label: 'Continue Watching',
@@ -244,11 +244,11 @@ const ContinueWatching = () => {
       });
     }
 
-    if ((watchedList?.items || []).length > 0) {
+    if ((bookmarkList?.items || []).length > 0) {
       continueWatchingItemsElements.push({
         key: 1,
         label: 'Watchlist',
-        active: false,
+        active: (watchedList?.items || []).length === 0 || false,
         content: () => (
           <Carousel
             items={getWatchingData()}

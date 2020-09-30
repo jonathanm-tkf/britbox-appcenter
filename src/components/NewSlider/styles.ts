@@ -48,7 +48,6 @@ export const Slider = styled(AnimatedImage).attrs({
   align-items: center;
   justify-content: center;
   opacity: 0.3;
-  margin-top: 10px;
   ${(props: CarouselProps) => {
     return props.slim || props.collection
       ? Platform.OS === 'ios'

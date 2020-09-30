@@ -22,10 +22,14 @@ interface Props {
 }
 
 const UserWatching = ({ data }: Props) => {
-  const [active, setActive] = useState(0);
+  const [active, setActive] = useState(
+    data.filter((item) => item.active).reduce((element) => element).key
+  );
+
   const changeTab = (key: number) => {
     setActive(key);
   };
+
   return (
     <Container>
       <Row>

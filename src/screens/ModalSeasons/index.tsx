@@ -8,6 +8,7 @@ import {
   MassiveSDKModelSeasons,
 } from '@src/sdks/Britbox.API.Content.TS/api';
 import { TouchableOpacity } from 'react-native';
+import { LoadDetailPageResponse } from '@store/modules/detail/types';
 import {
   Container,
   CloseButton,
@@ -28,6 +29,7 @@ type RootParamList = {
       seasonNumber: number;
       id: number;
     };
+    seriesData: LoadDetailPageResponse | undefined;
   };
 };
 
@@ -39,10 +41,11 @@ const ModalSeasons = () => {
 
   const {
     show: { seasons, id },
+    seriesData,
   } = params;
 
   const goToDetail = (item: MassiveSDKModelSeasonsItem) => {
-    navigate('Detail', { seasonModal: { ...item } });
+    navigate('Detail', { seasonModal: { ...item }, seriesData });
   };
 
   const renderItem = ({ item }: { item: MassiveSDKModelSeasonsItem }) => {

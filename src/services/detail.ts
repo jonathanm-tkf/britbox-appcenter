@@ -114,7 +114,7 @@ const processDetailPage = async (
       moreInformationResponse.season = entries?.item?.contextualTitle || '';
       moreInformationResponse.vams = entries?.item?.show?.vams;
       moreInformationResponse.year = entries?.item?.releaseYear;
-      moreInformationResponse.trailers = entries?.item?.trailers;
+      moreInformationResponse.trailers = entries?.item?.show?.trailers;
     }
   }
 

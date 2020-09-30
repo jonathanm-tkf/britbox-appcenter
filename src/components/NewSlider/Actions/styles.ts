@@ -21,6 +21,7 @@ export const ActionText = styled.Text`
 
 interface ActionButtonProps {
   play?: boolean;
+  link?: boolean;
 }
 
 export const ActionButton = styled.TouchableOpacity`
@@ -28,4 +29,19 @@ export const ActionButton = styled.TouchableOpacity`
   justify-content: center;
   padding: 10px;
   margin-top: ${(props: ActionButtonProps) => (props.play ? 10 : 0)}px;
+
+  ${(props: ActionButtonProps) => {
+    return (
+      props.link &&
+      `
+      flex-direction: row;
+    `
+    );
+  }};
+`;
+
+export const DiscoverMoreText = styled.Text`
+  color: ${(props: ThemeState) => props.theme.PRIMARY_FOREGROUND_COLOR};
+  font-size: 16px;
+  margin-left: 15px;
 `;

@@ -8,7 +8,7 @@ import { useNavigation } from '@react-navigation/native';
 import { AppState } from '@store/modules/rootReducer';
 import { useSelector } from 'react-redux';
 import { pickBy } from 'lodash';
-import { MoreInformation, Show } from '@store/modules/detail/types';
+import { LoadDetailPageResponse, MoreInformation, Show } from '@store/modules/detail/types';
 import { Container, ContainerFilter, SeasonButton, SeasonText, InformationButton } from './styles';
 
 interface Props {
@@ -20,6 +20,7 @@ interface Props {
   onScrollTo: (y: number) => void;
   autoPlay: boolean;
   onPlay: (item: MassiveSDKModelEpisodesItem) => void;
+  seriesData: LoadDetailPageResponse;
 }
 
 const Episodes = ({
@@ -31,6 +32,7 @@ const Episodes = ({
   onScrollTo,
   autoPlay,
   onPlay,
+  seriesData,
 }: Props) => {
   const { navigate } = useNavigation();
   const { watched } = useSelector((state: AppState) => state.user?.profile || {});
@@ -66,7 +68,7 @@ const Episodes = ({
   };
 
   const goToModalSeasons = (showData: Show) => {
-    navigate('ModalSeasons', { show: showData });
+    navigate('ModalSeasons', { show: showData, seriesData });
   };
 
   const goToMoreInformation = () => {

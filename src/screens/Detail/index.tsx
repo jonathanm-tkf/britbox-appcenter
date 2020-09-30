@@ -63,6 +63,7 @@ type RootParamList = {
     item: MassiveSDKModelItemSummary;
     autoPlay: boolean;
     seasonModal: MassiveSDKModelSeasonsItem;
+    seriesData: LoadDetailPageResponse;
   };
 };
 
@@ -81,7 +82,7 @@ interface CellProps {
 
 const Detail = () => {
   const { params } = useRoute<DetailScreenRouteProp>();
-  const { item, seasonModal, autoPlay } = params || undefined;
+  const { item, seasonModal, autoPlay, seriesData } = params || undefined;
   const navigation = useNavigation();
   const [showBlueView, setShowBlueView] = useState(false);
   const [tabsOffset, setTabsOffset] = useState(false);
@@ -159,14 +160,14 @@ const Detail = () => {
 
   useEffect(() => {
     if (
-      data?.information.type === 'show' ||
-      data?.information.type === 'episode' ||
-      data?.information.type === 'season'
+      seriesData?.information.type === 'show' ||
+      seriesData?.information.type === 'episode' ||
+      seriesData?.information.type === 'season'
     ) {
       const { id, releaseYear, seasonNumber, episodeCount, path } = seasonModal || {};
-      const { show }: LoadDetailPageResponse = data;
+      const { show }: LoadDetailPageResponse = seriesData;
       const newData: LoadDetailPageResponse = {
-        ...data,
+        ...seriesData,
         show: {
           id: parseInt(id || '0', 10),
           releaseYear,
@@ -187,7 +188,7 @@ const Detail = () => {
 
       loadEpisodesBySeason(path || '').then(({ response }) => {
         const afterResponse = {
-          ...data,
+          ...seriesData,
           show: {
             id: parseInt(id || '0', 10),
             releaseYear,
@@ -201,7 +202,7 @@ const Detail = () => {
         setData(afterResponse);
       });
     }
-  }, [seasonModal]);
+  }, [seasonModal, seriesData]);
 
   const back = () => {
     navigation.goBack();
@@ -333,7 +334,8 @@ const Detail = () => {
 
   const playTrailer = () => {
     return navigation.navigate('VideoPlayer', {
-      item: data ? data?.moreInformation?.trailers.reduce((trailer) => trailer) : {},
+      item: data ? (data?.moreInformation?.trailers || []).reduce((trailer) => trailer) : {},
+      isTrailer: true,
     });
   };
 

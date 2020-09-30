@@ -115,7 +115,7 @@ const Watchlist = () => {
     }
 
     setList(items);
-  }, [type, orderBy]);
+  }, [bookmarkList, type, orderBy]);
 
   useEffect(() => {
     if (filter) {

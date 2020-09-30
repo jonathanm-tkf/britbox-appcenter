@@ -107,6 +107,7 @@ const Tabs = ({ data, onScrollTo, onLayout, autoPlay, onPlay }: Props) => {
         content: () => (
           <Episodes
             data={episodes?.items || []}
+            seriesData={data}
             {...{ show, moreInformation, isEpisode: information?.type === 'episode', autoPlay }}
             onScrollTo={(y) => onScrollTo(y)}
             onPlay={(item) => onPlay(item)}

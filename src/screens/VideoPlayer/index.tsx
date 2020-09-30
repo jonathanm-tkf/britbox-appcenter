@@ -23,6 +23,7 @@ const { width, height } = Dimensions.get('window');
 type RootParamList = {
   VideoPlayer: {
     item: MassiveSDKModelItemSummary;
+    isTrailer: boolean;
   };
 };
 
@@ -149,7 +150,9 @@ const VideoPlayer = () => {
           //   console.tron.log({
           //     uri: `${Constants.url_player}?country=${segment?.toLocaleLowerCase()}&videoid=${
           //       params.item.id
-          //     }&token=${token}&ert=${refreshToken}&allow=autoplay&isTrailer=false&connection=${
+          //     }&token=${token}&ert=${refreshToken}&allow=autoplay&isTrailer=${
+          //       params.isTrailer
+          //     }&connection=${
           //       connection === 'wifi' && isTablet()
           //         ? 'mobile-tablet-main'
           //         : connection === 'wifi'
@@ -166,7 +169,9 @@ const VideoPlayer = () => {
           source={{
             uri: `${Constants.url_player}?country=${segment?.toLocaleLowerCase()}&videoid=${
               params.item.id
-            }&token=${token}&ert=${refreshToken}&allow=autoplay&isTrailer=false&connection=${
+            }&token=${token}&ert=${refreshToken}&allow=autoplay&isTrailer=${
+              params.isTrailer
+            }&connection=${
               connection === 'wifi' && isTablet()
                 ? 'mobile-tablet-main'
                 : connection === 'wifi'

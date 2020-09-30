@@ -17,7 +17,6 @@ const AppTabsScreen = () => {
         name="Home"
         component={HomeStackScreen}
         options={{
-          unmountOnBlur: true,
           tabBarLabel: t('home'),
           tabBarIcon: () => <HomeIcon width={24} height={24} />,
         }}
@@ -26,7 +25,6 @@ const AppTabsScreen = () => {
         name="Explore"
         component={ExploreStackScreen}
         options={{
-          unmountOnBlur: true,
           tabBarLabel: t('explore'),
           tabBarIcon: () => <ExploreIcon width={34} height={34} />,
         }}
@@ -35,7 +33,6 @@ const AppTabsScreen = () => {
         name="Search"
         component={SearchStackScreen}
         options={{
-          unmountOnBlur: true,
           tabBarLabel: t('search'),
           tabBarIcon: () => <SearchIcon width={26} height={26} />,
         }}
@@ -44,7 +41,6 @@ const AppTabsScreen = () => {
         name="More"
         component={MoreStackScreen}
         options={{
-          unmountOnBlur: true,
           tabBarLabel: t('more'),
           tabBarIcon: () => <MoreIcon width={24} height={24} />,
         }}

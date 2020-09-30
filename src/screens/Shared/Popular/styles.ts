@@ -1,5 +1,5 @@
 import styled from 'styled-components/native';
 
 export const Container = styled.View`
-  padding-top: 20px;
+  /* padding-top: 20px; */
 `;

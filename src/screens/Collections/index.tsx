@@ -20,7 +20,7 @@ import {
 // import TitleTreatment from '@screens/Shared/TitleTreatment';
 import Genre from '@screens/Shared/Genre';
 import Standard from '@screens/Shared/Standard';
-import Popular from '@screens/Shared/Popular';
+// import Popular from '@screens/Shared/Popular';
 import LargeProgramming from '@screens/Shared/LargeProgramming';
 import Episodes from '@screens/Shared/Episodes';
 import New from '@screens/Shared/New';
@@ -556,8 +556,8 @@ const Collections = () => {
                     containerStyle={containerStyles}
                   />
                 );
-              case 'popular':
-                return <Popular key={key.toString()} {...{ item }} />;
+              // case 'popular':
+              //   return <Popular key={key.toString()} {...{ item }} />;
               case 'standard':
                 return <Standard key={key.toString()} {...{ item }} />;
               case 'genre':

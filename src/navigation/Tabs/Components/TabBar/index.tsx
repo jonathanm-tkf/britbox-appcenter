@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { NavigationState, useNavigation, CommonActions } from '@react-navigation/native';
+import { NavigationState } from '@react-navigation/native';
 import Cast from '@screens/Shared/Cast';
 import { Container, Button, Label, WrapperIcon, CustomShadowTabBar, TabsWrapper } from './styles';
 
@@ -10,9 +10,8 @@ type Props = {
   descriptors: any;
 };
 
-const TabBar = ({ state, descriptors }: Props) => {
+const TabBar = ({ state, descriptors, navigation }: Props) => {
   const focusedOptions = descriptors[state.routes[state.index].key].options;
-  const { dispatch } = useNavigation();
 
   if (focusedOptions.tabBarVisible === false) {
     return null;
@@ -36,24 +35,24 @@ const TabBar = ({ state, descriptors }: Props) => {
           const isFocused = state.index === index;
 
           const onPress = () => {
-            // const event = navigation.emit({
-            //   type: 'tabPress',
-            //   target: route.key,
-            //   canPreventDefault: true,
-            // });
+            const event = navigation.emit({
+              type: 'tabPress',
+              target: route.key,
+              canPreventDefault: true,
+            });
 
-            // if (!isFocused && !event.defaultPrevented) {
-            // if (route.name === 'More') {
-            dispatch(
-              CommonActions.reset({
-                index: 0,
-                routes: [{ name: route.name }],
-              })
-            );
-            // } else {
-            //   navigation.navigate(route.name);
-            // }
-            // }
+            if (!isFocused && !event.defaultPrevented) {
+              // if (route.name === 'More') {
+              // dispatch(
+              //   CommonActions.reset({
+              //     index: 0,
+              //     routes: [{ name: route.name }],
+              //   })
+              // );
+              // } else {
+              navigation.navigate(route.name);
+              // }
+            }
           };
 
           const onLongPress = () => {
