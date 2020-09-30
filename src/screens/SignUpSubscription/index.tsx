@@ -75,7 +75,7 @@ const SignUpSubscription = () => {
   const user = useSelector((state: AppState) => state.user);
   const country: string = getSegment();
 
-  const cancelStyle = { marginTop: 15, borderWidth: 0 };
+  const cancelStyle = { marginTop: 15, width: '100%', alignItems: 'center' };
   const textLeft = { textAlign: 'left' };
   const activeRadio = {
     backgroundColor: theme.SECONDARY_COLOR,

@@ -1,7 +1,7 @@
 /* eslint-disable react/no-unused-prop-types */
 import React from 'react';
 import { Image, StyleProp, ImageStyle } from 'react-native';
-import Swiper from 'react-native-swiper';
+import SwiperFlatList from 'react-native-swiper-flatlist';
 import { useTranslation } from 'react-i18next';
 import { Logo, WatchlistIcon, DiscoverMoreIcon, CheckedIcon } from '@assets/icons';
 import Action from '@components/Action';
@@ -43,6 +43,21 @@ const image: StyleProp<ImageStyle> = {
   height: '100%',
 };
 
+const PaginationComponent = ({
+  size,
+  paginationIndex,
+}: {
+  size: number;
+  paginationIndex: number;
+}) => {
+  return (
+    <PaginationWrapper>
+      <PaginationContent />
+      <Pagination dotsLength={size} activeDotIndex={paginationIndex} />
+    </PaginationWrapper>
+  );
+};
+
 const Outstanding = ({ items, onPlay, onWatchlist, onDiscoverMore }: Props) => {
   const { t } = useTranslation('layout');
   const bookmarklist = useSelector(
@@ -54,14 +69,7 @@ const Outstanding = ({ items, onPlay, onWatchlist, onDiscoverMore }: Props) => {
 
   return (
     <Wrapper>
-      <Swiper
-        renderPagination={(index, total) => (
-          <PaginationWrapper>
-            <PaginationContent />
-            <Pagination dotsLength={total} activeDotIndex={index} />
-          </PaginationWrapper>
-        )}
-      >
+      <SwiperFlatList index={0} showPagination PaginationComponent={PaginationComponent}>
         {items.map((item: any, key: any) => (
           <Slider key={key.toString()}>
             <Container>
@@ -116,7 +124,7 @@ const Outstanding = ({ items, onPlay, onWatchlist, onDiscoverMore }: Props) => {
             {item.type !== 'link' && <ActionText>{t('playnow')}</ActionText>}
           </Slider>
         ))}
-      </Swiper>
+      </SwiperFlatList>
     </Wrapper>
   );
 };

@@ -47,11 +47,13 @@ const evergentSignupResponseError: EvergentSignupResponseError = {
   failureMessage: [],
 };
 
-const cancelStyle = { marginTop: 15, borderWidth: 0 };
+const cancelStyle = { marginTop: 15, width: '100%', alignItems: 'center' };
 
 const loginStyle = {
   paddingLeft: 65,
   paddingRight: 65,
+  width: '100%',
+  alignItems: 'center',
 };
 
 const SignUp = () => {

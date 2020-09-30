@@ -163,9 +163,7 @@ const Auth = () => {
         <Button size="big" fontWeight="medium" stretch onPress={() => navigateToSignUp()}>
           {getTextInConfigJSON(['paywall', '4', 'cta'], t('freetrial'))}
         </Button>
-        <Paragraph>
-          {getTextInConfigJSON(['pricing-marketing', 'pricing-message'], t('freetrial'))}
-        </Paragraph>
+        <Paragraph>{getTextInConfigJSON(['pricing-marketing', 'pricing-message'], '')}</Paragraph>
       </ScrollView>
     </>
   );
