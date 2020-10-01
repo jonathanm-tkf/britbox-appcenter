@@ -1,6 +1,6 @@
 /* eslint-disable react/no-unused-prop-types */
-import React from 'react';
-import { Image, StyleProp, ImageStyle } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { Image, StyleProp, ImageStyle, Dimensions, View } from 'react-native';
 import SwiperFlatList from 'react-native-swiper-flatlist';
 import { useTranslation } from 'react-i18next';
 import { Logo, WatchlistIcon, DiscoverMoreIcon, CheckedIcon } from '@assets/icons';
@@ -64,6 +64,18 @@ const Outstanding = ({ items, onPlay, onWatchlist, onDiscoverMore }: Props) => {
     (state: AppState) => state.user.profile?.bookmarkList || []
   ) as MassiveSDKModelItemList;
 
+  const [screenData, setScreenData] = useState(Dimensions.get('window'));
+
+  useEffect(() => {
+    const onChange = (result: any) => {
+      setScreenData(result.screen);
+    };
+
+    Dimensions.addEventListener('change', onChange);
+
+    return () => Dimensions.removeEventListener('change', onChange);
+  });
+
   const getIsInWatchlist = (id: string) =>
     checkIsInWatchingList(bookmarklist?.items || [], id || '0') === 3;
 
@@ -76,7 +88,7 @@ const Outstanding = ({ items, onPlay, onWatchlist, onDiscoverMore }: Props) => {
         PaginationComponent={PaginationComponent}
         disableVirtualization={false}
         renderItem={({ item }) => (
-          <Slider>
+          <Slider width={screenData.width} height={(screenData.height * 60) / 100}>
             <Container>
               {/* <GradientTop /> */}
               {item.url === 'no-image' ? (

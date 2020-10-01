@@ -7,6 +7,11 @@ import { Pagination as PaginationC } from 'react-native-snap-carousel';
 
 const { width } = Dimensions.get('window');
 
+type SliderProps = {
+  height: number;
+  width: number;
+};
+
 export const Container = styled.View`
   flex: 1;
   /* width: 100%;
@@ -81,8 +86,10 @@ export const LogoWrapper = styled.View`
 `;
 
 export const Slider = styled.View`
-  width: ${width}px;
-  /* background-color: ${(props: ThemeState) => props.theme.PRIMARY_COLOR}; */
+  ${(props: SliderProps) => `
+    width: ${props.width}px;
+    height: ${props.height}px;
+  `};
 `;
 
 export const PaginationWrapper = styled.View`
