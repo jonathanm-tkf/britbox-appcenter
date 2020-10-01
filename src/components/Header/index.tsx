@@ -45,7 +45,7 @@ type MenuItem = {
 export default function Header({ hideSignIn, shadow, isCenter, onPressSignIn }: Props) {
   const dispatch = useDispatch();
   const { t } = useTranslation('layout');
-  const isLogged = useSelector((state: AppState) => state.core.isLogged);
+  const isLogged = useSelector((state: AppState) => state.user.isLogged);
   const menu = useSelector((state: AppState) => state.core.menu?.navigation?.header); // TODO: get data from properties
   const { navigate } = useNavigation();
   const [menuItems, setMenuItems] = useState<MenuItem[]>([]);
