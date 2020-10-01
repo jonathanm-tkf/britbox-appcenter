@@ -253,7 +253,7 @@ const SignUpSubscription = () => {
       });
 
       if (subscriptionResponse && Number(subscriptionResponse?.responseCode || 1) === 1) {
-        _doSuccessSubscription();
+        _doSuccessSubscription(true);
       } else {
         trackEvent(
           `${subscriptionResponse[0]?.errorCode}: ${subscriptionResponse[0]?.errorMessage}`
@@ -271,8 +271,8 @@ const SignUpSubscription = () => {
     }
   };
 
-  const _doSuccessSubscription = () => {
-    dispatch(loginAfterRegister());
+  const _doSuccessSubscription = (isPurchase: boolean) => {
+    dispatch(loginAfterRegister(isPurchase));
     if (account) {
       navigation.goBack();
     }
@@ -361,7 +361,7 @@ const SignUpSubscription = () => {
                 <Button
                   onPress={() => {
                     trackEvent('cancel');
-                    _doSuccessSubscription();
+                    _doSuccessSubscription(false);
                   }}
                   outline
                   size="big"

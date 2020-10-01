@@ -130,8 +130,8 @@ const RootStackScreen = () => {
         ) : isOut ? (
           <RootStack.Screen name="Out" component={Error} />
         ) : versionModal ? (
-          <RootStack.Screen name="Out" component={VersionModal} />
-        ) : user.isLogged ? (
+          <RootStack.Screen name="VersionModal" component={VersionModal} />
+        ) : user.isLogged && !isOut ? (
           <RootStack.Screen name="AppDrawerScreen" component={AppDrawerScreen} />
         ) : (
           <RootStack.Screen name="AuthStackScreen" component={AuthStackScreen} />

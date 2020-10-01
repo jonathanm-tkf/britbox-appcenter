@@ -63,7 +63,10 @@ static void InitializeFlipper(UIApplication *application) {
   [GCKCastContext setSharedInstanceWithOptions:options];
   //GCKDiscoveryManager *discoverManager = [GCKDiscoveryManager init];
   //void pepe = discoverManager.startDiscovery();
-  [[GCKDiscoveryManager alloc] startDiscovery];
+  //[[GCKDiscoveryManager alloc] startDiscovery];
+  GCKDiscoveryManager *discoverManager = [GCKDiscoveryManager alloc];
+  [discoverManager startDiscovery];
+  [GCKUICastButton appearance].tintColor = [UIColor grayColor];
   // [GCKCastContext sharedInstance].useDefaultExpandedMediaControls = YES;
 
   return YES;

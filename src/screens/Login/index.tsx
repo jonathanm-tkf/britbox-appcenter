@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from 'react';
-import { KeyboardAvoidingView, Platform, TouchableOpacity, Keyboard } from 'react-native';
+import { KeyboardAvoidingView, Platform, TouchableOpacity, Keyboard, Linking } from 'react-native';
 
 import { Button } from '@components/Button';
 import { Input } from '@components/Input';
@@ -33,6 +33,9 @@ import {
   ModalTitle,
   ModalSubTitle,
   EmailLink,
+  GradientWrapper,
+  FooterTitle,
+  EmailTitle,
 } from './styles';
 
 const flex = {
@@ -333,6 +336,17 @@ const Login = () => {
                 <SuscribeText>{getTextInConfigJSON(['login', 'ctas', '1'], '')}</SuscribeText>
               </Button>
             </Wrapper>
+
+            <GradientWrapper>
+              <FooterTitle>{getTextInConfigJSON(['customer-service', 'title'], '')}</FooterTitle>
+              <EmailTitle
+                onPress={() =>
+                  Linking.openURL(`${getTextInConfigJSON(['customer-service', 'link-url'], '')}`)
+                }
+              >
+                {getTextInConfigJSON(['customer-service', 'link'], '')}
+              </EmailTitle>
+            </GradientWrapper>
           </Gradient>
         </ScrollView>
       </KeyboardAvoidingView>

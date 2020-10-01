@@ -226,8 +226,6 @@ const Detail = () => {
       setErrorValuePin(false);
       setCheckingParentalControl(true);
       validateParentalControl();
-    } else {
-      setErrorValuePin(false);
     }
   }, [valuePin]);
 
@@ -247,6 +245,7 @@ const Detail = () => {
     if (responseValidate?.validateParentalControlPINResponseMessage?.responseCode === '0') {
       setCheckingParentalControl(false);
       setErrorValuePin(true);
+      setValuePin('');
     } else if (
       sheetRef.current &&
       responseValidate?.validateParentalControlPINResponseMessage?.responseCode === '1'
@@ -483,7 +482,9 @@ const Detail = () => {
             marginTop: 20,
           },
         }}
-        onClose={() => {}}
+        onClose={() => {
+          setErrorValuePin(false);
+        }}
       >
         <BottomSheetWrapper>
           <Headline center color={theme.PRIMARY_TEXT_COLOR}>

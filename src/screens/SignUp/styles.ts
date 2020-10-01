@@ -49,8 +49,8 @@ export const RowWrapper = styled.View`
 `;
 
 export const WrapperParagraph = styled.Text`
-  margin-left: 20px;
-  margin-right: 20px;
+  /* margin-left: 20px; */
+  /* margin-right: 20px; */
   margin-top: 10px;
   margin-bottom: 10px;
   font-size: 16px;
@@ -74,8 +74,9 @@ export const Paragraph = styled.Text`
 `;
 
 export const MainWrapper = styled.View`
-  padding-top: 10px;
-  padding-bottom: 55px;
+  /* padding-top: 10px; */
+  /* padding-bottom: 55px; */
+  padding-bottom: 35px;
 `;
 
 export const Wrapper = styled.View`
@@ -97,6 +98,11 @@ export const Gradient = styled(LinearGradient).attrs({
   colors: ['#202634', '#171B23'],
 })`
   flex: 1;
+`;
+
+export const GradientWrapper = styled.View`
+  padding-top: 20px;
+  padding-bottom: 40px;
 `;
 
 export const RadioCheckedIconView = styled(RadioCheckedIcon).attrs({
@@ -126,4 +132,22 @@ export const LoginTitle = styled.Text`
   font-weight: 700;
   text-align: center;
   font-family: ${(props: ThemeState) => props.theme.PRIMARY_FONT_FAMILY_BOLD};
+`;
+
+export const FooterTitle = styled.Text`
+  margin-top: 10px;
+  margin-bottom: 20px;
+  color: ${(props: ThemeState) => props.theme.PRIMARY_FOREGROUND_COLOR};
+  font-size: 20px;
+  font-weight: 700;
+  text-align: center;
+  font-family: ${(props: ThemeState) => props.theme.PRIMARY_FONT_FAMILY_MEDIUM};
+`;
+
+export const EmailTitle = styled.Text`
+  margin-bottom: 10px;
+  color: ${(props: ThemeState) => props.theme.SECONDARY_COLOR};
+  font-size: 16px;
+  text-align: center;
+  font-family: ${(props: ThemeState) => props.theme.PRIMARY_FONT_FAMILY_MEDIUM};
 `;

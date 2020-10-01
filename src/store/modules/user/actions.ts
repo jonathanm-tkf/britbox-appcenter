@@ -53,7 +53,8 @@ export const continueWatchingRemoveRequest = ({ itemId }: ContinueWatchingItem) 
 export const continueWatchingRemoveRequestSuccess = (data: any) =>
   action(UserActionTypes.CONTINUE_WATCHING_REMOVE_REQUEST_SUCCESS, { ...data });
 
-export const loginAfterRegister = () => action(UserActionTypes.LOGIN_AFTER_REGISTER);
+export const loginAfterRegister = (isPurchase: boolean) =>
+  action(UserActionTypes.LOGIN_AFTER_REGISTER, { isPurchase });
 
 export const parentalControlOn = () => action(UserActionTypes.PROFILE_PARENTAL_CONTROL_ON);
 

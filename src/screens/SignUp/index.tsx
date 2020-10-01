@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from 'react';
-import { KeyboardAvoidingView, Platform, Keyboard } from 'react-native';
+import { KeyboardAvoidingView, Platform, Keyboard, Linking } from 'react-native';
 
 import { Button } from '@components/Button';
 import { Input } from '@components/Input';
@@ -36,6 +36,9 @@ import {
   ErrorText,
   SeparatorWrapper,
   LoginTitle,
+  FooterTitle,
+  EmailTitle,
+  GradientWrapper,
 } from './styles';
 
 const flex = {
@@ -379,19 +382,15 @@ const SignUp = () => {
 
     return (
       <MainWrapper>
-        <Wrapper>
-          <RowWrapper>
-            <WrapperParagraph>
-              {(statement1Arr || []).map((item: string) => {
-                return (
-                  <WrapperParagraph key={item}>
-                    {item.includes('|') ? renderLink(item) : item}
-                  </WrapperParagraph>
-                );
-              })}
-            </WrapperParagraph>
-          </RowWrapper>
-        </Wrapper>
+        <WrapperParagraph>
+          {(statement1Arr || []).map((item: string) => {
+            return (
+              <WrapperParagraph key={item}>
+                {item.includes('|') ? renderLink(item) : item}
+              </WrapperParagraph>
+            );
+          })}
+        </WrapperParagraph>
         {getTextInConfigJSON(['registration', 'statement-2'], '') !== '' && (
           <Wrapper>
             {getTextInConfigJSON(['registration', 'statement-2'], '').includes(
@@ -475,6 +474,7 @@ const SignUp = () => {
                   }
                 </ErrorText>
               )}
+              {termsPrivacyView()}
               <Button
                 onPress={() => {
                   signup();
@@ -503,7 +503,18 @@ const SignUp = () => {
                 <CancelText>{t('signin:signin')}</CancelText>
               </Button>
             </SeparatorWrapper>
-            {termsPrivacyView()}
+            <Gradient>
+              <GradientWrapper>
+                <FooterTitle>{getTextInConfigJSON(['customer-service', 'title'], '')}</FooterTitle>
+                <EmailTitle
+                  onPress={() =>
+                    Linking.openURL(`${getTextInConfigJSON(['customer-service', 'link-url'], '')}`)
+                  }
+                >
+                  {getTextInConfigJSON(['customer-service', 'link'], '')}
+                </EmailTitle>
+              </GradientWrapper>
+            </Gradient>
           </ScrollView>
         </KeyboardAvoidingView>
       </Gradient>

@@ -513,11 +513,13 @@ export function* continueWatchingRemoveRequestAction({
   }
 }
 
-export function* loginAfterRegisterRequest() {
+export function* loginAfterRegisterRequest({ payload }: { payload: { isPurchase: boolean } }) {
   try {
     yield call(getProfileRequest);
     yield put(loggedInRequestSuccess());
-    yield put(welcomeMessageOn());
+    if (payload.isPurchase) {
+      yield put(welcomeMessageOn());
+    }
   } catch (error) {
     // error
   }

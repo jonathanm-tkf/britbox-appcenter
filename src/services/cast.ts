@@ -19,7 +19,7 @@ import sha1 from 'sha1';
 import GoogleCast from 'react-native-google-cast';
 import { getImage } from '@src/utils/images';
 import { Platform } from 'react-native';
-import { shuffle } from 'lodash';
+import { pickBy, shuffle } from 'lodash';
 import { getSystemVersion } from 'react-native-device-info';
 import { getUserId } from './analytics';
 
@@ -31,6 +31,11 @@ const getSegment = () => {
 const getToken = () => {
   const { core }: { core: CoreState } = store.getState();
   return core.token;
+};
+
+const getWatched = () => {
+  const { user }: { user: UserState } = store.getState();
+  return user.profile?.watched || {};
 };
 
 const getUser = async () => {
@@ -77,6 +82,21 @@ const parseResponseMediaSelector = (data: DataResponseMediaSlector) => {
       }
     }
   });
+};
+
+const getProgress = (id: string) => {
+  const filter = pickBy(getWatched(), (value, key) => key.startsWith(id || ''));
+  if (filter[id || '']) {
+    const { isFullyWatched, position } = filter[id || ''];
+
+    if (isFullyWatched) {
+      return 0;
+    }
+
+    return position;
+  }
+
+  return 0;
 };
 
 const parseResponseMediaSelectorSubtitles = (data: DataResponseMediaSlector) => {
@@ -148,6 +168,7 @@ export const CastVideo = async (item: MassiveSDKModelEpisodesItem, pcToken?: str
           imageUrl: getImage(item?.images?.wallpaper, 'wallpaper'),
           duration: item?.duration || 0,
           posterUrl: getImage(item?.images?.square, 'wallpaper'),
+          playPosition: getProgress(item?.id || ''),
           customData: {
             user,
             media: {
