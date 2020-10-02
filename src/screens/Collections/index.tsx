@@ -332,6 +332,7 @@ const Collections = () => {
     dispatch(
       watchlistToggleRequest({
         itemId: card?.id || '0',
+        itemCustomId: card?.customId || '0',
         isInWatchlist: getIsInWatchlist(card?.id || '0'),
       })
     );

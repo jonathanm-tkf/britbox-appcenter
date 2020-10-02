@@ -1503,6 +1503,22 @@ export class Api<SecurityDataType = any> extends HttpClient<SecurityDataType> {
 
     /**
      * @tags Profile
+     * @name BookmarkItemApp
+     * @request PUT:/v1/account/Profile/bookmarks-app/{itemId}
+     */
+    bookmarkItemApp: (
+      itemId: string,
+      query?: { itemCustomId?: string; useCustomId?: boolean; segments?: string[] },
+      params?: RequestParams
+    ) =>
+      this.request<BritboxAPIAccountModelsProfileBookmarkItemResponse, any>(
+        `/v1/account/Profile/bookmarks-app/${itemId}${this.addQueryParams(query)}`,
+        'PUT',
+        params
+      ),
+
+    /**
+     * @tags Profile
      * @name GetBookmarkList
      * @request GET:/v1/account/Profile/bookmarks/list
      */

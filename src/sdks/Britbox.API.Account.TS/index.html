@@ -48079,6 +48079,14 @@ and limitations under the License.
                       ></label
                     >
                   </li>
+                  <li data-item-id="operation/BookmarkItemApp" class="sc-btzYZH hndQyM">
+                    <label role="menuitem" class="sc-lhVmIH bLMrnV -depth2"
+                      ><span type="put" class="sc-cmTdod kxjqzZ operation-type put">put</span
+                      ><span width="calc(100% - 38px)" class="sc-bYSBpT gpHEtH"
+                        >BookmarkItemApp</span
+                      ></label
+                    >
+                  </li>
                   <li data-item-id="operation/GetBookmarkList" class="sc-btzYZH hndQyM">
                     <label role="menuitem" class="sc-lhVmIH bLMrnV -depth2"
                       ><span type="get" class="sc-cmTdod kxjqzZ operation-type get">get</span
@@ -54447,6 +54455,201 @@ and limitations under the License.
             </div>
           </div>
           <div
+            id="operation/BookmarkItemApp"
+            data-section-id="operation/BookmarkItemApp"
+            class="sc-ifAKCX hiuczA"
+          >
+            <div class="sc-gzVnrw sc-cmthru hcTXxz">
+              <div class="sc-bxivhb cjtbAK">
+                <h2 class="sc-dnqmqq ioYTqA">
+                  <a class="sc-VigVT kGvRyb" href="#operation/BookmarkItemApp"></a
+                  >BookmarkItemApp<!-- -->
+                </h2>
+                <div class="sc-bsbRJL PDnUY">
+                  <div class="sc-hXRMBi ceJGIt">
+                    <h5 class="sc-gqjmRU sc-iQNlJl lmVwfJ">Authorizations:</h5>
+                  </div>
+                  <div class="sc-epnACN iYKvkC">
+                    <span class="sc-gwVKww jtJYnZ"
+                      ><span class="sc-eTuwsz eFFwMa"
+                        ><a href="#section/Authentication/AWSApiKeyAuth">AWSApiKeyAuth</a></span
+                      ><span class="sc-eTuwsz eFFwMa"
+                        ><a href="#section/Authentication/JWToken">JWToken</a></span
+                      ></span
+                    >
+                  </div>
+                </div>
+                <div>
+                  <h5 class="sc-gqjmRU LiUBH">
+                    path<!-- -->
+                    Parameters
+                  </h5>
+                  <table class="sc-dxgOiQ eCjbJc">
+                    <tbody>
+                      <tr class="last undefined">
+                        <td class="sc-cSHVUG sc-chPdSV bIrgla" kind="field" title="itemId">
+                          <span class="sc-kGXeez bcLONg"></span>itemId
+                          <div class="sc-ksYbfQ sc-hmzhuo jsTAxL">required</div>
+                        </td>
+                        <td class="sc-kgoBCf kGwPhO">
+                          <div>
+                            <div>
+                              <span class="sc-cHGsZl sc-TOsTZ fKyGWc"></span
+                              ><span class="sc-cHGsZl sc-kgAjT hqYVjx">string</span>
+                            </div>
+                            <div><div class="sc-jWBwVP sc-iRbamj kjegA"></div></div>
+                          </div>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div>
+                  <h5 class="sc-gqjmRU LiUBH">
+                    query<!-- -->
+                    Parameters
+                  </h5>
+                  <table class="sc-dxgOiQ eCjbJc">
+                    <tbody>
+                      <tr>
+                        <td class="sc-cSHVUG sc-chPdSV bIrgla" kind="field" title="itemCustomId">
+                          <span class="sc-kGXeez bcLONg"></span>itemCustomId
+                        </td>
+                        <td class="sc-kgoBCf kGwPhO">
+                          <div>
+                            <div>
+                              <span class="sc-cHGsZl sc-TOsTZ fKyGWc"></span
+                              ><span class="sc-cHGsZl sc-kgAjT hqYVjx">string</span>
+                            </div>
+                            <div><div class="sc-jWBwVP sc-iRbamj kjegA"></div></div>
+                          </div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td class="sc-cSHVUG sc-chPdSV bIrgla" kind="field" title="useCustomId">
+                          <span class="sc-kGXeez bcLONg"></span>useCustomId
+                        </td>
+                        <td class="sc-kgoBCf kGwPhO">
+                          <div>
+                            <div>
+                              <span class="sc-cHGsZl sc-TOsTZ fKyGWc"></span
+                              ><span class="sc-cHGsZl sc-kgAjT hqYVjx">boolean</span>
+                            </div>
+                            <div><div class="sc-jWBwVP sc-iRbamj kjegA"></div></div>
+                          </div>
+                        </td>
+                      </tr>
+                      <tr class="last undefined">
+                        <td class="sc-cSHVUG sc-chPdSV bIrgla" kind="field" title="segments">
+                          <span class="sc-kGXeez bcLONg"></span>segments
+                        </td>
+                        <td class="sc-kgoBCf kGwPhO">
+                          <div>
+                            <div>
+                              <span class="sc-cHGsZl sc-TOsTZ fKyGWc">Array of </span
+                              ><span class="sc-cHGsZl sc-kgAjT hqYVjx">strings</span>
+                            </div>
+                            <div><div class="sc-jWBwVP sc-iRbamj kjegA"></div></div>
+                          </div>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div>
+                  <h3 class="sc-bwCtUz chVREB">Responses</h3>
+                  <div>
+                    <div class="sc-eXEjpC bTuXIq">
+                      <svg
+                        class="sc-jTzLTM hhjjYI"
+                        version="1.1"
+                        viewBox="0 0 24 24"
+                        x="0"
+                        xmlns="http://www.w3.org/2000/svg"
+                        y="0"
+                      >
+                        <polygon
+                          points="17.3 8.3 12 13.6 6.7 8.3 5.3 9.7 12 16.4 18.7 9.7 "
+                        ></polygon></svg
+                      ><strong>200<!-- --> </strong
+                      ><span class="sc-jlyJG fwYGJM"><p>Success</p> </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="sc-EHOje sc-bZQynM dtUibw">
+                <div class="sc-gzOgki fBopsv">
+                  <div class="sc-hwwEjo hgxMbQ">
+                    <span type="put" class="sc-kPVwWT koEhTf http-verb put">put</span
+                    ><span class="sc-iyvyFf dpRRAO">/v1/account/Profile/bookmarks-app/{itemId}</span
+                    ><svg
+                      class="sc-jTzLTM OtKQc"
+                      style="margin-right: -25px"
+                      version="1.1"
+                      viewBox="0 0 24 24"
+                      x="0"
+                      xmlns="http://www.w3.org/2000/svg"
+                      y="0"
+                    >
+                      <polygon
+                        points="17.3 8.3 12 13.6 6.7 8.3 5.3 9.7 12 16.4 18.7 9.7 "
+                      ></polygon>
+                    </svg>
+                  </div>
+                  <div class="sc-kfGgVZ bVSqpC">
+                    <div class="sc-esjQYD hNiVmK">
+                      <div class="sc-jWBwVP sc-iRbamj kjegA"></div>
+                      <div>
+                        <div class="sc-kIPQKe jdQHlL">
+                          <span></span>/v1/account/Profile/bookmarks-app/{itemId}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div>
+                  <h3 class="sc-gZMcBi kBWwoV">Response samples</h3>
+                  <div class="sc-eHgmQL eulAfj" data-tabs="true">
+                    <ul class="react-tabs__tab-list" role="tablist">
+                      <li
+                        class="tab-success react-tabs__tab--selected"
+                        role="tab"
+                        id="react-tabs-78"
+                        aria-selected="true"
+                        aria-disabled="false"
+                        aria-controls="react-tabs-79"
+                        tabindex="0"
+                      >
+                        200
+                      </li>
+                    </ul>
+                    <div
+                      class="react-tabs__tab-panel react-tabs__tab-panel--selected"
+                      role="tabpanel"
+                      id="react-tabs-79"
+                      aria-labelledby="react-tabs-78"
+                    >
+                      <div>
+                        <div class="sc-eqIVtm ecxnvs">
+                          <span class="sc-dVhcbM dpMbau">Content type</span>
+                          <div class="Dropdown-root sc-kkGfuU sc-fAjcbJ iIEWPt">
+                            <div class="Dropdown-control" aria-haspopup="listbox">
+                              <div class="Dropdown-placeholder is-selected">text/plain</div>
+                              <div class="Dropdown-arrow-wrapper">
+                                <span class="Dropdown-arrow"></span>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="sc-caSCKo byIIPy">No sample</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
             id="operation/GetBookmarkList"
             data-section-id="operation/GetBookmarkList"
             class="sc-ifAKCX hiuczA"
@@ -54657,10 +54860,10 @@ and limitations under the License.
                       <li
                         class="tab-success react-tabs__tab--selected"
                         role="tab"
-                        id="react-tabs-78"
+                        id="react-tabs-80"
                         aria-selected="true"
                         aria-disabled="false"
-                        aria-controls="react-tabs-79"
+                        aria-controls="react-tabs-81"
                         tabindex="0"
                       >
                         200
@@ -54669,8 +54872,8 @@ and limitations under the License.
                     <div
                       class="react-tabs__tab-panel react-tabs__tab-panel--selected"
                       role="tabpanel"
-                      id="react-tabs-79"
-                      aria-labelledby="react-tabs-78"
+                      id="react-tabs-81"
+                      aria-labelledby="react-tabs-80"
                     >
                       <div>
                         <div class="sc-eqIVtm ecxnvs">
@@ -54774,10 +54977,10 @@ and limitations under the License.
                       <li
                         class="tab-success react-tabs__tab--selected"
                         role="tab"
-                        id="react-tabs-80"
+                        id="react-tabs-82"
                         aria-selected="true"
                         aria-disabled="false"
-                        aria-controls="react-tabs-81"
+                        aria-controls="react-tabs-83"
                         tabindex="0"
                       >
                         200
@@ -54786,8 +54989,8 @@ and limitations under the License.
                     <div
                       class="react-tabs__tab-panel react-tabs__tab-panel--selected"
                       role="tabpanel"
-                      id="react-tabs-81"
-                      aria-labelledby="react-tabs-80"
+                      id="react-tabs-83"
+                      aria-labelledby="react-tabs-82"
                     >
                       <div>
                         <div class="sc-eqIVtm ecxnvs">
@@ -54997,10 +55200,10 @@ and limitations under the License.
                       <li
                         class="tab-success react-tabs__tab--selected"
                         role="tab"
-                        id="react-tabs-82"
+                        id="react-tabs-84"
                         aria-selected="true"
                         aria-disabled="false"
-                        aria-controls="react-tabs-83"
+                        aria-controls="react-tabs-85"
                         tabindex="0"
                       >
                         200
@@ -55009,8 +55212,8 @@ and limitations under the License.
                     <div
                       class="react-tabs__tab-panel react-tabs__tab-panel--selected"
                       role="tabpanel"
-                      id="react-tabs-83"
-                      aria-labelledby="react-tabs-82"
+                      id="react-tabs-85"
+                      aria-labelledby="react-tabs-84"
                     >
                       <div>
                         <div class="sc-eqIVtm ecxnvs">
@@ -55115,10 +55318,10 @@ and limitations under the License.
                       <li
                         class="tab-success react-tabs__tab--selected"
                         role="tab"
-                        id="react-tabs-84"
+                        id="react-tabs-86"
                         aria-selected="true"
                         aria-disabled="false"
-                        aria-controls="react-tabs-85"
+                        aria-controls="react-tabs-87"
                         tabindex="0"
                       >
                         200
@@ -55127,8 +55330,8 @@ and limitations under the License.
                     <div
                       class="react-tabs__tab-panel react-tabs__tab-panel--selected"
                       role="tabpanel"
-                      id="react-tabs-85"
-                      aria-labelledby="react-tabs-84"
+                      id="react-tabs-87"
+                      aria-labelledby="react-tabs-86"
                     >
                       <div>
                         <div class="sc-eqIVtm ecxnvs">
@@ -55336,10 +55539,10 @@ and limitations under the License.
                       <li
                         class="react-tabs__tab react-tabs__tab--selected"
                         role="tab"
-                        id="react-tabs-86"
+                        id="react-tabs-88"
                         aria-selected="true"
                         aria-disabled="false"
-                        aria-controls="react-tabs-87"
+                        aria-controls="react-tabs-89"
                         tabindex="0"
                       >
                         Payload
@@ -55348,8 +55551,8 @@ and limitations under the License.
                     <div
                       class="react-tabs__tab-panel react-tabs__tab-panel--selected"
                       role="tabpanel"
-                      id="react-tabs-87"
-                      aria-labelledby="react-tabs-86"
+                      id="react-tabs-89"
+                      aria-labelledby="react-tabs-88"
                     >
                       <div>
                         <div class="sc-eqIVtm ecxnvs">
@@ -55426,10 +55629,10 @@ and limitations under the License.
                       <li
                         class="tab-success react-tabs__tab--selected"
                         role="tab"
-                        id="react-tabs-88"
+                        id="react-tabs-90"
                         aria-selected="true"
                         aria-disabled="false"
-                        aria-controls="react-tabs-89"
+                        aria-controls="react-tabs-91"
                         tabindex="0"
                       >
                         200
@@ -55438,8 +55641,8 @@ and limitations under the License.
                     <div
                       class="react-tabs__tab-panel react-tabs__tab-panel--selected"
                       role="tabpanel"
-                      id="react-tabs-89"
-                      aria-labelledby="react-tabs-88"
+                      id="react-tabs-91"
+                      aria-labelledby="react-tabs-90"
                     >
                       <div>
                         <div class="sc-eqIVtm ecxnvs">
@@ -55587,10 +55790,10 @@ and limitations under the License.
                       <li
                         class="tab-success react-tabs__tab--selected"
                         role="tab"
-                        id="react-tabs-90"
+                        id="react-tabs-92"
                         aria-selected="true"
                         aria-disabled="false"
-                        aria-controls="react-tabs-91"
+                        aria-controls="react-tabs-93"
                         tabindex="0"
                       >
                         200
@@ -55599,8 +55802,8 @@ and limitations under the License.
                     <div
                       class="react-tabs__tab-panel react-tabs__tab-panel--selected"
                       role="tabpanel"
-                      id="react-tabs-91"
-                      aria-labelledby="react-tabs-90"
+                      id="react-tabs-93"
+                      aria-labelledby="react-tabs-92"
                     >
                       <div>
                         <div class="sc-eqIVtm ecxnvs">
@@ -55754,10 +55957,10 @@ and limitations under the License.
                       <li
                         class="react-tabs__tab react-tabs__tab--selected"
                         role="tab"
-                        id="react-tabs-92"
+                        id="react-tabs-94"
                         aria-selected="true"
                         aria-disabled="false"
-                        aria-controls="react-tabs-93"
+                        aria-controls="react-tabs-95"
                         tabindex="0"
                       >
                         Payload
@@ -55766,8 +55969,8 @@ and limitations under the License.
                     <div
                       class="react-tabs__tab-panel react-tabs__tab-panel--selected"
                       role="tabpanel"
-                      id="react-tabs-93"
-                      aria-labelledby="react-tabs-92"
+                      id="react-tabs-95"
+                      aria-labelledby="react-tabs-94"
                     >
                       <div>
                         <div class="sc-eqIVtm ecxnvs">
@@ -55828,10 +56031,10 @@ and limitations under the License.
                       <li
                         class="tab-success react-tabs__tab--selected"
                         role="tab"
-                        id="react-tabs-94"
+                        id="react-tabs-96"
                         aria-selected="true"
                         aria-disabled="false"
-                        aria-controls="react-tabs-95"
+                        aria-controls="react-tabs-97"
                         tabindex="0"
                       >
                         200
@@ -55840,8 +56043,8 @@ and limitations under the License.
                     <div
                       class="react-tabs__tab-panel react-tabs__tab-panel--selected"
                       role="tabpanel"
-                      id="react-tabs-95"
-                      aria-labelledby="react-tabs-94"
+                      id="react-tabs-97"
+                      aria-labelledby="react-tabs-96"
                     >
                       <div>
                         <div class="sc-eqIVtm ecxnvs">
@@ -57254,6 +57457,59 @@ and limitations under the License.
                     },
                   ],
                   responses: { 200: { description: 'Success' } },
+                },
+              },
+              '/v1/account/Profile/bookmarks-app/{itemId}': {
+                put: {
+                  tags: ['Profile'],
+                  operationId: 'BookmarkItemApp',
+                  parameters: [
+                    { name: 'itemId', in: 'path', required: true, schema: { type: 'string' } },
+                    {
+                      name: 'itemCustomId',
+                      in: 'query',
+                      required: false,
+                      schema: { type: 'string' },
+                    },
+                    {
+                      name: 'useCustomId',
+                      in: 'query',
+                      required: false,
+                      schema: { type: 'boolean' },
+                    },
+                    {
+                      name: 'segments',
+                      in: 'query',
+                      required: false,
+                      explode: true,
+                      schema: { type: 'array', items: { type: 'string' }, uniqueItems: false },
+                    },
+                  ],
+                  responses: {
+                    200: {
+                      description: 'Success',
+                      content: {
+                        'text/plain': {
+                          schema: {
+                            $ref:
+                              '#/components/schemas/Britbox.API.Account.Models.Profile.BookmarkItemResponse',
+                          },
+                        },
+                        'application/json': {
+                          schema: {
+                            $ref:
+                              '#/components/schemas/Britbox.API.Account.Models.Profile.BookmarkItemResponse',
+                          },
+                        },
+                        'text/json': {
+                          schema: {
+                            $ref:
+                              '#/components/schemas/Britbox.API.Account.Models.Profile.BookmarkItemResponse',
+                          },
+                        },
+                      },
+                    },
+                  },
                 },
               },
               '/v1/account/Profile/bookmarks/list': {
@@ -59127,6 +59383,7 @@ and limitations under the License.
             'operation/GetItemBookmark',
             'operation/BookmarkItem',
             'operation/DeleteItemBookmark',
+            'operation/BookmarkItemApp',
             'operation/GetBookmarkList',
             'operation/GetBookmarks',
             'operation/GetNextPlaybackItem',
@@ -59139,91 +59396,93 @@ and limitations under the License.
             version: '2.3.8',
             fields: ['title', 'description'],
             fieldVectors: [
-              ['title/0', [0, 3.516]],
-              ['description/0', [1, 0.374, 2, 0.192, 3, 0.192]],
-              ['title/1', [4, 3.516]],
+              ['title/0', [0, 3.537]],
+              ['description/0', [1, 0.368, 2, 0.189, 3, 0.189]],
+              ['title/1', [4, 3.537]],
               ['description/1', []],
-              ['title/2', [5, 3.516]],
+              ['title/2', [5, 3.537]],
               ['description/2', []],
-              ['title/3', [6, 3.516]],
+              ['title/3', [6, 3.537]],
               ['description/3', []],
-              ['title/4', [7, 3.516]],
+              ['title/4', [7, 3.537]],
               ['description/4', []],
-              ['title/5', [8, 3.516]],
+              ['title/5', [8, 3.537]],
               ['description/5', []],
-              ['title/6', [9, 3.516]],
+              ['title/6', [9, 3.537]],
               ['description/6', []],
-              ['title/7', [10, 3.516]],
+              ['title/7', [10, 3.537]],
               ['description/7', []],
-              ['title/8', [11, 3.516]],
+              ['title/8', [11, 3.537]],
               ['description/8', []],
-              ['title/9', [12, 3.516]],
+              ['title/9', [12, 3.537]],
               ['description/9', []],
-              ['title/10', [13, 3.516]],
+              ['title/10', [13, 3.537]],
               ['description/10', []],
-              ['title/11', [14, 3.516]],
+              ['title/11', [14, 3.537]],
               ['description/11', []],
               [
                 'title/12',
-                [15, 1.079, 16, 1.079, 17, 1.079, 18, 1.079, 19, 1.079, 20, 1.079, 21, 1.079],
+                [15, 1.084, 16, 1.084, 17, 1.084, 18, 1.084, 19, 1.084, 20, 1.084, 21, 1.084],
               ],
               ['description/12', []],
-              ['title/13', [22, 3.516]],
+              ['title/13', [22, 3.537]],
               ['description/13', []],
-              ['title/14', [23, 3.516]],
+              ['title/14', [23, 3.537]],
               ['description/14', []],
-              ['title/15', [24, 3.516]],
+              ['title/15', [24, 3.537]],
               ['description/15', []],
-              ['title/16', [25, 3.516]],
+              ['title/16', [25, 3.537]],
               ['description/16', []],
-              ['title/17', [26, 3.516]],
+              ['title/17', [26, 3.537]],
               ['description/17', []],
-              ['title/18', [27, 3.516]],
+              ['title/18', [27, 3.537]],
               ['description/18', []],
-              ['title/19', [28, 3.516]],
+              ['title/19', [28, 3.537]],
               ['description/19', []],
-              ['title/20', [29, 3.516]],
+              ['title/20', [29, 3.537]],
               ['description/20', []],
-              ['title/21', [30, 3.516]],
+              ['title/21', [30, 3.537]],
               ['description/21', []],
-              ['title/22', [31, 3.516]],
+              ['title/22', [31, 3.537]],
               ['description/22', []],
-              ['title/23', [32, 3.516]],
+              ['title/23', [32, 3.537]],
               ['description/23', []],
-              ['title/24', [33, 3.516]],
+              ['title/24', [33, 3.537]],
               ['description/24', []],
-              ['title/25', [34, 3.516]],
+              ['title/25', [34, 3.537]],
               ['description/25', []],
-              ['title/26', [35, 3.516]],
+              ['title/26', [35, 3.537]],
               ['description/26', []],
-              ['title/27', [36, 3.516]],
+              ['title/27', [36, 3.537]],
               ['description/27', []],
-              ['title/28', [37, 3.516]],
+              ['title/28', [37, 3.537]],
               ['description/28', []],
-              ['title/29', [38, 2.977]],
+              ['title/29', [38, 2.998]],
               ['description/29', []],
-              ['title/30', [38, 2.977]],
+              ['title/30', [38, 2.998]],
               ['description/30', []],
-              ['title/31', [39, 3.516]],
+              ['title/31', [39, 3.537]],
               ['description/31', []],
-              ['title/32', [40, 3.516]],
+              ['title/32', [40, 3.537]],
               ['description/32', []],
-              ['title/33', [41, 3.516]],
+              ['title/33', [41, 3.537]],
               ['description/33', []],
-              ['title/34', [42, 3.516]],
+              ['title/34', [42, 3.537]],
               ['description/34', []],
-              ['title/35', [43, 3.516]],
+              ['title/35', [43, 3.537]],
               ['description/35', []],
-              ['title/36', [44, 3.516]],
+              ['title/36', [44, 3.537]],
               ['description/36', []],
-              ['title/37', [45, 3.516]],
+              ['title/37', [45, 3.537]],
               ['description/37', []],
-              ['title/38', [46, 3.516]],
+              ['title/38', [46, 3.537]],
               ['description/38', []],
-              ['title/39', [47, 3.516]],
+              ['title/39', [47, 3.537]],
               ['description/39', []],
-              ['title/40', [48, 3.516]],
+              ['title/40', [48, 3.537]],
               ['description/40', []],
+              ['title/41', [49, 3.537]],
+              ['description/41', []],
             ],
             invertedIndex: [
               ['', { _index: 1, title: {}, description: { 0: {} } }],
@@ -59234,7 +59493,8 @@ and limitations under the License.
               ['author', { _index: 4, title: { 1: {} }, description: {} }],
               ['avail', { _index: 20, title: { 12: {} }, description: {} }],
               ['bookmarkitem', { _index: 40, title: { 32: {} }, description: {} }],
-              ['checkparentalcontrol', { _index: 47, title: { 39: {} }, description: {} }],
+              ['bookmarkitemapp', { _index: 42, title: { 34: {} }, description: {} }],
+              ['checkparentalcontrol', { _index: 48, title: { 40: {} }, description: {} }],
               ['custom', { _index: 13, title: { 10: {} }, description: {} }],
               ['deleteitembookmark', { _index: 41, title: { 33: {} }, description: {} }],
               ['deletewatch', { _index: 34, title: { 25: {} }, description: {} }],
@@ -59243,8 +59503,8 @@ and limitations under the License.
               ['forgotcontactpassword', { _index: 10, title: { 7: {} }, description: {} }],
               ['getaccountdetail', { _index: 14, title: { 11: {} }, description: {} }],
               ['getactivesubscript', { _index: 22, title: { 13: {} }, description: {} }],
-              ['getbookmark', { _index: 43, title: { 35: {} }, description: {} }],
-              ['getbookmarklist', { _index: 42, title: { 34: {} }, description: {} }],
+              ['getbookmark', { _index: 44, title: { 36: {} }, description: {} }],
+              ['getbookmarklist', { _index: 43, title: { 35: {} }, description: {} }],
               [
                 'getcontinuewatchinglist',
                 { _index: 38, title: { 29: {}, 30: {} }, description: {} },
@@ -59252,9 +59512,9 @@ and limitations under the License.
               ['getitembookmark', { _index: 39, title: { 31: {} }, description: {} }],
               ['getitemmediafil', { _index: 28, title: { 19: {} }, description: {} }],
               ['getitemwatchedstatu', { _index: 36, title: { 27: {} }, description: {} }],
-              ['getnextplaybackitem', { _index: 44, title: { 36: {} }, description: {} }],
+              ['getnextplaybackitem', { _index: 45, title: { 37: {} }, description: {} }],
               ['getoauthaccesstoken', { _index: 5, title: { 2: {} }, description: {} }],
-              ['getparentalcontroldetail', { _index: 45, title: { 37: {} }, description: {} }],
+              ['getparentalcontroldetail', { _index: 46, title: { 38: {} }, description: {} }],
               ['getprofil', { _index: 30, title: { 21: {} }, description: {} }],
               ['getwatch', { _index: 33, title: { 24: {} }, description: {} }],
               ['getwatchedlist', { _index: 35, title: { 26: {} }, description: {} }],
@@ -59273,11 +59533,11 @@ and limitations under the License.
               ['rest', { _index: 15, title: { 12: {} }, description: {} }],
               ['security-definit', { _index: 3, title: {}, description: { 0: {} } }],
               ['setitemwatchedstatu', { _index: 37, title: { 28: {} }, description: {} }],
-              ['updateparentalcontroldetail', { _index: 46, title: { 38: {} }, description: {} }],
+              ['updateparentalcontroldetail', { _index: 47, title: { 39: {} }, description: {} }],
               ['updateprofil', { _index: 31, title: { 22: {} }, description: {} }],
               ['us', { _index: 17, title: { 12: {} }, description: {} }],
               ['validatecontactpassword', { _index: 11, title: { 8: {} }, description: {} }],
-              ['validateparentalcontrolpin', { _index: 48, title: { 40: {} }, description: {} }],
+              ['validateparentalcontrolpin', { _index: 49, title: { 41: {} }, description: {} }],
             ],
             pipeline: [],
           },

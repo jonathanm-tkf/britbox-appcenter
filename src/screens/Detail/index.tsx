@@ -328,6 +328,7 @@ const Detail = () => {
       dispatch(castDetail(next || episode || item));
       return CastVideo(next || episode || item);
     }
+
     return navigation.navigate('VideoPlayer', { item: episode || item });
   };
 
@@ -396,6 +397,7 @@ const Detail = () => {
     dispatch(
       watchlistToggleRequest({
         itemId: item?.id || '0',
+        itemCustomId: item?.customId || '0',
         isInWatchlist: getIsInWatchlist(item?.id || '0'),
       })
     );

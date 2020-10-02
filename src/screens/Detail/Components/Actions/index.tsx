@@ -85,7 +85,7 @@ const Actions = ({ data, onPlay, onWatchlist, id }: Props) => {
                 <WatchlistIcon width={35} height={35} />
               )}
             </ActionButton>
-            <ActionButton play onPress={onPlay}>
+            <ActionButton play onPress={() => onPlay()}>
               <Action
                 isContinue={getIsContinueWatching()}
                 loop={!getIsContinueWatching()}

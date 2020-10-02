@@ -117,6 +117,7 @@ export interface EvergentResponseError {
 export type WatchListItem = {
   itemId: string;
   isInWatchlist: boolean;
+  itemCustomId: string;
 };
 
 export type ContinueWatchingItem = {

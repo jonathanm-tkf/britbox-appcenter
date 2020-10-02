@@ -831,6 +831,36 @@
         "responses": { "200": { "description": "Success" } }
       }
     },
+    "/v1/account/Profile/bookmarks-app/{itemId}": {
+      "put": {
+        "tags": ["Profile"],
+        "operationId": "BookmarkItemApp",
+        "consumes": [],
+        "produces": ["text/plain", "application/json", "text/json"],
+        "parameters": [
+          { "name": "itemId", "in": "path", "required": true, "type": "string" },
+          { "name": "itemCustomId", "in": "query", "required": false, "type": "string" },
+          { "name": "useCustomId", "in": "query", "required": false, "type": "boolean" },
+          {
+            "name": "segments",
+            "in": "query",
+            "required": false,
+            "type": "array",
+            "items": { "type": "string" },
+            "collectionFormat": "multi",
+            "uniqueItems": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/Britbox.API.Account.Models.Profile.BookmarkItemResponse"
+            }
+          }
+        }
+      }
+    },
     "/v1/account/Profile/bookmarks/list": {
       "get": {
         "tags": ["Profile"],

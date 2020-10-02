@@ -32,7 +32,7 @@ type Props = {
   onScrollTo: (y: number) => void;
   onLayout?: (event: any) => void;
   autoPlay: boolean;
-  onPlay: (item: MassiveSDKModelEpisodesItem) => void;
+  onPlay: (item?: MassiveSDKModelEpisodesItem) => void;
 };
 
 type HeightType = string | number;
@@ -135,6 +135,10 @@ const Tabs = ({ data, onScrollTo, onLayout, autoPlay, onPlay }: Props) => {
               if (!ready.bonus) {
                 setSecondHeight(event.nativeEvent.layout.height);
                 ready.bonus = true;
+
+                if (data?.information?.type === 'movie' && autoPlay) {
+                  onPlay();
+                }
               }
             }}
           />

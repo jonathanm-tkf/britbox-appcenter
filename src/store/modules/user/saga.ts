@@ -425,8 +425,11 @@ export function* logout() {
   }
 }
 
-async function watchlistRequest({ itemId, isInWatchlist }: WatchListItem, accessToken: string) {
-  const { bookmarkItem, deleteItemBookmark } = BritboxAccountApi({
+async function watchlistRequest(
+  { itemId, itemCustomId, isInWatchlist }: WatchListItem,
+  accessToken: string
+) {
+  const { bookmarkItemApp, deleteItemBookmark } = BritboxAccountApi({
     headers: {
       Authorization: `Bearer ${accessToken}`,
     },
@@ -439,7 +442,10 @@ async function watchlistRequest({ itemId, isInWatchlist }: WatchListItem, access
         type: 'remove',
       }));
     } else {
-      response = await bookmarkItem(itemId).then((e) => ({
+      response = await bookmarkItemApp(itemId, {
+        itemCustomId,
+        useCustomId: true,
+      }).then((e) => ({
         ...e,
         type: 'add',
       }));
