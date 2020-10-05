@@ -7,7 +7,6 @@ import { useNavigation, RouteProp, useRoute } from '@react-navigation/native';
 import { AppState } from '@store/modules/rootReducer';
 import { useDispatch, useSelector } from 'react-redux';
 import { WebView } from 'react-native-webview';
-import Constants from '@src/config/Constants';
 import NetInfo, { NetInfoStateType } from '@react-native-community/netinfo';
 import { getSystemVersion, isTablet } from 'react-native-device-info';
 import { MassiveSDKModelItemSummary } from '@src/sdks/Britbox.API.Content.TS/api';
@@ -17,6 +16,7 @@ import { PostMessage, webViewRef } from '@src/utils/videoPlayerRef';
 import GoogleCast from 'react-native-google-cast';
 import { castDetail } from '@store/modules/core/actions';
 import { continueWatchingRequest } from '@store/modules/user/actions';
+import { Config } from '@src/utils/config';
 
 const { width, height } = Dimensions.get('window');
 
@@ -149,7 +149,7 @@ const VideoPlayer = () => {
           // onLoad={() => {
           //   onTrackEvent();
           //   console.tron.log({
-          //     uri: `${Constants.url_player}?country=${segment?.toLocaleLowerCase()}&videoid=${
+          //     uri: `${Config.URL_PLAYER}?country=${segment?.toLocaleLowerCase()}&videoid=${
           //       params.item.id
           //     }&token=${token}&ert=${refreshToken}&allow=autoplay&isTrailer=${
           //       params.isTrailer
@@ -168,7 +168,7 @@ const VideoPlayer = () => {
           allowsInlineMediaPlayback
           mediaPlaybackRequiresUserAction={false}
           source={{
-            uri: `${Constants.url_player}?country=${segment?.toLocaleLowerCase()}&videoid=${
+            uri: `${Config.URL_PLAYER}?country=${segment?.toLocaleLowerCase()}&videoid=${
               params.item.id
             }&token=${token}&ert=${refreshToken}&allow=autoplay&isTrailer=${
               params.isTrailer

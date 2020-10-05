@@ -87,8 +87,8 @@ apply from: "../../node_modules/react-native-code-push/android/codepush.gradle"
 
 project.ext.envConfigFiles = [
     debug: ".env.staging",
-    releaseStaging: ".env.staging",
     release: ".env.production",
+    staging: ".env.staging",
     anothercustombuild: ".env.staging",
 ]
 
@@ -170,6 +170,12 @@ android {
             keyAlias 'androidreleasekey'
             keyPassword 'uthnyeLucNK8VdjHsW7Y'
         }
+        staging {
+          storeFile file('./keystore/release.keystore')
+          storePassword 'uthnyeLucNK8VdjHsW7Y'
+          keyAlias 'androidreleasekey'
+          keyPassword 'uthnyeLucNK8VdjHsW7Y'
+        }
     }
     buildTypes {
         debug {
@@ -183,8 +189,8 @@ android {
             ]
         }
 
-        releaseStaging {
-            signingConfig signingConfigs.release
+        staging {
+            signingConfig signingConfigs.staging
             buildConfigField "String", "CODEPUSH_KEY", '"4VLJUJztXcgYE2OcsTzYW35Oa8LP3Ecb2o41v"'
             matchingFallbacks = ['release']
             resValue "string", "app_name", "Britbox"
@@ -210,19 +216,6 @@ android {
             ]
         }
     }
-
-
-    // flavorDimensions "env"
-    // productFlavors {
-    //   staging {
-    //     resValue "string", "app_name", "Britbox"
-    //     applicationIdSuffix ".staging"
-    //   }
-    //   prod {
-    //     resValue "string", "app_name", "Britbox"
-    //     applicationIdSuffix ""
-    //   }
-    // }
 
     // applicationVariants are e.g. debug, release
     applicationVariants.all { variant ->

@@ -5,7 +5,6 @@ import { Button } from '@components/Button';
 import { useTranslation } from 'react-i18next';
 import { Headline, Paragraph } from '@components/Typography';
 import { getTextInConfigJSON, getGlobalTextInConfigJSON } from '@src/utils/object';
-import Config from 'react-native-config';
 import { Container, Opaque, BottomParagraph, LinkTitle, LogoContainer, Logo } from './styles';
 
 type Props = {
@@ -15,14 +14,12 @@ type Props = {
 
 const ErrorLanding = ({ onPress, out = false }: Props) => {
   const { t } = useTranslation('layout');
-  // console.tron.log({ Config });
   return (
     <Container>
       <LogoContainer>
         <Logo />
       </LogoContainer>
       <Headline fontSize={28} lineHeight={40} center>
-        {Config.ENVIRONMENT}
         {!out
           ? t('error.subtitle')
           : getGlobalTextInConfigJSON(['out-of-region', 'message'], t('errorOut.subtitle'))}

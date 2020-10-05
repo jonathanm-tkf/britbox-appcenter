@@ -11,10 +11,10 @@ import { ThemeProvider } from 'styled-components';
 import { BottomSheetWrapper, Headline, Paragraph } from '@components/Layout';
 import { Button } from '@components/Button';
 import Navigation from './navigation/routes';
-import Constants from './config/Constants';
 import { randomString } from './services/token';
 import { hideSheet, sheetRef, showSheet } from './utils/sheetBottom';
 import { getTextInConfigJSON } from './utils/object';
+import { Config } from './utils/config';
 
 const webViewStyles: ViewStyle = {
   height: 0,
@@ -96,7 +96,7 @@ export default function App() {
           <WebView
             ref={webViewRef}
             source={{
-              uri: `${Constants.analitycs}?id=${randomString()}&platform=${getSystemName()}`,
+              uri: `${Config.ANALITYCS}?id=${randomString()}&platform=${getSystemName()}`,
             }}
           />
         </View>
