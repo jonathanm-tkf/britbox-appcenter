@@ -7,7 +7,6 @@ import { getDevice } from '@src/utils';
 import { store } from '@store/index';
 import { CoreState } from '@store/modules/core/types';
 import { UserState } from '@store/modules/user/types';
-import Constants from '@src/config/Constants';
 import {
   LayoutState,
   DataResponseMediaSlector,
@@ -21,6 +20,7 @@ import { getImage } from '@src/utils/images';
 import { Platform } from 'react-native';
 import { pickBy, shuffle } from 'lodash';
 import { getSystemVersion } from 'react-native-device-info';
+import { Config } from '@src/utils/config';
 import { getUserId } from './analytics';
 
 const getSegment = () => {
@@ -147,7 +147,7 @@ export const CastVideo = async (item: MassiveSDKModelEpisodesItem, pcToken?: str
 
       const idToHash = `7dff7671d0c697fedb1d905d9a121719938b92bf${url}`;
       const mediaSelectoUrl = `${
-        Constants.mediaSelectorHost
+        Config.MEDIA_SELECTOR_HOST
       }/mediaselector/6/select/version/2.0/mediaset/${getConnection()}/vpid/${url}/format/json/atk/${sha1(
         idToHash
       )}/asn/1/jsfunc${videoTokenParameter}`;

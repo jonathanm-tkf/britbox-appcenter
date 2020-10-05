@@ -1,8 +1,8 @@
 import { takeLatest, all, select, call, put, takeEvery } from 'redux-saga/effects';
 import axios from 'axios';
 import api from '@src/services/api';
-import Constants from '@src/config/Constants';
 import { BritboxContentApi } from '@src/sdks';
+import { Config } from '@src/utils/config';
 import { CoreActionTypes, Menu, Segment } from './types';
 import {
   menuRequestSuccess,
@@ -50,7 +50,7 @@ export function* getConfig() {
 
 export async function getBritBoxAppConfig() {
   try {
-    const response = await axios.get(`${Constants.config_url}britbox-app-config.json`);
+    const response = await axios.get(`${Config.CONFIG_URL}britbox-app-config.json`);
     return response.data;
   } catch (error) {
     return error;

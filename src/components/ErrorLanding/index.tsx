@@ -14,7 +14,6 @@ type Props = {
 
 const ErrorLanding = ({ onPress, out = false }: Props) => {
   const { t } = useTranslation('layout');
-
   return (
     <Container>
       <LogoContainer>

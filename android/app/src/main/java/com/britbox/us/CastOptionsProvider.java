@@ -1,4 +1,4 @@
-package com.britbox.us.staging;
+package com.britbox.us;
 
 import com.reactnative.googlecast.GoogleCastOptionsProvider;
 import android.content.Context;

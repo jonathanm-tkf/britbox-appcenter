@@ -7,11 +7,11 @@ import { Api as BritboxContentApiInstance } from '@src/sdks/Britbox.API.Content.
 
 import { Api as BritboxSearchApiInstance } from '@src/sdks/Britbox.API.Search.TS/api';
 
-import Constants from '@src/config/Constants';
+import { Config } from '@src/utils/config';
 
 const BritboxAccountApi = (baseApiParams?: RequestParams) => {
   const { v1 } = new BritboxAccountApiInstance({
-    baseUrl: Constants.sdk_url,
+    baseUrl: Config.SDK_URL,
     baseApiParams: baseApiParams || {
       credentials: 'same-origin',
       headers: {
@@ -25,7 +25,7 @@ const BritboxAccountApi = (baseApiParams?: RequestParams) => {
 
 const BritboxContentApi = (baseApiParams?: RequestParams) => {
   const { v1 } = new BritboxContentApiInstance({
-    baseUrl: Constants.sdk_url,
+    baseUrl: Config.SDK_URL,
     baseApiParams: baseApiParams || {
       credentials: 'same-origin',
       headers: {
@@ -39,7 +39,7 @@ const BritboxContentApi = (baseApiParams?: RequestParams) => {
 
 const BritboxSearchApi = (baseApiParams?: RequestParams) => {
   const { v1 } = new BritboxSearchApiInstance({
-    baseUrl: Constants.sdk_url,
+    baseUrl: Config.SDK_URL,
     baseApiParams: baseApiParams || {
       credentials: 'same-origin',
       headers: {

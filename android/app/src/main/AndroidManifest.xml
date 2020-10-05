@@ -1,19 +1,19 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-  package="com.britbox.us.staging">
+  package="com.britbox.us">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="com.android.vending.BILLING" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
-      android:name="com.britbox.us.staging.MainApplication"
+      android:name="com.britbox.us.MainApplication"
       android:label="@string/app_name"
-      android:icon="@mipmap/ic_launcher"
-      android:roundIcon="@mipmap/ic_launcher_round"
+      android:icon="${appIcon}"
+      android:roundIcon="${appIconRound}"
       android:allowBackup="false"
       android:theme="@style/AppTheme">
       <activity
-        android:name="com.britbox.us.staging.MainActivity"
+        android:name="com.britbox.us.MainActivity"
         android:label="@string/app_name"
         android:configChanges="keyboard|keyboardHidden|orientation|screenSize|uiMode"
         android:launchMode="singleTask"
@@ -33,7 +33,7 @@
       <activity android:name="com.reactnative.googlecast.GoogleCastExpandedControlsActivity" />
       <meta-data
         android:name="com.google.android.gms.cast.framework.OPTIONS_PROVIDER_CLASS_NAME"
-        android:value="com.britbox.us.staging.CastOptionsProvider" />
+        android:value="com.britbox.us.CastOptionsProvider" />
     </application>
 
 </manifest>

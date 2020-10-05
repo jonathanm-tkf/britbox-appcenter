@@ -63,6 +63,9 @@ buck-out/
 /ios/Pods/
 
 /android/app/release/
+/android/app/staging/
+/android/app/releaseStaging/
+/android/app/stagingrelease/
 
 # /src/sdks/Britbox.API.Account.TS/index.html
 # /src/sdks/Britbox.API.Content.TS/index.html
