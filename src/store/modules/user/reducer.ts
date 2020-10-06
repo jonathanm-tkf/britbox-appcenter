@@ -45,7 +45,10 @@ const user: Reducer<UserState> = (state = initialState, action) => {
         draft.profile = undefined;
         break;
       case UserActionTypes.PROFILE_REQUEST_SUCCESS:
-        draft.profile = action.payload;
+        draft.profile = {
+          ...action.payload,
+          bookmarkPendingProccesing: undefined,
+        };
         break;
       case UserActionTypes.REFRESH_TOKEN_SUCCESS:
       case UserActionTypes.REGISTER_REQUEST_SUCCESS:
@@ -56,6 +59,14 @@ const user: Reducer<UserState> = (state = initialState, action) => {
         draft.loading = false;
         draft.error = false;
         break;
+      case UserActionTypes.WATCHLIST_TOGGLE_REQUEST: {
+        const profile = {
+          ...state.profile,
+          bookmarkPendingProccesing: action.payload.itemId,
+        };
+        draft.profile = profile;
+        break;
+      }
       case UserActionTypes.WATCHLIST_TOGGLE_REQUEST_REMOVE: {
         const profile = {
           ...state.profile,
@@ -66,6 +77,7 @@ const user: Reducer<UserState> = (state = initialState, action) => {
                 parseInt(item.id, 10) !== parseInt(action.payload.itemId, 10)
             ),
           },
+          bookmarkPendingProccesing: undefined,
         };
         draft.profile = profile;
         break;
@@ -83,6 +95,7 @@ const user: Reducer<UserState> = (state = initialState, action) => {
             ...state.profile.bookmarkList,
             items: [{ date, ...itemDetail }, ...(state.profile.bookmarkList.items || [])],
           },
+          bookmarkPendingProccesing: undefined,
         };
 
         draft.profile = profile;

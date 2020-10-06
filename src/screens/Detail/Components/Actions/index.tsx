@@ -1,5 +1,5 @@
 import React from 'react';
-import { Dimensions } from 'react-native';
+import { Dimensions, ActivityIndicator } from 'react-native';
 import ContentLoader, { Rect } from 'react-content-loader/native';
 import { useSelector } from 'react-redux';
 import { AppState } from '@store/modules/rootReducer';
@@ -40,6 +40,9 @@ const Actions = ({ data, onPlay, onWatchlist, id }: Props) => {
   const bookmarklist = useSelector(
     (state: AppState) => state.user.profile?.bookmarkList || []
   ) as MassiveSDKModelItemList;
+  const { bookmarkPendingProccesing } = useSelector(
+    (state: AppState) => state.user?.profile || { bookmarkPendingProccesing: undefined }
+  );
 
   const watchedlist = useSelector(
     (state: AppState) => state.user.profile?.watchedList?.items || []
@@ -79,7 +82,9 @@ const Actions = ({ data, onPlay, onWatchlist, id }: Props) => {
         >
           <ActionInnerContent>
             <ActionButton onPress={onWatchlist}>
-              {getIsInWatchlist() ? (
+              {bookmarkPendingProccesing === id ? (
+                <ActivityIndicator size={35} color={theme.PRIMARY_FOREGROUND_COLOR} />
+              ) : getIsInWatchlist() ? (
                 <CheckedIcon fill={theme.PRIMARY_FOREGROUND_COLOR} width={35} height={35} />
               ) : (
                 <WatchlistIcon width={35} height={35} />

@@ -61,7 +61,9 @@ export enum UserActionTypes {
 type Access = EvergentLoginResponse | EvergentLoginError | undefined;
 
 type Profile = BritboxAPIAccountModelsProfileGetProfileResponse &
-  BritboxAPIAccountModelsCustomerGetAccountDetailsResponse;
+  BritboxAPIAccountModelsCustomerGetAccountDetailsResponse & {
+    bookmarkPendingProccesing: string | undefined;
+  };
 
 export interface UserState {
   isLogged: boolean;

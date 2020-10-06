@@ -119,6 +119,7 @@ const Item = () => {
     dispatch(
       watchlistToggleRequest({
         itemId: item.type === 'season' ? item?.showId || '0' : item?.id || '0',
+        itemCustomId: item?.customId || '0',
         isInWatchlist,
       })
     );

@@ -6,6 +6,7 @@ import { checkIsInWatchingList } from '@src/services/watchlist';
 import { AppState } from '@store/modules/rootReducer';
 import { useSelector } from 'react-redux';
 import { MassiveSDKModelItemList } from '@src/sdks/Britbox.API.Content.TS/api';
+import { ActivityIndicator } from 'react-native';
 import {
   Container,
   ActionWrapper,
@@ -29,6 +30,11 @@ const Actions = ({ onPlay, onDiscoverMore, onWatchlist, id, type }: Props) => {
   const bookmarklist = useSelector(
     (state: AppState) => state.user.profile?.bookmarkList || []
   ) as MassiveSDKModelItemList;
+
+  const { bookmarkPendingProccesing } = useSelector(
+    (state: AppState) => state.user?.profile || { bookmarkPendingProccesing: undefined }
+  );
+
   const getIsInWatchlist = () => checkIsInWatchingList(bookmarklist?.items || [], id || '0') === 3;
 
   return (
@@ -38,7 +44,9 @@ const Actions = ({ onPlay, onDiscoverMore, onWatchlist, id, type }: Props) => {
           {type !== 'link' && (
             <>
               <ActionButton onPress={() => (onWatchlist ? onWatchlist() : {})}>
-                {getIsInWatchlist() ? (
+                {bookmarkPendingProccesing === id ? (
+                  <ActivityIndicator size={35} color={theme.PRIMARY_FOREGROUND_COLOR} />
+                ) : getIsInWatchlist() ? (
                   <CheckedIcon fill={theme.PRIMARY_FOREGROUND_COLOR} width={35} height={35} />
                 ) : (
                   <WatchlistIcon width={35} height={35} />
