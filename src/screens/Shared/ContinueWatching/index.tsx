@@ -88,6 +88,21 @@ const ContinueWatching = () => {
     return false;
   };
 
+  const isContinueWatching = (item: MassiveSDKModelEpisodesItem) => {
+    const filter = pickBy(watched, (value, key) => key.startsWith(item?.id || ''));
+    return filter[item?.id || ''];
+  };
+
+  const getActionText = (item: any) => {
+    return item.duration
+      ? getPositionWatched(item)
+        ? `${Math.round(
+            (parseInt(item.duration, 10) - parseInt(getPositionWatched(item), 10)) / 60
+          )} min left`
+        : t('playnow')
+      : t('continue');
+  };
+
   const getContinueWatchingData = () => {
     return (watchedList?.items || []).map((item: any) => {
       return {
@@ -101,11 +116,7 @@ const ContinueWatching = () => {
             item.type === 'episode'
               ? `${item.seasonTitle}・${item.episodeName}`
               : item.type.toUpperCase(),
-          actionText: item.duration
-            ? `${Math.round(
-                (parseInt(item.duration, 10) - parseInt(getPositionWatched(item), 10)) / 60
-              )} min left`
-            : t('continue'),
+          actionText: getActionText(item),
           category: getCategories(item),
         },
         original: item,
@@ -224,7 +235,7 @@ const ContinueWatching = () => {
             listProps={{ horizontal: true }}
             renderItem={({ item: card }) => (
               <Card
-                isContinue
+                isContinue={isContinueWatching(card.original)}
                 newEpisode
                 width={157}
                 height={107}

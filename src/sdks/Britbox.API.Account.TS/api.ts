@@ -1328,6 +1328,21 @@ export class Api<SecurityDataType = any> extends HttpClient<SecurityDataType> {
 
     /**
      * @tags Profile
+     * @name GetProfileV2
+     * @request GET:/v1/account/Profile/v2
+     */
+    getProfileV2: (
+      query?: { useCustomId?: boolean; segments?: string[] },
+      params?: RequestParams
+    ) =>
+      this.request<BritboxAPIAccountModelsProfileGetProfileResponse, any>(
+        `/v1/account/Profile/v2${this.addQueryParams(query)}`,
+        'GET',
+        params
+      ),
+
+    /**
+     * @tags Profile
      * @name ResetPassword
      * @request POST:/v1/account/Profile/resetPassword
      */
@@ -1429,10 +1444,10 @@ export class Api<SecurityDataType = any> extends HttpClient<SecurityDataType> {
 
     /**
      * @tags Profile
-     * @name GetContinueWatchingList
+     * @name GetWatchedShow
      * @request GET:/v1/account/Profile/watched/show/{itemId}
      */
-    getContinueWatchingList: (itemId: string, params?: RequestParams) =>
+    getWatchedShow: (itemId: string, params?: RequestParams) =>
       this.request<BritboxAPIAccountModelsProfileGetItemWatchedStatusResponse, any>(
         `/v1/account/Profile/watched/show/${itemId}`,
         'GET',
@@ -1443,10 +1458,8 @@ export class Api<SecurityDataType = any> extends HttpClient<SecurityDataType> {
      * @tags Profile
      * @name GetContinueWatchingList
      * @request GET:/v1/account/Profile/continue-watching/list
-     * @originalName getContinueWatchingList
-     * @duplicate
      */
-    getContinueWatchingList2: (
+    getContinueWatchingList: (
       query?: {
         showItemType?: string;
         include?: string[];
@@ -1455,6 +1468,7 @@ export class Api<SecurityDataType = any> extends HttpClient<SecurityDataType> {
         maxRating?: string;
         device?: string;
         sub?: string;
+        useCustomId?: boolean;
         segments?: string[];
       },
       params?: RequestParams

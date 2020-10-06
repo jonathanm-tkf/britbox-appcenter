@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 
 import GoogleCast from 'react-native-google-cast';
 import { useDispatch, useSelector } from 'react-redux';
-import { castOn, castOff } from '@store/modules/layout/actions';
+import { castOn, castOff, hideForceChromecast } from '@store/modules/layout/actions';
 import { AppState } from '@store/modules/rootReducer';
 import { castDetailClear, castingOff, castingOn } from '@store/modules/core/actions';
 import { ChromecastIcon } from '@assets/icons';
@@ -12,6 +12,7 @@ import { getImage } from '@src/utils/images';
 import { store } from '@store/index';
 import { CastDetail, LayoutState } from '@store/modules/layout/types';
 import { CastVideo } from '@src/services/cast';
+import { Platform } from 'react-native';
 import {
   CastButton,
   FABView,
@@ -32,10 +33,9 @@ const getItemCastDetail = () => {
 const Cast = () => {
   const dispatch = useDispatch();
   const [showButton, setShowButton] = useState(false);
-  const { cast } = useSelector((state: AppState) => state.layout);
+  const { cast, forceChromecast } = useSelector((state: AppState) => state.layout);
   const theme = useSelector((state: AppState) => state.theme.theme);
-  const casting = useSelector((state: AppState) => state.core.casting);
-  const castDetail = useSelector((state: AppState) => state.core.castDetail);
+  const { casting, castDetail } = useSelector((state: AppState) => state.core);
   const registerListeners = () => {
     const events = `
       SESSION_STARTING SESSION_STARTED SESSION_START_FAILED SESSION_SUSPENDED
@@ -90,6 +90,15 @@ const Cast = () => {
   useEffect(() => {
     registerListeners();
     // GoogleCast.showIntroductoryOverlay();
+
+    if (
+      forceChromecast &&
+      Platform.OS === 'ios' &&
+      parseInt(Platform.Version.toString(), 10) >= 14
+    ) {
+      setShowButton(true);
+      dispatch(hideForceChromecast());
+    }
 
     const intervalCheckChromecast = setInterval(() => {
       GoogleCast.getCastState().then((state) => {

@@ -20,6 +20,7 @@ export const initialState: LayoutState = {
   device: '',
   autoPlay: false,
   welcomeMessage: false,
+  forceChromecast: false,
 };
 
 const layout: Reducer<LayoutState> = (state = initialState, action) => {
@@ -96,6 +97,12 @@ const layout: Reducer<LayoutState> = (state = initialState, action) => {
           currentTime: action.payload.currentTime,
           item: action.payload.item,
         };
+        break;
+      case LayoutActionTypes.SHOW_FORCE_CHROMECAST:
+        draft.forceChromecast = true;
+        break;
+      case LayoutActionTypes.HIDE_FORCE_CHROMECAST:
+        draft.forceChromecast = false;
         break;
       default:
         break;

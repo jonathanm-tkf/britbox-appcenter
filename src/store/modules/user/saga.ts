@@ -52,14 +52,14 @@ export async function profile(
   token: string,
   segment?: string
 ): Promise<{ response: BritboxAPIAccountModelsProfileGetProfileResponse }> {
-  const { getProfile } = BritboxAccountApi({
+  const { getProfileV2 } = BritboxAccountApi({
     headers: {
       Authorization: `Bearer ${token}`,
     },
   });
 
   try {
-    const response = await getProfile({
+    const response = await getProfileV2({
       useCustomId: true,
       segments: [segment || ''],
     });
@@ -381,7 +381,7 @@ export async function getConfigRequest() {
 
   try {
     const response = await getConfig({
-      segments: 'us',
+      segments: ['us'],
       include: [
         'classification',
         'playback',
@@ -535,21 +535,21 @@ export function* getContinueWatchingRequest() {
   try {
     const { accessToken } = yield select(getToken);
     const segment = yield select(getSegment);
-    const { getWatched, getWatchedList } = BritboxAccountApi({
+    const { getWatched, getContinueWatchingList } = BritboxAccountApi({
       headers: {
         Authorization: `Bearer ${accessToken}`,
       },
     });
 
     const watched = yield call(getWatched);
-    const watchedList = yield call(getWatchedList, {
+    const watchedList = yield call(getContinueWatchingList, {
       segments: [segment],
       useCustomId: true,
       device: getDevice(),
-      sub: 'Subbscriber',
+      sub: 'Subscriber',
       page: 1,
       pageSize: 25,
-      orderBy: 'date-modified',
+      include: ['episode'],
     });
 
     yield put(continueWatchingRequestSuccess({ watched, watchedList }));

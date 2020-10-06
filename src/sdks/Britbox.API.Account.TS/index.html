@@ -47991,6 +47991,14 @@ and limitations under the License.
                       ></label
                     >
                   </li>
+                  <li data-item-id="operation/GetProfileV2" class="sc-btzYZH hndQyM">
+                    <label role="menuitem" class="sc-lhVmIH bLMrnV -depth2"
+                      ><span type="get" class="sc-cmTdod kxjqzZ operation-type get">get</span
+                      ><span width="calc(100% - 38px)" class="sc-bYSBpT gpHEtH"
+                        >GetProfileV2</span
+                      ></label
+                    >
+                  </li>
                   <li data-item-id="operation/ResetPassword" class="sc-btzYZH hndQyM">
                     <label role="menuitem" class="sc-lhVmIH bLMrnV -depth2"
                       ><span type="post" class="sc-cmTdod kxjqzZ operation-type post">post</span
@@ -48039,11 +48047,11 @@ and limitations under the License.
                       ></label
                     >
                   </li>
-                  <li data-item-id="operation/GetContinueWatchingList" class="sc-btzYZH hndQyM">
+                  <li data-item-id="operation/GetWatchedShow" class="sc-btzYZH hndQyM">
                     <label role="menuitem" class="sc-lhVmIH bLMrnV -depth2"
                       ><span type="get" class="sc-cmTdod kxjqzZ operation-type get">get</span
                       ><span width="calc(100% - 38px)" class="sc-bYSBpT gpHEtH"
-                        >GetContinueWatchingList</span
+                        >GetWatchedShow</span
                       ></label
                     >
                   </li>
@@ -52381,6 +52389,165 @@ and limitations under the License.
             </div>
           </div>
           <div
+            id="operation/GetProfileV2"
+            data-section-id="operation/GetProfileV2"
+            class="sc-ifAKCX hiuczA"
+          >
+            <div class="sc-gzVnrw sc-cmthru hcTXxz">
+              <div class="sc-bxivhb cjtbAK">
+                <h2 class="sc-dnqmqq ioYTqA">
+                  <a class="sc-VigVT kGvRyb" href="#operation/GetProfileV2"></a>GetProfileV2<!-- -->
+                </h2>
+                <div class="sc-bsbRJL PDnUY">
+                  <div class="sc-hXRMBi ceJGIt">
+                    <h5 class="sc-gqjmRU sc-iQNlJl lmVwfJ">Authorizations:</h5>
+                  </div>
+                  <div class="sc-epnACN iYKvkC">
+                    <span class="sc-gwVKww jtJYnZ"
+                      ><span class="sc-eTuwsz eFFwMa"
+                        ><a href="#section/Authentication/AWSApiKeyAuth">AWSApiKeyAuth</a></span
+                      ><span class="sc-eTuwsz eFFwMa"
+                        ><a href="#section/Authentication/JWToken">JWToken</a></span
+                      ></span
+                    >
+                  </div>
+                </div>
+                <div>
+                  <h5 class="sc-gqjmRU LiUBH">
+                    query<!-- -->
+                    Parameters
+                  </h5>
+                  <table class="sc-dxgOiQ eCjbJc">
+                    <tbody>
+                      <tr>
+                        <td class="sc-cSHVUG sc-chPdSV bIrgla" kind="field" title="useCustomId">
+                          <span class="sc-kGXeez bcLONg"></span>useCustomId
+                        </td>
+                        <td class="sc-kgoBCf kGwPhO">
+                          <div>
+                            <div>
+                              <span class="sc-cHGsZl sc-TOsTZ fKyGWc"></span
+                              ><span class="sc-cHGsZl sc-kgAjT hqYVjx">boolean</span>
+                            </div>
+                            <div>
+                              <div class="sc-jWBwVP sc-iRbamj kjegA">
+                                <p>Show content item ids with BBC ids</p>
+                              </div>
+                            </div>
+                          </div>
+                        </td>
+                      </tr>
+                      <tr class="last undefined">
+                        <td class="sc-cSHVUG sc-chPdSV bIrgla" kind="field" title="segments">
+                          <span class="sc-kGXeez bcLONg"></span>segments
+                        </td>
+                        <td class="sc-kgoBCf kGwPhO">
+                          <div>
+                            <div>
+                              <span class="sc-cHGsZl sc-TOsTZ fKyGWc">Array of </span
+                              ><span class="sc-cHGsZl sc-kgAjT hqYVjx">strings</span>
+                            </div>
+                            <div>
+                              <div class="sc-jWBwVP sc-iRbamj kjegA"><p>US, CA or AU</p></div>
+                            </div>
+                          </div>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div>
+                  <h3 class="sc-bwCtUz chVREB">Responses</h3>
+                  <div>
+                    <div class="sc-eXEjpC bTuXIq">
+                      <svg
+                        class="sc-jTzLTM hhjjYI"
+                        version="1.1"
+                        viewBox="0 0 24 24"
+                        x="0"
+                        xmlns="http://www.w3.org/2000/svg"
+                        y="0"
+                      >
+                        <polygon
+                          points="17.3 8.3 12 13.6 6.7 8.3 5.3 9.7 12 16.4 18.7 9.7 "
+                        ></polygon></svg
+                      ><strong>200<!-- --> </strong
+                      ><span class="sc-jlyJG fwYGJM"><p>Success</p> </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="sc-EHOje sc-bZQynM dtUibw">
+                <div class="sc-gzOgki fBopsv">
+                  <div class="sc-hwwEjo hgxMbQ">
+                    <span type="get" class="sc-kPVwWT hzxych http-verb get">get</span
+                    ><span class="sc-iyvyFf dpRRAO">/v1/account/Profile/v2</span
+                    ><svg
+                      class="sc-jTzLTM OtKQc"
+                      style="margin-right: -25px"
+                      version="1.1"
+                      viewBox="0 0 24 24"
+                      x="0"
+                      xmlns="http://www.w3.org/2000/svg"
+                      y="0"
+                    >
+                      <polygon
+                        points="17.3 8.3 12 13.6 6.7 8.3 5.3 9.7 12 16.4 18.7 9.7 "
+                      ></polygon>
+                    </svg>
+                  </div>
+                  <div class="sc-kfGgVZ bVSqpC">
+                    <div class="sc-esjQYD hNiVmK">
+                      <div class="sc-jWBwVP sc-iRbamj kjegA"></div>
+                      <div>
+                        <div class="sc-kIPQKe jdQHlL"><span></span>/v1/account/Profile/v2</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div>
+                  <h3 class="sc-gZMcBi kBWwoV">Response samples</h3>
+                  <div class="sc-eHgmQL eulAfj" data-tabs="true">
+                    <ul class="react-tabs__tab-list" role="tablist">
+                      <li
+                        class="tab-success react-tabs__tab--selected"
+                        role="tab"
+                        id="react-tabs-54"
+                        aria-selected="true"
+                        aria-disabled="false"
+                        aria-controls="react-tabs-55"
+                        tabindex="0"
+                      >
+                        200
+                      </li>
+                    </ul>
+                    <div
+                      class="react-tabs__tab-panel react-tabs__tab-panel--selected"
+                      role="tabpanel"
+                      id="react-tabs-55"
+                      aria-labelledby="react-tabs-54"
+                    >
+                      <div>
+                        <div class="sc-eqIVtm ecxnvs">
+                          <span class="sc-dVhcbM dpMbau">Content type</span>
+                          <div class="Dropdown-root sc-kkGfuU sc-fAjcbJ iIEWPt">
+                            <div class="Dropdown-control" aria-haspopup="listbox">
+                              <div class="Dropdown-placeholder is-selected">text/plain</div>
+                              <div class="Dropdown-arrow-wrapper">
+                                <span class="Dropdown-arrow"></span>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="sc-caSCKo byIIPy">No sample</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
             id="operation/ResetPassword"
             data-section-id="operation/ResetPassword"
             class="sc-ifAKCX hiuczA"
@@ -52528,10 +52695,10 @@ and limitations under the License.
                       <li
                         class="react-tabs__tab react-tabs__tab--selected"
                         role="tab"
-                        id="react-tabs-54"
+                        id="react-tabs-56"
                         aria-selected="true"
                         aria-disabled="false"
-                        aria-controls="react-tabs-55"
+                        aria-controls="react-tabs-57"
                         tabindex="0"
                       >
                         Payload
@@ -52540,8 +52707,8 @@ and limitations under the License.
                     <div
                       class="react-tabs__tab-panel react-tabs__tab-panel--selected"
                       role="tabpanel"
-                      id="react-tabs-55"
-                      aria-labelledby="react-tabs-54"
+                      id="react-tabs-57"
+                      aria-labelledby="react-tabs-56"
                     >
                       <div>
                         <div class="sc-eqIVtm ecxnvs">
@@ -52609,10 +52776,10 @@ and limitations under the License.
                       <li
                         class="tab-success react-tabs__tab--selected"
                         role="tab"
-                        id="react-tabs-56"
+                        id="react-tabs-58"
                         aria-selected="true"
                         aria-disabled="false"
-                        aria-controls="react-tabs-57"
+                        aria-controls="react-tabs-59"
                         tabindex="0"
                       >
                         200
@@ -52621,8 +52788,8 @@ and limitations under the License.
                     <div
                       class="react-tabs__tab-panel react-tabs__tab-panel--selected"
                       role="tabpanel"
-                      id="react-tabs-57"
-                      aria-labelledby="react-tabs-56"
+                      id="react-tabs-59"
+                      aria-labelledby="react-tabs-58"
                     >
                       <div>
                         <div class="sc-eqIVtm ecxnvs">
@@ -52724,10 +52891,10 @@ and limitations under the License.
                       <li
                         class="tab-success react-tabs__tab--selected"
                         role="tab"
-                        id="react-tabs-58"
+                        id="react-tabs-60"
                         aria-selected="true"
                         aria-disabled="false"
-                        aria-controls="react-tabs-59"
+                        aria-controls="react-tabs-61"
                         tabindex="0"
                       >
                         200
@@ -52736,8 +52903,8 @@ and limitations under the License.
                     <div
                       class="react-tabs__tab-panel react-tabs__tab-panel--selected"
                       role="tabpanel"
-                      id="react-tabs-59"
-                      aria-labelledby="react-tabs-58"
+                      id="react-tabs-61"
+                      aria-labelledby="react-tabs-60"
                     >
                       <div>
                         <div class="sc-eqIVtm ecxnvs">
@@ -52883,10 +53050,10 @@ and limitations under the License.
                       <li
                         class="react-tabs__tab react-tabs__tab--selected"
                         role="tab"
-                        id="react-tabs-60"
+                        id="react-tabs-62"
                         aria-selected="true"
                         aria-disabled="false"
-                        aria-controls="react-tabs-61"
+                        aria-controls="react-tabs-63"
                         tabindex="0"
                       >
                         Payload
@@ -52895,8 +53062,8 @@ and limitations under the License.
                     <div
                       class="react-tabs__tab-panel react-tabs__tab-panel--selected"
                       role="tabpanel"
-                      id="react-tabs-61"
-                      aria-labelledby="react-tabs-60"
+                      id="react-tabs-63"
+                      aria-labelledby="react-tabs-62"
                     >
                       <div>
                         <div class="sc-eqIVtm ecxnvs">
@@ -53194,10 +53361,10 @@ and limitations under the License.
                       <li
                         class="tab-success react-tabs__tab--selected"
                         role="tab"
-                        id="react-tabs-62"
+                        id="react-tabs-64"
                         aria-selected="true"
                         aria-disabled="false"
-                        aria-controls="react-tabs-63"
+                        aria-controls="react-tabs-65"
                         tabindex="0"
                       >
                         200
@@ -53206,8 +53373,8 @@ and limitations under the License.
                     <div
                       class="react-tabs__tab-panel react-tabs__tab-panel--selected"
                       role="tabpanel"
-                      id="react-tabs-63"
-                      aria-labelledby="react-tabs-62"
+                      id="react-tabs-65"
+                      aria-labelledby="react-tabs-64"
                     >
                       <div>
                         <div class="sc-eqIVtm ecxnvs">
@@ -53337,10 +53504,10 @@ and limitations under the License.
                       <li
                         class="tab-success react-tabs__tab--selected"
                         role="tab"
-                        id="react-tabs-64"
+                        id="react-tabs-66"
                         aria-selected="true"
                         aria-disabled="false"
-                        aria-controls="react-tabs-65"
+                        aria-controls="react-tabs-67"
                         tabindex="0"
                       >
                         200
@@ -53349,8 +53516,8 @@ and limitations under the License.
                     <div
                       class="react-tabs__tab-panel react-tabs__tab-panel--selected"
                       role="tabpanel"
-                      id="react-tabs-65"
-                      aria-labelledby="react-tabs-64"
+                      id="react-tabs-67"
+                      aria-labelledby="react-tabs-66"
                     >
                       <div>
                         <div class="sc-eqIVtm ecxnvs">
@@ -53538,10 +53705,10 @@ and limitations under the License.
                       <li
                         class="react-tabs__tab react-tabs__tab--selected"
                         role="tab"
-                        id="react-tabs-66"
+                        id="react-tabs-68"
                         aria-selected="true"
                         aria-disabled="false"
-                        aria-controls="react-tabs-67"
+                        aria-controls="react-tabs-69"
                         tabindex="0"
                       >
                         Payload
@@ -53550,8 +53717,8 @@ and limitations under the License.
                     <div
                       class="react-tabs__tab-panel react-tabs__tab-panel--selected"
                       role="tabpanel"
-                      id="react-tabs-67"
-                      aria-labelledby="react-tabs-66"
+                      id="react-tabs-69"
+                      aria-labelledby="react-tabs-68"
                     >
                       <div>
                         <div class="sc-eqIVtm ecxnvs">
@@ -53604,10 +53771,10 @@ and limitations under the License.
                       <li
                         class="tab-success react-tabs__tab--selected"
                         role="tab"
-                        id="react-tabs-68"
+                        id="react-tabs-70"
                         aria-selected="true"
                         aria-disabled="false"
-                        aria-controls="react-tabs-69"
+                        aria-controls="react-tabs-71"
                         tabindex="0"
                       >
                         200
@@ -53616,8 +53783,8 @@ and limitations under the License.
                     <div
                       class="react-tabs__tab-panel react-tabs__tab-panel--selected"
                       role="tabpanel"
-                      id="react-tabs-69"
-                      aria-labelledby="react-tabs-68"
+                      id="react-tabs-71"
+                      aria-labelledby="react-tabs-70"
                     >
                       <div>
                         <div class="sc-eqIVtm ecxnvs">
@@ -53640,15 +53807,15 @@ and limitations under the License.
             </div>
           </div>
           <div
-            id="operation/GetContinueWatchingList"
-            data-section-id="operation/GetContinueWatchingList"
+            id="operation/GetWatchedShow"
+            data-section-id="operation/GetWatchedShow"
             class="sc-ifAKCX hiuczA"
           >
             <div class="sc-gzVnrw sc-cmthru hcTXxz">
               <div class="sc-bxivhb cjtbAK">
                 <h2 class="sc-dnqmqq ioYTqA">
-                  <a class="sc-VigVT kGvRyb" href="#operation/GetContinueWatchingList"></a
-                  >GetContinueWatchingList<!-- -->
+                  <a class="sc-VigVT kGvRyb" href="#operation/GetWatchedShow"></a
+                  >GetWatchedShow<!-- -->
                 </h2>
                 <div class="sc-bsbRJL PDnUY">
                   <div class="sc-hXRMBi ceJGIt">
@@ -53747,10 +53914,10 @@ and limitations under the License.
                       <li
                         class="tab-success react-tabs__tab--selected"
                         role="tab"
-                        id="react-tabs-70"
+                        id="react-tabs-72"
                         aria-selected="true"
                         aria-disabled="false"
-                        aria-controls="react-tabs-71"
+                        aria-controls="react-tabs-73"
                         tabindex="0"
                       >
                         200
@@ -53759,8 +53926,8 @@ and limitations under the License.
                     <div
                       class="react-tabs__tab-panel react-tabs__tab-panel--selected"
                       role="tabpanel"
-                      id="react-tabs-71"
-                      aria-labelledby="react-tabs-70"
+                      id="react-tabs-73"
+                      aria-labelledby="react-tabs-72"
                     >
                       <div>
                         <div class="sc-eqIVtm ecxnvs">
@@ -53918,6 +54085,20 @@ and limitations under the License.
                           </div>
                         </td>
                       </tr>
+                      <tr>
+                        <td class="sc-cSHVUG sc-chPdSV bIrgla" kind="field" title="useCustomId">
+                          <span class="sc-kGXeez bcLONg"></span>useCustomId
+                        </td>
+                        <td class="sc-kgoBCf kGwPhO">
+                          <div>
+                            <div>
+                              <span class="sc-cHGsZl sc-TOsTZ fKyGWc"></span
+                              ><span class="sc-cHGsZl sc-kgAjT hqYVjx">boolean</span>
+                            </div>
+                            <div><div class="sc-jWBwVP sc-iRbamj kjegA"></div></div>
+                          </div>
+                        </td>
+                      </tr>
                       <tr class="last undefined">
                         <td class="sc-cSHVUG sc-chPdSV bIrgla" kind="field" title="segments">
                           <span class="sc-kGXeez bcLONg"></span>segments
@@ -53993,10 +54174,10 @@ and limitations under the License.
                       <li
                         class="tab-success react-tabs__tab--selected"
                         role="tab"
-                        id="react-tabs-72"
+                        id="react-tabs-74"
                         aria-selected="true"
                         aria-disabled="false"
-                        aria-controls="react-tabs-73"
+                        aria-controls="react-tabs-75"
                         tabindex="0"
                       >
                         200
@@ -54005,8 +54186,8 @@ and limitations under the License.
                     <div
                       class="react-tabs__tab-panel react-tabs__tab-panel--selected"
                       role="tabpanel"
-                      id="react-tabs-73"
-                      aria-labelledby="react-tabs-72"
+                      id="react-tabs-75"
+                      aria-labelledby="react-tabs-74"
                     >
                       <div>
                         <div class="sc-eqIVtm ecxnvs">
@@ -54136,10 +54317,10 @@ and limitations under the License.
                       <li
                         class="tab-success react-tabs__tab--selected"
                         role="tab"
-                        id="react-tabs-74"
+                        id="react-tabs-76"
                         aria-selected="true"
                         aria-disabled="false"
-                        aria-controls="react-tabs-75"
+                        aria-controls="react-tabs-77"
                         tabindex="0"
                       >
                         200
@@ -54148,8 +54329,8 @@ and limitations under the License.
                     <div
                       class="react-tabs__tab-panel react-tabs__tab-panel--selected"
                       role="tabpanel"
-                      id="react-tabs-75"
-                      aria-labelledby="react-tabs-74"
+                      id="react-tabs-77"
+                      aria-labelledby="react-tabs-76"
                     >
                       <div>
                         <div class="sc-eqIVtm ecxnvs">
@@ -54302,10 +54483,10 @@ and limitations under the License.
                       <li
                         class="tab-success react-tabs__tab--selected"
                         role="tab"
-                        id="react-tabs-76"
+                        id="react-tabs-78"
                         aria-selected="true"
                         aria-disabled="false"
-                        aria-controls="react-tabs-77"
+                        aria-controls="react-tabs-79"
                         tabindex="0"
                       >
                         200
@@ -54314,8 +54495,8 @@ and limitations under the License.
                     <div
                       class="react-tabs__tab-panel react-tabs__tab-panel--selected"
                       role="tabpanel"
-                      id="react-tabs-77"
-                      aria-labelledby="react-tabs-76"
+                      id="react-tabs-79"
+                      aria-labelledby="react-tabs-78"
                     >
                       <div>
                         <div class="sc-eqIVtm ecxnvs">
@@ -54614,10 +54795,10 @@ and limitations under the License.
                       <li
                         class="tab-success react-tabs__tab--selected"
                         role="tab"
-                        id="react-tabs-78"
+                        id="react-tabs-80"
                         aria-selected="true"
                         aria-disabled="false"
-                        aria-controls="react-tabs-79"
+                        aria-controls="react-tabs-81"
                         tabindex="0"
                       >
                         200
@@ -54626,8 +54807,8 @@ and limitations under the License.
                     <div
                       class="react-tabs__tab-panel react-tabs__tab-panel--selected"
                       role="tabpanel"
-                      id="react-tabs-79"
-                      aria-labelledby="react-tabs-78"
+                      id="react-tabs-81"
+                      aria-labelledby="react-tabs-80"
                     >
                       <div>
                         <div class="sc-eqIVtm ecxnvs">
@@ -54860,10 +55041,10 @@ and limitations under the License.
                       <li
                         class="tab-success react-tabs__tab--selected"
                         role="tab"
-                        id="react-tabs-80"
+                        id="react-tabs-82"
                         aria-selected="true"
                         aria-disabled="false"
-                        aria-controls="react-tabs-81"
+                        aria-controls="react-tabs-83"
                         tabindex="0"
                       >
                         200
@@ -54872,8 +55053,8 @@ and limitations under the License.
                     <div
                       class="react-tabs__tab-panel react-tabs__tab-panel--selected"
                       role="tabpanel"
-                      id="react-tabs-81"
-                      aria-labelledby="react-tabs-80"
+                      id="react-tabs-83"
+                      aria-labelledby="react-tabs-82"
                     >
                       <div>
                         <div class="sc-eqIVtm ecxnvs">
@@ -54977,10 +55158,10 @@ and limitations under the License.
                       <li
                         class="tab-success react-tabs__tab--selected"
                         role="tab"
-                        id="react-tabs-82"
+                        id="react-tabs-84"
                         aria-selected="true"
                         aria-disabled="false"
-                        aria-controls="react-tabs-83"
+                        aria-controls="react-tabs-85"
                         tabindex="0"
                       >
                         200
@@ -54989,8 +55170,8 @@ and limitations under the License.
                     <div
                       class="react-tabs__tab-panel react-tabs__tab-panel--selected"
                       role="tabpanel"
-                      id="react-tabs-83"
-                      aria-labelledby="react-tabs-82"
+                      id="react-tabs-85"
+                      aria-labelledby="react-tabs-84"
                     >
                       <div>
                         <div class="sc-eqIVtm ecxnvs">
@@ -55200,10 +55381,10 @@ and limitations under the License.
                       <li
                         class="tab-success react-tabs__tab--selected"
                         role="tab"
-                        id="react-tabs-84"
+                        id="react-tabs-86"
                         aria-selected="true"
                         aria-disabled="false"
-                        aria-controls="react-tabs-85"
+                        aria-controls="react-tabs-87"
                         tabindex="0"
                       >
                         200
@@ -55212,8 +55393,8 @@ and limitations under the License.
                     <div
                       class="react-tabs__tab-panel react-tabs__tab-panel--selected"
                       role="tabpanel"
-                      id="react-tabs-85"
-                      aria-labelledby="react-tabs-84"
+                      id="react-tabs-87"
+                      aria-labelledby="react-tabs-86"
                     >
                       <div>
                         <div class="sc-eqIVtm ecxnvs">
@@ -55318,10 +55499,10 @@ and limitations under the License.
                       <li
                         class="tab-success react-tabs__tab--selected"
                         role="tab"
-                        id="react-tabs-86"
+                        id="react-tabs-88"
                         aria-selected="true"
                         aria-disabled="false"
-                        aria-controls="react-tabs-87"
+                        aria-controls="react-tabs-89"
                         tabindex="0"
                       >
                         200
@@ -55330,8 +55511,8 @@ and limitations under the License.
                     <div
                       class="react-tabs__tab-panel react-tabs__tab-panel--selected"
                       role="tabpanel"
-                      id="react-tabs-87"
-                      aria-labelledby="react-tabs-86"
+                      id="react-tabs-89"
+                      aria-labelledby="react-tabs-88"
                     >
                       <div>
                         <div class="sc-eqIVtm ecxnvs">
@@ -55539,10 +55720,10 @@ and limitations under the License.
                       <li
                         class="react-tabs__tab react-tabs__tab--selected"
                         role="tab"
-                        id="react-tabs-88"
+                        id="react-tabs-90"
                         aria-selected="true"
                         aria-disabled="false"
-                        aria-controls="react-tabs-89"
+                        aria-controls="react-tabs-91"
                         tabindex="0"
                       >
                         Payload
@@ -55551,8 +55732,8 @@ and limitations under the License.
                     <div
                       class="react-tabs__tab-panel react-tabs__tab-panel--selected"
                       role="tabpanel"
-                      id="react-tabs-89"
-                      aria-labelledby="react-tabs-88"
+                      id="react-tabs-91"
+                      aria-labelledby="react-tabs-90"
                     >
                       <div>
                         <div class="sc-eqIVtm ecxnvs">
@@ -55629,10 +55810,10 @@ and limitations under the License.
                       <li
                         class="tab-success react-tabs__tab--selected"
                         role="tab"
-                        id="react-tabs-90"
+                        id="react-tabs-92"
                         aria-selected="true"
                         aria-disabled="false"
-                        aria-controls="react-tabs-91"
+                        aria-controls="react-tabs-93"
                         tabindex="0"
                       >
                         200
@@ -55641,8 +55822,8 @@ and limitations under the License.
                     <div
                       class="react-tabs__tab-panel react-tabs__tab-panel--selected"
                       role="tabpanel"
-                      id="react-tabs-91"
-                      aria-labelledby="react-tabs-90"
+                      id="react-tabs-93"
+                      aria-labelledby="react-tabs-92"
                     >
                       <div>
                         <div class="sc-eqIVtm ecxnvs">
@@ -55790,10 +55971,10 @@ and limitations under the License.
                       <li
                         class="tab-success react-tabs__tab--selected"
                         role="tab"
-                        id="react-tabs-92"
+                        id="react-tabs-94"
                         aria-selected="true"
                         aria-disabled="false"
-                        aria-controls="react-tabs-93"
+                        aria-controls="react-tabs-95"
                         tabindex="0"
                       >
                         200
@@ -55802,8 +55983,8 @@ and limitations under the License.
                     <div
                       class="react-tabs__tab-panel react-tabs__tab-panel--selected"
                       role="tabpanel"
-                      id="react-tabs-93"
-                      aria-labelledby="react-tabs-92"
+                      id="react-tabs-95"
+                      aria-labelledby="react-tabs-94"
                     >
                       <div>
                         <div class="sc-eqIVtm ecxnvs">
@@ -55957,10 +56138,10 @@ and limitations under the License.
                       <li
                         class="react-tabs__tab react-tabs__tab--selected"
                         role="tab"
-                        id="react-tabs-94"
+                        id="react-tabs-96"
                         aria-selected="true"
                         aria-disabled="false"
-                        aria-controls="react-tabs-95"
+                        aria-controls="react-tabs-97"
                         tabindex="0"
                       >
                         Payload
@@ -55969,8 +56150,8 @@ and limitations under the License.
                     <div
                       class="react-tabs__tab-panel react-tabs__tab-panel--selected"
                       role="tabpanel"
-                      id="react-tabs-95"
-                      aria-labelledby="react-tabs-94"
+                      id="react-tabs-97"
+                      aria-labelledby="react-tabs-96"
                     >
                       <div>
                         <div class="sc-eqIVtm ecxnvs">
@@ -56031,10 +56212,10 @@ and limitations under the License.
                       <li
                         class="tab-success react-tabs__tab--selected"
                         role="tab"
-                        id="react-tabs-96"
+                        id="react-tabs-98"
                         aria-selected="true"
                         aria-disabled="false"
-                        aria-controls="react-tabs-97"
+                        aria-controls="react-tabs-99"
                         tabindex="0"
                       >
                         200
@@ -56043,8 +56224,8 @@ and limitations under the License.
                     <div
                       class="react-tabs__tab-panel react-tabs__tab-panel--selected"
                       role="tabpanel"
-                      id="react-tabs-97"
-                      aria-labelledby="react-tabs-96"
+                      id="react-tabs-99"
+                      aria-labelledby="react-tabs-98"
                     >
                       <div>
                         <div class="sc-eqIVtm ecxnvs">
@@ -56967,6 +57148,54 @@ and limitations under the License.
                   },
                 },
               },
+              '/v1/account/Profile/v2': {
+                get: {
+                  tags: ['Profile'],
+                  operationId: 'GetProfileV2',
+                  parameters: [
+                    {
+                      name: 'useCustomId',
+                      in: 'query',
+                      description: 'Show content item ids with BBC ids',
+                      required: false,
+                      schema: { type: 'boolean' },
+                    },
+                    {
+                      name: 'segments',
+                      in: 'query',
+                      description: 'US, CA or AU',
+                      required: false,
+                      explode: true,
+                      schema: { type: 'array', items: { type: 'string' }, uniqueItems: false },
+                    },
+                  ],
+                  responses: {
+                    200: {
+                      description: 'Success',
+                      content: {
+                        'text/plain': {
+                          schema: {
+                            $ref:
+                              '#/components/schemas/Britbox.API.Account.Models.Profile.GetProfileResponse',
+                          },
+                        },
+                        'application/json': {
+                          schema: {
+                            $ref:
+                              '#/components/schemas/Britbox.API.Account.Models.Profile.GetProfileResponse',
+                          },
+                        },
+                        'text/json': {
+                          schema: {
+                            $ref:
+                              '#/components/schemas/Britbox.API.Account.Models.Profile.GetProfileResponse',
+                          },
+                        },
+                      },
+                    },
+                  },
+                },
+              },
               '/v1/account/Profile/resetPassword': {
                 post: {
                   tags: ['Profile'],
@@ -57272,7 +57501,7 @@ and limitations under the License.
               '/v1/account/Profile/watched/show/{itemId}': {
                 get: {
                   tags: ['Profile'],
-                  operationId: 'GetContinueWatchingList',
+                  operationId: 'GetWatchedShow',
                   parameters: [
                     { name: 'itemId', in: 'path', required: true, schema: { type: 'string' } },
                   ],
@@ -57336,6 +57565,12 @@ and limitations under the License.
                     { name: 'maxRating', in: 'query', required: false, schema: { type: 'string' } },
                     { name: 'device', in: 'query', required: false, schema: { type: 'string' } },
                     { name: 'sub', in: 'query', required: false, schema: { type: 'string' } },
+                    {
+                      name: 'useCustomId',
+                      in: 'query',
+                      required: false,
+                      schema: { type: 'boolean' },
+                    },
                     {
                       name: 'segments',
                       in: 'query',
@@ -59372,13 +59607,14 @@ and limitations under the License.
             'tag/Profile',
             'operation/GetProfile',
             'operation/UpdateProfile',
+            'operation/GetProfileV2',
             'operation/ResetPassword',
             'operation/GetWatched',
             'operation/DeleteWatched',
             'operation/GetWatchedList',
             'operation/GetItemWatchedStatus',
             'operation/SetItemWatchedStatus',
-            'operation/GetContinueWatchingList',
+            'operation/GetWatchedShow',
             'operation/GetContinueWatchingList',
             'operation/GetItemBookmark',
             'operation/BookmarkItem',
@@ -59396,93 +59632,95 @@ and limitations under the License.
             version: '2.3.8',
             fields: ['title', 'description'],
             fieldVectors: [
-              ['title/0', [0, 3.537]],
-              ['description/0', [1, 0.368, 2, 0.189, 3, 0.189]],
-              ['title/1', [4, 3.537]],
+              ['title/0', [0, 3.557]],
+              ['description/0', [1, 0.363, 2, 0.186, 3, 0.186]],
+              ['title/1', [4, 3.557]],
               ['description/1', []],
-              ['title/2', [5, 3.537]],
+              ['title/2', [5, 3.557]],
               ['description/2', []],
-              ['title/3', [6, 3.537]],
+              ['title/3', [6, 3.557]],
               ['description/3', []],
-              ['title/4', [7, 3.537]],
+              ['title/4', [7, 3.557]],
               ['description/4', []],
-              ['title/5', [8, 3.537]],
+              ['title/5', [8, 3.557]],
               ['description/5', []],
-              ['title/6', [9, 3.537]],
+              ['title/6', [9, 3.557]],
               ['description/6', []],
-              ['title/7', [10, 3.537]],
+              ['title/7', [10, 3.557]],
               ['description/7', []],
-              ['title/8', [11, 3.537]],
+              ['title/8', [11, 3.557]],
               ['description/8', []],
-              ['title/9', [12, 3.537]],
+              ['title/9', [12, 3.557]],
               ['description/9', []],
-              ['title/10', [13, 3.537]],
+              ['title/10', [13, 3.557]],
               ['description/10', []],
-              ['title/11', [14, 3.537]],
+              ['title/11', [14, 3.557]],
               ['description/11', []],
               [
                 'title/12',
-                [15, 1.084, 16, 1.084, 17, 1.084, 18, 1.084, 19, 1.084, 20, 1.084, 21, 1.084],
+                [15, 1.089, 16, 1.089, 17, 1.089, 18, 1.089, 19, 1.089, 20, 1.089, 21, 1.089],
               ],
               ['description/12', []],
-              ['title/13', [22, 3.537]],
+              ['title/13', [22, 3.557]],
               ['description/13', []],
-              ['title/14', [23, 3.537]],
+              ['title/14', [23, 3.557]],
               ['description/14', []],
-              ['title/15', [24, 3.537]],
+              ['title/15', [24, 3.557]],
               ['description/15', []],
-              ['title/16', [25, 3.537]],
+              ['title/16', [25, 3.557]],
               ['description/16', []],
-              ['title/17', [26, 3.537]],
+              ['title/17', [26, 3.557]],
               ['description/17', []],
-              ['title/18', [27, 3.537]],
+              ['title/18', [27, 3.557]],
               ['description/18', []],
-              ['title/19', [28, 3.537]],
+              ['title/19', [28, 3.557]],
               ['description/19', []],
-              ['title/20', [29, 3.537]],
+              ['title/20', [29, 3.557]],
               ['description/20', []],
-              ['title/21', [30, 3.537]],
+              ['title/21', [30, 3.557]],
               ['description/21', []],
-              ['title/22', [31, 3.537]],
+              ['title/22', [31, 3.557]],
               ['description/22', []],
-              ['title/23', [32, 3.537]],
+              ['title/23', [32, 3.557]],
               ['description/23', []],
-              ['title/24', [33, 3.537]],
+              ['title/24', [33, 3.557]],
               ['description/24', []],
-              ['title/25', [34, 3.537]],
+              ['title/25', [34, 3.557]],
               ['description/25', []],
-              ['title/26', [35, 3.537]],
+              ['title/26', [35, 3.557]],
               ['description/26', []],
-              ['title/27', [36, 3.537]],
+              ['title/27', [36, 3.557]],
               ['description/27', []],
-              ['title/28', [37, 3.537]],
+              ['title/28', [37, 3.557]],
               ['description/28', []],
-              ['title/29', [38, 2.998]],
+              ['title/29', [38, 3.557]],
               ['description/29', []],
-              ['title/30', [38, 2.998]],
+              ['title/30', [39, 3.557]],
               ['description/30', []],
-              ['title/31', [39, 3.537]],
+              ['title/31', [40, 3.557]],
               ['description/31', []],
-              ['title/32', [40, 3.537]],
+              ['title/32', [41, 3.557]],
               ['description/32', []],
-              ['title/33', [41, 3.537]],
+              ['title/33', [42, 3.557]],
               ['description/33', []],
-              ['title/34', [42, 3.537]],
+              ['title/34', [43, 3.557]],
               ['description/34', []],
-              ['title/35', [43, 3.537]],
+              ['title/35', [44, 3.557]],
               ['description/35', []],
-              ['title/36', [44, 3.537]],
+              ['title/36', [45, 3.557]],
               ['description/36', []],
-              ['title/37', [45, 3.537]],
+              ['title/37', [46, 3.557]],
               ['description/37', []],
-              ['title/38', [46, 3.537]],
+              ['title/38', [47, 3.557]],
               ['description/38', []],
-              ['title/39', [47, 3.537]],
+              ['title/39', [48, 3.557]],
               ['description/39', []],
-              ['title/40', [48, 3.537]],
+              ['title/40', [49, 3.557]],
               ['description/40', []],
-              ['title/41', [49, 3.537]],
+              ['title/41', [50, 3.557]],
               ['description/41', []],
+              ['title/42', [51, 3.557]],
+              ['description/42', []],
             ],
             invertedIndex: [
               ['', { _index: 1, title: {}, description: { 0: {} } }],
@@ -59492,32 +59730,31 @@ and limitations under the License.
               ['authenticatecustom', { _index: 9, title: { 6: {} }, description: {} }],
               ['author', { _index: 4, title: { 1: {} }, description: {} }],
               ['avail', { _index: 20, title: { 12: {} }, description: {} }],
-              ['bookmarkitem', { _index: 40, title: { 32: {} }, description: {} }],
-              ['bookmarkitemapp', { _index: 42, title: { 34: {} }, description: {} }],
-              ['checkparentalcontrol', { _index: 48, title: { 40: {} }, description: {} }],
+              ['bookmarkitem', { _index: 42, title: { 33: {} }, description: {} }],
+              ['bookmarkitemapp', { _index: 44, title: { 35: {} }, description: {} }],
+              ['checkparentalcontrol', { _index: 50, title: { 41: {} }, description: {} }],
               ['custom', { _index: 13, title: { 10: {} }, description: {} }],
-              ['deleteitembookmark', { _index: 41, title: { 33: {} }, description: {} }],
-              ['deletewatch', { _index: 34, title: { 25: {} }, description: {} }],
+              ['deleteitembookmark', { _index: 43, title: { 34: {} }, description: {} }],
+              ['deletewatch', { _index: 35, title: { 26: {} }, description: {} }],
               ['devic', { _index: 25, title: { 16: {} }, description: {} }],
               ['dma', { _index: 21, title: { 12: {} }, description: {} }],
               ['forgotcontactpassword', { _index: 10, title: { 7: {} }, description: {} }],
               ['getaccountdetail', { _index: 14, title: { 11: {} }, description: {} }],
               ['getactivesubscript', { _index: 22, title: { 13: {} }, description: {} }],
-              ['getbookmark', { _index: 44, title: { 36: {} }, description: {} }],
-              ['getbookmarklist', { _index: 43, title: { 35: {} }, description: {} }],
-              [
-                'getcontinuewatchinglist',
-                { _index: 38, title: { 29: {}, 30: {} }, description: {} },
-              ],
-              ['getitembookmark', { _index: 39, title: { 31: {} }, description: {} }],
+              ['getbookmark', { _index: 46, title: { 37: {} }, description: {} }],
+              ['getbookmarklist', { _index: 45, title: { 36: {} }, description: {} }],
+              ['getcontinuewatchinglist', { _index: 40, title: { 31: {} }, description: {} }],
+              ['getitembookmark', { _index: 41, title: { 32: {} }, description: {} }],
               ['getitemmediafil', { _index: 28, title: { 19: {} }, description: {} }],
-              ['getitemwatchedstatu', { _index: 36, title: { 27: {} }, description: {} }],
-              ['getnextplaybackitem', { _index: 45, title: { 37: {} }, description: {} }],
+              ['getitemwatchedstatu', { _index: 37, title: { 28: {} }, description: {} }],
+              ['getnextplaybackitem', { _index: 47, title: { 38: {} }, description: {} }],
               ['getoauthaccesstoken', { _index: 5, title: { 2: {} }, description: {} }],
-              ['getparentalcontroldetail', { _index: 46, title: { 38: {} }, description: {} }],
+              ['getparentalcontroldetail', { _index: 48, title: { 39: {} }, description: {} }],
               ['getprofil', { _index: 30, title: { 21: {} }, description: {} }],
-              ['getwatch', { _index: 33, title: { 24: {} }, description: {} }],
-              ['getwatchedlist', { _index: 35, title: { 26: {} }, description: {} }],
+              ['getprofilev2', { _index: 32, title: { 23: {} }, description: {} }],
+              ['getwatch', { _index: 34, title: { 25: {} }, description: {} }],
+              ['getwatchedlist', { _index: 36, title: { 27: {} }, description: {} }],
+              ['getwatchedshow', { _index: 39, title: { 30: {} }, description: {} }],
               ['list', { _index: 19, title: { 12: {} }, description: {} }],
               ['logoutcustom', { _index: 12, title: { 9: {} }, description: {} }],
               ['mediafil', { _index: 27, title: { 18: {} }, description: {} }],
@@ -59529,15 +59766,15 @@ and limitations under the License.
               ['refreshtokend3', { _index: 8, title: { 5: {} }, description: {} }],
               ['regist', { _index: 24, title: { 15: {} }, description: {} }],
               ['registerdevic', { _index: 26, title: { 17: {} }, description: {} }],
-              ['resetpassword', { _index: 32, title: { 23: {} }, description: {} }],
+              ['resetpassword', { _index: 33, title: { 24: {} }, description: {} }],
               ['rest', { _index: 15, title: { 12: {} }, description: {} }],
               ['security-definit', { _index: 3, title: {}, description: { 0: {} } }],
-              ['setitemwatchedstatu', { _index: 37, title: { 28: {} }, description: {} }],
-              ['updateparentalcontroldetail', { _index: 47, title: { 39: {} }, description: {} }],
+              ['setitemwatchedstatu', { _index: 38, title: { 29: {} }, description: {} }],
+              ['updateparentalcontroldetail', { _index: 49, title: { 40: {} }, description: {} }],
               ['updateprofil', { _index: 31, title: { 22: {} }, description: {} }],
               ['us', { _index: 17, title: { 12: {} }, description: {} }],
               ['validatecontactpassword', { _index: 11, title: { 8: {} }, description: {} }],
-              ['validateparentalcontrolpin', { _index: 49, title: { 41: {} }, description: {} }],
+              ['validateparentalcontrolpin', { _index: 51, title: { 42: {} }, description: {} }],
             ],
             pipeline: [],
           },

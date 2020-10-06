@@ -515,6 +515,41 @@
         }
       }
     },
+    "/v1/account/Profile/v2": {
+      "get": {
+        "tags": ["Profile"],
+        "operationId": "GetProfileV2",
+        "consumes": [],
+        "produces": ["text/plain", "application/json", "text/json"],
+        "parameters": [
+          {
+            "name": "useCustomId",
+            "in": "query",
+            "description": "Show content item ids with BBC ids",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "name": "segments",
+            "in": "query",
+            "description": "US, CA or AU",
+            "required": false,
+            "type": "array",
+            "items": { "type": "string" },
+            "collectionFormat": "multi",
+            "uniqueItems": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/Britbox.API.Account.Models.Profile.GetProfileResponse"
+            }
+          }
+        }
+      }
+    },
     "/v1/account/Profile/resetPassword": {
       "post": {
         "tags": ["Profile"],
@@ -701,7 +736,7 @@
     "/v1/account/Profile/watched/show/{itemId}": {
       "get": {
         "tags": ["Profile"],
-        "operationId": "GetContinueWatchingList",
+        "operationId": "GetWatchedShow",
         "consumes": [],
         "produces": ["text/plain", "application/json", "text/json"],
         "parameters": [{ "name": "itemId", "in": "path", "required": true, "type": "string" }],
@@ -749,6 +784,7 @@
           { "name": "maxRating", "in": "query", "required": false, "type": "string" },
           { "name": "device", "in": "query", "required": false, "type": "string" },
           { "name": "sub", "in": "query", "required": false, "type": "string" },
+          { "name": "useCustomId", "in": "query", "required": false, "type": "boolean" },
           {
             "name": "segments",
             "in": "query",

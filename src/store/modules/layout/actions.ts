@@ -43,3 +43,7 @@ export const castVideoPlayerDetail = ({
 
 export const castVideoPlayerDetailClear = () =>
   action(LayoutActionTypes.LAYOUT_CAST_VIDEO_PLAYER_DETAIL_CLEAR);
+
+export const showForceChromecast = () => action(LayoutActionTypes.SHOW_FORCE_CHROMECAST);
+
+export const hideForceChromecast = () => action(LayoutActionTypes.HIDE_FORCE_CHROMECAST);
