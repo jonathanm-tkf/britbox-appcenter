@@ -1,5 +1,5 @@
-import React from 'react';
-
+import React, { useEffect, useState } from 'react';
+import { Keyboard } from 'react-native';
 import { NavigationState } from '@react-navigation/native';
 import Cast from '@screens/Shared/Cast';
 import { Container, Button, Label, WrapperIcon, CustomShadowTabBar, TabsWrapper } from './styles';
@@ -12,8 +12,27 @@ type Props = {
 
 const TabBar = ({ state, descriptors, navigation }: Props) => {
   const focusedOptions = descriptors[state.routes[state.index].key].options;
+  const [isKeyboardAppear, setIsKeyboardAppear] = useState(false);
+  useEffect(() => {
+    Keyboard.addListener('keyboardDidShow', keyboardDidShow);
+    Keyboard.addListener('keyboardDidHide', keyboardDidHide);
 
-  if (focusedOptions.tabBarVisible === false) {
+    // cleanup function
+    return () => {
+      Keyboard.removeListener('keyboardDidShow', keyboardDidShow);
+      Keyboard.removeListener('keyboardDidHide', keyboardDidHide);
+    };
+  }, []);
+
+  const keyboardDidShow = () => {
+    setIsKeyboardAppear(true);
+  };
+
+  const keyboardDidHide = () => {
+    setIsKeyboardAppear(false);
+  };
+
+  if (focusedOptions.tabBarVisible === false || isKeyboardAppear === true) {
     return null;
   }
 
@@ -41,17 +60,12 @@ const TabBar = ({ state, descriptors, navigation }: Props) => {
               canPreventDefault: true,
             });
 
-            if (!isFocused && !event.defaultPrevented) {
-              // if (route.name === 'More') {
-              // dispatch(
-              //   CommonActions.reset({
-              //     index: 0,
-              //     routes: [{ name: route.name }],
-              //   })
-              // );
-              // } else {
+            if (route.name === 'More') {
               navigation.navigate(route.name);
-              // }
+            }
+
+            if (!isFocused && !event.defaultPrevented) {
+              navigation.navigate(route.name);
             }
           };
 

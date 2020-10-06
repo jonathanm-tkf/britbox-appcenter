@@ -19,7 +19,7 @@ import {
 } from './styles';
 
 const TabBarHeight = 48;
-const HeaderHeight = 110;
+const HeaderHeight = 90;
 const windowHeight = Dimensions.get('window').height;
 
 type TabSceneProps = {
@@ -43,7 +43,6 @@ const TabScene = ({
 }: TabSceneProps) => {
   const contentContainerStyle = {
     paddingTop: HeaderHeight + TabBarHeight,
-    paddingHorizontal: 10,
     minHeight: windowHeight - TabBarHeight,
   };
 
@@ -52,10 +51,11 @@ const TabScene = ({
       scrollToOverflowEnabled
       ref={onGetRef}
       bounces={false}
-      scrollEventThrottle={16}
+      scrollEventThrottle={1}
       onScroll={Animated.event([{ nativeEvent: { contentOffset: { y: scrollY } } }], {
         useNativeDriver: true,
       })}
+      keyboardShouldPersistTaps="handled"
       onMomentumScrollBegin={onMomentumScrollBegin}
       onScrollEndDrag={onScrollEndDrag}
       onMomentumScrollEnd={onMomentumScrollEnd}
@@ -95,6 +95,7 @@ const Tabs = ({ routes, subscriptionSelected }: Props) => {
   const isListGliding = useRef(false);
   const { t } = useTranslation(['myaccount', 'signup']);
   const { dispatch } = useNavigation();
+
   useEffect(() => {
     scrollY.addListener(({ value }: { value: number }) => {
       const curRoute = routes[tabIndex].key;
@@ -168,6 +169,7 @@ const Tabs = ({ routes, subscriptionSelected }: Props) => {
       outputRange: [0, -HeaderHeight],
       extrapolateRight: 'clamp',
     });
+
     return (
       <Header style={[styles.header, { transform: [{ translateY: y }] }]}>
         <TitleWrapper>
@@ -253,7 +255,7 @@ const Tabs = ({ routes, subscriptionSelected }: Props) => {
 
   return (
     <SafeAreaView>
-      <View style={{ position: 'absolute', width: '100%', zIndex: 1 }}>
+      <View style={{ position: 'absolute', width: '100%', zIndex: 3 }}>
         <HeaderCustom
           isBack
           shadow
@@ -268,8 +270,8 @@ const Tabs = ({ routes, subscriptionSelected }: Props) => {
         />
       </View>
       <View style={{ flex: 1, marginTop: 75 }}>
-        {renderHeader()}
         {renderTabView()}
+        {renderHeader()}
       </View>
     </SafeAreaView>
   );
@@ -278,11 +280,13 @@ const Tabs = ({ routes, subscriptionSelected }: Props) => {
 const styles = StyleSheet.create({
   header: {
     top: 0,
-    height: 110,
+    height: 90,
     width: '100%',
     alignItems: 'center',
     justifyContent: 'center',
     position: 'absolute',
+    backgroundColor: '#171b23',
+    zIndex: 2,
   },
   label: { fontSize: 16, color: '#FFF' },
   tab: { elevation: 0, shadowOpacity: 0, backgroundColor: '#171b23' },

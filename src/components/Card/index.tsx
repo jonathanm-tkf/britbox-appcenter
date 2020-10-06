@@ -64,6 +64,8 @@ interface Props {
   ref?: any;
   progress?: number;
   isWatchlist?: boolean;
+  showCategory?: boolean;
+  showProgress?: boolean;
 }
 
 const Card = ({
@@ -89,6 +91,8 @@ const Card = ({
   onLayout,
   isWatchlist,
   progress = 0,
+  showCategory,
+  showProgress,
 }: Props) => {
   const theme = useSelector((state: AppState) => state.theme.theme);
   const [loaded, setLoaded] = useState(false);
@@ -170,11 +174,11 @@ const Card = ({
                   </Shimmer>
                 )}
                 {(newEpisode || isEpisode || isDetail) && <Gradient />}
-                {isDetail && <ProgressBar {...{ progress }} />}
+                {isDetail || (showProgress && <ProgressBar {...{ progress }} />)}
               </ImageWrapper>
             </CustomShadow>
           </Container>
-          <Group {...{ isDetail: isDetail || false }}>
+          <Group {...{ isDetail: isDetail || false, showCategory: showCategory || false }}>
             {(newEpisode || isEpisode || isDetail || hasDescription) && data && (
               <TextWrapper
                 {...{
@@ -209,21 +213,24 @@ const Card = ({
                   isContinue: isContinue || false,
                   isDetail,
                   isWatchlist: isWatchlist || false,
+                  showCategory,
                 }}
               >
-                {(isContinue || isDetail) && data?.category && data?.category?.length > 0 && (
-                  <WrapperBookmarks>
-                    {data?.category?.map((item: any) => {
-                      return (
-                        item?.key && (
-                          <Bookmark key={item.key.toString()} bold={item.bold}>
-                            {item.label}
-                          </Bookmark>
-                        )
-                      );
-                    })}
-                  </WrapperBookmarks>
-                )}
+                {(isContinue || isDetail || showCategory) &&
+                  data?.category &&
+                  data?.category?.length > 0 && (
+                    <WrapperBookmarks>
+                      {data?.category?.map((item: any) => {
+                        return (
+                          item?.key && (
+                            <Bookmark key={item.key.toString()} bold={item.bold}>
+                              {item.label}
+                            </Bookmark>
+                          )
+                        );
+                      })}
+                    </WrapperBookmarks>
+                  )}
 
                 {onRemove && (
                   <TouchableOpacity

@@ -11,6 +11,4 @@ export const Card = styled(CardC)`
   align-self: center;
 `;
 
-export const Headline = styled(HeadlineC)`
-  max-width: 80%;
-`;
+export const Headline = styled(HeadlineC)``;

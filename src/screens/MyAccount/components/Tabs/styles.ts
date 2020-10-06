@@ -12,7 +12,7 @@ export const TitleWrapper = styled.View`
 `;
 
 export const Title = styled.Text`
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   color: ${(props: ThemeState) => props.theme.PRIMARY_FOREGROUND_COLOR};
   font-size: 26px;
   font-weight: 700;

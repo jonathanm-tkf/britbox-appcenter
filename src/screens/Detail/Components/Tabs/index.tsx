@@ -15,6 +15,7 @@ import { LoadDetailPageResponse } from '@store/modules/detail/types';
 import { hideSheet } from '@src/utils/sheetBottom';
 import { getTextInConfigJSON } from '@src/utils/object';
 import { MassiveSDKModelEpisodesItem } from '@src/sdks/Britbox.API.Content.TS/api';
+import { wp } from '@src/utils/dimension';
 import {
   TabsWrapper,
   PreloadTabs,
@@ -64,12 +65,12 @@ const Tabs = ({ data, onScrollTo, onLayout, autoPlay, onPlay }: Props) => {
     hideSheet();
     setTimeout(() => {
       return navigate('More', { screen: 'MyAccount', params: { subscriptionSelected: true } });
-    }, 250);
+    }, 450);
   };
 
   const renderBottomContent = () => (
     <WrapperBottomContent>
-      <Headline color={theme.PRIMARY_TEXT_COLOR}>
+      <Headline fontSize={21} lineHeight={29} color={theme.PRIMARY_TEXT_COLOR}>
         {getTextInConfigJSON(['no-plan', 'message'], t('errorOut.subtitle'))}
       </Headline>
       <WrapperButtons>
@@ -90,7 +91,7 @@ const Tabs = ({ data, onScrollTo, onLayout, autoPlay, onPlay }: Props) => {
   );
 
   useEffect(() => {
-    dispatch(sheetComponent(470, () => renderBottomContent()));
+    dispatch(sheetComponent(wp(380), () => renderBottomContent()));
 
     return () => {
       dispatch(sheetComponent(0, () => <></>));

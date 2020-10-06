@@ -2,7 +2,7 @@
 /* eslint-disable radix */
 /* eslint-disable no-unused-vars */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Text, Alert, Linking } from 'react-native';
 import MultiSlider from '@ptomasroos/react-native-multi-slider';
 import {
@@ -54,7 +54,6 @@ import {
   BtnText,
   TableRightText,
   PinBtnView,
-  PinBtnText,
   PINView,
   PINErrorText,
   LockIconView,
@@ -134,7 +133,7 @@ export default function ParentalControls() {
 
   const selectedStyle = { backgroundColor: theme.PRIMARY_TEXT_COLOR_OPAQUE };
 
-  const [enableMask, setEnableMask] = useState(true);
+  const [enableMask, setEnableMask] = useState(false);
   const [value, setValue] = useState('');
   const ref = useBlurOnFulfill({ value, cellCount: CELL_COUNT });
   const [codeProps, getCellOnLayoutHandler] = useClearByFocusCell({
@@ -147,8 +146,7 @@ export default function ParentalControls() {
     let textChild = null;
 
     if (symbol) {
-      // textChild = enableMask ? '•' : symbol;
-      textChild = symbol;
+      textChild = enableMask ? '•' : symbol;
     } else if (isFocused) {
       textChild = <Cursor />;
     }
@@ -163,6 +161,14 @@ export default function ParentalControls() {
       </Text>
     );
   };
+
+  useEffect(() => {
+    if (value.length === 4) {
+      setEnableMask(true);
+    } else {
+      setEnableMask(false);
+    }
+  }, [value]);
 
   const [loading, setLoading] = useState(false);
   const [loadingSave, setLoadingSave] = useState(false);
@@ -220,6 +226,15 @@ export default function ParentalControls() {
       if (responseData && Number(responseData.responseCode) === 1) {
         updateParentalDetail();
       } else {
+        if (
+          responseData?.failureMessage &&
+          responseData?.failureMessage[0]?.errorCode === 'eV2520'
+        ) {
+          responseData.failureMessage[0].errorMessage = getTextInConfigJSON(
+            ['account-details', 'validation', 'messages', 'invalid-credentials'],
+            ''
+          );
+        }
         setErrorMessage(responseData);
         setErrorState(true);
         setLoading(false);
@@ -433,7 +448,6 @@ export default function ParentalControls() {
           <Paragraph>{getTextInConfigJSON(['parental-controls', 'description'], '')}</Paragraph>
           {parentalControlDetail?.parentalControl && (
             <PinBtnView>
-              <PinBtnText>{t('parentalcontrols.parentalcontrolsset')}</PinBtnText>
               <Button
                 onPress={() => updateParentalControlDetail('false')}
                 style={turnOffPinStyle}

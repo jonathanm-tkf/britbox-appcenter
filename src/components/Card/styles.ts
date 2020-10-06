@@ -5,6 +5,7 @@ import { rgba } from 'polished';
 import RNProgressBar from 'react-native-progress/Bar';
 import TouchableScaleC from 'react-native-touchable-scale';
 import { Platform } from 'react-native';
+import normalize from 'react-native-normalize';
 
 interface ContainerProps {
   width?: number;
@@ -149,6 +150,7 @@ interface BottomWrapperProps {
   isContinue: boolean;
   isDetail?: boolean;
   isWatchlist?: boolean;
+  showCategory?: boolean;
 }
 
 export const BottomWrapper = styled.View`
@@ -158,16 +160,16 @@ export const BottomWrapper = styled.View`
   justify-content: ${(props: BottomWrapperProps) =>
     !props.isContinue ? 'center' : 'space-between'};
   width: 100%;
-  ${(props: BottomWrapper) => {
+  ${(props: BottomWrapperProps) => {
     return (
-      props.isDetail &&
+      (props.isDetail || props.showCategory) &&
       `
       justify-content: flex-start;
       padding-left: 5px;
     `
     );
   }};
-  ${(props: BottomWrapper) => {
+  ${(props: BottomWrapperProps) => {
     return (
       props.isWatchlist &&
       `
@@ -179,13 +181,14 @@ export const BottomWrapper = styled.View`
 
 interface GroupProps {
   isDetail: boolean;
+  showCategory: boolean;
 }
 
 export const Group = styled.View`
   flex-direction: column;
   width: 100%;
   ${(props: GroupProps) => {
-    return props.isDetail ? `flex: 1;` : `flex-direction: column`;
+    return props.isDetail || props.showCategory ? `flex: 1;` : `flex-direction: column`;
   }};
 `;
 
@@ -276,6 +279,6 @@ export const Badge = styled.View`
 export const BadgeText = styled.Text`
   color: ${(props: ThemeState) => props.theme.PRIMARY_FOREGROUND_COLOR};
   font-family: ${(props: ThemeState) => props.theme.PRIMARY_FONT_FAMILY};
-  font-size: 9px;
+  font-size: ${normalize(8)}px;
   text-transform: uppercase;
 `;

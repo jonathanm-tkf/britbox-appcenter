@@ -30,6 +30,7 @@ type Props = {
   cardContent?: (item: MassiveSDKModelItemList) => JSX.Element | null;
   cardContentAfter?: (item: MassiveSDKModelItemList) => JSX.Element | null;
   isEpisode: boolean;
+  filter?: () => JSX.Element | null;
 };
 
 type Episode = {
@@ -50,6 +51,7 @@ const Grid = ({
   cardContent,
   cardContentAfter,
   isEpisode,
+  filter,
 }: Props) => {
   const theme = useSelector((state: AppState) => state.theme.theme);
   const getImageResult = (item: MassiveSDKModelItemList): string => {
@@ -97,6 +99,7 @@ const Grid = ({
           )}
         </Row>
       )}
+      {filter && filter()}
       <Container style={containerStyle}>
         <FlatList
           data={data}

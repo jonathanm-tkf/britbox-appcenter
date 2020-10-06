@@ -49,7 +49,7 @@ const ContinueWatching = () => {
   const { t } = useTranslation('home');
 
   const getCategories = (itemData: MassiveSDKModelEpisodesItem): any[] => {
-    const dataResult = [{}];
+    const dataResult = [];
     const { classification, customFields } = itemData;
     if (classification) {
       dataResult.push({
@@ -222,6 +222,21 @@ const ContinueWatching = () => {
     showSheet();
   };
 
+  const getProgress = (item: MassiveSDKModelEpisodesItem) => {
+    const filter = pickBy(watched, (value, key) => key.startsWith(item?.id || ''));
+
+    if (filter[item?.id || '']) {
+      const { isFullyWatched, position } = filter[item?.id || ''];
+
+      if (isFullyWatched) {
+        return 1;
+      }
+      return Math.round((Number(position || 0) * 100) / Number(item.duration)) / 100;
+    }
+
+    return 0;
+  };
+
   useEffect(() => {
     const continueWatchingItemsElements = [];
     if ((watchedList?.items || []).length > 0) {
@@ -237,6 +252,9 @@ const ContinueWatching = () => {
               <Card
                 isContinue={isContinueWatching(card.original)}
                 newEpisode
+                showCategory
+                showProgress
+                progress={getProgress(card.original)}
                 width={157}
                 height={107}
                 url={card.url}

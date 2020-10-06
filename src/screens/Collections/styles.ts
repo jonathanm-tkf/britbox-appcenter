@@ -144,17 +144,16 @@ export const ChangeOrderText = styled.Text`
 `;
 
 export const ChangeOrderButton = styled.TouchableOpacity`
-  flex-direction: row;
-  position: absolute;
   height: 50px;
   line-height: 50px;
-  right: 10px;
-  top: 0;
   justify-content: center;
-  align-items: center;
+  align-self: flex-end;
   z-index: 2;
 `;
 
 export const WrapperContinuosScroll = styled.View`
   position: relative;
+  margin-top: 20px;
 `;
+
+export const FilterWrapper = styled.View``;

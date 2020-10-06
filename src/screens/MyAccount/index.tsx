@@ -2,7 +2,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useEffect, useState } from 'react';
-import { Linking, ScrollView, Keyboard } from 'react-native';
+import { Linking, Keyboard, KeyboardAvoidingView } from 'react-native';
 import {
   updateProfileRequest,
   resetPasswordRequest,
@@ -301,78 +301,80 @@ export default function MyAccount() {
     }, []);
 
     return (
-      <ScrollView keyboardShouldPersistTaps="handled" bounces={false}>
-        <ScrollableContainerPaddingHorizontal>
-          <TitleWrapper>
-            <SubTitle>{t('myaccount.yourdetails.screentitle')}</SubTitle>
-          </TitleWrapper>
-          <Input
-            label={t('signup:field.firstname')}
-            value={firstName}
-            onChangeText={(text) => setFirstName(text)}
-            onBlur={() => doValidateFirstName()}
-            error={errorFirstName}
-          />
-          <Input
-            label={t('signup:field.lastname')}
-            value={lastName}
-            onChangeText={(text) => setLastName(text)}
-            onBlur={() => doValidateLastName()}
-            error={errorLastName}
-          />
-          <Input
-            label={t('signup:field.email')}
-            value={email}
-            onChangeText={(text) => setEmail(text)}
-            onBlur={() => doValidateEmail()}
-            error={errorEmail}
-          />
-          <Input
-            label={t('signup:field.mobile')}
-            value={mobile}
-            onChangeText={(text) => setMobile(text)}
-            error={errorMobile}
-          />
-          <ErrorBlock
-            key="error"
-            visible={errorState}
-            type="error"
-            text={
-              errorMessage?.failureMessage[0]?.errorMessage ||
-              getTextInConfigJSON(['account-details', 'validation', 'error-message'], '')
-            }
-          />
-          <ErrorBlock
-            key="success"
-            visible={isSuccess}
-            type="success"
-            text={getTextInConfigJSON(['account-details', 'validation', 'success-message'], '')}
-          />
-          <Button
-            onPress={() => updateProfile()}
-            stretch
-            style={updateBtnStyle}
-            loading={loading}
-            size="big"
-            fontWeight="medium"
-            color={theme.PRIMARY_FOREGROUND_COLOR}
-          >
-            {t('update')}
-          </Button>
-          <Paragraph>
-            {t('myaccount.yourdetails.bottomtext')}{' '}
-            <LinkTitle
-              onPress={() => {
-                navigate('PrivacyPolicy');
-              }}
+      <>
+        <KeyboardAvoidingView behavior="position">
+          <ScrollableContainerPaddingHorizontal>
+            <TitleWrapper>
+              <SubTitle>{t('myaccount.yourdetails.screentitle')}</SubTitle>
+            </TitleWrapper>
+            <Input
+              label={t('signup:field.firstname')}
+              value={firstName}
+              onChangeText={(text) => setFirstName(text)}
+              onBlur={() => doValidateFirstName()}
+              error={errorFirstName}
+            />
+            <Input
+              label={t('signup:field.lastname')}
+              value={lastName}
+              onChangeText={(text) => setLastName(text)}
+              onBlur={() => doValidateLastName()}
+              error={errorLastName}
+            />
+            <Input
+              label={t('signup:field.email')}
+              value={email}
+              onChangeText={(text) => setEmail(text)}
+              onBlur={() => doValidateEmail()}
+              error={errorEmail}
+            />
+            <Input
+              label={t('signup:field.mobile')}
+              value={mobile}
+              onChangeText={(text) => setMobile(text)}
+              error={errorMobile}
+            />
+            <ErrorBlock
+              key="error"
+              visible={errorState}
+              type="error"
+              text={
+                errorMessage?.failureMessage[0]?.errorMessage ||
+                getTextInConfigJSON(['account-details', 'validation', 'error-message'], '')
+              }
+            />
+            <ErrorBlock
+              key="success"
+              visible={isSuccess}
+              type="success"
+              text={getTextInConfigJSON(['account-details', 'validation', 'success-message'], '')}
+            />
+            <Button
+              onPress={() => updateProfile()}
+              stretch
+              style={updateBtnStyle}
+              loading={loading}
+              size="big"
+              fontWeight="medium"
+              color={theme.PRIMARY_FOREGROUND_COLOR}
             >
-              {t('privacypolicy')}
-            </LinkTitle>
-            .
-          </Paragraph>
-        </ScrollableContainerPaddingHorizontal>
+              {t('update')}
+            </Button>
+            <Paragraph>
+              {t('myaccount.yourdetails.bottomtext')}{' '}
+              <LinkTitle
+                onPress={() => {
+                  navigate('PrivacyPolicy');
+                }}
+              >
+                {t('privacypolicy')}
+              </LinkTitle>
+              .
+            </Paragraph>
+          </ScrollableContainerPaddingHorizontal>
+        </KeyboardAvoidingView>
         {tabBottomView()}
-      </ScrollView>
+      </>
     );
   };
 
@@ -566,65 +568,67 @@ export default function MyAccount() {
     }, []);
 
     return (
-      <ScrollView keyboardShouldPersistTaps="handled" bounces={false}>
-        <ScrollContent>
-          <ScrollableContainerPaddingHorizontal>
-            <TitleWrapper>
-              <SubTitle>{t('myaccount.password.screentitle')}</SubTitle>
-            </TitleWrapper>
-            <Input
-              label={t('signup:field.currentpassword')}
-              value={curPassword}
-              onChangeText={(text) => setCurPassword(text)}
-              onBlur={() => doValidateCurPassword()}
-              secureTextEntry
-              error={errorCurPassword}
-            />
-            <Input
-              label={t('signup:field.newpassword')}
-              value={newPassword}
-              onChangeText={(text) => setNewPassword(text)}
-              onBlur={() => doValidateNewPassword()}
-              secureTextEntry
-              error={errorNewPassword}
-            />
-            <Input
-              label={t('signup:field.confirmpassword')}
-              value={confirmPassword}
-              onChangeText={(text) => setConfirmPassword(text)}
-              onBlur={() => doValidateConfirmPassword()}
-              secureTextEntry
-              error={errorConfirmPassword}
-            />
-            {errorState && (
-              <ErrorText>
-                {
-                  ((errorMessage as unknown) as EvergentResponseError)?.failureMessage?.reduce(
-                    (item) => item
-                  )?.errorMessage
-                }
-              </ErrorText>
-            )}
-            <ErrorBlock
-              key="success"
-              visible={isSuccess}
-              type="success"
-              text={getTextInConfigJSON(['account-details', 'validation', 'success-message'], '')}
-            />
-            <Button
-              onPress={() => updatePassword()}
-              stretch
-              loading={loading}
-              size="big"
-              fontWeight="medium"
-              color={theme.PRIMARY_FOREGROUND_COLOR}
-            >
-              {t('update')}
-            </Button>
-          </ScrollableContainerPaddingHorizontal>
-        </ScrollContent>
+      <>
+        <KeyboardAvoidingView behavior="position">
+          <ScrollContent>
+            <ScrollableContainerPaddingHorizontal>
+              <TitleWrapper>
+                <SubTitle>{t('myaccount.password.screentitle')}</SubTitle>
+              </TitleWrapper>
+              <Input
+                label={t('signup:field.currentpassword')}
+                value={curPassword}
+                onChangeText={(text) => setCurPassword(text)}
+                onBlur={() => doValidateCurPassword()}
+                secureTextEntry
+                error={errorCurPassword}
+              />
+              <Input
+                label={t('signup:field.newpassword')}
+                value={newPassword}
+                onChangeText={(text) => setNewPassword(text)}
+                onBlur={() => doValidateNewPassword()}
+                secureTextEntry
+                error={errorNewPassword}
+              />
+              <Input
+                label={t('signup:field.confirmpassword')}
+                value={confirmPassword}
+                onChangeText={(text) => setConfirmPassword(text)}
+                onBlur={() => doValidateConfirmPassword()}
+                secureTextEntry
+                error={errorConfirmPassword}
+              />
+              {errorState && (
+                <ErrorText>
+                  {
+                    ((errorMessage as unknown) as EvergentResponseError)?.failureMessage?.reduce(
+                      (item) => item
+                    )?.errorMessage
+                  }
+                </ErrorText>
+              )}
+              <ErrorBlock
+                key="success"
+                visible={isSuccess}
+                type="success"
+                text={getTextInConfigJSON(['account-details', 'validation', 'success-message'], '')}
+              />
+              <Button
+                onPress={() => updatePassword()}
+                stretch
+                loading={loading}
+                size="big"
+                fontWeight="medium"
+                color={theme.PRIMARY_FOREGROUND_COLOR}
+              >
+                {t('update')}
+              </Button>
+            </ScrollableContainerPaddingHorizontal>
+          </ScrollContent>
+        </KeyboardAvoidingView>
         {tabBottomView()}
-      </ScrollView>
+      </>
     );
   };
 

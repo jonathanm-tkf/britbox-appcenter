@@ -13,6 +13,7 @@ import { connection, device } from '@store/modules/layout/actions';
 import { refreshTokenWithExpiresIn } from '@src/services/token';
 import { getProfileRequest, refreshTokenSuccess } from '@store/modules/user/actions';
 import { TrackPageView } from '@src/services/analytics';
+import { Segment } from '@store/modules/core/types';
 import { RootStackScreen } from './Root';
 import { navigationRef } from './rootNavigation';
 
@@ -38,7 +39,7 @@ type Props = {
 
 export default ({ onTrackEvent }: Props) => {
   const theme = useSelector((state: AppState) => state.theme.theme);
-  const token = useSelector((state: AppState) => state.core.token);
+  const { token, segment } = useSelector((state: AppState) => state.core);
   const { analyticsSubscriptionStatus, isInFreeTrail } = useSelector(
     (state: AppState) => (state.user?.profile as Profile) || {}
   );
@@ -73,8 +74,6 @@ export default ({ onTrackEvent }: Props) => {
       }
     });
 
-    dispatch(getProfileRequest());
-
     if (!unmonted) {
       NetInfo.fetch().then((state) => {
         const { type } = state;
@@ -93,6 +92,12 @@ export default ({ onTrackEvent }: Props) => {
       unmonted = true;
     };
   }, []);
+
+  useEffect(() => {
+    if (segment !== Segment.OUT) {
+      dispatch(getProfileRequest());
+    }
+  }, [segment]);
 
   const handleNavigationChange = async () => {
     const { response } = await refreshTokenWithExpiresIn(expiresIn, refresh);

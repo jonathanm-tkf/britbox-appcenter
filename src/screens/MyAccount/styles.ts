@@ -85,6 +85,7 @@ export const Gradient = styled(LinearGradient).attrs({
 
 export const Wrapper = styled.View`
   padding-top: 15px;
+  padding-bottom: 25px;
 `;
 
 export const FooterTitle = styled.Text`

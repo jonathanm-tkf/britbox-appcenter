@@ -56,6 +56,7 @@ import {
   WrapperContinuosScroll,
   GridInnerContentAfter,
   ActionTitleAfter,
+  FilterWrapper,
 } from './styles';
 
 const { width } = Dimensions.get('window');
@@ -456,35 +457,39 @@ const Collections = () => {
               case 'grid-infinite':
                 return (
                   <WrapperContinuosScroll key={key.toString()}>
-                    <ChangeOrderButton
-                      onPress={() =>
-                        navigation.navigate('ModalFilter', {
-                          // title: t('filter'),
-                          data: [
-                            {
-                              // title: t('order'),
-                              data: [
-                                {
-                                  title: t('recent'),
-                                  value: 'date-added',
-                                  selected: orderBy === 'date-added',
-                                },
-                                {
-                                  title: t('az'),
-                                  value: 'a-z',
-                                  selected: orderBy === 'a-z',
-                                },
-                              ],
-                            },
-                          ],
-                          previusRoute: 'Collections',
-                        })
-                      }
-                    >
-                      <ChangeOrderText>Filter +</ChangeOrderText>
-                    </ChangeOrderButton>
                     <Grid
                       items={item?.list?.items || []}
+                      filter={() => (
+                        <FilterWrapper>
+                          <ChangeOrderButton
+                            onPress={() =>
+                              navigation.navigate('ModalFilter', {
+                                // title: t('filter'),
+                                data: [
+                                  {
+                                    // title: t('order'),
+                                    data: [
+                                      {
+                                        title: t('recent'),
+                                        value: 'date-added',
+                                        selected: orderBy === 'date-added',
+                                      },
+                                      {
+                                        title: t('az'),
+                                        value: 'a-z',
+                                        selected: orderBy === 'a-z',
+                                      },
+                                    ],
+                                  },
+                                ],
+                                previusRoute: 'Collections',
+                              })
+                            }
+                          >
+                            <ChangeOrderText>Filter +</ChangeOrderText>
+                          </ChangeOrderButton>
+                        </FilterWrapper>
+                      )}
                       title={
                         getIsCollectionDetail(data?.template || '')
                           ? `${(item?.list?.items || []).length} ${

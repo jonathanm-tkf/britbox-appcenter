@@ -21,5 +21,5 @@ export const WrapperButtons = styled.View`
 export const WrapperBottomContent = styled.View`
   background-color: ${(props: ThemeState) => props.theme.PRIMARY_FOREGROUND_COLOR};
   padding: 16px;
-  height: 380px;
+  width: 100%;
 `;

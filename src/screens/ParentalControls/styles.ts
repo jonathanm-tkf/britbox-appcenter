@@ -16,6 +16,7 @@ export const ScrollableContainer = styled.ScrollView.attrs({
   },
   bounces: false,
   nestedScrollEnabled: true,
+  keyboardShouldPersistTaps: 'handled',
 })`
   background-color: ${(props: ThemeState) => props.theme.PRIMARY_COLOR};
 `;
@@ -176,16 +177,6 @@ export const PinBtnView = styled.View`
   padding: 30px 35px;
   align-items: center;
   background-color: ${(props: ThemeState) => props.theme.SECONDARY_COLOR};
-`;
-
-export const PinBtnText = styled.Text`
-  font-weight: 600;
-  padding-top: 15px;
-  padding-bottom: 20px;
-  color: ${(props: ThemeState) => props.theme.PRIMARY_FOREGROUND_COLOR};
-  font-family: ${(props: ThemeState) => props.theme.PRIMARY_FONT_FAMILY_MEDIUM};
-  font-size: 24px;
-  text-align: center;
 `;
 
 export const PINView = styled.View`
