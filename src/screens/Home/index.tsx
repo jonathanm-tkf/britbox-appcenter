@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useCallback, useEffect } from 'react';
-import { View, Platform, Linking } from 'react-native';
+import { View, Platform } from 'react-native';
 import { CollapsibleHeaderFlatList } from 'react-native-collapsible-header-views';
 import { getStatusBarHeight } from 'react-native-iphone-x-helper';
 import Header from '@components/Header';
@@ -28,6 +28,7 @@ import { navigateByPath } from '@src/navigation/rootNavigation';
 import { watchlistToggleRequest } from '@store/modules/user/actions';
 import ContinueWatching from '@screens/Shared/ContinueWatching';
 import { autoPlayOn } from '@store/modules/layout/actions';
+import { setDeepLinkUrl } from '@store/modules/home/actions';
 import { Container } from './styles';
 
 const wrapper = {
@@ -36,7 +37,10 @@ const wrapper = {
 };
 
 const Home = () => {
+  const dispatch = useDispatch();
   const theme = useSelector((state: AppState) => state.theme.theme);
+  const isLoading = useSelector((state: AppState) => state.layout.loading);
+  const deepLinkUrl = useSelector((state: AppState) => state.home.deepLinkUrl);
 
   const appWokeUp = useCallback(async (url) => {
     if (url) {
@@ -54,7 +58,7 @@ const Home = () => {
 
               if (response && response?.externalResponse) {
                 const { externalResponse } = response;
-                navigateByPath(externalResponse);
+                navigateByPath(externalResponse, routeName[0] === 'watch');
               }
             }
           }
@@ -63,7 +67,7 @@ const Home = () => {
         const route = url?.split('www.britbox.com');
         if (route[1] && route[1] !== '') {
           if (/\/show\/|\/movie\/|\/season\/|\/episode\//.test(route[1] || '')) {
-            navigateByPath({ path: route[1], customId: true });
+            navigateByPath({ path: route[1], customId: true }, !(route[1] || '').includes('_'));
           }
         }
       }
@@ -71,12 +75,13 @@ const Home = () => {
   }, []);
 
   useEffect(() => {
-    Linking.getInitialURL().then((url: string | null) => {
-      if (url) {
-        appWokeUp(url);
-      }
-    });
-  }, [appWokeUp]);
+    if (deepLinkUrl) {
+      setTimeout(() => {
+        appWokeUp(deepLinkUrl);
+        dispatch(setDeepLinkUrl(null));
+      }, 200);
+    }
+  }, []);
 
   return (
     <View style={wrapper}>

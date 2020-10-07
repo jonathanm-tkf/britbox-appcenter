@@ -739,7 +739,6 @@ export default function MyAccount() {
               metadata: '',
             })
           );
-          dispatch(getProfileRequest());
         } else {
           setErrorState(true);
           setErrorMessage(responseData);
