@@ -5,7 +5,7 @@ import { ImageCacheProvider, ImageCacheManager } from 'react-native-cached-image
 import Header from '@components/Header';
 import { isTablet } from 'react-native-device-info';
 import Carousel from 'react-native-snap-carousel';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, SafeAreaView } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { useIsFocused } from '@react-navigation/native';
 import { navigate } from '@src/navigation/rootNavigation';
@@ -160,10 +160,12 @@ const Auth = () => {
             tappableDots={!!sliderRef}
           />
         </PaginationWrapper>
-        <Button size="big" fontWeight="medium" stretch onPress={() => navigateToSignUp()}>
-          {getTextInConfigJSON(['paywall', '4', 'cta'], t('freetrial'))}
-        </Button>
-        <Paragraph>{getTextInConfigJSON(['pricing-marketing', 'pricing-message'], '')}</Paragraph>
+        <SafeAreaView>
+          <Button size="big" fontWeight="medium" stretch onPress={() => navigateToSignUp()}>
+            {getTextInConfigJSON(['paywall', '4', 'cta'], t('freetrial'))}
+          </Button>
+          <Paragraph>{getTextInConfigJSON(['pricing-marketing', 'pricing-message'], '')}</Paragraph>
+        </SafeAreaView>
       </ScrollView>
     </>
   );

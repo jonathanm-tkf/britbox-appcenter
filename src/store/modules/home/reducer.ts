@@ -10,6 +10,7 @@ export const initialState: HomeState = {
   data: {
     entries: [],
   },
+  deepLinkUrl: null,
 };
 
 const home: Reducer<HomeState> = (state = initialState, action) => {
@@ -26,6 +27,9 @@ const home: Reducer<HomeState> = (state = initialState, action) => {
       case HomeActionTypes.HOME_REQUEST_ERROR:
         draft.loading = false;
         draft.error = true;
+        break;
+      case HomeActionTypes.HOME_DEEPLINK_URL:
+        draft.deepLinkUrl = action.payload;
         break;
       default:
         break;

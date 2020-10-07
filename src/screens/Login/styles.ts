@@ -31,7 +31,6 @@ export const CloseButton = styled.TouchableOpacity`
 `;
 
 export const TitleWrapper = styled.View`
-  align-self: center;
   margin-top: 20px;
   margin-bottom: 10px;
 `;
@@ -41,6 +40,7 @@ export const Title = styled.Text`
   color: ${(props: ThemeState) => props.theme.PRIMARY_FOREGROUND_COLOR};
   font-size: 26px;
   font-weight: 700;
+  text-align: center;
 `;
 
 export const Paragraph = styled.Text`
