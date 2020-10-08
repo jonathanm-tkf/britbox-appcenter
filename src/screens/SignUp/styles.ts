@@ -86,7 +86,7 @@ export const Wrapper = styled.View`
 
 export const CheckBoxView = styled.TouchableOpacity`
   margin-top: 13px;
-  margin-left: 20px;
+  margin-right: 20px;
 `;
 
 export const CancelText = styled.Text`

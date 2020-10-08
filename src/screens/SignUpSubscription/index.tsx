@@ -8,7 +8,7 @@ import { KeyboardAvoidingView, Platform, Linking } from 'react-native';
 import { Button } from '@components/Button';
 import HeaderCustom from '@components/HeaderCustom';
 import { useSelector, useDispatch } from 'react-redux';
-import { useRoute, RouteProp, useNavigation } from '@react-navigation/native';
+import { useRoute, RouteProp } from '@react-navigation/native';
 import { getProductsRequest, addSubscriptionRequest } from '@store/modules/user/saga';
 import { loginAfterRegister } from '@store/modules/user/actions';
 import { atiEventTracking } from '@store/modules/layout/actions';
@@ -67,7 +67,6 @@ type SubscriptionScreenRouteProp = RouteProp<RootParamList, 'SignUpSubscription'
 
 const SignUpSubscription = () => {
   const dispatch = useDispatch();
-  const navigation = useNavigation();
   const { params } = useRoute<SubscriptionScreenRouteProp>();
   const account: boolean | undefined = params?.account;
   const { t } = useTranslation('signup');
@@ -227,7 +226,6 @@ const SignUpSubscription = () => {
   };
 
   const receiptValidateIOS = async (receipt: string) => {
-    // _doSuccessSubscription();
     try {
       const receiptBody = {
         'receipt-data': receipt,
@@ -272,10 +270,7 @@ const SignUpSubscription = () => {
   };
 
   const _doSuccessSubscription = (isPurchase: boolean) => {
-    dispatch(loginAfterRegister(isPurchase));
-    if (account) {
-      navigation.goBack();
-    }
+    dispatch(loginAfterRegister(isPurchase, account));
   };
 
   const trackEvent = (result: string) => {

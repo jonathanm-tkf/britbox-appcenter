@@ -11,6 +11,7 @@ import {
 } from '@src/sdks/Britbox.API.Account.TS/api';
 import { PayloadAction } from 'typesafe-actions';
 import { refreshTokenWithExpiresIn } from '@src/services/token';
+import { navigationGoBack } from '@src/navigation/rootNavigation';
 import { getDeviceName, getUniqueId } from 'react-native-device-info';
 import { Platform } from 'react-native';
 import {
@@ -519,12 +520,19 @@ export function* continueWatchingRemoveRequestAction({
   }
 }
 
-export function* loginAfterRegisterRequest({ payload }: { payload: { isPurchase: boolean } }) {
+export function* loginAfterRegisterRequest({
+  payload,
+}: {
+  payload: { isPurchase: boolean; isAccount?: boolean };
+}) {
   try {
     yield call(getProfileRequest);
     yield put(loggedInRequestSuccess());
     if (payload.isPurchase) {
       yield put(welcomeMessageOn());
+    }
+    if (payload.isAccount) {
+      yield call(navigationGoBack);
     }
   } catch (error) {
     // error
