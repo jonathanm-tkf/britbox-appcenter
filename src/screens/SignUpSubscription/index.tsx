@@ -227,7 +227,6 @@ const SignUpSubscription = () => {
   };
 
   const receiptValidateIOS = async (receipt: string) => {
-    // _doSuccessSubscription();
     try {
       const receiptBody = {
         'receipt-data': receipt,
@@ -272,10 +271,7 @@ const SignUpSubscription = () => {
   };
 
   const _doSuccessSubscription = (isPurchase: boolean) => {
-    dispatch(loginAfterRegister(isPurchase));
-    if (account) {
-      navigation.goBack();
-    }
+    dispatch(loginAfterRegister(isPurchase, account));
   };
 
   const trackEvent = (result: string) => {
