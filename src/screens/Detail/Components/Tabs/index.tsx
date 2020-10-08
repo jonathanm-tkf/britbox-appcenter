@@ -154,7 +154,8 @@ const Tabs = ({ data, onScrollTo, onLayout, autoPlay, onPlay }: Props) => {
         content: () => (
           <Information
             data={information}
-            {...{ moreInformation }}
+            {...{ moreInformation, autoPlay }}
+            onAutoPlay={() => onPlay()}
             onLayout={(event) => {
               if (!ready.information) {
                 setThreeHeight(event.nativeEvent.layout.height);

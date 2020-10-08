@@ -28,7 +28,7 @@ export function navigateByPath(item: any, autoPlay?: boolean) {
     case /\/name\//.test(item?.path || ''):
       push('ActorDetail', { item });
       break;
-    case /\/show\/|\/season\/|\/movie\/|\/episode\//.test(item?.path || ''):
+    case /\/show\/|\/season\/|\/movie\/|\/program\/|\/episode\//.test(item?.path || ''):
       push('Detail', { item, autoPlay });
       break;
     default:

@@ -1,4 +1,5 @@
-import React from 'react';
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { getDuration } from '@src/utils/template';
 import { DiscoverMoreIcon } from '@assets/icons';
@@ -19,15 +20,23 @@ interface Props {
   data: InformationDataType;
   onLayout?: (event: any) => void;
   moreInformation: MoreInformation | undefined;
+  autoPlay: boolean;
+  onAutoPlay: () => void;
 }
 
-const Information = ({ data, onLayout, moreInformation }: Props) => {
+const Information = ({ data, onLayout, moreInformation, autoPlay, onAutoPlay }: Props) => {
   const { t } = useTranslation('layout');
   const { navigate } = useNavigation();
 
   const goToMoreInformation = () => {
     return navigate('ModalMoreInformation', { moreInformation });
   };
+
+  useEffect(() => {
+    if (autoPlay && data.type !== 'episode') {
+      onAutoPlay();
+    }
+  }, [autoPlay]);
 
   return (
     <Container onLayout={onLayout}>

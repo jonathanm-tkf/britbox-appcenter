@@ -154,7 +154,7 @@ const processDetailPage = async (
     moreInformationResponse.year = entries?.item?.season?.releaseYear;
   }
 
-  if (detail?.key === 'MovieDetail') {
+  if (detail?.key === 'MovieDetail' || detail?.key === 'ProgramDetail') {
     if ((detail.entries || []).length > 0) {
       const entries = (detail.entries || []).reduce((item) => item);
 

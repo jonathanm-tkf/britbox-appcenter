@@ -46,7 +46,7 @@ const layout: Reducer<LayoutState> = (state = initialState, action) => {
         draft.out = false;
         break;
       case HomeActionTypes.HOME_REQUEST_SUCCESS:
-        draft.out = false;
+        // draft.out = false;
         // draft.loading = false;
         break;
       case LayoutActionTypes.LAYOUT_CAST_ON:
