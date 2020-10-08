@@ -122,8 +122,7 @@ const Tabs = ({ data, onScrollTo, onLayout, autoPlay, onPlay }: Props) => {
         ),
       });
     }
-
-    if ((moreInformation?.vams || [])?.length > 0) {
+    if ((moreInformation?.vams || [])?.length > 0 && information?.type !== 'program') {
       tabs.push({
         key: 'second',
         title: t('bonus'),

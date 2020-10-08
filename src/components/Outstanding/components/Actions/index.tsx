@@ -8,7 +8,7 @@ import { AppState } from '@store/modules/rootReducer';
 import { useSelector } from 'react-redux';
 import { ActivityIndicator } from 'react-native';
 import { MassiveSDKModelItemList } from '@src/sdks/Britbox.API.Content.TS/api';
-import { Actions, ActionButton, DiscoverMoreText, ActionText } from './styles';
+import { Actions, ActionButton, DiscoverMoreText, ActionText, Container } from './styles';
 
 interface Props {
   item: any;
@@ -31,7 +31,7 @@ const ActionsComponent = ({ item, onDiscoverMore, onPlay, onWatchlist }: Props) 
     checkIsInWatchingList(bookmarklist?.items || [], id || '0') === 3;
 
   return (
-    <>
+    <Container>
       <Actions>
         {item.type !== 'link' && (
           <>
@@ -72,7 +72,7 @@ const ActionsComponent = ({ item, onDiscoverMore, onPlay, onWatchlist }: Props) 
         </ActionButton>
       </Actions>
       {item.type !== 'link' && <ActionText>{t('playnow')}</ActionText>}
-    </>
+    </Container>
   );
 };
 

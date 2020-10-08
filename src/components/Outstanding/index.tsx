@@ -1,8 +1,10 @@
 /* eslint-disable react/no-unused-prop-types */
 import React, { useState, useEffect } from 'react';
-import { Image, StyleProp, ImageStyle, Dimensions } from 'react-native';
+import { StyleProp, ImageStyle, Dimensions } from 'react-native';
 import SwiperFlatList from 'react-native-swiper-flatlist';
 import { Logo } from '@assets/icons';
+import { wp } from '@src/utils/dimension';
+import FastImage from 'react-native-fast-image';
 import {
   Container,
   Gradient,
@@ -29,7 +31,7 @@ interface Props {
 
 const image: StyleProp<ImageStyle> = {
   width: '100%',
-  height: '100%',
+  height: wp(320),
 };
 
 const PaginationComponent = ({
@@ -78,10 +80,12 @@ const Outstanding = ({ items, onPlay, onWatchlist, onDiscoverMore }: Props) => {
                 </LogoWrapper>
               ) : (
                 <WrapperButton onPress={() => (onDiscoverMore ? onDiscoverMore(item) : {})}>
-                  <Image style={image} source={{ uri: item.url }} resizeMode="cover" />
+                  <>
+                    <FastImage style={image} source={{ uri: item.url }} resizeMode="cover" />
+                    <Gradient />
+                  </>
                 </WrapperButton>
               )}
-              <Gradient />
             </Container>
             <Actions {...{ item, onPlay, onDiscoverMore, onWatchlist }} />
           </Slider>

@@ -1,7 +1,9 @@
 import { ThemeState } from '@store/modules/theme/types';
 import styled from 'styled-components/native';
 
-export const Container = styled.View``;
+export const Container = styled.View`
+  /* margin-bottom: -40px; */
+`;
 
 export const DiscoverMoreText = styled.Text`
   color: ${(props: ThemeState) => props.theme.PRIMARY_FOREGROUND_COLOR};
@@ -10,8 +12,8 @@ export const DiscoverMoreText = styled.Text`
 `;
 
 export const Actions = styled.View`
-  margin-top: -20px;
-  z-index: 2;
+  /* margin-top: -20px; */
+  /* z-index: 2; */
   justify-content: center;
   align-items: center;
   flex-direction: row;
@@ -30,7 +32,7 @@ export const ActionButton = styled.TouchableOpacity`
     return (
       props.link &&
       `
-      min-height: 150px;
+      height: 160px;
     `
     );
   }};

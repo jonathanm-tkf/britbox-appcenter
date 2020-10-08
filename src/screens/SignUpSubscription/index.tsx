@@ -1,3 +1,4 @@
+/* eslint-disable consistent-return */
 /* eslint-disable @typescript-eslint/naming-convention */
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable import/no-extraneous-dependencies */
@@ -219,6 +220,11 @@ const SignUpSubscription = () => {
 
       receiptValidateIOS(purchase?.transactionReceipt);
     } catch (err) {
+      if (err && err?.code === 'E_USER_CANCELLED') {
+        setLoading(false);
+        return true;
+      }
+
       trackEvent(err?.message);
       setErrorMsg(err?.message);
       setLoading(false);
@@ -250,7 +256,10 @@ const SignUpSubscription = () => {
         paymentmethodInfo,
       });
 
-      if (subscriptionResponse && Number(subscriptionResponse?.responseCode || 1) === 1) {
+      if (subscriptionResponse && subscriptionResponse[0]?.errorCode) {
+        setLoading(false);
+        setErrorMsg(subscriptionResponse[0]?.errorMessage || 'Something went wrong.');
+      } else if (subscriptionResponse && Number(subscriptionResponse?.responseCode || 1) === 1) {
         _doSuccessSubscription(true);
       } else {
         trackEvent(

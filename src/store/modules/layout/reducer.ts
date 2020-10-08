@@ -72,7 +72,11 @@ const layout: Reducer<LayoutState> = (state = initialState, action) => {
       case LayoutActionTypes.LAYOUT_HIDE_SHEET_BOTTOM:
         draft.isSheetVisible = false;
         draft.welcomeMessage = false;
-        draft.sheet.data = {};
+        draft.sheet = {
+          content: () => null,
+          height: 0,
+          data: {},
+        };
         break;
       case LayoutActionTypes.LAYOUT_EVENT:
         draft.event = action.payload;

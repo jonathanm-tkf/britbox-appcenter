@@ -21,6 +21,7 @@ import { store } from '@store/index';
 import { LayoutState } from '@store/modules/layout/types';
 import { continueWatchingRemoveRequest, watchlistToggleRequest } from '@store/modules/user/actions';
 import { hideSheet, showSheet } from '@src/utils/sheetBottom';
+import { useIsFocused } from '@react-navigation/native';
 import { BottomSheetWrapper, Headline } from './styles';
 
 const getItemId = () => {
@@ -48,6 +49,8 @@ const ContinueWatching = () => {
   ) as Profile;
   const { t } = useTranslation('home');
   const [tabActive, setTabActive] = useState(0);
+
+  const isFocused = useIsFocused();
 
   const getCategories = (itemData: MassiveSDKModelEpisodesItem): any[] => {
     const dataResult = [];
@@ -159,7 +162,7 @@ const ContinueWatching = () => {
 
   const renderBottomContentContinueWatching = () => (
     <BottomSheetWrapper>
-      <Headline center color={theme.PRIMARY_COLOR}>
+      <Headline center color={theme.PRIMARY_COLOR} fontSize={20} lineHeight={32}>
         {t('home:remove.title')}
       </Headline>
       <Button
@@ -187,7 +190,7 @@ const ContinueWatching = () => {
 
   const renderBottomContentWatchlist = () => (
     <BottomSheetWrapper>
-      <Headline center color={theme.PRIMARY_COLOR}>
+      <Headline center color={theme.PRIMARY_COLOR} fontSize={20} lineHeight={32}>
         {t('watchlist:remove.title')}
       </Headline>
       <Button
@@ -214,7 +217,7 @@ const ContinueWatching = () => {
   );
 
   const showSheetBottomContent = (item: MassiveSDKModelItemSummary) => {
-    dispatch(sheetComponent(300, () => renderBottomContentContinueWatching()));
+    dispatch(sheetComponent(340, () => renderBottomContentContinueWatching()));
     dispatch(showSheetBottom({ itemId: item?.id || '0', customId: item?.customId || '0' }));
     showSheet();
   };
@@ -309,13 +312,22 @@ const ContinueWatching = () => {
     if ((watchedList?.items || []).length === 0) {
       setTabActive(1);
     }
-  }, [watchedList]);
+  }, [bookmarkList]);
 
   useEffect(() => {
     if ((bookmarkList?.items || []).length === 0) {
       setTabActive(0);
     }
-  }, [bookmarkList]);
+  }, [watchedList]);
+
+  useEffect(() => {
+    if ((watchedList?.items || []).length === 0) {
+      setTabActive(1);
+    }
+    if ((bookmarkList?.items || []).length === 0) {
+      setTabActive(0);
+    }
+  }, [isFocused]);
 
   return (
     <UserWatching
