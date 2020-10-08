@@ -121,6 +121,7 @@ const VideoPlayer = () => {
         staging: true,
         token,
         ert: refreshToken,
+        isTrailer: params.isTrailer,
       });
     }
   };
@@ -170,9 +171,7 @@ const VideoPlayer = () => {
           source={{
             uri: `${Config.URL_PLAYER}?country=${segment?.toLocaleLowerCase()}&videoid=${
               params.item.id
-            }&token=${token}&ert=${refreshToken}&allow=autoplay&isTrailer=${
-              params.isTrailer
-            }&connection=${
+            }&token=${token}&ert=${refreshToken}&isTrailer=${params.isTrailer}&connection=${
               connection === 'wifi' && isTablet()
                 ? 'mobile-tablet-main'
                 : connection === 'wifi'

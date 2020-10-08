@@ -5,7 +5,7 @@ import { rgba } from 'polished';
 import RNProgressBar from 'react-native-progress/Bar';
 import TouchableScaleC from 'react-native-touchable-scale';
 import { Platform } from 'react-native';
-import normalize from 'react-native-normalize';
+import { wp } from '@src/utils/dimension';
 
 interface ContainerProps {
   width?: number;
@@ -25,7 +25,6 @@ interface WrapperProps {
 export const Wrapper = styled.View`
   align-items: center;
   justify-content: space-between;
-  /* padding-bottom: 30px; */
   width: ${(props: ContainerProps) => props.width || 162}px;
   ${(props: WrapperProps & ContainerProps) => {
     return (
@@ -70,7 +69,6 @@ interface TextWrapperProps {
 export const TextWrapper = styled.View`
   align-self: flex-start;
   width: 100%;
-  /* height: 70px; */
   margin-top: 15px;
   ${(props: TextWrapperProps) => {
     return props.isDetail
@@ -103,12 +101,9 @@ export const Title = styled.Text.attrs({
 })`
   color: ${(props: ThemeState) => props.theme.PRIMARY_FOREGROUND_COLOR};
   font-family: ${(props: ThemeState) => props.theme.PRIMARY_FONT_FAMILY_MEDIUM};
-  /* margin-top: 15px; */
   margin-bottom: 2px;
   font-size: 14px;
   line-height: 24px;
-  /* padding-left: 10px; */
-  /* padding-right: 10px; */
 `;
 
 export const Description = styled.Text.attrs({
@@ -118,8 +113,6 @@ export const Description = styled.Text.attrs({
   opacity: 0.5;
   font-size: 12px;
   margin-top: 2px;
-  /* padding-left: 10px;
-  padding-right: 10px; */
 `;
 
 export const ActionWrapper = styled.View`
@@ -279,6 +272,6 @@ export const Badge = styled.View`
 export const BadgeText = styled.Text`
   color: ${(props: ThemeState) => props.theme.PRIMARY_FOREGROUND_COLOR};
   font-family: ${(props: ThemeState) => props.theme.PRIMARY_FONT_FAMILY};
-  font-size: ${normalize(8)}px;
+  font-size: ${wp(8)}px;
   text-transform: uppercase;
 `;

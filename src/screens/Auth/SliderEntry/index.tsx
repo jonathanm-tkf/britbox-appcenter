@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import React, { Component } from 'react';
-import { View, ActivityIndicator } from 'react-native';
-import { CachedImage } from 'react-native-cached-image';
+import { View } from 'react-native';
+import FastImage from 'react-native-fast-image';
 import styles, { Subtitle, Title } from './styles';
 
 export default class SliderEntry extends Component {
@@ -10,14 +10,7 @@ export default class SliderEntry extends Component {
       data: { illustration },
     } = this.props;
 
-    return (
-      <CachedImage
-        source={{ uri: illustration }}
-        style={styles.image}
-        loadingIndicator={() => <ActivityIndicator size="large" color="rgba(255, 255, 255, 1)" />}
-        resizeMode="contain"
-      />
-    );
+    return <FastImage source={{ uri: illustration }} style={styles.image} resizeMode="contain" />;
   }
 
   render() {

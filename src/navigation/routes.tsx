@@ -14,6 +14,7 @@ import { refreshTokenWithExpiresIn } from '@src/services/token';
 import { getProfileRequest, refreshTokenSuccess } from '@store/modules/user/actions';
 import { TrackPageView } from '@src/services/analytics';
 import { Segment } from '@store/modules/core/types';
+import { homeRequest } from '@store/modules/home/actions';
 import { RootStackScreen } from './Root';
 import { navigationRef } from './rootNavigation';
 
@@ -71,6 +72,7 @@ export default ({ onTrackEvent }: Props) => {
     AppStateRN.addEventListener('change', (action) => {
       if (action === 'active') {
         dispatch(configRequest());
+        dispatch(homeRequest());
       }
     });
 

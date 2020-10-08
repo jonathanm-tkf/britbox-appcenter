@@ -47,3 +47,9 @@ export const castVideoPlayerDetailClear = () =>
 export const showForceChromecast = () => action(LayoutActionTypes.SHOW_FORCE_CHROMECAST);
 
 export const hideForceChromecast = () => action(LayoutActionTypes.HIDE_FORCE_CHROMECAST);
+
+export const retryTimes = () => action(LayoutActionTypes.RETRY_TIMES);
+
+export const errorConfig = () => action(LayoutActionTypes.ERROR_CONFIG);
+
+export const finishedConfiguration = () => action(LayoutActionTypes.FINISHED_CONFIGURATION);

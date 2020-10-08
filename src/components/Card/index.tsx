@@ -174,7 +174,7 @@ const Card = ({
                   </Shimmer>
                 )}
                 {(newEpisode || isEpisode || isDetail) && <Gradient />}
-                {isDetail || (showProgress && <ProgressBar {...{ progress }} />)}
+                {(isDetail || showProgress) && progress > 0 && <ProgressBar {...{ progress }} />}
               </ImageWrapper>
             </CustomShadow>
           </Container>

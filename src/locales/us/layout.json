@@ -45,5 +45,10 @@
     "message": "Please, check your connection.",
     "button": "Try again"
   },
-  "discover": "Discover more"
+  "discover": "Discover more",
+  "gettingInformation": {
+    "title": "Getting Information",
+    "error": "An error has occurred, please try again later.",
+    "retry": "Retrying to get the information"
+  }
 }

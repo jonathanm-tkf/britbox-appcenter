@@ -4,7 +4,7 @@ import { BritboxContentApi } from '@src/sdks';
 import { getDevice } from '@src/utils';
 import { homeRequestSuccess, homeRequestError } from './actions';
 import { AppState } from '../rootReducer';
-import { CoreActionTypes } from '../core/types';
+import { HomeActionTypes } from './types';
 
 const getSegment = (state: AppState) => state.core.segment;
 
@@ -53,5 +53,4 @@ export async function getItemContent(id: string) {
   }
 }
 
-// export default all([takeLatest(HomeActionTypes.HOME_REQUEST, homeRequest)]);
-export default all([takeLatest(CoreActionTypes.CONFIG_SUCCESS, homeRequest)]);
+export default all([takeLatest(HomeActionTypes.HOME_REQUEST, homeRequest)]);

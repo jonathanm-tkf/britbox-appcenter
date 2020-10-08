@@ -1,5 +1,5 @@
 /* eslint-disable max-len */
-import React from 'react';
+import React, { useState } from 'react';
 import { storiesOf } from '@storybook/react-native';
 
 import UserWatching from '@components/UserWatching';
@@ -172,7 +172,6 @@ const DATA = [
   {
     key: 0,
     label: 'Continue Watching',
-    active: true,
     content: () => (
       <Carousel
         items={continueWatchingItems}
@@ -195,13 +194,13 @@ const DATA = [
   {
     key: 1,
     label: 'Watchlist',
-    active: false,
     content: () => (
       <Carousel
         items={continueWatchingItems}
         listProps={{ horizontal: true, noPadding: true }}
         renderItem={({ item: card }) => (
           <Card
+            isWatchlist
             width={122}
             height={162}
             url={card.url}
@@ -214,6 +213,11 @@ const DATA = [
   },
 ];
 
+const Component = () => {
+  const [tabActive, setTabActive] = useState(0);
+  return <UserWatching active={tabActive} data={DATA} changeTab={(item) => setTabActive(item)} />;
+};
+
 storiesOf('User Watching', module)
   .addDecorator(Theme)
-  .add('default', () => <UserWatching data={DATA} />);
+  .add('default', () => <Component />);

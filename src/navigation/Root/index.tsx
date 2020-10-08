@@ -1,9 +1,6 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable no-unused-vars */
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useEffect, useState } from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { getVersion } from 'react-native-device-info';
 import { AppState } from '@store/modules/rootReducer';
 import Storybook from '@screens/Storybook';
@@ -12,7 +9,7 @@ import VideoPlayer from '@screens/VideoPlayer';
 import Modal from '@screens/Modal';
 import Loading from '@screens/Loading';
 import ModalSeasons from '@screens/ModalSeasons';
-import { Animated, Platform, Alert, Linking, BackHandler } from 'react-native';
+import { Animated, Platform } from 'react-native';
 import { ThemeProps } from '@store/modules/theme/types';
 import ModalMoreInformation from '@screens/ModalMoreInformation';
 import Orientation from 'react-native-orientation-locker';
@@ -22,10 +19,7 @@ import ModalTerms from '@screens/Terms';
 import ModalPrivacyPolicy from '@screens/PrivacyPolicy';
 import ErrorLanding from '@components/ErrorLanding';
 import VersionUpgrade from '@components/VersionUpgrade';
-import { loadingOff } from '@store/modules/layout/actions';
 import { getTextInConfigJSON } from '@src/utils/object';
-import VersionCheck from 'react-native-version-check';
-import { useTranslation } from 'react-i18next';
 import NetInfo from '@react-native-community/netinfo';
 import LostConnection from '@screens/LostConnection';
 import { AppDrawerScreen } from '../Drawer';
@@ -73,8 +67,6 @@ const RootStackScreen = () => {
   const theme = useSelector((state: AppState) => state.theme.theme);
   const isLoading = useSelector((state: AppState) => state.layout.loading);
   const isOut = useSelector((state: AppState) => state.layout.out);
-  const dispatch = useDispatch();
-  const { t } = useTranslation('layout');
   const [lostConnection, setLostConnection] = useState(false);
   const [versionModal, setVersionModal] = useState(false);
 
@@ -98,9 +90,6 @@ const RootStackScreen = () => {
 
   useEffect(() => {
     Orientation.lockToPortrait();
-    if (!user.isLogged) {
-      dispatch(loadingOff());
-    }
 
     const unsubscribe = NetInfo.addEventListener((state) => {
       if (!state.isConnected) {

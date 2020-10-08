@@ -1,7 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { ImageCacheProvider, ImageCacheManager } from 'react-native-cached-image';
 import Header from '@components/Header';
 import { isTablet } from 'react-native-device-info';
 import Carousel from 'react-native-snap-carousel';
@@ -25,7 +24,6 @@ import { sliderWidth, itemWidth } from './SliderEntry/styles';
 
 const styles = StyleSheet.create({
   slider: {
-    // marginTop: 15,
     overflow: 'visible', // for custom animations
   },
   sliderContentContainer: {
@@ -33,11 +31,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const defaultImageCacheManager = ImageCacheManager();
-
 const Auth = () => {
-  // const theme = useSelector((state: AppState) => state.theme.theme);
-
   const isFocused = useIsFocused();
   const [sliderRef, setSliderRef] = useState(null);
   const [slider1ActiveSlide, setSlider1ActiveSlide] = useState(0);
@@ -57,12 +51,6 @@ const Auth = () => {
         getTextInConfigJSON(['paywall', '2', 'imageURL'], ''),
         getTextInConfigJSON(['paywall', '3', 'imageURL'], ''),
       ];
-
-  useEffect(() => {
-    images.forEach((element) => {
-      if (element) defaultImageCacheManager.downloadAndCacheUrl(element);
-    });
-  }, []);
 
   const ENTRIES = [
     {
@@ -132,25 +120,23 @@ const Auth = () => {
         <Header hideSignIn={!isFocused} isCenter onPressSignIn={() => onPressSignIn()} />
       </HeaderWrapper>
       <ScrollView>
-        <ImageCacheProvider urlsToPreload={images}>
-          <Carousel
-            ref={(c: any) => setSliderRef(c)}
-            data={ENTRIES}
-            renderItem={renderItemWithParallax}
-            sliderWidth={sliderWidth}
-            itemWidth={itemWidth}
-            hasParallaxImages
-            firstItem={0}
-            inactiveSlideScale={1}
-            inactiveSlideOpacity={1}
-            containerCustomStyle={styles.slider}
-            contentContainerCustomStyle={styles.sliderContentContainer}
-            loop={false}
-            loopClonesPerSide={2}
-            autoplay={false}
-            onSnapToItem={(index: number) => setSlider1ActiveSlide(index)}
-          />
-        </ImageCacheProvider>
+        <Carousel
+          ref={(c: any) => setSliderRef(c)}
+          data={ENTRIES}
+          renderItem={renderItemWithParallax}
+          sliderWidth={sliderWidth}
+          itemWidth={itemWidth}
+          hasParallaxImages
+          firstItem={0}
+          inactiveSlideScale={1}
+          inactiveSlideOpacity={1}
+          containerCustomStyle={styles.slider}
+          contentContainerCustomStyle={styles.sliderContentContainer}
+          loop={false}
+          loopClonesPerSide={2}
+          autoplay={false}
+          onSnapToItem={(index: number) => setSlider1ActiveSlide(index)}
+        />
         <PaginationWrapper>
           <PaginationContent />
           <Pagination

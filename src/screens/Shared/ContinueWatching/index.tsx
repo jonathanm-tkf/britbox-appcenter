@@ -28,9 +28,9 @@ const getItemId = () => {
   return layout.sheet.data?.itemId || '0';
 };
 
-const getSheetHeight = () => {
+const getCustomId = () => {
   const { layout }: { layout: LayoutState } = store.getState();
-  return layout.sheet.height || 0;
+  return layout.sheet.data?.customId || '0';
 };
 
 type Profile = {
@@ -47,6 +47,7 @@ const ContinueWatching = () => {
     (state: AppState) => state.user?.profile || {}
   ) as Profile;
   const { t } = useTranslation('home');
+  const [tabActive, setTabActive] = useState(0);
 
   const getCategories = (itemData: MassiveSDKModelEpisodesItem): any[] => {
     const dataResult = [];
@@ -146,7 +147,13 @@ const ContinueWatching = () => {
   };
 
   const removeItemWatchlist = () => {
-    dispatch(watchlistToggleRequest({ itemId: getItemId(), isInWatchlist: true }));
+    dispatch(
+      watchlistToggleRequest({
+        itemId: getItemId(),
+        itemCustomId: getCustomId(),
+        isInWatchlist: true,
+      })
+    );
     hideSheet();
   };
 
@@ -207,18 +214,14 @@ const ContinueWatching = () => {
   );
 
   const showSheetBottomContent = (item: MassiveSDKModelItemSummary) => {
-    if (getSheetHeight() === 0) {
-      dispatch(sheetComponent(300, () => renderBottomContentContinueWatching()));
-    }
-    dispatch(showSheetBottom({ itemId: item?.id || '0' }));
+    dispatch(sheetComponent(300, () => renderBottomContentContinueWatching()));
+    dispatch(showSheetBottom({ itemId: item?.id || '0', customId: item?.customId || '0' }));
     showSheet();
   };
 
   const showSheetBottomContentWatchlist = (item: MassiveSDKModelItemSummary) => {
-    if (getSheetHeight() === 0) {
-      dispatch(sheetComponent(300, () => renderBottomContentWatchlist()));
-    }
-    dispatch(showSheetBottom({ itemId: item?.id || '0' }));
+    dispatch(sheetComponent(300, () => renderBottomContentWatchlist()));
+    dispatch(showSheetBottom({ itemId: item?.id || '0', customId: item?.customId || '0' }));
     showSheet();
   };
 
@@ -243,7 +246,6 @@ const ContinueWatching = () => {
       continueWatchingItemsElements.push({
         key: 0,
         label: 'Continue Watching',
-        active: true,
         content: () => (
           <Carousel
             items={getContinueWatchingData()}
@@ -277,7 +279,6 @@ const ContinueWatching = () => {
       continueWatchingItemsElements.push({
         key: 1,
         label: 'Watchlist',
-        active: (watchedList?.items || []).length === 0 || false,
         content: () => (
           <Carousel
             items={getWatchingData()}
@@ -301,11 +302,28 @@ const ContinueWatching = () => {
         ),
       });
     }
-
     setContinueWatchingModule(continueWatchingItemsElements);
   }, [bookmarkList, watchedList]);
 
-  return <UserWatching data={continueWatchingModule} />;
+  useEffect(() => {
+    if ((watchedList?.items || []).length === 0) {
+      setTabActive(1);
+    }
+  }, [watchedList]);
+
+  useEffect(() => {
+    if ((bookmarkList?.items || []).length === 0) {
+      setTabActive(0);
+    }
+  }, [bookmarkList]);
+
+  return (
+    <UserWatching
+      active={tabActive}
+      data={continueWatchingModule}
+      changeTab={(index) => setTabActive(index)}
+    />
+  );
 };
 
 export default ContinueWatching;

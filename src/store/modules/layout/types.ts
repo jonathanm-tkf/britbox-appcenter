@@ -29,6 +29,9 @@ export enum LayoutActionTypes {
   LAYOUT_CAST_VIDEO_PLAYER_DETAIL_CLEAR = '@layout/LAYOUT_CAST_VIDEO_PLAYER_DETAIL_CLEAR',
   HIDE_FORCE_CHROMECAST = '@layout/HIDE_FORCE_CHROMECAST',
   SHOW_FORCE_CHROMECAST = '@layout/SHOW_FORCE_CHROMECAST',
+  RETRY_TIMES = '@layout/RETRY_TIMES',
+  ERROR_CONFIG = '@layout/ERROR_CONFIG',
+  FINISHED_CONFIGURATION = '@layout/FINISHED_CONFIGURATION',
 }
 
 /**
@@ -37,6 +40,8 @@ export enum LayoutActionTypes {
 
 export interface LayoutState {
   loading: boolean;
+  error: any;
+  retry: number;
   out: boolean;
   cast: boolean | undefined;
   castDetail: CastDetail | undefined;
@@ -52,6 +57,7 @@ export interface LayoutState {
   autoPlay: boolean;
   welcomeMessage: boolean;
   forceChromecast: boolean;
+  finishedConfiguration: boolean;
 }
 
 export interface MediaSelectorResponse {

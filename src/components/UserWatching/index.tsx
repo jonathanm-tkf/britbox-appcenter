@@ -1,4 +1,4 @@
-import React, { useState, ReactNode } from 'react';
+import React, { ReactNode } from 'react';
 
 import { Row } from '@components/Layout';
 import {
@@ -13,23 +13,16 @@ import {
 type DATA = {
   key: number;
   label: string;
-  active: boolean;
   content: () => ReactNode;
 };
 
 interface Props {
   data: DATA[];
+  active: number;
+  changeTab: (index: number) => void;
 }
 
-const UserWatching = ({ data }: Props) => {
-  const [active, setActive] = useState(
-    data.length > 0 ? data.filter((item) => item.active).reduce((element) => element).key : 0
-  );
-
-  const changeTab = (key: number) => {
-    setActive(key);
-  };
-
+const UserWatching = ({ data, active, changeTab }: Props) => {
   return (
     <Container>
       <Row>
