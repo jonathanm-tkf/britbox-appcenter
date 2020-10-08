@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { StackActions } from '@react-navigation/native';
+import { StackActions, CommonActions } from '@react-navigation/native';
 
 export const navigationRef: any = React.createRef();
 
@@ -35,4 +35,8 @@ export function navigateByPath(item: any, autoPlay?: boolean) {
       push('Collections', { item });
       break;
   }
+}
+
+export function navigationGoBack() {
+  navigationRef.current.dispatch(CommonActions.goBack());
 }
