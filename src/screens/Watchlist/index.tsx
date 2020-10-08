@@ -47,6 +47,11 @@ const getItemId = () => {
   return layout.sheet.data?.itemId || '0';
 };
 
+const getCustomId = () => {
+  const { layout }: { layout: LayoutState } = store.getState();
+  return layout.sheet.data?.customId || '0';
+};
+
 const getSheetHeight = () => {
   const { layout }: { layout: LayoutState } = store.getState();
   return layout.sheet.height || 0;
@@ -148,7 +153,13 @@ const Watchlist = () => {
   };
 
   const removeItem = () => {
-    dispatch(watchlistToggleRequest({ itemId: getItemId(), isInWatchlist: true }));
+    dispatch(
+      watchlistToggleRequest({
+        itemId: getItemId(),
+        itemCustomId: getCustomId(),
+        isInWatchlist: true,
+      })
+    );
     hideSheet();
   };
 
@@ -160,55 +171,57 @@ const Watchlist = () => {
           <Paragraph>{t('description')}</Paragraph>
         </Container>
         <GridWrapper>
-          <FilterButton
-            onPress={() =>
-              navigation.navigate('ModalFilter', {
-                title: t('filter'),
-                data: [
-                  {
-                    title: t('type'),
-                    list: 'type',
-                    data: [
-                      {
-                        title: t('all'),
-                        value: 'all',
-                        selected: type === 'all',
-                      },
-                      {
-                        title: t('movie'),
-                        value: 'movie',
-                        selected: type === 'movie',
-                      },
-                      {
-                        title: t('show'),
-                        value: 'show',
-                        selected: type === 'show',
-                      },
-                    ],
-                  },
-                  {
-                    title: t('order'),
-                    list: 'order',
-                    data: [
-                      {
-                        title: t('recent'),
-                        value: 'date-added',
-                        selected: orderBy === 'date-added',
-                      },
-                      {
-                        title: t('az'),
-                        value: 'a-z',
-                        selected: orderBy === 'a-z',
-                      },
-                    ],
-                  },
-                ],
-                previusRoute: 'Watchlist',
-              })
-            }
-          >
-            <FilterText>{t('filter')} +</FilterText>
-          </FilterButton>
+          {list.length > 0 && (
+            <FilterButton
+              onPress={() =>
+                navigation.navigate('ModalFilter', {
+                  // title: t('filter'),
+                  data: [
+                    {
+                      // title: t('type'),
+                      list: 'type',
+                      data: [
+                        {
+                          title: t('all'),
+                          value: 'all',
+                          selected: type === 'all',
+                        },
+                        {
+                          title: t('movie'),
+                          value: 'movie',
+                          selected: type === 'movie',
+                        },
+                        {
+                          title: t('show'),
+                          value: 'show',
+                          selected: type === 'show',
+                        },
+                      ],
+                    },
+                    {
+                      // title: t('order'),
+                      list: 'order',
+                      data: [
+                        {
+                          title: t('recent'),
+                          value: 'date-added',
+                          selected: orderBy === 'date-added',
+                        },
+                        {
+                          title: t('az'),
+                          value: 'a-z',
+                          selected: orderBy === 'a-z',
+                        },
+                      ],
+                    },
+                  ],
+                  previusRoute: 'Watchlist',
+                })
+              }
+            >
+              <FilterText>{t('filter')} +</FilterText>
+            </FilterButton>
+          )}
           <Grid
             items={list}
             title={`${list.length} ${list.length === 1 ? t('program') : t('programmes')}`}

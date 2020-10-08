@@ -75,7 +75,6 @@ const OurFavorites = ({ data, onPress }: Props) => {
               stretch
               onPress={() => onPress(element)}
               size="big"
-              secondary
               style={stylesButton}
             >
               {t('watchprogrammes')}

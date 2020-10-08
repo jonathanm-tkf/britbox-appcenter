@@ -18,7 +18,6 @@ import {
   SeasonItemText,
   SeasonWrapper,
   Indicator,
-  Gradient,
 } from './styles';
 
 type RootParamList = {
@@ -79,7 +78,6 @@ const ModalSeasons = () => {
         <CloseButton onPress={goBack}>
           <CloseIcon width={50} height={50} />
         </CloseButton>
-        <Gradient locations={[0, 0.5]} />
       </CloseButtonWrapper>
     </Container>
   );

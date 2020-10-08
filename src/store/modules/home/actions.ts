@@ -9,3 +9,6 @@ export const homeRequestSuccess = (data: BritboxAPIContentModelsPageGetPageRespo
 
 export const homeRequestError = (data: any) =>
   action(HomeActionTypes.HOME_REQUEST_ERROR, { ...data });
+
+export const setDeepLinkUrl = (url: string | null) =>
+  action(HomeActionTypes.HOME_DEEPLINK_URL, url);

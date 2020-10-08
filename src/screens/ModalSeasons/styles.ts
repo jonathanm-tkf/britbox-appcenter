@@ -13,6 +13,8 @@ export const CloseButtonWrapper = styled.View`
   position: absolute;
   width: 100%;
   bottom: 0;
+  background-color: ${(props: ThemeState) => props.theme.PRIMARY_COLOR};
+  padding-top: 10px;
 `;
 
 export const CloseButton = styled.TouchableOpacity`

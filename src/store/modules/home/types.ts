@@ -11,6 +11,7 @@ export enum HomeActionTypes {
   HOME_REQUEST = '@home/HOME_REQUEST',
   HOME_REQUEST_SUCCESS = '@home/HOME_REQUEST_SUCCESS',
   HOME_REQUEST_ERROR = '@home/HOME_REQUEST_ERROR',
+  HOME_DEEPLINK_URL = '@home/HOME_DEEPLINK_URL',
 }
 
 /**
@@ -21,4 +22,5 @@ export interface HomeState {
   loading: boolean;
   error: boolean;
   data: MassiveSDKModelPage | undefined;
+  deepLinkUrl: string | null;
 }
