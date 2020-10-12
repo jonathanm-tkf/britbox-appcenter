@@ -32,6 +32,7 @@ const AuthStackScreen = () => (
       component={SignUpSubscription}
       options={{
         ...TransitionPresets.SlideFromRightIOS,
+        gestureEnabled: false,
       }}
     />
   </AuthStack.Navigator>

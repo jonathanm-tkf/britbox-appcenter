@@ -85,9 +85,10 @@ type State = {
 interface Props {
   routes: State[];
   subscriptionSelected: boolean;
+  onTabChanged: () => void;
 }
 
-const Tabs = ({ routes, subscriptionSelected }: Props) => {
+const Tabs = ({ routes, subscriptionSelected, onTabChanged }: Props) => {
   const [tabIndex, setIndex] = useState(0);
   const scrollY: any = useRef(new Animated.Value(0)).current;
   const listRefArr: any = useRef([]);
@@ -241,7 +242,10 @@ const Tabs = ({ routes, subscriptionSelected }: Props) => {
   const renderTabView = () => {
     return (
       <TabView
-        onIndexChange={(index) => setIndex(index)}
+        onIndexChange={(index) => {
+          setIndex(index);
+          onTabChanged();
+        }}
         navigationState={{ index: tabIndex, routes }}
         renderScene={renderScene}
         renderTabBar={renderTabBar}

@@ -4,7 +4,7 @@
 /* eslint-disable react/no-array-index-key */
 /* eslint-disable react-native/no-inline-styles */
 import React, { useState, useEffect } from 'react';
-import { KeyboardAvoidingView, Platform, Linking } from 'react-native';
+import { KeyboardAvoidingView, Platform, Linking, BackHandler } from 'react-native';
 import { Button } from '@components/Button';
 import HeaderCustom from '@components/HeaderCustom';
 import { useSelector, useDispatch } from 'react-redux';
@@ -95,6 +95,20 @@ const SignUpSubscription = () => {
       //
     }
   };
+
+  const handleBackButtonClick = () => {
+    trackEvent('cancel');
+    _doSuccessSubscription(false);
+    return true;
+  };
+
+  useEffect(() => {
+    BackHandler.addEventListener('hardwareBackPress', handleBackButtonClick);
+
+    return () => {
+      BackHandler.removeEventListener('hardwareBackPress', handleBackButtonClick);
+    };
+  }, []);
 
   useEffect(() => {
     initialConnection();
@@ -284,9 +298,10 @@ const SignUpSubscription = () => {
       })
     );
   };
+
   return (
     <>
-      <HeaderCustom isBack shadow />
+      <HeaderCustom isBack shadow onBack={() => _doSuccessSubscription(false)} />
       <Gradient style={{ marginBottom: account ? 90 : 0 }}>
         <KeyboardAvoidingView style={flex} behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
           <ScrollView bounces={false}>

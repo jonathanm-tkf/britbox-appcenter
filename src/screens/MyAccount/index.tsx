@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, forwardRef, useImperativeHandle, useRef } from 'react';
 import { Linking, Keyboard, KeyboardAvoidingView } from 'react-native';
 import {
   updateProfileRequest,
@@ -92,7 +92,7 @@ export default function MyAccount() {
     </Gradient>
   );
 
-  const DetailsRoute = () => {
+  const DetailsRoute = forwardRef((_, ref) => {
     const [firstName, setFirstName] = useState(user?.profile?.firstName || '');
     const [lastName, setLastName] = useState(user?.profile?.lastName || '');
     const [email, setEmail] = useState(user?.profile?.email || '');
@@ -126,6 +126,22 @@ export default function MyAccount() {
     }>({
       text: '',
     });
+
+    useImperativeHandle(ref, () => ({
+      clearError: () => {
+        setErrorFirstName({
+          text: '',
+        });
+        setErrorLastName({
+          text: '',
+        });
+        setErrorEmail({
+          text: '',
+        });
+        setErrorState(false);
+        setErrorMessage(evergentResponseError);
+      },
+    }));
 
     const updateProfile = async () => {
       const hasErrorFirstName = doValidateFirstName();
@@ -376,9 +392,9 @@ export default function MyAccount() {
         {tabBottomView()}
       </>
     );
-  };
+  });
 
-  const PasswordRoute = () => {
+  const PasswordRoute = forwardRef((_, ref) => {
     const [curPassword, setCurPassword] = useState('');
     const [newPassword, setNewPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
@@ -411,6 +427,22 @@ export default function MyAccount() {
     }>({
       text: '',
     });
+
+    useImperativeHandle(ref, () => ({
+      clearError: () => {
+        setErrorCurPassword({
+          text: '',
+        });
+        setErrorNewPassword({
+          text: '',
+        });
+        setErrorConfirmPassword({
+          text: '',
+        });
+        setErrorState(false);
+        setErrorMessage(evergentResponseError);
+      },
+    }));
 
     const updatePassword = async () => {
       const hasErrorCurPassword = doValidateCurPassword();
@@ -630,7 +662,7 @@ export default function MyAccount() {
         {tabBottomView()}
       </>
     );
-  };
+  });
 
   const SubscriptionRoute = () => {
     const [subscriptionDetail, setSubscriptionDetail] = useState<
@@ -802,16 +834,23 @@ export default function MyAccount() {
     );
   };
 
+  interface ComponentRefProps {
+    clearError: () => void;
+  }
+
+  const detailRef = useRef<ComponentRefProps>();
+  const passwordRef = useRef<ComponentRefProps>();
+
   const DATA = [
     {
       key: 'details',
       title: `${t('myaccount.yourdetails.title')} `,
-      content: () => <DetailsRoute />,
+      content: () => <DetailsRoute ref={detailRef} />,
     },
     {
       key: 'password',
       title: `${t('myaccount.password.title')} `,
-      content: () => <PasswordRoute />,
+      content: () => <PasswordRoute ref={passwordRef} />,
     },
     {
       key: 'subscription',
@@ -825,9 +864,14 @@ export default function MyAccount() {
     },
   ];
 
+  const onTabChanged = () => {
+    detailRef?.current?.clearError();
+    passwordRef?.current?.clearError();
+  };
+
   return (
     <Container>
-      <Tabs {...{ subscriptionSelected }} routes={DATA} />
+      <Tabs {...{ subscriptionSelected, onTabChanged }} routes={DATA} />
     </Container>
   );
 }

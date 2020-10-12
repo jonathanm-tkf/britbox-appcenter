@@ -28,6 +28,7 @@ import {
   continueWatchingRequestError,
   continueWatchingRequestSuccess,
 } from '@store/modules/user/actions';
+import { getTextInConfigJSON } from '@src/utils/object';
 import { getDevice } from '@src/utils';
 import { atiEventTracking, welcomeMessageOn } from '../layout/actions';
 
@@ -129,6 +130,12 @@ export function* loginRequest({
       const { response: responseAccountDetail } = yield call(getAccountDetail, accessToken);
       yield put(profileRequestSuccess({ ...responseProfile, ...responseAccountDetail }));
     } else {
+      if (response?.failureMessage && response?.failureMessage[0]?.errorCode === 'eV2134') {
+        response.failureMessage[0].errorMessage = getTextInConfigJSON(
+          ['login', 'error-messages', 'login-error'],
+          ''
+        );
+      }
       yield put(loginRequestError(response));
       yield put(
         atiEventTracking('error', 'bb_logged_in', {
