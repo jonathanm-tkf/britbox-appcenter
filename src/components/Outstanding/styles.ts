@@ -2,21 +2,7 @@ import styled from 'styled-components/native';
 import { ThemeState } from '@store/modules/theme/types';
 import LinearGradient from 'react-native-linear-gradient';
 import { rgba } from 'polished';
-import { Pagination as PaginationC } from 'react-native-snap-carousel';
-
-type SliderProps = {
-  height: number;
-  width: number;
-};
-
-export const Container = styled.View`
-  /* flex: 1; */
-  /* width: 100%;
-  height: 100%; */
-  /* height: 376px; */
-  /* margin-bottom: 100px; */
-  /* background-color: ${(props: ThemeState) => props.theme.PRIMARY_COLOR_OPAQUE}; */
-`;
+import FastImage from 'react-native-fast-image';
 
 export const Gradient = styled(LinearGradient).attrs((props: ThemeState) => ({
   colors: [rgba(props.theme.PRIMARY_COLOR, 0), props.theme.PRIMARY_COLOR],
@@ -77,16 +63,8 @@ export const ActionText = styled.Text`
 `;
 
 export const LogoWrapper = styled.View`
-  flex: 1;
   justify-content: center;
   align-items: center;
-`;
-
-export const Slider = styled.View`
-  ${(props: SliderProps) => `
-    width: ${props.width}px;
-    height: ${props.height}px;
-  `};
 `;
 
 export const PaginationWrapper = styled.View`
@@ -99,38 +77,46 @@ export const PaginationOutside = styled.View`
 
 export const PaginationContent = styled.View`
   background-color: ${(props: ThemeState) => props.theme.PRIMARY_FOREGROUND_COLOR};
-  margin-left: 35px;
-  margin-right: 35px;
+  margin-left: 16px;
+  margin-right: 16px;
   height: 1px;
   position: absolute;
   left: 0;
   right: 0;
-  top: 12px;
+  top: 4px;
 `;
 
-export const Pagination = styled(PaginationC).attrs((props: ThemeState) => ({
-  dotStyle: {
-    width: 10,
-    height: 10,
-    borderRadius: 5,
-    marginHorizontal: 4,
-    borderWidth: 1,
-    borderColor: props.theme.PRIMARY_FOREGROUND_COLOR,
-  },
-  dotColor: props.theme.PRIMARY_FOREGROUND_COLOR,
-  inactiveDotColor: props.theme.PRIMARY_COLOR,
-  inactiveDotOpacity: 1,
-  inactiveDotScale: 1,
-  containerStyle: {
-    paddingVertical: 8,
-  },
-}))``;
+type PaginationDotType = {
+  active: boolean;
+};
+
+export const PaginationDot = styled.View`
+  border-width: 1px;
+  width: 10px;
+  height: 10px;
+  border-radius: 5px;
+  margin-left: 8px;
+  margin-right: 8px;
+  border-color: ${(props: ThemeState) => props.theme.PRIMARY_FOREGROUND_COLOR};
+
+  ${(props: PaginationDotType & ThemeState) => {
+    return props.active
+      ? `
+      background-color: ${props.theme.PRIMARY_FOREGROUND_COLOR};
+    `
+      : `
+      background-color: ${props.theme.PRIMARY_COLOR};
+    `;
+  }};
+`;
+
+export const PaginationDotsWrapper = styled.View`
+  flex-direction: row;
+`;
+
+export const PaginationButton = styled.TouchableWithoutFeedback``;
 
 export const WrapperButton = styled.TouchableWithoutFeedback``;
-
-export const Wrapper = styled.View`
-  flex: 1;
-`;
 
 export const SpaceLink = styled.View`
   width: 32px;
@@ -142,3 +128,12 @@ export const DiscoverMoreText = styled.Text`
   font-size: 16px;
   margin-left: 15px;
 `;
+
+export const Image = styled(FastImage)`
+  width: 100%;
+  height: 100%;
+`;
+
+export const ImageWrapper = styled.View``;
+
+export const Wrapper = styled.View``;

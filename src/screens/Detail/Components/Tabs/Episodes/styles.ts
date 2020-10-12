@@ -22,6 +22,7 @@ export const Year = styled.Text`
 export const SeasonButton = styled.TouchableOpacity`
   flex-direction: row;
   align-items: center;
+  max-width: 80%;
 `;
 
 export const SeasonText = styled.Text`
@@ -29,6 +30,7 @@ export const SeasonText = styled.Text`
   font-family: ${(props: ThemeState) => props.theme.PRIMARY_FONT_FAMILY_MEDIUM};
   margin-right: 10px;
   font-size: 16px;
+  line-height: 24px;
 `;
 
 export const InformationButton = styled.TouchableOpacity`

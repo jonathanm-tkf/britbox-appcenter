@@ -13,9 +13,10 @@ const webview = {
 
 interface Props {
   uri?: string;
+  onNavigationStateChange?: any;
 }
 
-const WebViewComponent = ({ uri = '' }: Props) => {
+const WebViewComponent = ({ uri = '', onNavigationStateChange }: Props) => {
   const theme = useSelector((state: AppState) => state.theme.theme);
   const [loading, setLaoding] = useState(true);
 
@@ -35,6 +36,7 @@ const WebViewComponent = ({ uri = '' }: Props) => {
           allowsInlineMediaPlayback
           style={webview}
           onLoad={() => setLaoding(false)}
+          onNavigationStateChange={onNavigationStateChange}
         />
         {loading && (
           <Wrapper>

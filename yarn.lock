@@ -1697,6 +1697,11 @@
   resolved "https://registry.yarnpkg.com/@react-native-community/picker/-/picker-1.8.0.tgz#32425321af1e29e3da882fbd627a71ea142c75e4"
   integrity sha512-aS506wjynNzKDZjynlDasbc665GKGHdhrCob9KdOprPFlE+zMnoR3k0Ce0OkIuGHcY/GMVvQqTc+LYVm2UOmbg==
 
+"@react-native-community/viewpager@^4.1.6":
+  version "4.1.6"
+  resolved "https://registry.yarnpkg.com/@react-native-community/viewpager/-/viewpager-4.1.6.tgz#788f401f883929e8ac3698e328caef40b146f36e"
+  integrity sha512-zNPQlgrPSB4JHT7w+kB7tTNsbP8H+Tqg1m+AszSArHCwSK+4dl1mgUt7hDd6XX3TTXpH2CdDsRx2cmJTTAweXw==
+
 "@react-navigation/bottom-tabs@^5.8.0":
   version "5.8.0"
   resolved "https://registry.yarnpkg.com/@react-navigation/bottom-tabs/-/bottom-tabs-5.8.0.tgz#d7386809bceeead0adcaacf61b6563be9cefd5cb"
@@ -12181,10 +12186,10 @@ react-native-version-check@^3.4.1:
     lodash.pick "^4.4.0"
     semver "^6.1.1"
 
-react-native-webview@^10.9.0:
-  version "10.9.0"
-  resolved "https://registry.yarnpkg.com/react-native-webview/-/react-native-webview-10.9.0.tgz#a45998f82ab1bbbbfde22b8b155394772610157a"
-  integrity sha512-zYZfmdJca/xRbwvvOfPhzL59SQC4L0W9rPWVF4zMi7BMDdCVHXVp0wKZ9KzmqxZNwadZNTxl5s0pvd6p3S34Fg==
+react-native-webview@^10.9.2:
+  version "10.9.2"
+  resolved "https://registry.yarnpkg.com/react-native-webview/-/react-native-webview-10.9.2.tgz#6dbfcfefb0684a6665e346c0eca8040cbdb5fb75"
+  integrity sha512-bEIHmD1uH3M95V8cZf45MWpSV/FdxKcrlOOpmfAO5arbA9Wd4CjrB2BYInYkMlY3SfHmUN9NTfz5HoQpIS6GTQ==
   dependencies:
     escape-string-regexp "2.0.0"
     invariant "2.2.4"

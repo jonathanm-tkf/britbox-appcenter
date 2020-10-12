@@ -2,14 +2,14 @@ import React from 'react';
 import { MassiveSDKModelItemList } from '@src/sdks/Britbox.API.Content.TS/api';
 
 import { getImage } from '@src/utils/images';
-import { YellowBox, ImageStyle, ViewStyle, FlatList } from 'react-native';
+import { LogBox, ImageStyle, ViewStyle, FlatList } from 'react-native';
 import ContentLoader, { Rect } from 'react-content-loader/native';
 import { AppState } from '@store/modules/rootReducer';
 import { useSelector } from 'react-redux';
 import { Row } from '@components/Layout';
 import { Container, Card, Headline } from './styles';
 
-YellowBox.ignoreWarnings([
+LogBox.ignoreLogs([
   'VirtualizedLists should never be nested', // TODO: Remove when fixed
 ]);
 

@@ -47,7 +47,7 @@
   },
   "discover": "Discover more",
   "gettingInformation": {
-    "title": "Getting Information",
+    "title": "Loading",
     "error": "An error has occurred, please try again later.",
     "retry": "Retrying to get the information"
   }
