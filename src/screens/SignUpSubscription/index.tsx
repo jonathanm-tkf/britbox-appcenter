@@ -259,7 +259,10 @@ const SignUpSubscription = () => {
       if (subscriptionResponse && subscriptionResponse[0]?.errorCode) {
         setLoading(false);
         setErrorMsg(subscriptionResponse[0]?.errorMessage || 'Something went wrong.');
-      } else if (subscriptionResponse && Number(subscriptionResponse?.responseCode || 1) === 1) {
+      } else if (
+        subscriptionResponse &&
+        (subscriptionResponse?.responseCode || '').toString() === '1'
+      ) {
         _doSuccessSubscription(true);
       } else {
         trackEvent(

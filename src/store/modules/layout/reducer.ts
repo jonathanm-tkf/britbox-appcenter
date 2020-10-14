@@ -9,6 +9,7 @@ export const initialState: LayoutState = {
   out: false,
   cast: undefined,
   castDetail: undefined,
+  castState: undefined,
   connection: undefined,
   sheet: {
     content: () => null,
@@ -20,10 +21,11 @@ export const initialState: LayoutState = {
   device: '',
   autoPlay: false,
   welcomeMessage: false,
-  forceChromecast: false,
+  forceChromecast: true,
   error: undefined,
   retry: 1,
   finishedConfiguration: false,
+  page: undefined,
 };
 
 const layout: Reducer<LayoutState> = (state = initialState, action) => {
@@ -72,11 +74,13 @@ const layout: Reducer<LayoutState> = (state = initialState, action) => {
       case LayoutActionTypes.LAYOUT_HIDE_SHEET_BOTTOM:
         draft.isSheetVisible = false;
         draft.welcomeMessage = false;
-        draft.sheet = {
-          content: () => null,
-          height: 0,
-          data: {},
-        };
+        if (state.sheet.data?.canStream !== false) {
+          draft.sheet = {
+            content: () => null,
+            height: 0,
+            data: {},
+          };
+        }
         break;
       case LayoutActionTypes.LAYOUT_EVENT:
         draft.event = action.payload;
@@ -119,6 +123,15 @@ const layout: Reducer<LayoutState> = (state = initialState, action) => {
         break;
       case LayoutActionTypes.FINISHED_CONFIGURATION:
         draft.finishedConfiguration = true;
+        break;
+      case LayoutActionTypes.LAYOUT_CAST_STATE:
+        draft.castState = action.payload.state;
+        break;
+      case LayoutActionTypes.LAYOUT_SET_PAGE:
+        draft.page = action.payload.page;
+        break;
+      case CoreActionTypes.CAST_DETAIL:
+        draft.castState = 'loaded';
         break;
       default:
         break;

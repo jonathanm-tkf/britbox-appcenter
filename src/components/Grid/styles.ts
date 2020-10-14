@@ -11,4 +11,16 @@ export const Card = styled(CardC)`
   align-self: center;
 `;
 
-export const Headline = styled(HeadlineC)``;
+export const Headline = styled(HeadlineC)`
+  margin-right: 100px;
+`;
+
+export const TitleWrapper = styled.View`
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+`;
+
+export const FilterWrapper = styled.View`
+  margin-left: auto;
+`;

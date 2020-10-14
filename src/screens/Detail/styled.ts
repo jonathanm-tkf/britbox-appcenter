@@ -4,10 +4,22 @@ import { getStatusBarHeight, getBottomSpace } from 'react-native-iphone-x-helper
 import { Platform, Animated } from 'react-native';
 import { rgba } from 'polished';
 
+type ContainerProps = {
+  paddingBottom: number;
+};
+
 export const Container = styled.View`
   flex: 1;
   background-color: ${(props: ThemeState) => props.theme.PRIMARY_COLOR};
-  padding-bottom: ${getBottomSpace() + 64}px;
+
+  ${(props: ContainerProps & ThemeState) => {
+    return (
+      !props.paddingBottom &&
+      `
+      padding-bottom: ${getBottomSpace() + props.paddingBottom}px;
+    `
+    );
+  }};
 `;
 
 export const Scroll = styled.ScrollView.attrs({

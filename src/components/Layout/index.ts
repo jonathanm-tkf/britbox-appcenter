@@ -4,8 +4,8 @@ import { ThemeState } from '@store/modules/theme/types';
 import { rgba } from 'polished';
 
 export const Row = styled.View`
-  margin-left: 20px;
-  margin-right: 20px;
+  padding-left: 20px;
+  padding-right: 20px;
   width: 100%;
 `;
 

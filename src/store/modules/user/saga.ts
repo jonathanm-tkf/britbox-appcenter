@@ -66,7 +66,7 @@ export async function profile(
     });
     return { response };
   } catch (error) {
-    return error;
+    throw new Error('Error Profile');
   }
 }
 

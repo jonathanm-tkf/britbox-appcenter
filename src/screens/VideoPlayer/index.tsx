@@ -14,7 +14,6 @@ import { immersiveModeOn, immersiveModeOff } from 'react-native-android-immersiv
 import { autoPlayOff, castVideoPlayerDetail } from '@store/modules/layout/actions';
 import { PostMessage, webViewRef } from '@src/utils/videoPlayerRef';
 import GoogleCast from 'react-native-google-cast';
-import { castDetail } from '@store/modules/core/actions';
 import { continueWatchingRequest } from '@store/modules/user/actions';
 import { Config } from '@src/utils/config';
 
@@ -54,7 +53,6 @@ const VideoPlayer = () => {
       const { currentTime } = message;
 
       if (currentTime) {
-        dispatch(castDetail(params.item));
         dispatch(castVideoPlayerDetail({ currentTime, item: params.item }));
       }
     }

@@ -285,6 +285,7 @@ const Login = () => {
               <Input
                 label={t('signup:field.username')}
                 value={user}
+                autoCapitalize="none"
                 onChangeText={(text) => setUser(text)}
                 onBlur={() => doValidateUsername()}
                 error={errorUsername}

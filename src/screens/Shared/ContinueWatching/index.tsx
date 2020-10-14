@@ -110,7 +110,7 @@ const ContinueWatching = () => {
   const getContinueWatchingData = () => {
     return (watchedList?.items || []).map((item: any) => {
       return {
-        url: getImage(item?.images?.wallpaper || 'loading', 'wallpaper'),
+        url: getImage(item?.images?.wallpaper || '', 'wallpaper'),
         data: {
           title:
             item.type === 'program' || item.type === 'movie' || item.type === 'show'
@@ -312,13 +312,10 @@ const ContinueWatching = () => {
     if ((watchedList?.items || []).length === 0) {
       setTabActive(1);
     }
-  }, [bookmarkList]);
-
-  useEffect(() => {
     if ((bookmarkList?.items || []).length === 0) {
       setTabActive(0);
     }
-  }, [watchedList]);
+  }, [bookmarkList, watchedList]);
 
   useEffect(() => {
     if ((watchedList?.items || []).length === 0) {

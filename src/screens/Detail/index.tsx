@@ -16,13 +16,18 @@ import Bookmark from '@components/Bookmark';
 import { CastVideo, getVideoIdAndClassification } from '@src/services/cast';
 import { AppState } from '@store/modules/rootReducer';
 import { useSelector, useDispatch } from 'react-redux';
-import { watchlistToggleRequest } from '@store/modules/user/actions';
+import { refreshTokenSuccess, watchlistToggleRequest } from '@store/modules/user/actions';
+import { castDetail as castDetailAction } from '@store/modules/core/actions';
 import { checkIsInWatchingList } from '@src/services/watchlist';
-import { autoPlayOff, autoPlayOn, showSheetBottom } from '@store/modules/layout/actions';
+import {
+  autoPlayOff,
+  autoPlayOn,
+  setCastState,
+  showSheetBottom,
+} from '@store/modules/layout/actions';
 import { detailClear, detailWatchedSuccess } from '@store/modules/detail/actions';
 import { MassiveSDKModelWatched } from '@src/sdks/Britbox.API.Account.TS/api';
 import { LoadDetailPageResponse } from '@store/modules/detail/types';
-import { castDetail } from '@store/modules/core/actions';
 import { store } from '@store/index';
 import { LayoutState } from '@store/modules/layout/types';
 import { showSheet } from '@src/utils/sheetBottom';
@@ -37,6 +42,7 @@ import {
 import RBSheet from 'react-native-raw-bottom-sheet';
 import { BritboxAccountApi } from '@src/sdks';
 import Action from '@components/Action';
+import { refreshTokenWithExpiresIn } from '@src/services/token';
 import {
   Container,
   Scroll,
@@ -74,6 +80,11 @@ const getAutoPlay = () => {
   return layout.autoPlay;
 };
 
+const getIsCast = () => {
+  const { layout }: { layout: LayoutState } = store.getState();
+  return layout.cast;
+};
+
 interface CellProps {
   index: number;
   symbol: string;
@@ -87,11 +98,11 @@ const Detail = () => {
   const [showBlueView, setShowBlueView] = useState(false);
   const [tabsOffset, setTabsOffset] = useState(false);
   const [animatedOpacityValue] = useState(new Animated.Value(0));
-  const isCast = useSelector((state: AppState) => state.layout.cast);
   const theme = useSelector((state: AppState) => state.theme.theme);
   const core = useSelector((state: AppState) => state.core);
+  const { castDetail, castState, cast } = useSelector((state: AppState) => state.layout);
   const { navigate } = useNavigation();
-  const { t } = useTranslation(['myaccount', 'detail']);
+  const { t } = useTranslation(['myaccount', 'detail', 'layout']);
   const [data, setData] = useState<LoadDetailPageResponse | undefined>(undefined);
   const [valuePin, setValuePin] = useState('');
   const [errorValuePin, setErrorValuePin] = useState(false);
@@ -101,6 +112,7 @@ const Detail = () => {
     value: valuePin,
     setValue: setValuePin,
   });
+
   const refPin = useBlurOnFulfill({ value: valuePin, cellCount: 4 });
   const cell = {
     width: 60,
@@ -127,6 +139,13 @@ const Detail = () => {
   ) as MassiveSDKModelItemList;
   const user = useSelector((state: AppState) => state.user);
 
+  const refresh = useSelector(
+    (state: AppState) => (state.user.access as Access)?.refreshToken || ''
+  );
+  const expiresIn = useSelector(
+    (state: AppState) => (state.user.access as Access)?.expiresIn || ''
+  );
+
   const getIsInWatchlist = (id: string) =>
     checkIsInWatchingList(bookmarklist?.items || [], id || '0') === 3;
 
@@ -151,6 +170,12 @@ const Detail = () => {
       getDataDetail(item?.path || '', item?.customId || '');
     }
   }, [item]);
+
+  useEffect(() => {
+    if (castDetail && castState === 'loading') {
+      onPlay(castDetail.item, castDetail.currentTime);
+    }
+  }, [castDetail, castState]);
 
   useEffect(() => {
     if (autoPlay) {
@@ -253,8 +278,16 @@ const Detail = () => {
       sheetRef.current!.close();
       setValuePin('');
       setCheckingParentalControl(false);
-      dispatch(castDetail(parentalControlItem));
-      return CastVideo(parentalControlItem, pcToken || '');
+      // dispatch(castDetail(parentalControlItem));
+
+      const { response } = await refreshTokenWithExpiresIn(expiresIn, refresh);
+
+      if (response) {
+        dispatch(refreshTokenSuccess({ ...response }));
+      }
+
+      dispatch(setCastState('loading'));
+      return CastVideo(parentalControlItem, pcToken || '', castDetail?.currentTime || false);
     }
 
     return false;
@@ -294,14 +327,13 @@ const Detail = () => {
     );
   };
 
-  const onPlay = async (episode?: any) => {
+  const onPlay = async (episode?: any, playPosition?: number) => {
     if (!user.profile?.canStream || false) {
-      dispatch(showSheetBottom());
+      dispatch(showSheetBottom({ canStream: false }));
       showSheet();
       return false;
     }
-
-    if (isCast) {
+    if (getIsCast()) {
       const { next } = episode ? {} : await getVideoIdAndClassification(item);
       const itemPlayback = next || episode || item;
       setParentalControlItem(itemPlayback);
@@ -325,8 +357,22 @@ const Detail = () => {
         }
       }
 
-      dispatch(castDetail(next || episode || item));
-      return CastVideo(next || episode || item);
+      const { response } = await refreshTokenWithExpiresIn(expiresIn, refresh);
+      if (response) {
+        dispatch(refreshTokenSuccess({ ...response }));
+      }
+
+      dispatch(setCastState('loading'));
+
+      const newItem = {
+        id: undefined,
+        title: t('layout:loading'),
+        subtitle: undefined,
+        images: [{ url: getImage((next || episode || item)?.images?.wallpaper, 'wallpaper') }],
+      };
+
+      dispatch(castDetailAction({ ...newItem }));
+      return CastVideo(next || episode || item, '', playPosition || false);
     }
 
     return navigation.navigate('VideoPlayer', { item: episode || item });
@@ -377,14 +423,21 @@ const Detail = () => {
         animated: true,
       });
       if (getAutoPlay()) {
-        setTimeout(() => {
+        setTimeout(async () => {
           if (!user?.profile?.canStream || false) {
             dispatch(showSheetBottom());
             showSheet();
             return false;
           }
-          if (isCast) {
-            dispatch(castDetail(item));
+          if (getIsCast()) {
+            // dispatch(castDetail(item));
+            const { response } = await refreshTokenWithExpiresIn(expiresIn, refresh);
+
+            if (response) {
+              dispatch(refreshTokenSuccess({ ...response }));
+            }
+
+            dispatch(setCastState('loading'));
             return CastVideo(item);
           }
           return navigate('VideoPlayer', { item });
@@ -403,7 +456,7 @@ const Detail = () => {
     );
   };
   return (
-    <Container>
+    <Container paddingBottom={cast ? 152 : 64}>
       <TopWrapper>
         <Button onPress={() => back()}>
           <BackIcon width={20} height={20} />
