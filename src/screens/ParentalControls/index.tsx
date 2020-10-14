@@ -86,7 +86,7 @@ export default function ParentalControls() {
   const [isAuthorize, setIsAuthorize] = useState(false);
   const [isSliding, setIsSliding] = useState(false);
   const [parentalControlDetail, setParentalControlDetail] = useState(defaultParentalControlDetail);
-  const [multiSliderValue, setMultiSliderValue] = useState(100);
+  const [multiSliderValue, setMultiSliderValue] = useState(0);
   const theme = useSelector((state: AppState) => state.theme.theme);
   const user = useSelector((state: AppState) => state.user);
 
@@ -183,7 +183,7 @@ export default function ParentalControls() {
         setPassword('');
         setIsAuthorize(false);
         setIsSliding(false);
-        setMultiSliderValue(100);
+        setMultiSliderValue(0);
         setErrorState(false);
         setErrorMessage(evergentResponseError);
       };
@@ -269,8 +269,10 @@ export default function ParentalControls() {
         getTextInConfigJSON(['parental-controls', 'levels', '4', 'id'], '')
       ) {
         setMultiSliderValue(1);
-      } else {
+      } else if (parentalDetail?.parentalControlLevel === 0) {
         setMultiSliderValue(100);
+      } else {
+        setMultiSliderValue(1);
       }
 
       setLoading(false);

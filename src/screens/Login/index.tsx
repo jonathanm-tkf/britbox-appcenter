@@ -90,6 +90,7 @@ const Login = () => {
 
     if (hasErrorUsername && hasErrorPassword) {
       Keyboard.dismiss();
+      dispatch(loginRequestErrorClear());
       dispatch(
         loginRequest({
           user,
@@ -265,6 +266,10 @@ const Login = () => {
     dispatch(loginRequestErrorClear());
   }, []);
 
+  useEffect(() => {
+    dispatch(loginRequestErrorClear());
+  }, [user, password]);
+
   const contentContainer = {
     flexgrow: 1,
     backgroundColor: theme.PRIMARY_COLOR,
@@ -307,8 +312,12 @@ const Login = () => {
                 <ErrorText>
                   {((access as unknown) as EvergentLoginResponseError)?.failureMessage?.reduce(
                     (item) => item
-                  )?.errorMessage ||
-                    getTextInConfigJSON(['login', 'error-messages', 'error-message'], t('error'))}
+                  )?.errorCode === 'eV2134'
+                    ? getTextInConfigJSON(['login', 'error-messages', 'login-error'], t('error'))
+                    : ((access as unknown) as EvergentLoginResponseError)?.failureMessage?.reduce(
+                        (item) => item
+                      )?.errorMessage ||
+                      getTextInConfigJSON(['login', 'error-messages', 'error-message'], t('error'))}
                 </ErrorText>
               )}
               <Button

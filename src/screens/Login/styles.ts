@@ -14,7 +14,7 @@ export const Container = styled.View`
 
 export const ErrorText = styled.Text`
   color: ${(props: ThemeState) => props.theme.ERROR_COLOR};
-  align-self: center;
+  text-align: center;
   margin-bottom: 20px;
   font-family: ${(props: ThemeState) => props.theme.PRIMARY_FONT_FAMILY_MEDIUM};
 `;
@@ -54,7 +54,6 @@ export const Paragraph = styled.Text`
 
 export const Wrapper = styled.View`
   justify-content: center;
-  align-items: center;
   padding-top: 30px;
   padding-bottom: 55px;
   border-bottom-width: 1px;

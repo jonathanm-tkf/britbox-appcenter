@@ -211,7 +211,7 @@ export const UnLockIconView = styled(UnLockIcon).attrs({
 `;
 
 export const DisabledOverlay = styled.View`
-  height: 82%;
+  height: 765px;
   width: 100%;
   position: absolute;
   bottom: 0;
