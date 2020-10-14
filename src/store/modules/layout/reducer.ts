@@ -17,6 +17,7 @@ export const initialState: LayoutState = {
   },
   isSheetVisible: false,
   event: undefined,
+  pageView: undefined,
   device: '',
   autoPlay: false,
   welcomeMessage: false,
@@ -76,6 +77,9 @@ const layout: Reducer<LayoutState> = (state = initialState, action) => {
         break;
       case LayoutActionTypes.LAYOUT_EVENT:
         draft.event = action.payload;
+        break;
+      case LayoutActionTypes.LAYOUT_PAGEVIEW:
+        draft.pageView = action.payload.pageView;
         break;
       case LayoutActionTypes.LAYOUT_DEVICE:
         draft.device = action.payload.type;

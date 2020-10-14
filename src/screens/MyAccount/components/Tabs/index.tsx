@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect, useRef } from 'react';
-import { StyleSheet, View, Dimensions, Animated } from 'react-native';
+import { StyleSheet, View, Dimensions, Animated, Keyboard } from 'react-native';
 import { TabView } from 'react-native-tab-view';
 import HeaderCustom from '@components/HeaderCustom';
 import { useTranslation } from 'react-i18next';
@@ -85,7 +85,7 @@ type State = {
 interface Props {
   routes: State[];
   subscriptionSelected: boolean;
-  onTabChanged: () => void;
+  onTabChanged: (index: number) => void;
 }
 
 const Tabs = ({ routes, subscriptionSelected, onTabChanged }: Props) => {
@@ -149,6 +149,47 @@ const Tabs = ({ routes, subscriptionSelected, onTabChanged }: Props) => {
         }
       }
     );
+  };
+
+  const syncScrollOffsetTop = (isTop: boolean) => {
+    const curRouteKey = routes[tabIndex].key;
+    listRefArr.current.forEach(
+      (item: {
+        value: { scrollToOffset: (item: Record<string, unknown>) => void };
+        key: string;
+      }) => {
+        if (item.key !== curRouteKey) {
+          if (item.value) {
+            if ((scrollY._value ?? 0) <= HeaderHeight) {
+              item.value.scrollToOffset({
+                offset: isTop ? HeaderHeight : 0,
+                animated: true,
+              });
+              listOffset.current[item.key] = isTop ? HeaderHeight : 0;
+            }
+          }
+        }
+      }
+    );
+  };
+
+  useEffect(() => {
+    Keyboard.addListener('keyboardDidShow', keyboardDidShow);
+    Keyboard.addListener('keyboardDidHide', keyboardDidHide);
+
+    // cleanup function
+    return () => {
+      Keyboard.removeListener('keyboardDidShow', keyboardDidShow);
+      Keyboard.removeListener('keyboardDidHide', keyboardDidHide);
+    };
+  }, []);
+
+  const keyboardDidShow = () => {
+    syncScrollOffsetTop(true);
+  };
+
+  const keyboardDidHide = () => {
+    syncScrollOffsetTop(false);
   };
 
   const onMomentumScrollBegin = () => {
@@ -244,7 +285,7 @@ const Tabs = ({ routes, subscriptionSelected, onTabChanged }: Props) => {
       <TabView
         onIndexChange={(index) => {
           setIndex(index);
-          onTabChanged();
+          onTabChanged(index);
         }}
         navigationState={{ index: tabIndex, routes }}
         renderScene={renderScene}

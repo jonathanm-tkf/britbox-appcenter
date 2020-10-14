@@ -10,7 +10,7 @@ import {
 } from '@store/modules/user/saga';
 import { BritboxDataEvergentModelsGetActiveSubscriptionsResponseMessageBaseAccountServiceMessage } from '@src/sdks/Britbox.API.Account.TS/api';
 import { getProfileRequest } from '@store/modules/user/actions';
-import { atiEventTracking } from '@store/modules/layout/actions';
+import { atiEventTracking, atiPageViewTracking } from '@store/modules/layout/actions';
 import { useTranslation } from 'react-i18next';
 import ErrorBlock from '@components/ErrorBlock';
 import { Button } from '@components/Button';
@@ -864,9 +864,22 @@ export default function MyAccount() {
     },
   ];
 
-  const onTabChanged = () => {
-    detailRef?.current?.clearError();
-    passwordRef?.current?.clearError();
+  const onTabChanged = (index: number) => {
+    let pageName = '';
+    if (index === 0) {
+      pageName = 'MyAccount';
+    } else if (index === 1) {
+      pageName = 'MyAccount.Password';
+    } else if (index === 2) {
+      pageName = 'MyAccount.Subscription';
+    } else if (index === 3) {
+      pageName = 'MyAccount.Newsletter';
+    }
+    if (pageName) {
+      dispatch(atiPageViewTracking(pageName));
+      detailRef?.current?.clearError();
+      passwordRef?.current?.clearError();
+    }
   };
 
   return (

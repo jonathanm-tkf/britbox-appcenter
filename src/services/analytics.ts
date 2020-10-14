@@ -1,3 +1,4 @@
+/* eslint-disable no-restricted-globals */
 /* eslint-disable default-case */
 import { MassiveSDKModelItemSummary } from '@src/sdks/Britbox.API.Content.TS/api';
 import { decode as atob } from 'base-64';
@@ -80,13 +81,14 @@ export const TrackPageView = (
     os_version: osVersion,
   };
 
-  if (params) {
+  if (name !== 'MyAccount' && params) {
     const pathArray = (params.item?.path || '').slice(1, (params.item?.path || '')?.length);
+    const pathName = (pathArray || '')
+      .replace('/', '.')
+      .split('.')
+      .reduceRight((item) => item);
     result.terms = {
-      name: (pathArray || '')
-        .replace('/', '.')
-        .split('.')
-        .reduceRight((item) => item),
+      name: isNaN(Number(pathName)) ? pathName : params.item.title || '',
       page: `${(pathArray || '').replace('/', '.')}.page`,
     };
   } else {
@@ -128,6 +130,30 @@ export const TrackPageView = (
       case 'Terms':
         pathName = '/terms-and-conditions';
         pageName = 'terms_and_conditions';
+        break;
+      case 'MyAccount':
+        pathName = '/account/userprofile';
+        pageName = 'account.details';
+        break;
+      case 'MyAccount.Password':
+        pathName = '/account/userprofile';
+        pageName = 'account.password';
+        break;
+      case 'MyAccount.Subscription':
+        pathName = '/account/userprofile';
+        pageName = 'account.subscription';
+        break;
+      case 'MyAccount.Newsletter':
+        pathName = '/account/userprofile';
+        pageName = 'account.newsletter';
+        break;
+      case 'AZ':
+        pathName = '/programmes';
+        pageName = 'programmes';
+        break;
+      case 'Watchlist':
+        pathName = '/account/watchlist';
+        pageName = 'account.watchlist';
         break;
     }
     if (pathName && pageName) {

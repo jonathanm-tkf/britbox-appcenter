@@ -23,6 +23,9 @@ export const atiEventTracking = (
   eventProperties: Record<string, unknown>
 ) => action(LayoutActionTypes.LAYOUT_EVENT, { actionType, actionName, eventProperties });
 
+export const atiPageViewTracking = (pageView: string) =>
+  action(LayoutActionTypes.LAYOUT_PAGEVIEW, { pageView });
+
 export const device = (type: string) => action(LayoutActionTypes.LAYOUT_DEVICE, { type });
 
 export const autoPlayOn = () => action(LayoutActionTypes.LAYOUT_AUTOPLAY_ON);

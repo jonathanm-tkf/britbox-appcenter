@@ -4,9 +4,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { AppState } from '@store/modules/rootReducer';
 import { StatusBar, View, ViewStyle } from 'react-native';
 import WebView from 'react-native-webview';
-import { getSystemName } from 'react-native-device-info';
+import { getSystemVersion, getSystemName, getDeviceName } from 'react-native-device-info';
 import RBSheet from 'react-native-raw-bottom-sheet';
-import { hideSheetBottom, sheetComponent } from '@store/modules/layout/actions';
+import { TrackPageView } from '@src/services/analytics';
+import { hideSheetBottom, sheetComponent, device } from '@store/modules/layout/actions';
 import { ThemeProvider } from 'styled-components';
 import { BottomSheetWrapper, Headline, Paragraph } from '@components/Layout';
 import { Button } from '@components/Button';
@@ -21,11 +22,21 @@ const webViewStyles: ViewStyle = {
   overflow: 'hidden',
 };
 
+type Profile = {
+  analyticsSubscriptionStatus: string;
+  isInFreeTrail: boolean;
+};
+
 export default function App() {
-  const { sheet, event } = useSelector((state: AppState) => state.layout);
+  const { sheet, event, pageView } = useSelector((state: AppState) => state.layout);
   const webViewRef = useRef<any>(undefined);
   const theme = useSelector((state: AppState) => state.theme.theme);
   const { welcomeMessage } = useSelector((state: AppState) => state.layout);
+  const { token } = useSelector((state: AppState) => state.core);
+  const { analyticsSubscriptionStatus, isInFreeTrail } = useSelector(
+    (state: AppState) => (state.user?.profile as Profile) || {}
+  );
+  const { isLogged } = useSelector((state: AppState) => state.user);
 
   const wrapper = {
     flex: 1,
@@ -54,6 +65,34 @@ export default function App() {
       });
     }
   }, [event]);
+
+  useEffect(() => {
+    if (pageView) {
+      let deviceName = '';
+      getDeviceName().then((name) => {
+        deviceName = name;
+        dispatch(device(name));
+      });
+
+      const { user, terms } = TrackPageView({ key: pageView, name: pageView }, token, {
+        account_status: !isLogged
+          ? 'Unauth'
+          : typeof analyticsSubscriptionStatus !== 'undefined' || analyticsSubscriptionStatus !== ''
+          ? analyticsSubscriptionStatus
+          : 'Guest',
+        isFreeTrail: isInFreeTrail,
+        platform: getSystemName(),
+        os_version: getSystemVersion(),
+        device_name: deviceName,
+      });
+
+      onTrackEvent({
+        type: 'trackPageView',
+        user,
+        terms,
+      });
+    }
+  }, [pageView]);
 
   useEffect(() => {
     if (welcomeMessage) {
