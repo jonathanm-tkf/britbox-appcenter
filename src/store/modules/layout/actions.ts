@@ -10,6 +10,9 @@ export const castOff = () => action(LayoutActionTypes.LAYOUT_CAST_OFF);
 
 export const connection = (type: string) => action(LayoutActionTypes.CONNECTION, { type });
 
+export const setCastState = (state: string | undefined) =>
+  action(LayoutActionTypes.LAYOUT_CAST_STATE, { state });
+
 export const sheetComponent = (height: number, content: () => JSX.Element | null) =>
   action(LayoutActionTypes.LAYOUT_SHEET_COMPONENT, { height, content });
 
@@ -53,3 +56,6 @@ export const retryTimes = () => action(LayoutActionTypes.RETRY_TIMES);
 export const errorConfig = () => action(LayoutActionTypes.ERROR_CONFIG);
 
 export const finishedConfiguration = () => action(LayoutActionTypes.FINISHED_CONFIGURATION);
+
+export const setPageLayout = (page: string | undefined) =>
+  action(LayoutActionTypes.LAYOUT_SET_PAGE, { page });

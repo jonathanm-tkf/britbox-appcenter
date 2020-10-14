@@ -158,7 +158,6 @@ export const BottomWrapper = styled.View`
       (props.isDetail || props.showCategory) &&
       `
       justify-content: flex-start;
-      padding-left: 5px;
     `
     );
   }};

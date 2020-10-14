@@ -21,6 +21,7 @@ import { Platform } from 'react-native';
 import { pickBy, shuffle } from 'lodash';
 import { getSystemVersion } from 'react-native-device-info';
 import { Config } from '@src/utils/config';
+import { DetailState } from '@store/modules/detail/types';
 import { getUserId } from './analytics';
 
 const getSegment = () => {
@@ -34,8 +35,8 @@ const getToken = () => {
 };
 
 const getWatched = () => {
-  const { user }: { user: UserState } = store.getState();
-  return user.profile?.watched || {};
+  const { detail }: { detail: DetailState } = store.getState();
+  return detail?.watched || {};
 };
 
 const getUser = async () => {
@@ -116,7 +117,11 @@ const parseResponseMediaSelectorSubtitles = (data: DataResponseMediaSlector) => 
   });
 };
 
-export const CastVideo = async (item: MassiveSDKModelEpisodesItem, pcToken?: string) => {
+export const CastVideo = async (
+  item: MassiveSDKModelEpisodesItem,
+  pcToken?: string,
+  playPosition: number | false = false
+) => {
   const { getItemMediaFiles } = BritboxAccountApi({
     headers: {
       Authorization: `Bearer ${getToken()}`,
@@ -133,12 +138,7 @@ export const CastVideo = async (item: MassiveSDKModelEpisodesItem, pcToken?: str
     if (pcToken !== '') {
       params.pcToken = pcToken;
     }
-    const response = await getItemMediaFiles(item?.id || '0', {
-      device: getDevice(),
-      segments: [getSegment()],
-      sub: 'Subscriber',
-      pcToken,
-    });
+    const response = await getItemMediaFiles(item?.id || '0', params);
 
     if (response) {
       const { token, url } = (response?.externalResponse || [])?.reduce((external) => external);
@@ -161,14 +161,43 @@ export const CastVideo = async (item: MassiveSDKModelEpisodesItem, pcToken?: str
       const user = await getUser();
 
       parseResponseMediaSelector(responseMediaSelector.data).then((dataVideo) => {
+        // const video = {
+        //   title: item?.contextualTitle || '',
+        //   subtitle: item?.shortDescription || '',
+        //   mediaUrl: dataVideo.href,
+        //   imageUrl: getImage(item?.images?.wallpaper, 'wallpaper'),
+        //   duration: item?.duration || 0,
+        //   posterUrl: getImage(item?.images?.square, 'wallpaper'),
+        //   playPosition: playPosition || getProgress(item?.id || ''),
+        //   customData: {
+        //     user,
+        //     media: {
+        //       itemVideoCustomId: url,
+        //       itemVideoMassiveId: item?.id,
+        //       itemVideoTitle: item?.title,
+        //     },
+        //     subtitles,
+        //   },
+        // };
+
+        // GoogleCast.getCastDevice().then((device) => {
+        //   // console.tron.log({ device });
+        //   if (device) {
+        //     // GoogleCast.initChannel('urn:x-cast:com.reactnative.googlecast.britbox');
+        //     GoogleCast.castMedia(video);
+        //     // GoogleCast.launchExpandedControls();
+        //   }
+        // });
+
+        const videoUrl =
+          'http://commondatastorage.googleapis.com/gtv-videos-bucket/CastVideos/mp4/DesigningForGoogleCast.mp4';
         const video = {
           title: item?.contextualTitle || '',
           subtitle: item?.shortDescription || '',
-          mediaUrl: dataVideo.href,
+          mediaUrl: videoUrl,
           imageUrl: getImage(item?.images?.wallpaper, 'wallpaper'),
           duration: item?.duration || 0,
           posterUrl: getImage(item?.images?.square, 'wallpaper'),
-          playPosition: getProgress(item?.id || ''),
           customData: {
             user,
             media: {
@@ -189,25 +218,6 @@ export const CastVideo = async (item: MassiveSDKModelEpisodesItem, pcToken?: str
         });
       });
     }
-
-    // const videoUrl =
-    //   'http://commondatastorage.googleapis.com/gtv-videos-bucket/CastVideos/mp4/DesigningForGoogleCast.mp4';
-    // const video = {
-    //   title: item?.contextualTitle || '',
-    //   subtitle: item?.shortDescription || '',
-    //   mediaUrl: videoUrl,
-    //   imageUrl: getImage(item?.images?.wallpaper, 'wallpaper'),
-    //   duration: item?.duration || 0,
-    //   posterUrl: getImage(item?.images?.square, 'wallpaper'),
-    // };
-
-    // await GoogleCast.getCastDevice().then((device) => {
-    //   if (device) {
-    //     // GoogleCast.initChannel('urn:x-cast:com.reactnative.googlecast.britbox');
-    //     GoogleCast.castMedia(video);
-    //     // GoogleCast.launchExpandedControls();
-    //   }
-    // });
 
     return true;
   } catch (error) {

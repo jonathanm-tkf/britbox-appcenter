@@ -1,6 +1,8 @@
 {
   "signin": "Sign In",
   "logout": "Logout",
+  "loading": "Loading",
+  "to": "to",
   "playnow": "Play now",
   "continue": "Continue Watching",
   "season": "season",

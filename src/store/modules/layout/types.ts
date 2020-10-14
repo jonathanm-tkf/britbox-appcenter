@@ -15,6 +15,7 @@ export enum LayoutActionTypes {
   LAYOUT_OUT_OFF = '@layout/LAYOUT_LOADING_OUT_OFF',
   LAYOUT_CAST_ON = '@layout/LAYOUT_LOADING_CAST_ON',
   LAYOUT_CAST_OFF = '@layout/LAYOUT_LOADING_CAST_OFF',
+  LAYOUT_CAST_STATE = '@layout/LAYOUT_LOADING_CAST_STATE',
   CONNECTION = '@layout/CONNECTION',
   LAYOUT_SHEET_COMPONENT = '@layout/LAYOUT_SHEET_COMPONENT',
   LAYOUT_SHOW_SHEET_BOTTOM = '@layout/LAYOUT_SHOW_SHEET_BOTTOM',
@@ -27,6 +28,7 @@ export enum LayoutActionTypes {
   LAYOUT_WELCOME_MESSAGE_OFF = '@layout/LAYOUT_WELCOME_MESSAGE_OFF',
   LAYOUT_CAST_VIDEO_PLAYER_DETAIL = '@layout/LAYOUT_CAST_VIDEO_PLAYER_DETAIL',
   LAYOUT_CAST_VIDEO_PLAYER_DETAIL_CLEAR = '@layout/LAYOUT_CAST_VIDEO_PLAYER_DETAIL_CLEAR',
+  LAYOUT_SET_PAGE = '@layout/LAYOUT_SET_PAGE',
   HIDE_FORCE_CHROMECAST = '@layout/HIDE_FORCE_CHROMECAST',
   SHOW_FORCE_CHROMECAST = '@layout/SHOW_FORCE_CHROMECAST',
   RETRY_TIMES = '@layout/RETRY_TIMES',
@@ -44,6 +46,7 @@ export interface LayoutState {
   retry: number;
   out: boolean;
   cast: boolean | undefined;
+  castState: string | undefined;
   castDetail: CastDetail | undefined;
   connection: string | undefined;
   sheet: {
@@ -58,6 +61,7 @@ export interface LayoutState {
   welcomeMessage: boolean;
   forceChromecast: boolean;
   finishedConfiguration: boolean;
+  page: string | undefined;
 }
 
 export interface MediaSelectorResponse {

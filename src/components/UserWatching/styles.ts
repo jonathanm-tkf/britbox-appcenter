@@ -39,16 +39,14 @@ type TabContentProps = {
   active: boolean;
 };
 
-export const TabContent = styled.View<TabContent>`
+export const TabContent = styled.View<TabContentProps>`
   flex-direction: row;
   margin-top: 5px;
   ${(props: TabContentProps) => {
     return (
       !props.active &&
       `
-      height: 0;
-      width: 0;
-      overflow: hidden;
+      display: none;
     `
     );
   }};

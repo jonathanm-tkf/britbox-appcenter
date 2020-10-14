@@ -3,12 +3,12 @@ import ContentLoader, { Rect } from 'react-content-loader/native';
 
 import { useSelector } from 'react-redux';
 import { AppState } from '@store/modules/rootReducer';
-import { TouchableOpacity, Image, LayoutChangeEvent } from 'react-native';
+import { TouchableOpacity, LayoutChangeEvent } from 'react-native';
 import Action from '@components/Action';
 import { useTranslation } from 'react-i18next';
 import { CloseIcon, Logo } from '@assets/icons';
 import Bookmark from '@components/Bookmark';
-
+import Image from 'react-native-fast-image';
 import Shimmer from '@components/Shimmer';
 // import { MassiveSDKModelItemSummary } from '@src/sdks/Britbox.API.Content.TS/api';
 import { MassiveSDKModelItemList } from '@src/sdks/Britbox.API.Content.TS/api';

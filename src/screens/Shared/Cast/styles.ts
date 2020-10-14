@@ -3,42 +3,32 @@ import { ThemeState } from '@store/modules/theme/types';
 import { CastButton as CastButtonC } from 'react-native-google-cast';
 import { rgba } from 'polished';
 import { Platform } from 'react-native';
+import FastImage from 'react-native-fast-image';
 
 export const Container = styled.View``;
 
-export const FABView = styled.View`
+export const CastButton = styled(CastButtonC).attrs((props: ThemeState) => ({
+  tintColor: props.theme.PRIMARY_FOREGROUND_COLOR,
+}))`
   position: absolute;
   margin: 16px;
   right: 0px;
   bottom: ${Platform.OS === 'ios' ? 90 : 55}px;
-  background-color: ${(props: ThemeState) => props.theme.PRIMARY_COLOR};
-  width: 60px;
-  height: 60px;
-  border-radius: 30px;
-  align-items: center;
-  justify-content: center;
   shadow-color: #000;
   shadow-offset: 0px 15px;
   shadow-opacity: 0.8;
   shadow-radius: 15px;
   elevation: 3;
-  border-width: 2px;
-  border-color: ${(props: ThemeState) => rgba(props.theme.PRIMARY_FOREGROUND_COLOR, 0.6)};
-`;
-
-export const CastButton = styled(CastButtonC).attrs((props: ThemeState) => ({
-  tintColor: props.theme.PRIMARY_FOREGROUND_COLOR,
-}))`
   width: 60px;
   height: 60px;
   border-radius: 30px;
+  border-width: 2px;
+  border-color: ${(props: ThemeState) => rgba(props.theme.PRIMARY_FOREGROUND_COLOR, 0.6)};
+  background-color: ${(props: ThemeState) => props.theme.PRIMARY_COLOR};
 `;
 
 export const MiniController = styled.View`
   background-color: ${(props: ThemeState) => props.theme.PRIMARY_FOREGROUND_COLOR};
-  /* position: absolute;
-  bottom: 0;
-  left: 0; */
   flex-direction: row;
   align-items: center;
   width: 100%;
@@ -48,15 +38,15 @@ export const MiniController = styled.View`
   elevation: 4;
 `;
 
-export const MiniImage = styled.Image`
+export const MiniImage = styled(FastImage)`
   width: 120px;
   height: 70px;
   background-color: ${(props: ThemeState) => props.theme.SECONDARY_COLOR};
 `;
 
 export const MiniWrapperText = styled.View`
-  padding-left: 10px;
-  padding-right: 10px;
+  padding-left: 20px;
+  padding-right: 20px;
   align-content: center;
   justify-content: center;
   flex: 1;
@@ -67,7 +57,9 @@ export const MiniTitle = styled.Text`
   margin-bottom: 2px;
 `;
 
-export const MiniSubtitle = styled.Text`
+export const MiniSubtitle = styled.Text.attrs({
+  numberOfLines: 2,
+})`
   color: ${(props: ThemeState) => props.theme.PRIMARY_COLOR_OPAQUE};
   font-size: 10px;
 `;
@@ -75,12 +67,13 @@ export const MiniSubtitle = styled.Text`
 export const MiniExpandButton = styled.TouchableOpacity`
   flex-direction: row;
   align-content: center;
+  width: 100%;
 `;
 
 export const MiniExpandButtonIcon = styled.View`
-  height: 100%;
   align-items: center;
   justify-content: center;
-  padding-left: 30px;
-  padding-right: 30px;
+  padding-left: 20px;
+  padding-right: 20px;
+  margin-left: auto;
 `;

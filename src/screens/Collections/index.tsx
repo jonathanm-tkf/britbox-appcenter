@@ -116,7 +116,7 @@ const Collections = () => {
   const { t } = useTranslation('layout');
 
   const [order, setOrder] = useState('asc');
-  const [orderBy, setOrderBy] = useState('date-added');
+  const [orderBy, setOrderBy] = useState('a-z');
 
   const dispatch = useDispatch();
   const bookmarklist = useSelector(
@@ -351,7 +351,7 @@ const Collections = () => {
       setData(dataDummy);
       getDataDetail(genre);
       setOrder('asc');
-      setOrderBy('date-added');
+      setOrderBy('a-z');
     }
   }, [genre]);
 
