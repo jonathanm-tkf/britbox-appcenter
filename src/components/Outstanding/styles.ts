@@ -65,6 +65,7 @@ export const ActionText = styled.Text`
 export const LogoWrapper = styled.View`
   justify-content: center;
   align-items: center;
+  flex: 1;
 `;
 
 export const PaginationWrapper = styled.View`

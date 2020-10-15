@@ -27,6 +27,7 @@ import { useNavigation } from '@react-navigation/native';
 import Orientation from 'react-native-orientation-locker';
 import { CoreState } from '@store/modules/core/types';
 import {
+  Container,
   CastButton,
   MiniController,
   MiniImage,
@@ -211,7 +212,7 @@ const Cast = () => {
   }, [cast]);
 
   return showButton ? (
-    <>
+    <Container>
       <CastButton />
       {showMiniController && (
         <MiniController>
@@ -249,7 +250,7 @@ const Cast = () => {
           </MiniExpandButton>
         </MiniController>
       )}
-    </>
+    </Container>
   ) : null;
 };
 

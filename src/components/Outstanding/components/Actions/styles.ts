@@ -3,6 +3,9 @@ import styled from 'styled-components/native';
 
 export const Container = styled.View`
   /* margin-bottom: -40px; */
+  /* background-color: red; */
+  /* width: 150px; */
+  /* height: 150px; */
 `;
 
 export const DiscoverMoreText = styled.Text`
