@@ -13,9 +13,10 @@ import { MassiveSDKModelItemSummary } from '@src/sdks/Britbox.API.Content.TS/api
 import { immersiveModeOn, immersiveModeOff } from 'react-native-android-immersive-mode';
 import { autoPlayOff, castVideoPlayerDetail } from '@store/modules/layout/actions';
 import { PostMessage, webViewRef } from '@src/utils/videoPlayerRef';
-import GoogleCast from 'react-native-google-cast';
+import GoogleCast, { CastButton } from 'react-native-google-cast';
 import { continueWatchingRequest } from '@store/modules/user/actions';
 import { Config } from '@src/utils/config';
+import { ChromecastWrapper } from './styles';
 
 const { width, height } = Dimensions.get('window');
 
@@ -47,7 +48,6 @@ const VideoPlayer = () => {
 
   const processMessage = (message: { [name: string]: any }) => {
     const { close, chromecast } = message;
-
     if (chromecast) {
       GoogleCast.showCastPicker();
       const { currentTime } = message;
@@ -178,6 +178,11 @@ const VideoPlayer = () => {
             }`,
           }}
         />
+      )}
+      {Platform.OS === 'android' && (
+        <ChromecastWrapper>
+          <CastButton />
+        </ChromecastWrapper>
       )}
     </View>
   );

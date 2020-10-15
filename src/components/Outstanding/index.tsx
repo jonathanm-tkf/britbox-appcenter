@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { Dimensions, LogBox } from 'react-native';
+import { Dimensions } from 'react-native';
 import { Logo } from '@assets/icons';
-import ViewPager from '@react-native-community/viewpager';
 import { fill } from 'lodash';
+import SwiperFlatList from 'react-native-swiper-flatlist';
 import {
   Gradient,
   LogoWrapper,
@@ -14,12 +14,9 @@ import {
   PaginationButton,
   PaginationDotsWrapper,
   Wrapper,
+  WrapperButton,
 } from './styles';
 import Actions from './components/Actions';
-
-LogBox.ignoreLogs([
-  'React.Fragment', // TODO: Remove when fixed
-]);
 
 interface Props {
   items: {
@@ -77,41 +74,43 @@ const Outstanding = ({ items, onPlay, onWatchlist, onDiscoverMore }: Props) => {
 
   return (
     <Wrapper>
-      <ViewPager
-        initialPage={0}
+      <SwiperFlatList
+        index={0}
         style={{ width: screenData.width, height: screenData.width + ACTIONS_HEIGHT }}
-        onPageSelected={(e) => setActiveIndex(e.nativeEvent.position)}
-      >
-        {items.map((item, key) => (
-          <Wrapper key={key.toString()}>
-            {/* <WrapperButton onPress={() => (onDiscoverMore ? onDiscoverMore(item) : {})}> */}
-            <ImageWrapper
-              style={{
-                width: screenData.width,
-                height: screenData.width,
-              }}
-            >
-              {item.url === 'no-image' ? (
-                <LogoWrapper>
-                  <Logo width="80%" />
-                </LogoWrapper>
-              ) : (
-                <>
-                  <Image
-                    source={{
-                      uri: item.url,
-                    }}
-                    resizeMode="cover"
-                  />
-                  <Gradient />
-                </>
-              )}
-            </ImageWrapper>
-            {/* </WrapperButton> */}
+        onChangeIndex={({ index }) => setActiveIndex(index)}
+        disableVirtualization={false}
+        removeClippedSubviews
+        data={items}
+        renderItem={({ item }) => (
+          <Wrapper>
+            <WrapperButton onPress={() => (onDiscoverMore ? onDiscoverMore(item) : {})}>
+              <ImageWrapper
+                style={{
+                  width: screenData.width,
+                  height: screenData.width,
+                }}
+              >
+                {item.url === 'no-image' ? (
+                  <LogoWrapper>
+                    <Logo width="80%" />
+                  </LogoWrapper>
+                ) : (
+                  <>
+                    <Image
+                      source={{
+                        uri: item.url,
+                      }}
+                      resizeMode="cover"
+                    />
+                    <Gradient />
+                  </>
+                )}
+              </ImageWrapper>
+            </WrapperButton>
             <Actions {...{ item, onPlay, onDiscoverMore, onWatchlist }} />
           </Wrapper>
-        ))}
-      </ViewPager>
+        )}
+      />
       <PaginationComponent size={items.length} paginationIndex={activeIndex} />
     </Wrapper>
   );

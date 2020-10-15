@@ -161,43 +161,14 @@ export const CastVideo = async (
       const user = await getUser();
 
       parseResponseMediaSelector(responseMediaSelector.data).then((dataVideo) => {
-        // const video = {
-        //   title: item?.contextualTitle || '',
-        //   subtitle: item?.shortDescription || '',
-        //   mediaUrl: dataVideo.href,
-        //   imageUrl: getImage(item?.images?.wallpaper, 'wallpaper'),
-        //   duration: item?.duration || 0,
-        //   posterUrl: getImage(item?.images?.square, 'wallpaper'),
-        //   playPosition: playPosition || getProgress(item?.id || ''),
-        //   customData: {
-        //     user,
-        //     media: {
-        //       itemVideoCustomId: url,
-        //       itemVideoMassiveId: item?.id,
-        //       itemVideoTitle: item?.title,
-        //     },
-        //     subtitles,
-        //   },
-        // };
-
-        // GoogleCast.getCastDevice().then((device) => {
-        //   // console.tron.log({ device });
-        //   if (device) {
-        //     // GoogleCast.initChannel('urn:x-cast:com.reactnative.googlecast.britbox');
-        //     GoogleCast.castMedia(video);
-        //     // GoogleCast.launchExpandedControls();
-        //   }
-        // });
-
-        const videoUrl =
-          'http://commondatastorage.googleapis.com/gtv-videos-bucket/CastVideos/mp4/DesigningForGoogleCast.mp4';
         const video = {
           title: item?.contextualTitle || '',
           subtitle: item?.shortDescription || '',
-          mediaUrl: videoUrl,
+          mediaUrl: dataVideo.href,
           imageUrl: getImage(item?.images?.wallpaper, 'wallpaper'),
           duration: item?.duration || 0,
           posterUrl: getImage(item?.images?.square, 'wallpaper'),
+          playPosition: playPosition || getProgress(item?.id || ''),
           customData: {
             user,
             media: {
@@ -208,7 +179,6 @@ export const CastVideo = async (
             subtitles,
           },
         };
-
         GoogleCast.getCastDevice().then((device) => {
           if (device) {
             // GoogleCast.initChannel('urn:x-cast:com.reactnative.googlecast.britbox');
@@ -217,6 +187,37 @@ export const CastVideo = async (
           }
         });
       });
+
+      // const videoUrl =
+      //   'http://commondatastorage.googleapis.com/gtv-videos-bucket/CastVideos/mp4/DesigningForGoogleCast.mp4';
+      // const video = {
+      //   title: item?.contextualTitle || '',
+      //   subtitle: item?.shortDescription || '',
+      //   mediaUrl: videoUrl,
+      //   imageUrl: getImage(item?.images?.wallpaper, 'wallpaper'),
+      //   duration: item?.duration || 0,
+      //   posterUrl: getImage(item?.images?.square, 'wallpaper'),
+      //   customData: {
+      //     user,
+      //     media: {
+      //       itemVideoCustomId: url,
+      //       itemVideoMassiveId: item?.id,
+      //       itemVideoTitle: item?.title,
+      //     },
+      //     subtitles,
+      //   },
+      // };
+      // console.tron.log({ video });
+      // GoogleCast.getCastDevice()
+      //   .then((device) => {
+      //     if (device) {
+      //       // console.tron.log({ device });
+      //       // GoogleCast.initChannel('urn:x-cast:com.reactnative.googlecast.britbox');
+      //       GoogleCast.castMedia(video);
+      //       // GoogleCast.launchExpandedControls();
+      //     }
+      //   })
+      //   .catch(() => {});
     }
 
     return true;

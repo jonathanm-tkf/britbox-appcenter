@@ -375,6 +375,9 @@ const Detail = () => {
       return CastVideo(next || episode || item, '', playPosition || false);
     }
 
+    // TODO: Deep-link
+    // console.tron.log({ item, data });
+
     return navigation.navigate('VideoPlayer', { item: episode || item });
   };
 

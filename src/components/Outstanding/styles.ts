@@ -2,7 +2,6 @@ import styled from 'styled-components/native';
 import { ThemeState } from '@store/modules/theme/types';
 import LinearGradient from 'react-native-linear-gradient';
 import { rgba } from 'polished';
-import FastImage from 'react-native-fast-image';
 
 export const Gradient = styled(LinearGradient).attrs((props: ThemeState) => ({
   colors: [rgba(props.theme.PRIMARY_COLOR, 0), props.theme.PRIMARY_COLOR],
@@ -130,7 +129,7 @@ export const DiscoverMoreText = styled.Text`
   margin-left: 15px;
 `;
 
-export const Image = styled(FastImage)`
+export const Image = styled.Image`
   width: 100%;
   height: 100%;
 `;

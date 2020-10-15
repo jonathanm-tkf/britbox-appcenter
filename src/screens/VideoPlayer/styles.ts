@@ -11,3 +11,9 @@ export const BackButton = styled.TouchableOpacity`
   width: 25px;
   height: 25px;
 `;
+
+export const ChromecastWrapper = styled.View`
+  height: 0;
+  width: 0;
+  opacity: 0;
+`;

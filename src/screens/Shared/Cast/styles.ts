@@ -5,28 +5,34 @@ import { rgba } from 'polished';
 import { Platform } from 'react-native';
 import FastImage from 'react-native-fast-image';
 
-export const Container = styled.View`
+export const Container = styled.View``;
+
+export const FABView = styled.View`
   position: absolute;
-  bottom: ${Platform.OS === 'ios' ? 90 : 55}px;
+  margin: 16px;
   right: 0px;
+  bottom: ${Platform.OS === 'ios' ? 90 : 55}px;
+  background-color: ${(props: ThemeState) => props.theme.PRIMARY_COLOR};
   width: 60px;
   height: 60px;
   border-radius: 30px;
-  border-width: 2px;
-  border-color: ${(props: ThemeState) => rgba(props.theme.PRIMARY_FOREGROUND_COLOR, 0.6)};
-  margin: 16px;
-  background-color: ${(props: ThemeState) => props.theme.PRIMARY_COLOR};
-  align-content: center;
+  align-items: center;
   justify-content: center;
   shadow-color: #000;
   shadow-offset: 0px 15px;
   shadow-opacity: 0.8;
+  shadow-radius: 15px;
+  elevation: 3;
+  border-width: 2px;
+  border-color: ${(props: ThemeState) => rgba(props.theme.PRIMARY_FOREGROUND_COLOR, 0.6)};
 `;
 
 export const CastButton = styled(CastButtonC).attrs((props: ThemeState) => ({
   tintColor: props.theme.PRIMARY_FOREGROUND_COLOR,
 }))`
-  flex: 1;
+  width: 60px;
+  height: 60px;
+  border-radius: 30px;
 `;
 
 export const MiniController = styled.View`
@@ -54,7 +60,9 @@ export const MiniWrapperText = styled.View`
   flex: 1;
 `;
 
-export const MiniTitle = styled.Text`
+export const MiniTitle = styled.Text.attrs({
+  numberOfLines: 1,
+})`
   color: ${(props: ThemeState) => props.theme.PRIMARY_TEXT_COLOR};
   margin-bottom: 2px;
 `;

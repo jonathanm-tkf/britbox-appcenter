@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from 'react';
 import GoogleCast, { CastDevice, CastState } from 'react-native-google-cast';
@@ -16,7 +18,7 @@ import {
   castDetail as castDetailAction,
 } from '@store/modules/core/actions';
 import { AppState } from '@store/modules/rootReducer';
-
+import { immersiveModeOff } from 'react-native-android-immersive-mode';
 import { ChromecastIcon } from '@assets/icons';
 import { store } from '@store/index';
 import { CastDetail, LayoutState } from '@store/modules/layout/types';
@@ -27,7 +29,7 @@ import { useNavigation } from '@react-navigation/native';
 import Orientation from 'react-native-orientation-locker';
 import { CoreState } from '@store/modules/core/types';
 import {
-  Container,
+  FABView,
   CastButton,
   MiniController,
   MiniImage,
@@ -81,6 +83,7 @@ const Cast = () => {
           setShowMiniController(true);
           if (getPage() === 'VideoPlayer') {
             Orientation.lockToPortrait();
+            immersiveModeOff();
             goBack();
           }
         }
@@ -137,6 +140,8 @@ const Cast = () => {
           dispatch(castingOff());
           dispatch(castOff());
           dispatch(castDetailClear());
+          dispatch(castVideoPlayerDetailClear());
+          setShowMiniController(false);
           clearInterval(interval);
         }
       });
@@ -158,7 +163,6 @@ const Cast = () => {
     const intervalCheckChromecast = setInterval(() => {
       GoogleCast.getCastState().then((state) => {
         setStateChromecast(state === 'NotConnected' ? t('loading') : state);
-
         if (state === 'NoDevicesAvailable' && !forceChromecast) {
           setShowButton(false);
           PostMessage({
@@ -180,15 +184,17 @@ const Cast = () => {
         dispatch(state === 'NotConnected' || state === 'NoDevicesAvailable' ? castOff() : castOn());
       });
 
-      GoogleCast.getCastDevice().then((deviceItem) => {
-        if (deviceItem !== undefined) {
-          setDevice(deviceItem);
-        }
-      });
+      GoogleCast.getCastDevice()
+        .then((deviceItem) => {
+          if (deviceItem !== undefined) {
+            setDevice(deviceItem);
+          }
+        })
+        .catch(() => {});
     }, 1000);
 
     return () => {
-      clearInterval(intervalCheckChromecast);
+      // clearInterval(intervalCheckChromecast);
       setShowMiniController(false);
     };
   }, []);
@@ -212,8 +218,10 @@ const Cast = () => {
   }, [cast]);
 
   return showButton ? (
-    <Container>
-      <CastButton />
+    <>
+      <FABView>
+        <CastButton />
+      </FABView>
       {showMiniController && (
         <MiniController>
           <MiniExpandButton
@@ -250,7 +258,7 @@ const Cast = () => {
           </MiniExpandButton>
         </MiniController>
       )}
-    </Container>
+    </>
   ) : null;
 };
 
