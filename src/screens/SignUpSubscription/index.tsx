@@ -381,6 +381,7 @@ const SignUpSubscription = () => {
                   {getTextInConfigJSON(['plan-selection', 'ctas', '0'], '')}
                 </Button>
                 <Button
+                  disabled={loading}
                   onPress={() => {
                     trackEvent('cancel');
                     _doSuccessSubscription(false);
