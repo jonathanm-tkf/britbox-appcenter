@@ -81,14 +81,14 @@ export const TrackPageView = (
     os_version: osVersion,
   };
 
-  if (name !== 'MyAccount' && params) {
+  if (name !== 'MyAccount' && name !== 'AccountSubscription' && params) {
     const pathArray = (params.item?.path || '').slice(1, (params.item?.path || '')?.length);
     const pathName = (pathArray || '')
       .replace('/', '.')
       .split('.')
       .reduceRight((item) => item);
     result.terms = {
-      name: isNaN(Number(pathName)) ? pathName : params.item.title || '',
+      name: isNaN(Number(pathName)) ? pathName : params?.item?.title || '',
       page: `${(pathArray || '').replace('/', '.')}.page`,
     };
   } else {
@@ -108,6 +108,10 @@ export const TrackPageView = (
         pageName = 'account.register';
         break;
       case 'SignUpSubscription':
+        pathName = '/selectplan';
+        pageName = 'account.add_card';
+        break;
+      case 'AccountSubscription':
         pathName = '/selectplan';
         pageName = 'account.add_card';
         break;
@@ -156,6 +160,7 @@ export const TrackPageView = (
         pageName = 'account.watchlist';
         break;
     }
+
     if (pathName && pageName) {
       result.terms = {
         name: pathName,
