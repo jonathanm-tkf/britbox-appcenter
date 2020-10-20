@@ -5,8 +5,21 @@ import { getDevice } from '@src/utils';
 import { homeRequestSuccess, homeRequestError } from './actions';
 import { AppState } from '../rootReducer';
 import { HomeActionTypes } from './types';
+import { configRequestError, configRequestSuccess } from '../core/actions';
+import { Segment } from '../core/types';
 
 const getSegment = (state: AppState) => state.core.segment;
+
+export async function getConfigSDK() {
+  const { getLocation } = BritboxContentApi();
+
+  try {
+    const response = await getLocation();
+    return { response };
+  } catch (error) {
+    return error;
+  }
+}
 
 async function getHomeData(segment: string) {
   const { getPage } = BritboxContentApi();
@@ -53,4 +66,23 @@ export async function getItemContent(id: string) {
   }
 }
 
-export default all([takeLatest(HomeActionTypes.HOME_REQUEST, homeRequest)]);
+export function* activateApp() {
+  try {
+    const { response: config }: { response: { location: string } } = yield call(getConfigSDK);
+    yield put(configRequestSuccess(config.location));
+
+    const { response } = yield call(getHomeData, config.location);
+
+    if (config.location !== Segment.OUT) {
+      yield put(homeRequestSuccess(response));
+    }
+  } catch (error) {
+    yield put(configRequestError());
+    yield put(homeRequestError(error));
+  }
+}
+
+export default all([
+  takeLatest(HomeActionTypes.HOME_REQUEST, homeRequest),
+  takeLatest(HomeActionTypes.HOME_ACTIVATE_APP, activateApp),
+]);

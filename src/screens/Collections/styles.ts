@@ -25,6 +25,7 @@ export const TopWrapper = styled.View`
   width: 100%;
   justify-content: center;
   align-items: center;
+  /* background-color: rgba(255, 255, 0, 0.2); */
 `;
 
 export const Button = styled.TouchableOpacity`

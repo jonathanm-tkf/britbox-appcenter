@@ -12,7 +12,7 @@ interface Props {
 
 const containerStyles = {
   marginTop: 30,
-  // marginBottom: 30,
+  marginBottom: 30,
   paddingHorizontal: wp(15),
 };
 

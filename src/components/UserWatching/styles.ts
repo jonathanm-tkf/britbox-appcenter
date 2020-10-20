@@ -1,7 +1,10 @@
 import styled from 'styled-components/native';
 import { ThemeState } from '@store/modules/theme/types';
 
-export const Container = styled.View``;
+export const Container = styled.View`
+  margin-top: 10px;
+  margin-bottom: 30px;
+`;
 
 export const TabHeader = styled.View`
   flex-direction: row;

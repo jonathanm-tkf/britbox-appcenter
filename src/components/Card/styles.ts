@@ -62,6 +62,8 @@ export const Gradient = styled(LinearGradient).attrs((props: ThemeState) => ({
 
 interface TextWrapperProps {
   isDetail?: boolean;
+  isEpisode?: boolean;
+  isWatchlist?: boolean;
   loaded?: boolean;
   category?: boolean;
 }
@@ -70,29 +72,35 @@ export const TextWrapper = styled.View`
   align-self: flex-start;
   width: 100%;
   margin-top: 15px;
+  height: auto;
   ${(props: TextWrapperProps) => {
     return props.isDetail
       ? `
       margin-top: 0;
       padding-left: 15px;
       padding-right: 15px;
+      height: 80px;
     `
       : `
       padding-left: 10px;
       padding-right: 10px;
     `;
   }};
-
   ${(props: TextWrapperProps) => {
-    return props.isDetail && props.loaded
-      ? `
+    return (
+      (props.category || props.isEpisode) &&
+      `
+      height: 80px;
+    `
+    );
+  }};
+  ${(props: TextWrapperProps) => {
+    return (
+      !props.category &&
+      `
       height: auto;
     `
-      : props.category || props.isDetail
-      ? `
-      height: 50px;
-    `
-      : `height: 20px;`;
+    );
   }};
 `;
 
@@ -136,7 +144,7 @@ export const ActionText = styled.Text`
 
 export const WrapperBookmarks = styled.View`
   flex-direction: row;
-  padding-left: 10px;
+  /* padding-left: 10px; */
 `;
 
 interface BottomWrapperProps {
@@ -177,7 +185,7 @@ interface GroupProps {
 }
 
 export const Group = styled.View`
-  flex-direction: column;
+  /* flex-direction: column; */
   width: 100%;
   ${(props: GroupProps) => {
     return props.isDetail || props.showCategory ? `flex: 1;` : `flex-direction: column`;
@@ -215,7 +223,8 @@ export const SummaryText = styled.Text`
 `;
 
 export const AllWrapper = styled.View`
-  padding-bottom: 30px;
+  /* padding-bottom: 30px; */
+  /* margin-bottom: 20px; */
 `;
 
 export const LogoWrapper = styled.View`
@@ -234,6 +243,7 @@ export const TouchableScale = styled(TouchableScaleC)`
       props.isDetail &&
       `
      width: 100%;
+     margin-bottom: 20px;
     `
     );
   }};

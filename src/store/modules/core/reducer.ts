@@ -1,5 +1,6 @@
 import produce from 'immer';
 import { Reducer } from 'redux';
+import { Platform } from 'react-native';
 import { CoreActionTypes, Language, CoreState, Segment } from './types';
 import { UserActionTypes } from '../user/types';
 
@@ -13,6 +14,7 @@ export const initialState: CoreState = {
   menu: undefined,
   casting: false,
   castDetail: undefined,
+  forceChromecast: Platform.OS === 'ios' && parseInt(Platform.Version.toString(), 10) >= 14,
 };
 
 const core: Reducer<CoreState> = (state = initialState, action) => {
@@ -79,6 +81,12 @@ const core: Reducer<CoreState> = (state = initialState, action) => {
         draft.castDetail = undefined;
         break;
       }
+      case CoreActionTypes.SHOW_FORCE_CHROMECAST:
+        draft.forceChromecast = true;
+        break;
+      case CoreActionTypes.HIDE_FORCE_CHROMECAST:
+        draft.forceChromecast = false;
+        break;
       default:
     }
   });

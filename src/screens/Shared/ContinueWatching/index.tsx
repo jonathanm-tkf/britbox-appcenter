@@ -292,7 +292,6 @@ const ContinueWatching = () => {
                 width={122}
                 height={162}
                 url={card.url}
-                data={card.data}
                 onPress={() =>
                   (card.original?.list?.title || '') !== 'loading'
                     ? goToDetail(card.original, false)

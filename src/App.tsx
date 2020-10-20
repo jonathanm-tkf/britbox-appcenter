@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { AppState } from '@store/modules/rootReducer';
 import { StatusBar, View, ViewStyle } from 'react-native';
 import WebView from 'react-native-webview';
-import { getSystemVersion, getSystemName, getDeviceName } from 'react-native-device-info';
+import { getSystemVersion, getSystemName, getDeviceName, isTablet } from 'react-native-device-info';
 import RBSheet from 'react-native-raw-bottom-sheet';
 import { TrackPageView } from '@src/services/analytics';
 import { hideSheetBottom, sheetComponent, device } from '@store/modules/layout/actions';
@@ -146,9 +146,13 @@ export default function App() {
           closeOnPressMask={false}
           customStyles={{
             container: {
+              maxWidth: isTablet() ? 400 : '100%',
               alignItems: 'center',
               borderTopRightRadius: 15,
               borderTopLeftRadius: 15,
+            },
+            wrapper: {
+              alignItems: 'center',
             },
             draggableIcon: {
               backgroundColor: theme.PRIMARY_TEXT_COLOR_OPAQUE,

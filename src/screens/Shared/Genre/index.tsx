@@ -49,6 +49,7 @@ const Genre = ({ item }: Props) => {
         renderItem={({ item: card }) => (
           <Card
             url={getImage(card.images?.square, 'square')}
+            element={{ marginBottom: 30 }}
             width={190}
             height={190}
             onPress={() => ((item?.list?.title || '') !== 'loading' ? goToDetail(card) : {})}

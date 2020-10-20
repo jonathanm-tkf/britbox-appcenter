@@ -56,5 +56,16 @@ export const dataDummy = {
         }),
       },
     },
+    {
+      template: 'Continuous Scroll Automatic Episode',
+      list: {
+        items: fill(new Array(15), {
+          type: 'episode',
+          images: {
+            wallpaper: 'loading',
+          },
+        }),
+      },
+    },
   ],
 };

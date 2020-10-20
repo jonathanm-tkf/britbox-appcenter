@@ -2,6 +2,8 @@ import { action } from 'typesafe-actions';
 import { BritboxAPIContentModelsPageGetPageResponse } from '@src/sdks/Britbox.API.Content.TS/api';
 import { HomeActionTypes } from './types';
 
+export const activateApp = () => action(HomeActionTypes.HOME_ACTIVATE_APP);
+
 export const homeRequest = () => action(HomeActionTypes.HOME_REQUEST);
 
 export const homeRequestSuccess = (data: BritboxAPIContentModelsPageGetPageResponse) =>

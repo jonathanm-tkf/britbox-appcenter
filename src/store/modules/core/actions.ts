@@ -26,3 +26,7 @@ export const britBoxAppConfigSuccess = (data: BritBoxCountryConfig) =>
 export const castDetail = (data: any) => action(CoreActionTypes.CAST_DETAIL, { ...data });
 
 export const castDetailClear = () => action(CoreActionTypes.CAST_DETAIL_CLEAR);
+
+export const showForceChromecast = () => action(CoreActionTypes.SHOW_FORCE_CHROMECAST);
+
+export const hideForceChromecast = () => action(CoreActionTypes.HIDE_FORCE_CHROMECAST);

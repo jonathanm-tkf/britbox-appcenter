@@ -8,8 +8,8 @@ import Action from '@components/Action';
 import { useTranslation } from 'react-i18next';
 import { CloseIcon, Logo } from '@assets/icons';
 import Bookmark from '@components/Bookmark';
-import Image from 'react-native-fast-image';
 import Shimmer from '@components/Shimmer';
+import Image from 'react-native-fast-image';
 // import { MassiveSDKModelItemSummary } from '@src/sdks/Britbox.API.Content.TS/api';
 import { MassiveSDKModelItemList } from '@src/sdks/Britbox.API.Content.TS/api';
 import {
@@ -56,7 +56,7 @@ interface Props {
   onPress?: () => void;
   style?: any;
   element?: any;
-  resizeMode?: 'cover' | 'contain' | 'stretch' | 'repeat' | 'center' | undefined;
+  resizeMode?: 'cover' | 'contain' | 'stretch' | 'repeat' | 'center';
   cardContent?: (item: MassiveSDKModelItemList) => JSX.Element | null;
   cardContentAfter?: (item: MassiveSDKModelItemList) => JSX.Element | null;
   cardElement?: MassiveSDKModelItemList;
@@ -103,7 +103,6 @@ const Card = ({
     height: height || element?.height || 243,
     borderRadius: 8,
   };
-
   useEffect(() => {
     if (url === 'no-image') {
       setLoaded(true);
@@ -179,20 +178,54 @@ const Card = ({
             </CustomShadow>
           </Container>
           <Group {...{ isDetail: isDetail || false, showCategory: showCategory || false }}>
-            {(newEpisode || isEpisode || isDetail || hasDescription) && data && (
+            {(((newEpisode || isEpisode || isDetail || hasDescription) && data) || isWatchlist) && (
               <TextWrapper
                 {...{
                   isDetail,
+                  isWatchlist,
                   loaded,
                   category: (data?.category && data?.category?.length > 0) || false,
+                  isEpisode,
                 }}
               >
                 {loaded ? (
                   <>
-                    {(data?.title || '') !== '' && <Title>{data.title}</Title>}
-                    {(data?.description || '') !== '' && (
+                    {data && (data?.title || '') !== '' && <Title>{data.title}</Title>}
+                    {data && (data?.description || '') !== '' && (
                       <Description>{data.description}</Description>
                     )}
+                    <BottomWrapper
+                      {...{
+                        isContinue: isContinue || false,
+                        isDetail,
+                        isWatchlist: isWatchlist || false,
+                        showCategory,
+                      }}
+                    >
+                      {(isContinue || isDetail || showCategory) &&
+                        data?.category &&
+                        data?.category?.length > 0 && (
+                          <WrapperBookmarks>
+                            {data?.category?.map((item: any) => {
+                              return (
+                                item?.key && (
+                                  <Bookmark key={item.key.toString()} bold={item.bold}>
+                                    {item.label}
+                                  </Bookmark>
+                                )
+                              );
+                            })}
+                          </WrapperBookmarks>
+                        )}
+                      {onRemove && (
+                        <TouchableOpacity
+                          style={!isWatchlist ? { marginLeft: 'auto' } : {}}
+                          onPress={() => onRemove()}
+                        >
+                          <CloseIcon width={25} height={25} />
+                        </TouchableOpacity>
+                      )}
+                    </BottomWrapper>
                   </>
                 ) : (
                   <ContentLoader
@@ -202,45 +235,10 @@ const Card = ({
                   >
                     <Rect x="0" y="0" width="100%" height="20" />
                     <Rect x="0" y="25" width="100%" height="20" />
-                    <Rect x="0" y="50" width="75%" height="20" />
+                    {!isEpisode && <Rect x="0" y="50" width="75%" height="20" />}
                   </ContentLoader>
                 )}
               </TextWrapper>
-            )}
-            {loaded && (
-              <BottomWrapper
-                {...{
-                  isContinue: isContinue || false,
-                  isDetail,
-                  isWatchlist: isWatchlist || false,
-                  showCategory,
-                }}
-              >
-                {(isContinue || isDetail || showCategory) &&
-                  data?.category &&
-                  data?.category?.length > 0 && (
-                    <WrapperBookmarks>
-                      {data?.category?.map((item: any) => {
-                        return (
-                          item?.key && (
-                            <Bookmark key={item.key.toString()} bold={item.bold}>
-                              {item.label}
-                            </Bookmark>
-                          )
-                        );
-                      })}
-                    </WrapperBookmarks>
-                  )}
-
-                {onRemove && (
-                  <TouchableOpacity
-                    style={!isWatchlist ? { marginLeft: 'auto' } : {}}
-                    onPress={() => onRemove()}
-                  >
-                    <CloseIcon width={25} height={25} />
-                  </TouchableOpacity>
-                )}
-              </BottomWrapper>
             )}
           </Group>
         </Wrapper>

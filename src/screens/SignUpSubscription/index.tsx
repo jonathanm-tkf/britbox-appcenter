@@ -270,14 +270,21 @@ const SignUpSubscription = () => {
         paymentmethodInfo,
       });
 
-      if (subscriptionResponse && subscriptionResponse[0]?.errorCode) {
+      let error = false;
+
+      if (subscriptionResponse) {
+        const { errorCode } = subscriptionResponse[0] || {};
+
+        if (errorCode) {
+          error = true;
+        }
+      }
+
+      if (subscriptionResponse && (subscriptionResponse?.responseCode || '1').toString() === '1') {
+        _doSuccessSubscription(true);
+      } else if (subscriptionResponse && error) {
         setLoading(false);
         setErrorMsg(subscriptionResponse[0]?.errorMessage || 'Something went wrong.');
-      } else if (
-        subscriptionResponse &&
-        (subscriptionResponse?.responseCode || '').toString() === '1'
-      ) {
-        _doSuccessSubscription(true);
       } else {
         trackEvent(
           `${subscriptionResponse[0]?.errorCode}: ${subscriptionResponse[0]?.errorMessage}`

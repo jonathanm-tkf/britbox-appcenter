@@ -11,6 +11,10 @@ export function push(name: string, ...args: any[]) {
   navigationRef.current?.dispatch(StackActions.push(name, ...args));
 }
 
+export function pop() {
+  navigationRef.current?.dispatch(StackActions.popToTop());
+}
+
 export function navigateByPath(item: any, autoPlay?: boolean) {
   switch (true) {
     // case /\/show\//.test(item?.path || ''):

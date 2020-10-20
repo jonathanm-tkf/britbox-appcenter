@@ -58,6 +58,7 @@ const LargeProgramming = ({ item }: Props) => {
               card.type === 'episode' ? card.images?.wallpaper : card.images?.tile,
               'wallpaper'
             )}
+            element={{ marginBottom: 20 }}
             data={{
               // title: card?.title || '',
               // description: card.type === 'movie' ? t('movie') : t('show'),

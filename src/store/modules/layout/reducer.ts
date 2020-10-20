@@ -22,7 +22,6 @@ export const initialState: LayoutState = {
   device: '',
   autoPlay: false,
   welcomeMessage: false,
-  forceChromecast: true,
   error: undefined,
   retry: 1,
   finishedConfiguration: false,
@@ -113,12 +112,6 @@ const layout: Reducer<LayoutState> = (state = initialState, action) => {
           item: action.payload.item,
         };
         break;
-      case LayoutActionTypes.SHOW_FORCE_CHROMECAST:
-        draft.forceChromecast = true;
-        break;
-      case LayoutActionTypes.HIDE_FORCE_CHROMECAST:
-        draft.forceChromecast = false;
-        break;
       case LayoutActionTypes.RETRY_TIMES:
         draft.retry = 1 + state.retry;
         break;
@@ -130,9 +123,6 @@ const layout: Reducer<LayoutState> = (state = initialState, action) => {
         break;
       case LayoutActionTypes.LAYOUT_CAST_STATE:
         draft.castState = action.payload.state;
-        break;
-      case LayoutActionTypes.LAYOUT_SET_PAGE:
-        draft.page = action.payload.page;
         break;
       case CoreActionTypes.CAST_DETAIL:
         draft.castState = 'loaded';

@@ -52,6 +52,7 @@ const Collections = ({ item }: Props) => {
               card.images?.square || card.images?.tile || card.images?.wallpaper,
               'square'
             )}
+            element={{ marginBottom: 30 }}
             width={130}
             height={130}
             onPress={() => ((item?.list?.title || '') !== 'loading' ? goToDetail(card) : {})}

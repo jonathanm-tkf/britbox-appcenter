@@ -187,6 +187,9 @@ export const CastVideo = async (
           }
         });
       });
+      // .catch((error) => {
+      //   console.tron.log(error);
+      // });
 
       // const videoUrl =
       //   'http://commondatastorage.googleapis.com/gtv-videos-bucket/CastVideos/mp4/DesigningForGoogleCast.mp4';

@@ -10,6 +10,7 @@ const { width } = Dimensions.get('window');
 export const Container = styled.View`
   flex: 1;
   justify-content: center;
+  /* margin-bottom: 20px; */
 `;
 
 const AnimatedImage = Animated.createAnimatedComponent(ImageBackground);
@@ -21,11 +22,14 @@ type CarouselProps = {
 
 export const SliderWrapper = styled.View`
   width: ${width}px;
+  margin-top: 10px;
+  margin-bottom: 20px;
   ${(props: CarouselProps) => {
     return (
       props.collection &&
       `
-      min-height: 280px;
+      padding-top: ${getStatusBarHeight() + 40}px;
+      margin-bottom: 0px;
     `
     );
   }};
@@ -33,8 +37,8 @@ export const SliderWrapper = styled.View`
     return (
       props.slim &&
       `
-      min-height: 280px;
-      margin-bottom: 50px;
+      margin-top: 0;
+      margin-bottom: ${getStatusBarHeight() + 60}px;
     `
     );
   }};
@@ -49,15 +53,23 @@ export const Slider = styled(AnimatedImage).attrs({
   justify-content: center;
   opacity: 0.3;
   ${(props: CarouselProps) => {
+    return (
+      props.slim &&
+      `
+      height: ${width - hp(120)}px;
+    `
+    );
+  }};
+  /* ${(props: CarouselProps) => {
     return props.slim || props.collection
       ? Platform.OS === 'ios'
         ? `min-height: ${hp(230)}px;`
         : `min-height: 270px;`
       : ``;
-  }};
-  ${(props: CarouselProps) => {
+  }}; */
+  /* ${(props: CarouselProps) => {
     return (props.slim || props.collection) && `margin-bottom: ${getStatusBarHeight() + 20}px;`;
-  }};
+  }}; */
 `;
 
 type SlimDescriptionTextProps = {
@@ -78,7 +90,6 @@ export const SlimDescriptionText = styled.Text.attrs({
     return (
       props.collection &&
       `
-      min-height: auto;
       margin-bottom: 30px;
     `
     );
@@ -105,7 +116,7 @@ export const SlimDescription = styled.View`
     );
   }};
 
-  ${(props: SlimDescription) => {
+  ${(props: SlimDescriptionProps) => {
     return (
       props.space === undefined &&
       `

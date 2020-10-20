@@ -5,16 +5,15 @@ import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
 import { useSelector, useDispatch } from 'react-redux';
 import { AppState } from '@store/modules/rootReducer';
 import { AppState as AppStateRN } from 'react-native';
-import { configRequest } from '@store/modules/core/actions';
 import KochavaTracker from 'react-native-kochava-tracker';
 import NetInfo from '@react-native-community/netinfo';
 import { isTablet, getSystemVersion, getSystemName, getDeviceName } from 'react-native-device-info';
-import { connection, device, setPageLayout } from '@store/modules/layout/actions';
+import { connection, device } from '@store/modules/layout/actions';
 import { refreshTokenWithExpiresIn } from '@src/services/token';
 import { getProfileRequest, refreshTokenSuccess } from '@store/modules/user/actions';
 import { TrackPageView } from '@src/services/analytics';
 import { Segment } from '@store/modules/core/types';
-import { homeRequest } from '@store/modules/home/actions';
+import { activateApp } from '@store/modules/home/actions';
 import { RootStackScreen } from './Root';
 import { navigationRef } from './rootNavigation';
 
@@ -71,8 +70,7 @@ export default ({ onTrackEvent }: Props) => {
 
     AppStateRN.addEventListener('change', (action) => {
       if (action === 'active') {
-        dispatch(configRequest());
-        dispatch(homeRequest());
+        dispatch(activateApp());
       }
     });
 
@@ -123,8 +121,6 @@ export default ({ onTrackEvent }: Props) => {
           dispatch(device(name));
         });
         if (previousRoute.name !== currentRoute.name) {
-          dispatch(setPageLayout(currentRoute.name));
-
           const { user, terms } = TrackPageView(currentRoute, token, {
             account_status: !isLogged
               ? 'Unauth'

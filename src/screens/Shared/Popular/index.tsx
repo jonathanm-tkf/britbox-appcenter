@@ -52,6 +52,7 @@ const Popular = ({ item }: Props) => {
               card.images?.poster || card.images?.square || card.images?.tile,
               'poster'
             )}
+            element={{ marginBottom: 30 }}
             onPress={() => ((item?.list?.title || '') !== 'loading' ? goToDetail(card) : {})}
           />
         )}

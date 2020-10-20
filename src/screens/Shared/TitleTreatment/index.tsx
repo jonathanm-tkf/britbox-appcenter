@@ -53,6 +53,7 @@ const TitleTreatment = ({ item }: Props) => {
           <Card
             width={137}
             height={107}
+            element={{ marginBottom: 30 }}
             cardElement={card}
             url={getImage(card.images?.tile || card.images?.wallpaper, 'tile')}
             onPress={() => ((item?.list?.title || '') !== 'loading' ? goToDetail(card) : {})}

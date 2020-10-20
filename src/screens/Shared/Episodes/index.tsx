@@ -59,6 +59,7 @@ const Episodes = ({ item }: Props) => {
               )}
               resizeMode={card.type === 'movie' || card.type === 'episode' ? 'cover' : 'contain'}
               cardElement={card}
+              element={{ marginBottom: 20 }}
               data={{
                 title: card.type === 'episode' ? card?.showTitle || '' : card?.title || '',
                 description:

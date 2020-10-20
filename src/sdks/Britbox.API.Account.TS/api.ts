@@ -800,6 +800,7 @@ export interface BritboxDataEvergentModelsGetProductsResponseMessageBaseProducts
   period?: string;
   productName?: string;
   skuORQuickCode?: string;
+  channelPartnerDescription?: string;
   basicService?: boolean;
   appChannels?: BritboxDataEvergentModelsGetProductsResponseMessageBaseAppChannels[];
   scOfferTypes?: BritboxDataEvergentModelsGetProductsResponseMessageBaseSCOfferTypes[];

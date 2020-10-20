@@ -4,6 +4,7 @@ import { FlatList as RNFlatList, TouchableOpacity as RNTouchableOpacity } from '
 export const Container = styled.View`
   flex: 1;
   padding-top: 12px;
+  /* margin-bottom: 10px; */
 `;
 
 interface FlatProps {

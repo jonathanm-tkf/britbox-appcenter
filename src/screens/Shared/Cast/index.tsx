@@ -7,7 +7,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import {
   castOn,
   castOff,
-  hideForceChromecast,
   setCastState,
   castVideoPlayerDetailClear,
 } from '@store/modules/layout/actions';
@@ -16,18 +15,17 @@ import {
   castingOff,
   castingOn,
   castDetail as castDetailAction,
+  hideForceChromecast,
 } from '@store/modules/core/actions';
 import { AppState } from '@store/modules/rootReducer';
-import { immersiveModeOff } from 'react-native-android-immersive-mode';
 import { ChromecastIcon } from '@assets/icons';
 import { store } from '@store/index';
 import { CastDetail, LayoutState } from '@store/modules/layout/types';
-import { Platform } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { PostMessage } from '@src/utils/videoPlayerRef';
 import { useNavigation } from '@react-navigation/native';
-import Orientation from 'react-native-orientation-locker';
 import { CoreState } from '@store/modules/core/types';
+import { navigateByPath, navigationRef, pop } from '@src/navigation/rootNavigation';
 import {
   FABView,
   CastButton,
@@ -50,11 +48,6 @@ const getCoreCastDetail = () => {
   return core?.castDetail || {};
 };
 
-const getPage = () => {
-  const { layout }: { layout: LayoutState } = store.getState();
-  return layout.page;
-};
-
 const Cast = () => {
   const { t } = useTranslation('layout');
   const dispatch = useDispatch();
@@ -64,9 +57,9 @@ const Cast = () => {
   const [showMiniController, setShowMiniController] = useState(false);
   const [stateChromecast, setStateChromecast] = useState<CastState | undefined>(undefined);
   const [device, setDevice] = useState<CastDevice | undefined>(undefined);
-  const { cast, forceChromecast, castState } = useSelector((state: AppState) => state.layout);
+  const { cast, castState } = useSelector((state: AppState) => state.layout);
   const theme = useSelector((state: AppState) => state.theme.theme);
-  const { casting, castDetail } = useSelector((state: AppState) => state.core);
+  const { casting, castDetail, forceChromecast } = useSelector((state: AppState) => state.core);
   const registerListeners = () => {
     const events = `
       SESSION_STARTING SESSION_STARTED SESSION_START_FAILED SESSION_SUSPENDED
@@ -81,10 +74,9 @@ const Cast = () => {
       GoogleCast.EventEmitter.addListener(GoogleCast[event], () => {
         if (event === 'SESSION_STARTING') {
           setShowMiniController(true);
-          if (getPage() === 'VideoPlayer') {
-            Orientation.lockToPortrait();
-            immersiveModeOff();
-            goBack();
+          const { name } = navigationRef.current && navigationRef.current.getCurrentRoute();
+          if (name === 'VideoPlayer') {
+            navigationRef.current!.goBack();
           }
         }
 
@@ -151,30 +143,27 @@ const Cast = () => {
   useEffect(() => {
     registerListeners();
 
-    if (
-      forceChromecast &&
-      Platform.OS === 'ios' &&
-      parseInt(Platform.Version.toString(), 10) >= 14
-    ) {
+    if (forceChromecast) {
       setShowButton(true);
-      dispatch(hideForceChromecast());
     }
 
     const intervalCheckChromecast = setInterval(() => {
       GoogleCast.getCastState().then((state) => {
         setStateChromecast(state === 'NotConnected' ? t('loading') : state);
         if (state === 'NoDevicesAvailable' && !forceChromecast) {
-          setShowButton(false);
           PostMessage({
             type: 'chromecast',
             value: false,
           });
+          setShowButton(false);
         } else {
-          setShowButton(true);
           PostMessage({
             type: 'chromecast',
             value: true,
           });
+          if (state === 'NotConnected') {
+            setShowButton(true);
+          }
         }
 
         if (state === 'Connected' && !showMiniController) {
@@ -217,11 +206,19 @@ const Cast = () => {
     }
   }, [cast]);
 
-  return showButton ? (
+  useEffect(() => {
+    if (!forceChromecast && device === undefined) {
+      setShowButton(false);
+    }
+  }, [forceChromecast, device]);
+
+  return (
     <>
-      <FABView>
-        <CastButton />
-      </FABView>
+      {showButton && (
+        <FABView onPress={() => dispatch(hideForceChromecast())}>
+          <CastButton />
+        </FABView>
+      )}
       {showMiniController && (
         <MiniController>
           <MiniExpandButton
@@ -259,7 +256,7 @@ const Cast = () => {
         </MiniController>
       )}
     </>
-  ) : null;
+  );
 };
 
 export default Cast;

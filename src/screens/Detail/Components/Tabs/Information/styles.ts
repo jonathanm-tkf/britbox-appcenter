@@ -3,7 +3,7 @@ import { ThemeState } from '@store/modules/theme/types';
 
 export const Container = styled.View`
   background-color: ${(props: ThemeState) => props.theme.PRIMARY_COLOR};
-  padding: 30px 20px;
+  padding: 30px 20px 60px;
 `;
 
 export const Row = styled.Text`

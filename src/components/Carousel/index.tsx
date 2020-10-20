@@ -21,7 +21,6 @@ const Carousel = ({ items, listProps, renderItem }: Props) => {
         showsVerticalScrollIndicator={false}
         ItemSeparatorComponent={() => <ItemSeparator />}
         keyExtractor={(_, index) => `${index}`}
-        // removeClippedSubviews={false}
         {...listProps}
       />
     </Container>

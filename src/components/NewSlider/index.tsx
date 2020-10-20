@@ -7,7 +7,7 @@ import ContentLoader, { Rect } from 'react-content-loader/native';
 import { useSelector } from 'react-redux';
 import { AppState } from '@store/modules/rootReducer';
 import { navigateByPath } from '@src/navigation/rootNavigation';
-import { hp } from '@src/utils/dimension';
+import { getStatusBarHeight } from 'react-native-iphone-x-helper';
 import CustomCard from './CustomCard';
 import { sliderWidth, itemWidth, sliderWidthSlim, itemWidthSlim } from './CustomCard/styles';
 import {
@@ -75,7 +75,7 @@ const NewSlider = ({
         data={item}
         even={(index + 1) % 2 === 0}
         parallax
-        collection
+        // collection
         center={center}
         enableTouch={carouselData.length > 1}
         {...{ parallaxProps, slim }}
@@ -137,13 +137,13 @@ const NewSlider = ({
     );
   };
 
-  const stylesContainer =
-    slim || collection
-      ? {
-          bottom: slim ? -hp(40) : 0,
-          position: 'absolute',
-        }
-      : {};
+  const stylesContainer = slim
+    ? {
+        paddingTop: getStatusBarHeight() + 50,
+        // bottom: slim ? -hp(40) : 0,
+        position: 'absolute',
+      }
+    : {};
 
   return (
     <Container>
@@ -198,15 +198,11 @@ const NewSlider = ({
         <SlimDescription space="no">{getContent(carouselData[currentIndex].item)}</SlimDescription>
       )}
 
-      {collection && (
+      {collection && (carouselData[currentIndex].item?.customFields as CustomFiled)?.description && (
         <SlimDescription
           {...{ collection }}
           space={(carouselData[currentIndex].item?.customFields as CustomFiled)?.description}
         >
-          {/* <SlimDescriptionText {...{ collection }}>
-            {(carouselData[currentIndex].item?.customFields as CustomFiled)?.description || ''}
-          </SlimDescriptionText> */}
-
           {(carouselData[currentIndex].item?.customFields as CustomFiled)?.cta && (
             <Button
               size="big"

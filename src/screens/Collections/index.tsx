@@ -114,6 +114,7 @@ const Collections = () => {
   const menu = useSelector((state: AppState) => state.core?.menu?.navigation?.header);
   const theme = useSelector((state: AppState) => state.theme.theme);
   const { t } = useTranslation('layout');
+  const [infiniteGridColumns, setInfiniteGridColumns] = useState<number | undefined>(undefined);
 
   const [order, setOrder] = useState('asc');
   const [orderBy, setOrderBy] = useState('a-z');
@@ -187,6 +188,19 @@ const Collections = () => {
     }
 
     const checkIsContinuosScroll = getIsContinuosScroll(response || {});
+
+    if (infiniteGridColumns === undefined) {
+      setInfiniteGridColumns(
+        getIsEpisodeGrid(
+          (response?.entries || [])
+            .filter((item) => getTemplate(item.template || '') === 'grid-infinite')
+            .reduce((item) => item).list?.items || []
+        )
+          ? 2
+          : 3
+      );
+    }
+
     setIsContinuosScroll(checkIsContinuosScroll);
   };
 
@@ -278,7 +292,7 @@ const Collections = () => {
         .filter((item) => getTemplate(item.template || '') === 'grid-infinite')
         .reduce((item) => item).list?.paging || {};
 
-    if (page !== total) {
+    if (page !== total || reset) {
       const url = (next || '').split('?');
 
       if (url.length > 0) {
@@ -359,7 +373,6 @@ const Collections = () => {
     if (filter) {
       setOrder(filter.value === 'date-added' ? 'desc' : 'asc');
       setOrderBy(filter.value);
-
       const newData = (data?.entries || []).map((item) => {
         if (getTemplate(item.template || '') === 'grid-infinite') {
           return {
@@ -368,7 +381,13 @@ const Collections = () => {
               ...item.list,
               items: [
                 ...(dataDummy.entries
-                  .filter((f: { template: string }) => f.template === 'Continuous Scroll Automatic')
+                  .filter(
+                    (f: { template: string }) =>
+                      f.template ===
+                      (infiniteGridColumns === 3
+                        ? 'Continuous Scroll Automatic'
+                        : 'Continuous Scroll Automatic Episode')
+                  )
                   .reduce((element) => element).list.items || []),
               ],
             },
@@ -454,8 +473,8 @@ const Collections = () => {
                     containerStyle={containerStyles}
                   />
                 );
-              case 'grid-infinite':
-                return (
+              case 'grid-infinite': {
+                return infiniteGridColumns ? (
                   <WrapperContinuosScroll key={key.toString()}>
                     <Grid
                       items={item?.list?.items || []}
@@ -464,20 +483,18 @@ const Collections = () => {
                           <ChangeOrderButton
                             onPress={() =>
                               navigation.navigate('ModalFilter', {
-                                // title: t('filter'),
                                 data: [
                                   {
-                                    // title: t('order'),
                                     data: [
-                                      {
-                                        title: t('recent'),
-                                        value: 'date-added',
-                                        selected: orderBy === 'date-added',
-                                      },
                                       {
                                         title: t('az'),
                                         value: 'a-z',
                                         selected: orderBy === 'a-z',
+                                      },
+                                      {
+                                        title: t('recent'),
+                                        value: 'date-added',
+                                        selected: orderBy === 'date-added',
                                       },
                                     ],
                                   },
@@ -500,10 +517,10 @@ const Collections = () => {
                           : item?.title || ''
                       }
                       loading={animationContinuosScroll}
-                      isEpisode={getIsEpisodeGrid(item?.list?.items || [])}
-                      numColumns={getIsEpisodeGrid(item?.list?.items || []) ? 2 : 3}
+                      isEpisode={infiniteGridColumns === 2}
+                      numColumns={infiniteGridColumns}
                       element={
-                        getIsEpisodeGrid(item?.list?.items || [])
+                        infiniteGridColumns === 2
                           ? {
                               width: vw(50) - wp(26),
                               height: vw(50) - vw(26),
@@ -518,10 +535,11 @@ const Collections = () => {
                             }
                       }
                       containerStyle={containerStyles}
-                      imageType={getIsEpisodeGrid(item?.list?.items || []) ? 'wallpaper' : 'poster'}
+                      imageType={infiniteGridColumns === 2 ? 'wallpaper' : 'poster'}
                     />
                   </WrapperContinuosScroll>
-                );
+                ) : null;
+              }
               case 'new':
                 return <New key={key.toString()} {...{ item }} />;
               case 'episodes':

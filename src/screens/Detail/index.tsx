@@ -3,7 +3,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Animated, Text } from 'react-native';
 import { BackIcon } from '@assets/icons';
 import Card from '@components/Card';
-import { useRoute, useNavigation, RouteProp } from '@react-navigation/native';
+import { useRoute, useNavigation, RouteProp, useIsFocused } from '@react-navigation/native';
 import {
   MassiveSDKModelItemList,
   MassiveSDKModelItemSummary,
@@ -17,7 +17,7 @@ import { CastVideo, getVideoIdAndClassification } from '@src/services/cast';
 import { AppState } from '@store/modules/rootReducer';
 import { useSelector, useDispatch } from 'react-redux';
 import { refreshTokenSuccess, watchlistToggleRequest } from '@store/modules/user/actions';
-import { castDetail as castDetailAction } from '@store/modules/core/actions';
+import { castDetail as castDetailAction, castDetailClear } from '@store/modules/core/actions';
 import { checkIsInWatchingList } from '@src/services/watchlist';
 import {
   autoPlayOff,
@@ -43,6 +43,9 @@ import RBSheet from 'react-native-raw-bottom-sheet';
 import { BritboxAccountApi } from '@src/sdks';
 import Action from '@components/Action';
 import { refreshTokenWithExpiresIn } from '@src/services/token';
+import Orientation from 'react-native-orientation-locker';
+import { immersiveModeOff } from 'react-native-android-immersive-mode';
+import { isTablet } from 'react-native-device-info';
 import {
   Container,
   Scroll,
@@ -92,6 +95,7 @@ interface CellProps {
 }
 
 const Detail = () => {
+  const isFocus = useIsFocused();
   const { params } = useRoute<DetailScreenRouteProp>();
   const { item, seasonModal, autoPlay, seriesData } = params || undefined;
   const navigation = useNavigation();
@@ -253,6 +257,13 @@ const Detail = () => {
       validateParentalControl();
     }
   }, [valuePin]);
+
+  useEffect(() => {
+    if (isFocus) {
+      Orientation.lockToPortrait();
+      immersiveModeOff();
+    }
+  }, [isFocus]);
 
   const validateParentalControl = async () => {
     const { validateParentalControlPin } = BritboxAccountApi({
@@ -530,9 +541,13 @@ const Detail = () => {
         closeOnPressMask={false}
         customStyles={{
           container: {
+            maxWidth: isTablet() ? 400 : '100%',
             alignItems: 'center',
             borderTopRightRadius: 15,
             borderTopLeftRadius: 15,
+          },
+          wrapper: {
+            alignItems: 'center',
           },
           draggableIcon: {
             backgroundColor: theme.PRIMARY_TEXT_COLOR_OPAQUE,
@@ -541,6 +556,8 @@ const Detail = () => {
           },
         }}
         onClose={() => {
+          dispatch(setCastState(undefined));
+          dispatch(castDetailClear());
           setErrorValuePin(false);
         }}
       >

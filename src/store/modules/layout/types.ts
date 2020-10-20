@@ -29,9 +29,6 @@ export enum LayoutActionTypes {
   LAYOUT_WELCOME_MESSAGE_OFF = '@layout/LAYOUT_WELCOME_MESSAGE_OFF',
   LAYOUT_CAST_VIDEO_PLAYER_DETAIL = '@layout/LAYOUT_CAST_VIDEO_PLAYER_DETAIL',
   LAYOUT_CAST_VIDEO_PLAYER_DETAIL_CLEAR = '@layout/LAYOUT_CAST_VIDEO_PLAYER_DETAIL_CLEAR',
-  LAYOUT_SET_PAGE = '@layout/LAYOUT_SET_PAGE',
-  HIDE_FORCE_CHROMECAST = '@layout/HIDE_FORCE_CHROMECAST',
-  SHOW_FORCE_CHROMECAST = '@layout/SHOW_FORCE_CHROMECAST',
   RETRY_TIMES = '@layout/RETRY_TIMES',
   ERROR_CONFIG = '@layout/ERROR_CONFIG',
   FINISHED_CONFIGURATION = '@layout/FINISHED_CONFIGURATION',
@@ -61,7 +58,6 @@ export interface LayoutState {
   device: string;
   autoPlay: boolean;
   welcomeMessage: boolean;
-  forceChromecast: boolean;
   finishedConfiguration: boolean;
   page: string | undefined;
 }

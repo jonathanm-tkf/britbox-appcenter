@@ -7,7 +7,7 @@ import FastImage from 'react-native-fast-image';
 
 export const Container = styled.View``;
 
-export const FABView = styled.View`
+export const FABView = styled.TouchableOpacity`
   position: absolute;
   margin: 16px;
   right: 0px;
