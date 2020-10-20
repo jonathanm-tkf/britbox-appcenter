@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		00E356F31AD99517003FC87E /* BritboxTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* BritboxTests.m */; };
+		045B5CEC253F15390061F30D /* Intents.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 045B5CEB253F15390061F30D /* Intents.framework */; };
+		045B5CEF253F16B00061F30D /* AppleTVController.m in Sources */ = {isa = PBXBuildFile; fileRef = 045B5CEE253F16B00061F30D /* AppleTVController.m */; };
 		070EC12AB8F86EF3BEA8757E /* libPods-Britbox-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 39BD007FA832455605801FEF /* libPods-Britbox-tvOS.a */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
@@ -51,6 +53,9 @@
 		00E356EE1AD99517003FC87E /* BritboxTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BritboxTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* BritboxTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BritboxTests.m; sourceTree = "<group>"; };
+		045B5CEB253F15390061F30D /* Intents.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Intents.framework; path = System/Library/Frameworks/Intents.framework; sourceTree = SDKROOT; };
+		045B5CED253F16B00061F30D /* AppleTVController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppleTVController.h; sourceTree = "<group>"; };
+		045B5CEE253F16B00061F30D /* AppleTVController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppleTVController.m; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* Britbox.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Britbox.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = Britbox/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = Britbox/AppDelegate.m; sourceTree = "<group>"; };
@@ -115,6 +120,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				045B5CEC253F15390061F30D /* Intents.framework in Frameworks */,
 				A957AA22251936E700765DCE /* StoreKit.framework in Frameworks */,
 				B95B8E66B32437E93E333869 /* libPods-Britbox.a in Frameworks */,
 			);
@@ -156,9 +162,19 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		045B5CBA253F10D80061F30D /* AppleTV */ = {
+			isa = PBXGroup;
+			children = (
+				045B5CED253F16B00061F30D /* AppleTVController.h */,
+				045B5CEE253F16B00061F30D /* AppleTVController.m */,
+			);
+			path = AppleTV;
+			sourceTree = "<group>";
+		};
 		13B07FAE1A68108700A75B9A /* Britbox */ = {
 			isa = PBXGroup;
 			children = (
+				045B5CBA253F10D80061F30D /* AppleTV */,
 				A957AA23251936ED00765DCE /* Britbox.entitlements */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
@@ -207,6 +223,7 @@
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				045B5CEB253F15390061F30D /* Intents.framework */,
 				A9EA1A2B252AB32200E25505 /* libYogaKit.a */,
 				A957AA21251936E700765DCE /* StoreKit.framework */,
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
@@ -772,6 +789,7 @@
 				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
 				A957AA1C251936A400765DCE /* File.swift in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
+				045B5CEF253F16B00061F30D /* AppleTVController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
