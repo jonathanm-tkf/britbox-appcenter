@@ -29,7 +29,7 @@ const wrapper = {
   flexGrow: 1,
   paddingTop: Platform.OS === 'ios' ? getStatusBarHeight() + 10 : 10,
   paddingHorizontal: 30,
-  paddingBottom: Platform.OS === 'ios' ? 110 : 90,
+  paddingBottom: Platform.OS === 'ios' ? 160 : 140,
 };
 
 const CelularStyle = {
