@@ -5,7 +5,7 @@
 /* eslint-disable react/no-array-index-key */
 /* eslint-disable react-native/no-inline-styles */
 import React, { useState, useEffect } from 'react';
-import { KeyboardAvoidingView, Platform, Linking, BackHandler } from 'react-native';
+import { KeyboardAvoidingView, Platform, Text, Linking, BackHandler } from 'react-native';
 import { Button } from '@components/Button';
 import HeaderCustom from '@components/HeaderCustom';
 import { useSelector, useDispatch } from 'react-redux';
@@ -344,8 +344,15 @@ const SignUpSubscription = () => {
                       >
                         <RadioBoxContent>
                           <SubTitle style={textLeft}>{item?.productDescription}</SubTitle>
-                          <DescriptionText style={[textLeft, { marginBottom: 10 }]}>
-                            {item?.displayName}
+                          <DescriptionText
+                            style={[textLeft, { marginBottom: 5, fontWeight: 'bold' }]}
+                          >
+                            {htmlEntities.decode(item?.currencySymbol)}
+                            {item?.retailPrice}{' '}
+                            <Text style={{ fontWeight: 'normal' }}>/ {item?.period}</Text>
+                          </DescriptionText>
+                          <DescriptionText style={[textLeft, { marginBottom: 10, fontSize: 12 }]}>
+                            {item?.channelPartnerDescription}
                           </DescriptionText>
                         </RadioBoxContent>
                         {packageIndex === index ? (
