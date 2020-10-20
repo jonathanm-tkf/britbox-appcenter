@@ -4,10 +4,11 @@ import { CastButton as CastButtonC } from 'react-native-google-cast';
 import { rgba } from 'polished';
 import { Platform } from 'react-native';
 import FastImage from 'react-native-fast-image';
+import { RectButton } from 'react-native-gesture-handler';
 
 export const Container = styled.View``;
 
-export const FABView = styled.TouchableOpacity`
+export const FABView = styled(RectButton)`
   position: absolute;
   margin: 16px;
   right: 0px;
