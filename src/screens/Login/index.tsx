@@ -266,10 +266,6 @@ const Login = () => {
     dispatch(loginRequestErrorClear());
   }, []);
 
-  useEffect(() => {
-    dispatch(loginRequestErrorClear());
-  }, [user, password]);
-
   const contentContainer = {
     flexgrow: 1,
     backgroundColor: theme.PRIMARY_COLOR,
