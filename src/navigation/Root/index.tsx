@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { useSelector } from 'react-redux';
-import { getVersion } from 'react-native-device-info';
+import { getBuildNumber } from 'react-native-device-info';
 import { AppState } from '@store/modules/rootReducer';
 import Storybook from '@screens/Storybook';
 import { rgba } from 'polished';
@@ -75,7 +75,7 @@ const RootStackScreen = () => {
   const checkVersion = async () => {
     try {
       const minVersion = getTextInConfigJSON(['force-upgrade', `min-version-${Platform.OS}`], '');
-      const curVersion = getVersion();
+      const curVersion = getBuildNumber();
       if (curVersion < minVersion) {
         setVersionModal(true);
       }
