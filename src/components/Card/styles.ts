@@ -284,3 +284,13 @@ export const BadgeText = styled.Text`
   font-size: ${wp(8)}px;
   text-transform: uppercase;
 `;
+
+export const TemporaryWrapper = styled.View``;
+
+export const TemporaryRow = styled.View`
+  border-radius: 4px;
+  background-color: ${(props: ThemeState) => props.theme.PRIMARY_COLOR_OPAQUE};
+  margin-bottom: 5px;
+  height: 20px;
+  width: 100%;
+`;

@@ -76,6 +76,7 @@ const Cast = () => {
           setShowMiniController(true);
           const { name } = navigationRef.current && navigationRef.current.getCurrentRoute();
           if (name === 'VideoPlayer') {
+            dispatch(setCastState('sending'));
             navigationRef.current!.goBack();
           }
         }
@@ -113,6 +114,7 @@ const Cast = () => {
     });
 
     GoogleCast.EventEmitter.addListener(GoogleCast.CHANNEL_MESSAGE_RECEIVED, ({ message }) => {
+      // console.tron.log({ message });
       const { id } = getCoreCastDetail();
       const {
         mediaMetadata,

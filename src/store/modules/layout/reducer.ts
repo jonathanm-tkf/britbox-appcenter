@@ -105,6 +105,7 @@ const layout: Reducer<LayoutState> = (state = initialState, action) => {
         break;
       case LayoutActionTypes.LAYOUT_CAST_VIDEO_PLAYER_DETAIL_CLEAR:
         draft.castDetail = undefined;
+        draft.castState = undefined;
         break;
       case LayoutActionTypes.LAYOUT_CAST_VIDEO_PLAYER_DETAIL:
         draft.castDetail = {

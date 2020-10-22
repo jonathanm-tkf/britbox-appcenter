@@ -176,10 +176,10 @@ const Detail = () => {
   }, [item]);
 
   useEffect(() => {
-    if (castDetail && castState === 'loading') {
+    if (castDetail && cast && castState === 'sending') {
       onPlay(castDetail.item, castDetail.currentTime);
     }
-  }, [castDetail, castState]);
+  }, [castDetail, cast, castState]);
 
   useEffect(() => {
     if (autoPlay) {

@@ -33,6 +33,8 @@ import {
   TouchableScale,
   Badge,
   BadgeText,
+  TemporaryWrapper,
+  TemporaryRow,
 } from './styles';
 
 interface Props {
@@ -188,56 +190,64 @@ const Card = ({
                   isEpisode,
                 }}
               >
-                {loaded ? (
-                  <>
-                    {data && (data?.title || '') !== '' && <Title>{data.title}</Title>}
-                    {data && (data?.description || '') !== '' && (
-                      <Description>{data.description}</Description>
-                    )}
-                    <BottomWrapper
-                      {...{
-                        isContinue: isContinue || false,
-                        isDetail,
-                        isWatchlist: isWatchlist || false,
-                        showCategory,
-                      }}
-                    >
-                      {(isContinue || isDetail || showCategory) &&
-                        data?.category &&
-                        data?.category?.length > 0 && (
-                          <WrapperBookmarks>
-                            {data?.category?.map((item: any) => {
-                              return (
-                                item?.key && (
-                                  <Bookmark key={item.key.toString()} bold={item.bold}>
-                                    {item.label}
-                                  </Bookmark>
-                                )
-                              );
-                            })}
-                          </WrapperBookmarks>
-                        )}
-                      {onRemove && (
-                        <TouchableOpacity
-                          style={!isWatchlist ? { marginLeft: 'auto' } : {}}
-                          onPress={() => onRemove()}
-                        >
-                          <CloseIcon width={25} height={25} />
-                        </TouchableOpacity>
+                {
+                  loaded ? (
+                    <>
+                      {data && (data?.title || '') !== '' && <Title>{data.title}</Title>}
+                      {data && (data?.description || '') !== '' && (
+                        <Description>{data.description}</Description>
                       )}
-                    </BottomWrapper>
-                  </>
-                ) : (
-                  <ContentLoader
-                    speed={1}
-                    backgroundColor={theme.PRIMARY_COLOR_OPAQUE}
-                    foregroundColor={theme.PRIMARY_COLOR}
-                  >
-                    <Rect x="0" y="0" width="100%" height="20" />
-                    <Rect x="0" y="25" width="100%" height="20" />
-                    {!isEpisode && <Rect x="0" y="50" width="75%" height="20" />}
-                  </ContentLoader>
-                )}
+                      <BottomWrapper
+                        {...{
+                          isContinue: isContinue || false,
+                          isDetail,
+                          isWatchlist: isWatchlist || false,
+                          showCategory,
+                        }}
+                      >
+                        {(isContinue || isDetail || showCategory) &&
+                          data?.category &&
+                          data?.category?.length > 0 && (
+                            <WrapperBookmarks>
+                              {data?.category?.map((item: any) => {
+                                return (
+                                  item?.key && (
+                                    <Bookmark key={item.key.toString()} bold={item.bold}>
+                                      {item.label}
+                                    </Bookmark>
+                                  )
+                                );
+                              })}
+                            </WrapperBookmarks>
+                          )}
+                        {onRemove && (
+                          <TouchableOpacity
+                            style={!isWatchlist ? { marginLeft: 'auto' } : {}}
+                            onPress={() => onRemove()}
+                          >
+                            <CloseIcon width={25} height={25} />
+                          </TouchableOpacity>
+                        )}
+                      </BottomWrapper>
+                    </>
+                  ) : (
+                    <TemporaryWrapper>
+                      <TemporaryRow />
+                      <TemporaryRow />
+                      <TemporaryRow style={{ width: '75%' }} />
+                    </TemporaryWrapper>
+                  )
+                  // <ContentLoader
+                  //   viewBox="0 0 380 70"
+                  //   speed={1}
+                  //   backgroundColor={theme.PRIMARY_COLOR_OPAQUE}
+                  //   foregroundColor={theme.PRIMARY_COLOR}
+                  // >
+                  //   <Rect x="0" y="0" width="100%" height="20" />
+                  //   <Rect x="0" y="25" width="100%" height="20" />
+                  //   {!isEpisode && <Rect x="0" y="50" width="75%" height="20" />}
+                  // </ContentLoader>
+                }
               </TextWrapper>
             )}
           </Group>
