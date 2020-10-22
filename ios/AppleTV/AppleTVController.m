@@ -22,6 +22,11 @@ NSUserActivity *userActivity;
 
 RCT_EXPORT_MODULE();
 
++ (BOOL)requiresMainQueueSetup
+{
+  return NO;
+}
+
 - (dispatch_queue_t)methodQueue
 {
   return dispatch_get_main_queue();

@@ -1,11 +1,11 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useEffect } from 'react';
+import React, { useEffect, useCallback } from 'react';
 import { Linking, Platform, ActivityIndicator, Image } from 'react-native';
 import { BritboxAPIContentModelsItemsGetItemRelatedListResponse } from '@src/sdks/Britbox.API.Content.TS/api';
 import { getItemContent } from '@store/modules/home/saga';
 import { isTablet } from 'react-native-device-info';
 import { setDeepLinkUrl } from '@store/modules/home/actions';
-import { navigateByPath, navigate } from '@src/navigation/rootNavigation';
+import { navigateByPath } from '@src/navigation/rootNavigation';
 
 import { CloseIcon, Logo } from '@assets/icons';
 import { AppState } from '@store/modules/rootReducer';
@@ -23,61 +23,55 @@ const Loading = () => {
   const { t } = useTranslation('layout');
   const dispatch = useDispatch();
 
-  const appWokeUp = async (event: any) => {
+  const appWokeUp = useCallback(async (event: any) => {
     const { url } = event;
 
-    if (isLogged) {
-      if (url) {
-        if (Platform.OS === 'ios') {
-          const route = url?.split('://');
+    if (url) {
+      if (Platform.OS === 'ios') {
+        const route = url?.split('://');
 
-          if (route && route[1]) {
-            const routeName = route[1]?.split('/');
+        if (route && route[1]) {
+          const routeName = route[1]?.split('/');
 
-            if (routeName && routeName[0]) {
-              if (routeName[0] === 'watch' || routeName[0] === 'open') {
-                const response: BritboxAPIContentModelsItemsGetItemRelatedListResponse = await getItemContent(
-                  routeName[1]
-                );
+          if (routeName && routeName[0]) {
+            if (routeName[0] === 'watch' || routeName[0] === 'open') {
+              const response: BritboxAPIContentModelsItemsGetItemRelatedListResponse = await getItemContent(
+                routeName[1]
+              );
 
-                if (response && response?.externalResponse) {
-                  const { externalResponse } = response;
-                  navigateByPath(externalResponse, routeName[0] === 'watch');
-                }
+              if (response && response?.externalResponse) {
+                const { externalResponse } = response;
+                navigateByPath(externalResponse, routeName[0] === 'watch');
               }
             }
           }
-        } else {
-          const route = url?.split('www.britbox.com');
+        }
+      } else {
+        const route = url?.split('www.britbox.com');
 
-          if (route[1] && route[1] !== '') {
-            if (/\/show\/|\/movie\/|\/season\/|\/episode\//.test(route[1] || '')) {
-              navigateByPath({ path: route[1], customId: true }, !(route[1] || '').includes('_'));
-            }
+        if (route[1] && route[1] !== '') {
+          if (/\/show\/|\/movie\/|\/season\/|\/episode\//.test(route[1] || '')) {
+            navigateByPath({ path: route[1], customId: true }, !(route[1] || '').includes('_'));
           }
         }
       }
-    } else {
-      dispatch(setDeepLinkUrl(url));
-      setTimeout(() => {
-        navigate('Login');
-      }, 200);
     }
-  };
+  }, []);
 
   useEffect(() => {
-    Linking.addEventListener('url', appWokeUp);
-  }, [appWokeUp, isLogged]);
+    Linking.addEventListener('url', (event) => {
+      if (isLogged) {
+        appWokeUp(event);
+      } else {
+        dispatch(setDeepLinkUrl(event?.url));
+      }
+    });
+  }, [appWokeUp]);
 
   useEffect(() => {
     Linking.getInitialURL().then((url: string | null) => {
       if (url) {
         dispatch(setDeepLinkUrl(url));
-        if (!isLogged) {
-          setTimeout(() => {
-            navigate('Login');
-          }, 200);
-        }
       }
     });
   }, []);

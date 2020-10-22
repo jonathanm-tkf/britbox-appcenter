@@ -1,11 +1,12 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import Header from '@components/Header';
 import { isTablet } from 'react-native-device-info';
 import Carousel from 'react-native-snap-carousel';
 import { StyleSheet, SafeAreaView } from 'react-native';
 import { useTranslation } from 'react-i18next';
+import { AppState } from '@store/modules/rootReducer';
 import { useIsFocused } from '@react-navigation/native';
 import { navigate } from '@src/navigation/rootNavigation';
 import { atiEventTracking } from '@store/modules/layout/actions';
@@ -33,6 +34,7 @@ const styles = StyleSheet.create({
 
 const Auth = () => {
   const isFocused = useIsFocused();
+  const deepLinkUrl = useSelector((state: AppState) => state.home.deepLinkUrl);
   const [sliderRef, setSliderRef] = useState(null);
   const [slider1ActiveSlide, setSlider1ActiveSlide] = useState(0);
   const { t } = useTranslation('auth');
@@ -113,6 +115,14 @@ const Auth = () => {
     );
     navigate('SignUp');
   };
+
+  useEffect(() => {
+    if (deepLinkUrl) {
+      setTimeout(() => {
+        navigate('Login');
+      }, 200);
+    }
+  }, [deepLinkUrl]);
 
   return (
     <>

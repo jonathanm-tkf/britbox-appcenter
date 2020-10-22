@@ -2,7 +2,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useEffect, useState, forwardRef, useImperativeHandle, useRef } from 'react';
-import { Linking, Keyboard, KeyboardAvoidingView } from 'react-native';
+import { Linking, Keyboard, KeyboardAvoidingView, Platform } from 'react-native';
 import {
   updateProfileRequest,
   resetPasswordRequest,
@@ -318,7 +318,10 @@ export default function MyAccount() {
 
     return (
       <>
-        <KeyboardAvoidingView behavior="position">
+        <KeyboardAvoidingView
+          behavior="position"
+          keyboardVerticalOffset={Platform.OS === 'ios' ? -150 : 0}
+        >
           <ScrollableContainerPaddingHorizontal>
             <TitleWrapper>
               <SubTitle>{t('myaccount.yourdetails.screentitle')}</SubTitle>
@@ -601,7 +604,10 @@ export default function MyAccount() {
 
     return (
       <>
-        <KeyboardAvoidingView behavior="position">
+        <KeyboardAvoidingView
+          behavior="position"
+          keyboardVerticalOffset={Platform.OS === 'ios' ? -150 : 0}
+        >
           <ScrollContent>
             <ScrollableContainerPaddingHorizontal>
               <TitleWrapper>
