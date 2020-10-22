@@ -280,7 +280,10 @@ const SignUpSubscription = () => {
         }
       }
 
-      if (subscriptionResponse && (subscriptionResponse?.responseCode || '1').toString() === '1') {
+      if (
+        subscriptionResponse &&
+        (subscriptionResponse?.response?.responseCode || '0').toString() === '1'
+      ) {
         _doSuccessSubscription(true);
       } else if (subscriptionResponse && error) {
         setLoading(false);
