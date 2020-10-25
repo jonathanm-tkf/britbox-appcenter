@@ -1,6 +1,7 @@
 import * as React from 'react';
+import WebView from 'react-native-webview';
 
-export const webViewRef: any = React.createRef();
+export const webViewRef = React.createRef<WebView>();
 
 export const PostMessage = (data: Record<string, unknown>) => {
   if (webViewRef.current) {

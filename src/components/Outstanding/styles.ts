@@ -25,9 +25,6 @@ export const GradientTop = styled(LinearGradient).attrs((props: ThemeState) => (
 `;
 
 export const Actions = styled.View`
-  /* position: absolute; */
-  /* width: 100%; */
-  /* bottom: -50px; */
   margin-top: -20px;
   z-index: 2;
   justify-content: center;

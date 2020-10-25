@@ -1,6 +1,6 @@
 import styled from 'styled-components/native';
 import { ThemeState } from '@store/modules/theme/types';
-import { Animated, ImageBackground, Dimensions, Platform } from 'react-native';
+import { Animated, ImageBackground, Dimensions } from 'react-native';
 import { Button as ButtonC } from '@components/Button';
 import { hp } from '@src/utils/dimension';
 import { getStatusBarHeight } from 'react-native-iphone-x-helper';
@@ -11,7 +11,6 @@ const { width } = Dimensions.get('window');
 export const Container = styled.View`
   flex: 1;
   justify-content: center;
-  /* margin-bottom: 20px; */
 `;
 
 const AnimatedImage = Animated.createAnimatedComponent(ImageBackground);
@@ -61,16 +60,6 @@ export const Slider = styled(AnimatedImage).attrs({
     `
     );
   }};
-  /* ${(props: CarouselProps) => {
-    return props.slim || props.collection
-      ? Platform.OS === 'ios'
-        ? `min-height: ${hp(230)}px;`
-        : `min-height: 270px;`
-      : ``;
-  }}; */
-  /* ${(props: CarouselProps) => {
-    return (props.slim || props.collection) && `margin-bottom: ${getStatusBarHeight() + 20}px;`;
-  }}; */
 `;
 
 type SlimDescriptionTextProps = {

@@ -1,5 +1,5 @@
 import styled from 'styled-components/native';
-import { getStatusBarHeight, getBottomSpace } from 'react-native-iphone-x-helper';
+import { getStatusBarHeight } from 'react-native-iphone-x-helper';
 import { Platform } from 'react-native';
 import { Button as ButtonC } from '@components/Button';
 import { Pagination as PaginationC } from 'react-native-snap-carousel';
@@ -10,7 +10,6 @@ import { normalize } from '@src/utils/normalize';
 export const HeaderWrapper = styled.View`
   width: 100%;
   margin-top: ${`${Platform.OS === 'ios' ? getStatusBarHeight() + 10 : 0}px`};
-  /* margin-bottom: ${Platform.OS === 'android' ? 20 : getBottomSpace()}px; */
 `;
 
 export const Container = styled.View`

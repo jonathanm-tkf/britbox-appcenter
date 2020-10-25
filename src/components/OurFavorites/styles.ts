@@ -29,7 +29,6 @@ type WrapperProps = {
 };
 
 export const Wrapper = styled.View`
-  /* flex-direction: row; */
   padding: 0 5%;
   margin-top: -20px;
   width: 100%;

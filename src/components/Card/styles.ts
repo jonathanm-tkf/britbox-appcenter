@@ -91,7 +91,7 @@ export const TextWrapper = styled.View`
     return (
       (props.category || props.isEpisode) &&
       `
-      height: 80px;
+      height: 85px;
     `
     );
   }};
@@ -145,7 +145,6 @@ export const ActionText = styled.Text`
 
 export const WrapperBookmarks = styled.View`
   flex-direction: row;
-  /* padding-left: 10px; */
 `;
 
 interface BottomWrapperProps {
@@ -186,7 +185,6 @@ interface GroupProps {
 }
 
 export const Group = styled.View`
-  /* flex-direction: column; */
   width: 100%;
   ${(props: GroupProps) => {
     return props.isDetail || props.showCategory ? `flex: 1;` : `flex-direction: column`;
@@ -223,10 +221,7 @@ export const SummaryText = styled.Text`
   margin-top: 15px;
 `;
 
-export const AllWrapper = styled.View`
-  /* padding-bottom: 30px; */
-  /* margin-bottom: 20px; */
-`;
+export const AllWrapper = styled.View``;
 
 export const LogoWrapper = styled.View`
   flex: 1;

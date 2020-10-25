@@ -147,12 +147,7 @@ export const RowContent = styled.View`
   flex: 1;
 `;
 
-export const Header = styled.View`
-  /* position: absolute; */
-  /* top: 0;
-  z-index: 1;
-  width: 100%; */
-`;
+export const Header = styled.View``;
 
 export const SuscribeText = styled.Text`
   margin-left: 40px;

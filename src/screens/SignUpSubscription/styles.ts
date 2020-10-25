@@ -21,9 +21,7 @@ export const ErrorText = styled.Text`
   font-family: ${(props: ThemeState) => props.theme.PRIMARY_FONT_FAMILY_MEDIUM};
 `;
 
-export const ScrollView = styled.ScrollView`
-  /* margin-top: 77px; */
-`;
+export const ScrollView = styled.ScrollView``;
 
 export const TitleWrapper = styled.View`
   margin-bottom: 10px;

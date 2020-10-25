@@ -52,11 +52,6 @@ export const CustomShadowTabBar = styled(LinearGradient).attrs((props: ThemeStat
 `;
 
 export const TabsWrapper = styled.View`
-  /* background-color: red; */
-  /* padding-top: 10px; */
-  /* justify-content: space-between;
-  align-content: space-between;
-  flex-direction: column; */
   position: absolute;
   left: 0;
   bottom: 0;

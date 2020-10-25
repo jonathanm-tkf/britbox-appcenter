@@ -85,7 +85,6 @@ export const InnerContent = styled.View`
   border-top-left-radius: 12px;
   border-top-right-radius: 12px;
   margin-top: -12px;
-  /* padding: ${Platform.OS === 'ios' ? 210 : 180}px 20px 40px; */
   padding-top: ${Platform.OS === 'ios' ? 80 : 40}px;
   padding-left: 20px;
   padding-right: 20px;
