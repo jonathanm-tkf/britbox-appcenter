@@ -6,6 +6,7 @@ import { rgba } from 'polished';
 import { ThemeState } from '@store/modules/theme/types';
 import TouchableScaleC from 'react-native-touchable-scale';
 import { widthPercentageToDP as vw } from 'react-native-responsive-screen';
+import { normalize } from '@src/utils/normalize';
 
 const IS_IOS = Platform.OS === 'ios';
 const { width: viewportWidth } = Dimensions.get('window');
@@ -112,17 +113,17 @@ type TitleProps = {
 };
 
 export const Title = styled.Text`
-  font-size: 16px;
+  font-size: ${normalize(16)}px;
   font-family: ${(props: ThemeState) => props.theme.PRIMARY_FONT_FAMILY_MEDIUM};
   color: ${(props: ThemeState) => props.theme.PRIMARY_FOREGROUND_COLOR};
   ${(props: TitleProps & ThemeState) => {
-    return props.collection && `font-size: 18px;`;
+    return props.collection && `font-size: ${normalize(18)}px;`;
   }};
 `;
 
 export const Subtitle = styled.Text`
   margin-top: 6px;
-  font-size: 12px;
+  font-size: ${normalize(12)}px;
   color: ${(props: ThemeState) => props.theme.PRIMARY_FOREGROUND_COLOR};
 `;
 

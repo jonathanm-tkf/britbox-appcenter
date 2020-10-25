@@ -4,6 +4,7 @@ import { Headline as TitleC } from '@components/Typography';
 import { ThemeState } from '@store/modules/theme/types';
 import { rgba } from 'polished';
 import { StarIcon } from '@assets/icons';
+import { normalize } from '@src/utils/normalize';
 
 export const Container = styled.SafeAreaView`
   flex: 1;
@@ -42,8 +43,8 @@ export const SearchInput = styled.TextInput.attrs((props: ThemeState) => ({
   border-bottom-width: 2px;
   border-bottom-color: ${(props: ThemeState) => props.theme.PRIMARY_FOREGROUND_COLOR};
   color: ${(props: ThemeState) => props.theme.PRIMARY_FOREGROUND_COLOR};
-  font-size: 22px;
-  line-height: 28px;
+  font-size: ${normalize(22)}px;
+  line-height: ${normalize(28)}px;
   height: 60px;
 `;
 
@@ -74,7 +75,7 @@ export const SuggestionWrapper = styled.View`
 export const SuggestionText = styled.Text`
   color: ${(props: ThemeState) => rgba(props.theme.PRIMARY_FOREGROUND_COLOR, 0.35)};
   font-family: ${(props: ThemeState) => props.theme.PRIMARY_FONT_FAMILY_MEDIUM};
-  font-size: 16px;
+  font-size: ${normalize(16)}px;
 `;
 
 export const NoResultWrapper = styled.View`
@@ -89,7 +90,7 @@ export const NoResultBold = styled.Text`
 
 export const NoResultText = styled.Text`
   color: ${(props: ThemeState) => props.theme.PRIMARY_FOREGROUND_COLOR};
-  font-size: 15px;
+  font-size: ${normalize(15)}px;
 `;
 
 export const ResultWrapper = styled.View`
@@ -104,7 +105,7 @@ export const ResultBold = styled.Text`
 
 export const ResultText = styled.Text`
   color: ${(props: ThemeState) => props.theme.PRIMARY_FOREGROUND_COLOR};
-  font-size: 15px;
+  font-size: ${normalize(15)}px;
 `;
 
 export const ResultCastWrapper = styled.View`

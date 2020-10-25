@@ -3,6 +3,7 @@ import { ThemeState } from '@store/modules/theme/types';
 import LinearGradient from 'react-native-linear-gradient';
 import { rgba } from 'polished';
 import { getBottomSpace } from 'react-native-iphone-x-helper';
+import { normalize } from '@src/utils/normalize';
 
 type IsFocused = {
   isFocused: boolean;
@@ -17,7 +18,7 @@ export const Container = styled.View`
 `;
 
 export const Label = styled.Text`
-  font-size: 14px;
+  font-size: ${normalize(14)}px;
   font-family: ${(props: ThemeState) => props.theme.PRIMARY_FONT_FAMILY};
   color: ${(props: ThemeState) => props.theme.PRIMARY_FOREGROUND_COLOR};
   margin-top: 5px;

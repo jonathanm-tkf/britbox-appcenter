@@ -3,6 +3,7 @@ import { ThemeState } from '@store/modules/theme/types';
 import { getStatusBarHeight } from 'react-native-iphone-x-helper';
 import { Platform } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
+import { normalize } from '@src/utils/normalize';
 
 export const Container = styled.View`
   flex: 1;
@@ -38,7 +39,7 @@ export const TitleWrapper = styled.View`
 export const Title = styled.Text`
   margin-bottom: 25px;
   color: ${(props: ThemeState) => props.theme.PRIMARY_FOREGROUND_COLOR};
-  font-size: 26px;
+  font-size: ${normalize(26)}px;
   font-weight: 700;
   text-align: center;
 `;
@@ -48,7 +49,7 @@ export const Paragraph = styled.Text`
   margin-left: 40px;
   margin-right: 40px;
   margin-bottom: 20px;
-  font-size: 16px;
+  font-size: ${normalize(16)}px;
   color: ${(props: ThemeState) => props.theme.PRIMARY_FOREGROUND_COLOR};
 `;
 
@@ -79,7 +80,7 @@ export const ForgotContainer = styled.View`
 export const ForgotText = styled.Text`
   color: ${(props: ThemeState) => props.theme.SECONDARY_COLOR};
   font-family: ${(props: ThemeState) => props.theme.PRIMARY_FONT_FAMILY_MEDIUM};
-  font-size: 18px;
+  font-size: ${normalize(18)}px;
 `;
 
 export const ForgotModalContainer = styled.View`
@@ -91,7 +92,7 @@ export const ModalTitle = styled.Text`
   margin-bottom: 15px;
   color: ${(props: ThemeState) => props.theme.PRIMARY_TEXT_COLOR};
   font-family: ${(props: ThemeState) => props.theme.PRIMARY_FONT_FAMILY_MEDIUM};
-  font-size: 20px;
+  font-size: ${normalize(20)}px;
   opacity: 0.8;
 `;
 
@@ -99,8 +100,8 @@ export const ModalSubTitle = styled.Text`
   margin-bottom: 20px;
   color: ${(props: ThemeState) => props.theme.PRIMARY_TEXT_COLOR};
   font-family: ${(props: ThemeState) => props.theme.PRIMARY_FONT_FAMILY_LIGHT};
-  font-size: 16px;
-  line-height: 25px;
+  font-size: ${normalize(16)}px;
+  line-height: ${normalize(25)}px;
   opacity: 0.7;
 `;
 
@@ -117,7 +118,7 @@ export const FooterTitle = styled.Text`
   margin-top: 10px;
   margin-bottom: 20px;
   color: ${(props: ThemeState) => props.theme.PRIMARY_FOREGROUND_COLOR};
-  font-size: 20px;
+  font-size: ${normalize(20)}px;
   font-weight: 700;
   text-align: center;
   font-family: ${(props: ThemeState) => props.theme.PRIMARY_FONT_FAMILY_MEDIUM};
@@ -126,7 +127,7 @@ export const FooterTitle = styled.Text`
 export const EmailTitle = styled.Text`
   margin-bottom: 10px;
   color: ${(props: ThemeState) => props.theme.SECONDARY_COLOR};
-  font-size: 16px;
+  font-size: ${normalize(16)}px;
   text-align: center;
   font-family: ${(props: ThemeState) => props.theme.PRIMARY_FONT_FAMILY_MEDIUM};
 `;

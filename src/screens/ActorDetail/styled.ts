@@ -4,6 +4,7 @@ import { getStatusBarHeight, getBottomSpace } from 'react-native-iphone-x-helper
 import { Platform } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import { StarIcon } from '@assets/icons';
+import { normalize } from '@src/utils/normalize';
 
 export const Container = styled.View`
   flex: 1;
@@ -51,7 +52,7 @@ export const CastFirstNameWrapper = styled.View`
 export const CastFirstNameText = styled.Text`
   color: ${(props: ThemeState) => props.theme.PRIMARY_TEXT_COLOR_LIGHT};
   font-family: ${(props: ThemeState) => props.theme.PRIMARY_FONT_FAMILY_MEDIUM};
-  font-size: 18px;
+  font-size: ${normalize(18)}px;
   padding-top: 2px;
   padding-left: 8px;
 `;
@@ -59,7 +60,7 @@ export const CastFirstNameText = styled.Text`
 export const CastLastNameText = styled.Text`
   color: ${(props: ThemeState) => props.theme.PRIMARY_TEXT_COLOR_LIGHT};
   font-family: ${(props: ThemeState) => props.theme.PRIMARY_FONT_FAMILY_MEDIUM};
-  font-size: 26px;
+  font-size: ${normalize(26)}px;
   padding-vertical: 2px;
 `;
 

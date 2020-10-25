@@ -4,6 +4,7 @@ import { Animated, ImageBackground, Dimensions, Platform } from 'react-native';
 import { Button as ButtonC } from '@components/Button';
 import { hp } from '@src/utils/dimension';
 import { getStatusBarHeight } from 'react-native-iphone-x-helper';
+import { normalize } from '@src/utils/normalize';
 
 const { width } = Dimensions.get('window');
 
@@ -83,8 +84,8 @@ export const SlimDescriptionText = styled.Text.attrs({
   font-family: ${(props: ThemeState) => props.theme.PRIMARY_FONT_FAMILY_LIGHT};
   text-align: center;
   min-height: 90px;
-  font-size: 16px;
-  line-height: 22px;
+  font-size: ${normalize(16)}px;
+  line-height: ${normalize(22)}px;
 
   ${(props: SlimDescriptionTextProps & ThemeState) => {
     return (

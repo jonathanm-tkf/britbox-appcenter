@@ -2,6 +2,7 @@ import styled from 'styled-components/native';
 import { ThemeState } from '@store/modules/theme/types';
 import LinearGradient from 'react-native-linear-gradient';
 import { RadioCheckedIcon, RadioUnCheckedIcon } from '@assets/icons';
+import { normalize } from '@src/utils/normalize';
 
 export const Container = styled.View`
   flex: 1;
@@ -19,9 +20,7 @@ export const ErrorText = styled.Text`
   font-family: ${(props: ThemeState) => props.theme.PRIMARY_FONT_FAMILY_MEDIUM};
 `;
 
-export const ScrollView = styled.ScrollView`
-  /* margin-top: 77px; */
-`;
+export const ScrollView = styled.ScrollView``;
 
 export const TitleWrapper = styled.View`
   margin-bottom: 10px;
@@ -30,7 +29,7 @@ export const TitleWrapper = styled.View`
 export const Title = styled.Text`
   margin-bottom: 20px;
   color: ${(props: ThemeState) => props.theme.PRIMARY_FOREGROUND_COLOR};
-  font-size: 26px;
+  font-size: ${normalize(26)}px;
   font-weight: 700;
   text-align: center;
 `;
@@ -39,7 +38,7 @@ export const SubTitle = styled.Text`
   margin-bottom: 10px;
   margin-top: 20px;
   color: ${(props: ThemeState) => props.theme.PRIMARY_FOREGROUND_COLOR};
-  font-size: 24px;
+  font-size: ${normalize(24)}px;
   font-weight: 700;
   text-align: center;
 `;
@@ -49,12 +48,10 @@ export const RowWrapper = styled.View`
 `;
 
 export const WrapperParagraph = styled.Text`
-  /* margin-left: 20px; */
-  /* margin-right: 20px; */
   margin-top: 10px;
   margin-bottom: 10px;
-  font-size: 16px;
-  line-height: 22px;
+  font-size: ${normalize(16)}px;
+  line-height: ${normalize(22)}px;
   text-align: justify;
   color: ${(props: ThemeState) => props.theme.PRIMARY_FOREGROUND_COLOR};
 `;
@@ -69,13 +66,11 @@ export const Paragraph = styled.Text`
   margin-right: 40px;
   margin-top: 20px;
   margin-bottom: 20px;
-  font-size: 16px;
+  font-size: ${normalize(16)}px;
   color: ${(props: ThemeState) => props.theme.PRIMARY_FOREGROUND_COLOR};
 `;
 
 export const MainWrapper = styled.View`
-  /* padding-top: 10px; */
-  /* padding-bottom: 55px; */
   padding-bottom: 35px;
 `;
 
@@ -128,7 +123,7 @@ export const LoginTitle = styled.Text`
   margin-top: 30px;
   margin-bottom: 20px;
   color: ${(props: ThemeState) => props.theme.PRIMARY_FOREGROUND_COLOR};
-  font-size: 20px;
+  font-size: ${normalize(20)}px;
   font-weight: 700;
   text-align: center;
   font-family: ${(props: ThemeState) => props.theme.PRIMARY_FONT_FAMILY_BOLD};
@@ -138,7 +133,7 @@ export const FooterTitle = styled.Text`
   margin-top: 10px;
   margin-bottom: 20px;
   color: ${(props: ThemeState) => props.theme.PRIMARY_FOREGROUND_COLOR};
-  font-size: 20px;
+  font-size: ${normalize(20)}px;
   font-weight: 700;
   text-align: center;
   font-family: ${(props: ThemeState) => props.theme.PRIMARY_FONT_FAMILY_MEDIUM};
@@ -147,7 +142,7 @@ export const FooterTitle = styled.Text`
 export const EmailTitle = styled.Text`
   margin-bottom: 10px;
   color: ${(props: ThemeState) => props.theme.SECONDARY_COLOR};
-  font-size: 16px;
+  font-size: ${normalize(16)}px;
   text-align: center;
   font-family: ${(props: ThemeState) => props.theme.PRIMARY_FONT_FAMILY_MEDIUM};
 `;

@@ -2,6 +2,7 @@ import styled from 'styled-components/native';
 import { ThemeState } from '@store/modules/theme/types';
 import { Button } from '@components/Button';
 import { rgba } from 'polished';
+import { normalize } from '@src/utils/normalize';
 
 export const Container = styled.View`
   width: 100%;
@@ -27,8 +28,8 @@ interface ItemText {
 export const TabHeaderItemText = styled.Text`
   color: ${(props: ThemeState) => props.theme.PRIMARY_FOREGROUND_COLOR};
   font-family: ${(props: ThemeState) => props.theme.PRIMARY_FONT_FAMILY_MEDIUM};
-  font-size: 18px;
-  line-height: 36px;
+  font-size: ${normalize(18)}px;
+  line-height: ${normalize(36)}px;
   ${(props: ItemText & ThemeState) => {
     return props.active
       ? `opacity: 1;`
@@ -50,8 +51,8 @@ export const HeaderWrapper = styled.View`
 `;
 
 export const HeaderBottom = styled(Button)`
-  font-size: 18px;
-  line-height: 38px;
+  font-size: ${normalize(18)}px;
+  line-height: ${normalize(38)}px;
 `;
 
 export const TabHeaderItemIndicator = styled.View`
@@ -87,6 +88,6 @@ export const TabButton = styled.TouchableOpacity``;
 export const TabButtonText = styled.Text`
   color: ${(props: ThemeState) => props.theme.PRIMARY_FOREGROUND_COLOR};
   font-family: ${(props: ThemeState) => props.theme.PRIMARY_FONT_FAMILY};
-  font-size: 25px;
-  line-height: 65px;
+  font-size: ${normalize(24)}px;
+  line-height: ${normalize(65)}px;
 `;

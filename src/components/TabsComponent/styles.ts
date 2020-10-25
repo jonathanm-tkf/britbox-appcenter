@@ -2,6 +2,7 @@ import styled from 'styled-components/native';
 import { TabBar as TabBarC } from 'react-native-tab-view';
 import { ThemeState } from '@store/modules/theme/types';
 import { rgba } from 'polished';
+import { normalize } from '@src/utils/normalize';
 
 export const Container = styled.View`
   width: 100%;
@@ -32,8 +33,8 @@ interface TabLabelProps {
   focused: boolean;
 }
 export const TabLabel = styled.Text`
-  color: ${(props: TabLabel & ThemeState) => props.color};
-  font-size: 16px;
+  color: ${(props: TabLabelProps & ThemeState) => props.color};
+  font-size: ${normalize(16)}px;
   ${(props: TabLabelProps & ThemeState) => {
     return props.focused
       ? `font-family: ${props.theme.PRIMARY_FONT_FAMILY_MEDIUM}`

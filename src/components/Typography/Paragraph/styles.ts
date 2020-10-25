@@ -1,6 +1,7 @@
 import styled from 'styled-components/native';
 import { Paragraph } from 'react-native-paper';
 import { ThemeState } from '@store/modules/theme/types';
+import { normalize } from '@src/utils/normalize';
 
 export const Container = styled.View``;
 
@@ -12,12 +13,12 @@ interface ParagraphComponentProps {
 
 export const ParagraphComponent = styled(Paragraph)`
   color: ${(props: ThemeState) => props.theme.PRIMARY_FOREGROUND_COLOR};
-  font-size: 16px;
+  font-size: ${normalize(16)}px;
   ${(props: ParagraphComponentProps & ThemeState) => {
     return (
       props.fontSize &&
       `
-      font-size: ${props.fontSize}px;
+      font-size: ${normalize(props.fontSize)}px;
     `
     );
   }};
@@ -26,7 +27,7 @@ export const ParagraphComponent = styled(Paragraph)`
     return (
       props.lineHeight &&
       `
-      line-height: ${props.lineHeight}px;
+      line-height: ${normalize(props.lineHeight)}px;
     `
     );
   }};

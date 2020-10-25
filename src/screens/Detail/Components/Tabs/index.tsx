@@ -1,7 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect, useRef } from 'react';
 import ContentLoader, { Rect } from 'react-content-loader/native';
-
 import { useSelector, useDispatch } from 'react-redux';
 import { AppState } from '@store/modules/rootReducer';
 import Shimmer from '@components/Shimmer';
@@ -15,7 +14,6 @@ import { LoadDetailPageResponse } from '@store/modules/detail/types';
 import { hideSheet } from '@src/utils/sheetBottom';
 import { getTextInConfigJSON } from '@src/utils/object';
 import { MassiveSDKModelEpisodesItem } from '@src/sdks/Britbox.API.Content.TS/api';
-import { wp } from '@src/utils/dimension';
 import {
   TabsWrapper,
   PreloadTabs,
@@ -91,7 +89,7 @@ const Tabs = ({ data, onScrollTo, onLayout, autoPlay, onPlay }: Props) => {
   );
 
   useEffect(() => {
-    dispatch(sheetComponent(wp(350), () => renderBottomContent()));
+    dispatch(sheetComponent(350, () => renderBottomContent()));
 
     return () => {
       dispatch(sheetComponent(0, () => <></>));

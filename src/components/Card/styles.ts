@@ -6,6 +6,7 @@ import RNProgressBar from 'react-native-progress/Bar';
 import TouchableScaleC from 'react-native-touchable-scale';
 import { Platform } from 'react-native';
 import { wp } from '@src/utils/dimension';
+import { normalize } from '@src/utils/normalize';
 
 interface ContainerProps {
   width?: number;
@@ -110,8 +111,8 @@ export const Title = styled.Text.attrs({
   color: ${(props: ThemeState) => props.theme.PRIMARY_FOREGROUND_COLOR};
   font-family: ${(props: ThemeState) => props.theme.PRIMARY_FONT_FAMILY_MEDIUM};
   margin-bottom: 2px;
-  font-size: 14px;
-  line-height: 24px;
+  font-size: ${normalize(14)}px;
+  line-height: ${normalize(24)}px;
 `;
 
 export const Description = styled.Text.attrs({
@@ -119,7 +120,7 @@ export const Description = styled.Text.attrs({
 })`
   color: ${(props: ThemeState) => props.theme.PRIMARY_FOREGROUND_COLOR};
   opacity: 0.5;
-  font-size: 12px;
+  font-size: ${normalize(12)}px;
   margin-top: 2px;
 `;
 
@@ -136,8 +137,8 @@ export const ActionWrapper = styled.View`
 
 export const ActionText = styled.Text`
   color: ${(props: ThemeState) => props.theme.SECONDARY_COLOR_LIGHT};
-  font-size: 10px;
-  line-height: 24px;
+  font-size: ${normalize(10)}px;
+  line-height: ${normalize(24)}px;
   margin-left: 2px;
   font-family: ${(props: ThemeState) => props.theme.PRIMARY_FONT_FAMILY_MEDIUM};
 `;
@@ -217,8 +218,8 @@ export const ImageWrapper = styled.View`
 export const SummaryText = styled.Text`
   font-family: ${(props: ThemeState) => props.theme.PRIMARY_FONT_FAMILY_LIGHT};
   color: ${(props: ThemeState) => props.theme.PRIMARY_FOREGROUND_COLOR};
-  font-size: 12px;
-  line-height: 16px;
+  font-size: ${normalize(12)}px;
+  line-height: ${normalize(16)}px;
   margin-top: 15px;
 `;
 

@@ -1,9 +1,10 @@
 import styled from 'styled-components/native';
 import { getStatusBarHeight, getBottomSpace } from 'react-native-iphone-x-helper';
 import { ThemeState } from '@store/modules/theme/types';
-import { Platform, Animated, Dimensions } from 'react-native';
+import { Platform, Animated } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import { rgba } from 'polished';
+import { normalize } from '@src/utils/normalize';
 
 export const Container = styled.View`
   flex: 1;
@@ -11,14 +12,9 @@ export const Container = styled.View`
   padding-bottom: ${getBottomSpace() + 64}px;
 `;
 
-const { width } = Dimensions.get('window');
 export const ContainerGrid = styled.View`
-  /* flex: 1; */
   background-color: ${(props: ThemeState) => props.theme.PRIMARY_COLOR};
-  /* padding-bottom: ${getBottomSpace() + 74}px; */
-  /* padding-bottom: 40px; */
   flex-direction: row;
-  /* width: ${width - 28}px; */
 `;
 
 export const Scroll = styled.ScrollView.attrs({
@@ -51,11 +47,11 @@ export const Button = styled.TouchableOpacity`
 export const TopText = styled.Text`
   font-family: ${(props: ThemeState) => props.theme.PRIMARY_FONT_FAMILY_MEDIUM};
   color: ${(props: ThemeState) => props.theme.PRIMARY_FOREGROUND_COLOR};
-  font-size: 12px;
+  font-size: ${normalize(12)}px;
   top: ${Platform.OS === 'ios' ? getStatusBarHeight() : 0}px;
   width: 100%;
   height: 50px;
-  line-height: 50px;
+  line-height: ${normalize(50)}px;
   position: absolute;
   z-index: 1;
   text-align: center;
@@ -101,14 +97,14 @@ export const ActionWrapper = styled.View`
 export const ActionText = styled.Text`
   color: ${(props: ThemeState) => props.theme.SECONDARY_COLOR_LIGHT};
   font-family: ${(props: ThemeState) => props.theme.PRIMARY_FONT_FAMILY_MEDIUM};
-  font-size: 14px;
-  line-height: 24px;
+  font-size: ${normalize(14)}px;
+  line-height: ${normalize(24)}px;
 `;
 
 export const ActionTitle = styled.Text`
   color: ${(props: ThemeState) => props.theme.PRIMARY_FOREGROUND_COLOR};
-  font-size: 16px;
-  line-height: 37px;
+  font-size: ${normalize(16)}px;
+  line-height: ${normalize(37)}px;
   margin-left: 15px;
   margin-bottom: 5px;
   font-family: ${(props: ThemeState) => props.theme.PRIMARY_FONT_FAMILY_MEDIUM};
@@ -119,7 +115,7 @@ export const ChangeGenreButton = styled.TouchableOpacity`
   flex-direction: row;
   position: absolute;
   height: 50px;
-  line-height: 50px;
+  line-height: ${normalize(50)}px;
   right: 20px;
   bottom: 0;
   justify-content: center;
@@ -143,7 +139,7 @@ export const ChangeOrderButton = styled.TouchableOpacity`
   flex-direction: row;
   position: absolute;
   height: 50px;
-  line-height: 50px;
+  line-height: ${normalize(50)}px;
   right: 10px;
   top: 0;
   justify-content: center;
@@ -190,5 +186,4 @@ export const Select = styled.View`
   top: ${Platform.OS === 'ios' ? 10 : -5}px;
   right: 20px;
   z-index: 1;
-  /* width: 50px; */
 `;

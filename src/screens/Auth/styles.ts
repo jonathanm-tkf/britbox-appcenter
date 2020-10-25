@@ -5,6 +5,7 @@ import { Button as ButtonC } from '@components/Button';
 import { Pagination as PaginationC } from 'react-native-snap-carousel';
 import { ThemeState } from '@store/modules/theme/types';
 import LinearGradient from 'react-native-linear-gradient';
+import { normalize } from '@src/utils/normalize';
 
 export const HeaderWrapper = styled.View`
   width: 100%;
@@ -78,6 +79,6 @@ export const Paragraph = styled.Text`
   margin-right: 40px;
   margin-top: 15px;
   margin-bottom: 5px;
-  font-size: 16px;
+  font-size: ${normalize(16)}px;
   color: ${(props: ThemeState) => props.theme.PRIMARY_FOREGROUND_COLOR};
 `;

@@ -1,6 +1,7 @@
 import { StyleSheet, Dimensions } from 'react-native';
 import styled from 'styled-components/native';
 import { ThemeState } from '@store/modules/theme/types';
+import { normalize } from '@src/utils/normalize';
 
 const { width: viewportWidth } = Dimensions.get('window');
 
@@ -36,7 +37,7 @@ export const Title = styled.Text`
   margin-top: 15px;
   color: ${(props: ThemeState) => props.theme.PRIMARY_FOREGROUND_COLOR};
   font-family: ${(props: ThemeState) => props.theme.PRIMARY_FONT_FAMILY};
-  font-size: 30px;
+  font-size: ${normalize(30)}px;
   text-align: center;
 `;
 export const Subtitle = styled.Text`
@@ -47,5 +48,5 @@ export const Subtitle = styled.Text`
   margin-bottom: 6px;
   color: ${(props: ThemeState) => props.theme.PRIMARY_FOREGROUND_COLOR};
   font-family: ${(props: ThemeState) => props.theme.PRIMARY_FONT_FAMILY};
-  font-size: 14px;
+  font-size: ${normalize(14)}px;
 `;

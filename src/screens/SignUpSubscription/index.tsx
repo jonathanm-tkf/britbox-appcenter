@@ -5,7 +5,14 @@
 /* eslint-disable react/no-array-index-key */
 /* eslint-disable react-native/no-inline-styles */
 import React, { useState, useEffect } from 'react';
-import { KeyboardAvoidingView, Platform, Text, Linking, BackHandler } from 'react-native';
+import {
+  KeyboardAvoidingView,
+  Platform,
+  Text,
+  Linking,
+  BackHandler,
+  ActivityIndicator,
+} from 'react-native';
 import { Button } from '@components/Button';
 import HeaderCustom from '@components/HeaderCustom';
 import { useSelector, useDispatch } from 'react-redux';
@@ -83,6 +90,7 @@ const SignUpSubscription = () => {
   };
 
   const [loading, setLoading] = useState(false);
+  const [isLoadingPackages, setIsLoadingPackages] = useState(true);
   const [packageData, setPackageData] = useState(productsResponse);
   const [packageIndex, setPackageIndex] = useState(0);
   const [packageName, setPackageName] = useState('');
@@ -108,6 +116,7 @@ const SignUpSubscription = () => {
 
     return () => {
       BackHandler.removeEventListener('hardwareBackPress', handleBackButtonClick);
+      setIsLoadingPackages(true);
     };
   }, []);
 
@@ -128,6 +137,7 @@ const SignUpSubscription = () => {
     if (response && Number(response?.responseCode) === 1) {
       if (response?.productsResponseMessage?.length > 0) {
         setPackageData(response?.productsResponseMessage);
+        setIsLoadingPackages(false);
 
         const productApple: string[] = [];
         const productGoogle: string[] = [];
@@ -166,9 +176,11 @@ const SignUpSubscription = () => {
         }
       } else {
         setErrorMsg("Couldn't get products");
+        setIsLoadingPackages(false);
       }
     } else {
       setErrorMsg("Couldn't get products");
+      setIsLoadingPackages(false);
     }
   };
 
@@ -333,86 +345,95 @@ const SignUpSubscription = () => {
                 <Paragraph>{getTextInConfigJSON(['plan-selection', 'description'], '')}</Paragraph>
                 <SubTitle>{getTextInConfigJSON(['plan-selection', 'description-2'], '')}</SubTitle>
               </TitleWrapper>
-              <RowWrapper>
-                {packageData.map(
-                  (
-                    item: BritboxDataEvergentModelsGetProductsResponseMessageBaseProductsResponseMsg,
-                    index: number
-                  ) => {
-                    return (
-                      <RadioBox
-                        key={index}
-                        onPress={() => setPackageIndex(index)}
-                        style={packageIndex === index && activeRadio}
-                      >
-                        <RadioBoxContent>
-                          <SubTitle style={textLeft}>{item?.productDescription}</SubTitle>
-                          <DescriptionText
-                            style={[textLeft, { marginBottom: 5, fontWeight: 'bold' }]}
+
+              {isLoadingPackages ? (
+                <ActivityIndicator size={52} color={theme.PRIMARY_FOREGROUND_COLOR} />
+              ) : (
+                <>
+                  <RowWrapper>
+                    {packageData.map(
+                      (
+                        item: BritboxDataEvergentModelsGetProductsResponseMessageBaseProductsResponseMsg,
+                        index: number
+                      ) => {
+                        return (
+                          <RadioBox
+                            key={index}
+                            onPress={() => setPackageIndex(index)}
+                            style={packageIndex === index && activeRadio}
                           >
-                            {htmlEntities.decode(item?.currencySymbol)}
-                            {item?.retailPrice}{' '}
-                            <Text style={{ fontWeight: 'normal' }}>/ {item?.period}</Text>
-                          </DescriptionText>
-                          <DescriptionText style={[textLeft, { marginBottom: 10, fontSize: 12 }]}>
-                            {item?.channelPartnerDescription}
-                          </DescriptionText>
-                        </RadioBoxContent>
-                        {packageIndex === index ? (
-                          <RadioCheckedIconView />
-                        ) : (
-                          <RadioUnCheckedIconView />
-                        )}
-                      </RadioBox>
-                    );
-                  }
-                )}
-              </RowWrapper>
-              <PaddingHorizontalView>
-                <RadioBottomText>
-                  {getTextInConfigJSON(['plan-selection', 'legal'], '')}
-                </RadioBottomText>
-                <Paragraph>{getTextInConfigJSON(['plan-selection', 'summary'], '')}</Paragraph>
-                {packageData.length > 0 && (
-                  <>
-                    <SmallText>{t('total')}</SmallText>
-                    <PriceTitle>
-                      {htmlEntities.decode(packageData[packageIndex]?.currencySymbol)}{' '}
-                      {packageData[packageIndex]?.retailPrice}
-                    </PriceTitle>
-                    <DescriptionText>
-                      {getTextInConfigJSON(['plan-selection', 'sub-price'], '')}
-                    </DescriptionText>
-                  </>
-                )}
-                {errorMsg !== '' && <ErrorText>{errorMsg}</ErrorText>}
-                <Button
-                  disabled={loading}
-                  onPress={() => initiateIAPRequest()}
-                  stretch
-                  loading={loading}
-                  size="big"
-                  fontWeight="medium"
-                  color={theme.PRIMARY_FOREGROUND_COLOR}
-                >
-                  {getTextInConfigJSON(['plan-selection', 'ctas', '0'], '')}
-                </Button>
-                <Button
-                  disabled={loading}
-                  onPress={() => {
-                    trackEvent('cancel');
-                    _doSuccessSubscription(false);
-                  }}
-                  outline
-                  size="big"
-                  fontWeight="medium"
-                  style={cancelStyle}
-                >
-                  <CancelText>
-                    {getTextInConfigJSON(['plan-selection', 'ctas', '1'], '')}
-                  </CancelText>
-                </Button>
-              </PaddingHorizontalView>
+                            <RadioBoxContent>
+                              <SubTitle style={textLeft}>{item?.productDescription}</SubTitle>
+                              <DescriptionText
+                                style={[textLeft, { marginBottom: 5, fontWeight: 'bold' }]}
+                              >
+                                {htmlEntities.decode(item?.currencySymbol)}
+                                {item?.retailPrice}{' '}
+                                <Text style={{ fontWeight: 'normal' }}>/ {item?.period}</Text>
+                              </DescriptionText>
+                              <DescriptionText
+                                style={[textLeft, { marginBottom: 10, fontSize: 12 }]}
+                              >
+                                {item?.channelPartnerDescription}
+                              </DescriptionText>
+                            </RadioBoxContent>
+                            {packageIndex === index ? (
+                              <RadioCheckedIconView />
+                            ) : (
+                              <RadioUnCheckedIconView />
+                            )}
+                          </RadioBox>
+                        );
+                      }
+                    )}
+                  </RowWrapper>
+                  <PaddingHorizontalView>
+                    <RadioBottomText>
+                      {getTextInConfigJSON(['plan-selection', 'legal'], '')}
+                    </RadioBottomText>
+                    <Paragraph>{getTextInConfigJSON(['plan-selection', 'summary'], '')}</Paragraph>
+                    {packageData.length > 0 && (
+                      <>
+                        <SmallText>{t('total')}</SmallText>
+                        <PriceTitle>
+                          {htmlEntities.decode(packageData[packageIndex]?.currencySymbol)}{' '}
+                          {packageData[packageIndex]?.retailPrice}
+                        </PriceTitle>
+                        <DescriptionText>
+                          {getTextInConfigJSON(['plan-selection', 'sub-price'], '')}
+                        </DescriptionText>
+                      </>
+                    )}
+                    {errorMsg !== '' && <ErrorText>{errorMsg}</ErrorText>}
+                    <Button
+                      disabled={loading}
+                      onPress={() => initiateIAPRequest()}
+                      stretch
+                      loading={loading}
+                      size="big"
+                      fontWeight="medium"
+                      color={theme.PRIMARY_FOREGROUND_COLOR}
+                    >
+                      {getTextInConfigJSON(['plan-selection', 'ctas', '0'], '')}
+                    </Button>
+                    <Button
+                      disabled={loading}
+                      onPress={() => {
+                        trackEvent('cancel');
+                        _doSuccessSubscription(false);
+                      }}
+                      outline
+                      size="big"
+                      fontWeight="medium"
+                      style={cancelStyle}
+                    >
+                      <CancelText>
+                        {getTextInConfigJSON(['plan-selection', 'ctas', '1'], '')}
+                      </CancelText>
+                    </Button>
+                  </PaddingHorizontalView>
+                </>
+              )}
             </Container>
             <Gradient>
               <Wrapper>

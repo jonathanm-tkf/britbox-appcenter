@@ -289,7 +289,6 @@ const Detail = () => {
       sheetRef.current!.close();
       setValuePin('');
       setCheckingParentalControl(false);
-      // dispatch(castDetail(parentalControlItem));
 
       const { response } = await refreshTokenWithExpiresIn(expiresIn, refresh);
 

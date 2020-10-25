@@ -1,6 +1,7 @@
 import styled from 'styled-components/native';
 import { ThemeState } from '@store/modules/theme/types';
 import { getStatusBarHeight } from 'react-native-iphone-x-helper';
+import { normalize } from '@src/utils/normalize';
 import LogoBritbox from '../../../assets/images/Logo.svg';
 
 export const Container = styled.View`
@@ -25,7 +26,7 @@ export const BottomParagraph = styled.Text`
   margin-bottom: 40px;
   padding-left: 10px;
   padding-right: 10px;
-  font-size: 18px;
+  font-size: ${normalize(18)}px;
   color: ${(props: ThemeState) => props.theme.PRIMARY_FOREGROUND_COLOR};
   font-family: ${(props: ThemeState) => props.theme.PRIMARY_FONT_FAMILY_MEDIUM};
 `;

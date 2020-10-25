@@ -3,6 +3,7 @@ import { ThemeState } from '@store/modules/theme/types';
 import { Animated } from 'react-native';
 import { TabBar as TabBarC } from 'react-native-tab-view';
 import { rgba } from 'polished';
+import { normalize } from '@src/utils/normalize';
 
 export const Container = styled.View``;
 
@@ -14,7 +15,7 @@ export const TitleWrapper = styled.View`
 export const Title = styled.Text`
   margin-bottom: 10px;
   color: ${(props: ThemeState) => props.theme.PRIMARY_FOREGROUND_COLOR};
-  font-size: 26px;
+  font-size: ${normalize(26)}px;
   font-weight: 700;
   text-align: center;
   font-family: ${(props: ThemeState) => props.theme.PRIMARY_FONT_FAMILY_MEDIUM};
@@ -54,7 +55,7 @@ interface TabLabelProps {
 }
 export const TabLabel = styled.Text`
   color: ${(props: TabLabelProps & ThemeState) => props.color};
-  font-size: 16px;
+  font-size: ${normalize(16)}px;
   ${(props: TabLabelProps & ThemeState) => {
     return props.focused
       ? `font-family: ${props.theme.PRIMARY_FONT_FAMILY_MEDIUM}`

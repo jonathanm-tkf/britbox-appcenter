@@ -1,5 +1,6 @@
 import styled from 'styled-components/native';
 import { ThemeState } from '@store/modules/theme/types';
+import { normalize } from '@src/utils/normalize';
 
 export const Container = styled.View`
   background-color: ${(props: ThemeState) => props.theme.PRIMARY_COLOR};
@@ -10,7 +11,7 @@ export const Row = styled.Text`
   color: ${(props: ThemeState) => props.theme.PRIMARY_FOREGROUND_COLOR};
   font-family: ${(props: ThemeState) => props.theme.PRIMARY_FONT_FAMILY};
   margin-bottom: 25px;
-  font-size: 14px;
+  font-size: ${normalize(14)}px;
 `;
 
 export const Label = styled.Text`
@@ -20,7 +21,7 @@ export const Label = styled.Text`
 export const LabelBold = styled.Text`
   color: ${(props: ThemeState) => props.theme.PRIMARY_FOREGROUND_COLOR};
   font-family: ${(props: ThemeState) => props.theme.PRIMARY_FONT_FAMILY_MEDIUM};
-  font-size: 14px;
+  font-size: ${normalize(14)}px;
   text-transform: capitalize;
 `;
 
@@ -50,6 +51,6 @@ export const CreditsItem = styled.View`
 export const CreditsText = styled.Text`
   color: ${(props: ThemeState) => props.theme.PRIMARY_FOREGROUND_COLOR};
   text-transform: capitalize;
-  line-height: 20px;
+  line-height: ${normalize(20)}px;
   width: 55%;
 `;

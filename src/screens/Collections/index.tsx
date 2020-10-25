@@ -282,6 +282,18 @@ const Collections = () => {
     return result.length > 0;
   };
 
+  const getListData = () => {
+    const {
+      paging: { page: nextPage, size: pageSize },
+      id,
+    } =
+      (data?.entries || [])
+        .filter((item) => getTemplate(item.template || '') === 'grid-infinite')
+        .reduce((item) => item).list || {};
+
+    return { nextPage, pageSize, sub: 'Subscriber', olderId: id };
+  };
+
   const getMoreDataContinuosScroll = (
     reset?: boolean,
     orderFilter?: string,
@@ -296,16 +308,20 @@ const Collections = () => {
       const url = (next || '').split('?');
 
       if (url.length > 0) {
-        const { page: nextPage, page_size: pageSize, sub } = JSON.parse(
-          `{"${url[url.length - 1].replace(/&/g, '","').replace(/=/g, '":"')}"}`,
-          (key, value) => {
-            return key === '' ? value : decodeURIComponent(value);
-          }
-        );
+        const { page: nextPage, page_size: pageSize, sub, olderId } =
+          url[url.length - 1] !== ''
+            ? JSON.parse(
+                `{"${url[url.length - 1].replace(/&/g, '","').replace(/=/g, '":"')}"}`,
+                (key, value) => {
+                  return key === '' ? value : decodeURIComponent(value);
+                }
+              )
+            : getListData();
+
         const id = url[0].split('/').pop() || '';
 
         loadCollectionList({
-          id,
+          id: url[url.length - 1] !== '' ? id : olderId,
           page: reset ? 1 : nextPage,
           pageSize,
           sub,

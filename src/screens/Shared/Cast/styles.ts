@@ -4,6 +4,8 @@ import { CastButton as CastButtonC } from 'react-native-google-cast';
 import { rgba } from 'polished';
 import { Platform } from 'react-native';
 import FastImage from 'react-native-fast-image';
+import { getBottomSpace } from 'react-native-iphone-x-helper';
+import { normalize } from '@src/utils/normalize';
 
 export const Container = styled.View``;
 
@@ -11,7 +13,7 @@ export const FABView = styled.TouchableOpacity`
   position: absolute;
   margin: 16px;
   right: 0px;
-  bottom: ${Platform.OS === 'ios' ? 90 : 55}px;
+  bottom: ${Platform.OS === 'ios' ? 65 + getBottomSpace() : 55}px;
   background-color: ${(props: ThemeState) => props.theme.PRIMARY_COLOR};
   width: 60px;
   height: 60px;
@@ -71,7 +73,7 @@ export const MiniSubtitle = styled.Text.attrs({
   numberOfLines: 2,
 })`
   color: ${(props: ThemeState) => props.theme.PRIMARY_COLOR_OPAQUE};
-  font-size: 10px;
+  font-size: ${normalize(10)}px;
 `;
 
 export const MiniExpandButton = styled.TouchableOpacity`

@@ -2,6 +2,7 @@ import styled from 'styled-components/native';
 import { ThemeState } from '@store/modules/theme/types';
 import LinearGradient from 'react-native-linear-gradient';
 import { rgba } from 'polished';
+import { normalize } from '@src/utils/normalize';
 
 export const Gradient = styled(LinearGradient).attrs((props: ThemeState) => ({
   colors: [rgba(props.theme.PRIMARY_COLOR, 0), props.theme.PRIMARY_COLOR],
@@ -54,7 +55,7 @@ export const ActionButton = styled.TouchableOpacity`
 `;
 
 export const ActionText = styled.Text`
-  font-size: 14px;
+  font-size: ${normalize(14)}px;
   font-family: ${(props: ThemeState) => props.theme.PRIMARY_FONT_FAMILY_BOLD};
   color: ${(props: ThemeState) => props.theme.SECONDARY_COLOR_LIGHT};
   align-self: center;
@@ -125,7 +126,7 @@ export const SpaceLink = styled.View`
 
 export const DiscoverMoreText = styled.Text`
   color: ${(props: ThemeState) => props.theme.PRIMARY_FOREGROUND_COLOR};
-  font-size: 16px;
+  font-size: ${normalize(16)}px;
   margin-left: 15px;
 `;
 

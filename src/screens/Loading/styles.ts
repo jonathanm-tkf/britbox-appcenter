@@ -2,6 +2,7 @@ import styled from 'styled-components/native';
 import { Platform } from 'react-native';
 import { ThemeState } from '@store/modules/theme/types';
 import { getBottomSpace } from 'react-native-iphone-x-helper';
+import { normalize } from '@src/utils/normalize';
 
 export const Container = styled.View`
   flex: 1;
@@ -19,6 +20,6 @@ export const GettingInformation = styled.View`
 
 export const GettingInformationText = styled.Text`
   color: ${(props: ThemeState) => props.theme.PRIMARY_FOREGROUND_COLOR};
-  font-size: ${12}px;
+  font-size: ${normalize(12)}px;
   margin-top: 5px;
 `;

@@ -1,5 +1,6 @@
 import styled from 'styled-components/native';
 import { ThemeState } from '@store/modules/theme/types';
+import { normalize } from '@src/utils/normalize';
 import { ButtonProps, ButtonTextProps } from './props';
 
 export const Button = styled.TouchableOpacity.attrs({
@@ -105,7 +106,7 @@ export const ButtonText = styled.Text`
     return (
       props.size === 'big' &&
       `
-      font-size: 18px;
+      font-size: ${normalize(18)}px;
     `
     );
   }};
@@ -122,7 +123,7 @@ export const ButtonText = styled.Text`
       props.fontWeight === 'bold' &&
       `
       font-family: ${props.theme.PRIMARY_FONT_FAMILY_BOLD};
-      font-size: 18px;
+      font-size: ${normalize(18)}px;
     `
     );
   }};

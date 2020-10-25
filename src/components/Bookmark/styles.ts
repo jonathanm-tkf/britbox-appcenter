@@ -1,5 +1,6 @@
 import styled from 'styled-components/native';
 import { ThemeState } from '@store/modules/theme/types';
+import { normalize } from '@src/utils/normalize';
 
 interface Bold {
   bold?: boolean;
@@ -21,7 +22,7 @@ export const Container = styled.View`
 `;
 
 export const Text = styled.Text`
-  font-size: 7px;
+  font-size: ${normalize(7)}px;
   color: ${(props: ThemeState) => props.theme.PRIMARY_FOREGROUND_COLOR};
   font-family: ${(props: ThemeState) => props.theme.PRIMARY_FONT_FAMILY_MEDIUM};
   text-transform: uppercase;

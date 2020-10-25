@@ -1,6 +1,8 @@
 import styled from 'styled-components/native';
 import { getBottomSpace } from 'react-native-iphone-x-helper';
 import { ThemeState } from '@store/modules/theme/types';
+import { normalize } from '@src/utils/normalize';
+
 import {
   Title as TitleC,
   Paragraph as ParagraphC,
@@ -54,7 +56,7 @@ export const FilterButton = styled.TouchableOpacity`
   flex-direction: row;
   position: absolute;
   height: 50px;
-  line-height: 50px;
+  line-height: ${normalize(50)}px;
   right: 10px;
   top: 0;
   justify-content: center;

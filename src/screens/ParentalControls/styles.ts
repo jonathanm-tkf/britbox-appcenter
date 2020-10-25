@@ -3,6 +3,7 @@ import { ThemeState } from '@store/modules/theme/types';
 import LinearGradient from 'react-native-linear-gradient';
 import { UnLockIcon, LockIcon } from '@assets/icons';
 import { getBottomSpace } from 'react-native-iphone-x-helper';
+import { normalize } from '@src/utils/normalize';
 
 export const Container = styled.View`
   flex: 1;
@@ -33,7 +34,7 @@ export const PasswordContainer = styled.View`
 
 export const Title = styled.Text`
   color: ${(props: ThemeState) => props.theme.PRIMARY_FOREGROUND_COLOR};
-  font-size: 26px;
+  font-size: ${normalize(26)}px;
   font-weight: 700;
   text-align: center;
   font-family: ${(props: ThemeState) => props.theme.PRIMARY_FONT_FAMILY_MEDIUM};
@@ -42,7 +43,7 @@ export const Title = styled.Text`
 export const SubTitle = styled.Text`
   margin-top: 30px;
   color: ${(props: ThemeState) => props.theme.PRIMARY_FOREGROUND_COLOR};
-  font-size: 26px;
+  font-size: ${normalize(26)}px;
   font-weight: 600;
   text-align: center;
   font-family: ${(props: ThemeState) => props.theme.PRIMARY_FONT_FAMILY};
@@ -61,7 +62,7 @@ export const FooterTitle = styled.Text`
   margin-top: 10px;
   margin-bottom: 20px;
   color: ${(props: ThemeState) => props.theme.PRIMARY_FOREGROUND_COLOR};
-  font-size: 20px;
+  font-size: ${normalize(20)}px;
   font-weight: 700;
   text-align: center;
   font-family: ${(props: ThemeState) => props.theme.PRIMARY_FONT_FAMILY_MEDIUM};
@@ -70,7 +71,7 @@ export const FooterTitle = styled.Text`
 export const LinkTitle = styled.Text`
   margin-bottom: 10px;
   color: ${(props: ThemeState) => props.theme.SECONDARY_COLOR};
-  font-size: 15px;
+  font-size: ${normalize(15)}px;
   text-align: center;
   font-family: ${(props: ThemeState) => props.theme.PRIMARY_FONT_FAMILY_MEDIUM};
 `;
@@ -88,7 +89,7 @@ export const Paragraph = styled.Text`
   margin-bottom: 20px;
   padding-left: 10px;
   padding-right: 10px;
-  font-size: 15px;
+  font-size: ${normalize(15)}px;
   color: ${(props: ThemeState) => props.theme.PRIMARY_FOREGROUND_COLOR};
   font-family: ${(props: ThemeState) => props.theme.PRIMARY_FONT_FAMILY_MEDIUM};
 `;
@@ -125,7 +126,7 @@ export const RowLeftContainer = styled.TouchableOpacity.attrs({
 
 export const RowLeftTitle = styled.Text`
   text-align: center;
-  font-size: 16px;
+  font-size: ${normalize(16)}px;
   color: ${(props: ThemeState) => props.theme.PRIMARY_FOREGROUND_COLOR};
   font-family: ${(props: ThemeState) => props.theme.PRIMARY_FONT_FAMILY_MEDIUM};
 `;
@@ -156,13 +157,13 @@ export const BtnContainer = styled.View`
 
 export const BtnText = styled.Text`
   text-align: center;
-  font-size: 10px;
+  font-size: ${normalize(10)}px;
   color: ${(props: ThemeState) => props.theme.PRIMARY_FOREGROUND_COLOR};
   font-family: ${(props: ThemeState) => props.theme.PRIMARY_FONT_FAMILY_MEDIUM};
 `;
 
 export const TableRightText = styled.Text`
-  font-size: 13px;
+  font-size: ${normalize(13)}px;
   font-weight: 600;
   padding-left: 15px;
   padding-right: 15px;
@@ -192,7 +193,7 @@ export const PINErrorText = styled.Text`
   padding-bottom: 40px;
   color: #c0424e;
   font-family: ${(props: ThemeState) => props.theme.PRIMARY_FONT_FAMILY};
-  font-size: 14px;
+  font-size: ${normalize(14)}px;
   text-align: center;
 `;
 

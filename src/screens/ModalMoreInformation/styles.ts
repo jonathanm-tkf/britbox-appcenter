@@ -3,6 +3,7 @@ import { ThemeState } from '@store/modules/theme/types';
 import { Paragraph as ParagraphC, Headline as HeadlineC } from '@components/Typography';
 import { getStatusBarHeight } from 'react-native-iphone-x-helper';
 import { Animated, Platform } from 'react-native';
+import { normalize } from '@src/utils/normalize';
 
 export const Container = styled.SafeAreaView`
   flex: 1;
@@ -39,7 +40,7 @@ export const CreditsItem = styled.View`
 export const CreditsText = styled.Text`
   color: ${(props: ThemeState) => props.theme.PRIMARY_FOREGROUND_COLOR};
   text-transform: capitalize;
-  line-height: 20px;
+  line-height: ${normalize(20)}px;
   width: 55%;
 `;
 
@@ -68,12 +69,12 @@ export const Button = styled.TouchableOpacity`
 export const TopText = styled.Text`
   font-family: ${(props: ThemeState) => props.theme.PRIMARY_FONT_FAMILY_MEDIUM};
   color: ${(props: ThemeState) => props.theme.PRIMARY_FOREGROUND_COLOR};
-  font-size: 12px;
+  font-size: ${normalize(12)}px;
   text-transform: uppercase;
   top: ${Platform.OS === 'ios' ? getStatusBarHeight() : 0}px;
   width: 100%;
   height: 50px;
-  line-height: 50px;
+  line-height: ${normalize(50)}px;
   position: absolute;
   z-index: 1;
   text-align: center;

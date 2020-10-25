@@ -4,6 +4,7 @@ import { Platform } from 'react-native';
 import { getStatusBarHeight } from 'react-native-iphone-x-helper';
 import LinearGradient from 'react-native-linear-gradient';
 import { rgba } from 'polished';
+import { normalize } from '@src/utils/normalize';
 import LogoBritbox from '../../../assets/images/Logo.svg';
 
 export const Container = styled.View`
@@ -43,7 +44,7 @@ export const CenterWrapper = styled.View`
 
 export const Title = styled.Text`
   color: ${(props: ThemeState) => props.theme.PRIMARY_FOREGROUND_COLOR};
-  font-size: 26px;
+  font-size: ${normalize(26)}px;
   font-weight: 600;
   text-align: center;
   margin-top: 24px;

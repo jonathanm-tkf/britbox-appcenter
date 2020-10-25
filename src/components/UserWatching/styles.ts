@@ -1,5 +1,6 @@
 import styled from 'styled-components/native';
 import { ThemeState } from '@store/modules/theme/types';
+import { normalize } from '@src/utils/normalize';
 
 export const Container = styled.View`
   margin-top: 10px;
@@ -23,8 +24,8 @@ interface ItemText {
 export const TabHeaderItemText = styled.Text`
   color: ${(props: ThemeState) => props.theme.PRIMARY_FOREGROUND_COLOR};
   font-family: ${(props: ThemeState) => props.theme.PRIMARY_FONT_FAMILY_MEDIUM};
-  font-size: 18px;
-  line-height: 36px;
+  font-size: ${normalize(18)}px;
+  line-height: ${normalize(36)}px;
   ${(props: ItemText & ThemeState) => {
     return props.active ? `opacity: 1;` : `opacity: 0.6`;
   }};

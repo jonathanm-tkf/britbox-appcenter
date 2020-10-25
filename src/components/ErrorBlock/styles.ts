@@ -1,9 +1,10 @@
 import styled from 'styled-components/native';
 import { ThemeState } from '@store/modules/theme/types';
+import { normalize } from '@src/utils/normalize';
 
 export const ErrorText = styled.Text`
   color: ${(props: ThemeState) => props.theme.PRIMARY_FOREGROUND_COLOR};
-  font-size: 16px;
+  font-size: ${normalize(16)}px;
   padding-left: 10px;
   padding-right: 10px;
   padding-top: 12px;

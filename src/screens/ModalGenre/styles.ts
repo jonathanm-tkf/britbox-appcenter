@@ -1,6 +1,7 @@
 import styled from 'styled-components/native';
 import { ThemeState } from '@store/modules/theme/types';
 import { FlatList as RNFlatList } from 'react-native';
+import { normalize } from '@src/utils/normalize';
 
 export const Container = styled.SafeAreaView`
   flex: 1;
@@ -39,11 +40,11 @@ export const SeasonItemTextWrapper = styled.View`
 export const SeasonItemText = styled.Text`
   color: ${(props: ThemeState) => props.theme.PRIMARY_FOREGROUND_COLOR};
   font-family: ${(props: ThemeState) => props.theme.PRIMARY_FONT_FAMILY};
-  font-size: 24px;
-  line-height: 48px;
+  font-size: ${normalize(24)}px;
+  line-height: ${normalize(48)}px;
 
   ${(props: SeasonItemTextProps & ThemeState) => {
-    return props.active ? `opacity: 1; font-size: 28px;` : `opacity: 0.6;`;
+    return props.active ? `opacity: 1; font-size: ${normalize(28)}px;` : `opacity: 0.6;`;
   }};
 `;
 
@@ -63,7 +64,7 @@ export const Indicator = styled.View`
 export const GenreTitle = styled.Text`
   font-family: ${(props: ThemeState) => props.theme.PRIMARY_FONT_FAMILY_MEDIUM};
   color: ${(props: ThemeState) => props.theme.PRIMARY_FOREGROUND_COLOR};
-  font-size: 14px;
+  font-size: ${normalize(14)}px;
   text-align: center;
   margin-bottom: 20px;
 `;

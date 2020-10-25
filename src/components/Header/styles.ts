@@ -1,7 +1,6 @@
 import styled from 'styled-components/native';
 import { ThemeState } from '@store/modules/theme/types';
-import { FlatList, Platform, Dimensions } from 'react-native';
-import { getStatusBarHeight } from 'react-native-iphone-x-helper';
+import { FlatList, Dimensions } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import { rgba } from 'polished';
 import LogoBritbox from '../../../assets/images/Logo.svg';
@@ -15,7 +14,6 @@ export const Container = styled.View`
   justify-content: space-between;
   align-items: center;
   padding: 0 0 0 30px;
-  /* margin-top: ${`${Platform.OS === 'ios' ? getStatusBarHeight() : 0}px`}; */
   flex-direction: row;
 `;
 

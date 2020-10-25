@@ -1,5 +1,6 @@
 import styled from 'styled-components/native';
 import { ThemeState } from '@store/modules/theme/types';
+import { normalize } from '@src/utils/normalize';
 
 export const Container = styled.View`
   background-color: ${(props: ThemeState) => props.theme.PRIMARY_COLOR};
@@ -28,7 +29,7 @@ export const SeasonText = styled.Text`
   color: ${(props: ThemeState) => props.theme.SECONDARY_COLOR_LIGHT};
   font-family: ${(props: ThemeState) => props.theme.PRIMARY_FONT_FAMILY_MEDIUM};
   margin-right: 10px;
-  font-size: 16px;
+  font-size: ${normalize(16)}px;
 `;
 
 export const InformationButton = styled.TouchableOpacity`

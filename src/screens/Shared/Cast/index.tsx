@@ -26,6 +26,7 @@ import { PostMessage } from '@src/utils/videoPlayerRef';
 import { useNavigation } from '@react-navigation/native';
 import { CoreState } from '@store/modules/core/types';
 import { navigateByPath, navigationRef, pop } from '@src/navigation/rootNavigation';
+import { getTextInConfigJSON } from '@src/utils/object';
 import {
   FABView,
   CastButton,
@@ -82,6 +83,7 @@ const Cast = () => {
         }
 
         if (event === 'SESSION_STARTED') {
+          GoogleCast.initChannel('urn:x-cast:com.reactnative.googlecast.britbox');
           dispatch(castOn());
           timer();
 
@@ -92,9 +94,8 @@ const Cast = () => {
           }
         }
 
-        if (event === 'MEDIA_PLAYBACK_STARTED') {
-          GoogleCast.initChannel('urn:x-cast:com.reactnative.googlecast.britbox');
-        }
+        // if (event === 'MEDIA_PLAYBACK_STARTED') {
+        // }
 
         if (event === 'SESSION_ENDED') {
           dispatch(castingOff());
@@ -114,13 +115,24 @@ const Cast = () => {
     });
 
     GoogleCast.EventEmitter.addListener(GoogleCast.CHANNEL_MESSAGE_RECEIVED, ({ message }) => {
-      // console.tron.log({ message });
+      const { eventError } = JSON.parse(message) || {};
+
+      if (eventError) {
+        const { detailedErrorCode } = eventError;
+        if (detailedErrorCode === 905) {
+          dispatch(castVideoPlayerDetailClear());
+          dispatch(castVideoPlayerDetailClear());
+          dispatch(setCastState('error'));
+        }
+
+        return;
+      }
+
       const { id } = getCoreCastDetail();
       const {
         mediaMetadata,
         mediaCustomData: { itemVideoMassiveId },
       } = JSON.parse(message) || {};
-
       if (id !== itemVideoMassiveId) {
         dispatch(castDetailAction({ id: itemVideoMassiveId, ...mediaMetadata }));
       }
@@ -228,7 +240,7 @@ const Cast = () => {
               casting ? GoogleCast.launchExpandedControls() : GoogleCast.showCastPicker()
             }
           >
-            {castDetail?.images && (
+            {castDetail?.images && castState !== 'error' && (
               <MiniImage
                 source={{
                   uri: castDetail?.images
@@ -239,7 +251,9 @@ const Cast = () => {
             )}
             <MiniWrapperText>
               <MiniTitle>
-                {castState === 'loaded' || casting
+                {castState === 'error'
+                  ? getTextInConfigJSON(['chromecast', 'error-couldnt-play'], '')
+                  : castState === 'loaded' || casting
                   ? castDetail?.title
                   : castState === 'loading'
                   ? t('loading')
