@@ -369,7 +369,9 @@ const SignUpSubscription = () => {
                               >
                                 {htmlEntities.decode(item?.currencySymbol)}
                                 {item?.retailPrice}{' '}
-                                <Text style={{ fontWeight: 'normal' }}>/ {item?.period}</Text>
+                                <Text style={{ fontWeight: 'normal' }}>
+                                  / {item?.period?.replace('(s)', '')}
+                                </Text>
                               </DescriptionText>
                               <DescriptionText
                                 style={[textLeft, { marginBottom: 10, fontSize: 12 }]}
