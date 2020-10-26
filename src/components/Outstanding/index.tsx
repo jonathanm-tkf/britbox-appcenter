@@ -3,6 +3,7 @@ import { Dimensions } from 'react-native';
 import { Logo } from '@assets/icons';
 import { fill } from 'lodash';
 import SwiperFlatList from 'react-native-swiper-flatlist';
+import { isTablet } from 'react-native-device-info';
 import {
   Gradient,
   LogoWrapper,
@@ -72,11 +73,20 @@ const Outstanding = ({ items, onPlay, onWatchlist, onDiscoverMore }: Props) => {
     return () => Dimensions.removeEventListener('change', onChange);
   });
 
+  const stylesAspectRatio = {
+    width: screenData.width,
+    height: isTablet() ? undefined : screenData.width,
+    aspectRatio: isTablet() ? 16 / 9 : 1,
+  };
+
   return (
     <Wrapper>
       <SwiperFlatList
         index={0}
-        style={{ width: screenData.width, height: screenData.width + ACTIONS_HEIGHT }}
+        style={{
+          width: screenData.width,
+          height: isTablet() ? undefined : screenData.width + ACTIONS_HEIGHT,
+        }}
         onChangeIndex={({ index }) => setActiveIndex(index)}
         disableVirtualization={false}
         removeClippedSubviews
@@ -84,12 +94,7 @@ const Outstanding = ({ items, onPlay, onWatchlist, onDiscoverMore }: Props) => {
         renderItem={({ item }) => (
           <Wrapper>
             <WrapperButton onPress={() => (onDiscoverMore ? onDiscoverMore(item) : {})}>
-              <ImageWrapper
-                style={{
-                  width: screenData.width,
-                  height: screenData.width,
-                }}
-              >
+              <ImageWrapper style={stylesAspectRatio}>
                 {item.url === 'no-image' ? (
                   <LogoWrapper>
                     <Logo width="80%" />

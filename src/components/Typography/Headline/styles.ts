@@ -14,9 +14,9 @@ interface HeadlineComponentProps {
 
 export const HeadlineComponent = styled(Headline)`
   color: ${(props: ThemeState) => props.theme.PRIMARY_FOREGROUND_COLOR};
-  font-size: ${normalize(20)}px;
+  font-size: ${normalize(16, 20)}px;
   font-family: ${(props: ThemeState) => props.theme.PRIMARY_FONT_FAMILY_MEDIUM};
-  line-height: ${normalize(38)}px;
+  line-height: ${normalize(32, 38)}px;
 
   ${(props: HeadlineComponentProps & ThemeState) => {
     return (

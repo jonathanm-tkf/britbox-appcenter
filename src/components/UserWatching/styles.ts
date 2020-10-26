@@ -24,8 +24,8 @@ interface ItemText {
 export const TabHeaderItemText = styled.Text`
   color: ${(props: ThemeState) => props.theme.PRIMARY_FOREGROUND_COLOR};
   font-family: ${(props: ThemeState) => props.theme.PRIMARY_FONT_FAMILY_MEDIUM};
-  font-size: ${normalize(18)}px;
-  line-height: ${normalize(36)}px;
+  font-size: ${normalize(14, 18)}px;
+  line-height: ${normalize(32, 36)}px;
   ${(props: ItemText & ThemeState) => {
     return props.active ? `opacity: 1;` : `opacity: 0.6`;
   }};

@@ -22,7 +22,7 @@ export const Container = styled.View`
 `;
 
 export const Text = styled.Text`
-  font-size: ${normalize(7)}px;
+  font-size: ${normalize(5, 8)}px;
   color: ${(props: ThemeState) => props.theme.PRIMARY_FOREGROUND_COLOR};
   font-family: ${(props: ThemeState) => props.theme.PRIMARY_FONT_FAMILY_MEDIUM};
   text-transform: uppercase;

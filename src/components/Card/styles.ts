@@ -91,7 +91,7 @@ export const TextWrapper = styled.View`
     return (
       (props.category || props.isEpisode) &&
       `
-      height: 85px;
+      height: 90px;
     `
     );
   }};
@@ -111,8 +111,8 @@ export const Title = styled.Text.attrs({
   color: ${(props: ThemeState) => props.theme.PRIMARY_FOREGROUND_COLOR};
   font-family: ${(props: ThemeState) => props.theme.PRIMARY_FONT_FAMILY_MEDIUM};
   margin-bottom: 2px;
-  font-size: ${normalize(14)}px;
-  line-height: ${normalize(24)}px;
+  font-size: ${normalize(11, 14)}px;
+  line-height: ${normalize(21, 24)}px;
 `;
 
 export const Description = styled.Text.attrs({
@@ -120,7 +120,7 @@ export const Description = styled.Text.attrs({
 })`
   color: ${(props: ThemeState) => props.theme.PRIMARY_FOREGROUND_COLOR};
   opacity: 0.5;
-  font-size: ${normalize(12)}px;
+  font-size: ${normalize(10, 12)}px;
   margin-top: 2px;
 `;
 
@@ -137,8 +137,8 @@ export const ActionWrapper = styled.View`
 
 export const ActionText = styled.Text`
   color: ${(props: ThemeState) => props.theme.SECONDARY_COLOR_LIGHT};
-  font-size: ${normalize(10)}px;
-  line-height: ${normalize(24)}px;
+  font-size: ${normalize(8, 10)}px;
+  line-height: ${normalize(22, 24)}px;
   margin-left: 2px;
   font-family: ${(props: ThemeState) => props.theme.PRIMARY_FONT_FAMILY_MEDIUM};
 `;
@@ -216,8 +216,8 @@ export const ImageWrapper = styled.View`
 export const SummaryText = styled.Text`
   font-family: ${(props: ThemeState) => props.theme.PRIMARY_FONT_FAMILY_LIGHT};
   color: ${(props: ThemeState) => props.theme.PRIMARY_FOREGROUND_COLOR};
-  font-size: ${normalize(12)}px;
-  line-height: ${normalize(16)}px;
+  font-size: ${normalize(9, 12)}px;
+  line-height: ${normalize(12, 16)}px;
   margin-top: 15px;
 `;
 

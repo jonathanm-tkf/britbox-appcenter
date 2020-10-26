@@ -6,7 +6,7 @@ export const Container = styled.View``;
 
 export const DiscoverMoreText = styled.Text`
   color: ${(props: ThemeState) => props.theme.PRIMARY_FOREGROUND_COLOR};
-  font-size: ${normalize(16)}px;
+  font-size: ${normalize(12, 16)}px;
   margin-left: 15px;
 `;
 
@@ -36,7 +36,7 @@ export const ActionButton = styled.TouchableOpacity`
 `;
 
 export const ActionText = styled.Text`
-  font-size: ${normalize(14)}px;
+  font-size: ${normalize(12, 14)}px;
   font-family: ${(props: ThemeState) => props.theme.PRIMARY_FONT_FAMILY_BOLD};
   color: ${(props: ThemeState) => props.theme.SECONDARY_COLOR_LIGHT};
   align-self: center;

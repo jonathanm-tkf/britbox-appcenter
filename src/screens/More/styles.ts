@@ -57,7 +57,7 @@ export const SeparatorLine = styled.View`
 
 export const ItemTitle = styled.Text`
   color: ${(props: ThemeState) => props.theme.PRIMARY_FOREGROUND_COLOR};
-  font-size: ${normalize(20)}px;
+  font-size: ${normalize(18)}px;
   padding-top: 5px;
   padding-bottom: 5px;
   opacity: 0.6;

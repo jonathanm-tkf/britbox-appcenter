@@ -8,6 +8,7 @@ import { AppState } from '@store/modules/rootReducer';
 import { useSelector } from 'react-redux';
 import { ActivityIndicator } from 'react-native';
 import { MassiveSDKModelItemList } from '@src/sdks/Britbox.API.Content.TS/api';
+import { isTablet } from 'react-native-device-info';
 import { Actions, ActionButton, DiscoverMoreText, ActionText, Container } from './styles';
 
 interface Props {
@@ -49,17 +50,26 @@ const ActionsComponent = ({ item, onDiscoverMore, onPlay, onWatchlist }: Props) 
             >
               {bookmarkPendingProccesing ===
               (item.type === 'season' ? item?.showId || '0' : item?.id || '0') ? (
-                <ActivityIndicator size={32} color="#FFFF" />
+                <ActivityIndicator size={isTablet() ? 42 : 32} color="#FFFF" />
               ) : getIsInWatchlist(
                   item.type === 'season' ? item?.showId || '0' : item?.id || '0'
                 ) ? (
-                <CheckedIcon fill="#FFFFFF" width={32} height={32} />
+                <CheckedIcon
+                  fill="#FFFFFF"
+                  width={isTablet() ? 42 : 32}
+                  height={isTablet() ? 42 : 32}
+                />
               ) : (
-                <WatchlistIcon width={32} height={32} />
+                <WatchlistIcon width={isTablet() ? 42 : 32} height={isTablet() ? 42 : 32} />
               )}
             </ActionButton>
             <ActionButton onPress={() => (onPlay ? onPlay(item) : {})}>
-              <Action autoPlay loop width={100} height={100} />
+              <Action
+                autoPlay
+                loop
+                width={isTablet() ? 130 : 100}
+                height={isTablet() ? 130 : 100}
+              />
             </ActionButton>
           </>
         )}
@@ -67,7 +77,7 @@ const ActionsComponent = ({ item, onDiscoverMore, onPlay, onWatchlist }: Props) 
           link={item.type === 'link'}
           onPress={() => (onDiscoverMore ? onDiscoverMore(item) : {})}
         >
-          <DiscoverMoreIcon width={32} height={32} />
+          <DiscoverMoreIcon width={isTablet() ? 42 : 32} height={isTablet() ? 42 : 32} />
           {item.type === 'link' && <DiscoverMoreText>{t('discover')}</DiscoverMoreText>}
         </ActionButton>
       </Actions>

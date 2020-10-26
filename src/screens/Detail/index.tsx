@@ -89,6 +89,11 @@ const getIsCast = () => {
   return layout.cast;
 };
 
+const isContentSheet = () => {
+  const { layout }: { layout: LayoutState } = store.getState();
+  return layout.sheet.height > 0;
+};
+
 interface CellProps {
   index: number;
   symbol: string;
@@ -339,7 +344,7 @@ const Detail = () => {
   };
 
   const onPlay = async (episode?: any, playPosition?: number) => {
-    if (!user.profile?.canStream || false) {
+    if ((!user.profile?.canStream || false) && isContentSheet()) {
       dispatch(showSheetBottom({ canStream: false }));
       showSheet();
       return false;

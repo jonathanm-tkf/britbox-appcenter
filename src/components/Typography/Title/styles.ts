@@ -19,7 +19,7 @@ export const TitleComponent = styled(Title)`
     return (
       props.fontSize &&
       `
-      font-size: ${nomalize(props.fontSize)}px;
+      font-size: ${normalize(props.fontSize)}px;
     `
     );
   }};

@@ -89,7 +89,7 @@ const Tabs = ({ data, onScrollTo, onLayout, autoPlay, onPlay }: Props) => {
   );
 
   useEffect(() => {
-    dispatch(sheetComponent(350, () => renderBottomContent()));
+    dispatch(sheetComponent(380, () => renderBottomContent()));
 
     return () => {
       dispatch(sheetComponent(0, () => <></>));

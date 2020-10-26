@@ -22,6 +22,7 @@ import { LayoutState } from '@store/modules/layout/types';
 import { continueWatchingRemoveRequest, watchlistToggleRequest } from '@store/modules/user/actions';
 import { hideSheet, showSheet } from '@src/utils/sheetBottom';
 import { useIsFocused } from '@react-navigation/native';
+import { isTablet } from 'react-native-device-info';
 import { BottomSheetWrapper, Headline } from './styles';
 
 const getItemId = () => {
@@ -260,8 +261,8 @@ const ContinueWatching = () => {
                 showCategory
                 showProgress
                 progress={getProgress(card.original)}
-                width={157}
-                height={107}
+                width={isTablet() ? 200 : 157}
+                height={isTablet() ? 112 : 88}
                 url={card.url}
                 data={card.data}
                 actionText={card?.data?.actionText}
@@ -289,8 +290,8 @@ const ContinueWatching = () => {
             renderItem={({ item: card }) => (
               <Card
                 isWatchlist
-                width={122}
-                height={162}
+                width={isTablet() ? 140 : 122}
+                height={isTablet() ? 180 : 162}
                 url={card.url}
                 onPress={() =>
                   (card.original?.list?.title || '') !== 'loading'

@@ -1,13 +1,51 @@
-import { Dimensions, Platform, PixelRatio } from 'react-native';
+import { PixelRatio, Dimensions } from 'react-native';
+import { isTablet } from 'react-native-device-info';
 
-const { width } = Dimensions.get('window');
+const ratio = PixelRatio.get();
 
-const scale = width / 375;
+export const normalize = (sizeMobile: number, sizeTablet?: number) => {
+  const size = isTablet() ? sizeTablet || sizeMobile : sizeMobile;
+  const { width, height } = Dimensions.get('window');
 
-export const normalize = (size: number) => {
-  const newSize = size * scale;
-  if (Platform.OS === 'ios') {
-    return Math.round(PixelRatio.roundToNearestPixel(newSize));
+  if (ratio >= 2 && ratio < 3) {
+    if (width < 360) {
+      return size * 0.95;
+    }
+    if (height < 667) {
+      return size;
+    }
+    if (height >= 667 && height <= 735) {
+      return size * 1.15;
+    }
+
+    return size * 1.25;
   }
-  return Math.round(PixelRatio.roundToNearestPixel(newSize)) - 2;
+  if (ratio >= 3 && ratio < 3.5) {
+    if (width < 360) {
+      return size;
+    }
+    if (height < 667) {
+      return size * 1.15;
+    }
+    if (height >= 667 && height <= 735) {
+      return size * 1.2;
+    }
+
+    return size * 1.27;
+  }
+  if (ratio >= 3.5) {
+    if (width < 360) {
+      return size;
+    }
+    if (height < 667) {
+      return size * 1.2;
+    }
+    if (height >= 667 && height <= 735) {
+      return size * 1.25;
+    }
+
+    return size * 1.4;
+  }
+
+  return size;
 };

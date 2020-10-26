@@ -64,7 +64,7 @@ export default function More() {
           <RowContainer>
             <ProfileImageIconView />
             <RowContent>
-              <Title>{user?.profile?.firstName || ''}</Title>
+              <Title fontSize={20}>{user?.profile?.firstName || ''}</Title>
               <RowViewContainer>
                 <EditIconContainer
                   onPress={() => {
