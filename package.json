@@ -52,6 +52,7 @@
     "react-native-gesture-handler": "^1.8.0",
     "react-native-google-cast": "^3.3.0",
     "react-native-highlight-words": "^1.0.1",
+    "react-native-home-indicator": "^0.2.6",
     "react-native-iap": "^4.6.1",
     "react-native-interactable-reanimated": "^0.0.8",
     "react-native-iphone-x-helper": "^1.2.1",

@@ -46,6 +46,7 @@ import { refreshTokenWithExpiresIn } from '@src/services/token';
 import Orientation from 'react-native-orientation-locker';
 import { immersiveModeOff } from 'react-native-android-immersive-mode';
 import { isTablet } from 'react-native-device-info';
+import { HomeIndicator } from 'react-native-home-indicator';
 import {
   Container,
   Scroll,
@@ -470,6 +471,7 @@ const Detail = () => {
   };
   return (
     <Container paddingBottom={cast ? 152 : 64}>
+      <HomeIndicator autoHidden={false} />
       <TopWrapper>
         <Button onPress={() => back()}>
           <BackIcon width={20} height={20} />

@@ -7,6 +7,7 @@
 #import "Orientation.h"
 #import <GoogleCast/GoogleCast.h>
 #import <React/RCTLinkingManager.h>
+#import <RNHomeIndicator.h>
 
 #ifdef FB_SONARKIT_ENABLED
 #import <FlipperKit/FlipperClient.h>
@@ -47,15 +48,15 @@ static void InitializeFlipper(UIApplication *application) {
   rootView.backgroundColor = [UIColor colorWithRed: 0.09 green: 0.11 blue: 0.14 alpha: 1.00];
 
   self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
-  UIViewController *rootViewController = [UIViewController new];
+  UIViewController *rootViewController = [HomeIndicatorViewController new];
   rootViewController.view = rootView;
   self.window.rootViewController = rootViewController;
   [self.window makeKeyAndVisible];
-  
+
   UIStoryboard *sb = [UIStoryboard storyboardWithName:@"LaunchScreen" bundle:nil];
   UIViewController *vc = [sb instantiateInitialViewController];
   rootView.loadingView = vc.view;
-  
+
   GCKDiscoveryCriteria *criteria = [[GCKDiscoveryCriteria alloc] initWithApplicationID:@"01F2D9B4"];
   GCKCastOptions* options = [[GCKCastOptions alloc] initWithDiscoveryCriteria:criteria];
   options.physicalVolumeButtonsWillControlDeviceVolume = YES;

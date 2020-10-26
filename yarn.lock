@@ -11962,6 +11962,11 @@ react-native-highlight-words@^1.0.1:
     highlight-words-core "^1.0.3"
     prop-types "^15.5.7"
 
+react-native-home-indicator@^0.2.6:
+  version "0.2.6"
+  resolved "https://registry.yarnpkg.com/react-native-home-indicator/-/react-native-home-indicator-0.2.6.tgz#5e249e4c9cdb965568ec50ab19ba7e349af263af"
+  integrity sha512-MmNKWg0bLC5sGyxcyOEpRij4ip2EFWdxZ6FeaFSlDGkC3CPsa4eY5gHG6qh0SULG2nkjGx/c2+Q9xTKWSeYErw==
+
 react-native-iap@^4.6.1:
   version "4.6.1"
   resolved "https://registry.yarnpkg.com/react-native-iap/-/react-native-iap-4.6.1.tgz#4058bb75b638881b35f5be0d12b68fd12a397d1c"

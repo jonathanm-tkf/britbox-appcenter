@@ -16,6 +16,7 @@ import { PostMessage, webViewRef } from '@src/utils/videoPlayerRef';
 import GoogleCast, { CastButton } from 'react-native-google-cast';
 import { continueWatchingRequest } from '@store/modules/user/actions';
 import { Config } from '@src/utils/config';
+import { HomeIndicator } from 'react-native-home-indicator';
 import { ChromecastWrapper } from './styles';
 
 const { width, height } = Dimensions.get('window');
@@ -133,6 +134,7 @@ const VideoPlayer = () => {
         alignItems: 'center',
       }}
     >
+      <HomeIndicator autoHidden />
       {token && (
         <WebView
           ref={webViewRef}
