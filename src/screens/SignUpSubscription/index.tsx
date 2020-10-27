@@ -128,6 +128,7 @@ const SignUpSubscription = () => {
   useEffect(() => {
     if (packageData) {
       changePackageName();
+      setErrorMsg('');
     }
   }, [packageData, packageIndex]);
 
@@ -359,6 +360,7 @@ const SignUpSubscription = () => {
                         return (
                           <RadioBox
                             key={index}
+                            disabled={loading}
                             onPress={() => setPackageIndex(index)}
                             style={packageIndex === index && activeRadio}
                           >

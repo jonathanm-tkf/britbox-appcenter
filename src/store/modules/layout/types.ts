@@ -32,6 +32,7 @@ export enum LayoutActionTypes {
   RETRY_TIMES = '@layout/RETRY_TIMES',
   ERROR_CONFIG = '@layout/ERROR_CONFIG',
   FINISHED_CONFIGURATION = '@layout/FINISHED_CONFIGURATION',
+  TOGGLE_MINI_CONTROLLER = '@layout/TOGGLE_MINI_CONTROLLER',
 }
 
 /**
@@ -60,6 +61,7 @@ export interface LayoutState {
   welcomeMessage: boolean;
   finishedConfiguration: boolean;
   page: string | undefined;
+  isShowMiniController: boolean;
 }
 
 export interface MediaSelectorResponse {

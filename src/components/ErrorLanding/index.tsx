@@ -21,18 +21,18 @@ const ErrorLanding = ({ onPress, out = false }: Props) => {
       </LogoContainer>
       <Headline fontSize={28} lineHeight={40} center>
         {!out
-          ? t('error.subtitle')
+          ? getTextInConfigJSON(['error-page', 'message-2'], t('error.subtitle'))
           : getGlobalTextInConfigJSON(['out-of-region', 'message'], t('errorOut.subtitle'))}
       </Headline>
       {!out ? (
         <>
           <Opaque>
             <Paragraph fontSize={16} lineHeight={22}>
-              {t('error.description')}
+              {getTextInConfigJSON(['error-page', 'message-2'], t('error.description'))}
             </Paragraph>
           </Opaque>
           <Button size="big" stretch fontWeight="medium" onPress={onPress}>
-            {t('error.button')}
+            {getTextInConfigJSON(['error-page', 'ctas', '0'], t('error.button'))}
           </Button>
         </>
       ) : (

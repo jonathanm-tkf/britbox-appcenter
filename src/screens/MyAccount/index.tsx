@@ -68,6 +68,7 @@ export default function MyAccount() {
   const { navigate } = useNavigation();
   const user = useSelector((state: AppState) => state.user);
   const theme = useSelector((state: AppState) => state.theme.theme);
+  const isShowMiniController = useSelector((state: AppState) => state.layout.isShowMiniController);
 
   const error = {
     text: ' ',
@@ -79,7 +80,7 @@ export default function MyAccount() {
 
   const tabBottomView = () => (
     <Gradient>
-      <Wrapper>
+      <Wrapper isShowMiniController={isShowMiniController}>
         <FooterTitle>{getTextInConfigJSON(['customer-service', 'title'], '')}</FooterTitle>
         <LinkTitle
           onPress={() =>

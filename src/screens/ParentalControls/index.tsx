@@ -89,6 +89,7 @@ export default function ParentalControls() {
   const [multiSliderValue, setMultiSliderValue] = useState(0);
   const theme = useSelector((state: AppState) => state.theme.theme);
   const user = useSelector((state: AppState) => state.user);
+  const isShowMiniController = useSelector((state: AppState) => state.layout.isShowMiniController);
 
   const activeContainer = {
     backgroundColor: 'white',
@@ -388,7 +389,7 @@ export default function ParentalControls() {
 
   const tabBottomView = () => (
     <Gradient>
-      <Wrapper>
+      <Wrapper isShowMiniController={isShowMiniController}>
         <FooterTitle>{getTextInConfigJSON(['customer-service', 'title'], '')}</FooterTitle>
         <LinkTitle
           onPress={() =>
@@ -526,7 +527,7 @@ export default function ParentalControls() {
                 </RowLeftContainer>
                 <RowContent>
                   <TableBtnContainer>
-                    {getTextInConfigJSON(['parental-controls', 'levels', '1', 'labels'], '')?.map(
+                    {getTextInConfigJSON(['parental-controls', 'levels', '1', 'labels'], [])?.map(
                       (item: string, index: number) => (
                         <BtnContainer key={index.toString()}>
                           <BtnText>{item}</BtnText>
@@ -551,7 +552,7 @@ export default function ParentalControls() {
                 </RowLeftContainer>
                 <RowContent>
                   <TableBtnContainer>
-                    {getTextInConfigJSON(['parental-controls', 'levels', '2', 'labels'], '')?.map(
+                    {getTextInConfigJSON(['parental-controls', 'levels', '2', 'labels'], [])?.map(
                       (item: string, index: number) => (
                         <BtnContainer key={index.toString()}>
                           <BtnText>{item}</BtnText>
@@ -576,7 +577,7 @@ export default function ParentalControls() {
                 </RowLeftContainer>
                 <RowContent>
                   <TableBtnContainer>
-                    {getTextInConfigJSON(['parental-controls', 'levels', '3', 'labels'], '')?.map(
+                    {getTextInConfigJSON(['parental-controls', 'levels', '3', 'labels'], [])?.map(
                       (item: string, index: number) => (
                         <BtnContainer key={index.toString()}>
                           <BtnText>{item}</BtnText>
@@ -601,7 +602,7 @@ export default function ParentalControls() {
                 </RowLeftContainer>
                 <RowContent>
                   <TableBtnContainer>
-                    {getTextInConfigJSON(['parental-controls', 'levels', '4', 'labels'], '')?.map(
+                    {getTextInConfigJSON(['parental-controls', 'levels', '4', 'labels'], [])?.map(
                       (item: string, index: number) => (
                         <BtnContainer key={index.toString()}>
                           <BtnText>{item}</BtnText>
