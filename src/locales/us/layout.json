@@ -21,9 +21,9 @@
   "open": "Open",
   "error": {
     "title": "Oops!",
-    "subtitle": "Thanks for your patience while we get it fixed.",
+    "subtitle": "Sorry, something went wrong. Try refreshing the page.",
     "description": "Looks like something was unplugged.",
-    "button": "Return",
+    "button": "Refresh page",
     "somethingWrong": "Something went Wrong"
   },
   "errorOut": {

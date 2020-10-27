@@ -128,6 +128,7 @@ const SignUpSubscription = () => {
   useEffect(() => {
     if (packageData) {
       changePackageName();
+      setErrorMsg('');
     }
   }, [packageData, packageIndex]);
 
@@ -359,6 +360,7 @@ const SignUpSubscription = () => {
                         return (
                           <RadioBox
                             key={index}
+                            disabled={loading}
                             onPress={() => setPackageIndex(index)}
                             style={packageIndex === index && activeRadio}
                           >
@@ -369,7 +371,9 @@ const SignUpSubscription = () => {
                               >
                                 {htmlEntities.decode(item?.currencySymbol)}
                                 {item?.retailPrice}{' '}
-                                <Text style={{ fontWeight: 'normal' }}>/ {item?.period}</Text>
+                                <Text style={{ fontWeight: 'normal' }}>
+                                  / {item?.period?.replace('(s)', '')}
+                                </Text>
                               </DescriptionText>
                               <DescriptionText
                                 style={[textLeft, { marginBottom: 10, fontSize: 12 }]}

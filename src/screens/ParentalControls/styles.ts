@@ -53,9 +53,13 @@ export const Gradient = styled(LinearGradient).attrs({
   colors: ['#202634', '#171B23'],
 })``;
 
+interface WrapperProps {
+  isShowMiniController: boolean;
+}
+
 export const Wrapper = styled.View`
   padding-top: 20px;
-  padding-bottom: 10px;
+  padding-bottom: ${(props: WrapperProps) => (props.isShowMiniController ? 80 : 10)}px;
 `;
 
 export const FooterTitle = styled.Text`

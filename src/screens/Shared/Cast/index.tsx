@@ -9,6 +9,7 @@ import {
   castOff,
   setCastState,
   castVideoPlayerDetailClear,
+  toggleMiniController,
 } from '@store/modules/layout/actions';
 import {
   castDetailClear,
@@ -225,6 +226,10 @@ const Cast = () => {
       setShowButton(false);
     }
   }, [forceChromecast, device]);
+
+  useEffect(() => {
+    dispatch(toggleMiniController(showMiniController));
+  }, [showMiniController]);
 
   return (
     <>

@@ -26,6 +26,7 @@ export const initialState: LayoutState = {
   retry: 1,
   finishedConfiguration: false,
   page: undefined,
+  isShowMiniController: false,
 };
 
 const layout: Reducer<LayoutState> = (state = initialState, action) => {
@@ -127,6 +128,9 @@ const layout: Reducer<LayoutState> = (state = initialState, action) => {
         break;
       case CoreActionTypes.CAST_DETAIL:
         draft.castState = 'loaded';
+        break;
+      case LayoutActionTypes.TOGGLE_MINI_CONTROLLER:
+        draft.isShowMiniController = action.payload.isShowMiniController;
         break;
       default:
         break;

@@ -26,23 +26,25 @@ import {
   EditIconContainer,
 } from './styles';
 
-const wrapper = {
-  flexGrow: 1,
-  paddingTop: Platform.OS === 'ios' ? getStatusBarHeight() + 10 : 10,
-  paddingHorizontal: 30,
-  paddingBottom: Platform.OS === 'ios' ? 160 : 140,
-};
-
-const CelularStyle = {
-  left: -10,
-  opacity: 0.6,
-};
-
 export default function More() {
   const { t } = useTranslation('myaccount');
   const { navigate } = useNavigation();
   const dispatch = useDispatch();
   const user = useSelector((state: AppState) => state.user);
+  const isShowMiniController = useSelector((state: AppState) => state.layout.isShowMiniController);
+
+  const wrapper = {
+    flexGrow: 1,
+    paddingTop: Platform.OS === 'ios' ? getStatusBarHeight() + 10 : 10,
+    paddingHorizontal: 30,
+    paddingBottom:
+      Platform.OS === 'ios' ? (isShowMiniController ? 160 : 110) : isShowMiniController ? 140 : 90,
+  };
+
+  const CelularStyle = {
+    left: -10,
+    opacity: 0.6,
+  };
 
   const logoutAction = () => {
     dispatch(logout());
