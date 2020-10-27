@@ -20,6 +20,6 @@ export const GettingInformation = styled.View`
 
 export const GettingInformationText = styled.Text`
   color: ${(props: ThemeState) => props.theme.PRIMARY_FOREGROUND_COLOR};
-  font-size: ${normalize(12)}px;
+  font-size: ${normalize(9, 12)}px;
   margin-top: 5px;
 `;

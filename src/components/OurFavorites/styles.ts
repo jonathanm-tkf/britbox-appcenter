@@ -30,7 +30,7 @@ type WrapperProps = {
 
 export const Wrapper = styled.View`
   padding: 0 5%;
-  margin-top: -20px;
+  margin-top: 20px;
   width: 100%;
   ${(props: WrapperProps) => {
     return (

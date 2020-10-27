@@ -2,23 +2,22 @@ import styled from 'styled-components/native';
 import { ThemeState } from '@store/modules/theme/types';
 import LinearGradient from 'react-native-linear-gradient';
 import { rgba } from 'polished';
-import { getBottomSpace } from 'react-native-iphone-x-helper';
 import { normalize } from '@src/utils/normalize';
+import { isTablet } from 'react-native-device-info';
 
 type IsFocused = {
   isFocused: boolean;
 };
 
-export const Container = styled.View`
+export const Container = styled.SafeAreaView`
   flex-direction: row;
   justify-content: space-around;
   margin-top: 10px;
-  padding-bottom: ${getBottomSpace()}px;
   background-color: ${(props: ThemeState) => props.theme.PRIMARY_COLOR};
 `;
 
 export const Label = styled.Text`
-  font-size: ${normalize(14)}px;
+  font-size: ${normalize(12, 16)}px;
   font-family: ${(props: ThemeState) => props.theme.PRIMARY_FONT_FAMILY};
   color: ${(props: ThemeState) => props.theme.PRIMARY_FOREGROUND_COLOR};
   margin-top: 5px;
@@ -33,8 +32,8 @@ export const Button = styled.TouchableOpacity`
 `;
 
 export const WrapperIcon = styled.View`
-  width: 32px;
-  height: 32px;
+  width: ${isTablet() ? 36 : 32}px;
+  height: ${isTablet() ? 36 : 32}px;
   justify-content: center;
   align-items: center;
   margin-top: 5px;

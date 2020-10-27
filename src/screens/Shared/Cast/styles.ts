@@ -6,6 +6,7 @@ import { Platform } from 'react-native';
 import FastImage from 'react-native-fast-image';
 import { getBottomSpace } from 'react-native-iphone-x-helper';
 import { normalize } from '@src/utils/normalize';
+import { isTablet } from 'react-native-device-info';
 
 export const Container = styled.View``;
 
@@ -13,11 +14,15 @@ export const FABView = styled.TouchableOpacity`
   position: absolute;
   margin: 16px;
   right: 0px;
-  bottom: ${Platform.OS === 'ios' ? 65 + getBottomSpace() : 55}px;
+  bottom: ${Platform.OS === 'ios'
+    ? (isTablet() ? 80 : 65) + getBottomSpace()
+    : isTablet()
+    ? 90
+    : 55}px;
   background-color: ${(props: ThemeState) => props.theme.PRIMARY_COLOR};
-  width: 60px;
-  height: 60px;
-  border-radius: 30px;
+  width: ${isTablet() ? 70 : 60}px;
+  height: ${isTablet() ? 70 : 60}px;
+  border-radius: ${isTablet() ? 35 : 30}px;
   align-items: center;
   justify-content: center;
   shadow-color: #000;
@@ -32,9 +37,9 @@ export const FABView = styled.TouchableOpacity`
 export const CastButton = styled(CastButtonC).attrs((props: ThemeState) => ({
   tintColor: props.theme.PRIMARY_FOREGROUND_COLOR,
 }))`
-  width: 60px;
-  height: 60px;
-  border-radius: 30px;
+  width: ${isTablet() ? 70 : 60}px;
+  height: ${isTablet() ? 70 : 60}px;
+  border-radius: ${isTablet() ? 35 : 30}px;
 `;
 
 export const MiniController = styled.View`
@@ -42,7 +47,7 @@ export const MiniController = styled.View`
   flex-direction: row;
   align-items: center;
   width: 100%;
-  height: 70px;
+  height: ${isTablet() ? 90 : 70}px;
   margin-bottom: -10px;
   z-index: 1;
   elevation: 4;
@@ -50,7 +55,7 @@ export const MiniController = styled.View`
 
 export const MiniImage = styled(FastImage)`
   width: 120px;
-  height: 70px;
+  height: ${isTablet() ? 90 : 70}px;
   background-color: ${(props: ThemeState) => props.theme.SECONDARY_COLOR};
 `;
 
@@ -73,7 +78,7 @@ export const MiniSubtitle = styled.Text.attrs({
   numberOfLines: 2,
 })`
   color: ${(props: ThemeState) => props.theme.PRIMARY_COLOR_OPAQUE};
-  font-size: ${normalize(10)}px;
+  font-size: ${normalize(10, 14)}px;
 `;
 
 export const MiniExpandButton = styled.TouchableOpacity`

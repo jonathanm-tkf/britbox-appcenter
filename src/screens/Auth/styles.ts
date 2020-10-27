@@ -78,6 +78,6 @@ export const Paragraph = styled.Text`
   margin-right: 40px;
   margin-top: 15px;
   margin-bottom: 5px;
-  font-size: ${normalize(16)}px;
+  font-size: ${normalize(10, 16)}px;
   color: ${(props: ThemeState) => props.theme.PRIMARY_FOREGROUND_COLOR};
 `;

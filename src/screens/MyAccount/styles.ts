@@ -60,7 +60,7 @@ export const TitleWrapper = styled.View`
 export const Title = styled.Text`
   margin-bottom: 20px;
   color: ${(props: ThemeState) => props.theme.PRIMARY_FOREGROUND_COLOR};
-  font-size: ${normalize(26)}px;
+  font-size: ${normalize(18, 26)}px;
   font-weight: 700;
   text-align: center;
   font-family: ${(props: ThemeState) => props.theme.PRIMARY_FONT_FAMILY_MEDIUM};
@@ -70,7 +70,7 @@ export const SubTitle = styled.Text`
   margin-top: 20px;
   margin-bottom: 20px;
   color: ${(props: ThemeState) => props.theme.PRIMARY_FOREGROUND_COLOR};
-  font-size: ${normalize(26)}px;
+  font-size: ${normalize(14, 24)}px;
   font-weight: 600;
   text-align: center;
   font-family: ${(props: ThemeState) => props.theme.PRIMARY_FONT_FAMILY};
@@ -93,7 +93,7 @@ export const FooterTitle = styled.Text`
   margin-top: 10px;
   margin-bottom: 20px;
   color: ${(props: ThemeState) => props.theme.PRIMARY_FOREGROUND_COLOR};
-  font-size: ${normalize(20)}px;
+  font-size: ${normalize(14, 18)}px;
   font-weight: 700;
   text-align: center;
   font-family: ${(props: ThemeState) => props.theme.PRIMARY_FONT_FAMILY_MEDIUM};
@@ -101,7 +101,7 @@ export const FooterTitle = styled.Text`
 
 export const LinkTitle = styled.Text`
   color: ${(props: ThemeState) => props.theme.SECONDARY_COLOR};
-  font-size: ${normalize(16)}px;
+  font-size: ${normalize(12, 16)}px;
   text-align: center;
   font-family: ${(props: ThemeState) => props.theme.PRIMARY_FONT_FAMILY_MEDIUM};
 `;
@@ -110,13 +110,13 @@ export const Paragraph = styled.Text`
   text-align: center;
   margin-top: 20px;
   margin-bottom: 20px;
-  font-size: ${normalize(16)}px;
+  font-size: ${normalize(12, 16)}px;
   color: ${(props: ThemeState) => props.theme.PRIMARY_FOREGROUND_COLOR};
   font-family: ${(props: ThemeState) => props.theme.PRIMARY_FONT_FAMILY_MEDIUM};
 `;
 
 export const NewsParagraph = styled.Text`
-  font-size: ${normalize(14)}px;
+  font-size: ${normalize(10, 14)}px;
   padding-left: 15px;
   color: ${(props: ThemeState) => props.theme.PRIMARY_FOREGROUND_COLOR};
   font-family: ${(props: ThemeState) => props.theme.PRIMARY_FONT_FAMILY_MEDIUM};
@@ -124,9 +124,9 @@ export const NewsParagraph = styled.Text`
 
 export const SubscriptionParagraph = styled.Text`
   margin-bottom: 20px;
-  font-size: ${normalize(16)}px;
+  font-size: ${normalize(12, 16)}px;
   padding: 15px 20px;
-  line-height: ${normalize(22)}px;
+  line-height: ${normalize(16, 22)}px;
   color: ${(props: ThemeState) => props.theme.PRIMARY_FOREGROUND_COLOR};
   font-family: ${(props: ThemeState) => props.theme.PRIMARY_FONT_FAMILY};
   border-color: ${(props: ThemeState) => props.theme.PRIMARY_FOREGROUND_COLOR};

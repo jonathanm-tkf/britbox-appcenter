@@ -13,6 +13,7 @@ import { useSelector } from 'react-redux';
 import { AppState } from '@store/modules/rootReducer';
 import ContentLoader, { Rect } from 'react-content-loader/native';
 import { navigateByPath } from '@src/navigation/rootNavigation';
+import { isTablet } from 'react-native-device-info';
 import { Container } from './styles';
 
 type Props = {
@@ -51,8 +52,8 @@ const Episodes = ({ item }: Props) => {
             <Card
               isEpisode={card.type === 'episode'}
               hasDescription
-              width={187}
-              height={105}
+              width={isTablet() ? 250 : 187}
+              height={isTablet() ? 140 : 105}
               url={getImage(
                 card.type === 'episode' ? card.images?.wallpaper : card.images?.tile,
                 'wallpaper'

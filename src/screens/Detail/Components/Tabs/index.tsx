@@ -14,6 +14,7 @@ import { LoadDetailPageResponse } from '@store/modules/detail/types';
 import { hideSheet } from '@src/utils/sheetBottom';
 import { getTextInConfigJSON } from '@src/utils/object';
 import { MassiveSDKModelEpisodesItem } from '@src/sdks/Britbox.API.Content.TS/api';
+import { isTablet } from 'react-native-device-info';
 import {
   TabsWrapper,
   PreloadTabs,
@@ -68,7 +69,7 @@ const Tabs = ({ data, onScrollTo, onLayout, autoPlay, onPlay }: Props) => {
 
   const renderBottomContent = () => (
     <WrapperBottomContent>
-      <Headline fontSize={18} lineHeight={26} color={theme.PRIMARY_TEXT_COLOR}>
+      <Headline fontSize={16} lineHeight={isTablet() ? 26 : 22} color={theme.PRIMARY_TEXT_COLOR}>
         {getTextInConfigJSON(['no-plan', 'message'], t('errorOut.subtitle'))}
       </Headline>
       <WrapperButtons>

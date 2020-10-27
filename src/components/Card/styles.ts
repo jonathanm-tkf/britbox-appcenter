@@ -5,8 +5,8 @@ import { rgba } from 'polished';
 import RNProgressBar from 'react-native-progress/Bar';
 import TouchableScaleC from 'react-native-touchable-scale';
 import { Platform } from 'react-native';
-import { wp } from '@src/utils/dimension';
 import { normalize } from '@src/utils/normalize';
+import { isTablet } from 'react-native-device-info';
 
 interface ContainerProps {
   width?: number;
@@ -137,8 +137,8 @@ export const ActionWrapper = styled.View`
 
 export const ActionText = styled.Text`
   color: ${(props: ThemeState) => props.theme.SECONDARY_COLOR_LIGHT};
-  font-size: ${normalize(8, 10)}px;
-  line-height: ${normalize(22, 24)}px;
+  font-size: ${normalize(8, 12)}px;
+  line-height: ${normalize(22, 26)}px;
   margin-left: 2px;
   font-family: ${(props: ThemeState) => props.theme.PRIMARY_FONT_FAMILY_MEDIUM};
 `;
@@ -200,9 +200,10 @@ export const ProgressBar = styled(RNProgressBar).attrs((props: ThemeState) => ({
 }))`
   z-index: 2;
   position: absolute;
-  width: 100%;
   bottom: 10%;
-  margin-bottom: -10px;
+  left: 0;
+  right: 0;
+  margin-bottom: -${isTablet() ? 13 : 10}px;
 `;
 
 export const ImageWrapper = styled.View`
@@ -277,7 +278,7 @@ export const Badge = styled.View`
 export const BadgeText = styled.Text`
   color: ${(props: ThemeState) => props.theme.PRIMARY_FOREGROUND_COLOR};
   font-family: ${(props: ThemeState) => props.theme.PRIMARY_FONT_FAMILY};
-  font-size: ${wp(8)}px;
+  font-size: ${normalize(7, 9)}px;
   text-transform: uppercase;
 `;
 

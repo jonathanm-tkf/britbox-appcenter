@@ -28,8 +28,8 @@ interface ItemText {
 export const TabHeaderItemText = styled.Text`
   color: ${(props: ThemeState) => props.theme.PRIMARY_FOREGROUND_COLOR};
   font-family: ${(props: ThemeState) => props.theme.PRIMARY_FONT_FAMILY_MEDIUM};
-  font-size: ${normalize(18)}px;
-  line-height: ${normalize(36)}px;
+  font-size: ${normalize(18, 24)}px;
+  line-height: ${normalize(32, 64)}px;
   ${(props: ItemText & ThemeState) => {
     return props.active
       ? `opacity: 1;`
@@ -51,8 +51,8 @@ export const HeaderWrapper = styled.View`
 `;
 
 export const HeaderBottom = styled(Button)`
-  font-size: ${normalize(18)}px;
-  line-height: ${normalize(38)}px;
+  font-size: ${normalize(12, 24)}px;
+  line-height: ${normalize(24, 38)}px;
 `;
 
 export const TabHeaderItemIndicator = styled.View`
@@ -88,6 +88,6 @@ export const TabButton = styled.TouchableOpacity``;
 export const TabButtonText = styled.Text`
   color: ${(props: ThemeState) => props.theme.PRIMARY_FOREGROUND_COLOR};
   font-family: ${(props: ThemeState) => props.theme.PRIMARY_FONT_FAMILY};
-  font-size: ${normalize(24)}px;
-  line-height: ${normalize(65)}px;
+  font-size: ${normalize(18, 24)}px;
+  line-height: ${normalize(48, 65)}px;
 `;

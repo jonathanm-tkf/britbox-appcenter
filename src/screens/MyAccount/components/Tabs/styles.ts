@@ -4,18 +4,19 @@ import { Animated } from 'react-native';
 import { TabBar as TabBarC } from 'react-native-tab-view';
 import { rgba } from 'polished';
 import { normalize } from '@src/utils/normalize';
+import { isTablet } from 'react-native-device-info';
 
 export const Container = styled.View``;
 
 export const TitleWrapper = styled.View`
-  margin-top: 10px;
+  margin-top: ${isTablet() ? 40 : 10}px;
   margin-bottom: 10px;
 `;
 
 export const Title = styled.Text`
   margin-bottom: 10px;
   color: ${(props: ThemeState) => props.theme.PRIMARY_FOREGROUND_COLOR};
-  font-size: ${normalize(26)}px;
+  font-size: ${normalize(16, 24)}px;
   font-weight: 700;
   text-align: center;
   font-family: ${(props: ThemeState) => props.theme.PRIMARY_FONT_FAMILY_MEDIUM};
@@ -55,7 +56,7 @@ interface TabLabelProps {
 }
 export const TabLabel = styled.Text`
   color: ${(props: TabLabelProps & ThemeState) => props.color};
-  font-size: ${normalize(16)}px;
+  font-size: ${normalize(12, 16)}px;
   ${(props: TabLabelProps & ThemeState) => {
     return props.focused
       ? `font-family: ${props.theme.PRIMARY_FONT_FAMILY_MEDIUM}`

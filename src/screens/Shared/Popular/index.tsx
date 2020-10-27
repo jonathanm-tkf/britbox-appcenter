@@ -13,6 +13,7 @@ import { AppState } from '@store/modules/rootReducer';
 import { useSelector } from 'react-redux';
 import ContentLoader, { Rect } from 'react-content-loader/native';
 import { navigateByPath } from '@src/navigation/rootNavigation';
+import { isTablet } from 'react-native-device-info';
 import { Container } from './styles';
 
 type Props = {
@@ -52,6 +53,8 @@ const Popular = ({ item }: Props) => {
               card.images?.poster || card.images?.square || card.images?.tile,
               'poster'
             )}
+            width={isTablet() ? 212 : 162}
+            height={isTablet() ? 293 : 243}
             element={{ marginBottom: 30 }}
             onPress={() => ((item?.list?.title || '') !== 'loading' ? goToDetail(card) : {})}
           />

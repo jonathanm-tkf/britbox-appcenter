@@ -498,14 +498,16 @@ const Detail = () => {
             url={
               data?.detail?.images
                 ? getImage(
-                    data?.detail?.images?.poster ||
-                      data?.detail?.images?.square ||
-                      data?.detail?.images?.tile,
-                    'poster'
+                    isTablet()
+                      ? data?.detail?.images?.tile
+                      : data?.detail?.images?.poster ||
+                          data?.detail?.images?.square ||
+                          data?.detail?.images?.tile,
+                    isTablet() ? 'tile' : 'poster'
                   )
                 : ''
             }
-            width={185}
+            width={isTablet() ? 512 : 185}
             height={275}
           />
         </Poster>

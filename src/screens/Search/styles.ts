@@ -5,6 +5,7 @@ import { ThemeState } from '@store/modules/theme/types';
 import { rgba } from 'polished';
 import { StarIcon } from '@assets/icons';
 import { normalize } from '@src/utils/normalize';
+import { isTablet } from 'react-native-device-info';
 
 export const Container = styled.SafeAreaView`
   flex: 1;
@@ -38,13 +39,13 @@ export const SearchInput = styled.TextInput.attrs((props: ThemeState) => ({
   placeholderTextColor: rgba(props.theme.PRIMARY_FOREGROUND_COLOR, 0.35),
   selectionColor: props.theme.PRIMARY_FOREGROUND_COLOR,
 }))`
-  padding-left: 30px;
-  padding-right: 30px;
+  padding-left: ${isTablet() ? 40 : 30}px;
+  padding-right: ${isTablet() ? 40 : 30}px;
   border-bottom-width: 2px;
   border-bottom-color: ${(props: ThemeState) => props.theme.PRIMARY_FOREGROUND_COLOR};
   color: ${(props: ThemeState) => props.theme.PRIMARY_FOREGROUND_COLOR};
-  font-size: ${normalize(22)}px;
-  line-height: ${normalize(28)}px;
+  font-size: ${normalize(22, 28)}px;
+  line-height: ${normalize(28, 34)}px;
   height: 60px;
 `;
 
@@ -75,7 +76,7 @@ export const SuggestionWrapper = styled.View`
 export const SuggestionText = styled.Text`
   color: ${(props: ThemeState) => rgba(props.theme.PRIMARY_FOREGROUND_COLOR, 0.35)};
   font-family: ${(props: ThemeState) => props.theme.PRIMARY_FONT_FAMILY_MEDIUM};
-  font-size: ${normalize(16)}px;
+  font-size: ${normalize(14, 16)}px;
 `;
 
 export const NoResultWrapper = styled.View`
@@ -90,7 +91,7 @@ export const NoResultBold = styled.Text`
 
 export const NoResultText = styled.Text`
   color: ${(props: ThemeState) => props.theme.PRIMARY_FOREGROUND_COLOR};
-  font-size: ${normalize(15)}px;
+  font-size: ${normalize(15, 18)}px;
 `;
 
 export const ResultWrapper = styled.View`
@@ -105,7 +106,7 @@ export const ResultBold = styled.Text`
 
 export const ResultText = styled.Text`
   color: ${(props: ThemeState) => props.theme.PRIMARY_FOREGROUND_COLOR};
-  font-size: ${normalize(15)}px;
+  font-size: ${normalize(15, 18)}px;
 `;
 
 export const ResultCastWrapper = styled.View`

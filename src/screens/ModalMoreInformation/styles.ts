@@ -40,7 +40,7 @@ export const CreditsItem = styled.View`
 export const CreditsText = styled.Text`
   color: ${(props: ThemeState) => props.theme.PRIMARY_FOREGROUND_COLOR};
   text-transform: capitalize;
-  line-height: ${normalize(20)}px;
+  line-height: ${normalize(16, 20)}px;
   width: 55%;
 `;
 
@@ -69,12 +69,12 @@ export const Button = styled.TouchableOpacity`
 export const TopText = styled.Text`
   font-family: ${(props: ThemeState) => props.theme.PRIMARY_FONT_FAMILY_MEDIUM};
   color: ${(props: ThemeState) => props.theme.PRIMARY_FOREGROUND_COLOR};
-  font-size: ${normalize(12)}px;
+  font-size: ${normalize(8, 12)}px;
   text-transform: uppercase;
   top: ${Platform.OS === 'ios' ? getStatusBarHeight() : 0}px;
   width: 100%;
   height: 50px;
-  line-height: ${normalize(50)}px;
+  line-height: ${normalize(46, 50)}px;
   position: absolute;
   z-index: 1;
   text-align: center;

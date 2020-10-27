@@ -261,8 +261,8 @@ const ContinueWatching = () => {
                 showCategory
                 showProgress
                 progress={getProgress(card.original)}
-                width={isTablet() ? 200 : 157}
-                height={isTablet() ? 112 : 88}
+                width={isTablet() ? 250 : 157}
+                height={isTablet() ? 142 : 88}
                 url={card.url}
                 data={card.data}
                 actionText={card?.data?.actionText}
@@ -290,8 +290,8 @@ const ContinueWatching = () => {
             renderItem={({ item: card }) => (
               <Card
                 isWatchlist
-                width={isTablet() ? 140 : 122}
-                height={isTablet() ? 180 : 162}
+                width={isTablet() ? 190 : 122}
+                height={isTablet() ? 250 : 162}
                 url={card.url}
                 onPress={() =>
                   (card.original?.list?.title || '') !== 'loading'

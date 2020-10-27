@@ -55,12 +55,12 @@ export const Button = styled.TouchableOpacity`
 export const TopText = styled.Text`
   font-family: ${(props: ThemeState) => props.theme.PRIMARY_FONT_FAMILY_MEDIUM};
   color: ${(props: ThemeState) => props.theme.PRIMARY_FOREGROUND_COLOR};
-  font-size: ${normalize(12)}px;
+  font-size: ${normalize(9, 12)}px;
   text-transform: uppercase;
   top: ${Platform.OS === 'ios' ? getStatusBarHeight() : 0}px;
   width: 100%;
   height: 50px;
-  line-height: ${normalize(50)}px;
+  line-height: ${normalize(44, 50)}px;
   position: absolute;
   z-index: 1;
   text-align: center;
@@ -102,13 +102,13 @@ export const WrapperPin = styled.View`
 
 export const ParagraphChecking = styled.Text`
   color: ${(props: ThemeState) => rgba(props.theme.PRIMARY_TEXT_COLOR, 0.6)};
-  font-size: ${normalize(14)}px;
+  font-size: ${normalize(10, 14)}px;
   margin-top: 20px;
 `;
 
 export const ParagraphError = styled.Text`
   color: ${(props: ThemeState) => props.theme.ERROR_COLOR};
-  font-size: ${normalize(14)}px;
+  font-size: ${normalize(10, 14)}px;
   margin-top: 20px;
 `;
 

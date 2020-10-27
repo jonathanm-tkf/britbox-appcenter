@@ -12,6 +12,7 @@ import Shimmer from '@components/Shimmer';
 import Image from 'react-native-fast-image';
 // import { MassiveSDKModelItemSummary } from '@src/sdks/Britbox.API.Content.TS/api';
 import { MassiveSDKModelItemList } from '@src/sdks/Britbox.API.Content.TS/api';
+import { isTablet } from 'react-native-device-info';
 import {
   Container,
   Wrapper,
@@ -137,8 +138,8 @@ const Card = ({
                   <ActionWrapper>
                     <Action
                       isContinue={isContinue}
-                      width={40}
-                      height={40}
+                      width={isTablet() ? 60 : 40}
+                      height={isTablet() ? 60 : 40}
                       autoPlay
                       loop={!isContinue}
                     />
@@ -175,7 +176,9 @@ const Card = ({
                   </Shimmer>
                 )}
                 {(newEpisode || isEpisode || isDetail) && <Gradient />}
-                {(isDetail || showProgress) && progress > 0 && <ProgressBar {...{ progress }} />}
+                {(isDetail || showProgress) && progress > 0 && (
+                  <ProgressBar {...{ progress, width: imageStyle.width }} />
+                )}
               </ImageWrapper>
             </CustomShadow>
           </Container>

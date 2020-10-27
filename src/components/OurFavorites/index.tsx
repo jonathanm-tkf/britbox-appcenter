@@ -14,6 +14,7 @@ import { Title, Paragraph } from '@components/Typography';
 import { Button } from '@components/Button';
 import { useTranslation } from 'react-i18next';
 import { widthPercentageToDP as vw } from 'react-native-responsive-screen';
+import { isTablet } from 'react-native-device-info';
 import { Container, BackgroundImge, Card, Wrapper, InnerContent, TextWrapper } from './styles';
 
 const { width } = Dimensions.get('window');
@@ -61,11 +62,11 @@ const OurFavorites = ({ data, onPress }: Props) => {
         >
           <InnerContent>
             <TextWrapper>
-              <Title fontSize={24} lineHeight={38}>
+              <Title fontSize={isTablet() ? 24 : 18} lineHeight={isTablet() ? 38 : 30}>
                 {element.contextualTitle || ''}
               </Title>
               {description && (
-                <Paragraph fontSize={16} lineHeight={24}>
+                <Paragraph fontSize={isTablet() ? 16 : 12} lineHeight={isTablet() ? 24 : 20}>
                   {description}
                 </Paragraph>
               )}

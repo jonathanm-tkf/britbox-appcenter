@@ -56,7 +56,7 @@ export const FilterButton = styled.TouchableOpacity`
   flex-direction: row;
   position: absolute;
   height: 50px;
-  line-height: ${normalize(50)}px;
+  line-height: ${normalize(44, 50)}px;
   right: 10px;
   top: 0;
   justify-content: center;

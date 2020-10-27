@@ -2,6 +2,7 @@ import styled from 'styled-components/native';
 import { ThemeState } from '@store/modules/theme/types';
 import { ProfileImageIcon } from '@assets/icons';
 import { normalize } from '@src/utils/normalize';
+import { isTablet } from 'react-native-device-info';
 
 export const ProfileView = styled.View`
   padding-top: 50px;
@@ -17,8 +18,8 @@ export const RowContainer = styled.TouchableOpacity.attrs({
 `;
 
 export const ProfileImageIconView = styled(ProfileImageIcon).attrs({
-  height: 50,
-  width: 50,
+  height: isTablet() ? 70 : 50,
+  width: isTablet() ? 70 : 50,
 })`
   margin-right: 20px;
   top: -15px;
@@ -41,7 +42,7 @@ export const RowContent = styled.View`
 
 export const SubTitleLink = styled.Text`
   color: ${(props: ThemeState) => props.theme.SECONDARY_COLOR};
-  font-size: ${normalize(16)}px;
+  font-size: ${normalize(12, 20)}px;
   padding-top: 5px;
   padding-bottom: 5px;
   font-family: ${(props: ThemeState) => props.theme.PRIMARY_FONT_FAMILY_MEDIUM};
@@ -57,7 +58,7 @@ export const SeparatorLine = styled.View`
 
 export const ItemTitle = styled.Text`
   color: ${(props: ThemeState) => props.theme.PRIMARY_FOREGROUND_COLOR};
-  font-size: ${normalize(18)}px;
+  font-size: ${normalize(14, 20)}px;
   padding-top: 5px;
   padding-bottom: 5px;
   opacity: 0.6;
@@ -66,14 +67,14 @@ export const ItemTitle = styled.Text`
 
 export const ItemSubTitle = styled.Text`
   color: ${(props: ThemeState) => props.theme.PRIMARY_FOREGROUND_COLOR};
-  font-size: ${normalize(20)}px;
+  font-size: ${normalize(12, 18)}px;
   padding-bottom: 5px;
   font-family: ${(props: ThemeState) => props.theme.PRIMARY_FONT_FAMILY_LIGHT};
 `;
 
 export const DescriptionText = styled.Text`
   color: ${(props: ThemeState) => props.theme.PRIMARY_FOREGROUND_COLOR};
-  font-size: ${normalize(14)}px;
+  font-size: ${normalize(10, 14)}px;
   padding-top: 1px;
   opacity: 0.6;
   font-family: ${(props: ThemeState) => props.theme.PRIMARY_FONT_FAMILY_LIGHT};

@@ -42,11 +42,11 @@ export const Button = styled.TouchableOpacity`
 export const TopText = styled.Text`
   font-family: ${(props: ThemeState) => props.theme.PRIMARY_FONT_FAMILY_MEDIUM};
   color: ${(props: ThemeState) => props.theme.PRIMARY_FOREGROUND_COLOR};
-  font-size: ${normalize(12)}px;
+  font-size: ${normalize(10, 14)}px;
   top: ${Platform.OS === 'ios' ? getStatusBarHeight() : 0}px;
   width: 100%;
   height: 50px;
-  line-height: ${normalize(50)}px;
+  line-height: ${normalize(40)}px;
   position: absolute;
   z-index: 1;
   text-align: center;
@@ -98,14 +98,14 @@ export const ActionWrapper = styled.View`
 export const ActionText = styled.Text`
   color: ${(props: ThemeState) => props.theme.SECONDARY_COLOR_LIGHT};
   font-family: ${(props: ThemeState) => props.theme.PRIMARY_FONT_FAMILY_MEDIUM};
-  font-size: ${normalize(14)}px;
-  line-height: ${normalize(24)}px;
+  font-size: ${normalize(10, 14)}px;
+  line-height: ${normalize(20, 24)}px;
 `;
 
 export const ActionTitle = styled.Text`
   color: ${(props: ThemeState) => props.theme.PRIMARY_FOREGROUND_COLOR};
-  font-size: ${normalize(16)}px;
-  line-height: ${normalize(37)}px;
+  font-size: ${normalize(12, 16)}px;
+  line-height: ${normalize(32, 37)}px;
   margin-left: 15px;
   margin-bottom: 5px;
   font-family: ${(props: ThemeState) => props.theme.PRIMARY_FONT_FAMILY_MEDIUM};
@@ -114,8 +114,8 @@ export const ActionTitle = styled.Text`
 
 export const ActionTitleAfter = styled.Text`
   color: ${(props: ThemeState) => props.theme.PRIMARY_FOREGROUND_COLOR};
-  font-size: ${normalize(14)}px;
-  line-height: ${normalize(24)}px;
+  font-size: ${normalize(10, 14)}px;
+  line-height: ${normalize(20, 24)}px;
   margin-top: 15px;
   margin-bottom: 5px;
 `;
@@ -124,7 +124,7 @@ export const ChangeGenreButton = styled.TouchableOpacity`
   flex-direction: row;
   position: absolute;
   height: 50px;
-  line-height: ${normalize(50)}px;
+  line-height: ${normalize(46, 50)}px;
   right: 20px;
   bottom: 0;
   justify-content: center;
@@ -146,7 +146,7 @@ export const ChangeOrderText = styled.Text`
 
 export const ChangeOrderButton = styled.TouchableOpacity`
   height: 50px;
-  line-height: ${normalize(50)}px;
+  line-height: ${normalize(46, 50)}px;
   justify-content: center;
   align-self: flex-end;
   z-index: 2;

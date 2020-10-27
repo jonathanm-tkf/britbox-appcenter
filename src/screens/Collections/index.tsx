@@ -37,6 +37,7 @@ import { Item } from '@screens/ModalFilter';
 import { wp } from '@src/utils/dimension';
 import { checkIsInWatchingList } from '@src/services/watchlist';
 import { watchlistToggleRequest } from '@store/modules/user/actions';
+import { isTablet } from 'react-native-device-info';
 import { dataDummy } from './data';
 import {
   Container,
@@ -129,7 +130,7 @@ const Collections = () => {
 
   const containerStyles = {
     marginTop: 10,
-    paddingHorizontal: wp(15),
+    paddingHorizontal: wp(isTablet() ? 7 : 15),
   };
 
   const isGenre = useMemo(() => {
@@ -196,7 +197,11 @@ const Collections = () => {
             .filter((item) => getTemplate(item.template || '') === 'grid-infinite')
             .reduce((item) => item).list?.items || []
         )
-          ? 2
+          ? isTablet()
+            ? 3
+            : 2
+          : isTablet()
+          ? 4
           : 3
       );
     }
@@ -479,12 +484,12 @@ const Collections = () => {
                     key={key.toString()}
                     items={item?.list?.items || []}
                     title={item?.title || ''}
-                    numColumns={3}
+                    numColumns={isTablet() ? 4 : 3}
                     element={{
-                      width: vw(33.333) - wp(20),
-                      height: vw(33.333 * 1.25),
+                      width: vw(isTablet() ? 25 : 33.333) - wp(isTablet() ? 10 : 20),
+                      height: vw((isTablet() ? 25 : 33.333) * 1.25),
                       marginBottom: 20,
-                      marginHorizontal: wp(5),
+                      marginHorizontal: wp(isTablet() ? 3 : 5),
                     }}
                     containerStyle={containerStyles}
                   />
@@ -543,11 +548,18 @@ const Collections = () => {
                               marginBottom: 70,
                               marginHorizontal: wp(5),
                             }
-                          : {
+                          : infiniteGridColumns === 3
+                          ? {
                               width: vw(33.333) - wp(20),
                               height: vw(33.333 * 1.25),
                               marginBottom: 20,
                               marginHorizontal: wp(5),
+                            }
+                          : {
+                              width: vw(25) - wp(10),
+                              height: vw(25 * 1.25),
+                              marginBottom: 20,
+                              marginHorizontal: wp(isTablet() ? 3 : 5),
                             }
                       }
                       containerStyle={containerStyles}

@@ -29,7 +29,7 @@ export const TitleWrapper = styled.View`
 export const Title = styled.Text`
   margin-bottom: 20px;
   color: ${(props: ThemeState) => props.theme.PRIMARY_FOREGROUND_COLOR};
-  font-size: ${normalize(26)}px;
+  font-size: ${normalize(22, 32)}px;
   font-weight: 700;
   text-align: center;
 `;
@@ -38,7 +38,7 @@ export const SubTitle = styled.Text`
   margin-bottom: 10px;
   margin-top: 20px;
   color: ${(props: ThemeState) => props.theme.PRIMARY_FOREGROUND_COLOR};
-  font-size: ${normalize(24)}px;
+  font-size: ${normalize(14, 18)}px;
   font-weight: 700;
   text-align: center;
 `;
@@ -50,8 +50,8 @@ export const RowWrapper = styled.View`
 export const WrapperParagraph = styled.Text`
   margin-top: 10px;
   margin-bottom: 10px;
-  font-size: ${normalize(16)}px;
-  line-height: ${normalize(22)}px;
+  font-size: ${normalize(12, 16)}px;
+  line-height: ${normalize(16, 22)}px;
   text-align: justify;
   color: ${(props: ThemeState) => props.theme.PRIMARY_FOREGROUND_COLOR};
 `;
@@ -66,7 +66,7 @@ export const Paragraph = styled.Text`
   margin-right: 40px;
   margin-top: 20px;
   margin-bottom: 20px;
-  font-size: ${normalize(16)}px;
+  font-size: ${normalize(12, 16)}px;
   color: ${(props: ThemeState) => props.theme.PRIMARY_FOREGROUND_COLOR};
 `;
 
@@ -123,7 +123,7 @@ export const LoginTitle = styled.Text`
   margin-top: 30px;
   margin-bottom: 20px;
   color: ${(props: ThemeState) => props.theme.PRIMARY_FOREGROUND_COLOR};
-  font-size: ${normalize(20)}px;
+  font-size: ${normalize(14, 20)}px;
   font-weight: 700;
   text-align: center;
   font-family: ${(props: ThemeState) => props.theme.PRIMARY_FONT_FAMILY_BOLD};
@@ -133,7 +133,7 @@ export const FooterTitle = styled.Text`
   margin-top: 10px;
   margin-bottom: 20px;
   color: ${(props: ThemeState) => props.theme.PRIMARY_FOREGROUND_COLOR};
-  font-size: ${normalize(20)}px;
+  font-size: ${normalize(14, 20)}px;
   font-weight: 700;
   text-align: center;
   font-family: ${(props: ThemeState) => props.theme.PRIMARY_FONT_FAMILY_MEDIUM};
@@ -142,7 +142,7 @@ export const FooterTitle = styled.Text`
 export const EmailTitle = styled.Text`
   margin-bottom: 10px;
   color: ${(props: ThemeState) => props.theme.SECONDARY_COLOR};
-  font-size: ${normalize(16)}px;
+  font-size: ${normalize(12, 16)}px;
   text-align: center;
   font-family: ${(props: ThemeState) => props.theme.PRIMARY_FONT_FAMILY_MEDIUM};
 `;

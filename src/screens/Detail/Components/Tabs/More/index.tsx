@@ -3,6 +3,7 @@ import { MassiveSDKModelItemList } from '@src/sdks/Britbox.API.Content.TS/api';
 import Grid from '@screens/Shared/Grid';
 import { widthPercentageToDP as vw } from 'react-native-responsive-screen';
 import { wp } from '@src/utils/dimension';
+import { isTablet } from 'react-native-device-info';
 import { Container } from './styles';
 
 interface Props {
@@ -13,7 +14,7 @@ interface Props {
 const containerStyles = {
   marginTop: 30,
   marginBottom: 30,
-  paddingHorizontal: wp(15),
+  paddingHorizontal: wp(isTablet() ? 7 : 15),
 };
 
 const More = ({ onLayout, items }: Props) => {
@@ -23,12 +24,12 @@ const More = ({ onLayout, items }: Props) => {
         title=""
         onLayout={onLayout}
         items={items}
-        numColumns={3}
+        numColumns={isTablet() ? 4 : 3}
         element={{
-          width: vw(33.333) - wp(20),
-          height: vw(33.333 * 1.25),
+          width: vw(isTablet() ? 25 : 33.333) - wp(isTablet() ? 10 : 20),
+          height: vw((isTablet() ? 25 : 33.333) * 1.25),
           marginBottom: 20,
-          marginHorizontal: wp(5),
+          marginHorizontal: wp(isTablet() ? 3 : 5),
         }}
         containerStyle={containerStyles}
       />

@@ -23,6 +23,7 @@ import { profile } from '@store/modules/user/saga';
 import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
 import { Item } from '@screens/ModalFilter';
 import { hideSheet, showSheet } from '@src/utils/sheetBottom';
+import { isTablet } from 'react-native-device-info';
 import {
   Container,
   Title,
@@ -59,7 +60,7 @@ const getSheetHeight = () => {
 
 const gridContainer = {
   marginTop: 10,
-  paddingHorizontal: wp(15),
+  paddingHorizontal: wp(isTablet() ? 7 : 15),
 };
 
 type Access = {
@@ -230,12 +231,12 @@ const Watchlist = () => {
           <Grid
             items={list}
             title={`${list.length} ${list.length === 1 ? t('program') : t('programmes')}`}
-            numColumns={3}
+            numColumns={isTablet() ? 4 : 3}
             element={{
-              width: vw(33.333) - wp(20),
-              height: vw(33.333 * 1.25),
+              width: vw(isTablet() ? 25 : 33.333) - wp(isTablet() ? 10 : 20),
+              height: vw((isTablet() ? 25 : 33.333) * 1.25),
               marginBottom: 20,
-              marginHorizontal: wp(5),
+              marginHorizontal: wp(isTablet() ? 3 : 5),
             }}
             containerStyle={gridContainer}
             cardContentAfter={(item) => removeIcon(item)}

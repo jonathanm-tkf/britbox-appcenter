@@ -13,6 +13,7 @@ import { useSelector } from 'react-redux';
 import { AppState } from '@store/modules/rootReducer';
 import ContentLoader, { Rect } from 'react-content-loader/native';
 import { navigateByPath } from '@src/navigation/rootNavigation';
+import { isTablet } from 'react-native-device-info';
 import { Container } from './styles';
 
 type Props = {
@@ -53,8 +54,8 @@ const Collections = ({ item }: Props) => {
               'square'
             )}
             element={{ marginBottom: 30 }}
-            width={130}
-            height={130}
+            width={isTablet() ? 180 : 130}
+            height={isTablet() ? 180 : 130}
             onPress={() => ((item?.list?.title || '') !== 'loading' ? goToDetail(card) : {})}
           />
         )}

@@ -6,6 +6,7 @@ import HeaderCustom from '@components/HeaderCustom';
 import { useTranslation } from 'react-i18next';
 import { useNavigation, CommonActions } from '@react-navigation/native';
 
+import { isTablet } from 'react-native-device-info';
 import {
   TitleWrapper,
   Title,
@@ -19,7 +20,7 @@ import {
 } from './styles';
 
 const TabBarHeight = 48;
-const HeaderHeight = 90;
+const HeaderHeight = isTablet() ? 120 : 90;
 const windowHeight = Dimensions.get('window').height;
 
 type TabSceneProps = {

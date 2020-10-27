@@ -5,6 +5,7 @@ import { Button as ButtonC } from '@components/Button';
 import { hp } from '@src/utils/dimension';
 import { getStatusBarHeight } from 'react-native-iphone-x-helper';
 import { normalize } from '@src/utils/normalize';
+import { isTablet } from 'react-native-device-info';
 
 const { width } = Dimensions.get('window');
 
@@ -28,7 +29,7 @@ export const SliderWrapper = styled.View`
     return (
       props.collection &&
       `
-      padding-top: ${getStatusBarHeight() + 40}px;
+      padding-top: ${getStatusBarHeight() + (isTablet() ? 40 : 60)}px;
       margin-bottom: 0px;
     `
     );
@@ -56,7 +57,7 @@ export const Slider = styled(AnimatedImage).attrs({
     return (
       props.slim &&
       `
-      height: ${width - hp(120)}px;
+      height: ${width - hp(isTablet() ? 225 : 120)}px;
     `
     );
   }};
@@ -73,8 +74,8 @@ export const SlimDescriptionText = styled.Text.attrs({
   font-family: ${(props: ThemeState) => props.theme.PRIMARY_FONT_FAMILY_LIGHT};
   text-align: center;
   min-height: 90px;
-  font-size: ${normalize(16)}px;
-  line-height: ${normalize(22)}px;
+  font-size: ${normalize(12, 16)}px;
+  line-height: ${normalize(18, 20)}px;
 
   ${(props: SlimDescriptionTextProps & ThemeState) => {
     return (
@@ -117,7 +118,7 @@ export const SlimDescription = styled.View`
 `;
 
 export const ActionsWrapper = styled.View`
-  height: 120px;
+  height: ${isTablet() ? 180 : 100}px;
   margin-bottom: 20px;
 `;
 

@@ -39,7 +39,7 @@ export const TitleWrapper = styled.View`
 export const Title = styled.Text`
   margin-bottom: 25px;
   color: ${(props: ThemeState) => props.theme.PRIMARY_FOREGROUND_COLOR};
-  font-size: ${normalize(26)}px;
+  font-size: ${normalize(18, 22)}px;
   font-weight: 700;
   text-align: center;
 `;
@@ -49,7 +49,7 @@ export const Paragraph = styled.Text`
   margin-left: 40px;
   margin-right: 40px;
   margin-bottom: 20px;
-  font-size: ${normalize(16)}px;
+  font-size: ${normalize(12, 18)}px;
   color: ${(props: ThemeState) => props.theme.PRIMARY_FOREGROUND_COLOR};
 `;
 
@@ -80,7 +80,7 @@ export const ForgotContainer = styled.View`
 export const ForgotText = styled.Text`
   color: ${(props: ThemeState) => props.theme.SECONDARY_COLOR};
   font-family: ${(props: ThemeState) => props.theme.PRIMARY_FONT_FAMILY_MEDIUM};
-  font-size: ${normalize(18)}px;
+  font-size: ${normalize(14, 18)}px;
 `;
 
 export const ForgotModalContainer = styled.View`
@@ -92,7 +92,7 @@ export const ModalTitle = styled.Text`
   margin-bottom: 15px;
   color: ${(props: ThemeState) => props.theme.PRIMARY_TEXT_COLOR};
   font-family: ${(props: ThemeState) => props.theme.PRIMARY_FONT_FAMILY_MEDIUM};
-  font-size: ${normalize(20)}px;
+  font-size: ${normalize(14, 20)}px;
   opacity: 0.8;
 `;
 
@@ -100,8 +100,8 @@ export const ModalSubTitle = styled.Text`
   margin-bottom: 20px;
   color: ${(props: ThemeState) => props.theme.PRIMARY_TEXT_COLOR};
   font-family: ${(props: ThemeState) => props.theme.PRIMARY_FONT_FAMILY_LIGHT};
-  font-size: ${normalize(16)}px;
-  line-height: ${normalize(25)}px;
+  font-size: ${normalize(12, 16)}px;
+  line-height: ${normalize(21, 25)}px;
   opacity: 0.7;
 `;
 
@@ -118,7 +118,7 @@ export const FooterTitle = styled.Text`
   margin-top: 10px;
   margin-bottom: 20px;
   color: ${(props: ThemeState) => props.theme.PRIMARY_FOREGROUND_COLOR};
-  font-size: ${normalize(20)}px;
+  font-size: ${normalize(14, 20)}px;
   font-weight: 700;
   text-align: center;
   font-family: ${(props: ThemeState) => props.theme.PRIMARY_FONT_FAMILY_MEDIUM};
@@ -127,7 +127,7 @@ export const FooterTitle = styled.Text`
 export const EmailTitle = styled.Text`
   margin-bottom: 10px;
   color: ${(props: ThemeState) => props.theme.SECONDARY_COLOR};
-  font-size: ${normalize(16)}px;
+  font-size: ${normalize(12, 16)}px;
   text-align: center;
   font-family: ${(props: ThemeState) => props.theme.PRIMARY_FONT_FAMILY_MEDIUM};
 `;

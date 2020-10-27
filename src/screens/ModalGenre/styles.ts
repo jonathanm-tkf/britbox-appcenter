@@ -40,8 +40,8 @@ export const SeasonItemTextWrapper = styled.View`
 export const SeasonItemText = styled.Text`
   color: ${(props: ThemeState) => props.theme.PRIMARY_FOREGROUND_COLOR};
   font-family: ${(props: ThemeState) => props.theme.PRIMARY_FONT_FAMILY};
-  font-size: ${normalize(24)}px;
-  line-height: ${normalize(48)}px;
+  font-size: ${normalize(20, 24)}px;
+  line-height: ${normalize(44, 48)}px;
 
   ${(props: SeasonItemTextProps & ThemeState) => {
     return props.active ? `opacity: 1; font-size: ${normalize(28)}px;` : `opacity: 0.6;`;
@@ -64,7 +64,7 @@ export const Indicator = styled.View`
 export const GenreTitle = styled.Text`
   font-family: ${(props: ThemeState) => props.theme.PRIMARY_FONT_FAMILY_MEDIUM};
   color: ${(props: ThemeState) => props.theme.PRIMARY_FOREGROUND_COLOR};
-  font-size: ${normalize(14)}px;
+  font-size: ${normalize(10, 14)}px;
   text-align: center;
   margin-bottom: 20px;
 `;

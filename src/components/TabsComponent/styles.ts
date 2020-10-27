@@ -34,7 +34,7 @@ interface TabLabelProps {
 }
 export const TabLabel = styled.Text`
   color: ${(props: TabLabelProps & ThemeState) => props.color};
-  font-size: ${normalize(16)}px;
+  font-size: ${normalize(12, 16)}px;
   ${(props: TabLabelProps & ThemeState) => {
     return props.focused
       ? `font-family: ${props.theme.PRIMARY_FONT_FAMILY_MEDIUM}`

@@ -37,7 +37,7 @@ export const PaddingHorizontalView = styled.View`
 export const Title = styled.Text`
   margin-bottom: 20px;
   color: ${(props: ThemeState) => props.theme.PRIMARY_FOREGROUND_COLOR};
-  font-size: ${normalize(26)}px;
+  font-size: ${normalize(18, 26)}px;
   font-weight: 700;
   text-align: center;
 `;
@@ -46,7 +46,7 @@ export const SubTitle = styled.Text`
   margin-bottom: 10px;
   margin-top: 20px;
   color: ${(props: ThemeState) => props.theme.PRIMARY_FOREGROUND_COLOR};
-  font-size: ${normalize(24)}px;
+  font-size: ${normalize(14, 24)}px;
   font-weight: 700;
   text-align: center;
 `;
@@ -55,7 +55,7 @@ export const FooterTitle = styled.Text`
   margin-top: 10px;
   margin-bottom: 20px;
   color: ${(props: ThemeState) => props.theme.PRIMARY_FOREGROUND_COLOR};
-  font-size: ${normalize(20)}px;
+  font-size: ${normalize(16, 20)}px;
   font-weight: 700;
   text-align: center;
   font-family: ${(props: ThemeState) => props.theme.PRIMARY_FONT_FAMILY_MEDIUM};
@@ -64,7 +64,7 @@ export const FooterTitle = styled.Text`
 export const EmailTitle = styled.Text`
   margin-bottom: 10px;
   color: ${(props: ThemeState) => props.theme.SECONDARY_COLOR};
-  font-size: ${normalize(16)}px;
+  font-size: ${normalize(12, 16)}px;
   text-align: center;
   font-family: ${(props: ThemeState) => props.theme.PRIMARY_FONT_FAMILY_MEDIUM};
 `;
@@ -87,7 +87,7 @@ export const WrapperParagraph = styled.Text`
   margin-right: 20px;
   margin-top: 10px;
   margin-bottom: 10px;
-  font-size: ${normalize(16)}px;
+  font-size: ${normalize(12, 16)}px;
   color: ${(props: ThemeState) => props.theme.PRIMARY_FOREGROUND_COLOR};
 `;
 
@@ -95,7 +95,7 @@ export const Paragraph = styled.Text`
   text-align: center;
   margin-top: 20px;
   margin-bottom: 20px;
-  font-size: ${normalize(16)}px;
+  font-size: ${normalize(12, 16)}px;
   color: ${(props: ThemeState) => props.theme.PRIMARY_FOREGROUND_COLOR};
 `;
 
@@ -103,7 +103,7 @@ export const SmallText = styled.Text`
   text-align: center;
   margin-top: 10px;
   margin-bottom: 5px;
-  font-size: ${normalize(14)}px;
+  font-size: ${normalize(10, 14)}px;
   color: ${(props: ThemeState) => props.theme.PRIMARY_FOREGROUND_COLOR};
 `;
 
@@ -126,7 +126,7 @@ export const RadioBoxContent = styled.View`
 export const DescriptionText = styled.Text`
   text-align: center;
   margin-bottom: 30px;
-  font-size: ${normalize(14)}px;
+  font-size: ${normalize(10, 14)}px;
   color: ${(props: ThemeState) => props.theme.PRIMARY_FOREGROUND_COLOR};
 `;
 
@@ -134,7 +134,7 @@ export const RadioBottomText = styled.Text`
   text-align: center;
   margin-top: 15px;
   margin-bottom: 10px;
-  font-size: ${normalize(12)}px;
+  font-size: ${normalize(9, 12)}px;
   color: ${(props: ThemeState) => props.theme.PRIMARY_FOREGROUND_COLOR};
 `;
 
@@ -142,7 +142,7 @@ export const PriceTitle = styled.Text`
   text-align: center;
   margin-top: 2px;
   margin-bottom: 10px;
-  font-size: ${normalize(26)}px;
+  font-size: ${normalize(22, 26)}px;
   font-weight: 700;
   color: ${(props: ThemeState) => props.theme.PRIMARY_FOREGROUND_COLOR};
 `;

@@ -29,7 +29,7 @@ export const SeasonText = styled.Text`
   color: ${(props: ThemeState) => props.theme.SECONDARY_COLOR_LIGHT};
   font-family: ${(props: ThemeState) => props.theme.PRIMARY_FONT_FAMILY_MEDIUM};
   margin-right: 10px;
-  font-size: ${normalize(16)}px;
+  font-size: ${normalize(12, 16)}px;
 `;
 
 export const InformationButton = styled.TouchableOpacity`

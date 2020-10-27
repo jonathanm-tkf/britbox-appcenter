@@ -17,7 +17,7 @@ export const ActionInnerContent = styled.View`
 export const ActionText = styled.Text`
   font-family: ${(props: ThemeState) => props.theme.PRIMARY_FONT_FAMILY_MEDIUM};
   color: ${(props: ThemeState) => props.theme.SECONDARY_COLOR_LIGHT};
-  font-size: ${normalize(14)}px;
+  font-size: ${normalize(10, 14)}px;
 `;
 
 interface ActionButtonProps {
@@ -43,6 +43,6 @@ export const ActionButton = styled.TouchableOpacity`
 
 export const DiscoverMoreText = styled.Text`
   color: ${(props: ThemeState) => props.theme.PRIMARY_FOREGROUND_COLOR};
-  font-size: ${normalize(16)}px;
+  font-size: ${normalize(12, 16)}px;
   margin-left: 15px;
 `;

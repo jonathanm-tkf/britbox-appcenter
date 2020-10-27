@@ -7,6 +7,7 @@ import { AppState } from '@store/modules/rootReducer';
 import { useSelector } from 'react-redux';
 import { MassiveSDKModelItemList } from '@src/sdks/Britbox.API.Content.TS/api';
 import { ActivityIndicator } from 'react-native';
+import { isTablet } from 'react-native-device-info';
 import {
   Container,
   ActionWrapper,
@@ -45,15 +46,28 @@ const Actions = ({ onPlay, onDiscoverMore, onWatchlist, id, type }: Props) => {
             <>
               <ActionButton onPress={() => (onWatchlist ? onWatchlist() : {})}>
                 {bookmarkPendingProccesing === id ? (
-                  <ActivityIndicator size={35} color={theme.PRIMARY_FOREGROUND_COLOR} />
+                  <ActivityIndicator
+                    size={isTablet() ? 42 : 35}
+                    color={theme.PRIMARY_FOREGROUND_COLOR}
+                  />
                 ) : getIsInWatchlist() ? (
-                  <CheckedIcon fill={theme.PRIMARY_FOREGROUND_COLOR} width={35} height={35} />
+                  <CheckedIcon
+                    fill={theme.PRIMARY_FOREGROUND_COLOR}
+                    width={isTablet() ? 42 : 35}
+                    height={isTablet() ? 42 : 35}
+                  />
                 ) : (
-                  <WatchlistIcon width={35} height={35} />
+                  <WatchlistIcon width={isTablet() ? 42 : 35} height={isTablet() ? 42 : 35} />
                 )}
               </ActionButton>
               <ActionButton play onPress={() => (onPlay ? onPlay() : {})}>
-                <Action isContinue={false} loop autoPlay width={80} height={80} />
+                <Action
+                  isContinue={false}
+                  loop
+                  autoPlay
+                  width={isTablet() ? 120 : 80}
+                  height={isTablet() ? 120 : 80}
+                />
                 <ActionText>{t('playnow')}</ActionText>
               </ActionButton>
             </>
@@ -62,7 +76,7 @@ const Actions = ({ onPlay, onDiscoverMore, onWatchlist, id, type }: Props) => {
             link={type === 'link'}
             onPress={() => (onDiscoverMore ? onDiscoverMore() : {})}
           >
-            <DiscoverMoreIcon width={35} height={35} />
+            <DiscoverMoreIcon width={isTablet() ? 42 : 35} height={isTablet() ? 42 : 35} />
             {type === 'link' && <DiscoverMoreText>{t('discover')}</DiscoverMoreText>}
           </ActionButton>
         </ActionInnerContent>

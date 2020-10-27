@@ -9,6 +9,7 @@ import { AppState } from '@store/modules/rootReducer';
 import { useSelector } from 'react-redux';
 import { pickBy } from 'lodash';
 import { LoadDetailPageResponse, MoreInformation, Show } from '@store/modules/detail/types';
+import { isTablet } from 'react-native-device-info';
 import { Container, ContainerFilter, SeasonButton, SeasonText, InformationButton } from './styles';
 
 interface Props {
@@ -116,8 +117,8 @@ const Episodes = ({
       {data.map((item, index) => (
         <Card
           key={index.toString()}
-          width={157}
-          height={107}
+          width={isTablet() ? 250 : 157}
+          height={isTablet() ? 140 : 107}
           url={getImage(item?.images?.wallpaper || 'loading', 'wallpaper')}
           isDetail
           onLayout={(event) => {

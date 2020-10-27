@@ -12,7 +12,7 @@ interface TitleComponentProps {
 
 export const TitleComponent = styled(Title)`
   color: ${(props: ThemeState) => props.theme.PRIMARY_FOREGROUND_COLOR};
-  font-size: ${normalize(26)}px;
+  font-size: ${normalize(22, 26)}px;
   font-weight: 700;
 
   ${(props: TitleComponentProps & ThemeState) => {

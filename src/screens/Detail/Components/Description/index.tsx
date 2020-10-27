@@ -6,6 +6,7 @@ import { useSelector } from 'react-redux';
 import { Headline, Paragraph } from '@components/Typography';
 import ContentLoader, { Rect } from 'react-content-loader/native';
 import { LoadDetailPageResponse } from '@store/modules/detail/types';
+import { isTablet } from 'react-native-device-info';
 import { Container, PreloadDescription } from './styles';
 
 type Props = {
@@ -34,8 +35,10 @@ const Description = ({ data }: Props) => {
           </PreloadDescription>
         )}
       >
-        <Headline lineHeight={30}>{data?.detail.title}</Headline>
-        <Paragraph fontSize={14}>{data?.detail.description}</Paragraph>
+        <Headline lineHeight={isTablet() ? 34 : 26}>{data?.detail.title}</Headline>
+        <Paragraph fontSize={isTablet() ? 16 : 12} lineHeight={isTablet() ? 24 : 18}>
+          {data?.detail.description}
+        </Paragraph>
       </Shimmer>
     </Container>
   );

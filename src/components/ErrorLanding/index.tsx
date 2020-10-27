@@ -5,6 +5,7 @@ import { Button } from '@components/Button';
 import { useTranslation } from 'react-i18next';
 import { Headline, Paragraph } from '@components/Typography';
 import { getTextInConfigJSON, getGlobalTextInConfigJSON } from '@src/utils/object';
+import { isTablet } from 'react-native-device-info';
 import { Container, Opaque, BottomParagraph, LinkTitle, LogoContainer, Logo } from './styles';
 
 type Props = {
@@ -19,7 +20,7 @@ const ErrorLanding = ({ onPress, out = false }: Props) => {
       <LogoContainer>
         <Logo />
       </LogoContainer>
-      <Headline fontSize={28} lineHeight={40} center>
+      <Headline fontSize={isTablet() ? 28 : 22} lineHeight={isTablet() ? 40 : 34} center>
         {!out
           ? t('error.subtitle')
           : getGlobalTextInConfigJSON(['out-of-region', 'message'], t('errorOut.subtitle'))}
@@ -27,7 +28,7 @@ const ErrorLanding = ({ onPress, out = false }: Props) => {
       {!out ? (
         <>
           <Opaque>
-            <Paragraph fontSize={16} lineHeight={22}>
+            <Paragraph fontSize={isTablet() ? 16 : 12} lineHeight={isTablet() ? 22 : 18}>
               {t('error.description')}
             </Paragraph>
           </Opaque>

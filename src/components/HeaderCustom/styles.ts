@@ -44,7 +44,7 @@ export const CenterWrapper = styled.View`
 
 export const Title = styled.Text`
   color: ${(props: ThemeState) => props.theme.PRIMARY_FOREGROUND_COLOR};
-  font-size: ${normalize(26)}px;
+  font-size: ${normalize(14, 26)}px;
   font-weight: 600;
   text-align: center;
   margin-top: 24px;

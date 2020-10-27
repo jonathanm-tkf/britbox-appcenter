@@ -2,6 +2,7 @@ import styled from 'styled-components/native';
 import { Paragraph as ParagraphC, Headline as HeadlineC } from '@components/Typography';
 import { ThemeState } from '@store/modules/theme/types';
 import { rgba } from 'polished';
+import { normalize } from '@src/utils/normalize';
 
 export const Row = styled.View`
   padding-left: 20px;
@@ -16,10 +17,12 @@ export const PaddingLeft = styled.View`
 export const Paragraph = styled(ParagraphC)`
   color: ${(props: ThemeState) => rgba(props.theme.PRIMARY_TEXT_COLOR, 0.6)};
   margin-bottom: 30px;
+  font-size: ${normalize(14, 20)}px;
 `;
 
 export const Headline = styled(HeadlineC)`
   margin-bottom: 20px;
+  font-size: ${normalize(16, 22)}px;
 `;
 
 export const BottomSheetWrapper = styled.View`

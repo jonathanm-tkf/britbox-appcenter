@@ -14,6 +14,7 @@ import {
   MassiveSDKModelItemSummary,
 } from '@src/sdks/Britbox.API.Content.TS/api';
 import { LoadDetailPageResponse } from '@store/modules/detail/types';
+import { isTablet } from 'react-native-device-info';
 import {
   Container,
   ActionWrapper,
@@ -83,11 +84,18 @@ const Actions = ({ data, onPlay, onWatchlist, id }: Props) => {
           <ActionInnerContent>
             <ActionButton onPress={onWatchlist}>
               {bookmarkPendingProccesing === id ? (
-                <ActivityIndicator size={35} color={theme.PRIMARY_FOREGROUND_COLOR} />
+                <ActivityIndicator
+                  size={isTablet() ? 42 : 35}
+                  color={theme.PRIMARY_FOREGROUND_COLOR}
+                />
               ) : getIsInWatchlist() ? (
-                <CheckedIcon fill={theme.PRIMARY_FOREGROUND_COLOR} width={35} height={35} />
+                <CheckedIcon
+                  fill={theme.PRIMARY_FOREGROUND_COLOR}
+                  width={isTablet() ? 42 : 35}
+                  height={isTablet() ? 42 : 35}
+                />
               ) : (
-                <WatchlistIcon width={35} height={35} />
+                <WatchlistIcon width={isTablet() ? 42 : 35} height={isTablet() ? 42 : 35} />
               )}
             </ActionButton>
             <ActionButton play onPress={() => onPlay()}>
@@ -95,8 +103,8 @@ const Actions = ({ data, onPlay, onWatchlist, id }: Props) => {
                 isContinue={getIsContinueWatching()}
                 loop={!getIsContinueWatching()}
                 autoPlay
-                width={80}
-                height={80}
+                width={isTablet() ? 120 : 80}
+                height={isTablet() ? 120 : 80}
               />
               <ActionText>{getIsContinueWatching() ? t('continue') : t('playnow')}</ActionText>
             </ActionButton>

@@ -8,6 +8,7 @@ import { useSelector } from 'react-redux';
 import { AppState } from '@store/modules/rootReducer';
 import { navigateByPath } from '@src/navigation/rootNavigation';
 import { getStatusBarHeight } from 'react-native-iphone-x-helper';
+import { isTablet } from 'react-native-device-info';
 import CustomCard from './CustomCard';
 import { sliderWidth, itemWidth, sliderWidthSlim, itemWidthSlim } from './CustomCard/styles';
 import {
@@ -139,7 +140,7 @@ const NewSlider = ({
 
   const stylesContainer = slim
     ? {
-        paddingTop: getStatusBarHeight() + 50,
+        paddingTop: getStatusBarHeight() + (isTablet() ? 70 : 50),
         // bottom: slim ? -hp(40) : 0,
         position: 'absolute',
       }

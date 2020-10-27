@@ -21,6 +21,7 @@ import Grid from '@screens/Shared/Grid';
 import { widthPercentageToDP as vw } from 'react-native-responsive-screen';
 
 import { wp } from '@src/utils/dimension';
+import { isTablet } from 'react-native-device-info';
 import {
   Container,
   Title,
@@ -117,7 +118,7 @@ export default function Search() {
   // const [error, setError] = useState(false);
 
   const getDataDetail = async () => {
-    const { response } = await loadCollectionPage('/our-top-picks', 6);
+    const { response } = await loadCollectionPage('/our-top-picks', isTablet() ? 8 : 6);
 
     if ((response?.entries || []).length === 0) {
       // setError(true);
@@ -185,13 +186,13 @@ export default function Search() {
     <Container>
       <Scroll>
         <TitleWrapper>
-          <Title fontSize={25} lineHeight={38}>
+          <Title fontSize={isTablet() ? 32 : 25} lineHeight={isTablet() ? 42 : 38}>
             {t('title')}
           </Title>
         </TitleWrapper>
         <SearchWrapper>
           <SearchIconWrapper>
-            <SearchIcon width={25} height={25} />
+            <SearchIcon width={isTablet() ? 30 : 25} height={isTablet() ? 30 : 25} />
           </SearchIconWrapper>
           <SearchInput
             placeholder={t('placeholder')}
@@ -228,12 +229,12 @@ export default function Search() {
                 <Grid
                   items={searchingItemData || []}
                   title=""
-                  numColumns={3}
+                  numColumns={isTablet() ? 4 : 3}
                   element={{
-                    width: vw(33.333) - wp(20),
-                    height: vw(33.333 * 1.25),
+                    width: vw(isTablet() ? 25 : 33.333) - wp(isTablet() ? 10 : 20),
+                    height: vw((isTablet() ? 25 : 33.333) * 1.25),
                     marginBottom: 20,
-                    marginHorizontal: wp(5),
+                    marginHorizontal: wp(isTablet() ? 3 : 5),
                   }}
                   containerStyle={containerStyles}
                 />
@@ -328,12 +329,12 @@ export default function Search() {
             <Grid
               items={suggestions?.list?.items || []}
               title={suggestions?.title || ''}
-              numColumns={3}
+              numColumns={isTablet() ? 4 : 3}
               element={{
-                width: vw(33.333) - wp(20),
-                height: vw(33.333 * 1.25),
+                width: vw(isTablet() ? 25 : 33.333) - wp(isTablet() ? 10 : 20),
+                height: vw((isTablet() ? 25 : 33.333) * 1.25),
                 marginBottom: 20,
-                marginHorizontal: wp(5),
+                marginHorizontal: wp(isTablet() ? 3 : 5),
               }}
               containerStyle={containerStyles}
             />

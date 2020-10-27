@@ -2,6 +2,7 @@ import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { HomeIcon, ExploreIcon, MoreIcon, SearchIcon } from '@assets/icons';
 import { useTranslation } from 'react-i18next';
+import { isTablet } from 'react-native-device-info';
 import { MoreStackScreen } from './More';
 import { HomeStackScreen } from './Home';
 import { SearchStackScreen } from './Search';
@@ -18,7 +19,7 @@ const AppTabsScreen = () => {
         component={HomeStackScreen}
         options={{
           tabBarLabel: t('home'),
-          tabBarIcon: () => <HomeIcon width={24} height={24} />,
+          tabBarIcon: () => <HomeIcon width={isTablet() ? 28 : 24} height={isTablet() ? 28 : 24} />,
         }}
       />
       <AppTabs.Screen
@@ -26,7 +27,9 @@ const AppTabsScreen = () => {
         component={ExploreStackScreen}
         options={{
           tabBarLabel: t('explore'),
-          tabBarIcon: () => <ExploreIcon width={34} height={34} />,
+          tabBarIcon: () => (
+            <ExploreIcon width={isTablet() ? 38 : 34} height={isTablet() ? 38 : 34} />
+          ),
         }}
       />
       <AppTabs.Screen
@@ -34,7 +37,9 @@ const AppTabsScreen = () => {
         component={SearchStackScreen}
         options={{
           tabBarLabel: t('search'),
-          tabBarIcon: () => <SearchIcon width={26} height={26} />,
+          tabBarIcon: () => (
+            <SearchIcon width={isTablet() ? 30 : 26} height={isTablet() ? 30 : 26} />
+          ),
         }}
       />
       <AppTabs.Screen
@@ -42,7 +47,7 @@ const AppTabsScreen = () => {
         component={MoreStackScreen}
         options={{
           tabBarLabel: t('more'),
-          tabBarIcon: () => <MoreIcon width={24} height={24} />,
+          tabBarIcon: () => <MoreIcon width={isTablet() ? 28 : 24} height={isTablet() ? 28 : 24} />,
         }}
       />
     </AppTabs.Navigator>

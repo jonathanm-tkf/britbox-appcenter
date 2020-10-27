@@ -8,7 +8,7 @@ import { AppState } from '@store/modules/rootReducer';
 import { useTranslation } from 'react-i18next';
 import { useSelector, useDispatch } from 'react-redux';
 import { logout } from '@store/modules/user/actions';
-import { getVersion, getBuildNumber } from 'react-native-device-info';
+import { getVersion, getBuildNumber, isTablet } from 'react-native-device-info';
 import { atiEventTracking } from '@store/modules/layout/actions';
 import { getTextInConfigJSON } from '@src/utils/object';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -64,7 +64,7 @@ export default function More() {
           <RowContainer>
             <ProfileImageIconView />
             <RowContent>
-              <Title fontSize={20}>{user?.profile?.firstName || ''}</Title>
+              <Title fontSize={isTablet() ? 24 : 20}>{user?.profile?.firstName || ''}</Title>
               <RowViewContainer>
                 <EditIconContainer
                   onPress={() => {
@@ -132,7 +132,11 @@ export default function More() {
         </RowContainer>
         <SeparatorLine />
         <RowContainer>
-          <CelularIcon height={60} width={50} style={CelularStyle} />
+          <CelularIcon
+            height={isTablet() ? 70 : 60}
+            width={isTablet() ? 60 : 50}
+            style={CelularStyle}
+          />
           <RowContent>
             <ItemSubTitle>{t('appversion')}</ItemSubTitle>
             <DescriptionText>

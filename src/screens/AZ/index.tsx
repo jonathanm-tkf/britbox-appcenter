@@ -24,6 +24,7 @@ import { Item } from '@screens/ModalFilter';
 import { ArrowBottomIcon } from '@assets/icons';
 import { compact } from 'lodash';
 import { wp } from '@src/utils/dimension';
+import { isTablet } from 'react-native-device-info';
 import { dataDummy } from './data';
 import {
   Container,
@@ -317,16 +318,16 @@ const AZ = () => {
                 items={data.items || []}
                 title={t('az:title')}
                 loading={animationContinuosScroll}
-                numColumns={3}
+                numColumns={isTablet() ? 4 : 3}
                 element={{
-                  width: vw(33.333) - wp(20),
-                  height: vw(33.333 * 1.25),
+                  width: vw(isTablet() ? 25 : 33.333) - wp(isTablet() ? 10 : 20),
+                  height: vw((isTablet() ? 25 : 33.333) * 1.25),
                   marginBottom: 20,
-                  marginHorizontal: wp(5),
+                  marginHorizontal: wp(isTablet() ? 3 : 5),
                 }}
                 containerStyle={{
                   marginTop: 10,
-                  paddingHorizontal: wp(15),
+                  paddingHorizontal: wp(isTablet() ? 7 : 15),
                 }}
               />
             </ContainerGrid>

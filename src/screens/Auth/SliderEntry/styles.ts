@@ -37,7 +37,7 @@ export const Title = styled.Text`
   margin-top: 15px;
   color: ${(props: ThemeState) => props.theme.PRIMARY_FOREGROUND_COLOR};
   font-family: ${(props: ThemeState) => props.theme.PRIMARY_FONT_FAMILY};
-  font-size: ${normalize(30)}px;
+  font-size: ${normalize(22, 32)}px;
   text-align: center;
 `;
 export const Subtitle = styled.Text`
@@ -48,5 +48,5 @@ export const Subtitle = styled.Text`
   margin-bottom: 6px;
   color: ${(props: ThemeState) => props.theme.PRIMARY_FOREGROUND_COLOR};
   font-family: ${(props: ThemeState) => props.theme.PRIMARY_FONT_FAMILY};
-  font-size: ${normalize(14)}px;
+  font-size: ${normalize(10, 16)}px;
 `;

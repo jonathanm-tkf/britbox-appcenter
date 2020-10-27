@@ -106,7 +106,7 @@ export const ButtonText = styled.Text`
     return (
       props.size === 'big' &&
       `
-      font-size: ${normalize(18)}px;
+      font-size: ${normalize(14, 18)}px;
     `
     );
   }};
@@ -123,7 +123,7 @@ export const ButtonText = styled.Text`
       props.fontWeight === 'bold' &&
       `
       font-family: ${props.theme.PRIMARY_FONT_FAMILY_BOLD};
-      font-size: ${normalize(18)}px;
+      font-size: ${normalize(14, 18)}px;
     `
     );
   }};

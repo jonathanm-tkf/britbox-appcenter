@@ -2,6 +2,7 @@ import styled from 'styled-components/native';
 import { ThemeState } from '@store/modules/theme/types';
 import { TextInput, DefaultTheme, HelperText as HelperTextP } from 'react-native-paper';
 import { CheckedIcon, WarningIcon } from '@assets/icons';
+import { normalize } from '@src/utils/normalize';
 
 interface InputProps {
   error: boolean;
@@ -21,6 +22,7 @@ export const Input = styled(TextInput).attrs((props: ThemeState) => ({
   },
 }))<InputProps & ThemeState>`
   padding-right: 40px;
+  font-size: ${normalize(12, 14)}px;
 `;
 
 export const Container = styled.View`

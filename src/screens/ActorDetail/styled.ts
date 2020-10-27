@@ -52,7 +52,7 @@ export const CastFirstNameWrapper = styled.View`
 export const CastFirstNameText = styled.Text`
   color: ${(props: ThemeState) => props.theme.PRIMARY_TEXT_COLOR_LIGHT};
   font-family: ${(props: ThemeState) => props.theme.PRIMARY_FONT_FAMILY_MEDIUM};
-  font-size: ${normalize(18)}px;
+  font-size: ${normalize(14, 18)}px;
   padding-top: 2px;
   padding-left: 8px;
 `;
@@ -60,7 +60,7 @@ export const CastFirstNameText = styled.Text`
 export const CastLastNameText = styled.Text`
   color: ${(props: ThemeState) => props.theme.PRIMARY_TEXT_COLOR_LIGHT};
   font-family: ${(props: ThemeState) => props.theme.PRIMARY_FONT_FAMILY_MEDIUM};
-  font-size: ${normalize(26)}px;
+  font-size: ${normalize(22, 26)}px;
   padding-vertical: 2px;
 `;
 
