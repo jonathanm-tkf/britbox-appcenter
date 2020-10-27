@@ -15,7 +15,7 @@ export const FABView = styled.TouchableOpacity`
   margin: 16px;
   right: 0px;
   bottom: ${Platform.OS === 'ios'
-    ? (isTablet() ? 80 : 65) + getBottomSpace()
+    ? (isTablet() ? 75 : 58) + getBottomSpace()
     : isTablet()
     ? 90
     : 55}px;
