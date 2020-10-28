@@ -34,6 +34,7 @@ interface Props {
   shadow?: boolean;
   isCenter?: boolean;
   onPressSignIn?: () => void;
+  style?: any;
 }
 
 type MenuItem = {
@@ -42,7 +43,7 @@ type MenuItem = {
   goTo: string;
 };
 
-export default function Header({ hideSignIn, shadow, isCenter, onPressSignIn }: Props) {
+export default function Header({ hideSignIn, shadow, isCenter, onPressSignIn, style }: Props) {
   const dispatch = useDispatch();
   const { t } = useTranslation('layout');
   const isLogged = useSelector((state: AppState) => state.user.isLogged);
@@ -75,7 +76,7 @@ export default function Header({ hideSignIn, shadow, isCenter, onPressSignIn }: 
   };
 
   return (
-    <Container>
+    <Container style={style}>
       {isCenter ? (
         <>
           <CenterLogoWrapper>

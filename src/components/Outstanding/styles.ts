@@ -3,9 +3,13 @@ import { ThemeState } from '@store/modules/theme/types';
 import LinearGradient from 'react-native-linear-gradient';
 import { rgba } from 'polished';
 import { normalize } from '@src/utils/normalize';
+import { isTablet } from 'react-native-device-info';
 
 export const Gradient = styled(LinearGradient).attrs((props: ThemeState) => ({
-  colors: [rgba(props.theme.PRIMARY_COLOR, 0), props.theme.PRIMARY_COLOR],
+  colors: [
+    rgba(props.theme.PRIMARY_COLOR, 0),
+    rgba(props.theme.PRIMARY_COLOR, isTablet() ? 0.8 : 1),
+  ],
 }))`
   width: 100%;
   height: 100px;
@@ -40,7 +44,6 @@ export const ActionButton = styled.TouchableOpacity`
   padding: 10px;
   flex-direction: row;
   align-items: center;
-
   ${(props: ActionButtonProps) => {
     return (
       props.link &&
@@ -67,6 +70,7 @@ export const LogoWrapper = styled.View`
 
 export const PaginationWrapper = styled.View`
   align-self: center;
+  margin-top: ${isTablet() ? -20 : 10}px;
 `;
 
 export const PaginationOutside = styled.View`

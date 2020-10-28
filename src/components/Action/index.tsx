@@ -1,6 +1,10 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable @typescript-eslint/no-shadow */
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import { ContinueWatching, Play, Loading, Trailer } from '@assets/icons';
 import React from 'react';
 
-import { Container, LottieAnimation } from './styles';
+import { Container } from './styles';
 
 interface Props {
   autoPlay: boolean;
@@ -13,9 +17,20 @@ interface Props {
 }
 
 const Action = ({ autoPlay, loop, width, height, isContinue, isTrailer, loading }: Props) => {
+  // source: props.loading ? Load : props.isTrailer ? Trailer : props.isContinue ? Continue : Play,
+  const Icon = ({ width, height }: { width: number; height: number }) =>
+    loading ? (
+      <Loading {...{ width: width - 20, height: height - 20 }} />
+    ) : isTrailer ? (
+      <Trailer {...{ width: width - 20, height: height - 20 }} />
+    ) : isContinue ? (
+      <ContinueWatching {...{ width: width - 20, height: height - 20 }} />
+    ) : (
+      <Play {...{ width: width - 20, height: height - 20 }} />
+    );
   return (
     <Container>
-      <LottieAnimation {...{ autoPlay, loop, width, height, isContinue, isTrailer, loading }} />
+      <Icon {...{ width: width || 32, height: height || 32 }} />
     </Container>
   );
 };

@@ -57,7 +57,7 @@ const PaginationComponent = ({
   );
 };
 
-const ACTIONS_HEIGHT = 170;
+const ACTIONS_HEIGHT = 150;
 
 const Outstanding = ({ items, onPlay, onWatchlist, onDiscoverMore }: Props) => {
   const [screenData, setScreenData] = useState(Dimensions.get('window'));

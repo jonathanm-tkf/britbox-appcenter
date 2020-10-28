@@ -135,6 +135,9 @@ const SignUpSubscription = () => {
   const getProducts = async () => {
     const { response } = await getProductsRequest(country);
 
+    Sentry.setExtra('products', JSON.stringify(response));
+    Sentry.captureMessage('getProducts');
+
     if (response && Number(response?.responseCode) === 1) {
       if (response?.productsResponseMessage?.length > 0) {
         setPackageData(response?.productsResponseMessage);
@@ -239,9 +242,15 @@ const SignUpSubscription = () => {
         }
       }
 
+      Sentry.setExtra('packageId', JSON.stringify(packageId));
+      Sentry.captureMessage('packageId');
+
       trackEvent(`2_details_${packageData[packageIndex]?.productDescription}`);
 
       const purchase = await RNIap.requestSubscription(String(packageId));
+
+      Sentry.setExtra('purchase', JSON.stringify(purchase));
+      Sentry.captureMessage('purchase');
 
       await RNIap.finishTransaction(purchase);
 
@@ -251,6 +260,9 @@ const SignUpSubscription = () => {
         setLoading(false);
         return true;
       }
+
+      Sentry.setExtra('error catch', JSON.stringify(err));
+      Sentry.captureMessage('error atch');
 
       trackEvent(err?.message);
       setErrorMsg(err?.message);
@@ -282,6 +294,9 @@ const SignUpSubscription = () => {
         serviceType: 'PRODUCT',
         paymentmethodInfo,
       });
+
+      Sentry.setExtra('subscriptionResponse', JSON.stringify(subscriptionResponse));
+      Sentry.captureMessage('subscriptionResponse');
 
       let error = false;
 

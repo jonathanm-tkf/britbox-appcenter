@@ -22,3 +22,7 @@ export { default as HelpIcon } from './images/Help.svg';
 export { default as StarIcon } from './images/Star.svg';
 export { default as LostConnectionImage } from './images/LostConnectionImage.svg';
 export { default as ChromecastIcon } from './images/Chromecast.svg';
+export { default as Play } from './images/Play.svg';
+export { default as Loading } from './images/Loading.svg';
+export { default as Trailer } from './images/Trailer.svg';
+export { default as ContinueWatching } from './images/Continue_Watching.svg';

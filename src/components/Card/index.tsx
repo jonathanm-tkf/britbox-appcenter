@@ -138,8 +138,8 @@ const Card = ({
                   <ActionWrapper>
                     <Action
                       isContinue={isContinue}
-                      width={isTablet() ? 60 : 40}
-                      height={isTablet() ? 60 : 40}
+                      width={isTablet() ? 60 : 45}
+                      height={isTablet() ? 60 : 45}
                       autoPlay
                       loop={!isContinue}
                     />

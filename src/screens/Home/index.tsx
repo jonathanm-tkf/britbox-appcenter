@@ -1,7 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useCallback, useEffect } from 'react';
-import { View, Platform } from 'react-native';
-import { CollapsibleHeaderFlatList } from 'react-native-collapsible-header-views';
+import { View, Platform, Animated } from 'react-native';
 import { getStatusBarHeight } from 'react-native-iphone-x-helper';
 import Header from '@components/Header';
 import { useSelector, useDispatch } from 'react-redux';
@@ -38,7 +37,6 @@ const wrapper = {
 
 const Home = () => {
   const dispatch = useDispatch();
-  const theme = useSelector((state: AppState) => state.theme.theme);
   const deepLinkUrl = useSelector((state: AppState) => state.home.deepLinkUrl);
 
   const appWokeUp = useCallback(async (url) => {
@@ -85,28 +83,26 @@ const Home = () => {
 
   return (
     <View style={wrapper}>
-      <CollapsibleHeaderFlatList
-        CollapsibleHeaderComponent={<Header />}
-        headerContainerBackgroundColor={theme.PRIMARY_COLOR}
-        headerHeight={77}
-        data={[0]}
-        renderItem={() => <Item />}
-        clipHeader
-        keyExtractor={keyExtractor}
-        showsVerticalScrollIndicator={false}
-      />
+      <Item />
     </View>
   );
 };
-
-const keyExtractor = (item: number) => `${item}`;
 
 type WatchlistToggleRequest = MassiveSDKModelItemSummary & {
   isInWatchlist: boolean;
 };
 
+const headerStyles = { position: 'absolute', top: 0, left: 0, right: 0 };
+
 const Item = () => {
   const dispatch = useDispatch();
+  const heightHeader = 90 + getStatusBarHeight();
+  const scrollY = new Animated.Value(0);
+  const diffClamp = Animated.diffClamp(scrollY, 0, heightHeader);
+  const translateY = diffClamp.interpolate({
+    inputRange: [0, heightHeader],
+    outputRange: [0, -heightHeader],
+  });
 
   const modal = (item: MassiveSDKModelItemSummary) => {
     if (item.type !== 'link') {
@@ -130,52 +126,81 @@ const Item = () => {
     );
   };
 
+  const animationHeaderStyles = {
+    elevation: 4,
+    zIndex: 4,
+    transform: [
+      {
+        translateY,
+      },
+    ],
+  };
+
   return (
     <Container>
-      {home &&
-        home.entries &&
-        home.entries.map((item, key) => {
-          if (
-            (item?.list?.items || []).length === 0 &&
-            getTemplate(item.template || '') !== 'user-watching'
-          ) {
-            return null;
+      <Animated.View style={animationHeaderStyles}>
+        <Header style={headerStyles} />
+      </Animated.View>
+      <Animated.ScrollView
+        overScrollMode="never"
+        scrollEventThrottle={16}
+        bounces={false}
+        onScroll={Animated.event(
+          [
+            {
+              nativeEvent: { contentOffset: { y: scrollY } },
+            },
+          ],
+          {
+            useNativeDriver: true,
           }
-          switch (getTemplate(item.template || '')) {
-            case 'hero':
-              return (
-                <Hero
-                  key={key.toString()}
-                  {...{ item }}
-                  onWatchlist={(i: MassiveSDKModelItemSummary, isInWatchList: boolean) =>
-                    onWatchlist(i, isInWatchList)
-                  }
-                  onPlay={(i: MassiveSDKModelItemSummary) => modal(i)}
-                  onDiscoverMore={(i) => heroDiscoverMore(i)}
-                />
-              );
-            case 'user-watching':
-              return <ContinueWatching key={key.toString()} />;
-            case 'new':
-              return <New key={key.toString()} {...{ item }} />;
-            case 'episodes':
-              return <Episodes key={key.toString()} {...{ item }} />;
-            case 'large-programing':
-              return <LargeProgramming key={key.toString()} {...{ item }} />;
-            case 'title-treatment':
-              return <TitleTreatment key={key.toString()} {...{ item }} />;
-            case 'popular':
-              return <Popular key={key.toString()} {...{ item }} />;
-            case 'standard':
-              return <Standard key={key.toString()} {...{ item }} />;
-            case 'genre':
-              return <Genre key={key.toString()} {...{ item }} />;
-            case 'collections':
-              return <Collections key={key.toString()} {...{ item }} />;
-            default:
+        )}
+      >
+        {home &&
+          home.entries &&
+          home.entries.map((item, key) => {
+            if (
+              (item?.list?.items || []).length === 0 &&
+              getTemplate(item.template || '') !== 'user-watching'
+            ) {
               return null;
-          }
-        })}
+            }
+            switch (getTemplate(item.template || '')) {
+              case 'hero':
+                return (
+                  <Hero
+                    key={key.toString()}
+                    {...{ item }}
+                    onWatchlist={(i: MassiveSDKModelItemSummary, isInWatchList: boolean) =>
+                      onWatchlist(i, isInWatchList)
+                    }
+                    onPlay={(i: MassiveSDKModelItemSummary) => modal(i)}
+                    onDiscoverMore={(i) => heroDiscoverMore(i)}
+                  />
+                );
+              case 'user-watching':
+                return <ContinueWatching key={key.toString()} />;
+              case 'new':
+                return <New key={key.toString()} {...{ item }} />;
+              case 'episodes':
+                return <Episodes key={key.toString()} {...{ item }} />;
+              case 'large-programing':
+                return <LargeProgramming key={key.toString()} {...{ item }} />;
+              case 'title-treatment':
+                return <TitleTreatment key={key.toString()} {...{ item }} />;
+              case 'popular':
+                return <Popular key={key.toString()} {...{ item }} />;
+              case 'standard':
+                return <Standard key={key.toString()} {...{ item }} />;
+              case 'genre':
+                return <Genre key={key.toString()} {...{ item }} />;
+              case 'collections':
+                return <Collections key={key.toString()} {...{ item }} />;
+              default:
+                return null;
+            }
+          })}
+      </Animated.ScrollView>
     </Container>
   );
 };
