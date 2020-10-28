@@ -6,6 +6,7 @@
 //
 
 #import "AppleTVController.h"
+#import <VideoSubscriberAccount/VideoSubscriberAccount.h>
 
 @interface AppleTVController ()
 
@@ -32,6 +33,7 @@ RCT_EXPORT_MODULE();
   return dispatch_get_main_queue();
 }
 
+//UserActivity Methods
 RCT_EXPORT_METHOD(userActivity:(NSString *)contentId resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
 {
   @try {
@@ -42,13 +44,9 @@ RCT_EXPORT_METHOD(userActivity:(NSString *)contentId resolver:(RCTPromiseResolve
     if (@available(iOS 12.0, *)) {
       [userActivity setEligibleForPrediction:true];
       userActivity.persistentIdentifier = bundleIdentifier;
-    } else {
-      // Fallback on earlier versions
     }
     if (@available(iOS 13.0, *)) {
       userActivity.targetContentIdentifier = contentId;
-    } else {
-      // Fallback on earlier versions
     }
     self.view.userActivity = userActivity;
     [userActivity becomeCurrent];
@@ -63,6 +61,46 @@ RCT_EXPORT_METHOD(invalidUserActivity:(RCTPromiseResolveBlock)resolve rejecter:(
 {
   @try {
     [userActivity invalidate];
+    resolve(nil);
+  } @catch (NSError *e) {
+    reject(nil, nil, e);
+  }
+}
+
+//Subscription Methods
+RCT_EXPORT_METHOD(appleTVSubscription:(BOOL)isPaid resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
+{
+  @try {
+    if (@available(iOS 11.0, *)) {
+       VSSubscription *subscription = [[VSSubscription alloc]init];
+       subscription.expirationDate = NSDate.distantFuture;
+       VSSubscriptionRegistrationCenter *registrationCenter = [VSSubscriptionRegistrationCenter defaultSubscriptionRegistrationCenter];
+       [registrationCenter setCurrentSubscription:subscription];
+       [subscription setAccessLevel:isPaid];
+    }
+    resolve(nil);
+  } @catch (NSError *e) {
+    reject(nil, nil, e);
+  }
+}
+
+RCT_EXPORT_METHOD(removeAppleTVSubscription:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
+{
+  @try {
+    if (@available(iOS 11.0, *)) {
+       VSSubscriptionRegistrationCenter *registrationCenter = [VSSubscriptionRegistrationCenter defaultSubscriptionRegistrationCenter];
+       [registrationCenter setCurrentSubscription:nil];
+    }
+    resolve(nil);
+  } @catch (NSError *e) {
+    reject(nil, nil, e);
+  }
+}
+
+//Now Playing Info Methods
+RCT_EXPORT_METHOD(videoStart:(NSString *)contentId resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
+{
+  @try {
     resolve(nil);
   } @catch (NSError *e) {
     reject(nil, nil, e);
