@@ -134,6 +134,9 @@ export default function Search() {
   }, []);
 
   useEffect(() => {
+    const searchString = searchInput?.trim();
+    if (!searchString) setSearchInput('');
+
     const timer = setTimeout(() => {
       if (searchInput.length >= 3) {
         setIsDone(false);
@@ -152,34 +155,37 @@ export default function Search() {
   }, [searchInput]);
 
   const doSearch = async (done: boolean) => {
-    setIsLoading(true);
-    const response = await getSearch(user?.access?.accessToken || '', searchInput, done);
+    const searchString = searchInput?.trim();
+    if (searchString.length >= 3) {
+      setIsLoading(true);
+      const response = await getSearch(user?.access?.accessToken || '', searchInput?.trim(), done);
 
-    if (response) {
-      const { response: responseData } = response;
-      const { externalResponse: responseSearchData } = responseData;
+      if (response) {
+        const { response: responseData } = response;
+        const { externalResponse: responseSearchData } = responseData;
 
-      if (responseSearchData) {
-        dispatch(
-          atiEventTracking('search', 'ns_search_terms', {
-            is_background: false,
-            container: 'Application',
-            result: `${searchInput}: ${(responseSearchData?.items?.items || []).length}`,
-            source: 'Britbox~App',
-            metadata: '',
-          })
-        );
-        setSearchingItemData(responseSearchData?.items?.items || []);
-        setSearchingPeopleData(responseSearchData?.people || []);
+        if (responseSearchData) {
+          dispatch(
+            atiEventTracking('search', 'ns_search_terms', {
+              is_background: false,
+              container: 'Application',
+              result: `${searchInput}: ${(responseSearchData?.items?.items || []).length}`,
+              source: 'Britbox~App',
+              metadata: '',
+            })
+          );
+          setSearchingItemData(responseSearchData?.items?.items || []);
+          setSearchingPeopleData(responseSearchData?.people || []);
+        }
+        if (
+          (responseSearchData?.items?.items || []).length === 0 &&
+          (responseSearchData?.people || []).length === 0
+        ) {
+          setNoResults(true);
+        }
       }
-      if (
-        (responseSearchData?.items?.items || []).length === 0 &&
-        (responseSearchData?.people || []).length === 0
-      ) {
-        setNoResults(true);
-      }
+      setIsLoading(false);
     }
-    setIsLoading(false);
   };
 
   return (

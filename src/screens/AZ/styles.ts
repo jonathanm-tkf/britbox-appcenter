@@ -181,9 +181,13 @@ export const LetterButtonText = styled.Text`
   }};
 `;
 
-export const Select = styled.View`
+export const Select = styled.TouchableOpacity`
   position: absolute;
-  top: ${Platform.OS === 'ios' ? 10 : -5}px;
+  top: ${Platform.OS === 'ios' ? -5 : -20}px;
   right: 20px;
   z-index: 1;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-top: 20px;
+  padding-bottom: 25px;
 `;

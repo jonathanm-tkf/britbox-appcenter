@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { NativeScrollEvent, Platform, View } from 'react-native';
 import { useNavigation, useRoute, RouteProp } from '@react-navigation/native';
 import { CollapsibleHeaderFlatList } from 'react-native-collapsible-header-views';
@@ -9,7 +9,7 @@ import { getStatusBarHeight } from 'react-native-iphone-x-helper';
 import Header from '@components/Header';
 import { AppState } from '@store/modules/rootReducer';
 import { useSelector } from 'react-redux';
-import RNPickerSelect from 'react-native-picker-select';
+import RNPickerSelect, { PickerSelectProps } from 'react-native-picker-select';
 import { widthPercentageToDP as vw } from 'react-native-responsive-screen';
 
 import {
@@ -113,6 +113,8 @@ const AZ = () => {
   const [alphabetData, setAlphabetData] = useState<AlphabetDataType[] | undefined>([]);
   const [order, setOrder] = useState('asc');
   const [orderBy, setOrderBy] = useState('a-z');
+
+  const pickerRef = useRef(PickerSelectProps);
 
   const stylesSelect = {
     inputIOS: { color: theme.PRIMARY_TEXT_COLOR_OPAQUE, paddingRight: 30 },
@@ -294,25 +296,7 @@ const AZ = () => {
             >
               <ChangeOrderText>{t('layout:filter')} +</ChangeOrderText>
             </ChangeOrderButton> */}
-            {alphabetData && alphabetData?.length > 0 && (
-              <Select>
-                <RNPickerSelect
-                  placeholder={{}}
-                  InputAccessoryView={() => null}
-                  useNativeAndroidPickerStyle={false}
-                  onValueChange={(value) => filterLetter(value)}
-                  items={alphabetData as any}
-                  style={stylesSelect}
-                  Icon={() => (
-                    <ArrowBottomIcon
-                      width={15}
-                      height={15}
-                      fill={theme.PRIMARY_TEXT_COLOR_OPAQUE}
-                    />
-                  )}
-                />
-              </Select>
-            )}
+
             <ContainerGrid>
               <Grid
                 items={data.items || []}
@@ -331,6 +315,29 @@ const AZ = () => {
                 }}
               />
             </ContainerGrid>
+            {alphabetData && alphabetData?.length > 0 && (
+              <Select
+                activeOpacity={1}
+                onPress={() => pickerRef.current && pickerRef.current.togglePicker()}
+              >
+                <RNPickerSelect
+                  ref={pickerRef}
+                  placeholder={{}}
+                  InputAccessoryView={() => null}
+                  useNativeAndroidPickerStyle={false}
+                  onValueChange={(value) => filterLetter(value)}
+                  items={alphabetData as any}
+                  style={stylesSelect}
+                  Icon={() => (
+                    <ArrowBottomIcon
+                      width={15}
+                      height={15}
+                      fill={theme.PRIMARY_TEXT_COLOR_OPAQUE}
+                    />
+                  )}
+                />
+              </Select>
+            )}
           </WrapperContinuosScroll>
         )}
         {error && <ErrorLanding onPress={() => back()} />}
