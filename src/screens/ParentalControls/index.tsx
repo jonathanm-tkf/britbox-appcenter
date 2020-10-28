@@ -2,8 +2,8 @@
 /* eslint-disable radix */
 /* eslint-disable no-unused-vars */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import React, { useState, useEffect } from 'react';
-import { Text, Alert, Linking } from 'react-native';
+import React, { useState, useEffect, useRef } from 'react';
+import { Text, Alert, Linking, Keyboard } from 'react-native';
 import MultiSlider from '@ptomasroos/react-native-multi-slider';
 import {
   validateContactPasswordRequest,
@@ -90,6 +90,26 @@ export default function ParentalControls() {
   const theme = useSelector((state: AppState) => state.theme.theme);
   const user = useSelector((state: AppState) => state.user);
   const isShowMiniController = useSelector((state: AppState) => state.layout.isShowMiniController);
+
+  const scrollViewRef = useRef(null);
+
+  useEffect(() => {
+    Keyboard.addListener('keyboardDidShow', keyboardDidShow);
+
+    // cleanup function
+    return () => {
+      Keyboard.removeListener('keyboardDidShow', keyboardDidShow);
+    };
+  }, [scrollViewRef]);
+
+  const keyboardDidShow = () => {
+    if (scrollViewRef) {
+      scrollViewRef.current.scrollTo({
+        y: 200,
+        animated: true,
+      });
+    }
+  };
 
   const activeContainer = {
     backgroundColor: 'white',
@@ -444,26 +464,26 @@ export default function ParentalControls() {
           {tabBottomView()}
         </ScrollableContainer>
       ) : (
-        <ScrollableContainer scrollEnabled={!isSliding}>
+        <ScrollableContainer ref={scrollViewRef} scrollEnabled={!isSliding}>
           <TitleWrapper>
             <Title>{getTextInConfigJSON(['parental-controls', 'title'], '')}</Title>
           </TitleWrapper>
           <Paragraph>{getTextInConfigJSON(['parental-controls', 'description'], '')}</Paragraph>
-          {parentalControlDetail?.parentalControl && (
-            <PinBtnView>
-              <Button
-                onPress={() => updateParentalControlDetail('false')}
-                style={turnOffPinStyle}
-                link
-                color={theme.SECONDARY_COLOR}
-                loading={loading}
-                size="big"
-                fontWeight="medium"
-              >
-                {t('parentalcontrols.turnoffPIN')}
-              </Button>
-            </PinBtnView>
-          )}
+          {/* {parentalControlDetail?.parentalControl && ( */}
+          <PinBtnView>
+            <Button
+              onPress={() => updateParentalControlDetail('false')}
+              style={turnOffPinStyle}
+              link
+              color={theme.SECONDARY_COLOR}
+              loading={loading}
+              size="big"
+              fontWeight="medium"
+            >
+              {t('parentalcontrols.turnoffPIN')}
+            </Button>
+          </PinBtnView>
+          {/* )} */}
           <SubTitle>{t('parentalcontrols.setPINText')}</SubTitle>
           <Paragraph>{t('parentalcontrols.setPINDesc')}</Paragraph>
           <PINView>

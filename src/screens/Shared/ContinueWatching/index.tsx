@@ -287,20 +287,22 @@ const ContinueWatching = () => {
           <Carousel
             items={getWatchingData()}
             listProps={{ horizontal: true }}
-            renderItem={({ item: card }) => (
-              <Card
-                isWatchlist
-                width={isTablet() ? 190 : 122}
-                height={isTablet() ? 250 : 162}
-                url={card.url}
-                onPress={() =>
-                  (card.original?.list?.title || '') !== 'loading'
-                    ? goToDetail(card.original, false)
-                    : {}
-                }
-                onRemove={() => showSheetBottomContentWatchlist(card.original)}
-              />
-            )}
+            renderItem={({ item: card }) => {
+              return (
+                <Card
+                  isWatchlist
+                  width={isTablet() ? 190 : 122}
+                  height={isTablet() ? 250 : 162}
+                  url={card?.url === 'loading' ? 'no-image' : card?.url}
+                  onPress={() =>
+                    (card.original?.list?.title || '') !== 'loading'
+                      ? goToDetail(card.original, false)
+                      : {}
+                  }
+                  onRemove={() => showSheetBottomContentWatchlist(card.original)}
+                />
+              );
+            }}
           />
         ),
       });
