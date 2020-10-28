@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		00E356F31AD99517003FC87E /* BritboxTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* BritboxTests.m */; };
+		042C9F822548869A00C9B72A /* VideoSubscriberAccount.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 042C9F812548869A00C9B72A /* VideoSubscriberAccount.framework */; };
 		045B5CEC253F15390061F30D /* Intents.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 045B5CEB253F15390061F30D /* Intents.framework */; };
 		045B5CEF253F16B00061F30D /* AppleTVController.m in Sources */ = {isa = PBXBuildFile; fileRef = 045B5CEE253F16B00061F30D /* AppleTVController.m */; };
 		070EC12AB8F86EF3BEA8757E /* libPods-Britbox-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 39BD007FA832455605801FEF /* libPods-Britbox-tvOS.a */; };
@@ -53,6 +54,7 @@
 		00E356EE1AD99517003FC87E /* BritboxTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BritboxTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* BritboxTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BritboxTests.m; sourceTree = "<group>"; };
+		042C9F812548869A00C9B72A /* VideoSubscriberAccount.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = VideoSubscriberAccount.framework; path = System/Library/Frameworks/VideoSubscriberAccount.framework; sourceTree = SDKROOT; };
 		045B5CEB253F15390061F30D /* Intents.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Intents.framework; path = System/Library/Frameworks/Intents.framework; sourceTree = SDKROOT; };
 		045B5CED253F16B00061F30D /* AppleTVController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppleTVController.h; sourceTree = "<group>"; };
 		045B5CEE253F16B00061F30D /* AppleTVController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppleTVController.m; sourceTree = "<group>"; };
@@ -120,6 +122,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				042C9F822548869A00C9B72A /* VideoSubscriberAccount.framework in Frameworks */,
 				045B5CEC253F15390061F30D /* Intents.framework in Frameworks */,
 				A957AA22251936E700765DCE /* StoreKit.framework in Frameworks */,
 				B95B8E66B32437E93E333869 /* libPods-Britbox.a in Frameworks */,
@@ -223,6 +226,7 @@
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				042C9F812548869A00C9B72A /* VideoSubscriberAccount.framework */,
 				045B5CEB253F15390061F30D /* Intents.framework */,
 				A9EA1A2B252AB32200E25505 /* libYogaKit.a */,
 				A957AA21251936E700765DCE /* StoreKit.framework */,
