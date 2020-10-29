@@ -61,6 +61,8 @@
 		<string>_googlecast._tcp</string>
 		<string>_01F2D9B4._googlecast._tcp</string>
 	</array>
+    <key>AppSecret</key>
+    <string>d27edc9f-352e-4c90-af20-eafd31d7359f</string>
 	<key>NSLocalNetworkUsageDescription</key>
 	<string>${PRODUCT_NAME} uses the local network to discover Cast-enabled devices on your WiFi network.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>

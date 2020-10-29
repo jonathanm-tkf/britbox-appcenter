@@ -42,6 +42,7 @@ const processDetailPage = async (
   const detailResponse: Detail = {
     title: '',
     relatedId: undefined,
+    customId: undefined,
     description: '',
     images: {},
     originalItem: undefined,
@@ -89,6 +90,7 @@ const processDetailPage = async (
       detailResponse.description = entries?.item?.show?.shortDescription || '';
       detailResponse.images = entries?.item?.show?.images || {};
       detailResponse.relatedId = entries?.item?.id;
+      detailResponse.customId = entries?.item?.customId;
 
       showResponse.seasons = entries?.item?.show?.seasons;
       showResponse.seasonNumber = entries?.item?.seasonNumber;
@@ -124,6 +126,7 @@ const processDetailPage = async (
     detailResponse.description = entries?.item?.season?.show?.shortDescription || '';
     detailResponse.images = entries?.item?.season?.show?.images || {};
     detailResponse.relatedId = entries?.item?.season?.id;
+    detailResponse.customId = entries?.item?.customId;
 
     showResponse.seasons = entries?.item?.season?.show?.seasons;
     showResponse.seasonNumber = entries?.item?.season?.seasonNumber;
@@ -163,6 +166,7 @@ const processDetailPage = async (
       detailResponse.images = entries?.item?.images || {};
       detailResponse.relatedId = entries?.item?.id;
       detailResponse.originalItem = entries?.item;
+      detailResponse.customId = entries?.item?.customId;
 
       informationResponse.type = entries?.item?.type || '';
       informationResponse.credits = entries?.item?.credits;

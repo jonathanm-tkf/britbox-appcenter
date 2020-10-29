@@ -468,8 +468,8 @@ const Detail = () => {
   const onWatchlist = () => {
     dispatch(
       watchlistToggleRequest({
-        itemId: item?.id || '0',
-        itemCustomId: item?.customId || '0',
+        itemId: data?.detail?.relatedId || '0',
+        itemCustomId: data?.detail?.customId || '0',
         isInWatchlist: getIsInWatchlist(item?.id || '0'),
       })
     );

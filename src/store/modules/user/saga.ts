@@ -29,7 +29,7 @@ import {
   continueWatchingRequestSuccess,
 } from '@store/modules/user/actions';
 import { getDevice } from '@src/utils';
-import { atiEventTracking, welcomeMessageOn } from '../layout/actions';
+import { atiEventTracking, welcomeMessageOn, getProfileFailed } from '../layout/actions';
 
 import {
   UserActionTypes,
@@ -263,7 +263,7 @@ export function* getProfileRequest() {
       error,
     });
     Sentry.captureException({ logger: 'user get profile' });
-    yield call(logout);
+    yield put(getProfileFailed(true));
   }
 }
 

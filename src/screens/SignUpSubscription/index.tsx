@@ -252,6 +252,12 @@ const SignUpSubscription = () => {
         return true;
       }
 
+      if (err && err?.code === 'E_UNKNOWN') {
+        setErrorMsg(getTextInConfigJSON(['login', 'error-messages', 'error-message'], ''));
+        setLoading(false);
+        return true;
+      }
+
       trackEvent(err?.message);
       setErrorMsg(err?.message);
       setLoading(false);

@@ -33,6 +33,7 @@ export enum LayoutActionTypes {
   ERROR_CONFIG = '@layout/ERROR_CONFIG',
   FINISHED_CONFIGURATION = '@layout/FINISHED_CONFIGURATION',
   TOGGLE_MINI_CONTROLLER = '@layout/TOGGLE_MINI_CONTROLLER',
+  GET_PROFILE_FAILED = '@layout/GET_PROFILE_FAILED',
 }
 
 /**
@@ -62,6 +63,7 @@ export interface LayoutState {
   finishedConfiguration: boolean;
   page: string | undefined;
   isShowMiniController: boolean;
+  failedGetProfile: boolean;
 }
 
 export interface MediaSelectorResponse {

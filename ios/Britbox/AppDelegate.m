@@ -8,6 +8,9 @@
 #import <GoogleCast/GoogleCast.h>
 #import <React/RCTLinkingManager.h>
 #import <RNHomeIndicator.h>
+#import <AppCenterReactNative.h>
+#import <AppCenterReactNativeAnalytics.h>
+#import <AppCenterReactNativeCrashes.h>
 
 #ifdef FB_SONARKIT_ENABLED
 #import <FlipperKit/FlipperClient.h>
@@ -70,6 +73,9 @@ static void InitializeFlipper(UIApplication *application) {
   [GCKUICastButton appearance].tintColor = [UIColor grayColor];
   // [GCKCastContext sharedInstance].useDefaultExpandedMediaControls = YES;
 
+  [AppCenterReactNative register];
+  [AppCenterReactNativeAnalytics registerWithInitiallyEnabled:true];
+  [AppCenterReactNativeCrashes registerWithAutomaticProcessing];
   return YES;
 }
 
