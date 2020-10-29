@@ -172,62 +172,60 @@ const Watchlist = () => {
           <Paragraph>{t('description')}</Paragraph>
         </Container>
         <GridWrapper>
-          {list.length > 0 && (
-            <FilterButton
-              onPress={() =>
-                navigation.navigate('ModalFilter', {
-                  // title: t('filter'),
-                  data: [
-                    {
-                      // title: t('type'),
-                      list: 'type',
-                      data: [
-                        {
-                          title: t('all'),
-                          value: 'all',
-                          selected: type === 'all',
-                          numColumns: 3,
-                        },
-                        {
-                          title: t('movie'),
-                          value: 'movie',
-                          selected: type === 'movie',
-                          numColumns: 3,
-                        },
-                        {
-                          title: t('show'),
-                          value: 'show',
-                          selected: type === 'show',
-                          numColumns: 3,
-                        },
-                      ],
-                    },
-                    {
-                      // title: t('order'),
-                      list: 'order',
-                      data: [
-                        {
-                          title: t('recent'),
-                          value: 'date-added',
-                          selected: orderBy === 'date-added',
-                          numColumns: 3,
-                        },
-                        {
-                          title: t('az'),
-                          value: 'a-z',
-                          selected: orderBy === 'a-z',
-                          numColumns: 3,
-                        },
-                      ],
-                    },
-                  ],
-                  previusRoute: 'Watchlist',
-                })
-              }
-            >
-              <FilterText>{t('filter')} +</FilterText>
-            </FilterButton>
-          )}
+          <FilterButton
+            onPress={() =>
+              navigation.navigate('ModalFilter', {
+                // title: t('filter'),
+                data: [
+                  {
+                    // title: t('type'),
+                    list: 'type',
+                    data: [
+                      {
+                        title: t('all'),
+                        value: 'all',
+                        selected: type === 'all',
+                        numColumns: 3,
+                      },
+                      {
+                        title: t('movie'),
+                        value: 'movie',
+                        selected: type === 'movie',
+                        numColumns: 3,
+                      },
+                      {
+                        title: t('show'),
+                        value: 'show',
+                        selected: type === 'show',
+                        numColumns: 3,
+                      },
+                    ],
+                  },
+                  {
+                    // title: t('order'),
+                    list: 'order',
+                    data: [
+                      {
+                        title: t('recent'),
+                        value: 'date-added',
+                        selected: orderBy === 'date-added',
+                        numColumns: 3,
+                      },
+                      {
+                        title: t('az'),
+                        value: 'a-z',
+                        selected: orderBy === 'a-z',
+                        numColumns: 3,
+                      },
+                    ],
+                  },
+                ],
+                previusRoute: 'Watchlist',
+              })
+            }
+          >
+            <FilterText>{t('filter')} +</FilterText>
+          </FilterButton>
           <Grid
             items={list}
             title={`${list.length} ${list.length === 1 ? t('program') : t('programmes')}`}

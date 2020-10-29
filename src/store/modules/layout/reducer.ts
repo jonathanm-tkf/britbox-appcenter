@@ -27,6 +27,7 @@ export const initialState: LayoutState = {
   finishedConfiguration: false,
   page: undefined,
   isShowMiniController: false,
+  failedGetProfile: false,
 };
 
 const layout: Reducer<LayoutState> = (state = initialState, action) => {
@@ -131,6 +132,9 @@ const layout: Reducer<LayoutState> = (state = initialState, action) => {
       //   break;
       case LayoutActionTypes.TOGGLE_MINI_CONTROLLER:
         draft.isShowMiniController = action.payload.isShowMiniController;
+        break;
+      case LayoutActionTypes.GET_PROFILE_FAILED:
+        draft.failedGetProfile = action.payload.failedGetProfile;
         break;
       default:
         break;

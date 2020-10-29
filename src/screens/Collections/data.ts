@@ -49,7 +49,7 @@ export const dataDummy = {
     {
       template: 'Continuous Scroll Automatic',
       list: {
-        items: fill(new Array(15), {
+        items: fill(new Array(10), {
           images: {
             poster: 'loading',
           },
@@ -59,7 +59,7 @@ export const dataDummy = {
     {
       template: 'Continuous Scroll Automatic Episode',
       list: {
-        items: fill(new Array(15), {
+        items: fill(new Array(10), {
           type: 'episode',
           images: {
             wallpaper: 'loading',

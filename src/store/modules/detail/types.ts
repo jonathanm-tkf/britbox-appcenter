@@ -14,6 +14,7 @@ export type Detail = {
   title: string;
   description: string;
   relatedId: string | undefined;
+  customId: string | undefined;
   originalItem: MassiveSDKModelItemSummary | undefined;
   images: {
     tile?: string;

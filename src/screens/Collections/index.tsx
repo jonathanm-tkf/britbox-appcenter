@@ -112,6 +112,7 @@ const Collections = () => {
   const [error, setError] = useState(false);
   const [isLoadingContinuosScroll, setIsLoadingContinuosScroll] = useState(false);
   const [animationContinuosScroll, setAnimationContinuosScroll] = useState(false);
+  const [loading, setLoading] = useState(false);
   const menu = useSelector((state: AppState) => state.core?.menu?.navigation?.header);
   const theme = useSelector((state: AppState) => state.theme.theme);
   const { t } = useTranslation('layout');
@@ -355,6 +356,7 @@ const Collections = () => {
           if ((page || 0) + 1 === total) {
             setAnimationContinuosScroll(false);
           }
+          setLoading(false);
         });
       }
     }
@@ -392,6 +394,7 @@ const Collections = () => {
 
   useEffect(() => {
     if (filter) {
+      setLoading(true);
       setOrder(filter.value === 'date-added' ? 'desc' : 'asc');
       setOrderBy(filter.value);
       const newData = (data?.entries || []).map((item) => {
@@ -530,11 +533,13 @@ const Collections = () => {
                       )}
                       title={
                         getIsCollectionDetail(data?.template || '')
-                          ? `${(item?.list?.items || []).length} ${
-                              (item?.list?.items || []).length > 1
-                                ? t('programmes')
-                                : t('programme')
-                            }`
+                          ? loading
+                            ? `0 ${t('programmes')}`
+                            : `${(item?.list?.items || []).length} ${
+                                (item?.list?.items || []).length > 1
+                                  ? t('programmes')
+                                  : t('programme')
+                              }`
                           : item?.title || ''
                       }
                       loading={animationContinuosScroll}

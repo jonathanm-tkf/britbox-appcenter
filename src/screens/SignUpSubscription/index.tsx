@@ -264,6 +264,12 @@ const SignUpSubscription = () => {
       Sentry.setExtra('error catch', JSON.stringify(err));
       Sentry.captureMessage('error atch');
 
+      if (err && err?.code === 'E_UNKNOWN') {
+        setErrorMsg(getTextInConfigJSON(['login', 'error-messages', 'error-message'], ''));
+        setLoading(false);
+        return true;
+      }
+
       trackEvent(err?.message);
       setErrorMsg(err?.message);
       setLoading(false);

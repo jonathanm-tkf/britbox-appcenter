@@ -22,6 +22,7 @@ import VersionUpgrade from '@components/VersionUpgrade';
 import { getTextInConfigJSON } from '@src/utils/object';
 import NetInfo from '@react-native-community/netinfo';
 import LostConnection from '@screens/LostConnection';
+import FailedGetProfile from '@screens/FailedGetProfile';
 import { AppDrawerScreen } from '../Drawer';
 import { AuthStackScreen } from '../Auth';
 
@@ -67,6 +68,7 @@ const RootStackScreen = () => {
   const theme = useSelector((state: AppState) => state.theme.theme);
   const isLoading = useSelector((state: AppState) => state.layout.loading);
   const isOut = useSelector((state: AppState) => state.layout.out);
+  const failedGetProfile = useSelector((state: AppState) => state.layout.failedGetProfile);
   const [lostConnection, setLostConnection] = useState(false);
   const [versionModal, setVersionModal] = useState(false);
 
@@ -116,6 +118,8 @@ const RootStackScreen = () => {
           <RootStack.Screen name="Loading" component={Loading} />
         ) : lostConnection ? (
           <RootStack.Screen name="LostConnection" component={LostConnection} />
+        ) : failedGetProfile ? (
+          <RootStack.Screen name="FailedGetProfile" component={FailedGetProfile} />
         ) : isOut ? (
           <RootStack.Screen name="Out" component={Error} />
         ) : versionModal ? (

@@ -28,6 +28,7 @@ import { useNavigation } from '@react-navigation/native';
 import { CoreState } from '@store/modules/core/types';
 import { navigateByPath, navigationRef, pop } from '@src/navigation/rootNavigation';
 import { getTextInConfigJSON } from '@src/utils/object';
+import { Platform } from 'react-native';
 import {
   FABView,
   CastButton,
@@ -155,6 +156,10 @@ const Cast = () => {
 
     if (forceChromecast) {
       setShowButton(true);
+    }
+
+    if (Platform.OS === 'ios') {
+      GoogleCast.showIntroductoryOverlay();
     }
 
     const intervalCheckChromecast = setInterval(() => {
