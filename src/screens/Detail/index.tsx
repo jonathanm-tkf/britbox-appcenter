@@ -24,6 +24,7 @@ import {
   autoPlayOn,
   setCastState,
   showSheetBottom,
+  toggleMiniController,
 } from '@store/modules/layout/actions';
 import { detailClear, detailWatchedSuccess } from '@store/modules/detail/actions';
 import { MassiveSDKModelWatched } from '@src/sdks/Britbox.API.Account.TS/api';
@@ -110,7 +111,9 @@ const Detail = () => {
   const [animatedOpacityValue] = useState(new Animated.Value(0));
   const theme = useSelector((state: AppState) => state.theme.theme);
   const core = useSelector((state: AppState) => state.core);
-  const { castDetail, castState, cast } = useSelector((state: AppState) => state.layout);
+  const { castDetail, castState, cast, isShowMiniController } = useSelector(
+    (state: AppState) => state.layout
+  );
   const { navigate } = useNavigation();
   const { t } = useTranslation(['myaccount', 'detail', 'layout']);
   const [data, setData] = useState<LoadDetailPageResponse | undefined>(undefined);
@@ -379,6 +382,7 @@ const Detail = () => {
       }
 
       dispatch(setCastState('loading'));
+      dispatch(toggleMiniController(true));
 
       const newItem = {
         id: undefined,
@@ -457,6 +461,7 @@ const Detail = () => {
             }
 
             dispatch(setCastState('loading'));
+            dispatch(toggleMiniController(true));
             return CastVideo(item);
           }
           return navigate('VideoPlayer', { item });
@@ -474,8 +479,9 @@ const Detail = () => {
       })
     );
   };
+  // paddingBottom={cast ? 152 : 64}
   return (
-    <Container paddingBottom={cast ? 152 : 64}>
+    <Container paddingBottom={isShowMiniController ? 152 : 64}>
       <HomeIndicator autoHidden={false} />
       <TopWrapper>
         <Button onPress={() => back()}>

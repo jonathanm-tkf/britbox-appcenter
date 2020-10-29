@@ -13,7 +13,7 @@ interface ParagraphComponentProps {
 
 export const ParagraphComponent = styled(Paragraph)`
   color: ${(props: ThemeState) => props.theme.PRIMARY_FOREGROUND_COLOR};
-  font-size: ${normalize(16)}px;
+  font-size: ${normalize(12, 16)}px;
   ${(props: ParagraphComponentProps & ThemeState) => {
     return (
       props.fontSize &&

@@ -106,7 +106,7 @@ const layout: Reducer<LayoutState> = (state = initialState, action) => {
         break;
       case LayoutActionTypes.LAYOUT_CAST_VIDEO_PLAYER_DETAIL_CLEAR:
         draft.castDetail = undefined;
-        draft.castState = undefined;
+        // draft.castState = undefined;
         break;
       case LayoutActionTypes.LAYOUT_CAST_VIDEO_PLAYER_DETAIL:
         draft.castDetail = {
@@ -126,9 +126,9 @@ const layout: Reducer<LayoutState> = (state = initialState, action) => {
       case LayoutActionTypes.LAYOUT_CAST_STATE:
         draft.castState = action.payload.state;
         break;
-      case CoreActionTypes.CAST_DETAIL:
-        draft.castState = 'loaded';
-        break;
+      // case CoreActionTypes.CAST_DETAIL:
+      //   draft.castState = 'loaded';
+      //   break;
       case LayoutActionTypes.TOGGLE_MINI_CONTROLLER:
         draft.isShowMiniController = action.payload.isShowMiniController;
         break;

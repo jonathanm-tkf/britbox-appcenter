@@ -226,6 +226,7 @@ export const CastVideo = async (
     return true;
   } catch (error) {
     return error;
+    // throw new Error('Error with MediaSelector');
   }
 };
 

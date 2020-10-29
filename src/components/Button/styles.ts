@@ -10,6 +10,7 @@ export const Button = styled.TouchableOpacity.attrs({
   border-radius: 10px;
   padding: 10px 20px;
   align-self: center;
+
   ${(props: ButtonProps & ThemeState) => {
     return props.opaque && `background-color: ${props.theme.PRIMARY_COLOR};`;
   }};

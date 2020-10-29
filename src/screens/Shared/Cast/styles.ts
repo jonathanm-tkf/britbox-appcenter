@@ -11,6 +11,7 @@ import { isTablet } from 'react-native-device-info';
 export const Container = styled.View``;
 
 export const FABView = styled.TouchableOpacity`
+  background-color: red;
   position: absolute;
   margin: 16px;
   right: 0px;

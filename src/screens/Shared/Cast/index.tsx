@@ -53,13 +53,10 @@ const getCoreCastDetail = () => {
 const Cast = () => {
   const { t } = useTranslation('layout');
   const dispatch = useDispatch();
-  const { goBack } = useNavigation();
-
   const [showButton, setShowButton] = useState(false);
-  const [showMiniController, setShowMiniController] = useState(false);
   const [stateChromecast, setStateChromecast] = useState<CastState | undefined>(undefined);
   const [device, setDevice] = useState<CastDevice | undefined>(undefined);
-  const { cast, castState } = useSelector((state: AppState) => state.layout);
+  const { castState, isShowMiniController } = useSelector((state: AppState) => state.layout);
   const theme = useSelector((state: AppState) => state.theme.theme);
   const { casting, castDetail, forceChromecast } = useSelector((state: AppState) => state.core);
   const registerListeners = () => {
@@ -75,7 +72,6 @@ const Cast = () => {
     events.forEach((event) => {
       GoogleCast.EventEmitter.addListener(GoogleCast[event], () => {
         if (event === 'SESSION_STARTING') {
-          setShowMiniController(true);
           const { name } = navigationRef.current && navigationRef.current.getCurrentRoute();
           if (name === 'VideoPlayer') {
             dispatch(setCastState('sending'));
@@ -103,7 +99,7 @@ const Cast = () => {
           dispatch(castOff());
           dispatch(castVideoPlayerDetailClear());
           dispatch(castDetailClear());
-          setShowMiniController(false);
+          dispatch(toggleMiniController(false));
         }
       });
     });
@@ -111,7 +107,6 @@ const Cast = () => {
     GoogleCast.EventEmitter.addListener(GoogleCast.MEDIA_PLAYBACK_STARTED, ({ mediaStatus }) => {
       if (mediaStatus && (mediaStatus?.playerState || 0) === 2) {
         dispatch(castingOn());
-        dispatch(setCastState(undefined));
       }
     });
 
@@ -121,7 +116,6 @@ const Cast = () => {
       if (eventError) {
         const { detailedErrorCode } = eventError;
         if (detailedErrorCode === 905) {
-          dispatch(castVideoPlayerDetailClear());
           dispatch(castVideoPlayerDetailClear());
           dispatch(setCastState('error'));
         }
@@ -147,8 +141,9 @@ const Cast = () => {
           dispatch(castingOff());
           dispatch(castOff());
           dispatch(castDetailClear());
+          dispatch(setCastState(undefined));
           dispatch(castVideoPlayerDetailClear());
-          setShowMiniController(false);
+          dispatch(toggleMiniController(false));
           clearInterval(interval);
         }
       });
@@ -181,8 +176,9 @@ const Cast = () => {
           }
         }
 
-        if (state === 'Connected' && !showMiniController) {
-          setShowMiniController(true);
+        if (state === 'Connected' && !isShowMiniController) {
+          setShowButton(true);
+          //   setShowMiniController(true);
         }
 
         dispatch(state === 'NotConnected' || state === 'NoDevicesAvailable' ? castOff() : castOn());
@@ -199,13 +195,15 @@ const Cast = () => {
 
     return () => {
       // clearInterval(intervalCheckChromecast);
-      setShowMiniController(false);
+      // setShowMiniController(false);
+      dispatch(setCastState(undefined));
     };
   }, []);
 
   useEffect(() => {
     try {
       if (casting && device) {
+        // setShowMiniController(true);
         dispatch(setCastState('loaded'));
         GoogleCast.launchExpandedControls();
       }
@@ -215,11 +213,17 @@ const Cast = () => {
     }
   }, [casting]);
 
+  // useEffect(() => {
+  //   if (cast) {
+  //     setShowMiniController(true);
+  //   }
+  // }, [cast]);
   useEffect(() => {
-    if (cast) {
-      setShowMiniController(true);
+    if (castDetail) {
+      dispatch(setCastState('loaded'));
+      dispatch(toggleMiniController(true));
     }
-  }, [cast]);
+  }, [castDetail]);
 
   useEffect(() => {
     if (!forceChromecast && device === undefined) {
@@ -227,9 +231,9 @@ const Cast = () => {
     }
   }, [forceChromecast, device]);
 
-  useEffect(() => {
-    dispatch(toggleMiniController(showMiniController));
-  }, [showMiniController]);
+  // useEffect(() => {
+  //   dispatch(toggleMiniController(showMiniController));
+  // }, [showMiniController]);
 
   return (
     <>
@@ -238,7 +242,7 @@ const Cast = () => {
           <CastButton />
         </FABView>
       )}
-      {showMiniController && (
+      {isShowMiniController && (
         <MiniController>
           <MiniExpandButton
             onPress={() =>
@@ -258,7 +262,7 @@ const Cast = () => {
               <MiniTitle>
                 {castState === 'error'
                   ? getTextInConfigJSON(['chromecast', 'error-couldnt-play'], '')
-                  : castState === 'loaded' || casting
+                  : castState === 'loaded'
                   ? castDetail?.title
                   : castState === 'loading'
                   ? t('loading')
@@ -266,7 +270,7 @@ const Cast = () => {
                   ? `${stateChromecast} ${t('to')} ${device?.name}`
                   : stateChromecast}
               </MiniTitle>
-              {(castState === 'loaded' || casting) && castDetail?.subtitle && (
+              {castState === 'loaded' && castDetail?.subtitle && (
                 <MiniSubtitle>{castDetail?.subtitle}</MiniSubtitle>
               )}
             </MiniWrapperText>

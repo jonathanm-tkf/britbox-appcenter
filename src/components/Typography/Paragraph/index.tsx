@@ -10,7 +10,7 @@ interface Props {
   color?: string;
 }
 
-const Title = ({ children, fontSize, lineHeight, color, style, ...rest }: Props) => {
+const Paragraph = ({ children, fontSize, lineHeight, color, style, ...rest }: Props) => {
   return (
     <Container>
       <ParagraphComponent {...{ fontSize, lineHeight, color, style, rest }}>
@@ -20,4 +20,4 @@ const Title = ({ children, fontSize, lineHeight, color, style, ...rest }: Props)
   );
 };
 
-export default Title;
+export default Paragraph;

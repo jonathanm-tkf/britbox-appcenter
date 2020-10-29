@@ -46,7 +46,7 @@ export const TopText = styled.Text`
   top: ${Platform.OS === 'ios' ? getStatusBarHeight() : 0}px;
   width: 100%;
   height: 50px;
-  line-height: ${normalize(40)}px;
+  line-height: ${normalize(32, 40)}px;
   position: absolute;
   z-index: 1;
   text-align: center;

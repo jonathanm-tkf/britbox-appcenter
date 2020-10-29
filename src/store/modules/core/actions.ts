@@ -1,3 +1,4 @@
+import { MassiveSDKModelEpisodesItem } from '@src/sdks/Britbox.API.Account.TS/api';
 import { action } from 'typesafe-actions';
 import { CoreActionTypes, Menu, BritBoxCountryConfig } from './types';
 
@@ -30,3 +31,9 @@ export const castDetailClear = () => action(CoreActionTypes.CAST_DETAIL_CLEAR);
 export const showForceChromecast = () => action(CoreActionTypes.SHOW_FORCE_CHROMECAST);
 
 export const hideForceChromecast = () => action(CoreActionTypes.HIDE_FORCE_CHROMECAST);
+
+export const castVideo = (
+  item: MassiveSDKModelEpisodesItem,
+  pcToken?: string,
+  playPosition?: number | boolean
+) => action(CoreActionTypes.CAST_VIDEO, { item, pcToken, playPosition });

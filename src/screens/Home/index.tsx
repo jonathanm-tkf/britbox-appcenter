@@ -91,7 +91,7 @@ type WatchlistToggleRequest = MassiveSDKModelItemSummary & {
   isInWatchlist: boolean;
 };
 
-const headerStyles = { position: 'absolute', top: 0, left: 0, right: 0 };
+const headerStyles = {};
 
 const Item = () => {
   const dispatch = useDispatch();
@@ -126,6 +126,9 @@ const Item = () => {
   };
 
   const animationHeaderStyles = {
+    position: 'absolute',
+    top: 0,
+    width: '100%',
     elevation: 4,
     zIndex: 4,
     transform: [
