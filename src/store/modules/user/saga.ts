@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { takeLatest, all, call, put, select, takeEvery } from 'redux-saga/effects';
 import * as Sentry from '@sentry/react-native';
 import { BritboxAccountApi, BritboxContentApi } from '@src/sdks';
@@ -263,7 +265,8 @@ export function* getProfileRequest() {
       error,
     });
     Sentry.captureException({ logger: 'user get profile' });
-    yield put(getProfileFailed(true));
+    // yield put(getProfileFailed(true));
+    yield call(logout);
   }
 }
 

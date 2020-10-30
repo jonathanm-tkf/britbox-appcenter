@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useEffect, useState } from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { useSelector } from 'react-redux';
@@ -118,9 +120,9 @@ const RootStackScreen = () => {
           <RootStack.Screen name="Loading" component={Loading} />
         ) : lostConnection ? (
           <RootStack.Screen name="LostConnection" component={LostConnection} />
-        ) : failedGetProfile ? (
-          <RootStack.Screen name="FailedGetProfile" component={FailedGetProfile} />
-        ) : isOut ? (
+        ) : // ) : failedGetProfile ? (
+        //   <RootStack.Screen name="FailedGetProfile" component={FailedGetProfile} />
+        isOut ? (
           <RootStack.Screen name="Out" component={Error} />
         ) : versionModal ? (
           <RootStack.Screen name="VersionModal" component={VersionModal} />
