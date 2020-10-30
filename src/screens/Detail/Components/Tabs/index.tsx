@@ -46,6 +46,7 @@ const Tabs = ({ data, onScrollTo, onLayout, autoPlay, onPlay }: Props) => {
   const [secondHeight, setSecondHeight] = useState('auto');
   const [threeHeight, setThreeHeight] = useState('auto');
   const [fourHeight, setFourHeight] = useState('auto');
+  const [activeTab, setActiveTab] = useState('');
   const dispatch = useDispatch();
 
   const ready = {
@@ -185,6 +186,7 @@ const Tabs = ({ data, onScrollTo, onLayout, autoPlay, onPlay }: Props) => {
 
     if (tabs.length > 0) {
       setTabsData(tabs);
+      setActiveTab(tabs[0].key);
     }
   };
 
@@ -194,8 +196,7 @@ const Tabs = ({ data, onScrollTo, onLayout, autoPlay, onPlay }: Props) => {
 
   useEffect(() => {
     if (tabsData.length) {
-      const { key } = tabsData[0];
-      switch (key) {
+      switch (activeTab) {
         case 'second':
           setHeight(secondHeight);
           break;
@@ -210,9 +211,10 @@ const Tabs = ({ data, onScrollTo, onLayout, autoPlay, onPlay }: Props) => {
           break;
       }
     }
-  }, [firstHeight, secondHeight, threeHeight, fourHeight, tabsData]);
+  }, [firstHeight, secondHeight, threeHeight, fourHeight, activeTab, tabsData]);
 
   const changeTab = (key: string) => {
+    setActiveTab(key);
     switch (key) {
       case 'second':
         setHeight(secondHeight);
