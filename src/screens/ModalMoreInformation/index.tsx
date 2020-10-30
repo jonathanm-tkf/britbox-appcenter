@@ -67,7 +67,7 @@ const ModalMoreInformation = () => {
         <Button onPress={() => goBack()}>
           <BackIcon width={20} height={20} />
         </Button>
-        <TopText>{params.moreInformation.title}</TopText>
+        <TopText numberOfLines={1}>{params.moreInformation.title}</TopText>
         <BackgroundTop
           style={{
             opacity: animatedOpacityValue.interpolate({
