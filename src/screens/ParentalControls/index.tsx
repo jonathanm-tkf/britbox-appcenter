@@ -103,7 +103,7 @@ export default function ParentalControls() {
   }, [scrollViewRef]);
 
   const keyboardDidShow = () => {
-    if (scrollViewRef) {
+    if (scrollViewRef.current) {
       scrollViewRef.current.scrollTo({
         y: 200,
         animated: true,
@@ -469,21 +469,21 @@ export default function ParentalControls() {
             <Title>{getTextInConfigJSON(['parental-controls', 'title'], '')}</Title>
           </TitleWrapper>
           <Paragraph>{getTextInConfigJSON(['parental-controls', 'description'], '')}</Paragraph>
-          {/* {parentalControlDetail?.parentalControl && ( */}
-          <PinBtnView>
-            <Button
-              onPress={() => updateParentalControlDetail('false')}
-              style={turnOffPinStyle}
-              link
-              color={theme.SECONDARY_COLOR}
-              loading={loading}
-              size="big"
-              fontWeight="medium"
-            >
-              {t('parentalcontrols.turnoffPIN')}
-            </Button>
-          </PinBtnView>
-          {/* )} */}
+          {parentalControlDetail?.parentalControl && (
+            <PinBtnView>
+              <Button
+                onPress={() => updateParentalControlDetail('false')}
+                style={turnOffPinStyle}
+                link
+                color={theme.SECONDARY_COLOR}
+                loading={loading}
+                size="big"
+                fontWeight="medium"
+              >
+                {t('parentalcontrols.turnoffPIN')}
+              </Button>
+            </PinBtnView>
+          )}
           <SubTitle>{t('parentalcontrols.setPINText')}</SubTitle>
           <Paragraph>{t('parentalcontrols.setPINDesc')}</Paragraph>
           <PINView>
