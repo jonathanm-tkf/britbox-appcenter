@@ -44,6 +44,7 @@ import { AppState } from '../rootReducer';
 
 const getToken = (state: AppState) => state.user.access as EvergentLoginResponse;
 const getSegment = (state: AppState) => state.core.segment;
+const getIsLogged = (state: AppState) => state.user.isLogged;
 
 const getExiresIn = (state: AppState) => state.user.access as EvergentLoginResponse;
 
@@ -263,7 +264,8 @@ export function* getProfileRequest() {
       error,
     });
     Sentry.captureException({ logger: 'user get profile' });
-    yield put(getProfileFailed(true));
+    const isLogged = yield select(getIsLogged);
+    if (isLogged) yield put(getProfileFailed(true));
   }
 }
 

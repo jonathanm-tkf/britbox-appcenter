@@ -470,7 +470,7 @@ const Detail = () => {
       watchlistToggleRequest({
         itemId: data?.detail?.relatedId || '0',
         itemCustomId: data?.detail?.customId || '0',
-        isInWatchlist: getIsInWatchlist(item?.id || '0'),
+        isInWatchlist: getIsInWatchlist(data?.detail?.relatedId || '0'),
       })
     );
   };
@@ -512,7 +512,12 @@ const Detail = () => {
           />
         </Poster>
         <InnerContent>
-          <Actions {...{ data }} id={item?.id || '0'} onPlay={onPlay} onWatchlist={onWatchlist} />
+          <Actions
+            {...{ data }}
+            id={data?.detail?.relatedId || '0'}
+            onPlay={onPlay}
+            onWatchlist={onWatchlist}
+          />
           <Description {...{ data }} />
           {data && data.information.type !== 'show' && data.information.type !== 'episode' && (
             <WrapperBookmarks>

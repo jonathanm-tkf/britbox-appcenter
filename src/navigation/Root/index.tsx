@@ -118,12 +118,12 @@ const RootStackScreen = () => {
           <RootStack.Screen name="Loading" component={Loading} />
         ) : lostConnection ? (
           <RootStack.Screen name="LostConnection" component={LostConnection} />
-        ) : failedGetProfile ? (
-          <RootStack.Screen name="FailedGetProfile" component={FailedGetProfile} />
         ) : isOut ? (
           <RootStack.Screen name="Out" component={Error} />
         ) : versionModal ? (
           <RootStack.Screen name="VersionModal" component={VersionModal} />
+        ) : failedGetProfile && user.isLogged ? (
+          <RootStack.Screen name="FailedGetProfile" component={FailedGetProfile} />
         ) : user.isLogged && !isOut ? (
           <RootStack.Screen name="AppDrawerScreen" component={AppDrawerScreen} />
         ) : (

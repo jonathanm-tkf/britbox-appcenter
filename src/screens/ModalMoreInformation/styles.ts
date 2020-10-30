@@ -78,6 +78,8 @@ export const TopText = styled.Text`
   position: absolute;
   z-index: 1;
   text-align: center;
+  padding-left: 50px;
+  padding-right: 50px;
 `;
 
 export const BackgroundTop = styled(Animated.View)`
