@@ -11,6 +11,7 @@ import { hideSheetBottom, sheetComponent, device } from '@store/modules/layout/a
 import { ThemeProvider } from 'styled-components';
 import { BottomSheetWrapper, Headline, Paragraph } from '@components/Layout';
 import { Button } from '@components/Button';
+import Loading from '@screens/Loading';
 import Navigation from './navigation/routes';
 import { randomString } from './services/token';
 import { hideSheet, sheetRef, showSheet } from './utils/sheetBottom';
@@ -33,6 +34,7 @@ export default function App() {
   const theme = useSelector((state: AppState) => state.theme.theme);
   const { welcomeMessage } = useSelector((state: AppState) => state.layout);
   const { token } = useSelector((state: AppState) => state.core);
+  const isLoading = useSelector((state: AppState) => state.layout.loading);
   const { analyticsSubscriptionStatus, isInFreeTrail } = useSelector(
     (state: AppState) => (state.user?.profile as Profile) || {}
   );
@@ -42,6 +44,7 @@ export default function App() {
     flex: 1,
     backgroundColor: theme.PRIMARY_COLOR,
   };
+
   const dispatch = useDispatch();
 
   const onTrackEvent = (data: Record<string, unknown>) => {
@@ -130,6 +133,7 @@ export default function App() {
     <ThemeProvider theme={theme}>
       <View style={wrapper}>
         <StatusBar barStyle="light-content" backgroundColor={theme.PRIMARY_COLOR} />
+        {isLoading && <Loading />}
         <Navigation onTrackEvent={(data) => onTrackEvent(data)} />
         <View style={webViewStyles}>
           <WebView

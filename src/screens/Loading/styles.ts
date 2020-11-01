@@ -9,6 +9,13 @@ export const Container = styled.View`
   align-items: center;
   justify-content: center;
   margin-top: ${Platform.OS === 'android' ? 15 : 0}px;
+  background-color: ${(props: ThemeState) => props.theme.PRIMARY_COLOR};
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 10;
 `;
 
 export const GettingInformation = styled.View`

@@ -9,7 +9,6 @@ import Storybook from '@screens/Storybook';
 import { rgba } from 'polished';
 import VideoPlayer from '@screens/VideoPlayer';
 import Modal from '@screens/Modal';
-import Loading from '@screens/Loading';
 import ModalSeasons from '@screens/ModalSeasons';
 import { Animated, Platform } from 'react-native';
 import { ThemeProps } from '@store/modules/theme/types';
@@ -68,7 +67,6 @@ const RootStack = createStackNavigator();
 const RootStackScreen = () => {
   const user = useSelector((state: AppState) => state.user);
   const theme = useSelector((state: AppState) => state.theme.theme);
-  const isLoading = useSelector((state: AppState) => state.layout.loading);
   const isOut = useSelector((state: AppState) => state.layout.out);
   const failedGetProfile = useSelector((state: AppState) => state.layout.failedGetProfile);
   const [lostConnection, setLostConnection] = useState(false);
@@ -116,8 +114,6 @@ const RootStackScreen = () => {
       >
         {STORYBOOK_START ? (
           <RootStack.Screen name="Storybook" component={Storybook} />
-        ) : isLoading ? (
-          <RootStack.Screen name="Loading" component={Loading} />
         ) : lostConnection ? (
           <RootStack.Screen name="LostConnection" component={LostConnection} />
         ) : isOut ? (

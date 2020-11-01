@@ -14,11 +14,16 @@ import { useTranslation } from 'react-i18next';
 import { getTextInConfigJSON } from '@src/utils/object';
 import { loadingOff } from '@store/modules/layout/actions';
 import FastImage from 'react-native-fast-image';
+import { withTheme } from 'styled-components';
+import { ThemeProps } from '@store/modules/theme/types';
 import { Container, GettingInformation, GettingInformationText } from './styles';
 
-const Loading = () => {
+type Props = {
+  theme: ThemeProps;
+};
+
+const Loading = ({ theme }: Props) => {
   const { error, retry, finishedConfiguration } = useSelector((state: AppState) => state.layout);
-  const theme = useSelector((state: AppState) => state.theme.theme);
   const { isLogged } = useSelector((state: AppState) => state.user);
   const { t } = useTranslation('layout');
   const dispatch = useDispatch();
@@ -141,4 +146,4 @@ const Loading = () => {
   );
 };
 
-export default Loading;
+export default withTheme(Loading);

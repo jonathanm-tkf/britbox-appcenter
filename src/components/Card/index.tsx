@@ -1,41 +1,40 @@
-import React, { useState, useEffect } from 'react';
-import ContentLoader, { Rect } from 'react-content-loader/native';
-
-import { useSelector } from 'react-redux';
-import { AppState } from '@store/modules/rootReducer';
-import { TouchableOpacity, LayoutChangeEvent } from 'react-native';
-import Action from '@components/Action';
-import { useTranslation } from 'react-i18next';
 import { CloseIcon, Logo } from '@assets/icons';
+import Action from '@components/Action';
 import Bookmark from '@components/Bookmark';
 import Shimmer from '@components/Shimmer';
-import Image from 'react-native-fast-image';
-// import { MassiveSDKModelItemSummary } from '@src/sdks/Britbox.API.Content.TS/api';
 import { MassiveSDKModelItemList } from '@src/sdks/Britbox.API.Content.TS/api';
+import { ThemeProps } from '@store/modules/theme/types';
+import React, { memo, useEffect, useState } from 'react';
+import ContentLoader, { Rect } from 'react-content-loader/native';
+import { useTranslation } from 'react-i18next';
+import { LayoutChangeEvent, TouchableOpacity } from 'react-native';
 import { isTablet } from 'react-native-device-info';
+import { withTheme } from 'styled-components';
+import Image from 'react-native-fast-image';
+
 import {
-  Container,
-  Wrapper,
-  CustomShadow,
-  Gradient,
-  Title,
-  Description,
-  TextWrapper,
-  ActionWrapper,
   ActionText,
-  BottomWrapper,
-  WrapperBookmarks,
-  ImageWrapper,
-  Group,
-  ProgressBar,
-  SummaryText,
+  ActionWrapper,
   AllWrapper,
-  LogoWrapper,
-  TouchableScale,
   Badge,
   BadgeText,
-  TemporaryWrapper,
+  BottomWrapper,
+  Container,
+  CustomShadow,
+  Description,
+  Gradient,
+  Group,
+  ImageWrapper,
+  LogoWrapper,
+  ProgressBar,
+  SummaryText,
   TemporaryRow,
+  TemporaryWrapper,
+  TextWrapper,
+  Title,
+  TouchableScale,
+  Wrapper,
+  WrapperBookmarks,
 } from './styles';
 
 interface Props {
@@ -69,6 +68,7 @@ interface Props {
   isWatchlist?: boolean;
   showCategory?: boolean;
   showProgress?: boolean;
+  theme: ThemeProps;
 }
 
 const Card = ({
@@ -87,7 +87,7 @@ const Card = ({
   onPress,
   style,
   element,
-  resizeMode,
+  resizeMode = 'cover',
   cardContent,
   cardContentAfter,
   cardElement,
@@ -96,8 +96,8 @@ const Card = ({
   progress = 0,
   showCategory,
   showProgress,
+  theme,
 }: Props) => {
-  const theme = useSelector((state: AppState) => state.theme.theme);
   const [loaded, setLoaded] = useState(false);
   const { t } = useTranslation('layout');
   const { badge } = cardElement || {};
@@ -114,6 +114,37 @@ const Card = ({
       setLoaded(false);
     }
   }, [url, setLoaded]);
+
+  const SummaryComponent = memo(() =>
+    isDetail && data?.summary !== '' ? (
+      <SummaryText>{(data?.summary || '').replace(/\n/g, '')}</SummaryText>
+    ) : null
+  );
+
+  const BadgeComponent = memo(() =>
+    badge ? (
+      <Badge {...{ isGrid: isGrid || false }}>
+        <BadgeText>{badge}</BadgeText>
+      </Badge>
+    ) : null
+  );
+
+  const BookmarksComponent = memo(() =>
+    (isContinue || isDetail || showCategory) && data?.category && data?.category?.length > 0 ? (
+      <WrapperBookmarks>
+        {data?.category?.map((item: any) => {
+          return (
+            item?.key && (
+              <Bookmark key={item.key.toString()} bold={item.bold}>
+                {item.label}
+              </Bookmark>
+            )
+          );
+        })}
+      </WrapperBookmarks>
+    ) : null
+  );
+
   return (
     <TouchableScale
       {...{ isDetail }}
@@ -129,11 +160,7 @@ const Card = ({
           <Container {...{ width: imageStyle.width, height: imageStyle.height }}>
             <CustomShadow>
               <ImageWrapper>
-                {badge && (
-                  <Badge {...{ isGrid: isGrid || false }}>
-                    <BadgeText>{badge}</BadgeText>
-                  </Badge>
-                )}
+                <BadgeComponent />
                 {(newEpisode || isEpisode || isDetail) && loaded && (
                   <ActionWrapper>
                     <Action
@@ -169,8 +196,8 @@ const Card = ({
                       <Image
                         style={imageStyle}
                         source={{ uri: url }}
-                        resizeMode={resizeMode || 'cover'}
                         onLoadEnd={() => setLoaded(true)}
+                        {...{ resizeMode: resizeMode || 'cover' }}
                       />
                     ) : null}
                   </Shimmer>
@@ -193,71 +220,43 @@ const Card = ({
                   isEpisode,
                 }}
               >
-                {
-                  loaded ? (
-                    <>
-                      {data && (data?.title || '') !== '' && <Title>{data.title}</Title>}
-                      {data && (data?.description || '') !== '' && (
-                        <Description>{data.description}</Description>
+                {loaded ? (
+                  <>
+                    {data && (data?.title || '') !== '' && <Title>{data.title}</Title>}
+                    {data && (data?.description || '') !== '' && (
+                      <Description>{data.description}</Description>
+                    )}
+                    <BottomWrapper
+                      {...{
+                        isContinue: isContinue || false,
+                        isDetail,
+                        isWatchlist: isWatchlist || false,
+                        showCategory,
+                      }}
+                    >
+                      <BookmarksComponent />
+                      {onRemove && (
+                        <TouchableOpacity
+                          style={!isWatchlist ? { marginLeft: 'auto' } : {}}
+                          onPress={() => onRemove()}
+                        >
+                          <CloseIcon width={25} height={25} />
+                        </TouchableOpacity>
                       )}
-                      <BottomWrapper
-                        {...{
-                          isContinue: isContinue || false,
-                          isDetail,
-                          isWatchlist: isWatchlist || false,
-                          showCategory,
-                        }}
-                      >
-                        {(isContinue || isDetail || showCategory) &&
-                          data?.category &&
-                          data?.category?.length > 0 && (
-                            <WrapperBookmarks>
-                              {data?.category?.map((item: any) => {
-                                return (
-                                  item?.key && (
-                                    <Bookmark key={item.key.toString()} bold={item.bold}>
-                                      {item.label}
-                                    </Bookmark>
-                                  )
-                                );
-                              })}
-                            </WrapperBookmarks>
-                          )}
-                        {onRemove && (
-                          <TouchableOpacity
-                            style={!isWatchlist ? { marginLeft: 'auto' } : {}}
-                            onPress={() => onRemove()}
-                          >
-                            <CloseIcon width={25} height={25} />
-                          </TouchableOpacity>
-                        )}
-                      </BottomWrapper>
-                    </>
-                  ) : (
-                    <TemporaryWrapper>
-                      <TemporaryRow />
-                      <TemporaryRow />
-                      <TemporaryRow style={{ width: '75%' }} />
-                    </TemporaryWrapper>
-                  )
-                  // <ContentLoader
-                  //   viewBox="0 0 380 70"
-                  //   speed={1}
-                  //   backgroundColor={theme.PRIMARY_COLOR_OPAQUE}
-                  //   foregroundColor={theme.PRIMARY_COLOR}
-                  // >
-                  //   <Rect x="0" y="0" width="100%" height="20" />
-                  //   <Rect x="0" y="25" width="100%" height="20" />
-                  //   {!isEpisode && <Rect x="0" y="50" width="75%" height="20" />}
-                  // </ContentLoader>
-                }
+                    </BottomWrapper>
+                  </>
+                ) : (
+                  <TemporaryWrapper>
+                    <TemporaryRow />
+                    <TemporaryRow />
+                    <TemporaryRow style={{ width: '75%' }} />
+                  </TemporaryWrapper>
+                )}
               </TextWrapper>
             )}
           </Group>
         </Wrapper>
-        {isDetail && data?.summary !== '' && (
-          <SummaryText>{(data?.summary || '').replace(/\n/g, '')}</SummaryText>
-        )}
+        <SummaryComponent />
         {cardContent && cardContent(cardElement || {})}
       </AllWrapper>
       {cardContentAfter && cardContentAfter(cardElement || {})}
@@ -265,4 +264,4 @@ const Card = ({
   );
 };
 
-export default Card;
+export default withTheme(Card);

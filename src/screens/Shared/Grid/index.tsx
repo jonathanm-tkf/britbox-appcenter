@@ -54,7 +54,6 @@ const Grid = ({
         data={items}
         numColumns={numColumns}
         {...{ element, imageType, isEpisode, filter }}
-        // element={{ width: width || 112, height: height || 157, marginBottom: 5 }}
         onPress={(item) => goToOtherContent(item)}
         title={title}
         containerStyle={containerStyle}
@@ -63,7 +62,7 @@ const Grid = ({
       />
       {loading && (
         <WrapperLoading>
-          <Action autoPlay loop loading width={70} height={70} />
+          <Action autoPlay loop loading width={70} height={70} animated />
         </WrapperLoading>
       )}
     </Container>

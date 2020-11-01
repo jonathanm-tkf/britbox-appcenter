@@ -4,7 +4,7 @@
 import { ContinueWatching, Play, Loading, Trailer } from '@assets/icons';
 import React from 'react';
 
-import { Container } from './styles';
+import { Container, LottieAnimation } from './styles';
 
 interface Props {
   autoPlay: boolean;
@@ -14,12 +14,24 @@ interface Props {
   isContinue?: boolean;
   isTrailer?: boolean;
   loading?: boolean;
+  animated?: boolean;
 }
 
-const Action = ({ autoPlay, loop, width, height, isContinue, isTrailer, loading }: Props) => {
+const Action = ({
+  autoPlay,
+  loop,
+  width,
+  height,
+  isContinue,
+  isTrailer,
+  loading,
+  animated,
+}: Props) => {
   // source: props.loading ? Load : props.isTrailer ? Trailer : props.isContinue ? Continue : Play,
   const Icon = ({ width, height }: { width: number; height: number }) =>
-    loading ? (
+    animated ? (
+      <LottieAnimation {...{ autoPlay, loop, width, height, isContinue, isTrailer, loading }} />
+    ) : loading ? (
       <Loading {...{ width: width - 20, height: height - 20 }} />
     ) : isTrailer ? (
       <Trailer {...{ width: width - 20, height: height - 20 }} />

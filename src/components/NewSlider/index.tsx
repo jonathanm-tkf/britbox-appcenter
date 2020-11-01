@@ -196,7 +196,7 @@ const NewSlider = ({
       </SliderWrapper>
 
       {slim && (
-        <SlimDescription space="no">{getContent(carouselData[currentIndex].item)}</SlimDescription>
+        <SlimDescription space="no">{getContent(carouselData[currentIndex]?.item)}</SlimDescription>
       )}
 
       {collection && (carouselData[currentIndex].item?.customFields as CustomFiled)?.description && (

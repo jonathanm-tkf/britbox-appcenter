@@ -22,7 +22,7 @@ const ErrorLanding = ({ onPress, out = false }: Props) => {
       </LogoContainer>
       <Headline fontSize={isTablet() ? 28 : 22} lineHeight={isTablet() ? 40 : 34} center>
         {!out
-          ? getTextInConfigJSON(['error-page', 'message-2'], t('error.subtitle'))
+          ? getTextInConfigJSON(['error-page', 'message-1'], t('error.subtitle'))
           : getGlobalTextInConfigJSON(['out-of-region', 'message'], t('errorOut.subtitle'))}
       </Headline>
       {!out ? (
