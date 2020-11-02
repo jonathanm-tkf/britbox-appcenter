@@ -19,14 +19,13 @@ import {
   hideForceChromecast,
 } from '@store/modules/core/actions';
 import { AppState } from '@store/modules/rootReducer';
-import { ChromecastIcon } from '@assets/icons';
+import { ChromecastIcon, ChromecastPlay, ChromecastPause } from '@assets/icons';
 import { store } from '@store/index';
 import { CastDetail, LayoutState } from '@store/modules/layout/types';
 import { useTranslation } from 'react-i18next';
 import { PostMessage } from '@src/utils/videoPlayerRef';
-import { useNavigation } from '@react-navigation/native';
 import { CoreState } from '@store/modules/core/types';
-import { navigateByPath, navigationRef, pop } from '@src/navigation/rootNavigation';
+import { navigationRef } from '@src/navigation/rootNavigation';
 import { getTextInConfigJSON } from '@src/utils/object';
 import { Platform } from 'react-native';
 import {
@@ -46,6 +45,11 @@ const getItemCastDetail = () => {
   return layout?.castDetail || {};
 };
 
+const getCastState = () => {
+  const { layout }: { layout: LayoutState } = store.getState();
+  return layout?.castState || {};
+};
+
 const getCoreCastDetail = () => {
   const { core }: { core: CoreState } = store.getState();
   return core?.castDetail || {};
@@ -55,6 +59,7 @@ const Cast = () => {
   const { t } = useTranslation('layout');
   const dispatch = useDispatch();
   const [showButton, setShowButton] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(true);
   const [stateChromecast, setStateChromecast] = useState<CastState | undefined>(undefined);
   const [device, setDevice] = useState<CastDevice | undefined>(undefined);
   const { castState, isShowMiniController } = useSelector((state: AppState) => state.layout);
@@ -92,9 +97,6 @@ const Cast = () => {
           }
         }
 
-        // if (event === 'MEDIA_PLAYBACK_STARTED') {
-        // }
-
         if (event === 'SESSION_ENDED') {
           dispatch(castingOff());
           dispatch(castOff());
@@ -129,9 +131,14 @@ const Cast = () => {
         mediaMetadata,
         mediaCustomData: { itemVideoMassiveId },
       } = JSON.parse(message) || {};
-      if (id !== itemVideoMassiveId) {
+      if (id !== itemVideoMassiveId && getCastState() === 'loaded') {
         dispatch(castDetailAction({ id: itemVideoMassiveId, ...mediaMetadata }));
       }
+    });
+
+    GoogleCast.EventEmitter.addListener(GoogleCast.MEDIA_STATUS_UPDATED, ({ mediaStatus }) => {
+      const { playerState } = mediaStatus;
+      setIsPlaying(playerState !== 3);
     });
   };
 
@@ -183,7 +190,6 @@ const Cast = () => {
 
         if (state === 'Connected' && !isShowMiniController) {
           setShowButton(true);
-          //   setShowMiniController(true);
         }
 
         dispatch(state === 'NotConnected' || state === 'NoDevicesAvailable' ? castOff() : castOn());
@@ -198,9 +204,9 @@ const Cast = () => {
         .catch(() => {});
     }, 1000);
 
+    timer();
+
     return () => {
-      // clearInterval(intervalCheckChromecast);
-      // setShowMiniController(false);
       dispatch(setCastState(undefined));
     };
   }, []);
@@ -208,7 +214,6 @@ const Cast = () => {
   useEffect(() => {
     try {
       if (casting && device) {
-        // setShowMiniController(true);
         dispatch(setCastState('loaded'));
         GoogleCast.launchExpandedControls();
       }
@@ -218,11 +223,6 @@ const Cast = () => {
     }
   }, [casting]);
 
-  // useEffect(() => {
-  //   if (cast) {
-  //     setShowMiniController(true);
-  //   }
-  // }, [cast]);
   useEffect(() => {
     if (castDetail) {
       dispatch(setCastState('loaded'));
@@ -236,9 +236,15 @@ const Cast = () => {
     }
   }, [forceChromecast, device]);
 
-  // useEffect(() => {
-  //   dispatch(toggleMiniController(showMiniController));
-  // }, [showMiniController]);
+  const togglePlay = () => {
+    if (casting && device) {
+      if (isPlaying) {
+        GoogleCast.pause();
+      } else {
+        GoogleCast.play();
+      }
+    }
+  };
 
   return (
     <>
@@ -279,8 +285,12 @@ const Cast = () => {
                 <MiniSubtitle>{castDetail?.subtitle}</MiniSubtitle>
               )}
             </MiniWrapperText>
-            <MiniExpandButtonIcon>
-              <ChromecastIcon fill={theme.PRIMARY_TEXT_COLOR} width={25} height={35} />
+            <MiniExpandButtonIcon onPress={() => togglePlay()}>
+              {isPlaying ? (
+                <ChromecastPause fill={theme.PRIMARY_TEXT_COLOR} width={30} height={30} />
+              ) : (
+                <ChromecastPlay fill={theme.PRIMARY_TEXT_COLOR} width={30} height={30} />
+              )}
             </MiniExpandButtonIcon>
           </MiniExpandButton>
         </MiniController>

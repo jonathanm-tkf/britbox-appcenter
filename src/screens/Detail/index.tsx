@@ -13,7 +13,7 @@ import { loadDetailPage, loadEpisodesBySeason } from '@src/services/detail';
 import { getImage } from '@src/utils/images';
 import { fill } from 'lodash';
 import Bookmark from '@components/Bookmark';
-import { CastVideo, getVideoIdAndClassification } from '@src/services/cast';
+import { getVideoIdAndClassification } from '@src/services/cast';
 import { AppState } from '@store/modules/rootReducer';
 import { useSelector, useDispatch } from 'react-redux';
 import { refreshTokenSuccess, watchlistToggleRequest } from '@store/modules/user/actions';
@@ -48,6 +48,7 @@ import Orientation from 'react-native-orientation-locker';
 import { immersiveModeOff } from 'react-native-android-immersive-mode';
 import { isTablet } from 'react-native-device-info';
 import { HomeIndicator } from 'react-native-home-indicator';
+import { castVideo } from '@store/modules/chromecast/actions';
 import {
   Container,
   Scroll,
@@ -306,7 +307,9 @@ const Detail = () => {
       }
 
       dispatch(setCastState('loading'));
-      return CastVideo(parentalControlItem, pcToken || '', castDetail?.currentTime || false);
+      dispatch(castVideo(parentalControlItem, pcToken || '', castDetail?.currentTime || false));
+
+      return true;
     }
 
     return false;
@@ -392,7 +395,9 @@ const Detail = () => {
       };
 
       dispatch(castDetailAction({ ...newItem }));
-      return CastVideo(next || episode || item, '', playPosition || false);
+      dispatch(castVideo(next || episode || item, '', playPosition || false));
+
+      return true;
     }
 
     // TODO: Deep-link
@@ -462,7 +467,8 @@ const Detail = () => {
 
             dispatch(setCastState('loading'));
             dispatch(toggleMiniController(true));
-            return CastVideo(item);
+            dispatch(castVideo(item));
+            return true;
           }
           return navigate('VideoPlayer', { item });
         }, 1000);

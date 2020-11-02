@@ -88,7 +88,7 @@ export const MiniExpandButton = styled.TouchableOpacity`
   width: 100%;
 `;
 
-export const MiniExpandButtonIcon = styled.View`
+export const MiniExpandButtonIcon = styled.TouchableOpacity`
   align-items: center;
   justify-content: center;
   padding-left: 20px;

@@ -143,7 +143,9 @@ const Collections = () => {
       if (explore && explore?.length > 0) {
         const genreList = (explore.filter((list) => list.label === 'Genre') || [])
           .reduce((l) => l)
-          .children.filter((children) => children.label === data.title);
+          .children.filter(
+            (children) => children.label === (data.title || '')?.replace('Britbox - ', '')
+          );
         return genreList.length ? t('genre') : data?.title || '';
       }
     }
