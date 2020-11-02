@@ -27,6 +27,7 @@ import {
 } from '@src/sdks/Britbox.API.Account.TS/api';
 import { AppState } from '@store/modules/rootReducer';
 import { getTextInConfigJSON, getSegment } from '@src/utils/object';
+import { Config } from '@src/utils/config';
 import { useTranslation } from 'react-i18next';
 import { Html5Entities } from 'html-entities';
 import * as RNIap from 'react-native-iap';
@@ -141,7 +142,6 @@ const SignUpSubscription = () => {
     if (response && Number(response?.responseCode) === 1) {
       if (response?.productsResponseMessage?.length > 0) {
         setPackageData(response?.productsResponseMessage);
-        setIsLoadingPackages(false);
 
         const productApple: string[] = [];
         const productGoogle: string[] = [];
@@ -178,6 +178,7 @@ const SignUpSubscription = () => {
         } else {
           await RNIap.getSubscriptions(productGoogle);
         }
+        setIsLoadingPackages(false);
       } else {
         setErrorMsg("Couldn't get products");
         setIsLoadingPackages(false);
@@ -282,7 +283,7 @@ const SignUpSubscription = () => {
         'receipt-data': receipt,
         password: '8b0228ae3d5a489e8b406f83be73762d',
       };
-      await RNIap.validateReceiptIos(receiptBody, true);
+      await RNIap.validateReceiptIos(receiptBody, Config.ENVIRONMENT === 'STAGING');
 
       const paymentmethodInfo: BritboxDataEvergentModelsPaymentMethodInfo = {
         label: Platform.OS === 'ios' ? 'App Store Billing' : 'Google Wallet',

@@ -67,3 +67,7 @@ export const continueWatchingRequestSuccess = (data: Record<string, unknown>) =>
 
 export const continueWatchingRequestError = () =>
   action(UserActionTypes.CONTINUE_WATCHING_REQUEST_ERROR);
+
+export const pollingProfileRequest = () => action(UserActionTypes.POLLING_PROFILE_REQUEST);
+
+export const pollingProfileCancelled = () => action(UserActionTypes.POLLING_PROFILE_CANCELLED);

@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { takeLatest, all, call, put, select, takeEvery } from 'redux-saga/effects';
+import { takeLatest, all, call, put, select, takeEvery, race, take } from 'redux-saga/effects';
 import * as Sentry from '@sentry/react-native';
 import { BritboxAccountApi, BritboxContentApi } from '@src/sdks';
 import {
@@ -29,6 +29,7 @@ import {
   continueWatchingRemoveRequestSuccess,
   continueWatchingRequestError,
   continueWatchingRequestSuccess,
+  pollingProfileCancelled,
 } from '@store/modules/user/actions';
 import { getDevice } from '@src/utils';
 import { atiEventTracking, welcomeMessageOn, getProfileFailed } from '../layout/actions';
@@ -425,6 +426,7 @@ export function* logout() {
     const { accessToken } = yield select(getToken);
     yield call(logoutRequest, accessToken);
     yield put(logoutSuccess());
+    yield put(pollingProfileCancelled());
   } catch (error) {
     // Sentry.captureException({ error, logger: 'user get profile' });
   }
@@ -567,6 +569,27 @@ export function* getContinueWatchingRequest() {
     yield put(continueWatchingRequestSuccess({ watched, watchedList }));
   } catch (error) {
     yield put(continueWatchingRequestError());
+  }
+}
+
+function delay(duration: number) {
+  const promise = new Promise((resolve) => {
+    setTimeout(() => resolve(true), duration);
+  });
+  return promise;
+}
+
+function* fetchProfile() {
+  while (true) {
+    yield call(getProfileRequest);
+    yield call(delay, 300000);
+  }
+}
+
+export function* watchProfilePollSaga() {
+  while (true) {
+    yield take(UserActionTypes.POLLING_PROFILE_REQUEST);
+    yield race([call(fetchProfile), take(UserActionTypes.POLLING_PROFILE_CANCELLED)]);
   }
 }
 
