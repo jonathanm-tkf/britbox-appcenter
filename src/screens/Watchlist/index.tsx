@@ -139,7 +139,9 @@ const Watchlist = () => {
     if (getSheetHeight() === 0) {
       dispatch(sheetComponent(300, () => renderBottomContent()));
     }
-    dispatch(showSheetBottom({ itemId: item?.id || '0' }));
+    dispatch(
+      showSheetBottom({ itemId: item.type === 'season' ? item?.showId || '0' : item?.id || '0' })
+    );
     showSheet();
   };
 

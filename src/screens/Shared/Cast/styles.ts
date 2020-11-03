@@ -11,7 +11,6 @@ import { isTablet } from 'react-native-device-info';
 export const Container = styled.View``;
 
 export const FABView = styled.TouchableOpacity`
-  background-color: red;
   position: absolute;
   margin: 16px;
   right: 0px;
@@ -37,10 +36,35 @@ export const FABView = styled.TouchableOpacity`
 
 export const CastButton = styled(CastButtonC).attrs((props: ThemeState) => ({
   tintColor: props.theme.PRIMARY_FOREGROUND_COLOR,
+  contentStyles: {
+    width: isTablet() ? 70 : 60,
+    height: isTablet() ? 70 : 60,
+    borderRadius: isTablet() ? 35 : 30,
+    position: 'absolute',
+    margin: 16,
+    right: 0,
+    bottom:
+      Platform.OS === 'ios' ? (isTablet() ? 75 : 58) + getBottomSpace() : isTablet() ? 90 : 55,
+    backgroundColor: props.theme.PRIMARY_COLOR,
+    alignItems: 'center',
+    justifyContent: 'center',
+    elevation: 3,
+    borderWidth: 2,
+    borderColor: rgba(props.theme.PRIMARY_FOREGROUND_COLOR, 0.6),
+  },
 }))`
   width: ${isTablet() ? 70 : 60}px;
   height: ${isTablet() ? 70 : 60}px;
   border-radius: ${isTablet() ? 35 : 30}px;
+  align-items: center;
+  justify-content: center;
+  /* shadow-color: #000;
+  shadow-offset: 0px 15px;
+  shadow-opacity: 0.8;
+  shadow-radius: 15px; */
+  elevation: 4;
+  /* border-width: 2px; */
+  /* border-color: ${(props: ThemeState) => rgba(props.theme.PRIMARY_FOREGROUND_COLOR, 0.6)}; */
 `;
 
 export const MiniController = styled.View`

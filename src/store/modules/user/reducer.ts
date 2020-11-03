@@ -73,8 +73,9 @@ const user: Reducer<UserState> = (state = initialState, action) => {
           bookmarkList: {
             ...state.profile.bookmarkList,
             items: state.profile.bookmarkList.items.filter(
-              (item: { id: string }) =>
-                parseInt(item.id, 10) !== parseInt(action.payload.itemId, 10)
+              (item: { type: string; id: string; showId: string }) =>
+                parseInt(item.type === 'season' ? item.showId : item.id, 10) !==
+                parseInt(action.payload.itemId, 10)
             ),
           },
           bookmarkPendingProccesing: undefined,

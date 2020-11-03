@@ -1,33 +1,31 @@
 import React from 'react';
-import { WatchlistIcon, DiscoverMoreIcon, CheckedIcon } from '@assets/icons';
 import Action from '@components/Action';
-import { useTranslation } from 'react-i18next';
+import { WatchlistIcon, DiscoverMoreIcon, CheckedIcon } from '@assets/icons';
+
 import { checkIsInWatchingList } from '@src/services/watchlist';
+import { useTranslation } from 'react-i18next';
 import { AppState } from '@store/modules/rootReducer';
 import { useSelector } from 'react-redux';
-import { MassiveSDKModelItemList } from '@src/sdks/Britbox.API.Content.TS/api';
 import { ActivityIndicator } from 'react-native';
-import { isTablet } from 'react-native-device-info';
 import {
-  Container,
-  ActionWrapper,
-  ActionInnerContent,
-  ActionButton,
-  ActionText,
-  DiscoverMoreText,
-} from './styles';
+  MassiveSDKModelItemList,
+  MassiveSDKModelItemSummary,
+} from '@src/sdks/Britbox.API.Content.TS/api';
+import { isTablet } from 'react-native-device-info';
+import { withTheme } from 'styled-components';
+import { ThemeProps } from '@store/modules/theme/types';
+import { Actions, ActionButton, DiscoverMoreText, ActionText, Container } from './styles';
 
-type Props = {
-  onPlay?: () => void;
-  onDiscoverMore?: () => void;
-  onWatchlist?: () => void;
-  id?: string;
-  type: string;
-};
+interface Props {
+  item: any;
+  onWatchlist?: (item: any, isInWatchlist: boolean) => void;
+  onDiscoverMore?: (item: any) => void;
+  onPlay?: (item: any) => void;
+  readonly theme: ThemeProps;
+}
 
-const Actions = ({ onPlay, onDiscoverMore, onWatchlist, id, type }: Props) => {
+const ActionsComponent = ({ item, onDiscoverMore, onPlay, onWatchlist, theme }: Props) => {
   const { t } = useTranslation('layout');
-  const theme = useSelector((state: AppState) => state.theme.theme);
   const bookmarklist = useSelector(
     (state: AppState) => state.user.profile?.bookmarkList || []
   ) as MassiveSDKModelItemList;
@@ -36,53 +34,69 @@ const Actions = ({ onPlay, onDiscoverMore, onWatchlist, id, type }: Props) => {
     (state: AppState) => state.user?.profile || { bookmarkPendingProccesing: undefined }
   );
 
-  const getIsInWatchlist = () => checkIsInWatchingList(bookmarklist?.items || [], id || '0') === 3;
+  const watchedlist = useSelector(
+    (state: AppState) => state.user.profile?.watchedList?.items || []
+  ) as MassiveSDKModelItemSummary[];
+
+  const getIsInWatchlist = () => checkIsInWatchingList(bookmarklist?.items || [], item) === 3;
+
+  const getIsContinueWatching = () => {
+    const filter = watchedlist.filter(
+      (watched) =>
+        parseInt(item.type === 'movie' ? watched?.id || '0' : watched?.showId || '0', 10) ===
+        parseInt(item.type === 'movie' ? item?.id || '0' : item?.showId || '0', 10)
+    );
+    return filter.length > 0;
+  };
 
   return (
     <Container>
-      <ActionWrapper>
-        <ActionInnerContent>
-          {type !== 'link' && (
-            <>
-              <ActionButton onPress={() => (onWatchlist ? onWatchlist() : {})}>
-                {bookmarkPendingProccesing === id ? (
-                  <ActivityIndicator
-                    size={isTablet() ? 42 : 35}
-                    color={theme.PRIMARY_FOREGROUND_COLOR}
-                  />
-                ) : getIsInWatchlist() ? (
-                  <CheckedIcon
-                    fill={theme.PRIMARY_FOREGROUND_COLOR}
-                    width={isTablet() ? 42 : 35}
-                    height={isTablet() ? 42 : 35}
-                  />
-                ) : (
-                  <WatchlistIcon width={isTablet() ? 42 : 35} height={isTablet() ? 42 : 35} />
-                )}
-              </ActionButton>
-              <ActionButton play onPress={() => (onPlay ? onPlay() : {})}>
-                <Action
-                  isContinue={false}
-                  loop
-                  autoPlay
-                  width={isTablet() ? 120 : 80}
-                  height={isTablet() ? 120 : 80}
+      <Actions>
+        {item.type !== 'link' && (
+          <>
+            <ActionButton
+              onPress={() => (onWatchlist ? onWatchlist(item, getIsInWatchlist()) : {})}
+            >
+              {bookmarkPendingProccesing ===
+              (item.type === 'season' ? item?.showId || '0' : item?.id || '0') ? (
+                <ActivityIndicator
+                  size={isTablet() ? 42 : 32}
+                  color={theme.PRIMARY_FOREGROUND_COLOR}
                 />
-                <ActionText>{t('playnow')}</ActionText>
-              </ActionButton>
-            </>
-          )}
-          <ActionButton
-            link={type === 'link'}
-            onPress={() => (onDiscoverMore ? onDiscoverMore() : {})}
-          >
-            <DiscoverMoreIcon width={isTablet() ? 42 : 35} height={isTablet() ? 42 : 35} />
-            {type === 'link' && <DiscoverMoreText>{t('discover')}</DiscoverMoreText>}
-          </ActionButton>
-        </ActionInnerContent>
-      </ActionWrapper>
+              ) : getIsInWatchlist() ? (
+                <CheckedIcon
+                  fill={theme.PRIMARY_FOREGROUND_COLOR}
+                  width={isTablet() ? 42 : 32}
+                  height={isTablet() ? 42 : 32}
+                />
+              ) : (
+                <WatchlistIcon width={isTablet() ? 42 : 32} height={isTablet() ? 42 : 32} />
+              )}
+            </ActionButton>
+            <ActionButton onPress={() => (onPlay ? onPlay(item) : {})}>
+              <Action
+                isContinue={getIsContinueWatching()}
+                autoPlay
+                loop
+                width={isTablet() ? 130 : 100}
+                height={isTablet() ? 130 : 100}
+              />
+            </ActionButton>
+          </>
+        )}
+        <ActionButton
+          link={item.type === 'link'}
+          onPress={() => (onDiscoverMore ? onDiscoverMore(item) : {})}
+        >
+          <DiscoverMoreIcon width={isTablet() ? 42 : 32} height={isTablet() ? 42 : 32} />
+          {item.type === 'link' && <DiscoverMoreText>{t('discover')}</DiscoverMoreText>}
+        </ActionButton>
+      </Actions>
+      {item.type !== 'link' && (
+        <ActionText>{getIsContinueWatching() ? t('continue') : t('playnow')}</ActionText>
+      )}
     </Container>
   );
 };
 
-export default Actions;
+export default withTheme(ActionsComponent);

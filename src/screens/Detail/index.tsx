@@ -542,7 +542,7 @@ const Detail = () => {
           )}
           {data && (data.moreInformation?.trailers || []).length > 0 && (
             <ButtonTrailer onPress={() => playTrailer()}>
-              <Action isTrailer width={40} height={40} loop={false} autoPlay={false} />
+              <Action isTrailer width={50} height={50} loop={false} autoPlay={false} />
               <ButtonTrailerText>{t('detail:trailer')}</ButtonTrailerText>
             </ButtonTrailer>
           )}

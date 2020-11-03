@@ -24,7 +24,7 @@ import {
 } from '@src/sdks/Britbox.API.Content.TS/api';
 
 import { navigateByPath } from '@src/navigation/rootNavigation';
-import { watchlistToggleRequest } from '@store/modules/user/actions';
+import { watchlistToggleRequest, pollingProfileRequest } from '@store/modules/user/actions';
 import ContinueWatching from '@screens/Shared/ContinueWatching';
 import { autoPlayOn } from '@store/modules/layout/actions';
 import { setDeepLinkUrl } from '@store/modules/home/actions';
@@ -78,6 +78,8 @@ const Home = () => {
         dispatch(setDeepLinkUrl(null));
       }, 200);
     }
+
+    dispatch(pollingProfileRequest());
   }, []);
 
   return (

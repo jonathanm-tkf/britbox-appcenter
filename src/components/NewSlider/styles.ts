@@ -118,7 +118,7 @@ export const SlimDescription = styled.View`
 `;
 
 export const ActionsWrapper = styled.View`
-  height: ${isTablet() ? 180 : 100}px;
+  height: ${isTablet() ? 230 : 150}px;
   margin-bottom: 20px;
 `;
 

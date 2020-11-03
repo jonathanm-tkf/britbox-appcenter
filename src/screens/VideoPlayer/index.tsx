@@ -120,7 +120,7 @@ const VideoPlayer = () => {
         staging: true,
         token,
         ert: refreshToken,
-        isTrailer: params.isTrailer,
+        isTrailer: params.isTrailer || false,
       });
     }
   };
@@ -153,7 +153,7 @@ const VideoPlayer = () => {
           //     uri: `${Config.URL_PLAYER}?country=${segment?.toLocaleLowerCase()}&videoid=${
           //       params.item.id
           //     }&token=${token}&ert=${refreshToken}&allow=autoplay&isTrailer=${
-          //       params.isTrailer
+          //       params.isTrailer || false
           //     }&connection=${
           //       connection === 'wifi' && isTablet()
           //         ? 'mobile-tablet-main'
@@ -172,7 +172,9 @@ const VideoPlayer = () => {
             // uri: `${Config.URL_PLAYER}?country=${segment?.toLocaleLowerCase()}&videoid=${
             uri: `${Config.URL_PLAYER}?country=${segment?.toLocaleLowerCase()}&videoid=${
               params.item.id
-            }&token=${token}&ert=${refreshToken}&isTrailer=${params.isTrailer}&connection=${
+            }&token=${token}&ert=${refreshToken}&isTrailer=${
+              params.isTrailer || false
+            }&connection=${
               connection === 'wifi' && isTablet()
                 ? 'mobile-tablet-main'
                 : connection === 'wifi'

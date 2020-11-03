@@ -32,6 +32,7 @@ export type Show = {
   releaseYear: number | undefined;
   seasonNumber: number | undefined;
   id: number | undefined;
+  showId: number | undefined;
   episodeNumber: number | undefined;
 };
 

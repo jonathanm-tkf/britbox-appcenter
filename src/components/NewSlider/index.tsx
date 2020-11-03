@@ -128,8 +128,7 @@ const NewSlider = ({
     return (
       <>
         <Actions
-          id={item?.id || '0'}
-          type={item?.type}
+          item={item}
           onWatchlist={() => (onWatchlist ? onWatchlist(item) : {})}
           onPlay={() => (onPlay ? onPlay(item) : {})}
           onDiscoverMore={() => (onDiscoverMore ? onDiscoverMore(item) : {})}

@@ -56,9 +56,12 @@ const Actions = ({ data, onPlay, onWatchlist, id }: Props) => {
         parseInt(
           data?.information.type === 'movie' ? watched?.id || '0' : watched?.showId || '0',
           10
-        ) === parseInt(id || '0', 10)
+        ) ===
+        parseInt(
+          data?.information.type === 'movie' ? id || '0' : data?.show?.showId?.toString() || '0',
+          10
+        )
     );
-
     return filter.length > 0;
   };
 

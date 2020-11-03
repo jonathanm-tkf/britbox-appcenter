@@ -248,10 +248,12 @@ const Cast = () => {
 
   return (
     <>
-      {showButton && (
-        <FABView onPress={() => dispatch(hideForceChromecast())}>
-          <CastButton />
-        </FABView>
+      {showButton && !isShowMiniController && (
+        <CastButton
+          onPress={() => {
+            dispatch(hideForceChromecast());
+          }}
+        />
       )}
       {isShowMiniController && (
         <MiniController>

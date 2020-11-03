@@ -225,7 +225,12 @@ const ContinueWatching = () => {
 
   const showSheetBottomContentWatchlist = (item: MassiveSDKModelItemSummary) => {
     dispatch(sheetComponent(300, () => renderBottomContentWatchlist()));
-    dispatch(showSheetBottom({ itemId: item?.id || '0', customId: item?.customId || '0' }));
+    dispatch(
+      showSheetBottom({
+        itemId: item.type === 'season' ? item?.showId || '0' : item?.id || '0',
+        customId: item?.customId || '0',
+      })
+    );
     showSheet();
   };
 

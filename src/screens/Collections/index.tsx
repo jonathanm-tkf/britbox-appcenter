@@ -126,8 +126,8 @@ const Collections = () => {
     (state: AppState) => state.user.profile?.bookmarkList || []
   ) as MassiveSDKModelItemList;
 
-  const getIsInWatchlist = (id: string) =>
-    checkIsInWatchingList(bookmarklist?.items || [], id || '0') === 3;
+  const getIsInWatchlist = (item: any) =>
+    checkIsInWatchingList(bookmarklist?.items || [], item) === 3;
 
   const containerStyles = {
     marginTop: 10,
@@ -371,9 +371,9 @@ const Collections = () => {
   const onWatchlist = (card: MassiveSDKModelItemList) => {
     dispatch(
       watchlistToggleRequest({
-        itemId: card?.id || '0',
+        itemId: card.type === 'season' ? card?.showId || '0' : card?.id || '0',
         itemCustomId: card?.customId || '0',
-        isInWatchlist: getIsInWatchlist(card?.id || '0'),
+        isInWatchlist: getIsInWatchlist(card),
       })
     );
   };

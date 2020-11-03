@@ -124,7 +124,7 @@ export const ButtonTrailer = styled.TouchableOpacity`
 `;
 
 export const ButtonTrailerText = styled.Text`
-  color: ${(props: ThemeState) => props.theme.SECONDARY_COLOR_LIGHT};
+  color: ${(props: ThemeState) => props.theme.PRIMARY_FOREGROUND_COLOR};
   font-family: ${(props: ThemeState) => props.theme.PRIMARY_FONT_FAMILY_MEDIUM};
   margin-left: 5px;
 `;

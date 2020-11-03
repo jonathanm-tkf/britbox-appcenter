@@ -39,7 +39,11 @@ export const refreshTokenSuccess = (data: EvergentLoginResponse) =>
 export const loggedInRequest = () => action(UserActionTypes.LOGGEDIN_REQUEST);
 
 export const watchlistToggleRequest = ({ itemId, itemCustomId, isInWatchlist }: WatchListItem) =>
-  action(UserActionTypes.WATCHLIST_TOGGLE_REQUEST, { itemId, itemCustomId, isInWatchlist });
+  action(UserActionTypes.WATCHLIST_TOGGLE_REQUEST, {
+    itemId,
+    itemCustomId,
+    isInWatchlist,
+  });
 
 export const watchlistRequestAdd = (data: any) =>
   action(UserActionTypes.WATCHLIST_TOGGLE_REQUEST_ADD, { ...data });
@@ -67,3 +71,7 @@ export const continueWatchingRequestSuccess = (data: Record<string, unknown>) =>
 
 export const continueWatchingRequestError = () =>
   action(UserActionTypes.CONTINUE_WATCHING_REQUEST_ERROR);
+
+export const pollingProfileRequest = () => action(UserActionTypes.POLLING_PROFILE_REQUEST);
+
+export const pollingProfileCancelled = () => action(UserActionTypes.POLLING_PROFILE_CANCELLED);
