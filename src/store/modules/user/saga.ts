@@ -1,6 +1,16 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { takeLatest, all, call, put, select, takeEvery, race, take } from 'redux-saga/effects';
+import {
+  takeLatest,
+  all,
+  call,
+  put,
+  select,
+  takeEvery,
+  race,
+  take,
+  delay,
+} from 'redux-saga/effects';
 import * as Sentry from '@sentry/react-native';
 import { BritboxAccountApi, BritboxContentApi } from '@src/sdks';
 import {
@@ -572,17 +582,10 @@ export function* getContinueWatchingRequest() {
   }
 }
 
-function delay(duration: number) {
-  const promise = new Promise((resolve) => {
-    setTimeout(() => resolve(true), duration);
-  });
-  return promise;
-}
-
 function* fetchProfile() {
   while (true) {
     yield call(getProfileRequest);
-    yield call(delay, 300000);
+    yield delay(100000);
   }
 }
 

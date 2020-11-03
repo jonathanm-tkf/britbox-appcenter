@@ -113,7 +113,11 @@ const Watchlist = () => {
     let items = bookmarkList?.items || [];
 
     if (type !== 'all') {
-      items = items.filter((item) => item.type === type);
+      if (type === 'show') {
+        items = items.filter((item) => item.type === 'show' || item.type === 'season');
+      } else {
+        items = items.filter((item) => item.type === type);
+      }
     }
 
     if (orderBy !== 'date-added') {
