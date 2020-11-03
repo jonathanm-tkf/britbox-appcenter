@@ -1,7 +1,15 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react-native/no-inline-styles */
 import React, { useEffect, useState } from 'react';
-import { View, Dimensions, StatusBar, BackHandler, Platform } from 'react-native';
+import {
+  View,
+  Dimensions,
+  StatusBar,
+  BackHandler,
+  // NativeModules,
+  // NativeEventEmitter,
+  Platform,
+} from 'react-native';
 import Orientation from 'react-native-orientation-locker';
 import { useNavigation, RouteProp, useRoute } from '@react-navigation/native';
 import { AppState } from '@store/modules/rootReducer';
@@ -46,6 +54,23 @@ const VideoPlayer = () => {
     width: height,
     height: width,
   };
+
+  // useEffect(() => {
+  //   if (Platform.OS === 'android') {
+  //     const { Device } = NativeModules;
+  //     const eventEmitterDevice = new NativeEventEmitter(Device);
+  //     eventEmitterDevice.addListener('DEVICE_SCREEN_OFF', deviceScreenOff);
+
+  //     return () => {
+  //       eventEmitterDevice.removeListener('DEVICE_SCREEN_OFF', deviceScreenOff);
+  //     };
+  //   }
+  //   return () => {};
+  // }, []);
+
+  // const deviceScreenOff = (event: any) => {
+  //   console.tron.log('DEVICE_SCREEN_OFF', event);
+  // };
 
   const processMessage = (message: { [name: string]: any }) => {
     const { close, chromecast } = message;

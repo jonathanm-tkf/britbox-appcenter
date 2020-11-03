@@ -14,6 +14,7 @@ import java.util.List;
 import com.microsoft.codepush.react.CodePush;
 import com.horcrux.svg.SvgPackage;
 import android.webkit.WebView;
+import com.britbox.us.Device.DeviceLibPackage;
 
 public class MainApplication extends Application implements ReactApplication {
 
@@ -37,6 +38,7 @@ public class MainApplication extends Application implements ReactApplication {
           // packages.add(new MyReactNativePackage());
           packages.add(new SvgPackage());
           packages.add(new CodePush(BuildConfig.CODEPUSH_KEY, getApplicationContext(), BuildConfig.DEBUG));
+          packages.add(new DeviceLibPackage());
           return packages;
         }
 
