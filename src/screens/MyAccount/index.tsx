@@ -320,78 +320,80 @@ export default function MyAccount() {
     return (
       <>
         <KeyboardAvoidingView
-          behavior="position"
+          behavior={Platform.OS === 'ios' ? 'position' : 'padding'}
           keyboardVerticalOffset={Platform.OS === 'ios' ? -150 : 0}
         >
-          <ScrollableContainerPaddingHorizontal>
-            <TitleWrapper>
-              <SubTitle>{t('myaccount.yourdetails.screentitle')}</SubTitle>
-            </TitleWrapper>
-            <Input
-              label={t('signup:field.firstname')}
-              value={firstName}
-              onChangeText={(text) => setFirstName(text)}
-              onBlur={() => doValidateFirstName()}
-              error={errorFirstName}
-            />
-            <Input
-              label={t('signup:field.lastname')}
-              value={lastName}
-              onChangeText={(text) => setLastName(text)}
-              onBlur={() => doValidateLastName()}
-              error={errorLastName}
-            />
-            <Input
-              label={t('signup:field.email')}
-              value={email}
-              onChangeText={(text) => setEmail(text)}
-              onBlur={() => doValidateEmail()}
-              error={errorEmail}
-            />
-            <Input
-              label={t('signup:field.mobile')}
-              value={mobile}
-              onChangeText={(text) => setMobile(text)}
-              error={errorMobile}
-            />
-            <ErrorBlock
-              key="error"
-              visible={errorState}
-              type="error"
-              text={
-                errorMessage?.failureMessage[0]?.errorMessage ||
-                getTextInConfigJSON(['account-details', 'validation', 'error-message'], '')
-              }
-            />
-            <ErrorBlock
-              key="success"
-              visible={isSuccess}
-              type="success"
-              text={getTextInConfigJSON(['account-details', 'validation', 'success-message'], '')}
-            />
-            <Button
-              onPress={() => updateProfile()}
-              stretch
-              style={updateBtnStyle}
-              loading={loading}
-              size="big"
-              fontWeight="medium"
-              color={theme.PRIMARY_FOREGROUND_COLOR}
-            >
-              {t('update')}
-            </Button>
-            <Paragraph>
-              {t('myaccount.yourdetails.bottomtext')}{' '}
-              <LinkTitle
-                onPress={() => {
-                  navigate('PrivacyPolicy');
-                }}
+          <ScrollContent>
+            <ScrollableContainerPaddingHorizontal>
+              <TitleWrapper>
+                <SubTitle>{t('myaccount.yourdetails.screentitle')}</SubTitle>
+              </TitleWrapper>
+              <Input
+                label={t('signup:field.firstname')}
+                value={firstName}
+                onChangeText={(text) => setFirstName(text)}
+                onBlur={() => doValidateFirstName()}
+                error={errorFirstName}
+              />
+              <Input
+                label={t('signup:field.lastname')}
+                value={lastName}
+                onChangeText={(text) => setLastName(text)}
+                onBlur={() => doValidateLastName()}
+                error={errorLastName}
+              />
+              <Input
+                label={t('signup:field.email')}
+                value={email}
+                onChangeText={(text) => setEmail(text)}
+                onBlur={() => doValidateEmail()}
+                error={errorEmail}
+              />
+              <Input
+                label={t('signup:field.mobile')}
+                value={mobile}
+                onChangeText={(text) => setMobile(text)}
+                error={errorMobile}
+              />
+              <ErrorBlock
+                key="error"
+                visible={errorState}
+                type="error"
+                text={
+                  errorMessage?.failureMessage[0]?.errorMessage ||
+                  getTextInConfigJSON(['account-details', 'validation', 'error-message'], '')
+                }
+              />
+              <ErrorBlock
+                key="success"
+                visible={isSuccess}
+                type="success"
+                text={getTextInConfigJSON(['account-details', 'validation', 'success-message'], '')}
+              />
+              <Button
+                onPress={() => updateProfile()}
+                stretch
+                style={updateBtnStyle}
+                loading={loading}
+                size="big"
+                fontWeight="medium"
+                color={theme.PRIMARY_FOREGROUND_COLOR}
               >
-                {t('privacypolicy')}
-              </LinkTitle>
-              .
-            </Paragraph>
-          </ScrollableContainerPaddingHorizontal>
+                {t('update')}
+              </Button>
+              <Paragraph>
+                {t('myaccount.yourdetails.bottomtext')}{' '}
+                <LinkTitle
+                  onPress={() => {
+                    navigate('PrivacyPolicy');
+                  }}
+                >
+                  {t('privacypolicy')}
+                </LinkTitle>
+                .
+              </Paragraph>
+            </ScrollableContainerPaddingHorizontal>
+          </ScrollContent>
         </KeyboardAvoidingView>
         {tabBottomView()}
       </>
@@ -606,7 +608,7 @@ export default function MyAccount() {
     return (
       <>
         <KeyboardAvoidingView
-          behavior="position"
+          behavior={Platform.OS === 'ios' ? 'position' : 'padding'}
           keyboardVerticalOffset={Platform.OS === 'ios' ? -150 : 0}
         >
           <ScrollContent>

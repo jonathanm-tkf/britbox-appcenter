@@ -900,6 +900,21 @@
 				INFOPLIST_FILE = Britbox/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MARKETING_VERSION = 2.0.0;
+				OTHER_CFLAGS = (
+					"$(inherited)",
+					"-fmodule-map-file=\"${PODS_CONFIGURATION_BUILD_DIR}/YogaKit/YogaKit.modulemap\"",
+					"-fmodule-map-file=\"${PODS_CONFIGURATION_BUILD_DIR}/lottie-ios/Lottie.modulemap\"",
+					"-fmodule-map-file=\"${PODS_CONFIGURATION_BUILD_DIR}/lottie-react-native/lottie_react_native.modulemap\"",
+					"-fmodule-map-file=\"${PODS_ROOT}/Headers/Public/FlipperKit/FlipperKit.modulemap\"",
+					"-fmodule-map-file=\"${PODS_ROOT}/Headers/Public/React/React-Core.modulemap\"",
+					"-fmodule-map-file=\"${PODS_ROOT}/Headers/Public/SSZipArchive/SSZipArchive.modulemap\"",
+					"-fmodule-map-file=\"${PODS_ROOT}/Headers/Public/yoga/Yoga.modulemap\"",
+					"-fstack-protector-all",
+				);
+				OTHER_CPLUSPLUSFLAGS = (
+					"$(OTHER_CFLAGS)",
+					"-fstack-protector-all",
+				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -939,6 +954,20 @@
 				INFOPLIST_FILE = Britbox/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MARKETING_VERSION = 2.0.0;
+				OTHER_CFLAGS = (
+					"$(inherited)",
+					"-fmodule-map-file=\"${PODS_CONFIGURATION_BUILD_DIR}/YogaKit/YogaKit.modulemap\"",
+					"-fmodule-map-file=\"${PODS_CONFIGURATION_BUILD_DIR}/lottie-ios/Lottie.modulemap\"",
+					"-fmodule-map-file=\"${PODS_CONFIGURATION_BUILD_DIR}/lottie-react-native/lottie_react_native.modulemap\"",
+					"-fmodule-map-file=\"${PODS_ROOT}/Headers/Public/React/React-Core.modulemap\"",
+					"-fmodule-map-file=\"${PODS_ROOT}/Headers/Public/SSZipArchive/SSZipArchive.modulemap\"",
+					"-fmodule-map-file=\"${PODS_ROOT}/Headers/Public/yoga/Yoga.modulemap\"",
+					"-fstack-protector-all",
+				);
+				OTHER_CPLUSPLUSFLAGS = (
+					"$(OTHER_CFLAGS)",
+					"-fstack-protector-all",
+				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -1262,6 +1291,21 @@
 				INFOPLIST_FILE = Britbox/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MARKETING_VERSION = 2.0.0;
+				OTHER_CFLAGS = (
+					"$(inherited)",
+					"-fmodule-map-file=\"${PODS_CONFIGURATION_BUILD_DIR}/YogaKit/YogaKit.modulemap\"",
+					"-fmodule-map-file=\"${PODS_CONFIGURATION_BUILD_DIR}/lottie-ios/Lottie.modulemap\"",
+					"-fmodule-map-file=\"${PODS_CONFIGURATION_BUILD_DIR}/lottie-react-native/lottie_react_native.modulemap\"",
+					"-fmodule-map-file=\"${PODS_ROOT}/Headers/Public/FlipperKit/FlipperKit.modulemap\"",
+					"-fmodule-map-file=\"${PODS_ROOT}/Headers/Public/React/React-Core.modulemap\"",
+					"-fmodule-map-file=\"${PODS_ROOT}/Headers/Public/SSZipArchive/SSZipArchive.modulemap\"",
+					"-fmodule-map-file=\"${PODS_ROOT}/Headers/Public/yoga/Yoga.modulemap\"",
+					"-fstack-protector-all",
+				);
+				OTHER_CPLUSPLUSFLAGS = (
+					"$(OTHER_CFLAGS)",
+					"-fstack-protector-all",
+				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -1425,6 +1469,20 @@
 				INFOPLIST_FILE = Britbox/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MARKETING_VERSION = 2.0.0;
+				OTHER_CFLAGS = (
+					"$(inherited)",
+					"-fmodule-map-file=\"${PODS_CONFIGURATION_BUILD_DIR}/YogaKit/YogaKit.modulemap\"",
+					"-fmodule-map-file=\"${PODS_CONFIGURATION_BUILD_DIR}/lottie-ios/Lottie.modulemap\"",
+					"-fmodule-map-file=\"${PODS_CONFIGURATION_BUILD_DIR}/lottie-react-native/lottie_react_native.modulemap\"",
+					"-fmodule-map-file=\"${PODS_ROOT}/Headers/Public/React/React-Core.modulemap\"",
+					"-fmodule-map-file=\"${PODS_ROOT}/Headers/Public/SSZipArchive/SSZipArchive.modulemap\"",
+					"-fmodule-map-file=\"${PODS_ROOT}/Headers/Public/yoga/Yoga.modulemap\"",
+					"-fstack-protector-all",
+				);
+				OTHER_CPLUSPLUSFLAGS = (
+					"$(OTHER_CFLAGS)",
+					"-fstack-protector-all",
+				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -1601,6 +1659,21 @@
 				INFOPLIST_FILE = Britbox/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MARKETING_VERSION = 2.0.0;
+				OTHER_CFLAGS = (
+					"$(inherited)",
+					"-fmodule-map-file=\"${PODS_CONFIGURATION_BUILD_DIR}/YogaKit/YogaKit.modulemap\"",
+					"-fmodule-map-file=\"${PODS_CONFIGURATION_BUILD_DIR}/lottie-ios/Lottie.modulemap\"",
+					"-fmodule-map-file=\"${PODS_CONFIGURATION_BUILD_DIR}/lottie-react-native/lottie_react_native.modulemap\"",
+					"-fmodule-map-file=\"${PODS_ROOT}/Headers/Public/FlipperKit/FlipperKit.modulemap\"",
+					"-fmodule-map-file=\"${PODS_ROOT}/Headers/Public/React/React-Core.modulemap\"",
+					"-fmodule-map-file=\"${PODS_ROOT}/Headers/Public/SSZipArchive/SSZipArchive.modulemap\"",
+					"-fmodule-map-file=\"${PODS_ROOT}/Headers/Public/yoga/Yoga.modulemap\"",
+					"-fstack-protector-all",
+				);
+				OTHER_CPLUSPLUSFLAGS = (
+					"$(OTHER_CFLAGS)",
+					"-fstack-protector-all",
+				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -1764,6 +1837,20 @@
 				INFOPLIST_FILE = Britbox/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MARKETING_VERSION = 2.0.0;
+				OTHER_CFLAGS = (
+					"$(inherited)",
+					"-fmodule-map-file=\"${PODS_CONFIGURATION_BUILD_DIR}/YogaKit/YogaKit.modulemap\"",
+					"-fmodule-map-file=\"${PODS_CONFIGURATION_BUILD_DIR}/lottie-ios/Lottie.modulemap\"",
+					"-fmodule-map-file=\"${PODS_CONFIGURATION_BUILD_DIR}/lottie-react-native/lottie_react_native.modulemap\"",
+					"-fmodule-map-file=\"${PODS_ROOT}/Headers/Public/React/React-Core.modulemap\"",
+					"-fmodule-map-file=\"${PODS_ROOT}/Headers/Public/SSZipArchive/SSZipArchive.modulemap\"",
+					"-fmodule-map-file=\"${PODS_ROOT}/Headers/Public/yoga/Yoga.modulemap\"",
+					"-fstack-protector-all",
+				);
+				OTHER_CPLUSPLUSFLAGS = (
+					"$(OTHER_CFLAGS)",
+					"-fstack-protector-all",
+				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
