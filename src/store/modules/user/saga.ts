@@ -279,6 +279,7 @@ export function* getProfileRequest() {
     Sentry.captureException({ logger: 'user get profile' });
     const isLogged = yield select(getIsLogged);
     if (isLogged) yield put(getProfileFailed(true));
+    else yield call(logout);
   }
 }
 

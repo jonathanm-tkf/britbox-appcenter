@@ -53,7 +53,11 @@ export function* getConfig() {
 
 export async function getBritBoxAppConfig() {
   try {
-    const response = await axios.get(`${Config.CONFIG_URL}britbox-app-config.json`);
+    const response = await axios.get(`${Config.CONFIG_URL}britbox-app-config.json`, {
+      headers: {
+        'Cache-Control': 'no-cache',
+      },
+    });
     return response.data;
   } catch (error) {
     throw new Error(JSON.stringify(error));

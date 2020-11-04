@@ -122,7 +122,7 @@ const Card = ({
   );
 
   const BadgeComponent = memo(() =>
-    badge ? (
+    badge && badge.toLowerCase() !== 'last chance' ? (
       <Badge {...{ isGrid: isGrid || false }}>
         <BadgeText>{badge}</BadgeText>
       </Badge>

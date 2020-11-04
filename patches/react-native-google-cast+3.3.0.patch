@@ -1,6 +1,33 @@
 diff --git a/node_modules/react-native-google-cast/.DS_Store b/node_modules/react-native-google-cast/.DS_Store
 new file mode 100644
 index 0000000..e69de29
+diff --git a/node_modules/react-native-google-cast/CastButton.js b/node_modules/react-native-google-cast/CastButton.js
+index f148985..491f48e 100644
+--- a/node_modules/react-native-google-cast/CastButton.js
++++ b/node_modules/react-native-google-cast/CastButton.js
+@@ -2,7 +2,7 @@
+ 
+ import React from 'react'
+ import PropTypes from 'prop-types'
+-import { requireNativeComponent, NativeModules } from 'react-native';
++import { requireNativeComponent, NativeModules, View } from 'react-native';
+ 
+ const { RNGoogleCast: GoogleCast } = NativeModules;
+ 
+@@ -17,7 +17,12 @@ const { RNGoogleCast: GoogleCast } = NativeModules;
+ class CastButton extends React.Component {
+   render() {
+     if (GoogleCast.CAST_AVAILABLE) {
+-      return <GoogleCastButton {...this.props} />;
++      const { contentStyles, onPress } = this.props;
++      return (
++        <View style={contentStyles} onStartShouldSetResponder={() => onPress()}>
++          <GoogleCastButton {...this.props} />
++        </View>
++      );
+     } else {
+       return null;
+     }
 diff --git a/node_modules/react-native-google-cast/android/build/.transforms/93754e5282595d34a39e099116e53ea4.bin b/node_modules/react-native-google-cast/android/build/.transforms/93754e5282595d34a39e099116e53ea4.bin
 new file mode 100644
 index 0000000..0d259dd
@@ -165,8 +192,7 @@ new file mode 100644
 index 0000000..e69de29
 diff --git a/node_modules/react-native-google-cast/android/build/intermediates/compile_only_not_namespaced_r_class_jar/debug/R.jar b/node_modules/react-native-google-cast/android/build/intermediates/compile_only_not_namespaced_r_class_jar/debug/R.jar
 new file mode 100644
-index 0000000..85f20ca
-Binary files /dev/null and b/node_modules/react-native-google-cast/android/build/intermediates/compile_only_not_namespaced_r_class_jar/debug/R.jar differ
+index 0000000..e69de29
 diff --git a/node_modules/react-native-google-cast/android/build/intermediates/compile_only_not_namespaced_r_class_jar/release/R.jar b/node_modules/react-native-google-cast/android/build/intermediates/compile_only_not_namespaced_r_class_jar/release/R.jar
 new file mode 100644
 index 0000000..e69de29
@@ -9959,7 +9985,7 @@ index 0000000..73c52bb
 +		INJECTED from /Users/jonathanmachado/Trabajos/Britbox-Website/App/node_modules/react-native-google-cast/android/src/main/AndroidManifest.xml
 diff --git a/node_modules/react-native-google-cast/android/react-native-google-cast.iml b/node_modules/react-native-google-cast/android/react-native-google-cast.iml
 new file mode 100644
-index 0000000..4c9c77f
+index 0000000..d3697dd
 --- /dev/null
 +++ b/node_modules/react-native-google-cast/android/react-native-google-cast.iml
 @@ -0,0 +1,155 @@
@@ -9984,7 +10010,7 @@ index 0000000..4c9c77f
 +        <option name="ALLOW_USER_CONFIGURATION" value="false" />
 +        <option name="MANIFEST_FILE_RELATIVE_PATH" value="/src/main/AndroidManifest.xml" />
 +        <option name="RES_FOLDER_RELATIVE_PATH" value="/src/main/res" />
-+        <option name="RES_FOLDERS_RELATIVE_PATH" value="file://$MODULE_DIR$/src/main/res;file://$MODULE_DIR$/build/generated/res/resValues/debug" />
++        <option name="RES_FOLDERS_RELATIVE_PATH" value="file://$MODULE_DIR$/src/main/res" />
 +        <option name="TEST_RES_FOLDERS_RELATIVE_PATH" value="" />
 +        <option name="ASSETS_FOLDER_RELATIVE_PATH" value="/src/main/assets" />
 +        <option name="PROJECT_TYPE" value="1" />

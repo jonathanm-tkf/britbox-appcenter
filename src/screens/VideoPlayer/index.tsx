@@ -6,8 +6,8 @@ import {
   Dimensions,
   StatusBar,
   BackHandler,
-  // NativeModules,
-  // NativeEventEmitter,
+  NativeModules,
+  NativeEventEmitter,
   Platform,
 } from 'react-native';
 import Orientation from 'react-native-orientation-locker';
@@ -55,22 +55,26 @@ const VideoPlayer = () => {
     height: width,
   };
 
-  // useEffect(() => {
-  //   if (Platform.OS === 'android') {
-  //     const { Device } = NativeModules;
-  //     const eventEmitterDevice = new NativeEventEmitter(Device);
-  //     eventEmitterDevice.addListener('DEVICE_SCREEN_OFF', deviceScreenOff);
+  useEffect(() => {
+    if (Platform.OS === 'android') {
+      const { Device } = NativeModules;
+      const eventEmitterDevice = new NativeEventEmitter(Device);
+      eventEmitterDevice.addListener('DEVICE_SCREEN_OFF', deviceScreenOff);
 
-  //     return () => {
-  //       eventEmitterDevice.removeListener('DEVICE_SCREEN_OFF', deviceScreenOff);
-  //     };
-  //   }
-  //   return () => {};
-  // }, []);
+      return () => {
+        eventEmitterDevice.removeListener('DEVICE_SCREEN_OFF', deviceScreenOff);
+      };
+    }
+    return () => {};
+  }, []);
 
-  // const deviceScreenOff = (event: any) => {
-  //   console.tron.log('DEVICE_SCREEN_OFF', event);
-  // };
+  const deviceScreenOff = () => {
+    if (webViewRef.current) {
+      PostMessage({
+        type: 'pause',
+      });
+    }
+  };
 
   const processMessage = (message: { [name: string]: any }) => {
     const { close, chromecast } = message;
