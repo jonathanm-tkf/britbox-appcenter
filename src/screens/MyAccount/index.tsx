@@ -102,6 +102,7 @@ export default function MyAccount() {
 
     const [errorState, setErrorState] = useState(false);
     const [isSuccess, setIsSuccess] = useState(false);
+    const [offset, setOffset] = useState(0);
     const [errorMessage, setErrorMessage] = useState(evergentResponseError);
 
     const [errorFirstName, setErrorFirstName] = useState<{
@@ -321,7 +322,7 @@ export default function MyAccount() {
       <>
         <KeyboardAvoidingView
           behavior={Platform.OS === 'ios' ? 'position' : 'padding'}
-          keyboardVerticalOffset={Platform.OS === 'ios' ? -150 : 0}
+          keyboardVerticalOffset={Platform.OS === 'ios' ? offset : 0}
         >
           <ScrollContent>
             <ScrollableContainerPaddingHorizontal>
@@ -333,6 +334,7 @@ export default function MyAccount() {
                 value={firstName}
                 onChangeText={(text) => setFirstName(text)}
                 onBlur={() => doValidateFirstName()}
+                onFocus={() => setOffset(-170)}
                 error={errorFirstName}
               />
               <Input
@@ -340,6 +342,7 @@ export default function MyAccount() {
                 value={lastName}
                 onChangeText={(text) => setLastName(text)}
                 onBlur={() => doValidateLastName()}
+                onFocus={() => setOffset(-150)}
                 error={errorLastName}
               />
               <Input
@@ -347,12 +350,14 @@ export default function MyAccount() {
                 value={email}
                 onChangeText={(text) => setEmail(text)}
                 onBlur={() => doValidateEmail()}
+                onFocus={() => setOffset(-150)}
                 error={errorEmail}
               />
               <Input
                 label={t('signup:field.mobile')}
                 value={mobile}
                 onChangeText={(text) => setMobile(text)}
+                onFocus={() => setOffset(-60)}
                 error={errorMobile}
               />
               <ErrorBlock

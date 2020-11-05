@@ -159,7 +159,7 @@ const Tabs = ({ routes, subscriptionSelected, onTabChanged }: Props) => {
         value: { scrollToOffset: (item: Record<string, unknown>) => void };
         key: string;
       }) => {
-        if (item.key !== curRouteKey) {
+        if (item.key === curRouteKey) {
           if (item.value) {
             if ((scrollY._value ?? 0) <= HeaderHeight) {
               item.value.scrollToOffset({
@@ -183,7 +183,7 @@ const Tabs = ({ routes, subscriptionSelected, onTabChanged }: Props) => {
       Keyboard.removeListener('keyboardDidShow', keyboardDidShow);
       Keyboard.removeListener('keyboardDidHide', keyboardDidHide);
     };
-  }, []);
+  }, [tabIndex]);
 
   const keyboardDidShow = () => {
     syncScrollOffsetTop(true);
