@@ -32,6 +32,8 @@ export const showForceChromecast = () => action(CoreActionTypes.SHOW_FORCE_CHROM
 
 export const hideForceChromecast = () => action(CoreActionTypes.HIDE_FORCE_CHROMECAST);
 
+export const hideIntroChromecast = () => action(CoreActionTypes.HIDE_INTRO_CHROMECAST);
+
 export const castVideo = (
   item: MassiveSDKModelEpisodesItem,
   pcToken?: string,

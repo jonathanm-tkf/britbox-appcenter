@@ -10,6 +10,7 @@ import {
   setCastState,
   castVideoPlayerDetailClear,
   toggleMiniController,
+  castPosition,
 } from '@store/modules/layout/actions';
 import {
   castDetailClear,
@@ -17,9 +18,10 @@ import {
   castingOn,
   castDetail as castDetailAction,
   hideForceChromecast,
+  hideIntroChromecast,
 } from '@store/modules/core/actions';
 import { AppState } from '@store/modules/rootReducer';
-import { ChromecastIcon, ChromecastPlay, ChromecastPause } from '@assets/icons';
+import { ChromecastPlay, ChromecastPause } from '@assets/icons';
 import { store } from '@store/index';
 import { CastDetail, LayoutState } from '@store/modules/layout/types';
 import { useTranslation } from 'react-i18next';
@@ -27,7 +29,6 @@ import { PostMessage } from '@src/utils/videoPlayerRef';
 import { CoreState } from '@store/modules/core/types';
 import { navigationRef } from '@src/navigation/rootNavigation';
 import { getTextInConfigJSON } from '@src/utils/object';
-import { Platform } from 'react-native';
 import {
   FABView,
   CastButton,
@@ -165,10 +166,6 @@ const Cast = () => {
       setShowButton(true);
     }
 
-    if (Platform.OS === 'ios') {
-      GoogleCast.showIntroductoryOverlay();
-    }
-
     const intervalCheckChromecast = setInterval(() => {
       GoogleCast.getCastState().then((state) => {
         setStateChromecast(state === 'NotConnected' ? t('loading') : state);
@@ -190,6 +187,7 @@ const Cast = () => {
 
         if (state === 'Connected' && !isShowMiniController) {
           setShowButton(true);
+          dispatch(hideForceChromecast());
         }
 
         dispatch(state === 'NotConnected' || state === 'NoDevicesAvailable' ? castOff() : castOn());
@@ -250,18 +248,20 @@ const Cast = () => {
     <>
       {showButton && !isShowMiniController && (
         <CastButton
-          onPress={() => {
-            dispatch(hideForceChromecast());
+          onLayout={(e) => {
+            const { x, y } = e.nativeEvent.layout;
+            if (x !== 0 && y !== 0) {
+              setTimeout(() => {
+                dispatch(castPosition({ x, y }));
+              }, 500);
+            }
           }}
+          onPress={() => {}}
         />
       )}
       {isShowMiniController && (
         <MiniController>
-          <MiniExpandButton
-            onPress={() =>
-              casting ? GoogleCast.launchExpandedControls() : GoogleCast.showCastPicker()
-            }
-          >
+          <MiniExpandButton onPress={() => GoogleCast.launchExpandedControls()}>
             {castDetail?.images && castState !== 'error' && (
               <MiniImage
                 source={{

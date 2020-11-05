@@ -12,6 +12,7 @@ import { ThemeProvider } from 'styled-components';
 import { BottomSheetWrapper, Headline, Paragraph } from '@components/Layout';
 import { Button } from '@components/Button';
 import Loading from '@screens/Loading';
+import Hole from '@components/Hole';
 import Navigation from './navigation/routes';
 import { randomString } from './services/token';
 import { hideSheet, sheetRef, showSheet } from './utils/sheetBottom';
@@ -22,7 +23,6 @@ const webViewStyles: ViewStyle = {
   height: 0,
   overflow: 'hidden',
 };
-
 type Profile = {
   analyticsSubscriptionStatus: string;
   isInFreeTrail: boolean;
@@ -99,7 +99,7 @@ export default function App() {
 
   useEffect(() => {
     if (welcomeMessage) {
-      dispatch(sheetComponent(300, () => renderBottomContent()));
+      dispatch(sheetComponent(280, () => renderBottomContent()));
       setTimeout(() => {
         showSheet();
       }, 2000);
@@ -135,6 +135,7 @@ export default function App() {
         <StatusBar barStyle="light-content" backgroundColor={theme.PRIMARY_COLOR} />
         {isLoading && <Loading />}
         <Navigation onTrackEvent={(data) => onTrackEvent(data)} />
+        <Hole />
         <View style={webViewStyles}>
           <WebView
             ref={webViewRef}
@@ -150,7 +151,7 @@ export default function App() {
           closeOnPressMask={false}
           customStyles={{
             container: {
-              maxWidth: isTablet() ? 400 : '100%',
+              maxWidth: isTablet() ? 450 : '100%',
               alignItems: 'center',
               borderTopRightRadius: 15,
               borderTopLeftRadius: 15,

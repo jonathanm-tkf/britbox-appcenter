@@ -2,7 +2,7 @@ diff --git a/node_modules/react-native-google-cast/.DS_Store b/node_modules/reac
 new file mode 100644
 index 0000000..e69de29
 diff --git a/node_modules/react-native-google-cast/CastButton.js b/node_modules/react-native-google-cast/CastButton.js
-index f148985..491f48e 100644
+index f148985..c0bb648 100644
 --- a/node_modules/react-native-google-cast/CastButton.js
 +++ b/node_modules/react-native-google-cast/CastButton.js
 @@ -2,7 +2,7 @@
@@ -19,9 +19,9 @@ index f148985..491f48e 100644
    render() {
      if (GoogleCast.CAST_AVAILABLE) {
 -      return <GoogleCastButton {...this.props} />;
-+      const { contentStyles, onPress } = this.props;
++      const { contentStyles, onPress, onLayout } = this.props;
 +      return (
-+        <View style={contentStyles} onStartShouldSetResponder={() => onPress()}>
++        <View style={contentStyles} onStartShouldSetResponder={() => onPress()} onLayout={(e) => onLayout(e)}>
 +          <GoogleCastButton {...this.props} />
 +        </View>
 +      );

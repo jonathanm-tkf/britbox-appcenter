@@ -15,6 +15,7 @@ export const initialState: CoreState = {
   casting: false,
   castDetail: undefined,
   forceChromecast: Platform.OS === 'ios' && parseInt(Platform.Version.toString(), 10) >= 14,
+  introChromecast: true,
 };
 
 const core: Reducer<CoreState> = (state = initialState, action) => {
@@ -86,6 +87,9 @@ const core: Reducer<CoreState> = (state = initialState, action) => {
         break;
       case CoreActionTypes.HIDE_FORCE_CHROMECAST:
         draft.forceChromecast = false;
+        break;
+      case CoreActionTypes.HIDE_INTRO_CHROMECAST:
+        draft.introChromecast = false;
         break;
       default:
     }

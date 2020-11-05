@@ -49,6 +49,7 @@ export const CastButton = styled(CastButtonC).attrs((props: ThemeState) => ({
     alignItems: 'center',
     justifyContent: 'center',
     elevation: 3,
+    zIndex: 3,
     borderWidth: 2,
     borderColor: rgba(props.theme.PRIMARY_FOREGROUND_COLOR, 0.6),
   },
@@ -63,6 +64,7 @@ export const CastButton = styled(CastButtonC).attrs((props: ThemeState) => ({
   shadow-opacity: 0.8;
   shadow-radius: 15px; */
   elevation: 4;
+  z-index: 4;
   /* border-width: 2px; */
   /* border-color: ${(props: ThemeState) => rgba(props.theme.PRIMARY_FOREGROUND_COLOR, 0.6)}; */
 `;

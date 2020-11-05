@@ -61,3 +61,6 @@ export const retryTimes = () => action(LayoutActionTypes.RETRY_TIMES);
 export const errorConfig = () => action(LayoutActionTypes.ERROR_CONFIG);
 
 export const finishedConfiguration = () => action(LayoutActionTypes.FINISHED_CONFIGURATION);
+
+export const castPosition = ({ x, y }: { x: number; y: number }) =>
+  action(LayoutActionTypes.CAST_POSITION, { x, y });

@@ -137,6 +137,7 @@ export enum CoreActionTypes {
   HIDE_FORCE_CHROMECAST = '@core/HIDE_FORCE_CHROMECAST',
   SHOW_FORCE_CHROMECAST = '@core/SHOW_FORCE_CHROMECAST',
   CAST_VIDEO = '@layout/CAST_VIDEO',
+  HIDE_INTRO_CHROMECAST = '@core/HIDE_INTRO_CHROMECAST',
 }
 
 /**
@@ -154,6 +155,7 @@ export interface CoreState {
   casting: boolean;
   castDetail: any;
   forceChromecast: boolean;
+  introChromecast: boolean;
 }
 
 export interface Menu {

@@ -78,7 +78,6 @@ const Home = () => {
         dispatch(setDeepLinkUrl(null));
       }, 200);
     }
-
     dispatch(pollingProfileRequest());
   }, []);
 

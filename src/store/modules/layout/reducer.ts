@@ -28,6 +28,10 @@ export const initialState: LayoutState = {
   page: undefined,
   isShowMiniController: false,
   failedGetProfile: false,
+  castPosition: {
+    x: 0,
+    y: 0,
+  },
 };
 
 const layout: Reducer<LayoutState> = (state = initialState, action) => {
@@ -107,7 +111,6 @@ const layout: Reducer<LayoutState> = (state = initialState, action) => {
         break;
       case LayoutActionTypes.LAYOUT_CAST_VIDEO_PLAYER_DETAIL_CLEAR:
         draft.castDetail = undefined;
-        // draft.castState = undefined;
         break;
       case LayoutActionTypes.LAYOUT_CAST_VIDEO_PLAYER_DETAIL:
         draft.castDetail = {
@@ -127,14 +130,14 @@ const layout: Reducer<LayoutState> = (state = initialState, action) => {
       case LayoutActionTypes.LAYOUT_CAST_STATE:
         draft.castState = action.payload.state;
         break;
-      // case CoreActionTypes.CAST_DETAIL:
-      //   draft.castState = 'loaded';
-      //   break;
       case LayoutActionTypes.TOGGLE_MINI_CONTROLLER:
         draft.isShowMiniController = action.payload.isShowMiniController;
         break;
       case LayoutActionTypes.GET_PROFILE_FAILED:
         draft.failedGetProfile = action.payload.failedGetProfile;
+        break;
+      case LayoutActionTypes.CAST_POSITION:
+        draft.castPosition = action.payload;
         break;
       default:
         break;

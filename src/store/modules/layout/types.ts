@@ -34,6 +34,7 @@ export enum LayoutActionTypes {
   FINISHED_CONFIGURATION = '@layout/FINISHED_CONFIGURATION',
   TOGGLE_MINI_CONTROLLER = '@layout/TOGGLE_MINI_CONTROLLER',
   GET_PROFILE_FAILED = '@layout/GET_PROFILE_FAILED',
+  CAST_POSITION = '@layout/CAST_POSITION',
 }
 
 /**
@@ -64,6 +65,10 @@ export interface LayoutState {
   page: string | undefined;
   isShowMiniController: boolean;
   failedGetProfile: boolean;
+  castPosition: {
+    x: number;
+    y: number;
+  };
 }
 
 export interface MediaSelectorResponse {

@@ -35,6 +35,7 @@ const styles = StyleSheet.create({
 const Auth = () => {
   const isFocused = useIsFocused();
   const deepLinkUrl = useSelector((state: AppState) => state.home.deepLinkUrl);
+  const { loading } = useSelector((state: AppState) => state.layout);
   const [sliderRef, setSliderRef] = useState(null);
   const [slider1ActiveSlide, setSlider1ActiveSlide] = useState(0);
   const { t } = useTranslation('auth');
@@ -124,7 +125,7 @@ const Auth = () => {
     }
   }, [deepLinkUrl]);
 
-  return (
+  return !loading ? (
     <>
       <HeaderWrapper>
         <Header hideSignIn={!isFocused} isCenter onPressSignIn={() => onPressSignIn()} />
@@ -164,7 +165,7 @@ const Auth = () => {
         </SafeAreaView>
       </ScrollView>
     </>
-  );
+  ) : null;
 };
 
 export default Auth;
