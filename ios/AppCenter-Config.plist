@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!--
+   AppCenter-Config.plist
+   Britbox
+
+   Created by Jonathan Machado on 11/4/20.
+   Copyright (c) 2020 ___ORGANIZATIONNAME___. All rights reserved.
+-->
+<plist version="1.0">
+  <dict>
+    <key>AppSecret</key>
+    <string>d27edc9f-352e-4c90-af20-eafd31d7359f</string>
+  </dict>
+</plist>

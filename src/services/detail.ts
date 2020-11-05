@@ -223,7 +223,9 @@ export const loadDetailPage = async (path: string, customId: string) => {
     });
 
     const { response: responseDetail } = await processDetailPage(response);
-    const responseWatched = await getWatched()
+    const responseWatched = await getWatched({
+      segments: [getSegment()],
+    })
       .then((watched) => watched.externalResponse)
       .catch((error) => error);
     return { response: responseDetail, watched: responseWatched };

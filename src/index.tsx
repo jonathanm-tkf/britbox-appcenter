@@ -8,7 +8,6 @@ import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 
 import './config/ReactotronConfig';
-import './config/SentryConfig';
 import { DefaultTheme, Provider as PaperProvider, configureFonts } from 'react-native-paper';
 import { lightTheme, base } from '@store/modules/theme/theme';
 import { LogBox } from 'react-native';

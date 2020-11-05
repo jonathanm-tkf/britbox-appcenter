@@ -605,8 +605,8 @@ export interface MassiveSDKModelItemDetail {
   credits?: MassiveSDKModelCredit[];
   seasons?: MassiveSDKModelItemList;
   episodes?: MassiveSDKModelItemList;
-  season?: MassiveSDKModelItemDetail;
-  show?: MassiveSDKModelItemDetail;
+  season?: MassiveSDKModelItemDetailChild;
+  show?: MassiveSDKModelItemDetailChild;
   totalUserRatings?: number;
   trailers?: MassiveSDKModelItemSummary[];
   type?:
@@ -657,6 +657,68 @@ export interface MassiveSDKModelItemDetail {
 export interface MassiveSDKModelItemCustomMetadata {
   name?: string;
   value?: string;
+}
+
+export interface MassiveSDKModelItemDetailChild {
+  advisoryText?: string;
+  copyright?: string;
+  distributor?: string;
+  description?: string;
+  customMetadata?: MassiveSDKModelItemCustomMetadata[];
+  genrePaths?: string[];
+  location?: string;
+  venue?: string;
+  eventDate?: string;
+  credits?: MassiveSDKModelCredit[];
+  seasons?: MassiveSDKModelItemList;
+  episodes?: MassiveSDKModelItemList;
+  season?: MassiveSDKModelItemDetail;
+  show?: MassiveSDKModelItemDetail;
+  totalUserRatings?: number;
+  trailers?: MassiveSDKModelItemSummary[];
+  type?:
+    | 'movie'
+    | 'show'
+    | 'season'
+    | 'episode'
+    | 'program'
+    | 'link'
+    | 'trailer'
+    | 'channel'
+    | 'customAsset';
+  id?: string;
+  subtype?: string;
+  title?: string;
+  contextualTitle?: string;
+  shortDescription?: string;
+  tagline?: string;
+  classification?: MassiveSDKModelClassificationSummary;
+  path?: string;
+  watchPath?: string;
+  scopes?: string[];
+  releaseYear?: number;
+  episodeCount?: number;
+  availableEpisodeCount?: number;
+  availableSeasonCount?: number;
+  seasonNumber?: number;
+  episodeNumber?: number;
+  episodeName?: string;
+  showId?: string;
+  showTitle?: string;
+  seasonId?: string;
+  seasonTitle?: string;
+  channelShortCode?: string;
+  hasClosedCaptions?: boolean;
+  averageUserRating?: number;
+  badge?: string;
+  genres?: string[];
+  duration?: number;
+  customId?: string;
+  offers?: MassiveSDKModelOffer[];
+  images?: Record<string, string>;
+  themes?: MassiveSDKModelTheme[];
+  customFields?: object;
+  vams?: object[];
 }
 
 export interface BritboxAPIAccountModelsProfileGetItemBookmarkResponse {
@@ -1363,9 +1425,9 @@ export class Api<SecurityDataType = any> extends HttpClient<SecurityDataType> {
      * @name GetWatched
      * @request GET:/v1/account/Profile/watched
      */
-    getWatched: (params?: RequestParams) =>
+    getWatched: (query?: { segments?: string[] }, params?: RequestParams) =>
       this.request<BritboxAPIAccountModelsProfileGetWatchedResponse, any>(
-        `/v1/account/Profile/watched`,
+        `/v1/account/Profile/watched${this.addQueryParams(query)}`,
         'GET',
         params
       ),
@@ -1561,9 +1623,9 @@ export class Api<SecurityDataType = any> extends HttpClient<SecurityDataType> {
      * @name GetBookmarks
      * @request GET:/v1/account/Profile/bookmarks
      */
-    getBookmarks: (params?: RequestParams) =>
+    getBookmarks: (query?: { segments?: string[] }, params?: RequestParams) =>
       this.request<BritboxAPIAccountModelsProfileGetBookmarksResponse, any>(
-        `/v1/account/Profile/bookmarks`,
+        `/v1/account/Profile/bookmarks${this.addQueryParams(query)}`,
         'GET',
         params
       ),

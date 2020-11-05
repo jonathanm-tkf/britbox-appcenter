@@ -11,7 +11,7 @@ import {
   take,
   delay,
 } from 'redux-saga/effects';
-import * as Sentry from '@sentry/react-native';
+import Analytics from 'appcenter-analytics';
 import { BritboxAccountApi, BritboxContentApi } from '@src/sdks';
 import {
   BritboxAPIAccountModelsCustomerAddSubscriptionRequest,
@@ -155,7 +155,9 @@ export function* loginRequest({
       );
     }
   } catch (error) {
-    // Sentry.captureException({ error, logger: 'user facebook' });
+    Analytics.trackEvent('loginRequestFailure', {
+      error: JSON.stringify(error),
+    });
     yield put(loginRequestFailure());
   }
 }
@@ -193,7 +195,9 @@ export async function signupRequest(payload: UserSignUp, country: string) {
     const response = await signup(payload, country);
     return response;
   } catch (error) {
-    // Sentry.captureException({ error, logger: 'signup error' });
+    Analytics.trackEvent('signup error', {
+      error: JSON.stringify(error),
+    });
     return null;
   }
 }
@@ -242,9 +246,10 @@ export async function addSubscriptionRequest(
 
   try {
     const response = await addSubscription(addSubscriptionRequestObject);
-    Sentry.setExtra('response', response);
-    Sentry.setExtra('addSubscriptionRequestObject', addSubscriptionRequestObject);
-    Sentry.captureMessage('addSubscription');
+    Analytics.trackEvent('addSubscriptionRequest', {
+      response: JSON.stringify(response),
+      addSubscriptionRequestObject: JSON.stringify(addSubscriptionRequestObject),
+    });
     return response;
   } catch (error) {
     return error;
@@ -273,10 +278,9 @@ export function* getProfileRequest() {
     const { response: responseAccountDetail } = yield call(getAccountDetail, token);
     yield put(profileRequestSuccess({ ...responseProfile, ...responseAccountDetail }));
   } catch (error) {
-    Sentry.setExtras({
-      error,
+    Analytics.trackEvent('user get profile', {
+      error: JSON.stringify(error),
     });
-    Sentry.captureException({ logger: 'user get profile' });
     const isLogged = yield select(getIsLogged);
     if (isLogged) yield put(getProfileFailed(true));
     else yield call(logout);
@@ -439,7 +443,9 @@ export function* logout() {
     yield put(logoutSuccess());
     yield put(pollingProfileCancelled());
   } catch (error) {
-    // Sentry.captureException({ error, logger: 'user get profile' });
+    Analytics.trackEvent('logout', {
+      error: JSON.stringify(error),
+    });
   }
 }
 

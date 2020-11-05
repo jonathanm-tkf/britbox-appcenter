@@ -587,7 +587,17 @@
         "operationId": "GetWatched",
         "consumes": [],
         "produces": ["text/plain", "application/json", "text/json"],
-        "parameters": [],
+        "parameters": [
+          {
+            "name": "segments",
+            "in": "query",
+            "required": false,
+            "type": "array",
+            "items": { "type": "string" },
+            "collectionFormat": "multi",
+            "uniqueItems": false
+          }
+        ],
         "responses": {
           "200": {
             "description": "Success",
@@ -949,7 +959,17 @@
         "operationId": "GetBookmarks",
         "consumes": [],
         "produces": ["text/plain", "application/json", "text/json"],
-        "parameters": [],
+        "parameters": [
+          {
+            "name": "segments",
+            "in": "query",
+            "required": false,
+            "type": "array",
+            "items": { "type": "string" },
+            "collectionFormat": "multi",
+            "uniqueItems": false
+          }
+        ],
         "responses": {
           "200": {
             "description": "Success",
@@ -2238,8 +2258,8 @@
         },
         "seasons": { "$ref": "#/definitions/MassiveSDK.Model.ItemList" },
         "episodes": { "$ref": "#/definitions/MassiveSDK.Model.ItemList" },
-        "season": { "$ref": "#/definitions/MassiveSDK.Model.ItemDetail" },
-        "show": { "$ref": "#/definitions/MassiveSDK.Model.ItemDetail" },
+        "season": { "$ref": "#/definitions/MassiveSDK.Model.ItemDetailChild" },
+        "show": { "$ref": "#/definitions/MassiveSDK.Model.ItemDetailChild" },
         "totalUserRatings": { "format": "int32", "type": "integer" },
         "trailers": {
           "uniqueItems": false,
@@ -2306,6 +2326,94 @@
     "MassiveSDK.Model.ItemCustomMetadata": {
       "type": "object",
       "properties": { "name": { "type": "string" }, "value": { "type": "string" } }
+    },
+    "MassiveSDK.Model.ItemDetailChild": {
+      "type": "object",
+      "properties": {
+        "advisoryText": { "type": "string" },
+        "copyright": { "type": "string" },
+        "distributor": { "type": "string" },
+        "description": { "type": "string" },
+        "customMetadata": {
+          "uniqueItems": false,
+          "type": "array",
+          "items": { "$ref": "#/definitions/MassiveSDK.Model.ItemCustomMetadata" }
+        },
+        "genrePaths": { "uniqueItems": false, "type": "array", "items": { "type": "string" } },
+        "location": { "type": "string" },
+        "venue": { "type": "string" },
+        "eventDate": { "format": "date-time", "type": "string" },
+        "credits": {
+          "uniqueItems": false,
+          "type": "array",
+          "items": { "$ref": "#/definitions/MassiveSDK.Model.Credit" }
+        },
+        "seasons": { "$ref": "#/definitions/MassiveSDK.Model.ItemList" },
+        "episodes": { "$ref": "#/definitions/MassiveSDK.Model.ItemList" },
+        "season": { "$ref": "#/definitions/MassiveSDK.Model.ItemDetail" },
+        "show": { "$ref": "#/definitions/MassiveSDK.Model.ItemDetail" },
+        "totalUserRatings": { "format": "int32", "type": "integer" },
+        "trailers": {
+          "uniqueItems": false,
+          "type": "array",
+          "items": { "$ref": "#/definitions/MassiveSDK.Model.ItemSummary" }
+        },
+        "type": {
+          "enum": [
+            "movie",
+            "show",
+            "season",
+            "episode",
+            "program",
+            "link",
+            "trailer",
+            "channel",
+            "customAsset"
+          ],
+          "type": "string"
+        },
+        "id": { "type": "string" },
+        "subtype": { "type": "string" },
+        "title": { "type": "string" },
+        "contextualTitle": { "type": "string" },
+        "shortDescription": { "type": "string" },
+        "tagline": { "type": "string" },
+        "classification": { "$ref": "#/definitions/MassiveSDK.Model.ClassificationSummary" },
+        "path": { "type": "string" },
+        "watchPath": { "type": "string" },
+        "scopes": { "uniqueItems": false, "type": "array", "items": { "type": "string" } },
+        "releaseYear": { "format": "int32", "type": "integer" },
+        "episodeCount": { "format": "int32", "type": "integer" },
+        "availableEpisodeCount": { "format": "int32", "type": "integer" },
+        "availableSeasonCount": { "format": "int32", "type": "integer" },
+        "seasonNumber": { "format": "int32", "type": "integer" },
+        "episodeNumber": { "format": "int32", "type": "integer" },
+        "episodeName": { "type": "string" },
+        "showId": { "type": "string" },
+        "showTitle": { "type": "string" },
+        "seasonId": { "type": "string" },
+        "seasonTitle": { "type": "string" },
+        "channelShortCode": { "type": "string" },
+        "hasClosedCaptions": { "type": "boolean" },
+        "averageUserRating": { "format": "double", "type": "number" },
+        "badge": { "type": "string" },
+        "genres": { "uniqueItems": false, "type": "array", "items": { "type": "string" } },
+        "duration": { "format": "int32", "type": "integer" },
+        "customId": { "type": "string" },
+        "offers": {
+          "uniqueItems": false,
+          "type": "array",
+          "items": { "$ref": "#/definitions/MassiveSDK.Model.Offer" }
+        },
+        "images": { "type": "object", "additionalProperties": { "type": "string" } },
+        "themes": {
+          "uniqueItems": false,
+          "type": "array",
+          "items": { "$ref": "#/definitions/MassiveSDK.Model.Theme" }
+        },
+        "customFields": { "type": "object" },
+        "vams": { "uniqueItems": false, "type": "array", "items": { "type": "object" } }
+      }
     },
     "Britbox.API.Account.Models.Profile.GetItemBookmarkResponse": {
       "type": "object",

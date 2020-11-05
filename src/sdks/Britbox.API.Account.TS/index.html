@@ -52836,6 +52836,30 @@ and limitations under the License.
                   </div>
                 </div>
                 <div>
+                  <h5 class="sc-gqjmRU LiUBH">
+                    query<!-- -->
+                    Parameters
+                  </h5>
+                  <table class="sc-dxgOiQ eCjbJc">
+                    <tbody>
+                      <tr class="last undefined">
+                        <td class="sc-cSHVUG sc-chPdSV bIrgla" kind="field" title="segments">
+                          <span class="sc-kGXeez bcLONg"></span>segments
+                        </td>
+                        <td class="sc-kgoBCf kGwPhO">
+                          <div>
+                            <div>
+                              <span class="sc-cHGsZl sc-TOsTZ fKyGWc">Array of </span
+                              ><span class="sc-cHGsZl sc-kgAjT hqYVjx">strings</span>
+                            </div>
+                            <div><div class="sc-jWBwVP sc-iRbamj kjegA"></div></div>
+                          </div>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div>
                   <h3 class="sc-bwCtUz chVREB">Responses</h3>
                   <div>
                     <div class="sc-eXEjpC bTuXIq">
@@ -55101,6 +55125,30 @@ and limitations under the License.
                   </div>
                 </div>
                 <div>
+                  <h5 class="sc-gqjmRU LiUBH">
+                    query<!-- -->
+                    Parameters
+                  </h5>
+                  <table class="sc-dxgOiQ eCjbJc">
+                    <tbody>
+                      <tr class="last undefined">
+                        <td class="sc-cSHVUG sc-chPdSV bIrgla" kind="field" title="segments">
+                          <span class="sc-kGXeez bcLONg"></span>segments
+                        </td>
+                        <td class="sc-kgoBCf kGwPhO">
+                          <div>
+                            <div>
+                              <span class="sc-cHGsZl sc-TOsTZ fKyGWc">Array of </span
+                              ><span class="sc-cHGsZl sc-kgAjT hqYVjx">strings</span>
+                            </div>
+                            <div><div class="sc-jWBwVP sc-iRbamj kjegA"></div></div>
+                          </div>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div>
                   <h3 class="sc-bwCtUz chVREB">Responses</h3>
                   <div>
                     <div class="sc-eXEjpC bTuXIq">
@@ -57259,6 +57307,15 @@ and limitations under the License.
                 get: {
                   tags: ['Profile'],
                   operationId: 'GetWatched',
+                  parameters: [
+                    {
+                      name: 'segments',
+                      in: 'query',
+                      required: false,
+                      explode: true,
+                      schema: { type: 'array', items: { type: 'string' }, uniqueItems: false },
+                    },
+                  ],
                   responses: {
                     200: {
                       description: 'Success',
@@ -57813,6 +57870,15 @@ and limitations under the License.
                 get: {
                   tags: ['Profile'],
                   operationId: 'GetBookmarks',
+                  parameters: [
+                    {
+                      name: 'segments',
+                      in: 'query',
+                      required: false,
+                      explode: true,
+                      schema: { type: 'array', items: { type: 'string' }, uniqueItems: false },
+                    },
+                  ],
                   responses: {
                     200: {
                       description: 'Success',
@@ -59000,8 +59066,8 @@ and limitations under the License.
                     },
                     seasons: { $ref: '#/components/schemas/MassiveSDK.Model.ItemList' },
                     episodes: { $ref: '#/components/schemas/MassiveSDK.Model.ItemList' },
-                    season: { $ref: '#/components/schemas/MassiveSDK.Model.ItemDetail' },
-                    show: { $ref: '#/components/schemas/MassiveSDK.Model.ItemDetail' },
+                    season: { $ref: '#/components/schemas/MassiveSDK.Model.ItemDetailChild' },
+                    show: { $ref: '#/components/schemas/MassiveSDK.Model.ItemDetailChild' },
                     totalUserRatings: { format: 'int32', type: 'integer' },
                     trailers: {
                       uniqueItems: false,
@@ -59070,6 +59136,96 @@ and limitations under the License.
                 'MassiveSDK.Model.ItemCustomMetadata': {
                   type: 'object',
                   properties: { name: { type: 'string' }, value: { type: 'string' } },
+                },
+                'MassiveSDK.Model.ItemDetailChild': {
+                  type: 'object',
+                  properties: {
+                    advisoryText: { type: 'string' },
+                    copyright: { type: 'string' },
+                    distributor: { type: 'string' },
+                    description: { type: 'string' },
+                    customMetadata: {
+                      uniqueItems: false,
+                      type: 'array',
+                      items: { $ref: '#/components/schemas/MassiveSDK.Model.ItemCustomMetadata' },
+                    },
+                    genrePaths: { uniqueItems: false, type: 'array', items: { type: 'string' } },
+                    location: { type: 'string' },
+                    venue: { type: 'string' },
+                    eventDate: { format: 'date-time', type: 'string' },
+                    credits: {
+                      uniqueItems: false,
+                      type: 'array',
+                      items: { $ref: '#/components/schemas/MassiveSDK.Model.Credit' },
+                    },
+                    seasons: { $ref: '#/components/schemas/MassiveSDK.Model.ItemList' },
+                    episodes: { $ref: '#/components/schemas/MassiveSDK.Model.ItemList' },
+                    season: { $ref: '#/components/schemas/MassiveSDK.Model.ItemDetail' },
+                    show: { $ref: '#/components/schemas/MassiveSDK.Model.ItemDetail' },
+                    totalUserRatings: { format: 'int32', type: 'integer' },
+                    trailers: {
+                      uniqueItems: false,
+                      type: 'array',
+                      items: { $ref: '#/components/schemas/MassiveSDK.Model.ItemSummary' },
+                    },
+                    type: {
+                      enum: [
+                        'movie',
+                        'show',
+                        'season',
+                        'episode',
+                        'program',
+                        'link',
+                        'trailer',
+                        'channel',
+                        'customAsset',
+                      ],
+                      type: 'string',
+                    },
+                    id: { type: 'string' },
+                    subtype: { type: 'string' },
+                    title: { type: 'string' },
+                    contextualTitle: { type: 'string' },
+                    shortDescription: { type: 'string' },
+                    tagline: { type: 'string' },
+                    classification: {
+                      $ref: '#/components/schemas/MassiveSDK.Model.ClassificationSummary',
+                    },
+                    path: { type: 'string' },
+                    watchPath: { type: 'string' },
+                    scopes: { uniqueItems: false, type: 'array', items: { type: 'string' } },
+                    releaseYear: { format: 'int32', type: 'integer' },
+                    episodeCount: { format: 'int32', type: 'integer' },
+                    availableEpisodeCount: { format: 'int32', type: 'integer' },
+                    availableSeasonCount: { format: 'int32', type: 'integer' },
+                    seasonNumber: { format: 'int32', type: 'integer' },
+                    episodeNumber: { format: 'int32', type: 'integer' },
+                    episodeName: { type: 'string' },
+                    showId: { type: 'string' },
+                    showTitle: { type: 'string' },
+                    seasonId: { type: 'string' },
+                    seasonTitle: { type: 'string' },
+                    channelShortCode: { type: 'string' },
+                    hasClosedCaptions: { type: 'boolean' },
+                    averageUserRating: { format: 'double', type: 'number' },
+                    badge: { type: 'string' },
+                    genres: { uniqueItems: false, type: 'array', items: { type: 'string' } },
+                    duration: { format: 'int32', type: 'integer' },
+                    customId: { type: 'string' },
+                    offers: {
+                      uniqueItems: false,
+                      type: 'array',
+                      items: { $ref: '#/components/schemas/MassiveSDK.Model.Offer' },
+                    },
+                    images: { type: 'object', additionalProperties: { type: 'string' } },
+                    themes: {
+                      uniqueItems: false,
+                      type: 'array',
+                      items: { $ref: '#/components/schemas/MassiveSDK.Model.Theme' },
+                    },
+                    customFields: { type: 'object' },
+                    vams: { uniqueItems: false, type: 'array', items: { type: 'object' } },
+                  },
                 },
                 'Britbox.API.Account.Models.Profile.GetItemBookmarkResponse': {
                   type: 'object',

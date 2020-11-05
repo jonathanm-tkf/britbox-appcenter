@@ -29,6 +29,7 @@
 		A957AA10251934F800765DCE /* MuseoSans-300.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A957AA0B251934F800765DCE /* MuseoSans-300.ttf */; };
 		A957AA1C251936A400765DCE /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = A957AA1B251936A400765DCE /* File.swift */; };
 		A957AA22251936E700765DCE /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A957AA21251936E700765DCE /* StoreKit.framework */; };
+		A95885BC2553A0A2006713BD /* AppCenter-Config.plist in Resources */ = {isa = PBXBuildFile; fileRef = A95885BB2553A0A2006713BD /* AppCenter-Config.plist */; };
 		B95B8E66B32437E93E333869 /* libPods-Britbox.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 40022B2D836B7FABA22F6B06 /* libPods-Britbox.a */; };
 /* End PBXBuildFile section */
 
@@ -96,6 +97,7 @@
 		A957AA1B251936A400765DCE /* File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
 		A957AA21251936E700765DCE /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		A957AA23251936ED00765DCE /* Britbox.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = Britbox.entitlements; path = Britbox/Britbox.entitlements; sourceTree = "<group>"; };
+		A95885BB2553A0A2006713BD /* AppCenter-Config.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "AppCenter-Config.plist"; sourceTree = "<group>"; };
 		A9EA1A2B252AB32200E25505 /* libYogaKit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libYogaKit.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		B7AC4EB6F9856FD0DB80089E /* Pods-Britbox-BritboxTests.debugstaging.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Britbox-BritboxTests.debugstaging.xcconfig"; path = "Target Support Files/Pods-Britbox-BritboxTests/Pods-Britbox-BritboxTests.debugstaging.xcconfig"; sourceTree = "<group>"; };
 		BB6B56C664A7F69EDC0CFB65 /* Pods-Britbox.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Britbox.debug.xcconfig"; path = "Target Support Files/Pods-Britbox/Pods-Britbox.debug.xcconfig"; sourceTree = "<group>"; };
@@ -188,6 +190,7 @@
 				13B07FB71A68108700A75B9A /* main.m */,
 				A957AA1B251936A400765DCE /* File.swift */,
 				A957AA1A251936A300765DCE /* Britbox-Bridging-Header.h */,
+				A95885BB2553A0A2006713BD /* AppCenter-Config.plist */,
 			);
 			name = Britbox;
 			sourceTree = "<group>";
@@ -436,6 +439,7 @@
 				A957AA0E251934F800765DCE /* MuseoSans-700.ttf in Resources */,
 				A957AA0F251934F800765DCE /* MuseoSans-500.ttf in Resources */,
 				A957AA10251934F800765DCE /* MuseoSans-300.ttf in Resources */,
+				A95885BC2553A0A2006713BD /* AppCenter-Config.plist in Resources */,
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 			);

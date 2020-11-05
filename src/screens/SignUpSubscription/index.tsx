@@ -32,7 +32,8 @@ import { useTranslation } from 'react-i18next';
 import { Html5Entities } from 'html-entities';
 import * as RNIap from 'react-native-iap';
 import { encode } from 'base-64';
-import * as Sentry from '@sentry/react-native';
+import Analytics from 'appcenter-analytics';
+
 import {
   Container,
   ScrollView,
@@ -136,8 +137,9 @@ const SignUpSubscription = () => {
   const getProducts = async () => {
     const { response } = await getProductsRequest(country);
 
-    Sentry.setExtra('products', JSON.stringify(response));
-    Sentry.captureMessage('getProducts');
+    Analytics.trackEvent('getProducts', {
+      products: JSON.stringify(response),
+    });
 
     if (response && Number(response?.responseCode) === 1) {
       if (response?.productsResponseMessage?.length > 0) {
@@ -243,15 +245,17 @@ const SignUpSubscription = () => {
         }
       }
 
-      Sentry.setExtra('packageId', JSON.stringify(packageId));
-      Sentry.captureMessage('packageId');
+      Analytics.trackEvent('packageId', {
+        packageId: JSON.stringify(packageId),
+      });
 
       trackEvent(`2_details_${packageData[packageIndex]?.productDescription}`);
 
       const purchase = await RNIap.requestSubscription(String(packageId));
 
-      Sentry.setExtra('purchase', JSON.stringify(purchase));
-      Sentry.captureMessage('purchase');
+      Analytics.trackEvent('purchase', {
+        purchase: JSON.stringify(purchase),
+      });
 
       await RNIap.finishTransaction(purchase);
 
@@ -262,8 +266,9 @@ const SignUpSubscription = () => {
         return true;
       }
 
-      Sentry.setExtra('error catch', JSON.stringify(err));
-      Sentry.captureMessage('error atch');
+      Analytics.trackEvent('error catch purchase', {
+        err: JSON.stringify(err),
+      });
 
       if (err && err?.code === 'E_UNKNOWN') {
         setErrorMsg(getTextInConfigJSON(['login', 'error-messages', 'error-message'], ''));
@@ -302,8 +307,9 @@ const SignUpSubscription = () => {
         paymentmethodInfo,
       });
 
-      Sentry.setExtra('subscriptionResponse', JSON.stringify(subscriptionResponse));
-      Sentry.captureMessage('subscriptionResponse');
+      Analytics.trackEvent('subscriptionResponse', {
+        subscriptionResponse: JSON.stringify(subscriptionResponse),
+      });
 
       let error = false;
 
@@ -334,8 +340,9 @@ const SignUpSubscription = () => {
         setLoading(false);
       }
     } catch (err) {
-      Sentry.setExtra('error', err);
-      Sentry.captureMessage('receiptValidate');
+      Analytics.trackEvent('receiptValidate', {
+        receiptValidate: JSON.stringify(err),
+      });
       setErrorMsg('Something went wrong.');
     }
   };
