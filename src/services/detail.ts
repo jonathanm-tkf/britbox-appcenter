@@ -92,6 +92,7 @@ const processDetailPage = async (
       detailResponse.images = entries?.item?.show?.images || {};
       detailResponse.relatedId = entries?.item?.id;
       detailResponse.customId = entries?.item?.customId;
+      detailResponse.originalItem = entries?.item;
 
       showResponse.seasons = entries?.item?.show?.seasons;
       showResponse.seasonNumber = entries?.item?.seasonNumber;
@@ -129,6 +130,7 @@ const processDetailPage = async (
     detailResponse.images = entries?.item?.season?.show?.images || {};
     detailResponse.relatedId = entries?.item?.season?.id;
     detailResponse.customId = entries?.item?.customId;
+    detailResponse.originalItem = entries?.item;
 
     showResponse.seasons = entries?.item?.season?.show?.seasons;
     showResponse.seasonNumber = entries?.item?.season?.seasonNumber;

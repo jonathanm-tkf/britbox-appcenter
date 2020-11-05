@@ -256,7 +256,11 @@ const Cast = () => {
               }, 500);
             }
           }}
-          onPress={() => {}}
+          onPress={() => {
+            setTimeout(() => {
+              dispatch(hideForceChromecast());
+            }, 1000);
+          }}
         />
       )}
       {isShowMiniController && (

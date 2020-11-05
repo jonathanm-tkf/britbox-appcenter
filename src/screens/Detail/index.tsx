@@ -476,12 +476,13 @@ const Detail = () => {
     }
   };
 
-  const onWatchlist = () => {
+  const onWatchlist = (itemWatchlist: any, isInWatchlist: boolean) => {
     dispatch(
       watchlistToggleRequest({
-        itemId: data?.detail?.relatedId || '0',
-        itemCustomId: data?.detail?.customId || '0',
-        isInWatchlist: getIsInWatchlist(data?.detail?.relatedId || '0'),
+        itemId:
+          itemWatchlist.type === 'season' ? itemWatchlist?.showId || '0' : itemWatchlist?.id || '0',
+        itemCustomId: itemWatchlist?.customId || '0',
+        isInWatchlist,
       })
     );
   };
@@ -494,14 +495,16 @@ const Detail = () => {
           <BackIcon width={20} height={20} />
         </Button>
         <TopText>{data?.information.type}</TopText>
-        <BackgroundTop
-          style={{
-            opacity: animatedOpacityValue.interpolate({
-              inputRange: [0, 1],
-              outputRange: [1, 0],
-            }),
-          }}
-        />
+        {data?.information.type && (
+          <BackgroundTop
+            style={{
+              opacity: animatedOpacityValue.interpolate({
+                inputRange: [0, 1],
+                outputRange: [1, 0],
+              }),
+            }}
+          />
+        )}
       </TopWrapper>
       <Scroll onScroll={(event) => handleScroll(event)} scrollEventThrottle={16} ref={scrollRef}>
         <Header {...{ data }} />
@@ -528,7 +531,7 @@ const Detail = () => {
             {...{ data }}
             id={data?.detail?.relatedId || '0'}
             onPlay={onPlay}
-            onWatchlist={onWatchlist}
+            onWatchlist={(item: any, isInWatchlist: boolean) => onWatchlist(item, isInWatchlist)}
           />
           <Description {...{ data }} />
           {data && data.information.type !== 'show' && data.information.type !== 'episode' && (

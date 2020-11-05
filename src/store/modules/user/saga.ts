@@ -42,8 +42,8 @@ import {
   pollingProfileCancelled,
 } from '@store/modules/user/actions';
 import { getDevice } from '@src/utils';
-import { atiEventTracking, welcomeMessageOn, getProfileFailed } from '../layout/actions';
 
+import { atiEventTracking, welcomeMessageOn, getProfileFailed } from '../layout/actions';
 import {
   UserActionTypes,
   UserLogin,
@@ -296,6 +296,11 @@ export async function getActiveSubscriptionRequest(token: string) {
 
   try {
     const response = await getActiveSubscription();
+    Analytics.trackEvent('getActiveSubscription', {
+      getActiveSubscription: JSON.stringify(
+        response.response?.accountServiceMessage[0]?.paymentMethod || response.response
+      ),
+    });
     return response;
   } catch (error) {
     return error;

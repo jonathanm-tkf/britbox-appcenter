@@ -31,7 +31,7 @@ const { width } = Dimensions.get('window');
 type Props = {
   data: LoadDetailPageResponse | undefined;
   onPlay: () => void;
-  onWatchlist: () => void;
+  onWatchlist: (item: any, isInWatchlist: boolean) => void;
   id?: string;
 };
 
@@ -48,7 +48,10 @@ const Actions = ({ data, onPlay, onWatchlist, id }: Props) => {
   const watchedlist = useSelector(
     (state: AppState) => state.user.profile?.watchedList?.items || []
   ) as MassiveSDKModelItemSummary[];
-  const getIsInWatchlist = () => checkIsInWatchingList(bookmarklist?.items || [], id || '0') === 3;
+
+  console.tron.log({ data });
+  const getIsInWatchlist = () =>
+    checkIsInWatchingList(bookmarklist?.items || [], data?.detail?.originalItem || {}) === 3;
 
   const getIsContinueWatching = () => {
     const filter = watchedlist.filter(
@@ -85,8 +88,15 @@ const Actions = ({ data, onPlay, onWatchlist, id }: Props) => {
           )}
         >
           <ActionInnerContent>
-            <ActionButton onPress={onWatchlist}>
-              {bookmarkPendingProccesing === id ? (
+            <ActionButton
+              onPress={() =>
+                onWatchlist ? onWatchlist(data?.detail.originalItem || {}, getIsInWatchlist()) : {}
+              }
+            >
+              {bookmarkPendingProccesing ===
+              (data?.detail?.originalItem?.type === 'season'
+                ? data?.detail?.originalItem?.showId || '0'
+                : data?.detail?.originalItem?.id || '0') ? (
                 <ActivityIndicator
                   size={isTablet() ? 42 : 35}
                   color={theme.PRIMARY_FOREGROUND_COLOR}

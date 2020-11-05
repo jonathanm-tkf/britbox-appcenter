@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { Button } from '@components/Button';
 import { getTextInConfigJSON } from '@src/utils/object';
 import { hideIntroChromecast } from '@store/modules/core/actions';
@@ -35,6 +36,12 @@ const Hole = ({ theme }: Props) => {
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: rgba(theme.PRIMARY_COLOR_OPAQUE, 0.75),
+  };
+
+  const animatedStyles = {
+    position: 'absolute',
+    width: '100%',
+    height: '100%',
   };
 
   useEffect(() => {
@@ -77,14 +84,10 @@ const Hole = ({ theme }: Props) => {
       useNativeDriver: true,
     }).start();
   };
-  return introChromecast && isLogged ? (
+  return introChromecast && isLogged && (chromecastDevice || forceChromecast) ? (
     <Animated.View
       style={[
-        {
-          position: 'absolute',
-          width: '100%',
-          height: '100%',
-        },
+        animatedStyles,
         {
           opacity: fadeAnimation,
         },
