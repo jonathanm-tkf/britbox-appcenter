@@ -76,8 +76,12 @@ RCT_EXPORT_METHOD(appleTVSubscription:(BOOL)isPaid resolver:(RCTPromiseResolveBl
        VSSubscription *subscription = [[VSSubscription alloc]init];
        subscription.expirationDate = NSDate.distantFuture;
        VSSubscriptionRegistrationCenter *registrationCenter = [VSSubscriptionRegistrationCenter defaultSubscriptionRegistrationCenter];
+       if(isPaid == YES){
+          [subscription setAccessLevel:2];
+       } else{
+          [subscription setAccessLevel:1];
+       }
        [registrationCenter setCurrentSubscription:subscription];
-       [subscription setAccessLevel:isPaid];
     }
     resolve(nil);
   } @catch (NSError *e) {

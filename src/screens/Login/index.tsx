@@ -312,6 +312,10 @@ const Login = () => {
                     ? getTextInConfigJSON(['login', 'error-messages', 'login-error'], t('error'))
                     : ((access as unknown) as EvergentLoginResponseError)?.failureMessage?.reduce(
                         (item) => item
+                      )?.errorCode === 'eV2327'
+                    ? getTextInConfigJSON(['login', 'error-messages', 'no-user'], t('error'))
+                    : ((access as unknown) as EvergentLoginResponseError)?.failureMessage?.reduce(
+                        (item) => item
                       )?.errorMessage ||
                       getTextInConfigJSON(['login', 'error-messages', 'error-message'], t('error'))}
                 </ErrorText>

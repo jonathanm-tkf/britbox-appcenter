@@ -60,7 +60,7 @@ export enum UserActionTypes {
  * State type
  */
 
-type Access = EvergentLoginResponse | EvergentLoginError | undefined;
+export type Access = EvergentLoginResponse | EvergentLoginError | undefined;
 
 type Profile = BritboxAPIAccountModelsProfileGetProfileResponse &
   BritboxAPIAccountModelsCustomerGetAccountDetailsResponse & {

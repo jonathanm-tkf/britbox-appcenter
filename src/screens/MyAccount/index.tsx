@@ -490,6 +490,15 @@ export default function MyAccount() {
             setNewPassword('');
             setConfirmPassword('');
           } else {
+            if (
+              responseData.failureMessage &&
+              responseData.failureMessage[0]?.errorCode === 'eV2380'
+            ) {
+              responseData.failureMessage[0].errorMessage = getTextInConfigJSON(
+                ['account-details', 'validation', 'messages', 'wrong-old-password'],
+                ''
+              );
+            }
             setErrorMessage(responseData);
             setErrorState(true);
           }

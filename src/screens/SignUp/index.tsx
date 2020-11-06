@@ -167,6 +167,12 @@ const SignUp = () => {
           );
           navigation.navigate('SignUpSubscription');
         } else {
+          if (response[0] && response[0]?.errorCode === 'eV4014') {
+            response[0].errorMessage = getTextInConfigJSON(
+              ['registration', 'validation', 'messages', 'email-exists'],
+              ''
+            );
+          }
           const responseError: EvergentSignupResponseError = {
             responseCode: 0,
             failureMessage: response,

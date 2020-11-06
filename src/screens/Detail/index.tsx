@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect, useRef } from 'react';
-import { Animated, Text } from 'react-native';
+import { Animated, Text, NativeModules, Platform } from 'react-native';
 import { BackIcon } from '@assets/icons';
 import Card from '@components/Card';
 import { useRoute, useNavigation, RouteProp, useIsFocused } from '@react-navigation/native';
@@ -175,8 +175,24 @@ const Detail = () => {
       response: LoadDetailPageResponse;
       watched: Record<string, MassiveSDKModelWatched>;
     } = await loadDetailPage(path, customId);
+    if (
+      Platform.OS === 'ios' &&
+      /\/show\/|\/movie\/|\/season\//.test(response?.information?.type || '')
+    ) {
+      setUserActivity(response?.detail?.customId || '');
+    }
     dispatch(detailWatchedSuccess(watched));
     setData(response);
+  };
+
+  const setUserActivity = async (customId: string) => {
+    const { AppleTVController } = NativeModules;
+    await AppleTVController.userActivity(customId);
+  };
+
+  const invalidUserActivity = async () => {
+    const { AppleTVController } = NativeModules;
+    await AppleTVController.invalidUserActivity();
   };
 
   useEffect(() => {
@@ -257,6 +273,9 @@ const Detail = () => {
     return () => {
       dispatch(detailClear());
       dispatch(autoPlayOff());
+      if (Platform.OS === 'ios') {
+        invalidUserActivity();
+      }
     };
   }, []);
 

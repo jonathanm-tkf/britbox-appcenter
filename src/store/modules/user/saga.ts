@@ -25,7 +25,7 @@ import { PayloadAction } from 'typesafe-actions';
 import { refreshTokenWithExpiresIn } from '@src/services/token';
 import { navigationGoBack } from '@src/navigation/rootNavigation';
 import { getDeviceName, getUniqueId } from 'react-native-device-info';
-import { Platform } from 'react-native';
+import { Platform, NativeModules } from 'react-native';
 import {
   loggedInRequest as loggedInRequestSuccess,
   loginRequestFailure,
@@ -41,6 +41,10 @@ import {
   continueWatchingRequestSuccess,
   pollingProfileCancelled,
 } from '@store/modules/user/actions';
+import {
+  sendAppleTvSearchSubscription,
+  revokeAppleTvSearchSubscription,
+} from '@store/modules/core/actions';
 import { getDevice } from '@src/utils';
 import { atiEventTracking, welcomeMessageOn, getProfileFailed } from '../layout/actions';
 
@@ -62,6 +66,9 @@ const getIsLogged = (state: AppState) => state.user.isLogged;
 const getExiresIn = (state: AppState) => state.user.access as EvergentLoginResponse;
 
 const getRefreshToken = (state: AppState) => state.user.access as EvergentLoginResponse;
+
+const getIsAppleTVSearchSubscriptionSent = (state: AppState) =>
+  state.core.isAppleTVSearchSubscriptionSent;
 
 export async function profile(
   token: string,
@@ -277,6 +284,11 @@ export function* getProfileRequest() {
     const { response: responseProfile } = yield call(profile, token, segment);
     const { response: responseAccountDetail } = yield call(getAccountDetail, token);
     yield put(profileRequestSuccess({ ...responseProfile, ...responseAccountDetail }));
+    const isAppleTVSearchSubscriptionSent = yield select(getIsAppleTVSearchSubscriptionSent);
+    if (!isAppleTVSearchSubscriptionSent) {
+      yield call(appleTVSubscription, responseProfile.canStream);
+      yield put(sendAppleTvSearchSubscription());
+    }
   } catch (error) {
     Analytics.trackEvent('user get profile', {
       error: JSON.stringify(error),
@@ -436,12 +448,28 @@ async function logoutRequest(accessToken: string) {
   }
 }
 
+async function appleTVSubscription(isPaid: boolean) {
+  if (Platform.OS === 'ios') {
+    const { AppleTVController } = NativeModules;
+    await AppleTVController.appleTVSubscription(isPaid);
+  }
+}
+
+async function removeAppleTVSubscription() {
+  if (Platform.OS === 'ios') {
+    const { AppleTVController } = NativeModules;
+    await AppleTVController.removeAppleTVSubscription();
+  }
+}
+
 export function* logout() {
   try {
     const { accessToken } = yield select(getToken);
     yield call(logoutRequest, accessToken);
     yield put(logoutSuccess());
     yield put(pollingProfileCancelled());
+    yield call(removeAppleTVSubscription);
+    yield put(revokeAppleTvSearchSubscription());
   } catch (error) {
     Analytics.trackEvent('logout', {
       error: JSON.stringify(error),

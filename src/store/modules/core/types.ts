@@ -138,6 +138,8 @@ export enum CoreActionTypes {
   SHOW_FORCE_CHROMECAST = '@core/SHOW_FORCE_CHROMECAST',
   CAST_VIDEO = '@layout/CAST_VIDEO',
   HIDE_INTRO_CHROMECAST = '@core/HIDE_INTRO_CHROMECAST',
+  SEND_APPLE_TV_SEARCH_SUBSCRIPTION = '@core/SEND_APPLE_TV_SEARCH_SUBSCRIPTION',
+  REVOKE_APPLE_TV_SEARCH_SUBSCRIPTION = '@core/REVOKE_APPLE_TV_SEARCH_SUBSCRIPTION',
 }
 
 /**
@@ -156,6 +158,7 @@ export interface CoreState {
   castDetail: any;
   forceChromecast: boolean;
   introChromecast: boolean;
+  isAppleTVSearchSubscriptionSent: boolean;
 }
 
 export interface Menu {

@@ -34,6 +34,12 @@ export const hideForceChromecast = () => action(CoreActionTypes.HIDE_FORCE_CHROM
 
 export const hideIntroChromecast = () => action(CoreActionTypes.HIDE_INTRO_CHROMECAST);
 
+export const sendAppleTvSearchSubscription = () =>
+  action(CoreActionTypes.SEND_APPLE_TV_SEARCH_SUBSCRIPTION);
+
+export const revokeAppleTvSearchSubscription = () =>
+  action(CoreActionTypes.REVOKE_APPLE_TV_SEARCH_SUBSCRIPTION);
+
 export const castVideo = (
   item: MassiveSDKModelEpisodesItem,
   pcToken?: string,
