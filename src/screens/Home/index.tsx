@@ -103,6 +103,7 @@ const Item = () => {
     inputRange: [0, heightHeader],
     outputRange: [0, -heightHeader],
   });
+  const { isShowMiniController } = useSelector((state: AppState) => state.layout);
 
   const modal = (item: MassiveSDKModelItemSummary) => {
     if (item.type !== 'link') {
@@ -203,6 +204,7 @@ const Item = () => {
                 return null;
             }
           })}
+        <View style={[isShowMiniController ? { paddingBottom: 90 } : {}]} />
       </Animated.ScrollView>
     </Container>
   );

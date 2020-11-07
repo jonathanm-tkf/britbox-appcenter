@@ -99,7 +99,7 @@ export default function App() {
 
   useEffect(() => {
     if (welcomeMessage) {
-      dispatch(sheetComponent(280, () => renderBottomContent()));
+      dispatch(sheetComponent(290, () => renderBottomContent()));
       setTimeout(() => {
         showSheet();
       }, 2000);
@@ -111,7 +111,7 @@ export default function App() {
       <Headline center color={theme.PRIMARY_TEXT_COLOR}>
         {getTextInConfigJSON(['successful-purchase', 'title'], '')}
       </Headline>
-      <Paragraph>
+      <Paragraph style={{ textAlign: 'center' }}>
         {getTextInConfigJSON(['successful-purchase', 'message-1'], '')}
         {'\n'}
         {getTextInConfigJSON(['successful-purchase', 'message-2'], '')}

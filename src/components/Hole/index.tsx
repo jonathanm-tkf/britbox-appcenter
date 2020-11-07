@@ -56,12 +56,19 @@ const Hole = ({ theme }: Props) => {
   }, []);
 
   useEffect(() => {
-    if (!loading && introChromecast && isLogged && (chromecastDevice || forceChromecast)) {
+    if (
+      !loading &&
+      introChromecast &&
+      isLogged &&
+      (chromecastDevice || forceChromecast) &&
+      castPosition.x !== 0 &&
+      castPosition.y !== 0
+    ) {
       setTimeout(() => {
         fadeIn();
       }, 500);
     }
-  }, [loading, introChromecast, isLogged, chromecastDevice, forceChromecast]);
+  }, [loading, introChromecast, isLogged, chromecastDevice, forceChromecast, castPosition]);
 
   useEffect(() => {
     if (!introChromecast) {

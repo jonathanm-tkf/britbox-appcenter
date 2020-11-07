@@ -49,7 +49,6 @@ const Actions = ({ data, onPlay, onWatchlist, id }: Props) => {
     (state: AppState) => state.user.profile?.watchedList?.items || []
   ) as MassiveSDKModelItemSummary[];
 
-  console.tron.log({ data });
   const getIsInWatchlist = () =>
     checkIsInWatchingList(bookmarklist?.items || [], data?.detail?.originalItem || {}) === 3;
 

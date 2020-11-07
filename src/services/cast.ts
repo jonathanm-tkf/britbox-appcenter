@@ -242,7 +242,7 @@ export const getVideoIdAndClassification = async (item: MassiveSDKModelEpisodesI
       },
     });
 
-    return getNextPlaybackItem(item?.id || '0', {
+    return getNextPlaybackItem(item.type === 'season' ? item?.showId || '0' : item?.id || '0', {
       segments: [getSegment()],
     }).then((response) => {
       return response.externalResponse;

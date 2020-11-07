@@ -16,7 +16,7 @@ import {
   MassiveSDKModelItemSummary,
   MassiveSDKModelPagination,
 } from '@src/sdks/Britbox.API.Content.TS/api';
-import { loadCollectionList, loadCollectionPage } from '@src/services/detail';
+import { loadCollectionPage } from '@src/services/detail';
 import Grid from '@screens/Shared/Grid';
 import ErrorLanding from '@components/ErrorLanding';
 import { useTranslation } from 'react-i18next';
@@ -25,6 +25,7 @@ import { ArrowBottomIcon } from '@assets/icons';
 import { compact } from 'lodash';
 import { wp } from '@src/utils/dimension';
 import { isTablet } from 'react-native-device-info';
+import { loadCollectionList } from '@src/services/util';
 import { dataDummy } from './data';
 import {
   Container,
@@ -110,6 +111,7 @@ const AZ = () => {
   const [animationContinuosScroll, setAnimationContinuosScroll] = useState(true);
   const { t } = useTranslation(['layout', 'az']);
   const theme = useSelector((state: AppState) => state.theme.theme);
+  const { segment } = useSelector((state: AppState) => state.core);
   const [alphabetData, setAlphabetData] = useState<AlphabetDataType[] | undefined>([]);
   const [order, setOrder] = useState('asc');
   const [orderBy, setOrderBy] = useState('a-z');
@@ -233,15 +235,18 @@ const AZ = () => {
           parameters.sub = sub;
         }
 
-        loadCollectionList({
-          id: 'a-z',
-          page: reset ? 1 : parameters.nextPage,
-          pageSize: reset ? 24 : parameters.pageSize,
-          sub: parameters.sub,
-          order: orderFilter || order,
-          orderBy: orderByFilter || orderBy,
-          param: typeof letter === 'undefined' ? '' : `TitleGroupKey:${letter}`,
-        })
+        loadCollectionList(
+          {
+            id: 'a-z',
+            page: reset ? 1 : parameters.nextPage,
+            pageSize: reset ? 24 : parameters.pageSize,
+            sub: parameters.sub,
+            order: orderFilter || order,
+            orderBy: orderByFilter || orderBy,
+            param: typeof letter === 'undefined' ? '' : `TitleGroupKey:${letter}`,
+          },
+          segment
+        )
           .then(({ response }) => {
             setData({
               ...data,

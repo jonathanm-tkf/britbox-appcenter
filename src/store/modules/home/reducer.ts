@@ -11,6 +11,7 @@ export const initialState: HomeState = {
     entries: [],
   },
   deepLinkUrl: null,
+  search: undefined,
 };
 
 const home: Reducer<HomeState> = (state = initialState, action) => {
@@ -30,6 +31,9 @@ const home: Reducer<HomeState> = (state = initialState, action) => {
         break;
       case HomeActionTypes.HOME_DEEPLINK_URL:
         draft.deepLinkUrl = action.payload;
+        break;
+      case HomeActionTypes.HOME_SEARCH_SUCCESS:
+        draft.search = action.payload;
         break;
       default:
         break;

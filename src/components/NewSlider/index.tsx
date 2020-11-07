@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { StyleSheet, Dimensions } from 'react-native';
 import Carousel from 'react-native-snap-carousel';
 import { MassiveSDKModelItemList } from '@src/sdks/Britbox.API.Content.TS/api';
@@ -70,6 +70,10 @@ const NewSlider = ({
     };
   });
 
+  useEffect(() => {
+    setCurrentIndex(0);
+  }, [data]);
+
   const renderItem = ({ item, index }: any, parallaxProps: any) => {
     return (
       <CustomCard
@@ -89,10 +93,10 @@ const NewSlider = ({
     return image === 'no-image' ? false : image;
   };
 
-  const getContent = (item: MassiveSDKModelItemList) => {
+  const getContent = (item?: MassiveSDKModelItemList) => {
     const image = getImage(item?.images?.poster, 'wallpaper');
 
-    if (image === 'loading') {
+    if (image === 'loading' || loading) {
       return (
         <ContentLoader
           speed={1}
@@ -109,10 +113,10 @@ const NewSlider = ({
     return <SlimDescriptionText>{item?.shortDescription}</SlimDescriptionText>;
   };
 
-  const getActions = (item: MassiveSDKModelItemList) => {
+  const getActions = (item?: MassiveSDKModelItemList) => {
     const image = getImage(item?.images?.poster, 'wallpaper');
 
-    if (image === 'loading') {
+    if (image === 'loading' || loading) {
       return (
         <ContentLoader
           speed={1}
@@ -216,7 +220,7 @@ const NewSlider = ({
         </SlimDescription>
       )}
 
-      {slim && <ActionsWrapper>{getActions(carouselData[currentIndex].item)}</ActionsWrapper>}
+      {slim && <ActionsWrapper>{getActions(carouselData[currentIndex]?.item)}</ActionsWrapper>}
     </Container>
   );
 };

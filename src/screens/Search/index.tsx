@@ -9,12 +9,8 @@ import { Button } from '@components/Button';
 import { AppState } from '@store/modules/rootReducer';
 import { useSelector, useDispatch } from 'react-redux';
 import { navigateByPath } from '@src/navigation/rootNavigation';
-import { loadCollectionPage } from '@src/services/detail';
 import { MassiveSDKModelItemList } from '@src/sdks/Britbox.API.Account.TS/api';
-import {
-  MassiveSDKModelPageEntry,
-  MassiveSDKModelPerson,
-} from '@src/sdks/Britbox.API.Content.TS/api';
+import { MassiveSDKModelPerson } from '@src/sdks/Britbox.API.Content.TS/api';
 import { getSearch } from '@store/modules/search/saga';
 import { atiEventTracking } from '@store/modules/layout/actions';
 import Grid from '@screens/Shared/Grid';
@@ -56,6 +52,7 @@ export default function Search() {
   const { t } = useTranslation('search');
   const theme = useSelector((state: AppState) => state.theme.theme);
   const user = useSelector((state: AppState) => state.user);
+  const { search } = useSelector((state: AppState) => state.home);
   const [searchInput, setSearchInput] = useState('');
   const [isDone, setIsDone] = useState(false);
   const [noResults, setNoResults] = useState(false);
@@ -113,25 +110,6 @@ export default function Search() {
     paddingRight: 20,
     paddingVertical: 20,
   };
-
-  const [suggestions, setSuggestions] = useState<MassiveSDKModelPageEntry | undefined>(undefined);
-  // const [error, setError] = useState(false);
-
-  const getDataDetail = async () => {
-    const { response } = await loadCollectionPage('/our-top-picks', isTablet() ? 8 : 6);
-
-    if ((response?.entries || []).length === 0) {
-      // setError(true);
-    } else {
-      const { entries } = response || {};
-      const item = (entries || []).reduce((e) => e);
-      setSuggestions(item);
-    }
-  };
-
-  useEffect(() => {
-    getDataDetail();
-  }, []);
 
   useEffect(() => {
     const searchString = searchInput?.trim();
@@ -333,8 +311,8 @@ export default function Search() {
             )}
 
             <Grid
-              items={suggestions?.list?.items || []}
-              title={suggestions?.title || ''}
+              items={search?.items || []}
+              title={search?.title || ''}
               numColumns={isTablet() ? 4 : 3}
               element={{
                 width: vw(isTablet() ? 25 : 33.333) - wp(isTablet() ? 10 : 20),

@@ -87,7 +87,7 @@ const Loading = ({ theme }: Props) => {
     }
   }, [finishedConfiguration, isLogged]);
 
-  const downloadAssetsAuth = () => {
+  const downloadAssetsAuth = async () => {
     const images = isTablet()
       ? [
           getTextInConfigJSON(['paywall', '0', 'imageURL-tablet'], ''),
@@ -111,7 +111,7 @@ const Loading = ({ theme }: Props) => {
       }
     });
 
-    Promise.all(preFetchTasks).then((results) => {
+    await Promise.all(preFetchTasks).then((results) => {
       let downloadedAll = true;
       results.forEach((result) => {
         if (!result) {

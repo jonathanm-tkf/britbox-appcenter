@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react';
 
@@ -276,7 +278,7 @@ const ContinueWatching = () => {
                     ? goToDetail(card.original, true)
                     : {}
                 }
-                onRemove={() => showSheetBottomContent(card.original)}
+                // onRemove={() => showSheetBottomContent(card.original)}
               />
             )}
           />

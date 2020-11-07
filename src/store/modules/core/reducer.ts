@@ -54,6 +54,7 @@ const core: Reducer<CoreState> = (state = initialState, action) => {
       }
       case CoreActionTypes.CASTING_OFF: {
         draft.casting = false;
+        draft.castDetail = undefined;
         break;
       }
       case CoreActionTypes.BRITBOX_APP_CONFIG_SUCCESS: {

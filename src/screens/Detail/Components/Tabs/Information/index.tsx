@@ -33,7 +33,7 @@ const Information = ({ data, onLayout, moreInformation, autoPlay, onAutoPlay }: 
   };
 
   useEffect(() => {
-    if (autoPlay && data.type !== 'episode') {
+    if (autoPlay) {
       onAutoPlay();
     }
   }, [autoPlay]);

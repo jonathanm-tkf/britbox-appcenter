@@ -9,4 +9,5 @@ export const Config = {
   MEDIA_SELECTOR_HOST: ConfigRN.MEDIA_SELECTOR_HOST,
   S3: ConfigRN.S3,
   ANALITYCS: ConfigRN.ANALITYCS,
+  SEARCH_LIST: ConfigRN.SEARCH_LIST,
 };

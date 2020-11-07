@@ -46,6 +46,11 @@ const getItemCastDetail = () => {
   return layout?.castDetail || {};
 };
 
+const getCastPosition = () => {
+  const { layout }: { layout: LayoutState } = store.getState();
+  return layout?.castPosition || {};
+};
+
 const getCastState = () => {
   const { layout }: { layout: LayoutState } = store.getState();
   return layout?.castState || {};
@@ -156,12 +161,11 @@ const Cast = () => {
           clearInterval(interval);
         }
       });
-    }, 100);
+    }, 300);
   };
 
   useEffect(() => {
     registerListeners();
-
     if (forceChromecast) {
       setShowButton(true);
     }
@@ -187,7 +191,6 @@ const Cast = () => {
 
         if (state === 'Connected' && !isShowMiniController) {
           setShowButton(true);
-          dispatch(hideForceChromecast());
         }
 
         dispatch(state === 'NotConnected' || state === 'NoDevicesAvailable' ? castOff() : castOn());
@@ -250,10 +253,9 @@ const Cast = () => {
         <CastButton
           onLayout={(e) => {
             const { x, y } = e.nativeEvent.layout;
-            if (x !== 0 && y !== 0) {
-              setTimeout(() => {
-                dispatch(castPosition({ x, y }));
-              }, 500);
+            const { x: positionX, y: positionY } = getCastPosition();
+            if (x !== 0 && y !== 0 && (positionX && positionY) === 0) {
+              dispatch(castPosition({ x, y }));
             }
           }}
           onPress={() => {
@@ -265,7 +267,13 @@ const Cast = () => {
       )}
       {isShowMiniController && (
         <MiniController>
-          <MiniExpandButton onPress={() => GoogleCast.launchExpandedControls()}>
+          <MiniExpandButton
+            onPress={() =>
+              castState === 'error'
+                ? GoogleCast.showCastPicker()
+                : GoogleCast.launchExpandedControls()
+            }
+          >
             {castDetail?.images && castState !== 'error' && (
               <MiniImage
                 source={{
@@ -291,13 +299,15 @@ const Cast = () => {
                 <MiniSubtitle>{castDetail?.subtitle}</MiniSubtitle>
               )}
             </MiniWrapperText>
-            <MiniExpandButtonIcon onPress={() => togglePlay()}>
-              {isPlaying ? (
-                <ChromecastPause fill={theme.PRIMARY_TEXT_COLOR} width={30} height={30} />
-              ) : (
-                <ChromecastPlay fill={theme.PRIMARY_TEXT_COLOR} width={30} height={30} />
-              )}
-            </MiniExpandButtonIcon>
+            {castState !== 'error' && castState !== 'loading' && (
+              <MiniExpandButtonIcon onPress={() => togglePlay()}>
+                {isPlaying ? (
+                  <ChromecastPause fill={theme.PRIMARY_TEXT_COLOR} width={30} height={30} />
+                ) : (
+                  <ChromecastPlay fill={theme.PRIMARY_TEXT_COLOR} width={30} height={30} />
+                )}
+              </MiniExpandButtonIcon>
+            )}
           </MiniExpandButton>
         </MiniController>
       )}

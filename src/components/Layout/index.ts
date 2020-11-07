@@ -17,13 +17,13 @@ export const PaddingLeft = styled.View`
 
 export const Paragraph = styled(ParagraphC)`
   color: ${(props: ThemeState) => rgba(props.theme.PRIMARY_TEXT_COLOR, 0.6)};
-  margin-bottom: ${Platform.OS === 'ios' ? 0 : 10}px;
+  margin-bottom: ${Platform.OS === 'ios' ? 30 : 30}px;
   font-size: ${normalize(14, 16)}px;
   line-height: ${normalize(20, 24)}px;
 `;
 
 export const Headline = styled(HeadlineC)`
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   font-size: ${normalize(16, 18)}px;
 `;
 

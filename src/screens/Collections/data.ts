@@ -4,31 +4,20 @@ export const dataDummy = {
   entries: [
     {
       template: 'Hero Slim (BBC)',
+      title: 'loading',
       list: {
-        items: [
-          {
-            images: {
-              poster: 'loading',
-            },
+        items: fill(new Array(5), {
+          images: {
+            poster: 'loading',
           },
-          {
-            images: {
-              poster: 'loading',
-            },
-          },
-          {
-            images: {
-              poster: 'loading',
-            },
-          },
-        ],
+        }),
       },
     },
     {
       template: 'P2',
       title: 'loading',
       list: {
-        items: fill(new Array(5), {
+        items: fill(new Array(3), {
           images: {
             poster: 'loading',
           },

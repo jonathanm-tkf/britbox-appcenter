@@ -49,7 +49,7 @@ const ActionsComponent = ({ item, onDiscoverMore, onPlay, onWatchlist, theme }: 
     return filter.length > 0;
   };
 
-  return (
+  return item ? (
     <Container>
       <Actions>
         {item.type !== 'link' && (
@@ -96,7 +96,7 @@ const ActionsComponent = ({ item, onDiscoverMore, onPlay, onWatchlist, theme }: 
         <ActionText>{getIsContinueWatching() ? t('continue') : t('playnow')}</ActionText>
       )}
     </Container>
-  );
+  ) : null;
 };
 
 export default withTheme(ActionsComponent);

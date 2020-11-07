@@ -7,13 +7,12 @@ import { Config } from '@src/utils/config';
 import { CoreActionTypes, Menu, Segment } from './types';
 import {
   menuRequestSuccess,
-  menuRequestError,
   configRequestError,
   configRequestSuccess,
   britBoxAppConfigSuccess,
 } from './actions';
 import { errorConfig, finishedConfiguration, retryTimes } from '../layout/actions';
-import { homeRequest } from '../home/saga';
+import { searchRequest, homeRequest } from '../home/saga';
 
 const getSegment = (state: { core: { segment: any } }) => state.core.segment || Segment.US;
 
@@ -89,15 +88,13 @@ export function* init() {
     yield call(getConfig);
 
     if (segment !== Segment.OUT) {
-      try {
-        const { response }: { response: Menu } = yield call(getMenu, segment);
-        yield put(menuRequestSuccess(response));
-      } catch (error) {
-        yield put(menuRequestError());
-      }
+      const { response }: { response: Menu } = yield call(getMenu, segment);
+      yield put(menuRequestSuccess(response));
     }
 
     yield call(homeRequest);
+
+    yield call(searchRequest);
 
     yield put(finishedConfiguration());
   } catch (error) {

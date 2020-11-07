@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect, useMemo } from 'react';
-import { Animated, NativeScrollEvent, Dimensions } from 'react-native';
+import { Animated, NativeScrollEvent, Dimensions, View } from 'react-native';
 import { useNavigation, useRoute, RouteProp } from '@react-navigation/native';
 import { BackIcon, ArrowBottomIcon } from '@assets/icons';
 import { widthPercentageToDP as vw } from 'react-native-responsive-screen';
@@ -10,7 +10,7 @@ import {
   MassiveSDKModelPage,
   MassiveSDKModelItemList,
 } from '@src/sdks/Britbox.API.Content.TS/api';
-import { loadCollectionPage, loadCollectionList } from '@src/services/detail';
+import { loadCollectionPage } from '@src/services/detail';
 import {
   getTemplate,
   getIsCollectionDetail,
@@ -38,6 +38,7 @@ import { wp } from '@src/utils/dimension';
 import { checkIsInWatchingList } from '@src/services/watchlist';
 import { watchlistToggleRequest } from '@store/modules/user/actions';
 import { isTablet } from 'react-native-device-info';
+import { loadCollectionList } from '@src/services/util';
 import { dataDummy } from './data';
 import {
   Container,
@@ -117,7 +118,8 @@ const Collections = () => {
   const theme = useSelector((state: AppState) => state.theme.theme);
   const { t } = useTranslation('layout');
   const [infiniteGridColumns, setInfiniteGridColumns] = useState<number | undefined>(undefined);
-
+  const { isShowMiniController } = useSelector((state: AppState) => state.layout);
+  const { segment } = useSelector((state: AppState) => state.core);
   const [order, setOrder] = useState('asc');
   const [orderBy, setOrderBy] = useState('a-z');
 
@@ -328,14 +330,17 @@ const Collections = () => {
 
         const id = url[0].split('/').pop() || '';
 
-        loadCollectionList({
-          id: url[url.length - 1] !== '' ? id : olderId,
-          page: reset ? 1 : nextPage,
-          pageSize,
-          sub,
-          order: orderFilter || order,
-          orderBy: orderByFilter || orderBy,
-        }).then(({ response }) => {
+        loadCollectionList(
+          {
+            id: url[url.length - 1] !== '' ? id : olderId,
+            page: reset ? 1 : nextPage,
+            pageSize,
+            sub,
+            order: orderFilter || order,
+            orderBy: orderByFilter || orderBy,
+          },
+          segment
+        ).then(({ response }) => {
           const newData = (data?.entries || []).map((item) => {
             if (getTemplate(item.template || '') === 'grid-infinite') {
               return {
@@ -643,6 +648,7 @@ const Collections = () => {
                 return null;
             }
           })}
+        <View style={[isShowMiniController ? { paddingBottom: 90 } : {}]} />
       </Scroll>
       {error && <ErrorLanding onPress={() => back()} />}
     </Container>

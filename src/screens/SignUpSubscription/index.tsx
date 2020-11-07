@@ -328,7 +328,12 @@ const SignUpSubscription = () => {
         _doSuccessSubscription(true);
       } else if (subscriptionResponse && error) {
         setLoading(false);
-        setErrorMsg(subscriptionResponse[0]?.errorMessage || 'Something went wrong.');
+
+        if (subscriptionResponse[0]?.errorCode === ('eV2365' || 'eV2402')) {
+          setErrorMsg(getTextInConfigJSON(['plan-selection', 'errors', 'already-purchased'], ''));
+        } else {
+          setErrorMsg(subscriptionResponse[0]?.errorMessage || 'Something went wrong.');
+        }
       } else {
         trackEvent(
           `${subscriptionResponse[0]?.errorCode}: ${subscriptionResponse[0]?.errorMessage}`

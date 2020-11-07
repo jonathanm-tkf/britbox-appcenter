@@ -102,6 +102,7 @@ export default function MyAccount() {
 
     const [errorState, setErrorState] = useState(false);
     const [isSuccess, setIsSuccess] = useState(false);
+    const [offset, setOffset] = useState(0);
     const [errorMessage, setErrorMessage] = useState(evergentResponseError);
 
     const [errorFirstName, setErrorFirstName] = useState<{
@@ -320,78 +321,84 @@ export default function MyAccount() {
     return (
       <>
         <KeyboardAvoidingView
-          behavior="position"
-          keyboardVerticalOffset={Platform.OS === 'ios' ? -150 : 0}
+          behavior={Platform.OS === 'ios' ? 'position' : 'padding'}
+          keyboardVerticalOffset={Platform.OS === 'ios' ? offset : 0}
         >
-          <ScrollableContainerPaddingHorizontal>
-            <TitleWrapper>
-              <SubTitle>{t('myaccount.yourdetails.screentitle')}</SubTitle>
-            </TitleWrapper>
-            <Input
-              label={t('signup:field.firstname')}
-              value={firstName}
-              onChangeText={(text) => setFirstName(text)}
-              onBlur={() => doValidateFirstName()}
-              error={errorFirstName}
-            />
-            <Input
-              label={t('signup:field.lastname')}
-              value={lastName}
-              onChangeText={(text) => setLastName(text)}
-              onBlur={() => doValidateLastName()}
-              error={errorLastName}
-            />
-            <Input
-              label={t('signup:field.email')}
-              value={email}
-              onChangeText={(text) => setEmail(text)}
-              onBlur={() => doValidateEmail()}
-              error={errorEmail}
-            />
-            <Input
-              label={t('signup:field.mobile')}
-              value={mobile}
-              onChangeText={(text) => setMobile(text)}
-              error={errorMobile}
-            />
-            <ErrorBlock
-              key="error"
-              visible={errorState}
-              type="error"
-              text={
-                errorMessage?.failureMessage[0]?.errorMessage ||
-                getTextInConfigJSON(['account-details', 'validation', 'error-message'], '')
-              }
-            />
-            <ErrorBlock
-              key="success"
-              visible={isSuccess}
-              type="success"
-              text={getTextInConfigJSON(['account-details', 'validation', 'success-message'], '')}
-            />
-            <Button
-              onPress={() => updateProfile()}
-              stretch
-              style={updateBtnStyle}
-              loading={loading}
-              size="big"
-              fontWeight="medium"
-              color={theme.PRIMARY_FOREGROUND_COLOR}
-            >
-              {t('update')}
-            </Button>
-            <Paragraph>
-              {t('myaccount.yourdetails.bottomtext')}{' '}
-              <LinkTitle
-                onPress={() => {
-                  navigate('PrivacyPolicy');
-                }}
+          <ScrollContent>
+            <ScrollableContainerPaddingHorizontal>
+              <TitleWrapper>
+                <SubTitle>{t('myaccount.yourdetails.screentitle')}</SubTitle>
+              </TitleWrapper>
+              <Input
+                label={t('signup:field.firstname')}
+                value={firstName}
+                onChangeText={(text) => setFirstName(text)}
+                onBlur={() => doValidateFirstName()}
+                onFocus={() => setOffset(-170)}
+                error={errorFirstName}
+              />
+              <Input
+                label={t('signup:field.lastname')}
+                value={lastName}
+                onChangeText={(text) => setLastName(text)}
+                onBlur={() => doValidateLastName()}
+                onFocus={() => setOffset(-150)}
+                error={errorLastName}
+              />
+              <Input
+                label={t('signup:field.email')}
+                value={email}
+                onChangeText={(text) => setEmail(text)}
+                onBlur={() => doValidateEmail()}
+                onFocus={() => setOffset(-150)}
+                error={errorEmail}
+              />
+              <Input
+                label={t('signup:field.mobile')}
+                value={mobile}
+                onChangeText={(text) => setMobile(text)}
+                onFocus={() => setOffset(-60)}
+                error={errorMobile}
+              />
+              <ErrorBlock
+                key="error"
+                visible={errorState}
+                type="error"
+                text={
+                  errorMessage?.failureMessage[0]?.errorMessage ||
+                  getTextInConfigJSON(['account-details', 'validation', 'error-message'], '')
+                }
+              />
+              <ErrorBlock
+                key="success"
+                visible={isSuccess}
+                type="success"
+                text={getTextInConfigJSON(['account-details', 'validation', 'success-message'], '')}
+              />
+              <Button
+                onPress={() => updateProfile()}
+                stretch
+                style={updateBtnStyle}
+                loading={loading}
+                size="big"
+                fontWeight="medium"
+                color={theme.PRIMARY_FOREGROUND_COLOR}
               >
-                {t('privacypolicy')}
-              </LinkTitle>
-              .
-            </Paragraph>
-          </ScrollableContainerPaddingHorizontal>
+                {t('update')}
+              </Button>
+              <Paragraph>
+                {t('myaccount.yourdetails.bottomtext')}{' '}
+                <LinkTitle
+                  onPress={() => {
+                    navigate('PrivacyPolicy');
+                  }}
+                >
+                  {t('privacypolicy')}
+                </LinkTitle>
+                .
+              </Paragraph>
+            </ScrollableContainerPaddingHorizontal>
+          </ScrollContent>
         </KeyboardAvoidingView>
         {tabBottomView()}
       </>
@@ -606,7 +613,7 @@ export default function MyAccount() {
     return (
       <>
         <KeyboardAvoidingView
-          behavior="position"
+          behavior={Platform.OS === 'ios' ? 'position' : 'padding'}
           keyboardVerticalOffset={Platform.OS === 'ios' ? -150 : 0}
         >
           <ScrollContent>
@@ -702,7 +709,7 @@ export default function MyAccount() {
             <SubscriptionParagraph>
               {getTextInConfigJSON(['account-subscription', 'web'], '')}
             </SubscriptionParagraph>
-          ) : subscriptionDetail?.paymentMethod === 'Google Wallet' ? (
+          ) : subscriptionDetail?.paymentMethod === ('Google Wallet' || 'Google Payment') ? (
             <SubscriptionParagraph>
               {getTextInConfigJSON(['account-subscription', 'android'], '')}
             </SubscriptionParagraph>
@@ -747,7 +754,6 @@ export default function MyAccount() {
     );
     const [loading, setLoading] = useState(false);
     const [isSuccess, setIsSuccess] = useState(false);
-
     const [errorState, setErrorState] = useState(false);
     const [errorMessage, setErrorMessage] = useState(evergentResponseError);
 

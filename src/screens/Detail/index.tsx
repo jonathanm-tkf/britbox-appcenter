@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect, useRef } from 'react';
 import { Animated, Text } from 'react-native';
@@ -255,7 +257,7 @@ const Detail = () => {
     }).start(() => setShowBlueView(true));
 
     return () => {
-      dispatch(detailClear());
+      setData(undefined);
       dispatch(autoPlayOff());
     };
   }, []);
@@ -451,26 +453,8 @@ const Detail = () => {
         animated: true,
       });
       if (getAutoPlay()) {
-        setTimeout(async () => {
-          if (!user?.profile?.canStream || false) {
-            dispatch(showSheetBottom());
-            showSheet();
-            return false;
-          }
-          if (getIsCast()) {
-            // dispatch(castDetail(item));
-            const { response } = await refreshTokenWithExpiresIn(expiresIn, refresh);
-
-            if (response) {
-              dispatch(refreshTokenSuccess({ ...response }));
-            }
-
-            dispatch(setCastState('loading'));
-            dispatch(toggleMiniController(true));
-            dispatch(castVideo(item));
-            return true;
-          }
-          return navigate('VideoPlayer', { item });
+        setTimeout(() => {
+          onPlay();
         }, 1000);
       }
     }
@@ -486,7 +470,7 @@ const Detail = () => {
       })
     );
   };
-  // paddingBottom={cast ? 152 : 64}
+
   return (
     <Container paddingBottom={isShowMiniController ? 152 : 64}>
       <HomeIndicator autoHidden={false} />
@@ -531,7 +515,9 @@ const Detail = () => {
             {...{ data }}
             id={data?.detail?.relatedId || '0'}
             onPlay={onPlay}
-            onWatchlist={(item: any, isInWatchlist: boolean) => onWatchlist(item, isInWatchlist)}
+            onWatchlist={(itemWatchlist: any, isInWatchlist: boolean) =>
+              onWatchlist(itemWatchlist, isInWatchlist)
+            }
           />
           <Description {...{ data }} />
           {data && data.information.type !== 'show' && data.information.type !== 'episode' && (
