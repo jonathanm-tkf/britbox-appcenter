@@ -18,6 +18,7 @@ export const ErrorText = styled.Text`
   align-self: center;
   margin-bottom: 20px;
   font-family: ${(props: ThemeState) => props.theme.PRIMARY_FONT_FAMILY_MEDIUM};
+  text-align: center;
 `;
 
 export const ScrollView = styled.ScrollView``;

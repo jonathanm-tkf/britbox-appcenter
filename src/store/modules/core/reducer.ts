@@ -16,6 +16,7 @@ export const initialState: CoreState = {
   castDetail: undefined,
   forceChromecast: Platform.OS === 'ios' && parseInt(Platform.Version.toString(), 10) >= 14,
   introChromecast: true,
+  isAppleTVSearchSubscriptionSent: false,
 };
 
 const core: Reducer<CoreState> = (state = initialState, action) => {
@@ -92,6 +93,13 @@ const core: Reducer<CoreState> = (state = initialState, action) => {
       case CoreActionTypes.HIDE_INTRO_CHROMECAST:
         draft.introChromecast = false;
         break;
+      case CoreActionTypes.SEND_APPLE_TV_SEARCH_SUBSCRIPTION:
+        draft.isAppleTVSearchSubscriptionSent = true;
+        break;
+      case CoreActionTypes.REVOKE_APPLE_TV_SEARCH_SUBSCRIPTION:
+        draft.isAppleTVSearchSubscriptionSent = false;
+        break;
+
       default:
     }
   });
