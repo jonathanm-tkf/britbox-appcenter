@@ -6,7 +6,7 @@ import { normalize } from '@src/utils/normalize';
 
 export const Container = styled.View`
   flex: 1;
-  padding: 30px 20px 15px 20px;
+  padding: 20px 20px 15px 20px;
   justify-content: center;
   border-bottom-width: 1px;
   border-color: ${(props: ThemeState) => props.theme.PRIMARY_COLOR_OPAQUE};
@@ -23,23 +23,21 @@ export const ErrorText = styled.Text`
 export const ScrollView = styled.ScrollView``;
 
 export const TitleWrapper = styled.View`
-  margin-bottom: 10px;
+  margin-bottom: 20px;
 `;
 
 export const Title = styled.Text`
-  margin-bottom: 20px;
   color: ${(props: ThemeState) => props.theme.PRIMARY_FOREGROUND_COLOR};
+  font-family: ${(props: ThemeState) => props.theme.PRIMARY_FONT_FAMILY_MEDIUM};
   font-size: ${normalize(22, 32)}px;
-  font-weight: 700;
   text-align: center;
 `;
 
 export const SubTitle = styled.Text`
-  margin-bottom: 10px;
-  margin-top: 20px;
   color: ${(props: ThemeState) => props.theme.PRIMARY_FOREGROUND_COLOR};
   font-size: ${normalize(14, 18)}px;
-  font-weight: 700;
+  line-height: ${normalize(22, 24)}px;
+  font-family: ${(props: ThemeState) => props.theme.PRIMARY_FONT_FAMILY_MEDIUM};
   text-align: center;
 `;
 
@@ -54,6 +52,7 @@ export const WrapperParagraph = styled.Text`
   line-height: ${normalize(16, 22)}px;
   text-align: justify;
   color: ${(props: ThemeState) => props.theme.PRIMARY_FOREGROUND_COLOR};
+  font-family: ${(props: ThemeState) => props.theme.PRIMARY_FONT_FAMILY};
 `;
 
 export const LinkText = styled.Text`
@@ -68,6 +67,7 @@ export const Paragraph = styled.Text`
   margin-bottom: 20px;
   font-size: ${normalize(12, 16)}px;
   color: ${(props: ThemeState) => props.theme.PRIMARY_FOREGROUND_COLOR};
+  font-family: ${(props: ThemeState) => props.theme.PRIMARY_FONT_FAMILY};
 `;
 
 export const MainWrapper = styled.View`
@@ -124,9 +124,8 @@ export const LoginTitle = styled.Text`
   margin-bottom: 20px;
   color: ${(props: ThemeState) => props.theme.PRIMARY_FOREGROUND_COLOR};
   font-size: ${normalize(14, 20)}px;
-  font-weight: 700;
+  font-family: ${(props: ThemeState) => props.theme.PRIMARY_FONT_FAMILY_MEDIUM};
   text-align: center;
-  font-family: ${(props: ThemeState) => props.theme.PRIMARY_FONT_FAMILY_BOLD};
 `;
 
 export const FooterTitle = styled.Text`
@@ -134,9 +133,8 @@ export const FooterTitle = styled.Text`
   margin-bottom: 20px;
   color: ${(props: ThemeState) => props.theme.PRIMARY_FOREGROUND_COLOR};
   font-size: ${normalize(14, 20)}px;
-  font-weight: 700;
-  text-align: center;
   font-family: ${(props: ThemeState) => props.theme.PRIMARY_FONT_FAMILY_MEDIUM};
+  text-align: center;
 `;
 
 export const EmailTitle = styled.Text`

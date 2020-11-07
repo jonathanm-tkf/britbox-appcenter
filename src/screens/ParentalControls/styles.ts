@@ -4,6 +4,7 @@ import LinearGradient from 'react-native-linear-gradient';
 import { UnLockIcon, LockIcon } from '@assets/icons';
 import { getBottomSpace } from 'react-native-iphone-x-helper';
 import { normalize } from '@src/utils/normalize';
+import { isTablet } from 'react-native-device-info';
 
 export const Container = styled.View`
   flex: 1;
@@ -59,7 +60,8 @@ interface WrapperProps {
 
 export const Wrapper = styled.View`
   padding-top: 20px;
-  padding-bottom: ${(props: WrapperProps) => (props.isShowMiniController ? 80 : 10)}px;
+  padding-bottom: ${(props: WrapperProps) =>
+    props.isShowMiniController ? (isTablet() ? 140 : 80) : 10}px;
 `;
 
 export const FooterTitle = styled.Text`

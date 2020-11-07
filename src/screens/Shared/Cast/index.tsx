@@ -18,7 +18,6 @@ import {
   castingOn,
   castDetail as castDetailAction,
   hideForceChromecast,
-  hideIntroChromecast,
 } from '@store/modules/core/actions';
 import { AppState } from '@store/modules/rootReducer';
 import { ChromecastPlay, ChromecastPause } from '@assets/icons';
@@ -30,7 +29,6 @@ import { CoreState } from '@store/modules/core/types';
 import { navigationRef } from '@src/navigation/rootNavigation';
 import { getTextInConfigJSON } from '@src/utils/object';
 import {
-  FABView,
   CastButton,
   MiniController,
   MiniImage,
@@ -238,7 +236,7 @@ const Cast = () => {
   }, [forceChromecast, device]);
 
   const togglePlay = () => {
-    if (casting && device) {
+    if (device) {
       if (isPlaying) {
         GoogleCast.pause();
       } else {

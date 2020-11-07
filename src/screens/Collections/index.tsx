@@ -469,7 +469,7 @@ const Collections = () => {
               return null;
             }
 
-            switch (getTemplate(item.template || '')) {
+            switch (getTemplate(item.template || '', true)) {
               case 'hero-slim':
                 return getIsCollectionDetail(data?.template || '') ? (
                   <NewSlider

@@ -4,6 +4,7 @@ import { ThemeState } from '@store/modules/theme/types';
 import LinearGradient from 'react-native-linear-gradient';
 import { getBottomSpace } from 'react-native-iphone-x-helper';
 import { normalize } from '@src/utils/normalize';
+import { isTablet } from 'react-native-device-info';
 
 export const Container = styled.View`
   flex: 1;
@@ -90,7 +91,8 @@ interface WrapperProps {
 
 export const Wrapper = styled.View`
   padding-top: 15px;
-  padding-bottom: ${(props: WrapperProps) => (props.isShowMiniController ? 90 : 25)}px;
+  padding-bottom: ${(props: WrapperProps) =>
+    props.isShowMiniController ? (isTablet() ? 140 : 90) : 25}px;
 `;
 
 export const FooterTitle = styled.Text`

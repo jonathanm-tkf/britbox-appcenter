@@ -96,7 +96,7 @@ const NewSlider = ({
   const getContent = (item?: MassiveSDKModelItemList) => {
     const image = getImage(item?.images?.poster, 'wallpaper');
 
-    if (image === 'loading' || loading) {
+    if (image === 'loading') {
       return (
         <ContentLoader
           speed={1}
@@ -116,7 +116,7 @@ const NewSlider = ({
   const getActions = (item?: MassiveSDKModelItemList) => {
     const image = getImage(item?.images?.poster, 'wallpaper');
 
-    if (image === 'loading' || loading) {
+    if (image === 'loading') {
       return (
         <ContentLoader
           speed={1}

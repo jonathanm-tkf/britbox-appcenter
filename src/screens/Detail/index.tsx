@@ -381,11 +381,6 @@ const Detail = () => {
         }
       }
 
-      const { response } = await refreshTokenWithExpiresIn(expiresIn, refresh);
-      if (response) {
-        dispatch(refreshTokenSuccess({ ...response }));
-      }
-
       dispatch(setCastState('loading'));
       dispatch(toggleMiniController(true));
 
