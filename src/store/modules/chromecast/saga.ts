@@ -232,6 +232,8 @@ export function* castVideoSaga({ payload: { item, pcToken, playPosition } }: Cas
       pcToken,
       playPosition
     );
+
+    // TODO: Prending to casting
     GoogleCast.getCastDevice().then((device) => {
       if (device) {
         GoogleCast.castMedia(video);

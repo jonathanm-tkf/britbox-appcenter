@@ -114,7 +114,6 @@ const Cast = () => {
 
     GoogleCast.EventEmitter.addListener(GoogleCast.CHANNEL_MESSAGE_RECEIVED, ({ message }) => {
       const { eventError } = JSON.parse(message) || {};
-
       if (eventError) {
         const { detailedErrorCode } = eventError;
         if (detailedErrorCode === 905) {
@@ -198,6 +197,12 @@ const Cast = () => {
       //
     }
   }, [casting]);
+
+  useEffect(() => {
+    if (castDetail && castDetail?.title === t('loading')) {
+      dispatch(castingOff());
+    }
+  }, []);
 
   useEffect(() => {
     if (castDetail) {

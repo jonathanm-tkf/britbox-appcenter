@@ -2,7 +2,6 @@ import produce from 'immer';
 import { Reducer } from 'redux';
 import { LayoutState, LayoutActionTypes } from './types';
 import { CoreActionTypes } from '../core/types';
-import { HomeActionTypes } from '../home/types';
 
 export const initialState: LayoutState = {
   loading: true,
@@ -53,20 +52,16 @@ const layout: Reducer<LayoutState> = (state = initialState, action) => {
       case LayoutActionTypes.LAYOUT_OUT_OFF:
         draft.out = false;
         break;
-      case HomeActionTypes.HOME_REQUEST_SUCCESS:
-        // draft.out = false;
-        // draft.loading = false;
-        break;
       case LayoutActionTypes.LAYOUT_CAST_ON:
         draft.cast = true;
         break;
-      case CoreActionTypes.CASTING_OFF:
-      case LayoutActionTypes.LAYOUT_CAST_OFF:
+      case CoreActionTypes.CASTING_OFF: {
         draft.isShowMiniController = false;
         draft.cast = false;
         draft.castState = undefined;
         draft.castDetail = undefined;
         break;
+      }
       case LayoutActionTypes.CONNECTION:
         draft.connection = action.payload.type;
         break;
@@ -77,11 +72,12 @@ const layout: Reducer<LayoutState> = (state = initialState, action) => {
           data: {},
         };
         break;
-      case LayoutActionTypes.LAYOUT_SHOW_SHEET_BOTTOM:
+      case LayoutActionTypes.LAYOUT_SHOW_SHEET_BOTTOM: {
         draft.isSheetVisible = true;
         draft.sheet.data = action.payload;
         break;
-      case LayoutActionTypes.LAYOUT_HIDE_SHEET_BOTTOM:
+      }
+      case LayoutActionTypes.LAYOUT_HIDE_SHEET_BOTTOM: {
         draft.isSheetVisible = false;
         draft.welcomeMessage = false;
         if (state.sheet.data?.canStream !== false) {
@@ -92,6 +88,7 @@ const layout: Reducer<LayoutState> = (state = initialState, action) => {
           };
         }
         break;
+      }
       case LayoutActionTypes.LAYOUT_EVENT:
         draft.event = action.payload;
         break;
@@ -131,9 +128,10 @@ const layout: Reducer<LayoutState> = (state = initialState, action) => {
       case LayoutActionTypes.FINISHED_CONFIGURATION:
         draft.finishedConfiguration = true;
         break;
-      case LayoutActionTypes.LAYOUT_CAST_STATE:
+      case LayoutActionTypes.LAYOUT_CAST_STATE: {
         draft.castState = action.payload.state;
         break;
+      }
       case LayoutActionTypes.TOGGLE_MINI_CONTROLLER:
         draft.isShowMiniController = action.payload.isShowMiniController;
         break;

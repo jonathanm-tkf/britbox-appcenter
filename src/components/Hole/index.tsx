@@ -12,7 +12,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { withTheme } from 'styled-components';
 import { RNHoleView } from 'react-native-hole-view';
 import { isTablet } from 'react-native-device-info';
-import { getBottomSpace } from 'react-native-iphone-x-helper';
 import { HoleContent, HoleText } from './styles';
 
 type Props = {
@@ -116,7 +115,7 @@ const Hole = ({ theme }: Props) => {
         holes={[
           {
             x: castPosition.x - (isTablet() ? 25 : 30),
-            y: height - getBottomSpace() - 75 - (isTablet() ? 35 : 30) + castPosition.y,
+            y: height - 75 - (isTablet() ? 35 : 30) + castPosition.y,
             width: 120,
             height: 120,
             borderRadius: 60,

@@ -196,7 +196,7 @@ const VideoPlayer = () => {
           allowsInlineMediaPlayback
           mediaPlaybackRequiresUserAction={false}
           source={{
-            // uri: `${Config.URL_PLAYER}?country=${segment?.toLocaleLowerCase()}&videoid=${
+            // uri: `${'http://localhost:8000/index.html'}?country=${segment?.toLocaleLowerCase()}&videoid=${
             uri: `${Config.URL_PLAYER}?country=${segment?.toLocaleLowerCase()}&videoid=${
               params.item.id
             }&token=${token}&ert=${refreshToken}&isTrailer=${

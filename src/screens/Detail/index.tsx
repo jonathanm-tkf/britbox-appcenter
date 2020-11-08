@@ -204,10 +204,10 @@ const Detail = () => {
   }, [item]);
 
   useEffect(() => {
-    if (castDetail && cast && castState === 'sending') {
+    if (cast && castDetail && castState === 'sending') {
       onPlay(castDetail.item, castDetail.currentTime);
     }
-  }, [castDetail, cast, castState]);
+  }, [cast, castDetail, castState]);
 
   useEffect(() => {
     if (autoPlay) {
@@ -291,10 +291,7 @@ const Detail = () => {
 
   useEffect(() => {
     if (isFocus) {
-      const orientation = Orientation.getInitialOrientation();
-      if (orientation !== 'PORTRAIT') {
-        Orientation.lockToPortrait();
-      }
+      Orientation.lockToPortrait();
       immersiveModeOff();
     }
   }, [isFocus]);
