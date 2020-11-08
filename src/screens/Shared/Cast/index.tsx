@@ -63,7 +63,7 @@ const Cast = () => {
   const { t } = useTranslation('layout');
   const dispatch = useDispatch();
   const [showButton, setShowButton] = useState(false);
-  const [isPlaying, setIsPlaying] = useState(true);
+  const [isPlaying, setIsPlaying] = useState(false);
   const [stateChromecast, setStateChromecast] = useState<CastState | undefined>(undefined);
   const [device, setDevice] = useState<CastDevice | undefined>(undefined);
   const { castState, isShowMiniController } = useSelector((state: AppState) => state.layout);
@@ -92,7 +92,6 @@ const Cast = () => {
         if (event === 'SESSION_STARTED') {
           GoogleCast.initChannel('urn:x-cast:com.reactnative.googlecast.britbox');
           dispatch(castOn());
-          timer();
 
           const { currentTime, item } = getItemCastDetail() as CastDetail;
 
@@ -101,12 +100,8 @@ const Cast = () => {
           }
         }
 
-        if (event === 'SESSION_ENDED') {
+        if (event === 'SESSION_ENDING') {
           dispatch(castingOff());
-          dispatch(castOff());
-          dispatch(castVideoPlayerDetailClear());
-          dispatch(castDetailClear());
-          dispatch(toggleMiniController(false));
         }
       });
     });
@@ -146,22 +141,6 @@ const Cast = () => {
     });
   };
 
-  const timer = () => {
-    const interval = setInterval(() => {
-      GoogleCast.getCastState().then((response) => {
-        if (response !== 'Connected') {
-          dispatch(castingOff());
-          dispatch(castOff());
-          dispatch(castDetailClear());
-          dispatch(setCastState(undefined));
-          dispatch(castVideoPlayerDetailClear());
-          dispatch(toggleMiniController(false));
-          clearInterval(interval);
-        }
-      });
-    }, 300);
-  };
-
   useEffect(() => {
     registerListeners();
     if (forceChromecast) {
@@ -169,7 +148,7 @@ const Cast = () => {
     }
 
     const intervalCheckChromecast = setInterval(() => {
-      GoogleCast.getCastState().then((state) => {
+      GoogleCast.getCastState().then((state, ...rest) => {
         setStateChromecast(state === 'NotConnected' ? t('loading') : state);
         if (state === 'NoDevicesAvailable' && !forceChromecast) {
           PostMessage({
@@ -202,8 +181,6 @@ const Cast = () => {
         })
         .catch(() => {});
     }, 1000);
-
-    timer();
 
     return () => {
       dispatch(setCastState(undefined));

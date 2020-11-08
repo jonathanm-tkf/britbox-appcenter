@@ -1,12 +1,12 @@
 import React from 'react';
 import ExploreMenu from '@components/ExploreMenu';
-import { SafeAreaView, Linking, Alert } from 'react-native';
+import { Linking, Alert } from 'react-native';
 import { AppState } from '@store/modules/rootReducer';
 import { useSelector } from 'react-redux';
 import { Header } from '@store/modules/core/types';
 import { navigateByPath } from '@src/navigation/rootNavigation';
 import { useTranslation } from 'react-i18next';
-import { Container } from './styles';
+import { Container, SafeAreaView } from './styles';
 
 const Explore = () => {
   const menu = useSelector((state: AppState) => state.core.menu);

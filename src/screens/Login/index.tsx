@@ -1,7 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from 'react';
 import { KeyboardAvoidingView, Platform, TouchableOpacity, Keyboard, Linking } from 'react-native';
-
 import { Button } from '@components/Button';
 import { Input } from '@components/Input';
 import { useDispatch, useSelector } from 'react-redux';
@@ -16,6 +15,8 @@ import { useTranslation } from 'react-i18next';
 import { useNavigation } from '@react-navigation/native';
 import ModalCustom from '@components/ModalCustom';
 import { validateEmail } from '@src/utils/validations';
+import { ThemeProps } from '@store/modules/theme/types';
+import { withTheme } from 'styled-components';
 import {
   Container,
   ErrorText,
@@ -45,11 +46,14 @@ const flex = {
 const suscribeStyle = { paddingLeft: 65, paddingRight: 65, marginTop: 30 };
 const cancelStyle = { marginTop: 20, marginBottom: 10 };
 
-const Login = () => {
+type Props = {
+  readonly theme: ThemeProps;
+};
+
+const Login = ({ theme }: Props) => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
   const { t } = useTranslation(['signin', 'signup']);
-  const theme = useSelector((state: AppState) => state.theme.theme);
 
   const [user, setUser] = useState(__DEV__ ? 'maximilianor@takeoffmedia.com' : '');
   const [password, setPassword] = useState(__DEV__ ? '8Ub4cYAiM77EzJY' : '');
@@ -335,7 +339,9 @@ const Login = () => {
             <Wrapper>
               <Title>{getTextInConfigJSON(['login', 'title'], '')}</Title>
               <Paragraph>{getTextInConfigJSON(['login', 'description'], '')}</Paragraph>
-              <Paragraph>{getTextInConfigJSON(['login', 'description-2'], '')}</Paragraph>
+              <Paragraph style={{ marginBottom: 0 }}>
+                {getTextInConfigJSON(['login', 'description-2'], '')}
+              </Paragraph>
               <Button
                 outline
                 size="big"
@@ -428,4 +434,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default withTheme(Login);

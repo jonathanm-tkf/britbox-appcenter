@@ -7,8 +7,8 @@ import { AppState } from '@store/modules/rootReducer';
 import { AppState as AppStateRN } from 'react-native';
 import KochavaTracker from 'react-native-kochava-tracker';
 import NetInfo from '@react-native-community/netinfo';
-import { isTablet, getSystemVersion, getSystemName, getDeviceName } from 'react-native-device-info';
-import { connection, device } from '@store/modules/layout/actions';
+import { isTablet, getSystemVersion, getSystemName } from 'react-native-device-info';
+import { connection } from '@store/modules/layout/actions';
 import { refreshTokenWithExpiresIn } from '@src/services/token';
 import { getProfileRequest, refreshTokenSuccess } from '@store/modules/user/actions';
 import { TrackPageView } from '@src/services/analytics';
@@ -40,6 +40,7 @@ type Props = {
 export default ({ onTrackEvent }: Props) => {
   const theme = useSelector((state: AppState) => state.theme.theme);
   const { token, segment } = useSelector((state: AppState) => state.core);
+  const { device } = useSelector((state: AppState) => state.layout);
   const { analyticsSubscriptionStatus, isInFreeTrail } = useSelector(
     (state: AppState) => (state.user?.profile as Profile) || {}
   );
@@ -115,11 +116,6 @@ export default ({ onTrackEvent }: Props) => {
       onStateChange={() => {
         const previousRoute = routeNameRef.current;
         const currentRoute = navigationRef.current.getCurrentRoute();
-        let deviceName = '';
-        getDeviceName().then((name) => {
-          deviceName = name;
-          dispatch(device(name));
-        });
         if (previousRoute.name !== currentRoute.name) {
           const { user, terms } = TrackPageView(currentRoute, token, {
             account_status: !isLogged
@@ -131,7 +127,7 @@ export default ({ onTrackEvent }: Props) => {
             isFreeTrail: isInFreeTrail,
             platform: getSystemName(),
             os_version: getSystemVersion(),
-            device_name: deviceName,
+            device_name: device,
           });
 
           onTrackEvent({

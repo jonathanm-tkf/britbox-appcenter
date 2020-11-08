@@ -7,7 +7,6 @@ import { useTranslation } from 'react-i18next';
 import { Animated } from 'react-native';
 import { MoreInformation } from '@store/modules/detail/types';
 import {
-  Container,
   Scroll,
   Paragraph,
   Headline,
@@ -62,7 +61,7 @@ const ModalMoreInformation = () => {
   };
 
   return (
-    <Container>
+    <>
       <TopWrapper>
         <Button onPress={() => goBack()}>
           <BackIcon width={20} height={20} />
@@ -108,7 +107,7 @@ const ModalMoreInformation = () => {
           </CreditsWrapper>
         )}
       </Scroll>
-    </Container>
+    </>
   );
 };
 

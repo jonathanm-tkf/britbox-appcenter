@@ -291,7 +291,10 @@ const Detail = () => {
 
   useEffect(() => {
     if (isFocus) {
-      Orientation.lockToPortrait();
+      const orientation = Orientation.getInitialOrientation();
+      if (orientation !== 'PORTRAIT') {
+        Orientation.lockToPortrait();
+      }
       immersiveModeOff();
     }
   }, [isFocus]);

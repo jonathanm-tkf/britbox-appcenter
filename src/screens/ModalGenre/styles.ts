@@ -60,11 +60,3 @@ export const Indicator = styled.View`
   position: absolute;
   margin-left: -20px;
 `;
-
-export const GenreTitle = styled.Text`
-  font-family: ${(props: ThemeState) => props.theme.PRIMARY_FONT_FAMILY_MEDIUM};
-  color: ${(props: ThemeState) => props.theme.PRIMARY_FOREGROUND_COLOR};
-  font-size: ${normalize(10, 14)}px;
-  text-align: center;
-  margin-bottom: 20px;
-`;

@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 
 import { Header } from '@store/modules/core/types';
-import { AppState } from '@store/modules/rootReducer';
-import { useSelector } from 'react-redux';
 import { TouchableOpacity } from 'react-native';
 import { HelpIcon } from '@assets/icons';
+import { ThemeProps } from '@store/modules/theme/types';
+import { withTheme } from 'styled-components';
 import {
   Container,
   TabHeader,
@@ -21,11 +21,11 @@ import {
 interface Props {
   data: Header[];
   onPress: (item: Header) => void;
+  readonly theme: ThemeProps;
 }
 
-const ExploreMenu = ({ data, onPress }: Props) => {
+const ExploreMenu = ({ data, onPress, theme }: Props) => {
   const [active, setActive] = useState('');
-  const theme = useSelector((state: AppState) => state.theme.theme);
 
   const [dataHeader, setDataHeader]: any = useState([]);
   const [dataMenu, setDataMenu]: any = useState([]);
@@ -100,4 +100,4 @@ const ExploreMenu = ({ data, onPress }: Props) => {
   );
 };
 
-export default ExploreMenu;
+export default withTheme(ExploreMenu);

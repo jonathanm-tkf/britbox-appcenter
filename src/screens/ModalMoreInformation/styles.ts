@@ -5,16 +5,12 @@ import { getStatusBarHeight } from 'react-native-iphone-x-helper';
 import { Animated, Platform } from 'react-native';
 import { normalize } from '@src/utils/normalize';
 
-export const Container = styled.SafeAreaView`
-  flex: 1;
-  background-color: ${(props: ThemeState) => props.theme.PRIMARY_COLOR};
-`;
-
 export const Scroll = styled.ScrollView.attrs({
   showsVerticalScrollIndicator: false,
 })`
   flex: 1;
-  padding-top: 50px;
+  background-color: ${(props: ThemeState) => props.theme.PRIMARY_COLOR};
+  padding-top: 80px;
   padding-left: 20px;
   padding-right: 20px;
 `;

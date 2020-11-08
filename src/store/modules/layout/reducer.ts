@@ -62,10 +62,10 @@ const layout: Reducer<LayoutState> = (state = initialState, action) => {
         break;
       case CoreActionTypes.CASTING_OFF:
       case LayoutActionTypes.LAYOUT_CAST_OFF:
+        draft.isShowMiniController = false;
         draft.cast = false;
         draft.castState = undefined;
         draft.castDetail = undefined;
-        draft.isShowMiniController = false;
         break;
       case LayoutActionTypes.CONNECTION:
         draft.connection = action.payload.type;

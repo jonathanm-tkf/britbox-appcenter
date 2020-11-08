@@ -91,8 +91,10 @@ const RootStackScreen = () => {
   }, [britboxConfig]);
 
   useEffect(() => {
-    Orientation.lockToPortrait();
-
+    const orientation = Orientation.getInitialOrientation();
+    if (orientation !== 'PORTRAIT') {
+      Orientation.lockToPortrait();
+    }
     const unsubscribe = NetInfo.addEventListener((state) => {
       if (!state.isConnected) {
         setLostConnection(true);

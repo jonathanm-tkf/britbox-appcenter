@@ -16,7 +16,6 @@ import {
   SeasonItemText,
   SeasonWrapper,
   Indicator,
-  // GenreTitle,
 } from './styles';
 
 type RootParamList = {
@@ -70,7 +69,6 @@ const ModalGenre = () => {
       {items.length > 0 && (
         <FlatList
           data={items}
-          // ListHeaderComponent={() => <GenreTitle>{t('genre')}</GenreTitle>}
           renderItem={renderItem}
           keyExtractor={(_, index: number) => `${index.toString()}_flatList`}
         />

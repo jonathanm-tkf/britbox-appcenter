@@ -8,7 +8,6 @@ import { isTablet } from 'react-native-device-info';
 
 export const Container = styled.View`
   flex: 1;
-  background-color: ${(props: ThemeState) => props.theme.PRIMARY_COLOR};
 `;
 
 export const SceneContainer = styled.View`

@@ -3,7 +3,7 @@ import React, { useEffect, useCallback } from 'react';
 import { Linking, Platform, ActivityIndicator, Image } from 'react-native';
 import { BritboxAPIContentModelsItemsGetItemRelatedListResponse } from '@src/sdks/Britbox.API.Content.TS/api';
 import { getItemContent } from '@store/modules/home/saga';
-import { isTablet } from 'react-native-device-info';
+import { getDeviceName, isTablet } from 'react-native-device-info';
 import { setDeepLinkUrl } from '@store/modules/home/actions';
 import { navigateByPath } from '@src/navigation/rootNavigation';
 
@@ -12,7 +12,7 @@ import { AppState } from '@store/modules/rootReducer';
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { getTextInConfigJSON } from '@src/utils/object';
-import { loadingOff } from '@store/modules/layout/actions';
+import { device, loadingOff } from '@store/modules/layout/actions';
 import FastImage from 'react-native-fast-image';
 import { withTheme } from 'styled-components';
 import { ThemeProps } from '@store/modules/theme/types';
@@ -78,6 +78,9 @@ const Loading = ({ theme }: Props) => {
       if (url) {
         dispatch(setDeepLinkUrl(url));
       }
+    });
+    getDeviceName().then((name) => {
+      dispatch(device(name));
     });
   }, []);
 

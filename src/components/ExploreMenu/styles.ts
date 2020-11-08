@@ -6,6 +6,7 @@ import { normalize } from '@src/utils/normalize';
 
 export const Container = styled.View`
   width: 100%;
+  flex: 1;
 `;
 
 export const TabHeader = styled.View`

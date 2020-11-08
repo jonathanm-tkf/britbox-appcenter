@@ -126,8 +126,6 @@ const VideoPlayer = () => {
     immersiveModeOff();
     StatusBar.setHidden(false);
     dispatch(continueWatchingRequest());
-    // setParamsToNavigation({ autoPlay: false });
-    // navigation.state.params.onSelect({ autoPlay: false });
     goBack();
   };
 
