@@ -4,7 +4,7 @@ import { rgba } from 'polished';
 import { ThemeState } from '@store/modules/theme/types';
 
 export const Container = styled.View`
-  margin-top: 75px;
+  /* margin-top: 75px; */
   margin-bottom: 30px;
   overflow: hidden;
   flex-direction: row;
