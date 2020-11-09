@@ -120,8 +120,8 @@ const Collections = () => {
   const [infiniteGridColumns, setInfiniteGridColumns] = useState<number | undefined>(undefined);
   const { isShowMiniController } = useSelector((state: AppState) => state.layout);
   const { segment } = useSelector((state: AppState) => state.core);
-  const [order, setOrder] = useState('asc');
-  const [orderBy, setOrderBy] = useState('a-z');
+  const [order, setOrder] = useState('desc');
+  const [orderBy, setOrderBy] = useState('date-added');
 
   const dispatch = useDispatch();
   const bookmarklist = useSelector(
@@ -518,14 +518,14 @@ const Collections = () => {
                                   {
                                     data: [
                                       {
-                                        title: t('az'),
-                                        value: 'a-z',
-                                        selected: orderBy === 'a-z',
-                                      },
-                                      {
                                         title: t('recent'),
                                         value: 'date-added',
                                         selected: orderBy === 'date-added',
+                                      },
+                                      {
+                                        title: t('az'),
+                                        value: 'a-z',
+                                        selected: orderBy === 'a-z',
                                       },
                                     ],
                                   },

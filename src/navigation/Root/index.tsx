@@ -1,8 +1,9 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { getBuildNumber } from 'react-native-device-info';
 import { AppState } from '@store/modules/rootReducer';
 import Storybook from '@screens/Storybook';
@@ -10,7 +11,7 @@ import { rgba } from 'polished';
 import VideoPlayer from '@screens/VideoPlayer';
 import Modal from '@screens/Modal';
 import ModalSeasons from '@screens/ModalSeasons';
-import { Animated, Platform } from 'react-native';
+import { Animated, Linking, Platform } from 'react-native';
 import { ThemeProps } from '@store/modules/theme/types';
 import ModalMoreInformation from '@screens/ModalMoreInformation';
 import Orientation from 'react-native-orientation-locker';
@@ -24,8 +25,12 @@ import { getTextInConfigJSON } from '@src/utils/object';
 import NetInfo from '@react-native-community/netinfo';
 import LostConnection from '@screens/LostConnection';
 import FailedGetProfile from '@screens/FailedGetProfile';
+import { BritboxAPIContentModelsItemsGetItemRelatedListResponse } from '@src/sdks/Britbox.API.Content.TS/api';
+import { setDeepLinkUrl } from '@store/modules/home/actions';
+import { getItemContent } from '@store/modules/home/saga';
 import { AppDrawerScreen } from '../Drawer';
 import { AuthStackScreen } from '../Auth';
+import { navigateByPath } from '../rootNavigation';
 
 const STORYBOOK_START = false && __DEV__;
 
@@ -66,11 +71,13 @@ const VersionModal = () => {
 const RootStack = createStackNavigator();
 const RootStackScreen = () => {
   const user = useSelector((state: AppState) => state.user);
+  const { isLogged } = useSelector((state: AppState) => state.user);
   const theme = useSelector((state: AppState) => state.theme.theme);
   const isOut = useSelector((state: AppState) => state.layout.out);
   const failedGetProfile = useSelector((state: AppState) => state.layout.failedGetProfile);
   const [lostConnection, setLostConnection] = useState(false);
   const [versionModal, setVersionModal] = useState(false);
+  const dispatch = useDispatch();
 
   const britboxConfig = useSelector((state: AppState) => state.core.britboxConfig);
 
@@ -103,6 +110,50 @@ const RootStackScreen = () => {
       unsubscribe();
     };
   }, []);
+
+  const appWokeUp = useCallback(async (event: any) => {
+    const { url } = event;
+    if (url) {
+      if (Platform.OS === 'ios') {
+        const route = url?.split('://');
+
+        if (route && route[1]) {
+          const routeName = route[1]?.split('/');
+
+          if (routeName && routeName[0]) {
+            if (routeName[0] === 'watch' || routeName[0] === 'open') {
+              const response: BritboxAPIContentModelsItemsGetItemRelatedListResponse = await getItemContent(
+                routeName[1]
+              );
+
+              if (response && response?.externalResponse) {
+                const { externalResponse } = response;
+                navigateByPath(externalResponse, routeName[0] === 'watch');
+              }
+            }
+          }
+        }
+      } else {
+        const route = url?.split('www.britbox.com');
+
+        if (route[1] && route[1] !== '') {
+          if (/\/show\/|\/movie\/|\/season\/|\/episode\//.test(route[1] || '')) {
+            navigateByPath({ path: route[1], customId: true }, !(route[1] || '').includes('_'));
+          }
+        }
+      }
+    }
+  }, []);
+
+  useEffect(() => {
+    Linking.addEventListener('url', (event) => {
+      if (isLogged) {
+        appWokeUp(event);
+      } else {
+        dispatch(setDeepLinkUrl(event?.url));
+      }
+    });
+  }, [appWokeUp]);
 
   return (
     <>

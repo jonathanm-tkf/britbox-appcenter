@@ -16,6 +16,8 @@ import {
   MoreInformation,
   Show,
 } from '@store/modules/detail/types';
+import { getTemplate } from '@src/utils/template';
+import { loadCollectionList } from './util';
 
 const getSegment = () => {
   const { core }: { core: CoreState } = store.getState();
@@ -324,21 +326,63 @@ export const loadEpisodesBySeason = async (path: string) => {
   }
 };
 
+const getIsContinuosScroll = (response: MassiveSDKModelPage) => {
+  const result =
+    (response &&
+      response.entries &&
+      response.entries.filter((item) => getTemplate(item.template || '') === 'grid-infinite')) ||
+    [];
+
+  return {
+    isContinuosScroll: result.length > 0,
+    list: result.length > 0 ? result.reduce((r) => r) : null,
+  };
+};
+
 const processCollectionPage = async (
   data: BritboxAPIContentModelsPageGetPageResponse
 ): Promise<{
   response: MassiveSDKModelPage | undefined;
 }> => {
   const { externalResponse: detail } = data;
-
   if (detail) {
+    const { isContinuosScroll, list } = getIsContinuosScroll(detail);
+    if (isContinuosScroll) {
+      const collectionList = await loadCollectionList(
+        {
+          id: list?.list?.id || '',
+          page: list?.list?.paging?.page || 1,
+          pageSize: list?.list?.paging?.size || 15,
+          order: 'desc',
+          orderBy: 'date-added',
+          sub: 'Subscriber',
+        },
+        getSegment()
+      );
+      const updateList = (detail.entries || [])?.map((item) => {
+        if (getTemplate(item.template || '') === 'grid-infinite') {
+          return {
+            ...item,
+            list: collectionList.response,
+          };
+        }
+        return item;
+      });
+      if (collectionList) {
+        return {
+          response: {
+            ...detail,
+            entries: [...(updateList || [])],
+          },
+        };
+      }
+    }
     return {
       response: {
         ...detail,
       },
     };
   }
-
   return { response: undefined };
 };
 

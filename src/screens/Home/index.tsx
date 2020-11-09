@@ -1,5 +1,4 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-import React, { useCallback, useEffect } from 'react';
+import React from 'react';
 import { View, Platform, Animated } from 'react-native';
 import { getStatusBarHeight } from 'react-native-iphone-x-helper';
 import Header from '@components/Header';
@@ -17,17 +16,12 @@ import {
   Collections,
   Hero,
 } from '@screens/Shared';
-import { getItemContent } from '@store/modules/home/saga';
-import {
-  MassiveSDKModelItemSummary,
-  BritboxAPIContentModelsItemsGetItemRelatedListResponse,
-} from '@src/sdks/Britbox.API.Content.TS/api';
+import { MassiveSDKModelItemSummary } from '@src/sdks/Britbox.API.Content.TS/api';
 
 import { navigateByPath } from '@src/navigation/rootNavigation';
-import { watchlistToggleRequest, pollingProfileRequest } from '@store/modules/user/actions';
+import { watchlistToggleRequest } from '@store/modules/user/actions';
 import ContinueWatching from '@screens/Shared/ContinueWatching';
 import { autoPlayOn } from '@store/modules/layout/actions';
-import { setDeepLinkUrl } from '@store/modules/home/actions';
 import { Container } from './styles';
 
 const wrapper = {
@@ -36,51 +30,6 @@ const wrapper = {
 };
 
 const Home = () => {
-  const dispatch = useDispatch();
-  const deepLinkUrl = useSelector((state: AppState) => state.home.deepLinkUrl);
-
-  const appWokeUp = useCallback(async (url) => {
-    if (url) {
-      if (Platform.OS === 'ios') {
-        const route = url?.split('://');
-
-        if (route && route[1]) {
-          const routeName = route[1]?.split('/');
-
-          if (routeName && routeName[0]) {
-            if (routeName[0] === 'watch' || routeName[0] === 'open') {
-              const response: BritboxAPIContentModelsItemsGetItemRelatedListResponse = await getItemContent(
-                routeName[1]
-              );
-
-              if (response && response?.externalResponse) {
-                const { externalResponse } = response;
-                navigateByPath(externalResponse, routeName[0] === 'watch');
-              }
-            }
-          }
-        }
-      } else {
-        const route = url?.split('www.britbox.com');
-        if (route[1] && route[1] !== '') {
-          if (/\/show\/|\/movie\/|\/season\/|\/episode\//.test(route[1] || '')) {
-            navigateByPath({ path: route[1], customId: true }, !(route[1] || '').includes('_'));
-          }
-        }
-      }
-    }
-  }, []);
-
-  useEffect(() => {
-    if (deepLinkUrl) {
-      setTimeout(() => {
-        appWokeUp(deepLinkUrl);
-        dispatch(setDeepLinkUrl(null));
-      }, 200);
-    }
-    dispatch(pollingProfileRequest());
-  }, []);
-
   return (
     <View style={wrapper}>
       <Item />
