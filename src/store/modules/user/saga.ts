@@ -610,7 +610,9 @@ export function* getContinueWatchingRequest() {
       },
     });
 
-    const watched = yield call(getWatched);
+    const watched = yield call(getWatched, {
+      segments: [segment],
+    });
     const watchedList = yield call(getContinueWatchingList, {
       segments: [segment],
       useCustomId: true,

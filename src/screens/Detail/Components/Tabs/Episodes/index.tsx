@@ -10,7 +10,6 @@ import { useSelector } from 'react-redux';
 import { pickBy } from 'lodash';
 import { LoadDetailPageResponse, MoreInformation, Show } from '@store/modules/detail/types';
 import { isTablet } from 'react-native-device-info';
-import { FlatList } from 'react-native';
 import { Container, ContainerFilter, SeasonButton, SeasonText, InformationButton } from './styles';
 
 interface Props {
@@ -115,34 +114,31 @@ const Episodes = ({
           {/* <Year>Year: {show.releaseYear}</Year> */}
         </ContainerFilter>
       )}
-      <FlatList
-        data={data}
-        keyExtractor={(_, index) => index.toString()}
-        renderItem={({ item }) => (
-          <Card
-            width={isTablet() ? 250 : 157}
-            height={isTablet() ? 140 : 107}
-            url={getImage(item?.images?.wallpaper || 'loading', 'wallpaper')}
-            isDetail
-            onLayout={(event) => {
-              const { layout } = event.nativeEvent;
-              if ((isEpisode && show && show.episodeNumber === item?.episodeNumber) || autoPlay) {
-                onScrollTo(layout.y);
-              }
-            }}
-            data={{
-              title: `${item.episodeNumber}. ${item?.episodeName}` || '',
-              description: `${getDuration(item?.duration || 0)} min`,
-              summary: item?.shortDescription || '',
-              category: getCategories(item || {}),
-            }}
-            onPress={() => onPlay(item)}
-            progress={getProgress(item)}
-            isContinue={getProgress(item) > 0}
-            cardElement={item}
-          />
-        )}
-      />
+      {data.map((item, index) => (
+        <Card
+          key={index.toString()}
+          width={isTablet() ? 250 : 157}
+          height={isTablet() ? 140 : 107}
+          url={getImage(item?.images?.wallpaper || 'loading', 'wallpaper')}
+          isDetail
+          onLayout={(event) => {
+            const { layout } = event.nativeEvent;
+            if ((isEpisode && show && show.episodeNumber === item?.episodeNumber) || autoPlay) {
+              onScrollTo(layout.y);
+            }
+          }}
+          data={{
+            title: `${item.episodeNumber}. ${item?.episodeName}` || '',
+            description: `${getDuration(item?.duration || 0)} min`,
+            summary: item?.shortDescription || '',
+            category: getCategories(item || {}),
+          }}
+          onPress={() => onPlay(item)}
+          progress={getProgress(item)}
+          isContinue={getProgress(item) > 0}
+          cardElement={item}
+        />
+      ))}
     </Container>
   );
 };
