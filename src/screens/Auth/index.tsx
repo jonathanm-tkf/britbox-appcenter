@@ -1,10 +1,9 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Header from '@components/Header';
 import { isTablet } from 'react-native-device-info';
 import Carousel from 'react-native-snap-carousel';
-import { StyleSheet, SafeAreaView } from 'react-native';
+import { StyleSheet, SafeAreaView, Dimensions } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { AppState } from '@store/modules/rootReducer';
 import { useIsFocused } from '@react-navigation/native';
@@ -21,7 +20,6 @@ import {
   Paragraph,
 } from './styles';
 import SliderEntry from './SliderEntry';
-import { sliderWidth, itemWidth } from './SliderEntry/styles';
 
 const styles = StyleSheet.create({
   slider: {
@@ -38,8 +36,20 @@ const Auth = () => {
   const { loading } = useSelector((state: AppState) => state.layout);
   const [sliderRef, setSliderRef] = useState(null);
   const [slider1ActiveSlide, setSlider1ActiveSlide] = useState(0);
+  const [screenData, setScreenData] = useState(Dimensions.get('window'));
+
   const { t } = useTranslation('auth');
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    const onChange = (result: any) => {
+      setScreenData(result.screen);
+    };
+
+    Dimensions.addEventListener('change', onChange);
+
+    return () => Dimensions.removeEventListener('change', onChange);
+  });
 
   const images = isTablet()
     ? [
@@ -135,8 +145,8 @@ const Auth = () => {
           ref={(c: any) => setSliderRef(c)}
           data={ENTRIES}
           renderItem={renderItemWithParallax}
-          sliderWidth={sliderWidth}
-          itemWidth={itemWidth}
+          sliderWidth={screenData.width}
+          itemWidth={screenData.width}
           hasParallaxImages
           firstItem={0}
           inactiveSlideScale={1}

@@ -109,9 +109,6 @@ RCT_EXPORT_METHOD(videoStart:(NSDictionary *)dictPlayInfo resolver:(RCTPromiseRe
     NSLog(@"dictPlayInfo ---> %@", dictPlayInfo);
     if (NSClassFromString(@"MPNowPlayingInfoCenter")) {
       NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
-      if ([dictPlayInfo valueForKey:@"contentID"] != nil) {
-        [dict setObject:[dictPlayInfo valueForKey:@"contentID"] forKey:MPNowPlayingInfoPropertyExternalContentIdentifier];
-      }
       if ([dictPlayInfo valueForKey:@"playbackDuration"] != nil) {
         double playbackDuration = [[dictPlayInfo valueForKey:@"playbackDuration"]doubleValue];
         [dict setObject:@(playbackDuration) forKey:MPMediaItemPropertyPlaybackDuration];
@@ -120,7 +117,30 @@ RCT_EXPORT_METHOD(videoStart:(NSDictionary *)dictPlayInfo resolver:(RCTPromiseRe
         double elapsedPlaybackTime = [[dictPlayInfo valueForKey:@"elapsedPlaybackTime"]doubleValue];
         [dict setObject:[NSNumber numberWithDouble:elapsedPlaybackTime] forKey:MPNowPlayingInfoPropertyElapsedPlaybackTime];
       }
-      [dict setObject:[NSNumber numberWithFloat:1.0] forKey:MPNowPlayingInfoPropertyPlaybackRate];
+      if ([dictPlayInfo valueForKey:@"playbackRate"] != nil) {
+        double playbackRate = [[dictPlayInfo valueForKey:@"playbackRate"]floatValue];
+        [dict setObject:[NSNumber numberWithFloat:playbackRate] forKey:MPNowPlayingInfoPropertyPlaybackRate];
+      }
+      if ([dictPlayInfo valueForKey:@"playbackDate"] != nil) {
+        if (@available(iOS 11.1, *)) {
+          [dict setObject:[dictPlayInfo valueForKey:@"playbackDate"] forKey:MPNowPlayingInfoPropertyCurrentPlaybackDate];
+        }
+      }
+      if ([dictPlayInfo valueForKey:@"contentID"] != nil) {
+        [dict setObject:[dictPlayInfo valueForKey:@"contentID"] forKey:MPNowPlayingInfoPropertyExternalContentIdentifier];
+      }
+      if ([dictPlayInfo valueForKey:@"serviceID"] != nil) {
+        if (@available(iOS 11.0, *)) {
+          [dict setObject:[dictPlayInfo valueForKey:@"serviceID"] forKey:MPNowPlayingInfoPropertyServiceIdentifier];
+        }
+      }
+      if ([dictPlayInfo valueForKey:@"isLiveStream"] != nil) {
+        [dict setObject:[dictPlayInfo valueForKey:@"isLiveStream"] forKey:MPNowPlayingInfoPropertyIsLiveStream];
+      }
+      if ([dictPlayInfo valueForKey:@"playbackProcess"] != nil) {
+        double playbackProcess = [[dictPlayInfo valueForKey:@"playbackProcess"]floatValue];
+        [dict setObject:[NSNumber numberWithFloat:playbackProcess] forKey:MPNowPlayingInfoPropertyPlaybackProgress];
+      }
       [[MPNowPlayingInfoCenter defaultCenter] setNowPlayingInfo:dict];
     }
     resolve(nil);

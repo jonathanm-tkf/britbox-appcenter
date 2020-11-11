@@ -56,6 +56,20 @@ const VideoPlayer = () => {
   };
 
   useEffect(() => {
+    // if (Platform.OS === 'ios') {
+    //   const { AppleTVController } = NativeModules;
+    //   AppleTVController.videoStart({
+    //     playbackDuration: 100,
+    //     elapsedPlaybackTime: 4,
+    //     playbackRate: 1.0,
+    //     playbackDate: new Date().getTime(),
+    //     contentID: 'R12343',
+    //     serviceID: 'test',
+    //     isLiveStream: false,
+    //     playbackProcess: 1.0,
+    //   });
+    // }
+
     if (Platform.OS === 'android') {
       const { Device } = NativeModules;
       const eventEmitterDevice = new NativeEventEmitter(Device);

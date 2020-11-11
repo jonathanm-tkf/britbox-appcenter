@@ -130,11 +130,12 @@ export default ({ onTrackEvent }: Props) => {
             device_name: device,
           });
 
-          onTrackEvent({
-            type: 'trackPageView',
-            user,
-            terms,
-          });
+          if (terms?.page !== '.page')
+            onTrackEvent({
+              type: 'trackPageView',
+              user,
+              terms,
+            });
         }
 
         // Save the current route name for later comparision

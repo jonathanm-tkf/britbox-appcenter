@@ -19,7 +19,7 @@ export const Container = styled.View`
 
 export const CenterLogoWrapper = styled.View`
   position: absolute;
-  width: ${width}px;
+  width: ${(props: { width: number }) => props.width || width}px;
   align-items: center;
 `;
 

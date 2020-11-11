@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useEffect, useState } from 'react';
+import { Dimensions } from 'react-native';
 
 import { Button } from '@components/Button';
 import { useTranslation } from 'react-i18next';
@@ -50,6 +51,7 @@ export default function Header({ hideSignIn, shadow, isCenter, onPressSignIn, st
   const menu = useSelector((state: AppState) => state.core.menu?.navigation?.header); // TODO: get data from properties
   const { navigate } = useNavigation();
   const [menuItems, setMenuItems] = useState<MenuItem[]>([]);
+  const [screenData, setScreenData] = useState(Dimensions.get('window'));
 
   useEffect(() => {
     // TODO: after get all properties remove this effect
@@ -75,11 +77,21 @@ export default function Header({ hideSignIn, shadow, isCenter, onPressSignIn, st
     navigate(goTo);
   };
 
+  useEffect(() => {
+    const onChange = (result: any) => {
+      setScreenData(result.screen);
+    };
+
+    Dimensions.addEventListener('change', onChange);
+
+    return () => Dimensions.removeEventListener('change', onChange);
+  });
+
   return (
     <Container style={style}>
       {isCenter ? (
         <>
-          <CenterLogoWrapper>
+          <CenterLogoWrapper width={screenData.width}>
             <Logo />
           </CenterLogoWrapper>
           <Content />
