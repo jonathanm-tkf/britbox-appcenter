@@ -1,14 +1,16 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { Dimensions } from 'react-native';
 
 import { Button } from '@components/Button';
 import { useTranslation } from 'react-i18next';
 import { useSelector, useDispatch } from 'react-redux';
 import { AppState } from '@store/modules/rootReducer';
-import { useNavigation } from 'react-navigation-hooks';
-import { logout } from '@store/modules/user/actions';
 import Animated from 'react-native-reanimated';
-import { Container, Logo, LinksList, Gradient } from './styles';
+import { useNavigation } from '@react-navigation/native';
+import { navigateByPath } from '@src/navigation/rootNavigation';
+import { atiEventTracking } from '@store/modules/layout/actions';
+import { Container, Logo, LinksList, Gradient, CenterLogoWrapper, Content } from './styles';
 
 interface DataElement {
   text: string;
@@ -28,30 +30,75 @@ function Item({ text, goTo, onPressTouch }: DataElement) {
   );
 }
 
-interface Item {
-  id: string;
-}
 interface Props {
   hideSignIn?: boolean;
   shadow?: boolean;
+  isCenter?: boolean;
+  onPressSignIn?: () => void;
+  style?: any;
 }
 
-export default function Header({ hideSignIn, shadow }: Props) {
-  const { t } = useTranslation('layout');
-  const isLogged = useSelector((state: AppState) => state.core.isLogged);
-  const { navigate } = useNavigation();
-  const dispatch = useDispatch();
+type MenuItem = {
+  id: string;
+  text: string;
+  goTo: string;
+};
 
-  const toggleSignIn = (value: boolean, goTo?: string) => {
-    if (value && goTo) {
-      navigate(goTo);
-    } else {
-      dispatch(logout());
+export default function Header({ hideSignIn, shadow, isCenter, onPressSignIn, style }: Props) {
+  const dispatch = useDispatch();
+  const { t } = useTranslation('layout');
+  const isLogged = useSelector((state: AppState) => state.user.isLogged);
+  const menu = useSelector((state: AppState) => state.core.menu?.navigation?.header); // TODO: get data from properties
+  const { navigate } = useNavigation();
+  const [menuItems, setMenuItems] = useState<MenuItem[]>([]);
+  const [screenData, setScreenData] = useState(Dimensions.get('window'));
+
+  useEffect(() => {
+    // TODO: after get all properties remove this effect
+    if (menu && menu.length > 0) {
+      const items = menu
+        .filter((item) => item.label !== 'Explore' && item.label !== 'Help')
+        .map((item, index) => {
+          return {
+            id: index.toString(),
+            text: item.label,
+            goTo: item?.path || '',
+          };
+        });
+
+      setMenuItems(items);
     }
+  }, [menu]);
+
+  const toggleSignIn = (goTo: string) => {
+    if (onPressSignIn) {
+      onPressSignIn();
+    }
+    navigate(goTo);
   };
+
+  useEffect(() => {
+    const onChange = (result: any) => {
+      setScreenData(result.screen);
+    };
+
+    Dimensions.addEventListener('change', onChange);
+
+    return () => Dimensions.removeEventListener('change', onChange);
+  });
+
   return (
-    <Container>
-      <Logo />
+    <Container style={style}>
+      {isCenter ? (
+        <>
+          <CenterLogoWrapper width={screenData.width}>
+            <Logo />
+          </CenterLogoWrapper>
+          <Content />
+        </>
+      ) : (
+        <Logo />
+      )}
       {!hideSignIn && (
         <Animated.View>
           {!isLogged ? (
@@ -68,25 +115,30 @@ export default function Header({ hideSignIn, shadow }: Props) {
                 <Item
                   text={item.text}
                   goTo={item.goTo}
-                  onPressTouch={(value) => toggleSignIn(value, item.goTo)}
+                  onPressTouch={() => toggleSignIn(item.goTo)}
                 />
               )}
             />
           ) : (
             <LinksList
-              data={[
-                {
-                  id: '2',
-                  text: t('logout'),
-                  goTo: 'Logout',
-                },
-              ]}
+              data={menuItems}
               keyExtractor={(item: any) => item.id}
               renderItem={({ item }: any) => (
                 <Item
                   text={item.text}
                   goTo={item.goTo}
-                  onPressTouch={(value) => toggleSignIn(value)}
+                  onPressTouch={() => {
+                    navigateByPath({ path: item.goTo });
+                    dispatch(
+                      atiEventTracking('select', item.text.toLocaleLowerCase(), {
+                        is_background: false,
+                        container: 'Application',
+                        result: item.text,
+                        source: 'Britbox~App',
+                        metadata: '',
+                      })
+                    );
+                  }}
                 />
               )}
             />

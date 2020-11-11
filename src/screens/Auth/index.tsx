@@ -1,40 +1,28 @@
-/* eslint-disable react/prop-types */
-import React, { useEffect, useState } from 'react';
-
+import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import Header from '@components/Header';
-import { ThemeProvider } from 'styled-components/native';
-import Orientation from 'react-native-orientation-locker';
-import { ThemeProps } from '@store/modules/theme/types';
-import { useIsFocused } from 'react-navigation-hooks';
+import { isTablet } from 'react-native-device-info';
 import Carousel from 'react-native-snap-carousel';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, SafeAreaView, Dimensions } from 'react-native';
 import { useTranslation } from 'react-i18next';
+import { AppState } from '@store/modules/rootReducer';
+import { useIsFocused } from '@react-navigation/native';
+import { navigate } from '@src/navigation/rootNavigation';
+import { atiEventTracking } from '@store/modules/layout/actions';
+import { getTextInConfigJSON } from '@src/utils/object';
 import {
-  Container,
   Button,
   Pagination,
-  Content,
   HeaderWrapper,
   PaginationWrapper,
   PaginationContent,
+  ScrollView,
+  Paragraph,
 } from './styles';
 import SliderEntry from './SliderEntry';
-import { sliderWidth, itemWidth } from './SliderEntry/styles';
-
-import WellcomeImage from '../../../assets/images/WelcomeApp.png';
-import AllDevice from '../../../assets/images/AllDevice.png';
-import CancelAnyTime from '../../../assets/images/CancelAnyTime.png';
-import MoreWatching from '../../../assets/images/MoreWatching.png';
-
-interface Props {
-  screenProps: {
-    theme: ThemeProps;
-  };
-}
 
 const styles = StyleSheet.create({
   slider: {
-    marginTop: 15,
     overflow: 'visible', // for custom animations
   },
   sliderContentContainer: {
@@ -42,40 +30,65 @@ const styles = StyleSheet.create({
   },
 });
 
-const Auth = ({ screenProps: { theme } }: Props) => {
+const Auth = () => {
   const isFocused = useIsFocused();
+  const deepLinkUrl = useSelector((state: AppState) => state.home.deepLinkUrl);
+  const { loading } = useSelector((state: AppState) => state.layout);
   const [sliderRef, setSliderRef] = useState(null);
   const [slider1ActiveSlide, setSlider1ActiveSlide] = useState(0);
+  const [screenData, setScreenData] = useState(Dimensions.get('window'));
+
   const { t } = useTranslation('auth');
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    Orientation.lockToPortrait();
-  }, []);
+    const onChange = (result: any) => {
+      setScreenData(result.screen);
+    };
+
+    Dimensions.addEventListener('change', onChange);
+
+    return () => Dimensions.removeEventListener('change', onChange);
+  });
+
+  const images = isTablet()
+    ? [
+        getTextInConfigJSON(['paywall', '0', 'imageURL-tablet'], ''),
+        getTextInConfigJSON(['paywall', '1', 'imageURL-tablet'], ''),
+        getTextInConfigJSON(['paywall', '2', 'imageURL-tablet'], ''),
+        getTextInConfigJSON(['paywall', '3', 'imageURL-tablet'], ''),
+      ]
+    : [
+        getTextInConfigJSON(['paywall', '0', 'imageURL'], ''),
+        getTextInConfigJSON(['paywall', '1', 'imageURL'], ''),
+        getTextInConfigJSON(['paywall', '2', 'imageURL'], ''),
+        getTextInConfigJSON(['paywall', '3', 'imageURL'], ''),
+      ];
 
   const ENTRIES = [
     {
-      title: t('slider1.title'),
-      subtitle: t('slider1.description'),
-      illustration: WellcomeImage,
-      titleWidth: '100%',
+      title: getTextInConfigJSON(['paywall', '0', 'title'], t('slider1.title')),
+      subtitle: getTextInConfigJSON(['paywall', '0', 'description'], t('slider1.description')),
+      illustration: (images && images[0]) || '',
+      titleWidth: '98%',
     },
     {
-      title: t('slider2.title'),
-      subtitle: t('slider2.description'),
-      illustration: AllDevice,
-      titleWidth: '60%',
+      title: getTextInConfigJSON(['paywall', '1', 'title'], t('slider2.title')),
+      subtitle: getTextInConfigJSON(['paywall', '1', 'description'], t('slider2.description')),
+      illustration: (images && images[1]) || '',
+      titleWidth: '98%',
     },
     {
-      title: t('slider3.title'),
-      subtitle: t('slider3.description'),
-      illustration: CancelAnyTime,
-      titleWidth: '100%',
+      title: getTextInConfigJSON(['paywall', '2', 'title'], t('slider3.title')),
+      subtitle: getTextInConfigJSON(['paywall', '2', 'description'], t('slider3.description')),
+      illustration: (images && images[2]) || '',
+      titleWidth: '98%',
     },
     {
-      title: t('slider4.title'),
-      subtitle: t('slider4.description'),
-      illustration: MoreWatching,
-      titleWidth: '100%',
+      title: getTextInConfigJSON(['paywall', '3', 'title'], t('slider4.title')),
+      subtitle: getTextInConfigJSON(['paywall', '3', 'description'], t('slider4.description')),
+      illustration: (images && images[3]) || '',
+      titleWidth: '98%',
     },
   ];
 
@@ -90,48 +103,79 @@ const Auth = ({ screenProps: { theme } }: Props) => {
     );
   };
 
-  return (
-    <ThemeProvider theme={theme}>
-      <Container>
-        <HeaderWrapper>
-          <Header hideSignIn={!isFocused} />
-        </HeaderWrapper>
-        <Content>
-          <Carousel
-            ref={(c: any) => setSliderRef(c)}
-            data={ENTRIES}
-            renderItem={renderItemWithParallax}
-            sliderWidth={sliderWidth}
-            itemWidth={itemWidth}
-            hasParallaxImages
-            firstItem={0}
-            inactiveSlideScale={1}
-            inactiveSlideOpacity={1}
-            // inactiveSlideShift={20}
-            containerCustomStyle={styles.slider}
-            contentContainerCustomStyle={styles.sliderContentContainer}
-            loop={false}
-            loopClonesPerSide={2}
-            autoplay={false}
-            onSnapToItem={(index: number) => setSlider1ActiveSlide(index)}
-          />
-          <PaginationWrapper>
-            <PaginationContent />
-            <Pagination
-              dotsLength={ENTRIES.length}
-              activeDotIndex={slider1ActiveSlide}
-              carouselRef={sliderRef || undefined}
-              tappableDots={!!sliderRef}
-            />
-          </PaginationWrapper>
+  const onPressSignIn = () => {
+    dispatch(
+      atiEventTracking('Submit', 'Sign-IN', {
+        is_background: false,
+        container: 'Application',
+        result: '',
+        metadata: '',
+      })
+    );
+  };
 
-          <Button size="big" stretch onPress={() => {}}>
-            {t('freetrial')}
+  const navigateToSignUp = () => {
+    dispatch(
+      atiEventTracking('submit', 'bb_sub_flow', {
+        is_background: false,
+        container: 'Application',
+        result: 'Free Trial',
+        source: 'Britbox~App',
+        metadata: '',
+      })
+    );
+    navigate('SignUp');
+  };
+
+  useEffect(() => {
+    if (deepLinkUrl) {
+      setTimeout(() => {
+        navigate('Login');
+      }, 200);
+    }
+  }, [deepLinkUrl]);
+
+  return !loading ? (
+    <>
+      <HeaderWrapper>
+        <Header hideSignIn={!isFocused} isCenter onPressSignIn={() => onPressSignIn()} />
+      </HeaderWrapper>
+      <ScrollView>
+        <Carousel
+          ref={(c: any) => setSliderRef(c)}
+          data={ENTRIES}
+          renderItem={renderItemWithParallax}
+          sliderWidth={screenData.width}
+          itemWidth={screenData.width}
+          hasParallaxImages
+          firstItem={0}
+          inactiveSlideScale={1}
+          inactiveSlideOpacity={1}
+          containerCustomStyle={styles.slider}
+          contentContainerCustomStyle={styles.sliderContentContainer}
+          loop={false}
+          loopClonesPerSide={2}
+          autoplay={false}
+          onSnapToItem={(index: number) => setSlider1ActiveSlide(index)}
+        />
+        <PaginationWrapper>
+          <PaginationContent />
+          <Pagination
+            dotsLength={ENTRIES.length}
+            activeDotIndex={slider1ActiveSlide}
+            carouselRef={sliderRef || undefined}
+            tappableDots={!!sliderRef}
+          />
+        </PaginationWrapper>
+        <SafeAreaView>
+          <Button size="big" fontWeight="medium" stretch onPress={() => navigateToSignUp()}>
+            {getTextInConfigJSON(['paywall', '4', 'cta'], t('freetrial'))}
           </Button>
-        </Content>
-      </Container>
-    </ThemeProvider>
-  );
+          <Paragraph>{getTextInConfigJSON(['pricing-marketing', 'pricing-message'], '')}</Paragraph>
+        </SafeAreaView>
+      </ScrollView>
+    </>
+  ) : null;
 };
 
 export default Auth;

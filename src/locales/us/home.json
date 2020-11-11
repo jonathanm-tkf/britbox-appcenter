@@ -1,0 +1,17 @@
+{
+  "season": "{{count}} Season",
+  "season_plural": "{{count}} Seasons",
+  "keyWithCount": "{{count}} item",
+  "keyWithCount_plural": "{{count}} items",
+  "show": "Show",
+  "movie": "Movie",
+  "continue": "Continue Watching",
+  "playnow": "Play Now",
+  "remove": {
+    "title": "Remove from your Continue Watching?",
+    "button": {
+      "ok": "Yes, remove",
+      "cancel": "Cancel"
+    }
+  }
+}

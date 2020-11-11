@@ -1,4 +1,6 @@
+/* eslint-disable consistent-return */
 import produce from 'immer';
+import { pickBy } from 'lodash';
 import { Reducer } from 'redux';
 import { UserState, UserActionTypes } from './types';
 
@@ -10,6 +12,7 @@ export const initialState: UserState = {
     name: '',
   },
   access: undefined,
+  profile: undefined,
 };
 
 const user: Reducer<UserState> = (state = initialState, action) => {
@@ -24,6 +27,7 @@ const user: Reducer<UserState> = (state = initialState, action) => {
         draft.error = false;
         draft.access = action.payload;
         break;
+      case UserActionTypes.LOGIN_REQUEST_FAILURE:
       case UserActionTypes.LOGIN_REQUEST_ERROR:
         draft.isLogged = false;
         draft.loading = false;
@@ -31,13 +35,117 @@ const user: Reducer<UserState> = (state = initialState, action) => {
         draft.access = action.payload;
         break;
       case UserActionTypes.LOGIN_REQUEST_ERROR_CLEAR:
+        draft.loading = false;
         draft.error = false;
         draft.access = undefined;
         break;
-      case UserActionTypes.LOGOUT:
+      case UserActionTypes.LOGOUT_SUCCESS:
         draft.isLogged = false;
         draft.access = undefined;
+        draft.profile = undefined;
         break;
+      case UserActionTypes.PROFILE_REQUEST_SUCCESS:
+        draft.profile = {
+          ...action.payload,
+          bookmarkPendingProccesing: undefined,
+        };
+        break;
+      case UserActionTypes.REFRESH_TOKEN_SUCCESS:
+      case UserActionTypes.REGISTER_REQUEST_SUCCESS:
+        draft.access = action.payload;
+        break;
+      case UserActionTypes.LOGGEDIN_REQUEST:
+        draft.isLogged = true;
+        draft.loading = false;
+        draft.error = false;
+        break;
+      case UserActionTypes.WATCHLIST_TOGGLE_REQUEST: {
+        const profile = {
+          ...state.profile,
+          bookmarkPendingProccesing: action.payload.itemId,
+        };
+        draft.profile = profile;
+        break;
+      }
+      case UserActionTypes.WATCHLIST_TOGGLE_REQUEST_REMOVE: {
+        const profile = {
+          ...state.profile,
+          bookmarkList: {
+            ...state.profile.bookmarkList,
+            items: state.profile.bookmarkList.items.filter(
+              (item: { type: string; id: string; showId: string }) =>
+                parseInt(item.type === 'season' ? item.showId : item.id, 10) !==
+                parseInt(action.payload.itemId, 10)
+            ),
+          },
+          bookmarkPendingProccesing: undefined,
+        };
+        draft.profile = profile;
+        break;
+      }
+      case UserActionTypes.WATCHLIST_TOGGLE_REQUEST_ADD: {
+        const { externalResponse, itemDetail } = action.payload;
+        const { itemId: id, creationDate: date } = externalResponse;
+        const profile = {
+          ...state.profile,
+          bookmarks: {
+            [id]: date,
+            ...state.profile.bookmarks,
+          },
+          bookmarkList: {
+            ...state.profile.bookmarkList,
+            items: [{ date, ...itemDetail }, ...(state.profile.bookmarkList.items || [])],
+          },
+          bookmarkPendingProccesing: undefined,
+        };
+
+        draft.profile = profile;
+        break;
+      }
+      case UserActionTypes.CONTINUE_WATCHING_REMOVE_REQUEST_SUCCESS: {
+        const profile = {
+          ...state.profile,
+          watched: pickBy(state.profile.watched, (value, key) => {
+            if (key !== action.payload.itemId) {
+              return { [key]: value };
+            }
+          }),
+          watchedList: {
+            ...state.profile.watchedList,
+            items: state.profile.watchedList.items.filter(
+              (item: { id: string }) =>
+                parseInt(item.id, 10) !== parseInt(action.payload.itemId, 10)
+            ),
+          },
+        };
+        draft.profile = profile;
+        break;
+      }
+      case UserActionTypes.PROFILE_PARENTAL_CONTROL_ON: {
+        const profile = {
+          ...state.profile,
+          parentalControl: true,
+        };
+        draft.profile = profile;
+        break;
+      }
+      case UserActionTypes.PROFILE_PARENTAL_CONTROL_OFF: {
+        const profile = {
+          ...state.profile,
+          parentalControl: false,
+        };
+        draft.profile = profile;
+        break;
+      }
+      case UserActionTypes.CONTINUE_WATCHING_REQUEST_SUCCESS: {
+        const profile = {
+          ...state.profile,
+          watched: action.payload.watched.externalResponse,
+          watchedList: action.payload.watchedList.externalResponse,
+        };
+        draft.profile = profile;
+        break;
+      }
       default:
         break;
     }

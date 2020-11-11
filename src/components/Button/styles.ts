@@ -1,5 +1,6 @@
 import styled from 'styled-components/native';
 import { ThemeState } from '@store/modules/theme/types';
+import { normalize } from '@src/utils/normalize';
 import { ButtonProps, ButtonTextProps } from './props';
 
 export const Button = styled.TouchableOpacity.attrs({
@@ -9,8 +10,12 @@ export const Button = styled.TouchableOpacity.attrs({
   border-radius: 10px;
   padding: 10px 20px;
   align-self: center;
+
   ${(props: ButtonProps & ThemeState) => {
     return props.opaque && `background-color: ${props.theme.PRIMARY_COLOR};`;
+  }};
+  ${(props: ButtonProps & ThemeState) => {
+    return props.secondary && `background-color: ${props.theme.SECONDARY_COLOR_LIGHT};`;
   }};
   ${(props: ButtonProps & ThemeState) => {
     return (
@@ -19,6 +24,15 @@ export const Button = styled.TouchableOpacity.attrs({
       background-color: transparent;
       border-width: 1px;
       border-color: ${props.theme.SECONDARY_COLOR};
+    `
+    );
+  }};
+
+  ${(props: ButtonProps & ThemeState) => {
+    return (
+      props.disabled &&
+      `
+      opacity: 0.7;
     `
     );
   }};
@@ -93,8 +107,24 @@ export const ButtonText = styled.Text`
     return (
       props.size === 'big' &&
       `
+      font-size: ${normalize(14, 18)}px;
+    `
+    );
+  }};
+  ${(props: ButtonTextProps & ThemeState) => {
+    return (
+      props.fontWeight === 'medium' &&
+      `
       font-family: ${props.theme.PRIMARY_FONT_FAMILY_MEDIUM};
-      font-size: 18px;
+    `
+    );
+  }};
+  ${(props: ButtonTextProps & ThemeState) => {
+    return (
+      props.fontWeight === 'bold' &&
+      `
+      font-family: ${props.theme.PRIMARY_FONT_FAMILY_BOLD};
+      font-size: ${normalize(14, 18)}px;
     `
     );
   }};

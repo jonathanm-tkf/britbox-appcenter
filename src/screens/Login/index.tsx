@@ -1,19 +1,22 @@
-/* eslint-disable react/no-unescaped-entities */
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from 'react';
-import { KeyboardAvoidingView, Platform } from 'react-native';
-
-import { ThemeProvider } from 'styled-components/native';
+import { KeyboardAvoidingView, Platform, TouchableOpacity, Keyboard, Linking } from 'react-native';
 import { Button } from '@components/Button';
 import { Input } from '@components/Input';
 import { useDispatch, useSelector } from 'react-redux';
 import { loginRequest, loginRequestErrorClear } from '@store/modules/user/actions';
+import { atiEventTracking } from '@store/modules/layout/actions';
+import { forgotPasswordRequest } from '@store/modules/user/saga';
 import { AppState } from '@store/modules/rootReducer';
-import { ThemeProps } from '@store/modules/theme/types';
 import { EvergentLoginResponseError } from '@store/modules/user/types';
-import Orientation from 'react-native-orientation-locker';
+import { getTextInConfigJSON } from '@src/utils/object';
 import { CloseIcon } from '@assets/icons';
-import { useNavigation } from 'react-navigation-hooks';
 import { useTranslation } from 'react-i18next';
+import { useNavigation } from '@react-navigation/native';
+import ModalCustom from '@components/ModalCustom';
+import { validateEmail } from '@src/utils/validations';
+import { ThemeProps } from '@store/modules/theme/types';
+import { withTheme } from 'styled-components';
 import {
   Container,
   ErrorText,
@@ -25,29 +28,42 @@ import {
   Wrapper,
   SuscribeText,
   Gradient,
+  ForgotContainer,
+  ForgotText,
+  ForgotModalContainer,
+  ModalTitle,
+  ModalSubTitle,
+  EmailLink,
+  GradientWrapper,
+  FooterTitle,
+  EmailTitle,
 } from './styles';
-
-interface Props {
-  screenProps: {
-    theme: ThemeProps;
-  };
-}
 
 const flex = {
   flex: 1,
 };
 
 const suscribeStyle = { paddingLeft: 65, paddingRight: 65, marginTop: 30 };
+const cancelStyle = { marginTop: 20, marginBottom: 10 };
 
-const Login = ({ screenProps: { theme } }: Props) => {
+type Props = {
+  readonly theme: ThemeProps;
+};
+
+const Login = ({ theme }: Props) => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
-  const { t } = useTranslation('signin');
+  const { t } = useTranslation(['signin', 'signup']);
 
-  const [user, setUser] = useState('maximilianor@takeoffmedia.com');
-  const [password, setPassword] = useState('8Ub4cYAiM77EzJY');
-  // const [user, setUser] = useState('');
-  // const [password, setPassword] = useState('');
+  const [user, setUser] = useState(__DEV__ ? 'maximilianor@takeoffmedia.com' : '');
+  const [password, setPassword] = useState(__DEV__ ? '8Ub4cYAiM77EzJY' : '');
+
+  const [forgotEmail, setForgotEmail] = useState('');
+  const [isForgotModalLoading, setIsForgotModalLoading] = useState(false);
+  const [isForgotModalSuccess, setIsForgotModalSuccess] = useState(false);
+  const [isForgotModalVisible, setIsForgotModalVisible] = useState(false);
+
+  const [isDisabled, setIsDisabled] = useState(true);
 
   const loading = useSelector((state: AppState) => state.user.loading);
   const { error: errorState, access } = useSelector((state: AppState) => state.user);
@@ -62,31 +78,23 @@ const Login = ({ screenProps: { theme } }: Props) => {
   }>({
     text: '',
   });
+  const [errorForgotEmail, setErrorForgotEmail] = useState<{
+    text: string;
+  }>({
+    text: '',
+  });
 
   const error = {
-    text: 'Field is required',
+    text: ' ',
   };
 
   const login = () => {
-    const hasErrorUsername = user.trim() === '';
-    const hasErrorPassword = password.trim() === '';
+    const hasErrorUsername = doValidateUsername();
+    const hasErrorPassword = doValidatePassword();
 
-    setErrorUsername(
-      hasErrorUsername
-        ? error
-        : {
-            text: '',
-          }
-    );
-    setErrorPassword(
-      hasErrorPassword
-        ? error
-        : {
-            text: '',
-          }
-    );
-
-    if (!hasErrorUsername && !hasErrorPassword) {
+    if (hasErrorUsername && hasErrorPassword) {
+      Keyboard.dismiss();
+      dispatch(loginRequestErrorClear());
       dispatch(
         loginRequest({
           user,
@@ -96,91 +104,334 @@ const Login = ({ screenProps: { theme } }: Props) => {
     }
   };
 
-  useEffect(() => {
-    if (user.trim() !== '') {
-      setErrorUsername({
-        text: '',
-      });
+  const doValidateUsername = () => {
+    const hasErrorUsername = user.trim() === '';
+    const hasErrorValidUsername = !validateEmail(user.trim());
+
+    setErrorUsername(
+      hasErrorUsername
+        ? error
+        : {
+            text: '',
+          }
+    );
+
+    if (!hasErrorUsername) {
+      setErrorUsername(
+        hasErrorValidUsername
+          ? {
+              text: getTextInConfigJSON(
+                ['account-details', 'validation', 'messages', 'email-invalid'],
+                ''
+              ),
+            }
+          : {
+              text: '',
+            }
+      );
     }
-    if (password.trim() !== '') {
-      setErrorPassword({
-        text: '',
-      });
+
+    if (!hasErrorUsername && !hasErrorValidUsername) {
+      return true;
+    }
+
+    return false;
+  };
+
+  const doValidatePassword = () => {
+    const hasErrorPassword = password.trim() === '';
+
+    setErrorPassword(
+      hasErrorPassword
+        ? error
+        : {
+            text: '',
+          }
+    );
+
+    if (!hasErrorPassword) {
+      return true;
+    }
+
+    return false;
+  };
+
+  useEffect(() => {
+    if (doValidateUsername() && doValidatePassword()) {
+      setIsDisabled(false);
     }
 
     if (errorState) {
       dispatch(loginRequestErrorClear());
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user, password]);
 
   useEffect(() => {
-    Orientation.lockToPortrait();
+    doValidateUsername();
+  }, [user]);
+
+  useEffect(() => {
+    doValidatePassword();
+  }, [password]);
+
+  useEffect(() => {
+    doValidateForgotEmail();
+  }, [forgotEmail]);
+
+  useEffect(() => {
+    setErrorForgotEmail({
+      text: '',
+    });
+    setForgotEmail('');
+    setIsForgotModalLoading(false);
+    setIsForgotModalSuccess(false);
+  }, [isForgotModalVisible]);
+
+  const doValidateForgotEmail = () => {
+    const hasErrorForgotEmail = forgotEmail.trim() === '';
+    const hasErrorValidEmail = !validateEmail(forgotEmail.trim());
+
+    setErrorForgotEmail(
+      hasErrorForgotEmail
+        ? error
+        : {
+            text: '',
+          }
+    );
+
+    if (!hasErrorForgotEmail) {
+      setErrorForgotEmail(
+        hasErrorValidEmail
+          ? {
+              text: getTextInConfigJSON(
+                ['account-details', 'validation', 'messages', 'email-invalid'],
+                ''
+              ),
+            }
+          : {
+              text: '',
+            }
+      );
+    }
+
+    if (!hasErrorForgotEmail && !hasErrorValidEmail) {
+      return true;
+    }
+
+    return false;
+  };
+
+  const forgorPassword = async () => {
+    const hasErrorEmail = doValidateForgotEmail();
+
+    if (hasErrorEmail) {
+      Keyboard.dismiss();
+      setIsForgotModalLoading(true);
+
+      const response = await forgotPasswordRequest({
+        email: forgotEmail,
+      });
+
+      if (response) {
+        const { response: responseData } = response;
+        if (responseData && Number(responseData.responseCode) === 1) {
+          setIsForgotModalSuccess(true);
+        } else {
+          setErrorForgotEmail({
+            text: responseData?.failureMessage[0]?.errorMessage || '',
+          });
+        }
+      }
+      setIsForgotModalLoading(false);
+    }
+  };
+
+  const navigateToSignUp = () => {
+    dispatch(
+      atiEventTracking('submit', 'bb_sub_flow', {
+        is_background: false,
+        container: 'Application',
+        result: 'Subscribe now',
+        source: 'Britbox~App',
+        metadata: '',
+      })
+    );
+    navigation.navigate('SignUp');
+  };
+
+  useEffect(() => {
+    setErrorUsername({
+      text: '',
+    });
+    setErrorPassword({
+      text: '',
+    });
+
+    dispatch(loginRequestErrorClear());
   }, []);
 
+  const contentContainer = {
+    flexgrow: 1,
+    backgroundColor: theme.PRIMARY_COLOR,
+  };
+
   return (
-    <ThemeProvider theme={theme}>
+    <>
       <CloseButton onPress={() => navigation.goBack()}>
         <CloseIcon width={32} height={32} />
       </CloseButton>
-      <Gradient>
-        <KeyboardAvoidingView style={flex} behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
-          <ScrollView bounces={false}>
+      <KeyboardAvoidingView style={flex} behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
+        <ScrollView style={contentContainer} keyboardShouldPersistTaps="handled" bounces={false}>
+          <Gradient>
             <Container>
               <TitleWrapper>
                 <Title>{t('signin')}</Title>
               </TitleWrapper>
-              {errorState && (
-                <ErrorText>
-                  {
-                    ((access as unknown) as EvergentLoginResponseError).failureMessage.reduce(
-                      (item) => item
-                    ).errorMessage
-                  }
-                </ErrorText>
-              )}
               <Input
-                label="Username"
+                label={t('signup:field.username')}
                 value={user}
+                autoCapitalize="none"
                 onChangeText={(text) => setUser(text)}
+                onBlur={() => doValidateUsername()}
                 error={errorUsername}
               />
               <Input
-                label="Password"
+                label={t('signup:field.password')}
                 value={password}
                 onChangeText={(text) => setPassword(text)}
+                onBlur={() => doValidatePassword()}
                 secureTextEntry
                 error={errorPassword}
               />
+              <ForgotContainer>
+                <TouchableOpacity activeOpacity={1} onPress={() => setIsForgotModalVisible(true)}>
+                  <ForgotText>{t('forgotpassword.title')}</ForgotText>
+                </TouchableOpacity>
+              </ForgotContainer>
+              {errorState && (
+                <ErrorText>
+                  {((access as unknown) as EvergentLoginResponseError)?.failureMessage?.reduce(
+                    (item) => item
+                  )?.errorCode === 'eV2134'
+                    ? getTextInConfigJSON(['login', 'error-messages', 'login-error'], t('error'))
+                    : ((access as unknown) as EvergentLoginResponseError)?.failureMessage?.reduce(
+                        (item) => item
+                      )?.errorCode === 'eV2327'
+                    ? getTextInConfigJSON(['login', 'error-messages', 'no-user'], t('error'))
+                    : ((access as unknown) as EvergentLoginResponseError)?.failureMessage?.reduce(
+                        (item) => item
+                      )?.errorMessage ||
+                      getTextInConfigJSON(['login', 'error-messages', 'error-message'], t('error'))}
+                </ErrorText>
+              )}
               <Button
                 onPress={() => login()}
                 stretch
+                disabled={isDisabled}
                 loading={loading}
                 size="big"
+                fontWeight="medium"
                 color={theme.PRIMARY_FOREGROUND_COLOR}
               >
-                Sign In
+                {getTextInConfigJSON(['login', 'ctas', '0'], '')}
               </Button>
             </Container>
-
             <Wrapper>
-              <Title>New to Britbox?</Title>
-              <Paragraph>
-                Glad you're here. Let's get you set with the best of British TV.
+              <Title>{getTextInConfigJSON(['login', 'title'], '')}</Title>
+              <Paragraph>{getTextInConfigJSON(['login', 'description'], '')}</Paragraph>
+              <Paragraph style={{ marginBottom: 0 }}>
+                {getTextInConfigJSON(['login', 'description-2'], '')}
               </Paragraph>
-              <Paragraph>
-                Star your 7-day FREE trial, then just $6.99/month or %69.99/year
-              </Paragraph>
-
-              <Button outline size="big" style={suscribeStyle} onPress={() => {}}>
-                <SuscribeText>Suscribe now</SuscribeText>
+              <Button
+                outline
+                size="big"
+                fontWeight="medium"
+                style={suscribeStyle}
+                onPress={() => navigateToSignUp()}
+              >
+                <SuscribeText>{getTextInConfigJSON(['login', 'ctas', '1'], '')}</SuscribeText>
               </Button>
             </Wrapper>
-          </ScrollView>
-        </KeyboardAvoidingView>
-      </Gradient>
-    </ThemeProvider>
+
+            <GradientWrapper>
+              <FooterTitle>{getTextInConfigJSON(['customer-service', 'title'], '')}</FooterTitle>
+              <EmailTitle
+                onPress={() =>
+                  Linking.openURL(`${getTextInConfigJSON(['customer-service', 'link-url'], '')}`)
+                }
+              >
+                {getTextInConfigJSON(['customer-service', 'link'], '')}
+              </EmailTitle>
+            </GradientWrapper>
+          </Gradient>
+        </ScrollView>
+      </KeyboardAvoidingView>
+      <ModalCustom isVisible={isForgotModalVisible} onClose={() => setIsForgotModalVisible(false)}>
+        <ForgotModalContainer>
+          <ModalTitle>{t('forgotpassword.title')}</ModalTitle>
+          {isForgotModalSuccess ? (
+            <>
+              <ModalSubTitle>
+                {getTextInConfigJSON(['login', 'forgot-password', 'post-message'], '').split(
+                  '[EMAIL-ADDRESS]'
+                )[0] || t('forgotpassword.description1')}
+                <EmailLink>{forgotEmail}</EmailLink>
+                {getTextInConfigJSON(['login', 'forgot-password', 'post-message'], '').split(
+                  '[EMAIL-ADDRESS]'
+                )[1] || t('forgotpassword.description2')}
+              </ModalSubTitle>
+              <Button
+                onPress={() => setIsForgotModalVisible(false)}
+                stretch
+                size="big"
+                fontWeight="medium"
+                style={cancelStyle}
+                color={theme.PRIMARY_FOREGROUND_COLOR}
+              >
+                {t('forgotpassword.okgotit')}
+              </Button>
+            </>
+          ) : (
+            <>
+              <ModalSubTitle>
+                {getTextInConfigJSON(
+                  ['login', 'forgot-password', 'pre-message'],
+                  t('forgotpassword.description3')
+                )}
+              </ModalSubTitle>
+              <Input
+                label={t('signup:field.email')}
+                value={forgotEmail}
+                onChangeText={(text) => setForgotEmail(text)}
+                onBlur={() => doValidateForgotEmail()}
+                error={errorForgotEmail}
+              />
+              <Button
+                onPress={() => forgorPassword()}
+                stretch
+                loading={isForgotModalLoading}
+                size="big"
+                fontWeight="medium"
+                color={theme.PRIMARY_FOREGROUND_COLOR}
+              >
+                {t('forgotpassword.submit')}
+              </Button>
+              <Button
+                outline
+                stretch
+                size="big"
+                fontWeight="medium"
+                style={cancelStyle}
+                onPress={() => setIsForgotModalVisible(false)}
+              >
+                {t('signup:cancel')}
+              </Button>
+            </>
+          )}
+        </ForgotModalContainer>
+      </ModalCustom>
+    </>
   );
 };
 
-export default Login;
+export default withTheme(Login);

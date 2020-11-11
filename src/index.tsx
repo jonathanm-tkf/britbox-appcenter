@@ -6,19 +6,22 @@ import { I18nextProvider } from 'react-i18next';
 import { Provider } from 'react-redux';
 
 import { PersistGate } from 'redux-persist/integration/react';
-// import AppNavigator from './navigation/routes';
 
 import './config/ReactotronConfig';
-import './config/SentryConfig';
 import { DefaultTheme, Provider as PaperProvider, configureFonts } from 'react-native-paper';
 import { lightTheme, base } from '@store/modules/theme/theme';
+import { LogBox } from 'react-native';
 import { persistor, store } from './store';
 import App from './App';
 import i18n from './services/i18next';
 
-// import { Container } from './styles';
-
 enableScreens();
+
+LogBox.ignoreLogs([
+  'CheckBox has been extracted from react-native core',
+  'No info about this app',
+  'rn-fetch-blob',
+]);
 
 type FontWeight =
   | 'normal'

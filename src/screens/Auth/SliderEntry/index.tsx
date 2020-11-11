@@ -1,29 +1,16 @@
 /* eslint-disable react/prop-types */
 import React, { Component } from 'react';
-import { View, Image } from 'react-native';
-import { ParallaxImage } from 'react-native-snap-carousel';
+import { View } from 'react-native';
+import FastImage from 'react-native-fast-image';
 import styles, { Subtitle, Title } from './styles';
 
 export default class SliderEntry extends Component {
   get image() {
     const {
       data: { illustration },
-      parallax,
-      parallaxProps,
     } = this.props;
 
-    return parallax ? (
-      <ParallaxImage
-        source={{ uri: illustration }}
-        style={styles.image}
-        parallaxFactor={0.35}
-        showSpinner
-        spinnerColor="rgba(255, 255, 255, 1)"
-        {...parallaxProps}
-      />
-    ) : (
-      <Image source={illustration} style={styles.image} />
-    );
+    return <FastImage source={{ uri: illustration }} style={styles.image} resizeMode="contain" />;
   }
 
   render() {

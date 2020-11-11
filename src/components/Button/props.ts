@@ -2,6 +2,7 @@ import React from 'react';
 
 export interface ButtonProps {
   opaque?: boolean;
+  secondary?: boolean;
   outline?: boolean;
   link?: boolean;
   children: React.ReactNode;
@@ -10,9 +11,11 @@ export interface ButtonProps {
   color?: string;
   stretch?: boolean;
   size?: 'small' | 'medium' | 'big';
+  fontWeight?: 'normal' | 'medium' | 'bold';
   loading?: boolean;
   style?: any;
   rest?: any;
+  disabled?: boolean;
 }
 
 export interface ButtonTextProps {
@@ -22,4 +25,5 @@ export interface ButtonTextProps {
   color?: string;
   stretch?: boolean;
   size?: 'small' | 'medium' | 'big';
+  fontWeight?: 'normal' | 'medium' | 'bold';
 }

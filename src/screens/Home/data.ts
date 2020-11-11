@@ -1,7 +1,7 @@
 /* eslint-disable max-len */
 export interface Element {
   id: string;
-  template: 'hero' | 'new' | 'carousel' | 'episodes';
+  template: 'hero' | 'new' | 'carousel' | 'episodes' | 'user-watching';
   title?: string;
   item?: any;
   items?: any[];
@@ -15,6 +15,10 @@ export const items: Element[] = [
       id: '1',
       url: 'https://cdn.europosters.eu/image/750/posters/sherlock-series-4-iconic-i33910.jpg',
     },
+  },
+  {
+    id: 'user-watching',
+    template: 'user-watching',
   },
   {
     id: 'new',
@@ -213,5 +217,165 @@ export const items: Element[] = [
           'https://img.reelgood.com/content/show/d77f6ae5-f4cc-4c4d-8e84-8e9725e64758/poster-780.jpg',
       },
     ],
+  },
+];
+
+export const continueWatchingItems = [
+  {
+    url:
+      'https://test.bbc-massive.com/isl/api/v1/dataservice/ResizeImage/$value?Format=%27jpg%27&Quality=85&ImageId=%27233178%27&EntityType=%27Item%27&EntityId=%277553%27&Width=1248&Height=702&device=web_browser&subscriptions=Subscriber&segmentationTags=us',
+
+    data: {
+      title: 'Casually 1900s: London Hospital more text extensive',
+      description: 'Season 3 - 4',
+      actionText: '56 min left',
+      category: [
+        {
+          key: 1,
+          label: 'TV - PG',
+          bold: false,
+        },
+        {
+          key: 2,
+          label: 'CC',
+          bold: false,
+        },
+        {
+          key: 3,
+          label: 'HD',
+          bold: true,
+        },
+      ],
+    },
+  },
+  {
+    url:
+      'https://test.bbc-massive.com/isl/api/v1/dataservice/ResizeImage/$value?Format=%27jpg%27&Quality=85&ImageId=%27233178%27&EntityType=%27Item%27&EntityId=%277553%27&Width=1248&Height=702&device=web_browser&subscriptions=Subscriber&segmentationTags=us',
+    data: {
+      title: 'Coronation Street',
+      description: 'Season 1 - 2',
+      actionText: '20 min left',
+      category: [
+        {
+          key: 1,
+          label: 'TV - PG',
+          bold: false,
+        },
+        {
+          key: 2,
+          label: 'CC',
+          bold: false,
+        },
+        {
+          key: 3,
+          label: 'HD',
+          bold: true,
+        },
+      ],
+    },
+  },
+  {
+    url:
+      'https://test.bbc-massive.com/isl/api/v1/dataservice/ResizeImage/$value?Format=%27jpg%27&Quality=85&ImageId=%27233178%27&EntityType=%27Item%27&EntityId=%277553%27&Width=1248&Height=702&device=web_browser&subscriptions=Subscriber&segmentationTags=us',
+    data: {
+      title: 'Emmeralde',
+      description: 'Season 2 - 1',
+      actionText: '19 min left',
+      category: [
+        {
+          key: 1,
+          label: 'TV - PG',
+          bold: false,
+        },
+        {
+          key: 2,
+          label: 'CC',
+          bold: false,
+        },
+        {
+          key: 3,
+          label: 'HD',
+          bold: true,
+        },
+      ],
+    },
+  },
+  {
+    url:
+      'https://test.bbc-massive.com/isl/api/v1/dataservice/ResizeImage/$value?Format=%27jpg%27&Quality=85&ImageId=%27233178%27&EntityType=%27Item%27&EntityId=%277553%27&Width=1248&Height=702&device=web_browser&subscriptions=Subscriber&segmentationTags=us',
+    data: {
+      title: 'Coronation Street',
+      description: 'Casualty 1906 - 1',
+      actionText: '56 min left',
+      category: [
+        {
+          key: 1,
+          label: 'TV - PG',
+          bold: false,
+        },
+        {
+          key: 2,
+          label: 'CC',
+          bold: false,
+        },
+        {
+          key: 3,
+          label: 'HD',
+          bold: true,
+        },
+      ],
+    },
+  },
+  {
+    url:
+      'https://test.bbc-massive.com/isl/api/v1/dataservice/ResizeImage/$value?Format=%27jpg%27&Quality=85&ImageId=%27233178%27&EntityType=%27Item%27&EntityId=%277553%27&Width=1248&Height=702&device=web_browser&subscriptions=Subscriber&segmentationTags=us',
+    data: {
+      title: 'Coronation Street',
+      description: 'Casualty 1906 - 1',
+      actionText: '56 min left',
+      category: [
+        {
+          key: 1,
+          label: 'TV - PG',
+          bold: false,
+        },
+        {
+          key: 2,
+          label: 'CC',
+          bold: false,
+        },
+        {
+          key: 3,
+          label: 'HD',
+          bold: true,
+        },
+      ],
+    },
+  },
+  {
+    url:
+      'https://test.bbc-massive.com/isl/api/v1/dataservice/ResizeImage/$value?Format=%27jpg%27&Quality=85&ImageId=%27233178%27&EntityType=%27Item%27&EntityId=%277553%27&Width=1248&Height=702&device=web_browser&subscriptions=Subscriber&segmentationTags=us',
+    data: {
+      title: 'Coronation Street',
+      description: 'Casualty 1906 - 1',
+      actionText: '56 min left',
+      category: [
+        {
+          key: 1,
+          label: 'TV - PG',
+          bold: false,
+        },
+        {
+          key: 2,
+          label: 'CC',
+          bold: false,
+        },
+        {
+          key: 3,
+          label: 'HD',
+          bold: true,
+        },
+      ],
+    },
   },
 ];

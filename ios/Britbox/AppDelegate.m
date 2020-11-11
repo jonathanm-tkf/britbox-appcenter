@@ -5,8 +5,14 @@
 #import <React/RCTBundleURLProvider.h>
 #import <React/RCTRootView.h>
 #import "Orientation.h"
+#import <GoogleCast/GoogleCast.h>
+#import <React/RCTLinkingManager.h>
+#import <RNHomeIndicator.h>
+#import <AppCenterReactNative.h>
+#import <AppCenterReactNativeAnalytics.h>
+#import <AppCenterReactNativeCrashes.h>
 
-#if DEBUG && TARGET_OS_SIMULATOR
+#ifdef FB_SONARKIT_ENABLED
 #import <FlipperKit/FlipperClient.h>
 #import <FlipperKitLayoutPlugin/FlipperKitLayoutPlugin.h>
 #import <FlipperKitUserDefaultsPlugin/FKUserDefaultsPlugin.h>
@@ -33,7 +39,7 @@ static void InitializeFlipper(UIApplication *application) {
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-#if DEBUG && TARGET_OS_SIMULATOR
+#ifdef FB_SONARKIT_ENABLED
   InitializeFlipper(application);
 #endif
 
@@ -45,25 +51,56 @@ static void InitializeFlipper(UIApplication *application) {
   rootView.backgroundColor = [UIColor colorWithRed: 0.09 green: 0.11 blue: 0.14 alpha: 1.00];
 
   self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
-  UIViewController *rootViewController = [UIViewController new];
+  UIViewController *rootViewController = [HomeIndicatorViewController new];
   rootViewController.view = rootView;
   self.window.rootViewController = rootViewController;
   [self.window makeKeyAndVisible];
 
-  UIView* launchScreenView = [[[NSBundle mainBundle] loadNibNamed:@"LaunchScreen" owner:self options:nil] objectAtIndex:0];
-  launchScreenView.frame = self.window.bounds;
-  rootView.loadingView = launchScreenView;
+  UIStoryboard *sb = [UIStoryboard storyboardWithName:@"LaunchScreen" bundle:nil];
+  UIViewController *vc = [sb instantiateInitialViewController];
+  rootView.loadingView = vc.view;
 
+  GCKDiscoveryCriteria *criteria = [[GCKDiscoveryCriteria alloc] initWithApplicationID:@"01F2D9B4"];
+  GCKCastOptions* options = [[GCKCastOptions alloc] initWithDiscoveryCriteria:criteria];
+  options.physicalVolumeButtonsWillControlDeviceVolume = YES;
+  //options.disableDiscoveryAutostart = NO;
+  [GCKCastContext setSharedInstanceWithOptions:options];
+  //GCKDiscoveryManager *discoverManager = [GCKDiscoveryManager init];
+  //void pepe = discoverManager.startDiscovery();
+  //[[GCKDiscoveryManager alloc] startDiscovery];
+  GCKDiscoveryManager *discoverManager = [GCKDiscoveryManager alloc];
+  [discoverManager startDiscovery];
+  [GCKUICastButton appearance].tintColor = [UIColor grayColor];
+  // [GCKCastContext sharedInstance].useDefaultExpandedMediaControls = YES;
+
+  [AppCenterReactNative register];
+  [AppCenterReactNativeAnalytics registerWithInitiallyEnabled:true];
+  [AppCenterReactNativeCrashes registerWithAutomaticProcessing];
   return YES;
 }
 
 - (NSURL *)sourceURLForBridge:(RCTBridge *)bridge
 {
-  #if DEBUG
-    return [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index" fallbackResource:nil];
-  #else
-    return [CodePush bundleURL];
-  #endif
+#if DEBUG
+  return [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index" fallbackResource:nil];
+#else
+  return [CodePush bundleURL];
+#endif
+}
+
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url
+  sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
+{
+  return [RCTLinkingManager application:application openURL:url
+                      sourceApplication:sourceApplication annotation:annotation];
+}
+
+- (BOOL)application:(UIApplication *)application continueUserActivity:(NSUserActivity *)userActivity
+ restorationHandler:(void (^)(NSArray * _Nullable))restorationHandler
+{
+  return [RCTLinkingManager application:application
+                   continueUserActivity:userActivity
+                     restorationHandler:restorationHandler];
 }
 
 @end

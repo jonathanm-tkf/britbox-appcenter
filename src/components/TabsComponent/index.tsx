@@ -1,43 +1,88 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { Dimensions } from 'react-native';
+import { TabView } from 'react-native-tab-view';
+import { Container, TabWrapper, TabBar, TabLabel, Indicator, IndicatorWrapper } from './styles';
 
-import { View, StyleSheet, Dimensions } from 'react-native';
-import { TabView, SceneMap } from 'react-native-tab-view';
-import { Container } from './styles';
-
-const FirstRoute = () => <View style={[styles.scene, { backgroundColor: '#ff4081' }]} />;
-
-const SecondRoute = () => <View style={[styles.scene, { backgroundColor: '#673ab7' }]} />;
+type State = {
+  key: string;
+  title: string;
+} & {
+  content: () => JSX.Element;
+};
 
 const initialLayout = { width: Dimensions.get('window').width };
 
-const styles = StyleSheet.create({
-  scene: {
-    flex: 1,
-  },
-});
+interface Props {
+  routes: State[];
+  sceneContainerStyle?: any;
+  onChangeTab?: (index: number, key: string) => void;
+  onForceUpdate?: () => void;
+}
 
-const TabsComponent = () => {
-  const [index, setIndex] = React.useState(0);
-  const [routes] = React.useState([
-    { key: 'first', title: 'First' },
-    { key: 'second', title: 'Second' },
-  ]);
+type Scene = {
+  route: {
+    key: string;
+    content: () => JSX.Element;
+  };
+};
 
-  const renderScene = SceneMap({
-    first: FirstRoute,
-    second: SecondRoute,
-  });
+const TabsComponent = ({ routes, sceneContainerStyle, onChangeTab, onForceUpdate }: Props) => {
+  const [index, setIndex] = useState(0);
+  const [data, setData] = useState(routes);
+
+  const renderScene = ({ route }: Scene) => {
+    switch (route.key) {
+      default:
+        return route.content();
+    }
+  };
+
+  useEffect(() => {
+    setData(routes);
+    if (onForceUpdate) {
+      setTimeout(() => {
+        onForceUpdate();
+      }, 250);
+    }
+  }, [routes]);
+
+  const renderTabBar = (props: any & { navigationState: any }) => (
+    <TabBar
+      {...props}
+      scrollEnabled
+      renderLabel={({ route, color, focused }: any) => (
+        <TabWrapper>
+          <TabLabel {...{ color, focused }}>{route.title}</TabLabel>
+          {focused && (
+            <IndicatorWrapper>
+              <Indicator />
+            </IndicatorWrapper>
+          )}
+        </TabWrapper>
+      )}
+    />
+  );
 
   return (
     <Container>
-      <TabView
-        navigationState={{ index, routes }}
-        renderScene={renderScene}
-        onIndexChange={setIndex}
-        initialLayout={initialLayout}
-        swipeEnabled={false}
-        timingConfig={{ duration: 100 }}
-      />
+      {data.length > 0 ? (
+        <TabView
+          {...{ sceneContainerStyle }}
+          navigationState={{ index, routes: data }}
+          renderScene={renderScene}
+          renderTabBar={renderTabBar}
+          onIndexChange={(i) => {
+            const { key } = routes[i];
+            setIndex(i);
+            if (onChangeTab) {
+              onChangeTab(i, key);
+            }
+          }}
+          // removeClippedSubviews={false}
+          initialLayout={initialLayout}
+          // initialLayout={{height: 0, width: Dimensions.get('window').width}}
+        />
+      ) : null}
     </Container>
   );
 };

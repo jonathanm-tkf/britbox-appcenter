@@ -1,7 +1,12 @@
 import styled from 'styled-components/native';
 import { ThemeState } from '@store/modules/theme/types';
+import { normalize } from '@src/utils/normalize';
+import { isTablet } from 'react-native-device-info';
 
-export const Container = styled.View``;
+export const Container = styled.View`
+  margin-top: 10px;
+  margin-bottom: ${isTablet() ? 30 : 20}px;
+`;
 
 export const TabHeader = styled.View`
   flex-direction: row;
@@ -20,8 +25,8 @@ interface ItemText {
 export const TabHeaderItemText = styled.Text`
   color: ${(props: ThemeState) => props.theme.PRIMARY_FOREGROUND_COLOR};
   font-family: ${(props: ThemeState) => props.theme.PRIMARY_FONT_FAMILY_MEDIUM};
-  font-size: 18px;
-  line-height: 36px;
+  font-size: ${normalize(14, 18)}px;
+  line-height: ${normalize(32, 36)}px;
   ${(props: ItemText & ThemeState) => {
     return props.active ? `opacity: 1;` : `opacity: 0.6`;
   }};
@@ -35,7 +40,19 @@ export const TabHeaderItemIndicator = styled.View`
   margin-right: 10px;
 `;
 
-export const TabContent = styled.View`
+type TabContentProps = {
+  active: boolean;
+};
+
+export const TabContent = styled.View<TabContentProps>`
   flex-direction: row;
   margin-top: 5px;
+  ${(props: TabContentProps) => {
+    return (
+      !props.active &&
+      `
+      display: none;
+    `
+    );
+  }};
 `;

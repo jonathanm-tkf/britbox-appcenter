@@ -1,5 +1,6 @@
-import React, { useState, ReactNode } from 'react';
+import React, { ReactNode } from 'react';
 
+import { Row } from '@components/Layout';
 import {
   Container,
   TabHeader,
@@ -12,34 +13,31 @@ import {
 type DATA = {
   key: number;
   label: string;
-  active: boolean;
   content: () => ReactNode;
 };
 
 interface Props {
   data: DATA[];
+  active: number;
+  changeTab: (index: number) => void;
 }
 
-const UserWatching = ({ data }: Props) => {
-  const [active, setActive] = useState(0);
-
-  const changeTab = (key: number) => {
-    setActive(key);
-  };
-
+const UserWatching = ({ data, active, changeTab }: Props) => {
   return (
     <Container>
-      <TabHeader>
-        {data.map((item: DATA) => (
-          <TabHeaderItem key={item.key.toString()} onPress={() => changeTab(item.key)}>
-            {active === item.key && <TabHeaderItemIndicator />}
-            <TabHeaderItemText active={active === item.key}>{item.label}</TabHeaderItemText>
-          </TabHeaderItem>
-        ))}
-      </TabHeader>
+      <Row>
+        <TabHeader>
+          {data.map((item: DATA) => (
+            <TabHeaderItem key={item.key.toString()} onPress={() => changeTab(item.key)}>
+              {active === item.key && <TabHeaderItemIndicator />}
+              <TabHeaderItemText active={active === item.key}>{item.label}</TabHeaderItemText>
+            </TabHeaderItem>
+          ))}
+        </TabHeader>
+      </Row>
       {data.map((item: DATA) => (
-        <TabContent key={item.key.toString()}>
-          {active === item.key && data[active].content()}
+        <TabContent key={item.key.toString()} active={active === item.key}>
+          {item.content()}
         </TabContent>
       ))}
     </Container>

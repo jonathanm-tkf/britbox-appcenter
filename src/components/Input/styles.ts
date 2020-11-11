@@ -2,8 +2,9 @@ import styled from 'styled-components/native';
 import { ThemeState } from '@store/modules/theme/types';
 import { TextInput, DefaultTheme, HelperText as HelperTextP } from 'react-native-paper';
 import { CheckedIcon, WarningIcon } from '@assets/icons';
+import { normalize } from '@src/utils/normalize';
 
-interface Input {
+interface InputProps {
   error: boolean;
 }
 
@@ -19,7 +20,10 @@ export const Input = styled(TextInput).attrs((props: ThemeState) => ({
       error: props.theme.ERROR_COLOR,
     },
   },
-}))<Input & ThemeState>``;
+}))<InputProps & ThemeState>`
+  padding-right: 40px;
+  font-size: ${normalize(12, 14)}px;
+`;
 
 export const Container = styled.View`
   margin-bottom: 30px;
@@ -35,7 +39,11 @@ export const Checked = styled(CheckedIcon).attrs((props: ThemeState) => ({
   width: 27,
   height: 27,
   fill: props.theme.SUCCESS_COLOR,
-}))``;
+}))`
+  position: absolute;
+  right: 20px;
+  top: 17px;
+`;
 
 export const Warning = styled(WarningIcon).attrs((props: ThemeState) => ({
   width: 27,

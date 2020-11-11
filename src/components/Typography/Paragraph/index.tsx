@@ -4,14 +4,20 @@ import { Container, ParagraphComponent } from './styles';
 
 interface Props {
   children: any;
+  fontSize?: number;
+  lineHeight?: number;
+  style?: any;
+  color?: string;
 }
 
-const Title = ({ children }: Props) => {
+const Paragraph = ({ children, fontSize, lineHeight, color, style, ...rest }: Props) => {
   return (
     <Container>
-      <ParagraphComponent>{children}</ParagraphComponent>
+      <ParagraphComponent {...{ fontSize, lineHeight, color, style, rest }}>
+        {children}
+      </ParagraphComponent>
     </Container>
   );
 };
 
-export default Title;
+export default Paragraph;

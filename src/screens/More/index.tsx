@@ -1,219 +1,163 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable @typescript-eslint/no-unused-vars */
-import React, { useEffect } from 'react';
-import { View, Platform, Alert } from 'react-native';
-import RNIap, {
-  InAppPurchase,
-  PurchaseError,
-  SubscriptionPurchase,
-  finishTransaction,
-  purchaseErrorListener,
-  purchaseUpdatedListener,
-} from 'react-native-iap';
-import { Button } from '@components/Button';
-
-// import { Container } from './styles';
-
-const flex = {
-  flex: 1,
-  justifyContent: 'center',
-};
-
-interface Product {}
-
-const REAL_PRODUCT = false;
-const itemSkus = Platform.select({
-  ios: [
-    'com.britbox.us.staging.subscription',
-    'com.britbox.us.staging.subscription.annual',
-    'com.britbox.us.staging.subscription.annual.freetrial',
-  ],
-  android: REAL_PRODUCT
-    ? [
-        'com.britbox.us.staging.subscription',
-        'com.britbox.us.staging.subscription.annual',
-        'com.britbox.us.staging.subscription.annual.notrial',
-      ]
-    : [
-        'android.test.purchased',
-        'android.test.canceled',
-        'android.test.refunded',
-        'android.test.item_unavailable',
-      ],
-});
-
-const PACKAGE = 'android.test.purchased';
-const PACKAGE_SUSCRIPTION = 'com.britbox.us.staging.subscription';
-
-const itemSubs = Platform.select({
-  ios: [
-    'com.britbox.us.staging.subscription',
-    'com.britbox.us.staging.subscription.annual',
-    'com.britbox.us.staging.subscription.annual.freetrial',
-  ],
-  android: REAL_PRODUCT
-    ? [
-        'com.britbox.us.staging.subscription',
-        'com.britbox.us.staging.subscription.annual',
-        'com.britbox.us.staging.subscription.annual.notrial',
-      ]
-    : [
-        'android.test.purchased',
-        'android.test.canceled',
-        'android.test.refunded',
-        'android.test.item_unavailable',
-      ],
-});
+import React from 'react';
+import { Platform, ScrollView, TouchableOpacity, Linking } from 'react-native';
+import { getStatusBarHeight } from 'react-native-iphone-x-helper';
+import { Title } from '@components/Typography';
+import { CelularIcon, EditIcon } from '@assets/icons';
+import { useNavigation } from '@react-navigation/native';
+import { AppState } from '@store/modules/rootReducer';
+import { useTranslation } from 'react-i18next';
+import { useSelector, useDispatch } from 'react-redux';
+import { logout } from '@store/modules/user/actions';
+import { getVersion, getBuildNumber, isTablet } from 'react-native-device-info';
+import { atiEventTracking } from '@store/modules/layout/actions';
+import { getTextInConfigJSON } from '@src/utils/object';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import {
+  ProfileView,
+  RowContainer,
+  RowContent,
+  SubTitleLink,
+  SeparatorLine,
+  ItemTitle,
+  ItemSubTitle,
+  DescriptionText,
+  RowViewContainer,
+  ProfileImageIconView,
+  EditIconContainer,
+} from './styles';
 
 export default function More() {
-  let purchaseUpdateSubscription;
-  let purchaseErrorSubscription;
+  const { t } = useTranslation('myaccount');
+  const { navigate } = useNavigation();
+  const dispatch = useDispatch();
+  const user = useSelector((state: AppState) => state.user);
+  const isShowMiniController = useSelector((state: AppState) => state.layout.isShowMiniController);
 
-  const getProducts = async () => {
-    // try {
-    //   const result = await RNIap.initConnection();
-    //   console.log('result', result);
-    //   const products: Product[] = await RNIap.getSubscriptions(itemSkus || ['']);
-    //   console.tron.log({ products });
-    // } catch (err) {
-    //   console.warn(err.code, err.message);
-    // }
+  const wrapper = {
+    flexGrow: 1,
+    paddingTop: Platform.OS === 'ios' ? getStatusBarHeight() + 10 : 10,
+    paddingHorizontal: 30,
+    paddingBottom:
+      Platform.OS === 'ios' ? (isShowMiniController ? 160 : 110) : isShowMiniController ? 140 : 90,
+  };
 
-    // try {
-    //   const result = await RNIap.initConnection();
-    //   await RNIap.consumeAllItemsAndroid();
-    //   console.tron.log('result', result);
-    // } catch (err) {
-    //   console.tron.log(err.code, err.message);
-    // }
+  const CelularStyle = {
+    left: -10,
+    opacity: 0.6,
+  };
 
-    try {
-      const result = await RNIap.initConnection();
-      await RNIap.consumeAllItemsAndroid();
-      console.tron.log('result', result);
-    } catch (err) {
-      console.tron.log(err.code, err.message);
-    }
-
-    if (REAL_PRODUCT) {
-      getSubscriptions();
-    } else {
-      getItems();
-    }
-
-    purchaseUpdateSubscription = purchaseUpdatedListener(
-      async (purchase: InAppPurchase | SubscriptionPurchase) => {
-        const receipt = purchase.transactionReceipt;
-        console.tron.log({ receipt });
-        if (receipt) {
-          try {
-            // if (Platform.OS === 'ios') {
-            //   finishTransactionIOS(purchase.transactionId);
-            // } else if (Platform.OS === 'android') {
-            //   // If consumable (can be purchased again)
-            //   consumePurchaseAndroid(purchase.purchaseToken);
-            //   // If not consumable
-            //   acknowledgePurchaseAndroid(purchase.purchaseToken);
-            // }
-            const ackResult = await finishTransaction(purchase);
-          } catch (ackErr) {
-            console.tron.log('ackErr', ackErr);
-          }
-
-          goNext(receipt);
-          // this.setState({receipt}, () => this.goNext());
-        }
-      }
+  const logoutAction = () => {
+    dispatch(logout());
+    dispatch(
+      atiEventTracking('auth', 'bb_logged_out', {
+        is_background: false,
+        container: 'Application',
+        result: '',
+        source: 'Britbox~App',
+        metadata: '',
+        eventType: 'atc',
+        label: 'User has logged out',
+        status: 'success',
+      })
     );
-
-    purchaseErrorSubscription = purchaseErrorListener((error: PurchaseError) => {
-      console.tron.log('purchaseErrorListener', error);
-      Alert.alert('purchase error', JSON.stringify(error));
-    });
   };
-
-  const goNext = (receipt: any): void => {
-    Alert.alert('Receipt', receipt);
-  };
-
-  const getItems = async () => {
-    try {
-      const products = await RNIap.getProducts(itemSkus);
-      // const products = await RNIap.getSubscriptions(itemSkus);
-      console.tron.log('Products', products);
-      // this.setState({productList: products});
-    } catch (err) {
-      console.tron.log(err.code, err.message);
-    }
-  };
-
-  const getSubscriptions = async () => {
-    try {
-      const products = await RNIap.getSubscriptions(itemSubs);
-      console.tron.log('Products', products);
-      // this.setState({productList: products});
-    } catch (err) {
-      console.tron.log(err.code, err.message);
-    }
-  };
-
-  const getAvailablePurchases = async () => {
-    try {
-      console.tron.log('Get available purchases (non-consumable or unconsumed consumable)');
-      const purchases = await RNIap.getAvailablePurchases();
-      console.tron.log('Available purchases :: ', purchases);
-      if (purchases && purchases.length > 0) {
-        // this.setState({
-        //   availableItemsMessage: `Got ${purchases.length} items.`,
-        //   receipt: purchases[0].transactionReceipt,
-        // });
-      }
-    } catch (err) {
-      console.tron.log(err.code, err.message);
-      Alert.alert(err.message);
-    }
-  };
-
-  // Version 3 apis
-  const requestPurchase = async (sku: string) => {
-    try {
-      RNIap.requestPurchase(sku);
-    } catch (err) {
-      console.tron.log(err.code, err.message);
-    }
-  };
-
-  const requestSubscription = async (sku: string) => {
-    try {
-      RNIap.requestSubscription(sku);
-    } catch (err) {
-      Alert.alert(err.message);
-    }
-  };
-
-  // const requestPurchase = async (sku: string) => {
-  //   try {
-  //     await RNIap.requestPurchase(sku, false);
-  //   } catch (err) {
-  //     console.warn(err.code, err.message);
-  //   }
-  // };
-
-  useEffect(() => {
-    getProducts();
-  }, []);
 
   return (
-    <>
-      <View style={flex}>
-        <Button
-          onPress={() =>
-            REAL_PRODUCT ? requestSubscription(PACKAGE_SUSCRIPTION) : requestPurchase(PACKAGE)
-          }
+    <SafeAreaView>
+      <ScrollView bounces={false} contentContainerStyle={wrapper}>
+        <ProfileView>
+          <RowContainer>
+            <ProfileImageIconView />
+            <RowContent>
+              <Title fontSize={isTablet() ? 24 : 20}>{user?.profile?.firstName || ''}</Title>
+              <RowViewContainer>
+                <EditIconContainer
+                  onPress={() => {
+                    navigate('MyAccount');
+                  }}
+                >
+                  <SubTitleLink>{t('manageprofile')} </SubTitleLink>
+                  <EditIcon width={25} height={25} />
+                </EditIconContainer>
+              </RowViewContainer>
+            </RowContent>
+          </RowContainer>
+        </ProfileView>
+        <SeparatorLine />
+        <RowContainer
+          onPress={() => {
+            navigate('MyAccount', {
+              subscriptionSelected: false,
+            });
+          }}
         >
-          Subscribe now
-        </Button>
-      </View>
-    </>
+          <RowContent>
+            <ItemTitle>{t('myaccount.title')}</ItemTitle>
+          </RowContent>
+        </RowContainer>
+        <SeparatorLine />
+        <RowContainer
+          onPress={() => {
+            navigate('ParentalControls');
+          }}
+        >
+          <RowContent>
+            <ItemTitle>{t('parentalcontrols.title')}</ItemTitle>
+          </RowContent>
+        </RowContainer>
+        <SeparatorLine />
+        <RowContainer>
+          <RowContent>
+            <ItemTitle
+              onPress={() =>
+                Linking.openURL(getTextInConfigJSON(['urls', 'help'], 'https://help.britbox.com/'))
+              }
+            >
+              {t('help')}
+            </ItemTitle>
+          </RowContent>
+        </RowContainer>
+        <RowContainer
+          onPress={() => {
+            navigate('Terms');
+          }}
+        >
+          <RowContent>
+            <ItemTitle>{t('termscondition')}</ItemTitle>
+          </RowContent>
+        </RowContainer>
+        <RowContainer
+          onPress={() => {
+            navigate('PrivacyPolicy');
+          }}
+        >
+          <RowContent>
+            <ItemTitle>{t('privacypolicy')}</ItemTitle>
+          </RowContent>
+        </RowContainer>
+        <SeparatorLine />
+        <RowContainer>
+          <CelularIcon
+            height={isTablet() ? 70 : 60}
+            width={isTablet() ? 60 : 50}
+            style={CelularStyle}
+          />
+          <RowContent>
+            <ItemSubTitle>{t('appversion')}</ItemSubTitle>
+            <DescriptionText>
+              {t('version')}: {getVersion()} {t('build')} {getBuildNumber()} (code 34567), OS
+            </DescriptionText>
+          </RowContent>
+        </RowContainer>
+        <SeparatorLine />
+        <RowContainer>
+          <RowContent>
+            <TouchableOpacity activeOpacity={1} onPress={() => logoutAction()}>
+              <ItemTitle>{t('signout')}</ItemTitle>
+            </TouchableOpacity>
+          </RowContent>
+        </RowContainer>
+      </ScrollView>
+    </SafeAreaView>
   );
 }

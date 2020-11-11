@@ -4,6 +4,7 @@ import { storiesOf } from '@storybook/react-native';
 
 import Card from '@components/Card';
 import Carousel from '@components/Carousel';
+import { View } from 'react-native';
 import Theme from './Theme';
 
 const url =
@@ -24,12 +25,16 @@ const ITEMS = [
   },
 ];
 
+const wrapperStyle = { height: 270 };
+
 storiesOf('Carousel', module)
   .addDecorator(Theme)
   .add('default', () => (
-    <Carousel
-      items={ITEMS}
-      listProps={{ horizontal: true }}
-      renderItem={({ item }) => <Card url={item.url} />}
-    />
+    <View style={wrapperStyle}>
+      <Carousel
+        items={ITEMS}
+        listProps={{ horizontal: true }}
+        renderItem={({ item }) => <Card url={item.url} />}
+      />
+    </View>
   ));

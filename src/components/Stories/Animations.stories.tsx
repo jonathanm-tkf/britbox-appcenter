@@ -1,4 +1,3 @@
-/* eslint-disable max-len */
 import React from 'react';
 import { storiesOf } from '@storybook/react-native';
 
@@ -9,4 +8,5 @@ storiesOf('Action', module)
   .addDecorator(Theme)
   .add('play', () => <Action autoPlay loop />)
   .add('continue', () => <Action autoPlay loop isContinue />)
-  .add('trailer', () => <Action autoPlay loop isTrailer />);
+  .add('trailer', () => <Action autoPlay loop isTrailer />)
+  .add('loading', () => <Action autoPlay loop loading />);

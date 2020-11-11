@@ -8,7 +8,7 @@ export default (reducers: Reducer) => {
     {
       key: 'britbox',
       storage: AsyncStorage,
-      whitelist: ['core'],
+      whitelist: ['core', 'user'],
     },
     reducers
   );

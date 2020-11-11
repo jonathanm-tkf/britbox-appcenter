@@ -6,6 +6,7 @@ import { ButtonProps } from './props';
 
 export const Button = ({
   onPress,
+  secondary,
   children,
   outline,
   opaque,
@@ -15,19 +16,22 @@ export const Button = ({
   size,
   loading,
   style,
+  disabled,
   ...rest
 }: ButtonProps) => {
   return (
     <ButtonStyle
-      disabled={loading}
+      disabled={disabled || loading}
       onPress={() => onPress()}
-      {...{ outline, opaque, link, stretch, size, style }}
+      {...{ outline, opaque, link, stretch, size, style, secondary }}
       {...rest}
     >
       {loading ? (
         <ActivityIndicator size={22} color={color} />
       ) : (
-        <ButtonText {...{ outline, opaque, link, color, stretch, size }}>{children}</ButtonText>
+        <ButtonText {...{ outline, opaque, link, color, stretch, size, ...rest }}>
+          {children}
+        </ButtonText>
       )}
     </ButtonStyle>
   );

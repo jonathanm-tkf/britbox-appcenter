@@ -7,8 +7,16 @@ i18next.use(initReactI18next).init({
   resources: {
     us: {
       layout: require('../locales/us/layout.json'),
+      detail: require('../locales/us/detail.json'),
       signin: require('../locales/us/signin.json'),
+      signup: require('../locales/us/signup.json'),
       auth: require('../locales/us/auth.json'),
+      tabs: require('../locales/us/tabs.json'),
+      home: require('../locales/us/home.json'),
+      az: require('../locales/us/az.json'),
+      search: require('../locales/us/search.json'),
+      myaccount: require('../locales/us/myaccount.json'),
+      watchlist: require('../locales/us/watchlist.json'),
     },
   },
 });

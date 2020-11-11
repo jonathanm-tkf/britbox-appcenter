@@ -1,0 +1,17 @@
+{
+  "title": "Search by...",
+  "browse": "Browse:",
+  "new": "New to BritBox",
+  "programmes": "All Programmes",
+  "subtitle": "Our top picks",
+  "findResults": "These are the results for your search: ",
+  "castFindResults": "Cast related to your search: ",
+  "noResults": {
+    "bold": "We are sorry! ",
+    "text": "We did not find results for your search. But surely you may be interested..."
+  },
+  "cast": "Cast related to your search:",
+  "placeholder": "Title or cast",
+  "showsfound": "Shows found for",
+  "moviesfound": "Movies found for"
+}

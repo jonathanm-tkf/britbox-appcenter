@@ -10,6 +10,17 @@ storiesOf('Button', module)
   .add('default', () => <Button onPress={action('tapped-default')}>Press Me</Button>, {
     notes: 'A small component',
   })
+  .add(
+    'secondary',
+    () => (
+      <Button onPress={action('tapped-default')} secondary>
+        Press Me
+      </Button>
+    ),
+    {
+      notes: 'A small component',
+    }
+  )
   .add('outline', () => (
     <Button onPress={action('tapped-outline')} outline>
       Press Me

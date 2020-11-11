@@ -1,0 +1,56 @@
+<svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 290.89 251.59">
+  <defs>
+    <clipPath id="a" transform="translate(-52.28 -39.1)">
+      <path fill="none" d="M0 0h395.45v329.79H0z"/>
+    </clipPath>
+    <clipPath id="b" transform="translate(-52.28 -39.1)">
+      <path fill="none" d="M0 164.9v164.89l89.04-82.45 89.04-82.44-89.04-82.45L0 0v164.9z"/>
+    </clipPath>
+    <clipPath id="c" transform="translate(-52.28 -39.1)">
+      <path fill="none" d="M92.35 79.17h171.44v171.44H92.35z"/>
+    </clipPath>
+    <clipPath id="d" transform="translate(-52.28 -39.1)">
+      <path fill="none" d="M52.28 39.1h251.59v251.59H52.28z"/>
+    </clipPath>
+    <clipPath id="e" transform="translate(-52.28 -39.1)">
+      <path fill="none" d="M306.42 82.45l-89.04 82.45 89.04 82.44 89.03 82.45V0l-89.03 82.45z"/>
+    </clipPath>
+    <clipPath id="f" transform="translate(-52.28 -39.1)">
+      <path fill="none" d="M131.66 79.17H303.1v171.44H131.66z"/>
+    </clipPath>
+    <clipPath id="g" transform="translate(-52.28 -39.1)">
+      <path fill="none" d="M91.58 39.1h251.59v251.59H91.58z"/>
+    </clipPath>
+    <clipPath id="h" transform="translate(-52.28 -39.1)">
+      <path fill="none" d="M0 0h395.46v329.79H0z"/>
+    </clipPath>
+    <clipPath id="i" transform="translate(-52.28 -39.1)">
+      <path fill="none" d="M136.67 104.97h119.85v119.85H136.67z"/>
+    </clipPath>
+  </defs>
+  <g clip-path="url(#a)">
+    <g clip-path="url(#b)">
+      <g clip-path="url(#c)" opacity=".5">
+        <circle cx="125.8" cy="125.8" r="77.22" fill="none" stroke="#fff" stroke-miterlimit="10" stroke-width="17"/>
+      </g>
+      <g clip-path="url(#d)" opacity=".5">
+        <circle cx="125.8" cy="125.8" r="117.3" fill="none" stroke="#fff" stroke-miterlimit="10" stroke-width="17"/>
+      </g>
+    </g>
+    <g clip-path="url(#e)">
+      <g clip-path="url(#f)" opacity=".5">
+        <circle cx="165.1" cy="125.8" r="77.22" fill="none" stroke="#fff" stroke-miterlimit="10" stroke-width="17"/>
+      </g>
+      <g clip-path="url(#g)" opacity=".5">
+        <circle cx="165.1" cy="125.8" r="117.3" fill="none" stroke="#fff" stroke-miterlimit="10" stroke-width="17"/>
+      </g>
+    </g>
+    <g clip-path="url(#h)">
+      <circle cx="144.32" cy="125.8" r="41.06" fill="none" stroke="#fff" stroke-miterlimit="10" stroke-width="4"/>
+      <g clip-path="url(#i)" opacity=".5">
+        <circle cx="144.32" cy="125.8" r="53.93" fill="none" stroke="#fff" stroke-miterlimit="10" stroke-width="12"/>
+      </g>
+      <path fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="4.388" d="M156.02 114.09l-23.4 23.41M132.62 114.09l23.4 23.41"/>
+    </g>
+  </g>
+</svg>

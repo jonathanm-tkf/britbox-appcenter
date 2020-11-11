@@ -1,121 +1,160 @@
-/* eslint-disable max-len */
-import React, { Fragment } from 'react';
-import { View, Platform } from 'react-native';
-import { CollapsibleHeaderFlatList } from 'react-native-collapsible-header-views';
+import React from 'react';
+import { View, Platform, Animated } from 'react-native';
 import { getStatusBarHeight } from 'react-native-iphone-x-helper';
 import Header from '@components/Header';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { AppState } from '@store/modules/rootReducer';
-import Outstanding from '@components/Outstanding';
-import { useNavigation } from 'react-navigation-hooks';
-import { toggleTabs } from '@src/utils';
-import NewSlider from '@components/NewSlider';
-import { Headline } from '@components/Typography';
-import { Row } from '@components/Layout';
-import Carousel from '@components/Carousel';
-import Card from '@components/Card';
+import { getTemplate } from '@src/utils/template';
+import {
+  New,
+  Episodes,
+  LargeProgramming,
+  TitleTreatment,
+  Popular,
+  Standard,
+  Genre,
+  Collections,
+  Hero,
+} from '@screens/Shared';
+import { MassiveSDKModelItemSummary } from '@src/sdks/Britbox.API.Content.TS/api';
+
+import { navigateByPath } from '@src/navigation/rootNavigation';
+import { watchlistToggleRequest } from '@store/modules/user/actions';
+import ContinueWatching from '@screens/Shared/ContinueWatching';
+import { autoPlayOn } from '@store/modules/layout/actions';
 import { Container } from './styles';
-import { items, Element } from './data';
 
 const wrapper = {
   flex: 1,
   paddingTop: Platform.OS === 'ios' ? getStatusBarHeight() + 10 : 10,
 };
 
-const marginBottom = {
-  marginBottom: 60,
-};
-
 const Home = () => {
-  const theme = useSelector((state: AppState) => state.theme.theme);
-
   return (
     <View style={wrapper}>
-      <CollapsibleHeaderFlatList
-        CollapsibleHeaderComponent={<Header />}
-        headerContainerBackgroundColor={theme.PRIMARY_COLOR}
-        headerHeight={77}
-        data={[0]}
-        renderItem={() => <Item />}
-        clipHeader
-        keyExtractor={keyExtractor}
-        style={marginBottom}
-        showsVerticalScrollIndicator={false}
-      />
+      <Item />
     </View>
   );
 };
 
-const keyExtractor = (item: number) => `${item}`;
+type WatchlistToggleRequest = MassiveSDKModelItemSummary & {
+  isInWatchlist: boolean;
+};
+
+const headerStyles = {};
 
 const Item = () => {
-  const { navigate, dangerouslyGetParent } = useNavigation();
-  const parent = dangerouslyGetParent();
+  const dispatch = useDispatch();
+  const heightHeader = 90 + getStatusBarHeight();
+  const scrollY = new Animated.Value(0);
+  const diffClamp = Animated.diffClamp(scrollY, 0, heightHeader);
+  const translateY = diffClamp.interpolate({
+    inputRange: [0, heightHeader],
+    outputRange: [0, -heightHeader],
+  });
+  const { isShowMiniController } = useSelector((state: AppState) => state.layout);
 
-  const heroDiscoverMore = (item: Element) => {
-    if (parent) {
-      toggleTabs(parent, false);
+  const modal = (item: MassiveSDKModelItemSummary) => {
+    if (item.type !== 'link') {
+      dispatch(autoPlayOn());
     }
-    navigate('Detail', { item });
+    return navigateByPath(item, item.type !== 'link');
+  };
+  const home = useSelector((state: AppState) => state.home.data);
+
+  const heroDiscoverMore = (item: any) => {
+    navigateByPath(item);
+  };
+
+  const onWatchlist = (item: WatchlistToggleRequest, isInWatchlist: boolean) => {
+    dispatch(
+      watchlistToggleRequest({
+        itemId: item.type === 'season' ? item?.showId || '0' : item?.id || '0',
+        itemCustomId: item?.customId || '0',
+        isInWatchlist,
+      })
+    );
+  };
+
+  const animationHeaderStyles = {
+    position: 'absolute',
+    top: 0,
+    width: '100%',
+    elevation: 4,
+    zIndex: 4,
+    transform: [
+      {
+        translateY,
+      },
+    ],
   };
 
   return (
     <Container>
-      {items.map((item: Element, key) => {
-        if (item.template === 'hero') {
-          return (
-            <Outstanding
-              key={key.toString()}
-              item={item.item}
-              onDiscoverMore={() => heroDiscoverMore(item)}
-            />
-          );
-        }
-
-        if (item.template === 'new') {
-          return (
-            <Fragment key={key.toString()}>
-              <Row>
-                <Headline>New to Britbox</Headline>
-              </Row>
-              <NewSlider data={item.items} />
-            </Fragment>
-          );
-        }
-
-        if (item.template === 'episodes') {
-          return (
-            <Fragment key={key.toString()}>
-              <Row>
-                <Headline>{item.title}</Headline>
-              </Row>
-              <Carousel
-                items={item.items}
-                listProps={{ horizontal: true }}
-                renderItem={({ item: card }) => (
-                  <Card newEpisode width={157} height={107} url={card.url} data={card.data} />
-                )}
-              />
-            </Fragment>
-          );
-        }
-
-        return (
-          <Fragment key={key.toString()}>
-            <Row>
-              <Headline>{item.title}</Headline>
-            </Row>
-            <Carousel
-              items={item.items}
-              listProps={{ horizontal: true }}
-              renderItem={({ item: card }) => <Card url={card.url} />}
-            />
-          </Fragment>
-        );
-      })}
-      {/* {listings.map((listing) => (
-        <Listing key={listing.id} {...{ listing }} />
-      ))} */}
+      <Animated.View style={animationHeaderStyles}>
+        <Header style={headerStyles} />
+      </Animated.View>
+      <Animated.ScrollView
+        overScrollMode="never"
+        scrollEventThrottle={16}
+        bounces={false}
+        onScroll={Animated.event(
+          [
+            {
+              nativeEvent: { contentOffset: { y: scrollY } },
+            },
+          ],
+          {
+            useNativeDriver: true,
+          }
+        )}
+      >
+        {home &&
+          home.entries &&
+          home.entries.map((item, key) => {
+            if (
+              (item?.list?.items || []).length === 0 &&
+              getTemplate(item.template || '') !== 'user-watching'
+            ) {
+              return null;
+            }
+            switch (getTemplate(item.template || '')) {
+              case 'hero':
+                return (
+                  <Hero
+                    key={key.toString()}
+                    {...{ item }}
+                    onWatchlist={(i: MassiveSDKModelItemSummary, isInWatchList: boolean) =>
+                      onWatchlist(i, isInWatchList)
+                    }
+                    onPlay={(i: MassiveSDKModelItemSummary) => modal(i)}
+                    onDiscoverMore={(i) => heroDiscoverMore(i)}
+                  />
+                );
+              case 'user-watching':
+                return <ContinueWatching key={key.toString()} />;
+              case 'new':
+                return <New key={key.toString()} {...{ item }} />;
+              case 'episodes':
+                return <Episodes key={key.toString()} {...{ item }} />;
+              case 'large-programing':
+                return <LargeProgramming key={key.toString()} {...{ item }} />;
+              case 'title-treatment':
+                return <TitleTreatment key={key.toString()} {...{ item }} />;
+              case 'popular':
+                return <Popular key={key.toString()} {...{ item }} />;
+              case 'standard':
+                return <Standard key={key.toString()} {...{ item }} />;
+              case 'genre':
+                return <Genre key={key.toString()} {...{ item }} />;
+              case 'collections':
+                return <Collections key={key.toString()} {...{ item }} />;
+              default:
+                return null;
+            }
+          })}
+        <View style={[isShowMiniController ? { paddingBottom: 90 } : {}]} />
+      </Animated.ScrollView>
     </Container>
   );
 };

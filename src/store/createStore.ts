@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { createStore, compose, applyMiddleware, Middleware, Reducer } from 'redux';
 
 declare global {
