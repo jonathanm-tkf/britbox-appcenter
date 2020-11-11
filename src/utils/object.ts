@@ -1,3 +1,4 @@
+/* eslint-disable import/no-cycle */
 import { get } from 'lodash';
 import { store } from '@store/index';
 import { CoreState } from '@store/modules/core/types';

@@ -1,10 +1,11 @@
+/* eslint-disable import/no-cycle */
 import { takeLatest, all, call, put, select } from 'redux-saga/effects';
 
 import { BritboxContentApi } from '@src/sdks';
 import { getDevice } from '@src/utils';
 import { isTablet } from 'react-native-device-info';
-import { Config } from '@src/utils/config';
 import { loadCollectionList } from '@src/services/util';
+import { getTextInConfigJSON } from '@src/utils/object';
 import {
   homeRequestSuccess,
   homeRequestError,
@@ -64,7 +65,7 @@ async function getSearchData(segment: string) {
   try {
     const { response } = await loadCollectionList(
       {
-        id: Config.SEARCH_LIST,
+        id: getTextInConfigJSON(['top-picks'], ''),
         page: 1,
         pageSize: isTablet() ? 8 : 6,
         sub: 'Subscriber',

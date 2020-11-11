@@ -233,12 +233,23 @@ export function* castVideoSaga({ payload: { item, pcToken, playPosition } }: Cas
       playPosition
     );
 
-    // TODO: Prending to casting
-    GoogleCast.getCastDevice().then((device) => {
-      if (device) {
-        GoogleCast.castMedia(video);
-      }
-    });
+    let retry = 1;
+    const timer = setInterval(() => {
+      return GoogleCast.getCastDevice()
+        .then((device) => {
+          if (retry === 20) {
+            clearInterval(timer);
+            throw new Error('Retry');
+          }
+          if (device) {
+            clearInterval(timer);
+            GoogleCast.castMedia(video);
+          } else {
+            retry += 1;
+          }
+        })
+        .catch(() => {});
+    }, 500);
   } catch (error) {
     yield put(castVideoPlayerDetailClear());
     yield put(setCastState('error'));

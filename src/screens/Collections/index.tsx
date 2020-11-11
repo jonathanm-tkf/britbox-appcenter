@@ -583,24 +583,7 @@ const Collections = () => {
               case 'new':
                 return <New key={key.toString()} {...{ item }} />;
               case 'episodes':
-                return getIsCollectionDetail(data?.template || '') ? (
-                  <Grid
-                    key={key.toString()}
-                    items={item?.list?.items || []}
-                    title={item?.title || ''}
-                    imageType={['wallpaper', 'tile']}
-                    numColumns={2}
-                    element={{
-                      width: vw(50) - wp(26),
-                      height: vw(50) - vw(26),
-                      marginBottom: 20,
-                      marginHorizontal: wp(5),
-                    }}
-                    containerStyle={containerStyles}
-                  />
-                ) : (
-                  <Episodes key={key.toString()} {...{ item }} />
-                );
+                return <Episodes key={key.toString()} {...{ item }} />;
               case 'large-programing':
                 return <LargeProgramming key={key.toString()} {...{ item }} />;
               case 'title-treatment':

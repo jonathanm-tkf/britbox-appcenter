@@ -160,7 +160,6 @@ export const TrackPageView = (
         pageName = 'account.watchlist';
         break;
     }
-
     if (pathName && pageName) {
       result.terms = {
         name: pathName,

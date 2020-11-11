@@ -24,6 +24,7 @@ import { checkIsInWatchingList } from '@src/services/watchlist';
 import {
   autoPlayOff,
   autoPlayOn,
+  castVideoPlayerDetailClear,
   setCastState,
   showSheetBottom,
   toggleMiniController,
@@ -86,6 +87,11 @@ type DetailScreenRouteProp = RouteProp<RootParamList, 'Detail'>;
 const getAutoPlay = () => {
   const { layout }: { layout: LayoutState } = store.getState();
   return layout.autoPlay;
+};
+
+const getCastState = () => {
+  const { layout }: { layout: LayoutState } = store.getState();
+  return layout.castState;
 };
 
 const getIsCast = () => {
@@ -401,6 +407,14 @@ const Detail = () => {
       }
 
       dispatch(setCastState('loading'));
+
+      setTimeout(() => {
+        if (getCastState() === 'loading') {
+          dispatch(castVideoPlayerDetailClear());
+          dispatch(setCastState('error'));
+        }
+      }, 20000);
+
       dispatch(toggleMiniController(true));
 
       const newItem = {

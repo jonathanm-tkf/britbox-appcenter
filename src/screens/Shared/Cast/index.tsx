@@ -28,6 +28,8 @@ import { PostMessage } from '@src/utils/videoPlayerRef';
 import { CoreState } from '@store/modules/core/types';
 import { navigationRef } from '@src/navigation/rootNavigation';
 import { getTextInConfigJSON } from '@src/utils/object';
+import { Platform } from 'react-native';
+import { useIsFocused } from '@react-navigation/native';
 import {
   CastButton,
   MiniController,
@@ -59,6 +61,11 @@ const getCoreCastDetail = () => {
   return core?.castDetail || {};
 };
 
+const getIsCasting = () => {
+  const { core }: { core: CoreState } = store.getState();
+  return core?.casting || {};
+};
+
 const Cast = () => {
   const { t } = useTranslation('layout');
   const dispatch = useDispatch();
@@ -69,6 +76,17 @@ const Cast = () => {
   const { castState, isShowMiniController } = useSelector((state: AppState) => state.layout);
   const theme = useSelector((state: AppState) => state.theme.theme);
   const { casting, castDetail, forceChromecast } = useSelector((state: AppState) => state.core);
+  const isFocused = useIsFocused();
+
+  const timer = () =>
+    setInterval(() => {
+      GoogleCast.getCastDevice().then((deviceItem) => {
+        if ((deviceItem === null || deviceItem === undefined) && !getIsCasting()) {
+          dispatch(castingOff());
+        }
+      });
+    }, 1000);
+
   const registerListeners = () => {
     const events = `
       SESSION_STARTING SESSION_STARTED SESSION_START_FAILED SESSION_SUSPENDED
@@ -102,6 +120,16 @@ const Cast = () => {
 
         if (event === 'SESSION_ENDING') {
           dispatch(castingOff());
+        }
+
+        if (event === 'SESSION_ENDED') {
+          dispatch(castingOff());
+        }
+
+        if (event === 'MEDIA_PLAYBACK_ENDED') {
+          dispatch(toggleMiniController(false));
+          dispatch(castDetailClear());
+          dispatch(setCastState(undefined));
         }
       });
     });
@@ -199,17 +227,25 @@ const Cast = () => {
   }, [casting]);
 
   useEffect(() => {
-    if (castDetail && castDetail?.title === t('loading')) {
+    dispatch(castingOff());
+    dispatch(toggleMiniController(false));
+    if (!casting) {
       dispatch(castingOff());
     }
   }, []);
 
   useEffect(() => {
-    if (castDetail) {
+    setTimeout(() => {
+      timer();
+    }, 5000);
+  }, [isFocused]);
+
+  useEffect(() => {
+    if (castDetail && casting) {
       dispatch(setCastState('loaded'));
       dispatch(toggleMiniController(true));
     }
-  }, [castDetail]);
+  }, [castDetail, casting]);
 
   useEffect(() => {
     if (!forceChromecast && device === undefined) {
@@ -249,7 +285,7 @@ const Cast = () => {
         <MiniController>
           <MiniExpandButton
             onPress={() =>
-              castState === 'error'
+              castState === 'error' || castState === 'loading'
                 ? GoogleCast.showCastPicker()
                 : GoogleCast.launchExpandedControls()
             }

@@ -18,11 +18,12 @@ export const getTemplate = (template: string, isCollection?: boolean) => {
       return 'popular';
     case 'Programme Carousel (BBC)':
     case 'Double Programme Carousel (BBC)':
-    case '16:9 Tile (Hero)':
+    case '16:9 Tile (Hero)': {
       if (isCollection) {
         return 'episodes';
       }
       return 'new';
+    }
     case 'S1':
       return 'collections';
     case 'S2':

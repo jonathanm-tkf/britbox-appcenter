@@ -18,6 +18,7 @@ import { widthPercentageToDP as vw } from 'react-native-responsive-screen';
 
 import { wp } from '@src/utils/dimension';
 import { isTablet } from 'react-native-device-info';
+import { getTextInConfigJSON } from '@src/utils/object';
 import {
   Container,
   Title,
@@ -110,6 +111,8 @@ export default function Search() {
     paddingRight: 20,
     paddingVertical: 20,
   };
+
+  const suggestionLinks = getTextInConfigJSON(['search-links'], '');
 
   useEffect(() => {
     const searchString = searchInput?.trim();
@@ -293,20 +296,16 @@ export default function Search() {
             ) : (
               <SuggestionWrapper>
                 <SuggestionText>{t('browse')}</SuggestionText>
-                <Button
-                  link
-                  color={theme.PRIMARY_FOREGROUND_COLOR}
-                  onPress={() => navigateByPath({ path: '/new_titles' })}
-                >
-                  {t('new')}
-                </Button>
-                <Button
-                  link
-                  color={theme.PRIMARY_FOREGROUND_COLOR}
-                  onPress={() => navigateByPath({ path: '/programmes' })}
-                >
-                  {t('programmes')}
-                </Button>
+                {suggestionLinks.map((link: { text: string; link: string }) => (
+                  <Button
+                    key={link.link}
+                    link
+                    color={theme.PRIMARY_FOREGROUND_COLOR}
+                    onPress={() => navigateByPath({ path: link.link })}
+                  >
+                    {link.text}
+                  </Button>
+                ))}
               </SuggestionWrapper>
             )}
 

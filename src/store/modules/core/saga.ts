@@ -1,7 +1,7 @@
+/* eslint-disable import/no-cycle */
 /* eslint-disable no-plusplus */
 import { takeLatest, all, select, call, put, takeEvery, delay } from 'redux-saga/effects';
 import axios from 'axios';
-import api from '@src/services/api';
 import { BritboxContentApi } from '@src/sdks';
 import { Config } from '@src/utils/config';
 import { CoreActionTypes, Menu, Segment } from './types';
@@ -18,9 +18,10 @@ const getSegment = (state: { core: { segment: any } }) => state.core.segment || 
 
 export async function getMenu(segment: string) {
   try {
-    const response = await api.get('/menu', {
-      params: {
-        segment,
+    const response = await axios.get(`${Config.API}/menu/menu-${segment.toLowerCase()}.json`, {
+      headers: {
+        'Content-Type': 'application/json',
+        'Cache-Control': 'no-cache',
       },
     });
     return { response: response.data };
@@ -52,8 +53,9 @@ export function* getConfig() {
 
 export async function getBritBoxAppConfig() {
   try {
-    const response = await axios.get(`${Config.CONFIG_URL}britbox-app-config.json`, {
+    const response = await axios.get(`${Config.API}/britbox-app-config.json`, {
       headers: {
+        'Content-Type': 'application/json',
         'Cache-Control': 'no-cache',
       },
     });
