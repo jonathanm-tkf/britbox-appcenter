@@ -142,6 +142,9 @@ export function* loginRequest({
           result: '',
           source: 'Britbox~App',
           metadata: '',
+          eventType: 'atc',
+          label: 'User has logged in',
+          status: 'success',
         })
       );
       const { accessToken } = yield select(getToken);

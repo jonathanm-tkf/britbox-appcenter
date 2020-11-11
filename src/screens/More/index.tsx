@@ -55,6 +55,9 @@ export default function More() {
         result: '',
         source: 'Britbox~App',
         metadata: '',
+        eventType: 'atc',
+        label: 'User has logged out',
+        status: 'success',
       })
     );
   };
