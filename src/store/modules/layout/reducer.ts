@@ -9,6 +9,7 @@ export const initialState: LayoutState = {
   cast: undefined,
   castDetail: undefined,
   castState: undefined,
+  casting: false,
   connection: undefined,
   sheet: {
     content: () => null,

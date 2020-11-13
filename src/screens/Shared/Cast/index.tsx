@@ -11,6 +11,7 @@ import {
   castVideoPlayerDetailClear,
   toggleMiniController,
   castPosition,
+  layoutCasting,
 } from '@store/modules/layout/actions';
 import {
   castDetailClear,
@@ -46,6 +47,11 @@ const getItemCastDetail = () => {
   return layout?.castDetail || {};
 };
 
+const getCastingVideo = () => {
+  const { layout }: { layout: LayoutState } = store.getState();
+  return layout?.casting || false;
+};
+
 const getCastPosition = () => {
   const { layout }: { layout: LayoutState } = store.getState();
   return layout?.castPosition || {};
@@ -73,7 +79,9 @@ const Cast = () => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [stateChromecast, setStateChromecast] = useState<CastState | undefined>(undefined);
   const [device, setDevice] = useState<CastDevice | undefined>(undefined);
-  const { castState, isShowMiniController } = useSelector((state: AppState) => state.layout);
+  const { castState, isShowMiniController, casting: castingVideoPlayer } = useSelector(
+    (state: AppState) => state.layout
+  );
   const theme = useSelector((state: AppState) => state.theme.theme);
   const { casting, castDetail, forceChromecast } = useSelector((state: AppState) => state.core);
   const isFocused = useIsFocused();
@@ -111,6 +119,10 @@ const Cast = () => {
           GoogleCast.initChannel('urn:x-cast:com.reactnative.googlecast.britbox');
           dispatch(castOn());
 
+          setTimeout(() => {
+            GoogleCast.initChannel('urn:x-cast:com.reactnative.googlecast.britbox');
+          }, 5000);
+
           const { currentTime, item } = getItemCastDetail() as CastDetail;
 
           if (currentTime && item) {
@@ -135,6 +147,7 @@ const Cast = () => {
     });
 
     GoogleCast.EventEmitter.addListener(GoogleCast.MEDIA_PLAYBACK_STARTED, ({ mediaStatus }) => {
+      GoogleCast.initChannel('urn:x-cast:com.reactnative.googlecast.britbox');
       if (mediaStatus && (mediaStatus?.playerState || 0) === 2) {
         dispatch(castingOn());
       }
@@ -150,6 +163,10 @@ const Cast = () => {
         }
 
         return;
+      }
+
+      if (getCastingVideo()) {
+        dispatch(layoutCasting(false));
       }
 
       const { id } = getCoreCastDetail();
@@ -227,17 +244,38 @@ const Cast = () => {
   }, [casting]);
 
   useEffect(() => {
-    dispatch(castingOff());
-    dispatch(toggleMiniController(false));
-    if (!casting) {
-      dispatch(castingOff());
-    }
+    // dispatch(castingOff());
+    // dispatch(toggleMiniController(false));
+    // if (!casting) {
+    //   dispatch(castingOff());
+    // }
   }, []);
 
   useEffect(() => {
-    setTimeout(() => {
-      timer();
-    }, 5000);
+    if (Platform.OS === 'ios') {
+      setTimeout(() => {
+        GoogleCast.initChannel('urn:x-cast:com.reactnative.googlecast.britbox');
+        timer();
+      }, 5000);
+    }
+    // if (!casting) {
+    //   dispatch(castingOff());
+    // }
+
+    let interval: any;
+    if (Platform.OS === 'android') {
+      interval = setInterval(() => {
+        GoogleCast.getCastState().then((state) => {
+          if (state !== 'Connected' && state !== 'Connecting' && !castingVideoPlayer) {
+            dispatch(castingOff());
+          }
+        });
+      }, 1000);
+    }
+
+    return () => {
+      clearInterval(interval);
+    };
   }, [isFocused]);
 
   useEffect(() => {

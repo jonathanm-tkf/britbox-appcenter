@@ -48,6 +48,17 @@ const Episodes = ({ item }: Props) => {
         items={slice(item?.list?.items, 0, 20)}
         listProps={{ horizontal: true }}
         renderItem={({ item: card }: { item: MassiveSDKModelItemSummary }) => {
+          const dataInformation = {
+            title: card.type === 'episode' ? card?.showTitle || '' : card?.title || '',
+          };
+
+          if (card.type !== 'link') {
+            dataInformation.description =
+              card.type === 'episode'
+                ? `${card.seasonTitle}・${card.episodeName}`
+                : `${card.type?.toUpperCase()}`;
+          }
+
           return (
             <Card
               isEpisode={card.type === 'episode'}
@@ -61,22 +72,7 @@ const Episodes = ({ item }: Props) => {
               resizeMode={card.type === 'movie' || card.type === 'episode' ? 'cover' : 'contain'}
               cardElement={card}
               element={{ marginBottom: 20 }}
-              data={{
-                title: card.type === 'episode' ? card?.showTitle || '' : card?.title || '',
-                description:
-                  card.type === 'episode'
-                    ? `${card.seasonTitle}・${card.episodeName}`
-                    : `${card.type?.toUpperCase()}`,
-                // description:
-                //   card.type === 'movie'
-                //     ? card.shortDescription || ''
-                //     : card.type === 'show'
-                //     ? t('season', {
-                //         context: 'plural',
-                //         count: card?.availableSeasonCount,
-                //       })
-                //     : `E ${card.episodeNumber} - ${card.duration} min`,
-              }}
+              data={dataInformation}
               onPress={() => ((item?.list?.title || '') !== 'loading' ? goToDetail(card) : {})}
             />
           );

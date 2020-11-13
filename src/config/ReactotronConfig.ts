@@ -17,7 +17,11 @@ if (__DEV__) {
     .useReactNative({})
     .use(
       reactotronRedux({
-        except: ['@layout/LAYOUT_LOADING_CAST_ON', '@layout/LAYOUT_LOADING_CAST_OFF'],
+        except: [
+          '@layout/LAYOUT_LOADING_CAST_ON',
+          '@layout/LAYOUT_LOADING_CAST_OFF',
+          '@core/CASTING_OFF',
+        ],
       })
     )
     .use(reactotronSaga({}))

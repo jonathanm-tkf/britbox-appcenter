@@ -29,6 +29,7 @@ export enum LayoutActionTypes {
   LAYOUT_WELCOME_MESSAGE_OFF = '@layout/LAYOUT_WELCOME_MESSAGE_OFF',
   LAYOUT_CAST_VIDEO_PLAYER_DETAIL = '@layout/LAYOUT_CAST_VIDEO_PLAYER_DETAIL',
   LAYOUT_CAST_VIDEO_PLAYER_DETAIL_CLEAR = '@layout/LAYOUT_CAST_VIDEO_PLAYER_DETAIL_CLEAR',
+  LAYOUT_CASTING = '@layout/LAYOUT_CASTING',
   RETRY_TIMES = '@layout/RETRY_TIMES',
   ERROR_CONFIG = '@layout/ERROR_CONFIG',
   FINISHED_CONFIGURATION = '@layout/FINISHED_CONFIGURATION',
@@ -48,6 +49,7 @@ export interface LayoutState {
   out: boolean;
   cast: boolean | undefined;
   castState: string | undefined;
+  casting: boolean | undefined;
   castDetail: CastDetail | undefined;
   connection: string | undefined;
   sheet: {

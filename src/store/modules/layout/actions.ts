@@ -11,6 +11,9 @@ export const castOff = () => action(LayoutActionTypes.LAYOUT_CAST_OFF);
 export const toggleMiniController = (isShowMiniController: boolean) =>
   action(LayoutActionTypes.TOGGLE_MINI_CONTROLLER, { isShowMiniController });
 
+export const layoutCasting = (casting: boolean) =>
+  action(LayoutActionTypes.LAYOUT_CASTING, { casting });
+
 export const getProfileFailed = (failedGetProfile: boolean) =>
   action(LayoutActionTypes.GET_PROFILE_FAILED, { failedGetProfile });
 

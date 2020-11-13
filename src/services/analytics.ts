@@ -1,3 +1,5 @@
+/* eslint-disable prettier/prettier */
+/* eslint-disable no-useless-escape */
 /* eslint-disable no-restricted-globals */
 /* eslint-disable default-case */
 import { MassiveSDKModelItemSummary } from '@src/sdks/Britbox.API.Content.TS/api';
@@ -118,6 +120,14 @@ export const TrackPageView = (
       case 'Home':
         pathName = '/';
         pageName = 'home';
+        break;
+      case 'Search':
+        pathName = '/search';
+        pageName = 'search';
+        break;
+      case 'Explore':
+        pathName = '/explore';
+        pageName = 'explore';
         break;
       case 'More':
         pathName = '/more';

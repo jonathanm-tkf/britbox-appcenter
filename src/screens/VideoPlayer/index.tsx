@@ -19,7 +19,7 @@ import NetInfo, { NetInfoStateType } from '@react-native-community/netinfo';
 import { getSystemVersion, isTablet } from 'react-native-device-info';
 import { MassiveSDKModelItemSummary } from '@src/sdks/Britbox.API.Content.TS/api';
 import { immersiveModeOn, immersiveModeOff } from 'react-native-android-immersive-mode';
-import { autoPlayOff, castVideoPlayerDetail } from '@store/modules/layout/actions';
+import { autoPlayOff, castVideoPlayerDetail, layoutCasting } from '@store/modules/layout/actions';
 import { PostMessage, webViewRef } from '@src/utils/videoPlayerRef';
 import GoogleCast, { CastButton } from 'react-native-google-cast';
 import { continueWatchingRequest } from '@store/modules/user/actions';
@@ -98,6 +98,7 @@ const VideoPlayer = () => {
 
       if (currentTime) {
         dispatch(castVideoPlayerDetail({ currentTime, item: params.item }));
+        dispatch(layoutCasting(true));
       }
     }
 

@@ -248,8 +248,12 @@ const Card = ({
                 ) : (
                   <TemporaryWrapper>
                     <TemporaryRow />
-                    <TemporaryRow />
-                    <TemporaryRow style={{ width: '75%' }} />
+                    {cardElement && cardElement?.type !== 'link' && (
+                      <>
+                        <TemporaryRow />
+                        <TemporaryRow style={{ width: '75%' }} />
+                      </>
+                    )}
                   </TemporaryWrapper>
                 )}
               </TextWrapper>
