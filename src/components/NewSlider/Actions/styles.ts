@@ -29,7 +29,7 @@ export const ActionButton = styled.TouchableOpacity`
     return (
       props.link &&
       `
-      height: 160px;
+      height: 100px;
     `
     );
   }};

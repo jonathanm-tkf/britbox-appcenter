@@ -44,6 +44,7 @@ import {
 import {
   sendAppleTvSearchSubscription,
   revokeAppleTvSearchSubscription,
+  retryClear,
 } from '@store/modules/core/actions';
 import { getDevice } from '@src/utils';
 
@@ -62,6 +63,7 @@ import { AppState } from '../rootReducer';
 const getToken = (state: AppState) => state.user.access as EvergentLoginResponse;
 const getSegment = (state: AppState) => state.core.segment;
 const getIsLogged = (state: AppState) => state.user.isLogged;
+const getRetryTimes = (state: AppState) => state.core.retry;
 
 const getExiresIn = (state: AppState) => state.user.access as EvergentLoginResponse;
 
@@ -84,7 +86,10 @@ export async function profile(
     const response = await getProfileV2({
       useCustomId: true,
       segments: [segment || ''],
+    }).catch((error) => {
+      throw new Error('Error Profile');
     });
+
     return { response };
   } catch (error) {
     throw new Error('Error Profile');
@@ -278,6 +283,7 @@ export function* getProfileRequest() {
       expiresIn,
       refreshTokenState
     );
+
     let token = accessToken;
     if (responseRefreshToken) {
       yield put(refreshTokenSuccess(responseRefreshToken));
@@ -296,6 +302,13 @@ export function* getProfileRequest() {
     Analytics.trackEvent('user get profile', {
       error: JSON.stringify(error),
     });
+    console.tron.log({ error });
+    const retry = yield select(getRetryTimes);
+
+    if (retry > 2) {
+      yield call(logout);
+    }
+
     const isLogged = yield select(getIsLogged);
     if (isLogged) yield put(getProfileFailed(true));
     else yield call(logout);
@@ -475,6 +488,7 @@ export function* logout() {
     const { accessToken } = yield select(getToken);
     yield call(logoutRequest, accessToken);
     yield put(logoutSuccess());
+    yield put(retryClear());
     yield put(pollingProfileCancelled());
     yield call(removeAppleTVSubscription);
     yield put(revokeAppleTvSearchSubscription());

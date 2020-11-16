@@ -110,12 +110,15 @@ const NewSlider = ({
         </ContentLoader>
       );
     }
-    return <SlimDescriptionText>{item?.shortDescription}</SlimDescriptionText>;
+    return (
+      <SlimDescriptionText>
+        {item?.type === 'link' ? item?.customFields?.description : item?.shortDescription}
+      </SlimDescriptionText>
+    );
   };
 
   const getActions = (item?: MassiveSDKModelItemList) => {
     const image = getImage(item?.images?.poster, 'wallpaper');
-
     if (image === 'loading') {
       return (
         <ContentLoader

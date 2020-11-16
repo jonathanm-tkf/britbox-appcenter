@@ -218,5 +218,6 @@ export interface Upload {}
 
 export interface CastDetail {
   currentTime: number;
+  playPosition: number;
   item: MassiveSDKModelItemSummary;
 }

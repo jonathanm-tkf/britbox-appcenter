@@ -542,10 +542,8 @@ const Collections = () => {
                         getIsCollectionDetail(data?.template || '')
                           ? loading
                             ? `0 ${t('programmes')}`
-                            : `${(item?.list?.items || []).length} ${
-                                (item?.list?.items || []).length > 1
-                                  ? t('programmes')
-                                  : t('programme')
+                            : `${item?.list?.size || 0} ${
+                                (item?.list?.size || 0) > 1 ? t('programmes') : t('programme')
                               }`
                           : item?.title || ''
                       }

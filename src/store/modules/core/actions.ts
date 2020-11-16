@@ -45,3 +45,7 @@ export const castVideo = (
   pcToken?: string,
   playPosition?: number | boolean
 ) => action(CoreActionTypes.CAST_VIDEO, { item, pcToken, playPosition });
+
+export const retryTimes = () => action(CoreActionTypes.RETRY_TIMES);
+
+export const retryClear = () => action(CoreActionTypes.RETRY_CLEAR);

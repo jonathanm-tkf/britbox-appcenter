@@ -31,7 +31,7 @@ export default class SliderEntry extends Component {
         <View style={styles.imageContainer}>{this.image}</View>
         <View style={[styles.textContainer]}>
           {uppercaseTitle}
-          <Subtitle numberOfLines={2}>{subtitle}</Subtitle>
+          <Subtitle>{subtitle}</Subtitle>
         </View>
       </>
     );

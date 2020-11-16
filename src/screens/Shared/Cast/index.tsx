@@ -41,10 +41,11 @@ import {
   MiniExpandButton,
   MiniExpandButtonIcon,
 } from './styles';
+import { Dismissal, Pause, Play, VideoStart } from './services';
 
 const getItemCastDetail = () => {
-  const { layout }: { layout: LayoutState } = store.getState();
-  return layout?.castDetail || {};
+  const { core }: { core: CoreState } = store.getState();
+  return core?.castDetail || {};
 };
 
 const getCastingVideo = () => {
@@ -60,11 +61,6 @@ const getCastPosition = () => {
 const getCastState = () => {
   const { layout }: { layout: LayoutState } = store.getState();
   return layout?.castState || {};
-};
-
-const getCoreCastDetail = () => {
-  const { core }: { core: CoreState } = store.getState();
-  return core?.castDetail || {};
 };
 
 const getIsCasting = () => {
@@ -142,6 +138,10 @@ const Cast = () => {
           dispatch(toggleMiniController(false));
           dispatch(castDetailClear());
           dispatch(setCastState(undefined));
+
+          if (Platform.OS === 'ios') {
+            Dismissal();
+          }
         }
       });
     });
@@ -169,19 +169,33 @@ const Cast = () => {
         dispatch(layoutCasting(false));
       }
 
-      const { id } = getCoreCastDetail();
+      const { id } = getItemCastDetail();
       const {
         mediaMetadata,
         mediaCustomData: { itemVideoMassiveId },
       } = JSON.parse(message) || {};
       if (id !== itemVideoMassiveId && getCastState() === 'loaded') {
         dispatch(castDetailAction({ id: itemVideoMassiveId, ...mediaMetadata }));
+        if (Platform.OS === 'ios') {
+          const { playPosition, item } = getItemCastDetail() as CastDetail;
+          VideoStart(playPosition, item);
+        }
       }
     });
 
     GoogleCast.EventEmitter.addListener(GoogleCast.MEDIA_STATUS_UPDATED, ({ mediaStatus }) => {
-      const { playerState } = mediaStatus;
+      const { playerState, streamDuration, streamPosition } = mediaStatus;
       setIsPlaying(playerState !== 3);
+
+      if (streamDuration > 0 && Platform.OS === 'ios') {
+        if (playerState === 3) {
+          Pause(streamPosition);
+        }
+
+        if (playerState === 2) {
+          Play();
+        }
+      }
     });
   };
 
@@ -244,23 +258,12 @@ const Cast = () => {
   }, [casting]);
 
   useEffect(() => {
-    // dispatch(castingOff());
-    // dispatch(toggleMiniController(false));
-    // if (!casting) {
-    //   dispatch(castingOff());
-    // }
-  }, []);
-
-  useEffect(() => {
     if (Platform.OS === 'ios') {
       setTimeout(() => {
         GoogleCast.initChannel('urn:x-cast:com.reactnative.googlecast.britbox');
         timer();
       }, 5000);
     }
-    // if (!casting) {
-    //   dispatch(castingOff());
-    // }
 
     let interval: any;
     if (Platform.OS === 'android') {
