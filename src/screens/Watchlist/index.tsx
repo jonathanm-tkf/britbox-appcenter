@@ -9,8 +9,7 @@ import { AppState } from '@store/modules/rootReducer';
 import Header from '@components/Header';
 import { sheetComponent, showSheetBottom } from '@store/modules/layout/actions';
 import { useTranslation } from 'react-i18next';
-import { wp } from '@src/utils/dimension';
-import { widthPercentageToDP as vw } from 'react-native-responsive-screen';
+import { percentageWidth } from '@src/utils/dimension';
 import Grid from '@screens/Shared/Grid';
 import { CloseIcon } from '@assets/icons';
 import { Button } from '@components/Button';
@@ -24,6 +23,7 @@ import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
 import { Item } from '@screens/ModalFilter';
 import { hideSheet, showSheet } from '@src/utils/sheetBottom';
 import { isTablet } from 'react-native-device-info';
+import { getTextInConfigJSON } from '@src/utils/object';
 import {
   Container,
   Title,
@@ -60,7 +60,7 @@ const getSheetHeight = () => {
 
 const gridContainer = {
   marginTop: 10,
-  paddingHorizontal: wp(isTablet() ? 7 : 15),
+  paddingHorizontal: isTablet() ? 7 : 15,
 };
 
 type Access = {
@@ -175,7 +175,7 @@ const Watchlist = () => {
       <>
         <Container>
           <Title>{t('title')}</Title>
-          <Paragraph>{t('description')}</Paragraph>
+          <Paragraph>{getTextInConfigJSON(['watchlist', 'message'], '')}</Paragraph>
         </Container>
         <GridWrapper>
           <FilterButton
@@ -237,10 +237,10 @@ const Watchlist = () => {
             title={`${list.length} ${list.length === 1 ? t('program') : t('programmes')}`}
             numColumns={isTablet() ? 4 : 3}
             element={{
-              width: vw(isTablet() ? 25 : 33.333) - wp(isTablet() ? 10 : 20),
-              height: vw((isTablet() ? 25 : 33.333) * 1.25),
+              width: percentageWidth(isTablet() ? 25 : 33.333) - (isTablet() ? 10 : 20),
+              height: percentageWidth((isTablet() ? 25 : 33.333) * 1.25),
               marginBottom: 20,
-              marginHorizontal: wp(isTablet() ? 3 : 5),
+              marginHorizontal: isTablet() ? 3 : 5,
             }}
             containerStyle={gridContainer}
             cardContentAfter={(item) => removeIcon(item)}

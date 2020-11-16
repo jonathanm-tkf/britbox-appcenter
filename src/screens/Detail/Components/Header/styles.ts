@@ -1,8 +1,8 @@
 import styled from 'styled-components/native';
 import { ThemeState } from '@store/modules/theme/types';
-import { Dimensions } from 'react-native';
+import { getDimensions } from '@src/utils/dimension';
 
-const { width } = Dimensions.get('window');
+const { width } = getDimensions();
 
 export const Container = styled.View``;
 

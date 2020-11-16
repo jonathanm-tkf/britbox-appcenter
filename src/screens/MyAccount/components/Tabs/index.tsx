@@ -1,12 +1,13 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect, useRef } from 'react';
-import { StyleSheet, View, Dimensions, Animated, Keyboard } from 'react-native';
+import { StyleSheet, View, Animated, Keyboard } from 'react-native';
 import { TabView } from 'react-native-tab-view';
 import HeaderCustom from '@components/HeaderCustom';
 import { useTranslation } from 'react-i18next';
 import { useNavigation, CommonActions } from '@react-navigation/native';
 
 import { isTablet } from 'react-native-device-info';
+import { getDimensions } from '@src/utils/dimension';
 import {
   TitleWrapper,
   Title,
@@ -19,9 +20,11 @@ import {
   SafeAreaView,
 } from './styles';
 
+const { height, width } = getDimensions();
+
 const TabBarHeight = 48;
 const HeaderHeight = isTablet() ? 120 : 90;
-const windowHeight = Dimensions.get('window').height;
+const windowHeight = height;
 
 type TabSceneProps = {
   data: any;
@@ -293,7 +296,7 @@ const Tabs = ({ routes, subscriptionSelected, onTabChanged }: Props) => {
         renderTabBar={renderTabBar}
         initialLayout={{
           height: 0,
-          width: Dimensions.get('window').width,
+          width,
         }}
       />
     );

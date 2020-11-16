@@ -5,7 +5,6 @@ import {
   MassiveSDKModelItemSummary,
 } from '@src/sdks/Britbox.API.Content.TS/api';
 import { getImage } from '@src/utils/images';
-import { Dimensions } from 'react-native';
 import { useSelector } from 'react-redux';
 import { AppState } from '@store/modules/rootReducer';
 import ContentLoader, { Rect } from 'react-content-loader/native';
@@ -15,9 +14,10 @@ import { Button } from '@components/Button';
 import { useTranslation } from 'react-i18next';
 import { widthPercentageToDP as vw } from 'react-native-responsive-screen';
 import { isTablet } from 'react-native-device-info';
+import { getDimensions } from '@src/utils/dimension';
 import { Container, BackgroundImge, Card, Wrapper, InnerContent, TextWrapper } from './styles';
 
-const { width } = Dimensions.get('window');
+const { width } = getDimensions();
 
 type Props = {
   data: MassiveSDKModelItemList;

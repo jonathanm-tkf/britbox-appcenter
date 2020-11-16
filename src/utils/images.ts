@@ -81,9 +81,10 @@ export const getImage = (url = '', imageType = '', quality = 0, height = 0, widt
     const newWidth = parseInt(String(originalWidth * scale), 10);
 
     resImageURL = `${url
-      .replace(String(originalHeight), String(newHeight))
-      .replace(String(originalWidth), String(newWidth))
-      .replace(String(originalQuality), String(boxQuality))}&imageType=${imageType}`;
+      .replace(`&Width=${String(originalWidth)}`, `&Width=${String(newWidth)}`)
+      .replace(`&Height=${String(originalHeight)}`, `&Height=${String(newHeight)}`)
+      .replace(`&Quality=${String(originalQuality)}`, `&Quality=${String(boxQuality)}`)}
+      &imageType=${imageType}`;
   } catch {
     return url;
   }

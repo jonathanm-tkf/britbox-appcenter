@@ -1,9 +1,9 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect, useMemo } from 'react';
-import { Animated, NativeScrollEvent, Dimensions, View } from 'react-native';
+import { Animated, NativeScrollEvent, View } from 'react-native';
 import { useNavigation, useRoute, RouteProp } from '@react-navigation/native';
 import { BackIcon, ArrowBottomIcon } from '@assets/icons';
-import { widthPercentageToDP as vw } from 'react-native-responsive-screen';
+import { getDimensions, percentageWidth } from '@src/utils/dimension';
 
 import {
   MassiveSDKModelItemSummary,
@@ -34,7 +34,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { AppState } from '@store/modules/rootReducer';
 import { Header } from '@store/modules/core/types';
 import { Item } from '@screens/ModalFilter';
-import { wp } from '@src/utils/dimension';
+
 import { checkIsInWatchingList } from '@src/services/watchlist';
 import { watchlistToggleRequest } from '@store/modules/user/actions';
 import { isTablet } from 'react-native-device-info';
@@ -61,7 +61,7 @@ import {
   FilterWrapper,
 } from './styles';
 
-const { width } = Dimensions.get('window');
+const { width } = getDimensions();
 
 type RootParamList = {
   Collection: {
@@ -133,7 +133,7 @@ const Collections = () => {
 
   const containerStyles = {
     marginTop: 10,
-    paddingHorizontal: wp(isTablet() ? 7 : 15),
+    paddingHorizontal: isTablet() ? 7 : 15,
   };
 
   const isGenre = useMemo(() => {
@@ -496,10 +496,10 @@ const Collections = () => {
                     title={item?.title || ''}
                     numColumns={isTablet() ? 4 : 3}
                     element={{
-                      width: vw(isTablet() ? 25 : 33.333) - wp(isTablet() ? 10 : 20),
-                      height: vw((isTablet() ? 25 : 33.333) * 1.25),
+                      width: percentageWidth(isTablet() ? 25 : 33.333) - (isTablet() ? 10 : 20),
+                      height: percentageWidth((isTablet() ? 25 : 33.333) * 1.25),
                       marginBottom: 20,
-                      marginHorizontal: wp(isTablet() ? 3 : 5),
+                      marginHorizontal: isTablet() ? 3 : 5,
                     }}
                     containerStyle={containerStyles}
                   />
@@ -553,23 +553,23 @@ const Collections = () => {
                       element={
                         infiniteGridColumns === 2
                           ? {
-                              width: vw(50) - wp(26),
-                              height: vw(50) - vw(26),
+                              width: percentageWidth(50) - 26,
+                              height: percentageWidth(50) - percentageWidth(26),
                               marginBottom: 70,
-                              marginHorizontal: wp(5),
+                              marginHorizontal: 5,
                             }
                           : infiniteGridColumns === 3
                           ? {
-                              width: vw(33.333) - wp(20),
-                              height: vw(33.333 * 1.25),
+                              width: percentageWidth(33.333) - 20,
+                              height: percentageWidth(33.333 * 1.25),
                               marginBottom: 20,
-                              marginHorizontal: wp(5),
+                              marginHorizontal: 5,
                             }
                           : {
-                              width: vw(25) - wp(10),
-                              height: vw(25 * 1.25),
+                              width: percentageWidth(25) - 10,
+                              height: percentageWidth(25 * 1.25),
                               marginBottom: 20,
-                              marginHorizontal: wp(isTablet() ? 3 : 5),
+                              marginHorizontal: isTablet() ? 3 : 5,
                             }
                       }
                       containerStyle={containerStyles}
@@ -593,10 +593,10 @@ const Collections = () => {
                     imageType={['wallpaper', 'tile']}
                     numColumns={2}
                     element={{
-                      width: vw(50) - wp(26),
-                      height: vw(50) - vw(26),
+                      width: percentageWidth(50) - 26,
+                      height: percentageWidth(50) - percentageWidth(26),
                       marginBottom: 20,
-                      marginHorizontal: wp(5),
+                      marginHorizontal: 5,
                     }}
                     containerStyle={containerStyles}
                   />

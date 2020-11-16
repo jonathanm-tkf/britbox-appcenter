@@ -3,7 +3,6 @@
 import React, { useEffect, useState } from 'react';
 import {
   View,
-  Dimensions,
   StatusBar,
   BackHandler,
   NativeModules,
@@ -25,9 +24,10 @@ import GoogleCast, { CastButton } from 'react-native-google-cast';
 import { continueWatchingRequest } from '@store/modules/user/actions';
 import { Config } from '@src/utils/config';
 import { HomeIndicator } from 'react-native-home-indicator';
+import { getDimensions } from '@src/utils/dimension';
 import { ChromecastWrapper } from './styles';
 
-const { width, height } = Dimensions.get('window');
+const { width, height } = getDimensions();
 
 type RootParamList = {
   VideoPlayer: {
@@ -49,7 +49,7 @@ const VideoPlayer = () => {
   const { goBack } = useNavigation();
   const { params } = useRoute<VideoPlayerScreenRouteProp>();
   const webview = {
-    backgroundColor: 'transparent',
+    backgroundColor: theme.PRIMARY_COLOR,
     flex: 1,
     width: height,
     height: width,
@@ -109,6 +109,7 @@ const VideoPlayer = () => {
 
   const handleBackButtonClick = () => {
     Orientation.lockToPortrait();
+    StatusBar.setHidden(false);
     immersiveModeOff();
     backArrow();
     return true;

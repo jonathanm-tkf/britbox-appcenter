@@ -1,4 +1,5 @@
 apply plugin: "com.android.application"
+apply from: '../../node_modules/react-native-unimodules/gradle.groovy'
 
 import com.android.build.OutputFile
 
@@ -142,7 +143,7 @@ android {
         applicationId "com.britbox.us"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 20001
+        versionCode 20003
         multiDexEnabled = true
         versionName "2.0.0"
         multiDexEnabled true
@@ -243,6 +244,8 @@ dependencies {
     implementation project(':react-native-svg')
     implementation project(':react-native-code-push')
     implementation project(':react-native-google-cast')
+
+    addUnimodulesDependencies()
 
     debugImplementation("com.facebook.flipper:flipper:${FLIPPER_VERSION}") {
       exclude group:'com.facebook.fbjni'

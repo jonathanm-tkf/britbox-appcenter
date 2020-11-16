@@ -1,8 +1,9 @@
 /* eslint-disable no-unused-vars */
+/* eslint-disable @typescript-eslint/no-shadow */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect, useRef } from 'react';
-import { Animated, Text, NativeModules, Platform } from 'react-native';
+import { Animated, Text, NativeModules, Platform, StatusBar } from 'react-native';
 import { BackIcon } from '@assets/icons';
 import Card from '@components/Card';
 import { useRoute, useNavigation, RouteProp, useIsFocused } from '@react-navigation/native';
@@ -13,7 +14,7 @@ import {
 } from '@src/sdks/Britbox.API.Content.TS/api';
 import { loadDetailPage, loadEpisodesBySeason } from '@src/services/detail';
 import { getImage } from '@src/utils/images';
-import { fill } from 'lodash';
+import { fill, pickBy } from 'lodash';
 import Bookmark from '@components/Bookmark';
 import { getVideoIdAndClassification } from '@src/services/cast';
 import { AppState } from '@store/modules/rootReducer';
@@ -29,7 +30,7 @@ import {
   showSheetBottom,
   toggleMiniController,
 } from '@store/modules/layout/actions';
-import { detailClear, detailWatchedSuccess } from '@store/modules/detail/actions';
+import { detailWatchedSuccess } from '@store/modules/detail/actions';
 import { MassiveSDKModelWatched } from '@src/sdks/Britbox.API.Account.TS/api';
 import { LoadDetailPageResponse } from '@store/modules/detail/types';
 import { store } from '@store/index';
@@ -83,7 +84,6 @@ type RootParamList = {
 };
 
 type DetailScreenRouteProp = RouteProp<RootParamList, 'Detail'>;
-
 const getAutoPlay = () => {
   const { layout }: { layout: LayoutState } = store.getState();
   return layout.autoPlay;
@@ -110,6 +110,21 @@ interface CellProps {
   isFocused: boolean;
 }
 
+const getProgress = (id: string, watched: any) => {
+  const filter = pickBy(watched, (value, key) => key.startsWith(id || ''));
+  if (filter[id || '']) {
+    const { isFullyWatched, position } = filter[id || ''];
+
+    if (isFullyWatched) {
+      return 0;
+    }
+
+    return position;
+  }
+
+  return 0;
+};
+
 const Detail = () => {
   const isFocus = useIsFocused();
   const { params } = useRoute<DetailScreenRouteProp>();
@@ -120,10 +135,10 @@ const Detail = () => {
   const [animatedOpacityValue] = useState(new Animated.Value(0));
   const theme = useSelector((state: AppState) => state.theme.theme);
   const core = useSelector((state: AppState) => state.core);
+  const { watched } = useSelector((state: AppState) => state.detail);
   const { castDetail, castState, cast, isShowMiniController } = useSelector(
     (state: AppState) => state.layout
   );
-  const { navigate } = useNavigation();
   const { t } = useTranslation(['myaccount', 'detail', 'layout']);
   const [data, setData] = useState<LoadDetailPageResponse | undefined>(undefined);
   const [valuePin, setValuePin] = useState('');
@@ -168,8 +183,8 @@ const Detail = () => {
     (state: AppState) => (state.user.access as Access)?.expiresIn || ''
   );
 
-  const getIsInWatchlist = (id: string) =>
-    checkIsInWatchingList(bookmarklist?.items || [], id || '0') === 3;
+  // const getIsInWatchlist = (id: string) =>
+  //   checkIsInWatchingList(bookmarklist?.items || [], id || '0') === 3;
 
   const scrollRef = useRef<any>({
     current: undefined,
@@ -298,6 +313,7 @@ const Detail = () => {
   useEffect(() => {
     if (isFocus) {
       Orientation.lockToPortrait();
+      StatusBar.setHidden(false);
       immersiveModeOff();
     }
   }, [isFocus]);
@@ -422,6 +438,8 @@ const Detail = () => {
         title: t('layout:loading'),
         subtitle: undefined,
         images: [{ url: getImage((next || episode || item)?.images?.wallpaper, 'wallpaper') }],
+        playPosition: playPosition || getProgress((next || episode || item)?.id || '0', watched),
+        item: next || episode || item,
       };
 
       dispatch(castDetailAction({ ...newItem }));

@@ -13,8 +13,7 @@ import {
 import { AppState } from '@store/modules/rootReducer';
 import { loadActorDetailPage } from '@src/services/detail';
 import Grid from '@screens/Shared/Grid';
-import { widthPercentageToDP as vw } from 'react-native-responsive-screen';
-import { wp } from '@src/utils/dimension';
+import { percentageWidth } from '@src/utils/dimension';
 import { Title, Headline } from '@components/Typography';
 import {
   Container,
@@ -110,7 +109,7 @@ const Item = () => {
 
   const containerStyles = {
     marginTop: 20,
-    paddingHorizontal: wp(15),
+    paddingHorizontal: 15,
   };
 
   return (
@@ -123,7 +122,7 @@ const Item = () => {
         </Wrapper>
       ) : loading ? (
         <Wrapper>
-          <Action autoPlay loop loading width={70} height={70} />
+          <Action autoPlay loop loading width={70} height={70} animated />
         </Wrapper>
       ) : (
         <>
@@ -150,10 +149,10 @@ const Item = () => {
                         imageType="poster"
                         numColumns={3}
                         element={{
-                          width: vw(33.333) - wp(20),
-                          height: vw(33.333 * 1.25),
+                          width: percentageWidth(33.333) - 20,
+                          height: percentageWidth(33.333 * 1.25),
                           marginBottom: 20,
-                          marginHorizontal: wp(5),
+                          marginHorizontal: 5,
                         }}
                         containerStyle={containerStyles}
                       />
@@ -173,10 +172,10 @@ const Item = () => {
                         items={innerItem?.list?.items || []}
                         numColumns={3}
                         element={{
-                          width: vw(33.333) - wp(20),
-                          height: vw(33.333 * 1.25),
+                          width: percentageWidth(33.333) - 20,
+                          height: percentageWidth(33.333 * 1.25),
                           marginBottom: 20,
-                          marginHorizontal: wp(5),
+                          marginHorizontal: 5,
                         }}
                         containerStyle={containerStyles}
                       />

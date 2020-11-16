@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Dimensions } from 'react-native';
+import { StyleSheet } from 'react-native';
 import Carousel from 'react-native-snap-carousel';
 import { MassiveSDKModelItemList } from '@src/sdks/Britbox.API.Content.TS/api';
 import { getImage } from '@src/utils/images';
@@ -9,6 +9,7 @@ import { AppState } from '@store/modules/rootReducer';
 import { navigateByPath } from '@src/navigation/rootNavigation';
 import { getStatusBarHeight } from 'react-native-iphone-x-helper';
 import { isTablet } from 'react-native-device-info';
+import { getDimensions } from '@src/utils/dimension';
 import CustomCard from './CustomCard';
 import { sliderWidth, itemWidth, sliderWidthSlim, itemWidthSlim } from './CustomCard/styles';
 import {
@@ -22,7 +23,7 @@ import {
 } from './styles';
 import Actions from './Actions';
 
-const { width } = Dimensions.get('window');
+const { width } = getDimensions();
 
 const styles = StyleSheet.create({
   sliderContainer: {
@@ -147,7 +148,6 @@ const NewSlider = ({
   const stylesContainer = slim
     ? {
         paddingTop: getStatusBarHeight() + (isTablet() ? 70 : 50),
-        // bottom: slim ? -hp(40) : 0,
         position: 'absolute',
       }
     : {};

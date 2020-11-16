@@ -1,5 +1,5 @@
 import React from 'react';
-import { Dimensions, ActivityIndicator } from 'react-native';
+import { ActivityIndicator } from 'react-native';
 import ContentLoader, { Rect } from 'react-content-loader/native';
 import { useSelector } from 'react-redux';
 import { AppState } from '@store/modules/rootReducer';
@@ -15,6 +15,7 @@ import {
 } from '@src/sdks/Britbox.API.Content.TS/api';
 import { LoadDetailPageResponse } from '@store/modules/detail/types';
 import { isTablet } from 'react-native-device-info';
+import { getDimensions } from '@src/utils/dimension';
 import {
   Container,
   ActionWrapper,
@@ -26,7 +27,7 @@ import {
   ActionText,
 } from './styles';
 
-const { width } = Dimensions.get('window');
+const { width } = getDimensions();
 
 type Props = {
   data: LoadDetailPageResponse | undefined;

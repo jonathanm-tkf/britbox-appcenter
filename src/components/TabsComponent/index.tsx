@@ -1,5 +1,5 @@
+import { getDimensions } from '@src/utils/dimension';
 import React, { useState, useEffect } from 'react';
-import { Dimensions } from 'react-native';
 import { TabView } from 'react-native-tab-view';
 import { Container, TabWrapper, TabBar, TabLabel, Indicator, IndicatorWrapper } from './styles';
 
@@ -10,7 +10,9 @@ type State = {
   content: () => JSX.Element;
 };
 
-const initialLayout = { width: Dimensions.get('window').width };
+const { width } = getDimensions();
+
+const initialLayout = { width };
 
 interface Props {
   routes: State[];
@@ -78,9 +80,7 @@ const TabsComponent = ({ routes, sceneContainerStyle, onChangeTab, onForceUpdate
               onChangeTab(i, key);
             }
           }}
-          // removeClippedSubviews={false}
           initialLayout={initialLayout}
-          // initialLayout={{height: 0, width: Dimensions.get('window').width}}
         />
       ) : null}
     </Container>

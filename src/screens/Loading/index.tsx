@@ -12,6 +12,7 @@ import { device, loadingOff } from '@store/modules/layout/actions';
 import FastImage from 'react-native-fast-image';
 import { withTheme } from 'styled-components';
 import { ThemeProps } from '@store/modules/theme/types';
+// import Orientation, { OrientationType } from 'react-native-orientation-locker';
 import { Container, GettingInformation, GettingInformationText } from './styles';
 
 type Props = {
@@ -32,7 +33,11 @@ const Loading = ({ theme }: Props) => {
 
   useEffect(() => {
     if (finishedConfiguration) {
-      downloadAssetsAuth();
+      if (!isLogged) {
+        downloadAssetsAuth();
+      } else {
+        dispatch(loadingOff());
+      }
     }
   }, [finishedConfiguration, isLogged]);
 

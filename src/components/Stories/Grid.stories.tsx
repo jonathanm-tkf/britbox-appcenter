@@ -2,14 +2,12 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react-native';
 import { action } from '@storybook/addon-actions';
-import { Dimensions } from 'react-native';
 
 import Grid from '@components/Grid';
-import { widthPercentageToDP as vw } from 'react-native-responsive-screen';
-import { wp } from '@src/utils/dimension';
+import { getDimensions, percentageWidth } from '@src/utils/dimension';
 import Theme from './Theme';
 
-const { width } = Dimensions.get('window');
+const { width } = getDimensions();
 
 const DATA: any = {
   id: 'Related-22878',
@@ -372,10 +370,10 @@ storiesOf('Grid', module)
       data={DATA.items}
       numColumns={2}
       element={{
-        width: vw(50) - wp(20),
-        height: vw(50 * 1.5),
+        width: percentageWidth(50) - 20,
+        height: percentageWidth(50 * 1.5),
         marginBottom: 20,
-        marginHorizontal: wp(8),
+        marginHorizontal: 8,
       }}
       imageType="poster"
       onPress={action('tapped-item')}
@@ -385,10 +383,10 @@ storiesOf('Grid', module)
     <Grid
       data={DATA.items}
       element={{
-        width: vw(33.333) - wp(10),
-        height: vw(33.333 * 1.5),
+        width: percentageWidth(33.333) - 10,
+        height: percentageWidth(33.333 * 1.5),
         marginBottom: 20,
-        marginHorizontal: wp(5),
+        marginHorizontal: 5,
       }}
       numColumns={3}
       imageType="poster"
@@ -400,10 +398,10 @@ storiesOf('Grid', module)
       data={DATA.items}
       numColumns={3}
       element={{
-        width: vw(33.333) - wp(10),
-        height: vw(33.333 * 1.5),
+        width: percentageWidth(33.333) - 10,
+        height: percentageWidth(33.333 * 1.5),
         marginBottom: 20,
-        marginHorizontal: wp(5),
+        marginHorizontal: 5,
       }}
       onPress={action('tapped-item')}
       title="Title Section"

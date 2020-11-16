@@ -302,7 +302,6 @@ export function* getProfileRequest() {
     Analytics.trackEvent('user get profile', {
       error: JSON.stringify(error),
     });
-    console.tron.log({ error });
     const retry = yield select(getRetryTimes);
 
     if (retry > 2) {

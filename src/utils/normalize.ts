@@ -5,7 +5,15 @@ const ratio = PixelRatio.get();
 
 export const normalize = (sizeMobile: number, sizeTablet?: number) => {
   const size = isTablet() ? sizeTablet || sizeMobile : sizeMobile;
-  const { width, height } = Dimensions.get('window');
+  const { width: originalWidth, height: originalHeight } = Dimensions.get('window');
+
+  let height = originalHeight;
+  let width = originalWidth;
+
+  if (originalWidth > originalHeight) {
+    height = originalWidth;
+    width = originalHeight;
+  }
 
   if (ratio >= 2 && ratio < 3) {
     if (width < 360) {

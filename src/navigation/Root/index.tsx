@@ -177,7 +177,6 @@ const RootStackScreen = () => {
         ) : (
           <RootStack.Screen name="AuthStackScreen" component={AuthStackScreen} />
         )}
-        <RootStack.Screen name="Modal" component={Modal} options={{ animationEnabled: true }} />
         <RootStack.Screen
           name="VideoPlayer"
           component={VideoPlayer}

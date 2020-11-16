@@ -85,13 +85,15 @@ const parseResponseMediaSelectorSubtitles = (data: DataResponseMediaSlector) => 
 
     const captions = media.filter((m) => m.kind === 'captions');
 
-    if (captions) {
+    if (captions && captions.length > 0) {
       const { connection } = captions.reduce((v) => v);
       const items = connection.filter((c) => c.protocol === 'https');
 
       if (items.length > 0) {
         resolve(items.reduce((captionItem) => captionItem));
       }
+    } else {
+      resolve({ href: undefined });
     }
   });
 };
@@ -166,8 +168,12 @@ export const castVideoRequest = async (
 
     const responseMediaSelector = await axios
       .get(mediaSelectoUrl)
-      .then((media) => media)
-      .catch((error) => error);
+      .then((media) => {
+        return media;
+      })
+      .catch((error) => {
+        return error;
+      });
 
     const { href: subtitles } = await parseResponseMediaSelectorSubtitles(
       responseMediaSelector.data
@@ -176,6 +182,17 @@ export const castVideoRequest = async (
     const user = await getUser(userState, layoutState, token, segment);
 
     return parseResponseMediaSelector(responseMediaSelector.data).then((dataVideo) => {
+      const customData = {
+        user,
+        media: {
+          itemVideoCustomId: url,
+          itemVideoMassiveId: item?.id,
+          itemVideoTitle: item?.title,
+        },
+      };
+      if (subtitles) {
+        customData.subtitles = subtitles;
+      }
       const video = {
         title: item?.contextualTitle || '',
         subtitle: item?.shortDescription || '',
@@ -184,15 +201,7 @@ export const castVideoRequest = async (
         duration: item?.duration || 0,
         posterUrl: getImage(item?.images?.square, 'wallpaper'),
         playPosition: playPosition || getProgress(item?.id || '', watched),
-        customData: {
-          user,
-          media: {
-            itemVideoCustomId: url,
-            itemVideoMassiveId: item?.id,
-            itemVideoTitle: item?.title,
-          },
-          subtitles,
-        },
+        customData,
       };
       return { video };
     });

@@ -1,26 +1,21 @@
-import { StyleSheet, Dimensions, Platform } from 'react-native';
+import { StyleSheet, Platform } from 'react-native';
 import { lightTheme } from '@store/modules/theme/theme';
 import styled from 'styled-components/native';
 import LinearGradient from 'react-native-linear-gradient';
 import { rgba } from 'polished';
 import { ThemeState } from '@store/modules/theme/types';
 import TouchableScaleC from 'react-native-touchable-scale';
-import { widthPercentageToDP as vw } from 'react-native-responsive-screen';
 import { normalize } from '@src/utils/normalize';
 import { isTablet } from 'react-native-device-info';
+import { getDimensions, percentageWidth } from '@src/utils/dimension';
 
 const IS_IOS = Platform.OS === 'ios';
-const { width: viewportWidth } = Dimensions.get('window');
-
-const wp = (percentage: number) => {
-  const value = (percentage * viewportWidth) / 100;
-  return Math.round(value);
-};
+const { width: viewportWidth } = getDimensions();
 
 // Normal
-const slideHeight = isTablet() ? vw(33) : vw(52);
-const slideWidth = isTablet() ? vw(55) : wp(85);
-const itemHorizontalMargin = wp(0);
+const slideHeight = isTablet() ? percentageWidth(33) : percentageWidth(52);
+const slideWidth = isTablet() ? percentageWidth(55) : percentageWidth(85);
+const itemHorizontalMargin = 0;
 
 export const sliderWidth = viewportWidth;
 export const itemWidth = slideWidth + itemHorizontalMargin * 2;

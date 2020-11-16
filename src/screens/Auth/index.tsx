@@ -3,13 +3,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import Header from '@components/Header';
 import { isTablet } from 'react-native-device-info';
 import Carousel from 'react-native-snap-carousel';
-import { StyleSheet, SafeAreaView, Dimensions } from 'react-native';
+import { StyleSheet, SafeAreaView } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { AppState } from '@store/modules/rootReducer';
 import { useIsFocused } from '@react-navigation/native';
 import { navigate } from '@src/navigation/rootNavigation';
 import { atiEventTracking } from '@store/modules/layout/actions';
 import { getTextInConfigJSON } from '@src/utils/object';
+import { getDimensions } from '@src/utils/dimension';
 import {
   Button,
   Pagination,
@@ -36,20 +37,10 @@ const Auth = () => {
   const { loading } = useSelector((state: AppState) => state.layout);
   const [sliderRef, setSliderRef] = useState(null);
   const [slider1ActiveSlide, setSlider1ActiveSlide] = useState(0);
-  const [screenData, setScreenData] = useState(Dimensions.get('window'));
+  const [screenData] = useState(getDimensions());
 
   const { t } = useTranslation('auth');
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    const onChange = (result: any) => {
-      setScreenData(result.screen);
-    };
-
-    Dimensions.addEventListener('change', onChange);
-
-    return () => Dimensions.removeEventListener('change', onChange);
-  });
 
   const images = isTablet()
     ? [

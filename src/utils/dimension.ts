@@ -2,7 +2,7 @@ import {
   widthPercentageToDP as wp2dp,
   heightPercentageToDP as hp2dp,
 } from 'react-native-responsive-screen';
-
+import { Dimensions } from 'react-native';
 /**
  * Width-Percentage
  * Converts width dimension to percentage
@@ -23,4 +23,26 @@ export const wp = (dimension: number): number => {
  */
 export const hp = (dimension: number): number => {
   return hp2dp(`${(dimension / 760) * 100}%`);
+};
+
+export const getDimensions = () => {
+  const { width: originalWidth, height: originalHeight } = Dimensions.get('window');
+  let width = originalWidth;
+  let height = originalHeight;
+
+  if (width > height) {
+    width = originalHeight;
+    height = originalWidth;
+  }
+
+  return {
+    width,
+    height,
+  };
+};
+
+export const percentageWidth = (percentage: any) => {
+  const { width } = getDimensions();
+  const value = (percentage / 100) * width;
+  return Math.round(value);
 };

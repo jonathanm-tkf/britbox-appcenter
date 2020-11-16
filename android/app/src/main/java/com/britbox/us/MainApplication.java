@@ -2,7 +2,7 @@ package com.britbox.us;
 
 import android.app.Application;
 import android.content.Context;
-
+import com.britbox.us.generated.BasePackageList;
 import com.facebook.react.PackageList;
 import com.facebook.react.ReactApplication;
 import com.facebook.react.ReactInstanceManager;
@@ -11,13 +11,18 @@ import com.facebook.react.ReactPackage;
 import com.facebook.soloader.SoLoader;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
+import java.util.Arrays;
 import com.microsoft.codepush.react.CodePush;
 import com.horcrux.svg.SvgPackage;
 import android.webkit.WebView;
 import com.britbox.us.Device.DeviceLibPackage;
 
-public class MainApplication extends Application implements ReactApplication {
+import org.unimodules.adapters.react.ModuleRegistryAdapter;
+import org.unimodules.adapters.react.ReactModuleRegistryProvider;
+import org.unimodules.core.interfaces.SingletonModule;
 
+public class MainApplication extends Application implements ReactApplication {
+  private final ReactModuleRegistryProvider mModuleRegistryProvider = new ReactModuleRegistryProvider(new BasePackageList().getPackageList(), null);
   private final ReactNativeHost mReactNativeHost =
       new ReactNativeHost(this) {
           @Override
@@ -36,6 +41,12 @@ public class MainApplication extends Application implements ReactApplication {
           List<ReactPackage> packages = new PackageList(this).getPackages();
           // Packages that cannot be autolinked yet can be added manually here, for example:
           // packages.add(new MyReactNativePackage());
+
+          // Add unimodules
+          List<ReactPackage> unimodules = Arrays.<ReactPackage>asList(
+            new ModuleRegistryAdapter(mModuleRegistryProvider)
+          );
+          packages.addAll(unimodules);
           packages.add(new SvgPackage());
           packages.add(new CodePush(BuildConfig.CODEPUSH_KEY, getApplicationContext(), BuildConfig.DEBUG));
           packages.add(new DeviceLibPackage());

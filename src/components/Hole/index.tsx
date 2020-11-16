@@ -6,18 +6,19 @@ import { AppState } from '@store/modules/rootReducer';
 import { ThemeProps } from '@store/modules/theme/types';
 import { rgba } from 'polished';
 import React, { useEffect, useState } from 'react';
-import { Animated, Dimensions } from 'react-native';
+import { Animated } from 'react-native';
 import GoogleCast from 'react-native-google-cast';
 import { useDispatch, useSelector } from 'react-redux';
 import { withTheme } from 'styled-components';
 import { RNHoleView } from 'react-native-hole-view';
 import { isTablet } from 'react-native-device-info';
+import { getDimensions } from '@src/utils/dimension';
 import { HoleContent, HoleText } from './styles';
 
 type Props = {
   readonly theme: ThemeProps;
 };
-const { height } = Dimensions.get('window');
+const { height } = getDimensions();
 
 const Hole = ({ theme }: Props) => {
   const dispatch = useDispatch();

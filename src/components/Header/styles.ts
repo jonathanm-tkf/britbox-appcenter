@@ -1,11 +1,12 @@
 import styled from 'styled-components/native';
 import { ThemeState } from '@store/modules/theme/types';
-import { FlatList, Dimensions } from 'react-native';
+import { FlatList } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import { rgba } from 'polished';
+import { getDimensions } from '@src/utils/dimension';
 import LogoBritbox from '../../../assets/images/Logo.svg';
 
-const { width } = Dimensions.get('window');
+const { width } = getDimensions();
 
 export const Container = styled.View`
   align-self: stretch;

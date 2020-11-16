@@ -61,7 +61,8 @@ export const CastLastNameText = styled.Text`
   color: ${(props: ThemeState) => props.theme.PRIMARY_TEXT_COLOR_LIGHT};
   font-family: ${(props: ThemeState) => props.theme.PRIMARY_FONT_FAMILY_MEDIUM};
   font-size: ${normalize(22, 26)}px;
-  padding-vertical: 2px;
+  padding-top: 2px;
+  padding-bottom: 2px;
 `;
 
 export const GridContainer = styled.View`

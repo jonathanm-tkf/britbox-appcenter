@@ -10,6 +10,7 @@ import Animated from 'react-native-reanimated';
 import { useNavigation } from '@react-navigation/native';
 import { navigateByPath } from '@src/navigation/rootNavigation';
 import { atiEventTracking } from '@store/modules/layout/actions';
+import { getDimensions } from '@src/utils/dimension';
 import { Container, Logo, LinksList, Gradient, CenterLogoWrapper, Content } from './styles';
 
 interface DataElement {
@@ -51,7 +52,7 @@ export default function Header({ hideSignIn, shadow, isCenter, onPressSignIn, st
   const menu = useSelector((state: AppState) => state.core.menu?.navigation?.header); // TODO: get data from properties
   const { navigate } = useNavigation();
   const [menuItems, setMenuItems] = useState<MenuItem[]>([]);
-  const [screenData, setScreenData] = useState(Dimensions.get('window'));
+  const [screenData, setScreenData] = useState(getDimensions());
 
   useEffect(() => {
     // TODO: after get all properties remove this effect

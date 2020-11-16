@@ -186,8 +186,5 @@ export const Select = styled.TouchableOpacity`
   top: ${Platform.OS === 'ios' ? -5 : -20}px;
   right: 20px;
   z-index: 1;
-  padding-left: 20px;
-  padding-right: 20px;
   padding-top: 20px;
-  padding-bottom: 25px;
 `;

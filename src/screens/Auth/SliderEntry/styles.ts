@@ -1,9 +1,10 @@
-import { StyleSheet, Dimensions } from 'react-native';
+import { StyleSheet } from 'react-native';
 import styled from 'styled-components/native';
 import { ThemeState } from '@store/modules/theme/types';
 import { normalize } from '@src/utils/normalize';
+import { getDimensions } from '@src/utils/dimension';
 
-const { width: viewportWidth } = Dimensions.get('window');
+const { width: viewportWidth } = getDimensions();
 
 function wp(percentage: any) {
   const value = (percentage * viewportWidth) / 100;
@@ -29,7 +30,6 @@ export default StyleSheet.create({
   },
   imageContainer: {
     flex: 1,
-    paddingHorizontal: wp(5),
   },
 });
 

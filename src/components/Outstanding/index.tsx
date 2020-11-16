@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import { Dimensions } from 'react-native';
+import React, { useState } from 'react';
 import { Logo } from '@assets/icons';
 import { fill } from 'lodash';
 import SwiperFlatList from 'react-native-swiper-flatlist';
 import { isTablet } from 'react-native-device-info';
+import { getDimensions } from '@src/utils/dimension';
 import {
   Gradient,
   LogoWrapper,
@@ -60,18 +60,8 @@ const PaginationComponent = ({
 const ACTIONS_HEIGHT = 150;
 
 const Outstanding = ({ items, onPlay, onWatchlist, onDiscoverMore }: Props) => {
-  const [screenData, setScreenData] = useState(Dimensions.get('window'));
+  const [screenData] = useState(getDimensions());
   const [activeIndex, setActiveIndex] = useState(0);
-
-  useEffect(() => {
-    const onChange = (result: any) => {
-      setScreenData(result.screen);
-    };
-
-    Dimensions.addEventListener('change', onChange);
-
-    return () => Dimensions.removeEventListener('change', onChange);
-  });
 
   const stylesAspectRatio = {
     width: screenData.width,

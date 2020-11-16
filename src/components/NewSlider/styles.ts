@@ -1,13 +1,13 @@
 import styled from 'styled-components/native';
 import { ThemeState } from '@store/modules/theme/types';
-import { Animated, ImageBackground, Dimensions } from 'react-native';
+import { Animated, ImageBackground, Platform } from 'react-native';
 import { Button as ButtonC } from '@components/Button';
-import { hp } from '@src/utils/dimension';
+import { getDimensions, hp } from '@src/utils/dimension';
 import { getStatusBarHeight } from 'react-native-iphone-x-helper';
 import { normalize } from '@src/utils/normalize';
 import { isTablet } from 'react-native-device-info';
 
-const { width } = Dimensions.get('window');
+const { width } = getDimensions();
 
 export const Container = styled.View`
   flex: 1;
@@ -29,7 +29,7 @@ export const SliderWrapper = styled.View`
     return (
       props.collection &&
       `
-      padding-top: ${getStatusBarHeight() + (isTablet() ? 40 : 60)}px;
+      padding-top: ${(Platform.OS === 'ios' ? getStatusBarHeight() : 0) + (isTablet() ? 40 : 60)}px;
       margin-bottom: 0px;
     `
     );
@@ -76,7 +76,6 @@ export const SlimDescriptionText = styled.Text.attrs({
   min-height: 90px;
   font-size: ${normalize(12, 16)}px;
   line-height: ${normalize(18, 20)}px;
-
   ${(props: SlimDescriptionTextProps & ThemeState) => {
     return (
       props.collection &&

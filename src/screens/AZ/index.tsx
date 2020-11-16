@@ -10,7 +10,7 @@ import Header from '@components/Header';
 import { AppState } from '@store/modules/rootReducer';
 import { useSelector } from 'react-redux';
 import RNPickerSelect, { PickerSelectProps } from 'react-native-picker-select';
-import { widthPercentageToDP as vw } from 'react-native-responsive-screen';
+import { percentageWidth } from '@src/utils/dimension';
 
 import {
   MassiveSDKModelItemSummary,
@@ -23,7 +23,7 @@ import { useTranslation } from 'react-i18next';
 import { Item } from '@screens/ModalFilter';
 import { ArrowBottomIcon } from '@assets/icons';
 import { compact } from 'lodash';
-import { wp } from '@src/utils/dimension';
+
 import { isTablet } from 'react-native-device-info';
 import { loadCollectionList } from '@src/services/util';
 import { dataDummy } from './data';
@@ -309,14 +309,14 @@ const AZ = () => {
                 loading={animationContinuosScroll}
                 numColumns={isTablet() ? 4 : 3}
                 element={{
-                  width: vw(isTablet() ? 25 : 33.333) - wp(isTablet() ? 10 : 20),
-                  height: vw((isTablet() ? 25 : 33.333) * 1.25),
+                  width: percentageWidth(isTablet() ? 25 : 33.333) - (isTablet() ? 10 : 20),
+                  height: percentageWidth((isTablet() ? 25 : 33.333) * 1.25),
                   marginBottom: 20,
-                  marginHorizontal: wp(isTablet() ? 3 : 5),
+                  marginHorizontal: isTablet() ? 3 : 5,
                 }}
                 containerStyle={{
                   marginTop: 10,
-                  paddingHorizontal: wp(isTablet() ? 7 : 15),
+                  paddingHorizontal: isTablet() ? 7 : 15,
                 }}
               />
             </ContainerGrid>
