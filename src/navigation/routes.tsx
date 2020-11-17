@@ -7,7 +7,12 @@ import { AppState } from '@store/modules/rootReducer';
 import { AppState as AppStateRN } from 'react-native';
 import KochavaTracker from 'react-native-kochava-tracker';
 import NetInfo from '@react-native-community/netinfo';
-import { isTablet, getSystemVersion, getSystemName } from 'react-native-device-info';
+import {
+  isTablet,
+  getSystemVersion,
+  getSystemName,
+  getBuildNumber,
+} from 'react-native-device-info';
 import { connection } from '@store/modules/layout/actions';
 import { refreshTokenWithExpiresIn } from '@src/services/token';
 import { getProfileRequest, refreshTokenSuccess } from '@store/modules/user/actions';
@@ -116,6 +121,7 @@ export default ({ onTrackEvent }: Props) => {
       onStateChange={() => {
         const previousRoute = routeNameRef.current;
         const currentRoute = navigationRef.current.getCurrentRoute();
+
         if (previousRoute.name !== currentRoute.name) {
           const { user, terms } = TrackPageView(currentRoute, token, {
             account_status: !isLogged
@@ -128,6 +134,8 @@ export default ({ onTrackEvent }: Props) => {
             platform: getSystemName(),
             os_version: getSystemVersion(),
             device_name: device,
+            app_version: getBuildNumber(),
+            segment,
           });
 
           if (terms?.page !== '.page')

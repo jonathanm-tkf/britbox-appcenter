@@ -4,6 +4,7 @@
 /* eslint-disable default-case */
 import { MassiveSDKModelItemSummary } from '@src/sdks/Britbox.API.Content.TS/api';
 import { decode as atob } from 'base-64';
+import { getUniqueId } from 'react-native-device-info';
 
 type PageView = {
   key: string;
@@ -24,6 +25,9 @@ type UserInformation = {
   device_name: string;
   os_version: string;
   isFreeTrail?: boolean;
+  app_version: string;
+  segment: string;
+  readonly clientId: string;
 };
 
 type TrackPageResult = {
@@ -73,7 +77,11 @@ export const TrackPageView = (
     account_status: accountStatus,
     device_name: deviceName,
     os_version: osVersion,
+    app_version: appVersion,
+    segment,
   } = userInformation;
+
+  const clientId = getUniqueId();
 
   result.user = {
     id: user || '',
@@ -81,6 +89,9 @@ export const TrackPageView = (
     account_status: accountStatus,
     device_name: deviceName,
     os_version: osVersion,
+    app_version: appVersion,
+    segment,
+    clientId,
   };
 
   if (name !== 'MyAccount' && name !== 'AccountSubscription' && params) {

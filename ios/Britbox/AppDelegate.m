@@ -73,7 +73,7 @@ static void InitializeFlipper(UIApplication *application) {
   UIViewController *vc = [sb instantiateInitialViewController];
   rootView.loadingView = vc.view;
 
-  GCKDiscoveryCriteria *criteria = [[GCKDiscoveryCriteria alloc] initWithApplicationID:@"01F2D9B4"];
+  GCKDiscoveryCriteria *criteria = [[GCKDiscoveryCriteria alloc] initWithApplicationID:@"FD8B89DB"];
   GCKCastOptions* options = [[GCKCastOptions alloc] initWithDiscoveryCriteria:criteria];
   options.physicalVolumeButtonsWillControlDeviceVolume = YES;
   [GCKCastContext setSharedInstanceWithOptions:options];

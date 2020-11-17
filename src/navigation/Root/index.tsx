@@ -1,6 +1,4 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable no-unused-vars */
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useCallback, useEffect, useState } from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { useDispatch, useSelector } from 'react-redux';
@@ -9,7 +7,6 @@ import { AppState } from '@store/modules/rootReducer';
 import Storybook from '@screens/Storybook';
 import { rgba } from 'polished';
 import VideoPlayer from '@screens/VideoPlayer';
-import Modal from '@screens/Modal';
 import ModalSeasons from '@screens/ModalSeasons';
 import { Animated, Linking, Platform } from 'react-native';
 import { ThemeProps } from '@store/modules/theme/types';

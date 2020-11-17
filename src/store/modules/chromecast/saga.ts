@@ -15,7 +15,7 @@ import {
 } from '@store/modules/layout/types';
 import { pickBy, shuffle } from 'lodash';
 import { Platform } from 'react-native';
-import { getSystemVersion } from 'react-native-device-info';
+import { getSystemVersion, getUniqueId } from 'react-native-device-info';
 import { getUserId } from '@src/services/analytics';
 import sha1 from 'sha1';
 import { refreshTokenWithExpiresIn } from '@src/services/token';
@@ -84,7 +84,6 @@ const parseResponseMediaSelectorSubtitles = (data: DataResponseMediaSlector) => 
     const { media } = data;
 
     const captions = media.filter((m) => m.kind === 'captions');
-
     if (captions && captions.length > 0) {
       const { connection } = captions.reduce((v) => v);
       const items = connection.filter((c) => c.protocol === 'https');
@@ -118,6 +117,28 @@ const parseResponseMediaSelector = (data: DataResponseMediaSlector) => {
       }
     }
   });
+};
+
+type CustomDataType = {
+  user: {
+    token: string;
+    ert: any;
+    user_id: string | undefined;
+    platform: string;
+    device_name: string;
+    country: Segment;
+    os_version: string;
+    expiresIn: any;
+    analyticsSubscriptionStatus: string;
+    staging: boolean;
+  };
+  media: {
+    itemVideoCustomId: string | undefined;
+    itemVideoMassiveId: string | undefined;
+    itemVideoTitle: string | undefined;
+  };
+  clientId: string;
+  subtitles?: string;
 };
 
 export const castVideoRequest = async (
@@ -182,14 +203,16 @@ export const castVideoRequest = async (
     const user = await getUser(userState, layoutState, token, segment);
 
     return parseResponseMediaSelector(responseMediaSelector.data).then((dataVideo) => {
-      const customData = {
+      const customData: CustomDataType = {
         user,
         media: {
           itemVideoCustomId: url,
           itemVideoMassiveId: item?.id,
           itemVideoTitle: item?.title,
         },
+        clientId: getUniqueId(),
       };
+
       if (subtitles) {
         customData.subtitles = subtitles;
       }

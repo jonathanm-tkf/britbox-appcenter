@@ -15,7 +15,7 @@ import { AppState } from '@store/modules/rootReducer';
 import { useDispatch, useSelector } from 'react-redux';
 import { WebView } from 'react-native-webview';
 import NetInfo, { NetInfoStateType } from '@react-native-community/netinfo';
-import { getSystemVersion, isTablet } from 'react-native-device-info';
+import { getSystemVersion, getUniqueId, isTablet } from 'react-native-device-info';
 import { MassiveSDKModelItemSummary } from '@src/sdks/Britbox.API.Content.TS/api';
 import { immersiveModeOn, immersiveModeOff } from 'react-native-android-immersive-mode';
 import { autoPlayOff, castVideoPlayerDetail, layoutCasting } from '@store/modules/layout/actions';
@@ -159,6 +159,7 @@ const VideoPlayer = () => {
         platform: Platform.OS === 'ios' ? 'iOS' : 'Android',
         device_name: layout.device,
         os_version: getSystemVersion(),
+        client_id: getUniqueId(),
         videoid: params.item.id,
         staging: true,
         token,

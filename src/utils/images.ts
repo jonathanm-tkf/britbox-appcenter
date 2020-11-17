@@ -83,8 +83,10 @@ export const getImage = (url = '', imageType = '', quality = 0, height = 0, widt
     resImageURL = `${url
       .replace(`&Width=${String(originalWidth)}`, `&Width=${String(newWidth)}`)
       .replace(`&Height=${String(originalHeight)}`, `&Height=${String(newHeight)}`)
-      .replace(`&Quality=${String(originalQuality)}`, `&Quality=${String(boxQuality)}`)}
-      &imageType=${imageType}`;
+      .replace(
+        `&Quality=${String(originalQuality)}`,
+        `&Quality=${String(boxQuality)}`
+      )}&imageType=${imageType}`;
   } catch {
     return url;
   }

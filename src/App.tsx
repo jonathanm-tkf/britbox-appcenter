@@ -4,7 +4,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { AppState } from '@store/modules/rootReducer';
 import { StatusBar, View, ViewStyle } from 'react-native';
 import WebView from 'react-native-webview';
-import { getSystemVersion, getSystemName, getDeviceName, isTablet } from 'react-native-device-info';
+import {
+  getSystemVersion,
+  getSystemName,
+  getDeviceName,
+  isTablet,
+  getBuildNumber,
+} from 'react-native-device-info';
 import RBSheet from 'react-native-raw-bottom-sheet';
 import { TrackPageView } from '@src/services/analytics';
 import { hideSheetBottom, sheetComponent, device } from '@store/modules/layout/actions';
@@ -33,7 +39,7 @@ export default function App() {
   const webViewRef = useRef<any>(undefined);
   const theme = useSelector((state: AppState) => state.theme.theme);
   const { welcomeMessage } = useSelector((state: AppState) => state.layout);
-  const { token } = useSelector((state: AppState) => state.core);
+  const { token, segment } = useSelector((state: AppState) => state.core);
   const isLoading = useSelector((state: AppState) => state.layout.loading);
   const { analyticsSubscriptionStatus, isInFreeTrail } = useSelector(
     (state: AppState) => (state.user?.profile as Profile) || {}
@@ -87,6 +93,8 @@ export default function App() {
         platform: getSystemName(),
         os_version: getSystemVersion(),
         device_name: deviceName,
+        app_version: getBuildNumber(),
+        segment,
       });
 
       onTrackEvent({

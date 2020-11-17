@@ -71,10 +71,10 @@ const user: Reducer<UserState> = (state = initialState, action) => {
         const profile = {
           ...state.profile,
           bookmarkList: {
-            ...state.profile.bookmarkList,
-            items: state.profile.bookmarkList.items.filter(
-              (item: { type: string; id: string; showId: string }) =>
-                parseInt(item.type === 'season' ? item.showId : item.id, 10) !==
+            ...(state?.profile?.bookmarkList || {}),
+            items: (state?.profile?.bookmarkList?.items || []).filter(
+              (item) =>
+                parseInt(item?.type === 'season' ? item?.showId || '0' : item?.id || '0', 10) !==
                 parseInt(action.payload.itemId, 10)
             ),
           },
@@ -90,11 +90,11 @@ const user: Reducer<UserState> = (state = initialState, action) => {
           ...state.profile,
           bookmarks: {
             [id]: date,
-            ...state.profile.bookmarks,
+            ...(state?.profile?.bookmarks || {}),
           },
           bookmarkList: {
-            ...state.profile.bookmarkList,
-            items: [{ date, ...itemDetail }, ...(state.profile.bookmarkList.items || [])],
+            ...(state?.profile?.bookmarkList || {}),
+            items: [{ date, ...itemDetail }, ...(state?.profile?.bookmarkList?.items || [])],
           },
           bookmarkPendingProccesing: undefined,
         };
@@ -105,18 +105,18 @@ const user: Reducer<UserState> = (state = initialState, action) => {
       case UserActionTypes.CONTINUE_WATCHING_REMOVE_REQUEST_SUCCESS: {
         const profile = {
           ...state.profile,
-          watched: pickBy(state.profile.watched, (value, key) => {
+          watched: pickBy(state?.profile?.watched || {}, (value, key) => {
             if (key !== action.payload.itemId) {
               return { [key]: value };
             }
           }),
           watchedList: {
-            ...state.profile.watchedList,
-            items: state.profile.watchedList.items.filter(
-              (item: { id: string }) =>
-                parseInt(item.id, 10) !== parseInt(action.payload.itemId, 10)
+            ...(state?.profile?.watchedList || {}),
+            items: (state?.profile?.watchedList?.items || []).filter(
+              (item) => parseInt(item?.id || '0', 10) !== parseInt(action.payload.itemId, 10)
             ),
           },
+          bookmarkPendingProccesing: undefined,
         };
         draft.profile = profile;
         break;
@@ -125,6 +125,7 @@ const user: Reducer<UserState> = (state = initialState, action) => {
         const profile = {
           ...state.profile,
           parentalControl: true,
+          bookmarkPendingProccesing: undefined,
         };
         draft.profile = profile;
         break;
@@ -133,6 +134,7 @@ const user: Reducer<UserState> = (state = initialState, action) => {
         const profile = {
           ...state.profile,
           parentalControl: false,
+          bookmarkPendingProccesing: undefined,
         };
         draft.profile = profile;
         break;
@@ -142,6 +144,7 @@ const user: Reducer<UserState> = (state = initialState, action) => {
           ...state.profile,
           watched: action.payload.watched.externalResponse,
           watchedList: action.payload.watchedList.externalResponse,
+          bookmarkPendingProccesing: undefined,
         };
         draft.profile = profile;
         break;
