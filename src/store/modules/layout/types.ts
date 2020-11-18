@@ -44,7 +44,7 @@ export enum LayoutActionTypes {
 
 export interface LayoutState {
   loading: boolean;
-  error: any;
+  error: boolean | undefined;
   retry: number;
   out: boolean;
   cast: boolean | undefined;
@@ -55,7 +55,7 @@ export interface LayoutState {
   sheet: {
     content: () => JSX.Element | null;
     height: number;
-    data: { [name: string]: any };
+    data: { [name: string]: Record<string, unknown> };
   };
   isSheetVisible: boolean;
   event: Record<string, unknown> | undefined;
@@ -71,6 +71,7 @@ export interface LayoutState {
     x: number;
     y: number;
   };
+  castDevice: boolean;
 }
 
 export interface MediaSelectorResponse {
@@ -194,7 +195,7 @@ export interface Request {
   _responseType: string;
   _sent: boolean;
   _lowerCaseResponseHeaders: LowerCaseResponseHeadersClass;
-  _subscriptions: any[];
+  _subscriptions: Record<string, unknown>[];
   responseURL: string;
 }
 

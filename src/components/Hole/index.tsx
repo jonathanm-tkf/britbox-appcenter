@@ -6,13 +6,13 @@ import { AppState } from '@store/modules/rootReducer';
 import { ThemeProps } from '@store/modules/theme/types';
 import { rgba } from 'polished';
 import React, { useEffect, useState } from 'react';
-import { Animated } from 'react-native';
-import GoogleCast from 'react-native-google-cast';
+import { Animated, StyleSheet } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { withTheme } from 'styled-components';
 import { RNHoleView } from 'react-native-hole-view';
 import { isTablet } from 'react-native-device-info';
 import { getDimensions } from '@src/utils/dimension';
+import { getBottomSpace } from 'react-native-iphone-x-helper';
 import { HoleContent, HoleText } from './styles';
 
 type Props = {
@@ -22,45 +22,37 @@ const { height } = getDimensions();
 
 const Hole = ({ theme }: Props) => {
   const dispatch = useDispatch();
-  const [chromecastDevice, setChromecastDevice] = useState(false);
   const [fadeAnimation] = useState(new Animated.Value(0));
   const { introChromecast, isLogged, forceChromecast } = useSelector(
     (state: AppState) => state.core
   );
-  const { loading, castPosition } = useSelector((state: AppState) => state.layout);
+  const { loading, castPosition, castDevice } = useSelector((state: AppState) => state.layout);
 
-  const holeStyles = {
-    position: 'absolute',
-    width: '100%',
-    height: '100%',
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: rgba(theme.PRIMARY_COLOR_OPAQUE, 0.75),
-  };
-
-  const animatedStyles = {
-    position: 'absolute',
-    width: '100%',
-    height: '100%',
-  };
-
-  useEffect(() => {
-    async function getDevice() {
-      await GoogleCast.getCastState().then((state) => {
-        if (state !== 'NoDevicesAvailable') {
-          setChromecastDevice(true);
-        }
-      });
-    }
-    getDevice();
-  }, []);
+  const styles = StyleSheet.create({
+    animate: {
+      ...StyleSheet.absoluteFillObject,
+      width: '100%',
+      height: '100%',
+    },
+    hidden: {
+      opacity: 0,
+    },
+    hole: {
+      ...StyleSheet.absoluteFillObject,
+      width: '100%',
+      height: '100%',
+      justifyContent: 'center',
+      alignItems: 'center',
+      backgroundColor: rgba(theme.PRIMARY_COLOR_OPAQUE, 0.75),
+    },
+  });
 
   useEffect(() => {
     if (
       !loading &&
       introChromecast &&
       isLogged &&
-      (chromecastDevice || forceChromecast) &&
+      (castDevice || forceChromecast) &&
       castPosition.x !== 0 &&
       castPosition.y !== 0
     ) {
@@ -68,7 +60,7 @@ const Hole = ({ theme }: Props) => {
         fadeIn();
       }, 500);
     }
-  }, [loading, introChromecast, isLogged, chromecastDevice, forceChromecast, castPosition]);
+  }, [loading, introChromecast, isLogged, castDevice, forceChromecast, castPosition]);
 
   useEffect(() => {
     if (!introChromecast) {
@@ -91,10 +83,12 @@ const Hole = ({ theme }: Props) => {
       useNativeDriver: true,
     }).start();
   };
-  return introChromecast && isLogged && (chromecastDevice || forceChromecast) ? (
+
+  return introChromecast && isLogged && (castDevice || forceChromecast) ? (
     <Animated.View
       style={[
-        animatedStyles,
+        styles.animate,
+        styles.hidden,
         {
           opacity: fadeAnimation,
         },
@@ -112,11 +106,11 @@ const Hole = ({ theme }: Props) => {
         </Button>
       </HoleContent>
       <RNHoleView
-        style={holeStyles}
+        style={styles.hole}
         holes={[
           {
             x: castPosition.x - (isTablet() ? 25 : 30),
-            y: height - 75 - (isTablet() ? 35 : 30) + castPosition.y,
+            y: height - getBottomSpace() - 120 - (isTablet() ? 100 : 75) + (isTablet() ? 35 : 30),
             width: 120,
             height: 120,
             borderRadius: 60,

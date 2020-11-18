@@ -65,8 +65,8 @@ public class MainApplication extends Application implements ReactApplication {
   }
 
   @Override
-  public void onCreate() {
-    super.onCreate();
+  public void onCreate(Bundle savedInstanceState) {
+    super.onCreate(null);
     SoLoader.init(this, /* native exopackage */ false);
     initializeFlipper(this, getReactNativeHost().getReactInstanceManager());
     WebView.setWebContentsDebuggingEnabled(true);

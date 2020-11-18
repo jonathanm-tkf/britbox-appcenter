@@ -1,6 +1,9 @@
 import * as React from 'react';
 
-export const sheetRef: any = React.createRef();
+export const sheetRef: React.RefObject<{
+  open: () => void;
+  close: () => void;
+}> = React.createRef();
 
 export function showSheet() {
   setTimeout(() => {

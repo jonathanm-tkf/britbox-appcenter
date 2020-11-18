@@ -27,7 +27,7 @@ type UserInformation = {
   isFreeTrail?: boolean;
   app_version: string;
   segment: string;
-  readonly clientId: string;
+  readonly clientId?: string;
 };
 
 type TrackPageResult = {

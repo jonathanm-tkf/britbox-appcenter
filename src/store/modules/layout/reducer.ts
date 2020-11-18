@@ -32,6 +32,7 @@ export const initialState: LayoutState = {
     x: 0,
     y: 0,
   },
+  castDevice: false,
 };
 
 const layout: Reducer<LayoutState> = (state = initialState, action) => {
@@ -139,9 +140,11 @@ const layout: Reducer<LayoutState> = (state = initialState, action) => {
       case LayoutActionTypes.GET_PROFILE_FAILED:
         draft.failedGetProfile = action.payload.failedGetProfile;
         break;
-      case LayoutActionTypes.CAST_POSITION:
+      case LayoutActionTypes.CAST_POSITION: {
         draft.castPosition = action.payload;
+        draft.castDevice = true;
         break;
+      }
       default:
         break;
     }

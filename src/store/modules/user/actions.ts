@@ -1,5 +1,9 @@
 import { action } from 'typesafe-actions';
-import { BritboxAPIAccountModelsProfileGetProfileResponse } from '@src/sdks/Britbox.API.Account.TS/api';
+import {
+  BritboxAPIAccountModelsProfileGetProfileResponse,
+  MassiveSDKModelBookmark,
+  MassiveSDKModelItemDetail,
+} from '@src/sdks/Britbox.API.Account.TS/api';
 import {
   UserActionTypes,
   UserLogin,
@@ -45,16 +49,26 @@ export const watchlistToggleRequest = ({ itemId, itemCustomId, isInWatchlist }: 
     isInWatchlist,
   });
 
-export const watchlistRequestAdd = (data: any) =>
-  action(UserActionTypes.WATCHLIST_TOGGLE_REQUEST_ADD, { ...data });
+export const watchlistRequestAdd = (data: {
+  type: string;
+  externalResponse?: MassiveSDKModelBookmark | undefined;
+  itemDetail?: MassiveSDKModelItemDetail | undefined;
+  errors?: string[] | undefined;
+  messages?: string[] | undefined;
+}) => action(UserActionTypes.WATCHLIST_TOGGLE_REQUEST_ADD, { ...data });
 
-export const watchlistRequestRemove = (data: any) =>
-  action(UserActionTypes.WATCHLIST_TOGGLE_REQUEST_REMOVE, { ...data });
+export const watchlistRequestRemove = (data: {
+  type: string;
+  externalResponse?: MassiveSDKModelBookmark | undefined;
+  itemDetail?: MassiveSDKModelItemDetail | undefined;
+  errors?: string[] | undefined;
+  messages?: string[] | undefined;
+}) => action(UserActionTypes.WATCHLIST_TOGGLE_REQUEST_REMOVE, { ...data });
 
 export const continueWatchingRemoveRequest = ({ itemId }: ContinueWatchingItem) =>
   action(UserActionTypes.CONTINUE_WATCHING_REMOVE_REQUEST, { itemId });
 
-export const continueWatchingRemoveRequestSuccess = (data: any) =>
+export const continueWatchingRemoveRequestSuccess = (data: { itemId: string; type: string }) =>
   action(UserActionTypes.CONTINUE_WATCHING_REMOVE_REQUEST_SUCCESS, { ...data });
 
 export const loginAfterRegister = (isPurchase: boolean, isAccount?: boolean) =>

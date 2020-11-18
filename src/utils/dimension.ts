@@ -41,7 +41,7 @@ export const getDimensions = () => {
   };
 };
 
-export const percentageWidth = (percentage: any) => {
+export const percentageWidth = (percentage: number) => {
   const { width } = getDimensions();
   const value = (percentage / 100) * width;
   return Math.round(value);

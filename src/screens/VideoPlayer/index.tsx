@@ -49,7 +49,7 @@ const VideoPlayer = () => {
   const { goBack } = useNavigation();
   const { params } = useRoute<VideoPlayerScreenRouteProp>();
   const webview = {
-    backgroundColor: theme.PRIMARY_COLOR,
+    backgroundColor: 'transparent',
     flex: 1,
     width: height,
     height: width,
