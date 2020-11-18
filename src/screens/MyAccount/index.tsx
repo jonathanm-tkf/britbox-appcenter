@@ -169,7 +169,17 @@ export default function MyAccount() {
           const { response: responseData } = response;
           if (responseData && Number(responseData.responseCode) === 1) {
             setIsSuccess(true);
-            dispatch(getProfileRequest());
+            setTimeout(() => {
+              dispatch(
+                profileRequestSuccess({
+                  ...user?.profile,
+                  firstName,
+                  lastName,
+                  phoneNumber: mobile,
+                  email,
+                })
+              );
+            }, 2000);
             dispatch(
               atiEventTracking('submit', 'bb_profile_edit', {
                 is_background: false,
@@ -784,9 +794,11 @@ export default function MyAccount() {
         const { response: responseData } = response;
         if (responseData && Number(responseData.responseCode) === 1) {
           setIsSuccess(true);
-          dispatch(
-            profileRequestSuccess({ ...user?.profile, isAlertNotificationEmail: isNewsletters })
-          );
+          setTimeout(() => {
+            dispatch(
+              profileRequestSuccess({ ...user?.profile, isAlertNotificationEmail: isNewsletters })
+            );
+          }, 2000);
           dispatch(
             atiEventTracking('submit', 'bb_newsletter_update', {
               is_background: false,
