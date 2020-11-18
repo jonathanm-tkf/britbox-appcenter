@@ -9,7 +9,7 @@ import {
   getActiveSubscriptionRequest,
 } from '@store/modules/user/saga';
 import { BritboxDataEvergentModelsGetActiveSubscriptionsResponseMessageBaseAccountServiceMessage } from '@src/sdks/Britbox.API.Account.TS/api';
-import { getProfileRequest } from '@store/modules/user/actions';
+import { getProfileRequest, profileRequestSuccess } from '@store/modules/user/actions';
 import { atiEventTracking, atiPageViewTracking } from '@store/modules/layout/actions';
 import { useTranslation } from 'react-i18next';
 import ErrorBlock from '@components/ErrorBlock';
@@ -759,7 +759,7 @@ export default function MyAccount() {
 
   const NewsletterRoute = () => {
     const [isNewsletters, setIsNewsletters] = useState(
-      user?.profile?.isAlertNotificationEmail === 'true' ? true : false || false
+      Boolean(user?.profile?.isAlertNotificationEmail) || false
     );
     const [loading, setLoading] = useState(false);
     const [isSuccess, setIsSuccess] = useState(false);
@@ -784,6 +784,9 @@ export default function MyAccount() {
         const { response: responseData } = response;
         if (responseData && Number(responseData.responseCode) === 1) {
           setIsSuccess(true);
+          dispatch(
+            profileRequestSuccess({ ...user?.profile, isAlertNotificationEmail: isNewsletters })
+          );
           dispatch(
             atiEventTracking('submit', 'bb_newsletter_update', {
               is_background: false,
