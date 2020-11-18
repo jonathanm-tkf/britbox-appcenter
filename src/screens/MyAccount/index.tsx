@@ -784,6 +784,7 @@ export default function MyAccount() {
         const { response: responseData } = response;
         if (responseData && Number(responseData.responseCode) === 1) {
           setIsSuccess(true);
+          dispatch(getProfileRequest());
           dispatch(
             atiEventTracking('submit', 'bb_newsletter_update', {
               is_background: false,
