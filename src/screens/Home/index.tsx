@@ -43,6 +43,7 @@ const headerStyles = {};
 
 const Item = () => {
   const dispatch = useDispatch();
+  const menu = useSelector((state: AppState) => state.core.menu?.navigation?.header); // TODO: get data from properties
 
   const modal = (item: MassiveSDKModelItemSummary) => {
     if (item.type !== 'link') {
@@ -56,6 +57,22 @@ const Item = () => {
     navigateByPath(item);
   };
 
+  const getMenuItems = () => {
+    if (menu && menu.length > 0) {
+      const items = menu
+        .filter((item) => item.label !== 'Explore' && item.label !== 'Help')
+        .map((item, index) => {
+          return {
+            id: index.toString(),
+            text: item.label,
+            goTo: item?.path || '',
+          };
+        });
+      return items;
+    }
+    return [];
+  };
+
   const onWatchlist = (item: WatchlistToggleRequest, isInWatchlist: boolean) => {
     dispatch(
       watchlistToggleRequest({
@@ -67,7 +84,7 @@ const Item = () => {
   };
 
   return (
-    <StickyHeader header={() => <Header style={headerStyles} />}>
+    <StickyHeader header={() => <Header style={headerStyles} menuItems={getMenuItems()} />}>
       {home &&
         home.entries &&
         home.entries.map((item, key) => {

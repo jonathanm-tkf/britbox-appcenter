@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, memo } from 'react';
 import { Dimensions } from 'react-native';
 
 import { Button } from '@components/Button';
@@ -37,39 +37,16 @@ interface Props {
   isCenter?: boolean;
   onPressSignIn?: () => void;
   style?: any;
+  menuItems: any;
 }
 
-type MenuItem = {
-  id: string;
-  text: string;
-  goTo: string;
-};
-
-export default function Header({ hideSignIn, shadow, isCenter, onPressSignIn, style }: Props) {
+const Header = ({ hideSignIn, shadow, isCenter, onPressSignIn, style, menuItems }: Props) => {
   const dispatch = useDispatch();
   const { t } = useTranslation('layout');
   const isLogged = useSelector((state: AppState) => state.user.isLogged);
-  const menu = useSelector((state: AppState) => state.core.menu?.navigation?.header); // TODO: get data from properties
+  // const menu = useSelector((state: AppState) => state.core.menu?.navigation?.header); // TODO: get data from properties
   const { navigate } = useNavigation();
-  const [menuItems, setMenuItems] = useState<MenuItem[]>([]);
   const [screenData, setScreenData] = useState(getDimensions());
-
-  useEffect(() => {
-    // TODO: after get all properties remove this effect
-    if (menu && menu.length > 0) {
-      const items = menu
-        .filter((item) => item.label !== 'Explore' && item.label !== 'Help')
-        .map((item, index) => {
-          return {
-            id: index.toString(),
-            text: item.label,
-            goTo: item?.path || '',
-          };
-        });
-
-      setMenuItems(items);
-    }
-  }, [menu]);
 
   const toggleSignIn = (goTo: string) => {
     if (onPressSignIn) {
@@ -149,4 +126,6 @@ export default function Header({ hideSignIn, shadow, isCenter, onPressSignIn, st
       {shadow && <Gradient />}
     </Container>
   );
-}
+};
+
+export default memo(Header);

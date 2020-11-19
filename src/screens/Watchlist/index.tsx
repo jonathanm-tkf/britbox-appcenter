@@ -2,8 +2,7 @@
 import React, { useEffect, useState } from 'react';
 
 import { getStatusBarHeight } from 'react-native-iphone-x-helper';
-import { Platform, View, TouchableOpacity } from 'react-native';
-import { CollapsibleHeaderFlatList } from 'react-native-collapsible-header-views';
+import { Platform, View, TouchableOpacity, ScrollView } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import { AppState } from '@store/modules/rootReducer';
 import Header from '@components/Header';
@@ -38,10 +37,8 @@ import {
 
 const wrapper = {
   flex: 1,
-  paddingTop: Platform.OS === 'ios' ? getStatusBarHeight() + 10 : 10,
+  paddingTop: Platform.OS === 'ios' ? getStatusBarHeight() + 10 : 0,
 };
-
-const keyExtractor = (item: number) => `${item}`;
 
 const getItemId = () => {
   const { layout }: { layout: LayoutState } = store.getState();
@@ -87,6 +84,7 @@ const Watchlist = () => {
   const [type, setType] = useState('all');
   const [orderBy, setOrderBy] = useState('date-added');
   const { filter } = params || {};
+  const menu = useSelector((state: AppState) => state.core.menu?.navigation?.header); // TODO: get data from properties
 
   const [list, setList] = useState<MassiveSDKModelItemSummary[]>([]);
 
@@ -285,24 +283,26 @@ const Watchlist = () => {
     };
   }, []);
 
+  const getMenuItems = () => {
+    if (menu && menu.length > 0) {
+      const items = menu
+        .filter((item) => item.label !== 'Explore' && item.label !== 'Help')
+        .map((item, index) => {
+          return {
+            id: index.toString(),
+            text: item.label,
+            goTo: item?.path || '',
+          };
+        });
+      return items;
+    }
+    return [];
+  };
+
   return (
     <View style={[wrapper, { backgroundColor: theme.PRIMARY_COLOR }]}>
-      <CollapsibleHeaderFlatList
-        CollapsibleHeaderComponent={
-          <>
-            <Header />
-            {/* <Alphabet {...{ alphabetData }} onPress={(value) => filterLetter(value)} /> */}
-          </>
-        }
-        headerContainerBackgroundColor={theme.PRIMARY_COLOR}
-        headerHeight={77}
-        data={[0]}
-        renderItem={renderContent}
-        clipHeader
-        keyExtractor={keyExtractor}
-        showsVerticalScrollIndicator={false}
-        scrollEventThrottle={16}
-      />
+      <Header menuItems={getMenuItems()} />
+      <ScrollView bounces={false}>{renderContent()}</ScrollView>
     </View>
   );
 };

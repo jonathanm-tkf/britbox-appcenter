@@ -19,13 +19,14 @@ import { getProfileRequest, refreshTokenSuccess } from '@store/modules/user/acti
 import { TrackPageView } from '@src/services/analytics';
 import { Segment } from '@store/modules/core/types';
 import { activateApp } from '@store/modules/home/actions';
+import { Config } from '@src/utils/config';
 import { RootStackScreen } from './Root';
 import { navigationRef } from './rootNavigation';
 
 const configMapObject: { [name: string]: string } = {};
 
-configMapObject[KochavaTracker.PARAM_ANDROID_APP_GUID_STRING_KEY] = 'kobbcww-android-test-8gnh';
-configMapObject[KochavaTracker.PARAM_IOS_APP_GUID_STRING_KEY] = 'kobbcww-ios-test-hh8756t';
+configMapObject[KochavaTracker.PARAM_ANDROID_APP_GUID_STRING_KEY] = Config.KOCHAVA_ANDROID;
+configMapObject[KochavaTracker.PARAM_IOS_APP_GUID_STRING_KEY] = Config.KOCHAVA_IOS;
 KochavaTracker.configure(configMapObject);
 
 type Access = {

@@ -10,6 +10,11 @@ import {
 } from '@components/Typography';
 import { rgba } from 'polished';
 
+export const Background = styled.View`
+  background-color: ${(props: ThemeState) => props.theme.PRIMARY_COLOR};
+  flex: 1;
+`;
+
 export const Container = styled.View`
   flex: 1;
   background-color: ${(props: ThemeState) => props.theme.PRIMARY_COLOR};

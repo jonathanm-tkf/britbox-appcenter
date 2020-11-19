@@ -1,7 +1,7 @@
 import { AppState } from '@store/modules/rootReducer';
 import { ThemeProps } from '@store/modules/theme/types';
 import React, { ReactNode } from 'react';
-import { View, Animated } from 'react-native';
+import { View, Animated, Platform } from 'react-native';
 import { getStatusBarHeight } from 'react-native-iphone-x-helper';
 import { useSelector } from 'react-redux';
 import { withTheme } from 'styled-components';
@@ -11,9 +11,10 @@ type Props = {
   header: () => ReactNode;
   children: ReactNode;
   readonly theme: ThemeProps;
+  onScroll?: (event: any) => void;
 };
 
-const StickyHeader = ({ header, children, theme }: Props) => {
+const StickyHeader = ({ header, children, theme, onScroll }: Props) => {
   const heightHeader = 80 + getStatusBarHeight();
   const scrollY = new Animated.Value(0);
   const diffClamp = Animated.diffClamp(scrollY, 0, heightHeader);
@@ -26,7 +27,7 @@ const StickyHeader = ({ header, children, theme }: Props) => {
 
   const animationHeaderStyles = {
     position: 'absolute',
-    top: 10 + getStatusBarHeight(),
+    top: Platform.OS === 'ios' ? 10 + getStatusBarHeight() : 0,
     width: '100%',
     elevation: 4,
     zIndex: 4,
@@ -42,7 +43,7 @@ const StickyHeader = ({ header, children, theme }: Props) => {
       <View
         style={{
           backgroundColor: theme.PRIMARY_COLOR,
-          height: 10 + getStatusBarHeight(),
+          height: Platform.OS === 'ios' ? 10 + getStatusBarHeight() : 0,
           width: '100%',
           position: 'absolute',
           zIndex: 10,
@@ -51,7 +52,7 @@ const StickyHeader = ({ header, children, theme }: Props) => {
       <Animated.View style={animationHeaderStyles}>{header()}</Animated.View>
       <Animated.ScrollView
         overScrollMode="never"
-        scrollEventThrottle={16}
+        scrollEventThrottle={32}
         bounces={false}
         onScroll={Animated.event(
           [
@@ -61,6 +62,7 @@ const StickyHeader = ({ header, children, theme }: Props) => {
           ],
           {
             useNativeDriver: true,
+            listener: onScroll,
           }
         )}
       >
