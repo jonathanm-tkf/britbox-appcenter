@@ -188,3 +188,9 @@ export const Select = styled.TouchableOpacity`
   z-index: 1;
   padding-top: 20px;
 `;
+
+export const SafeAreaView = styled.View`
+  flex: 1;
+  background-color: ${(props: ThemeState) => props.theme.PRIMARY_COLOR};
+  padding-top: ${Platform.OS === 'ios' ? getStatusBarHeight() + 10 : 0}px;
+`;

@@ -2,9 +2,8 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect, useRef } from 'react';
-import { NativeScrollEvent, Platform, View } from 'react-native';
+import { NativeScrollEvent, Platform, ScrollView, View } from 'react-native';
 import { useNavigation, useRoute, RouteProp } from '@react-navigation/native';
-import { CollapsibleHeaderFlatList } from 'react-native-collapsible-header-views';
 import { getStatusBarHeight } from 'react-native-iphone-x-helper';
 import Header from '@components/Header';
 import { AppState } from '@store/modules/rootReducer';
@@ -35,6 +34,7 @@ import {
   LetterButtonText,
   ContainerGrid,
   Select,
+  SafeAreaView,
 } from './styles';
 
 type RootParamList = {
@@ -51,8 +51,6 @@ const wrapper = {
   flex: 1,
   paddingTop: Platform.OS === 'ios' ? getStatusBarHeight() + 10 : 10,
 };
-
-const keyExtractor = (item: number) => `${item}`;
 
 type DataTypes = {
   items: MassiveSDKModelItemSummary[];
@@ -100,6 +98,8 @@ const Alphabet = ({ alphabetData, onPress }: AlphabetProps) => {
   );
 };
 
+const headerStyles = {};
+
 const AZ = () => {
   const navigation = useNavigation();
   const { params } = useRoute<AZScreenRouteProp>();
@@ -115,6 +115,7 @@ const AZ = () => {
   const [alphabetData, setAlphabetData] = useState<AlphabetDataType[] | undefined>([]);
   const [order, setOrder] = useState('asc');
   const [orderBy, setOrderBy] = useState('a-z');
+  const menu = useSelector((state: AppState) => state.core.menu?.navigation?.header); // TODO: get data from properties
 
   const pickerRef = useRef(PickerSelectProps);
 
@@ -350,26 +351,104 @@ const AZ = () => {
     );
   };
 
+  const getMenuItems = () => {
+    if (menu && menu.length > 0) {
+      const items = menu
+        .filter((item) => item.label !== 'Explore' && item.label !== 'Help')
+        .map((item, index) => {
+          return {
+            id: index.toString(),
+            text: item.label,
+            goTo: item?.path || '',
+          };
+        });
+      return items;
+    }
+    return [];
+  };
+
   return (
-    <View style={[wrapper, { backgroundColor: theme.PRIMARY_COLOR }]}>
-      <CollapsibleHeaderFlatList
-        CollapsibleHeaderComponent={
-          <>
-            <Header />
-            {/* <Alphabet {...{ alphabetData }} onPress={(value) => filterLetter(value)} /> */}
-          </>
-        }
-        headerContainerBackgroundColor={theme.PRIMARY_COLOR}
-        headerHeight={77}
-        data={[0]}
-        renderItem={renderContent}
-        clipHeader
-        keyExtractor={keyExtractor}
-        showsVerticalScrollIndicator={false}
-        onScroll={(event) => handleScroll(event)}
-        scrollEventThrottle={16}
-      />
-    </View>
+    <SafeAreaView>
+      <Header style={headerStyles} menuItems={getMenuItems()} />
+      <ScrollView bounces={false} onScroll={(event) => handleScroll(event)}>
+        <Container>
+          {data && (
+            <WrapperContinuosScroll>
+              {/* <ChangeOrderButton
+              onPress={() =>
+                navigation.navigate('ModalFilter', {
+                  title: t('layout:filter'),
+                  data: [
+                    {
+                      title: t('layout:order'),
+                      data: [
+                        {
+                          title: t('layout:recent'),
+                          value: 'date-added',
+                          selected: orderBy === 'date-added',
+                        },
+                        {
+                          title: t('layout:az'),
+                          value: 'a-z',
+                          selected: orderBy === 'a-z',
+                        },
+                      ],
+                    },
+                  ],
+                  previusRoute: 'AZ',
+                })
+              }
+            >
+              <ChangeOrderText>{t('layout:filter')} +</ChangeOrderText>
+            </ChangeOrderButton> */}
+
+              <ContainerGrid>
+                <Grid
+                  items={data.items || []}
+                  title={t('az:title')}
+                  loading={animationContinuosScroll}
+                  numColumns={isTablet() ? 4 : 3}
+                  element={{
+                    width: percentageWidth(isTablet() ? 25 : 33.333) - (isTablet() ? 10 : 20),
+                    height: percentageWidth((isTablet() ? 25 : 33.333) * 1.25),
+                    marginBottom: 20,
+                    marginHorizontal: isTablet() ? 3 : 5,
+                  }}
+                  containerStyle={{
+                    marginTop: 10,
+                    paddingHorizontal: isTablet() ? 7 : 15,
+                  }}
+                />
+              </ContainerGrid>
+              {alphabetData && alphabetData?.length > 0 && (
+                <Select
+                  activeOpacity={1}
+                  onPress={() => pickerRef.current && pickerRef.current.togglePicker()}
+                >
+                  <RNPickerSelect
+                    ref={pickerRef}
+                    placeholder={{}}
+                    InputAccessoryView={() => null}
+                    useNativeAndroidPickerStyle={false}
+                    onValueChange={(value) => filterLetter(value)}
+                    items={alphabetData as any}
+                    style={stylesSelect}
+                    Icon={() => (
+                      <ArrowBottomIcon
+                        width={15}
+                        height={15}
+                        fill={theme.PRIMARY_TEXT_COLOR_OPAQUE}
+                      />
+                    )}
+                  />
+                </Select>
+              )}
+            </WrapperContinuosScroll>
+          )}
+          {error && <ErrorLanding onPress={() => back()} />}
+        </Container>
+      </ScrollView>
+    </SafeAreaView>
   );
 };
 

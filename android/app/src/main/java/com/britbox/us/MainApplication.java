@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.Arrays;
 import com.microsoft.codepush.react.CodePush;
 import com.horcrux.svg.SvgPackage;
+
 import android.webkit.WebView;
 import com.britbox.us.Device.DeviceLibPackage;
 
@@ -65,8 +66,8 @@ public class MainApplication extends Application implements ReactApplication {
   }
 
   @Override
-  public void onCreate(Bundle savedInstanceState) {
-    super.onCreate(null);
+  public void onCreate() {
+    super.onCreate();
     SoLoader.init(this, /* native exopackage */ false);
     initializeFlipper(this, getReactNativeHost().getReactInstanceManager());
     WebView.setWebContentsDebuggingEnabled(true);
