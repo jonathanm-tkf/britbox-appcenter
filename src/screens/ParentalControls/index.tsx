@@ -491,7 +491,9 @@ export default function ParentalControls() {
               ref={ref}
               {...codeProps}
               value={value}
-              onChangeText={setValue}
+              onChangeText={(code) => {
+                if (!/[^0-9]/g.test(code)) setValue(code);
+              }}
               cellCount={CELL_COUNT}
               keyboardType="number-pad"
               textContentType="oneTimeCode"
