@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { useDispatch, useSelector } from 'react-redux';
 import { getBuildNumber } from 'react-native-device-info';
@@ -72,6 +72,7 @@ const RootStackScreen = () => {
   const theme = useSelector((state: AppState) => state.theme.theme);
   const isOut = useSelector((state: AppState) => state.layout.out);
   const failedGetProfile = useSelector((state: AppState) => state.layout.failedGetProfile);
+  const deepLinkUrl = useSelector((state: AppState) => state.home.deepLinkUrl);
   const [lostConnection, setLostConnection] = useState(false);
   const [versionModal, setVersionModal] = useState(false);
   const dispatch = useDispatch();
@@ -108,7 +109,7 @@ const RootStackScreen = () => {
     };
   }, []);
 
-  const appWokeUp = useCallback(async (event: any) => {
+  const appWokeUp = async (event: any) => {
     const { url } = event;
     if (url) {
       if (Platform.OS === 'ios') {
@@ -126,6 +127,7 @@ const RootStackScreen = () => {
               if (response && response?.externalResponse) {
                 const { externalResponse } = response;
                 navigateByPath(externalResponse, routeName[0] === 'watch');
+                setDeepLinkUrl(null);
               }
             }
           }
@@ -136,21 +138,44 @@ const RootStackScreen = () => {
         if (route[1] && route[1] !== '') {
           if (/\/show\/|\/movie\/|\/season\/|\/episode\//.test(route[1] || '')) {
             navigateByPath({ path: route[1], customId: true }, !(route[1] || '').includes('_'));
+            setDeepLinkUrl(null);
           }
         }
       }
     }
+  };
+
+  const deepLink = (event: any) => {
+    if (isLogged) {
+      appWokeUp(event);
+    } else {
+      dispatch(setDeepLinkUrl(event?.url));
+    }
+  };
+
+  useEffect(() => {
+    Linking.addEventListener('url', deepLink);
+
+    return () => {
+      Linking.removeEventListener('url', deepLink);
+    };
+  }, [isLogged]);
+
+  useEffect(() => {
+    Linking.getInitialURL().then((url: string | null) => {
+      if (url) {
+        deepLink({ url });
+      }
+    });
   }, []);
 
   useEffect(() => {
-    Linking.addEventListener('url', (event) => {
-      if (isLogged) {
-        appWokeUp(event);
-      } else {
-        dispatch(setDeepLinkUrl(event?.url));
-      }
-    });
-  }, [appWokeUp]);
+    if (isLogged && deepLinkUrl) {
+      setTimeout(() => {
+        deepLink({ url: deepLinkUrl });
+      }, 200);
+    }
+  }, [isLogged, deepLinkUrl]);
 
   return (
     <>
