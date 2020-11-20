@@ -433,6 +433,7 @@ const SignUp = () => {
                 <SubTitle>{getTextInConfigJSON(['registration', 'description-2'], '')}</SubTitle>
               </TitleWrapper>
               <Input
+                nativeID="firstname"
                 label={t('field.firstname')}
                 value={firstName}
                 onChangeText={(text) => setFirstName(text)}
@@ -440,6 +441,7 @@ const SignUp = () => {
                 error={errorFirstName}
               />
               <Input
+                nativeID="lastname"
                 label={t('field.lastname')}
                 value={lastName}
                 onChangeText={(text) => setLastName(text)}
@@ -447,6 +449,7 @@ const SignUp = () => {
                 error={errorLastName}
               />
               <Input
+                nativeID="email"
                 label={t('field.email')}
                 value={email}
                 onChangeText={(text) => setEmail(text)}
@@ -456,6 +459,7 @@ const SignUp = () => {
                 error={errorEmail}
               />
               <Input
+                nativeID="createpassword"
                 label={t('field.createpassword')}
                 value={password}
                 onChangeText={(text) => setPassword(text)}
@@ -464,6 +468,7 @@ const SignUp = () => {
                 error={errorPassword}
               />
               <Input
+                nativeID="confirmpassword"
                 label={t('field.confirmpassword')}
                 value={confirmPassword}
                 onChangeText={(text) => setConfirmPassword(text)}

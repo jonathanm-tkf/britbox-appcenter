@@ -198,10 +198,7 @@ const Detail = () => {
       response: LoadDetailPageResponse;
       watched: Record<string, MassiveSDKModelWatched>;
     } = await loadDetailPage(path, customId);
-    if (
-      Platform.OS === 'ios' &&
-      /\/show\/|\/movie\/|\/season\//.test(response?.information?.type || '')
-    ) {
+    if (Platform.OS === 'ios' && /show|movie|season/.test(response?.information?.type || '')) {
       setUserActivity(response?.detail?.customId || '');
     }
     dispatch(detailWatchedSuccess(watched));

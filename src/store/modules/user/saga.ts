@@ -57,8 +57,9 @@ import {
   WatchListItem,
   ContinueWatchingItem,
 } from './types';
-
 import { AppState } from '../rootReducer';
+
+const { AppleTVController } = NativeModules;
 
 const getToken = (state: AppState) => state.user.access as EvergentLoginResponse;
 const getSegment = (state: AppState) => state.core.segment;
@@ -157,6 +158,11 @@ export function* loginRequest({
       const { response: responseProfile } = yield call(profile, accessToken, segment);
       const { response: responseAccountDetail } = yield call(getAccountDetail, accessToken);
       yield put(profileRequestSuccess({ ...responseProfile, ...responseAccountDetail }));
+      const isAppleTVSearchSubscriptionSent = yield select(getIsAppleTVSearchSubscriptionSent);
+      if (!isAppleTVSearchSubscriptionSent) {
+        yield call(appleTVSubscription, responseProfile.canStream);
+        yield put(sendAppleTvSearchSubscription());
+      }
     } else {
       yield put(loginRequestError(response));
       yield put(
@@ -470,14 +476,12 @@ async function logoutRequest(accessToken: string) {
 
 async function appleTVSubscription(isPaid: boolean) {
   if (Platform.OS === 'ios') {
-    const { AppleTVController } = NativeModules;
     await AppleTVController.appleTVSubscription(isPaid);
   }
 }
 
 async function removeAppleTVSubscription() {
   if (Platform.OS === 'ios') {
-    const { AppleTVController } = NativeModules;
     await AppleTVController.removeAppleTVSubscription();
   }
 }

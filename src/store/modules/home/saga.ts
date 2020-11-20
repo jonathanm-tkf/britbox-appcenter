@@ -6,6 +6,7 @@ import { getDevice } from '@src/utils';
 import { isTablet } from 'react-native-device-info';
 import { loadCollectionList } from '@src/services/util';
 import { getTextInConfigJSON } from '@src/utils/object';
+import { NativeModules, Platform } from 'react-native';
 import {
   homeRequestSuccess,
   homeRequestError,
@@ -14,10 +15,19 @@ import {
 } from './actions';
 import { AppState } from '../rootReducer';
 import { HomeActionTypes } from './types';
-import { configRequestError, configRequestSuccess } from '../core/actions';
+import {
+  configRequestError,
+  configRequestSuccess,
+  sendAppleTvSearchSubscription,
+} from '../core/actions';
 import { Segment } from '../core/types';
 
+const { AppleTVController } = NativeModules;
+
 const getSegment = (state: AppState) => state.core.segment;
+const getIsAppleTVSearchSubscriptionSent = (state: AppState) =>
+  state.core.isAppleTVSearchSubscriptionSent;
+const getCanStream = (state: AppState) => state?.user?.profile?.canStream || false;
 
 export async function getConfigSDK() {
   const { getLocation } = BritboxContentApi();
@@ -102,6 +112,12 @@ export async function getItemContent(id: string) {
   }
 }
 
+async function appleTVSubscription(isPaid: boolean) {
+  if (Platform.OS === 'ios') {
+    await AppleTVController.appleTVSubscription(isPaid);
+  }
+}
+
 export function* activateApp() {
   try {
     const segment = yield select(getSegment);
@@ -112,6 +128,12 @@ export function* activateApp() {
     if (config.location !== Segment.OUT) {
       yield put(homeRequestSuccess(response));
       yield put(searchRequestSuccess(responseSearch));
+    }
+    const isAppleTVSearchSubscriptionSent = yield select(getIsAppleTVSearchSubscriptionSent);
+    if (!isAppleTVSearchSubscriptionSent) {
+      const canStream = yield select(getCanStream);
+      yield call(appleTVSubscription, canStream);
+      yield put(sendAppleTvSearchSubscription());
     }
   } catch (error) {
     yield put(configRequestError());

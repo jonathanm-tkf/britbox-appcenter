@@ -288,6 +288,7 @@ const Login = ({ theme }: Props) => {
                 <Title>{t('signin')}</Title>
               </TitleWrapper>
               <Input
+                nativeID="username"
                 label={t('signup:field.username')}
                 value={user}
                 autoCapitalize="none"
@@ -296,6 +297,7 @@ const Login = ({ theme }: Props) => {
                 error={errorUsername}
               />
               <Input
+                nativeID="password"
                 label={t('signup:field.password')}
                 value={password}
                 onChangeText={(text) => setPassword(text)}
