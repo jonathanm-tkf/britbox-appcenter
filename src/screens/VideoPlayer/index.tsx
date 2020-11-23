@@ -16,7 +16,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { WebView } from 'react-native-webview';
 import NetInfo, { NetInfoStateType } from '@react-native-community/netinfo';
 import { getSystemVersion, getUniqueId, isTablet } from 'react-native-device-info';
-import { MassiveSDKModelItemSummary } from '@src/sdks/Britbox.API.Content.TS/api';
+import {
+  MassiveSDKModelEpisodesItem,
+  MassiveSDKModelItemSummary,
+} from '@src/sdks/Britbox.API.Content.TS/api';
 import { immersiveModeOn, immersiveModeOff } from 'react-native-android-immersive-mode';
 import { autoPlayOff, castVideoPlayerDetail, layoutCasting } from '@store/modules/layout/actions';
 import { PostMessage, webViewRef } from '@src/utils/videoPlayerRef';
@@ -25,6 +28,8 @@ import { continueWatchingRequest } from '@store/modules/user/actions';
 import { Config } from '@src/utils/config';
 import { HomeIndicator } from 'react-native-home-indicator';
 import { getDimensions } from '@src/utils/dimension';
+import { Dismissal, Pause, Play, VideoStart } from '@screens/Shared/Cast/services';
+import { pickBy } from 'lodash';
 import { ChromecastWrapper } from './styles';
 
 const { width, height } = getDimensions();
@@ -44,6 +49,9 @@ const VideoPlayer = () => {
   const refreshToken = useSelector((state: AppState) => state.user?.access?.refreshToken || '');
   const layout = useSelector((state: AppState) => state.layout);
   const segment = useSelector((state: AppState) => state.core.segment);
+  const { watched } = useSelector(
+    (state: AppState) => state.user?.profile || { watched: undefined }
+  );
   const dispatch = useDispatch();
   const [connection, setConnection] = useState<NetInfoStateType | undefined>(undefined);
   const { goBack } = useNavigation();
@@ -56,20 +64,6 @@ const VideoPlayer = () => {
   };
 
   useEffect(() => {
-    // if (Platform.OS === 'ios') {
-    //   const { AppleTVController } = NativeModules;
-    //   AppleTVController.videoStart({
-    //     playbackDuration: 100,
-    //     elapsedPlaybackTime: 4,
-    //     playbackRate: 1.0,
-    //     playbackDate: new Date().getTime(),
-    //     contentID: 'R12343',
-    //     serviceID: 'test',
-    //     isLiveStream: false,
-    //     playbackProcess: 1.0,
-    //   });
-    // }
-
     if (Platform.OS === 'android') {
       const { Device } = NativeModules;
       const eventEmitterDevice = new NativeEventEmitter(Device);
@@ -91,18 +85,37 @@ const VideoPlayer = () => {
   };
 
   const processMessage = (message: { [name: string]: any }) => {
-    const { close, chromecast } = message;
+    const { close, chromecast, analytics } = message;
     if (chromecast) {
       GoogleCast.showCastPicker();
       const { currentTime } = message;
-
       if (currentTime) {
         dispatch(castVideoPlayerDetail({ currentTime, item: params.item }));
         dispatch(layoutCasting(true));
       }
     }
 
+    if (Platform.OS === 'ios' && analytics && params.item) {
+      const { type, actualMilisecond } = message;
+      switch (type) {
+        case 'startPlayer':
+          VideoStart(getProgress(params.item), params.item);
+          break;
+        case 'play':
+          Pause(actualMilisecond / 1000);
+          break;
+        case 'pause':
+          Play();
+          break;
+        default:
+          break;
+      }
+    }
+
     if (close) {
+      if (Platform.OS === 'ios') {
+        Dismissal();
+      }
       backArrow();
     }
   };
@@ -169,6 +182,18 @@ const VideoPlayer = () => {
     }
   };
 
+  const getProgress = (item: MassiveSDKModelEpisodesItem) => {
+    const filter = pickBy(watched, (value, key) => key.startsWith(item?.id || ''));
+    if (filter[item?.id || '']) {
+      const { isFullyWatched, position } = filter[item?.id || ''];
+      if (isFullyWatched) {
+        return 0;
+      }
+      return position || 0;
+    }
+    return 0;
+  };
+
   return (
     <View
       style={{
@@ -193,8 +218,10 @@ const VideoPlayer = () => {
           onLoad={onTrackEvent}
           // onLoad={() => {
           //   onTrackEvent();
+          //   console.tron.log({ load: true });
           //   console.tron.log({
-          //     uri: `${Config.URL_PLAYER}?country=${segment?.toLocaleLowerCase()}&videoid=${
+          //     uri: `${'http://localhost:8000/index.html'}?country=${segment?.toLocaleLowerCase()}&videoid=${
+          //       // uri: `${Config.URL_PLAYER}?country=${segment?.toLocaleLowerCase()}&videoid=${
           //       params.item.id
           //     }&token=${token}&ert=${refreshToken}&allow=autoplay&isTrailer=${
           //       params.isTrailer || false

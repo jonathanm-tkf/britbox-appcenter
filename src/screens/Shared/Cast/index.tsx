@@ -41,7 +41,7 @@ import {
   MiniExpandButton,
   MiniExpandButtonIcon,
 } from './styles';
-// import { Dismissal, Pause, Play, VideoStart } from './services';
+import { Dismissal, Pause, Play, VideoStart } from './services';
 
 const getItemCastDetail = () => {
   const { core }: { core: CoreState } = store.getState();
@@ -139,9 +139,9 @@ const Cast = () => {
           dispatch(castDetailClear());
           dispatch(setCastState(undefined));
 
-          // if (Platform.OS === 'ios') {
-          //   Dismissal();
-          // }
+          if (Platform.OS === 'ios') {
+            Dismissal();
+          }
         }
       });
     });
@@ -176,10 +176,10 @@ const Cast = () => {
       } = JSON.parse(message) || {};
       if (id !== itemVideoMassiveId && getCastState() === 'loaded') {
         dispatch(castDetailAction({ id: itemVideoMassiveId, ...mediaMetadata }));
-        // if (Platform.OS === 'ios') {
-        //   const { playPosition, item } = getItemCastDetail() as CastDetail;
-        //   VideoStart(playPosition, item);
-        // }
+        if (Platform.OS === 'ios') {
+          const { playPosition, item } = getItemCastDetail() as CastDetail;
+          VideoStart(playPosition, item);
+        }
       }
     });
 
@@ -187,15 +187,15 @@ const Cast = () => {
       const { playerState, streamDuration, streamPosition } = mediaStatus;
       setIsPlaying(playerState !== 3);
 
-      // if (streamDuration > 0 && Platform.OS === 'ios') {
-      //   if (playerState === 3) {
-      //     Pause(streamPosition);
-      //   }
+      if (streamDuration > 0 && Platform.OS === 'ios') {
+        if (playerState === 3) {
+          Pause(streamPosition);
+        }
 
-      //   if (playerState === 2) {
-      //     Play();
-      //   }
-      // }
+        if (playerState === 2) {
+          Play();
+        }
+      }
     });
   };
 
