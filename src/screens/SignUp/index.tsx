@@ -138,7 +138,7 @@ const SignUp = () => {
       let alertNotificationEmail = 'true';
 
       if (country === 'ca' || country === 'au') {
-        alertNotificationEmail = isCheckPrivacy.toString();
+        alertNotificationEmail = `${isCheckPrivacy}`;
       }
 
       const response = await signupRequest(
