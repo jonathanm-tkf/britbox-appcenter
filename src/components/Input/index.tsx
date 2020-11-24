@@ -1,6 +1,13 @@
 import React from 'react';
 
-import { Input as InputStyle, HelperText, Container, Warning, Checked } from './styles';
+import {
+  Input as InputStyle,
+  HelperText,
+  Container,
+  Warning,
+  Checked,
+  PasswordInputTextStyle,
+} from './styles';
 import { InputProps } from './props';
 
 export const Input = ({ label, error, ...rest }: InputProps) => {
@@ -10,6 +17,14 @@ export const Input = ({ label, error, ...rest }: InputProps) => {
       {error && error?.text?.trim() !== '' && <HelperText type="error">{error.text}</HelperText>}
       {error && error?.text !== '' && <Warning />}
       {rest?.value !== '' && error && error?.text === '' && <Checked />}
+    </Container>
+  );
+};
+
+export const PasswordInput = ({ label, error, ...rest }: InputProps) => {
+  return (
+    <Container>
+      <PasswordInputTextStyle label={label} error={error?.text} {...rest} />
     </Container>
   );
 };

@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { KeyboardAvoidingView, Platform, Keyboard, Linking } from 'react-native';
 
 import { Button } from '@components/Button';
-import { Input } from '@components/Input';
+import { Input, PasswordInput } from '@components/Input';
 import HeaderCustom from '@components/HeaderCustom';
 import { useSelector, useDispatch } from 'react-redux';
 import { signupRequest } from '@store/modules/user/saga';
@@ -13,7 +13,6 @@ import { EvergentSignupResponseError } from '@store/modules/user/types';
 import { AppState } from '@store/modules/rootReducer';
 import { getTextInConfigJSON, getSegment } from '@src/utils/object';
 import { useTranslation } from 'react-i18next';
-
 import { useNavigation } from '@react-navigation/native';
 import { validateEmail } from '@src/utils/validations';
 import {
@@ -68,7 +67,6 @@ const SignUp = () => {
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
   const [isCheckPrivacy, setIsCheckPrivacy] = useState(false);
   const theme = useSelector((state: AppState) => state.theme.theme);
   const country: string = getSegment();
@@ -102,18 +100,8 @@ const SignUp = () => {
     text: '',
   });
 
-  const [errorConfirmPassword, setErrorConfirmPassword] = useState<{
-    text: string;
-  }>({
-    text: '',
-  });
-
   const error = {
     text: ' ',
-  };
-
-  const matchError = {
-    text: getTextInConfigJSON(['registration', 'validation', 'messages', 'password-mismatch'], ''),
   };
 
   const signup = async () => {
@@ -121,15 +109,8 @@ const SignUp = () => {
     const hasErrorLastName = doValidateLastName();
     const hasErrorEmail = doValidateEmail();
     const hasErrorPassword = doValidatePassword();
-    const hasErrorConfirmPassword = doValidateConfirmPassword();
 
-    if (
-      hasErrorFirstName &&
-      hasErrorLastName &&
-      hasErrorEmail &&
-      hasErrorPassword &&
-      hasErrorConfirmPassword
-    ) {
+    if (hasErrorFirstName && hasErrorLastName && hasErrorEmail && hasErrorPassword) {
       Keyboard.dismiss();
       setLoading(true);
       setErrorState(false);
@@ -295,35 +276,10 @@ const SignUp = () => {
     return false;
   };
 
-  const doValidateConfirmPassword = () => {
-    const hasErrorConfirmPassword = confirmPassword.trim() === '';
-    const hasErrorConfirmPasswordMatch = confirmPassword.trim() !== password.trim();
-
-    setErrorConfirmPassword(
-      hasErrorConfirmPassword
-        ? error
-        : {
-            text: '',
-          }
-    );
-
-    if (!hasErrorConfirmPassword) {
-      if (hasErrorConfirmPasswordMatch) {
-        setErrorConfirmPassword(matchError);
-      }
-    }
-
-    if (!hasErrorConfirmPassword && !hasErrorConfirmPasswordMatch) {
-      return true;
-    }
-
-    return false;
-  };
-
   useEffect(() => {
     setErrorState(false);
     setErrorMessage(evergentSignupResponseError);
-  }, [firstName, lastName, email, password, confirmPassword]);
+  }, [firstName, lastName, email, password]);
 
   useEffect(() => {
     doValidateFirstName();
@@ -342,10 +298,6 @@ const SignUp = () => {
   }, [password]);
 
   useEffect(() => {
-    doValidateConfirmPassword();
-  }, [confirmPassword]);
-
-  useEffect(() => {
     setErrorFirstName({
       text: '',
     });
@@ -356,9 +308,6 @@ const SignUp = () => {
       text: '',
     });
     setErrorPassword({
-      text: '',
-    });
-    setErrorConfirmPassword({
       text: '',
     });
   }, []);
@@ -458,23 +407,12 @@ const SignUp = () => {
                 autoCapitalize="none"
                 error={errorEmail}
               />
-              <Input
-                nativeID="createpassword"
-                label={t('field.createpassword')}
+              <PasswordInput
                 value={password}
+                label={t('field.createpassword')}
                 onChangeText={(text) => setPassword(text)}
                 onBlur={() => doValidatePassword()}
-                secureTextEntry
                 error={errorPassword}
-              />
-              <Input
-                nativeID="confirmpassword"
-                label={t('field.confirmpassword')}
-                value={confirmPassword}
-                onChangeText={(text) => setConfirmPassword(text)}
-                onBlur={() => doValidateConfirmPassword()}
-                secureTextEntry
-                error={errorConfirmPassword}
               />
               {errorState && (
                 <ErrorText>

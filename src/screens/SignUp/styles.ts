@@ -47,7 +47,6 @@ export const RowWrapper = styled.View`
 `;
 
 export const WrapperParagraph = styled.Text`
-  margin-top: 10px;
   margin-bottom: 10px;
   font-size: ${normalize(12, 16)}px;
   line-height: ${normalize(16, 22)}px;
