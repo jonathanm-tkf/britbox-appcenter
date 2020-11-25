@@ -14,7 +14,9 @@ const FailedGetProfile = () => {
 
   const reloadApp = () => {
     dispatch(retryTimes());
-    CodePush.restartApp();
+    setTimeout(() => {
+      CodePush.restartApp();
+    }, 300);
   };
 
   return (
