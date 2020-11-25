@@ -151,42 +151,16 @@ export const WrapperContinuosScroll = styled.View`
   position: relative;
 `;
 
-export const AlphabetWrapper = styled.View`
-  flex-direction: column;
-  width: 28px;
-  top: 130px;
-  right: 0;
-  position: absolute;
-`;
-
-export const LetterButton = styled.TouchableOpacity`
+export const Select = styled.TouchableOpacity`
+  flex-direction: row;
+  padding: 5px 10px;
   align-items: center;
   justify-content: center;
 `;
 
-type LetterButtonTextProps = {
-  desactivate?: boolean;
-};
-export const LetterButtonText = styled.Text`
-  color: ${(props: ThemeState) => props.theme.PRIMARY_FOREGROUND_COLOR};
-  margin-top: 5px;
-  opacity: 1;
-  ${(props: LetterButtonTextProps & ThemeState) => {
-    return (
-      props.desactivate &&
-      `
-      opacity: 0.6;
-    `
-    );
-  }};
-`;
-
-export const Select = styled.TouchableOpacity`
-  position: absolute;
-  top: ${Platform.OS === 'ios' ? -5 : -20}px;
-  right: 20px;
-  z-index: 1;
-  padding-top: 20px;
+export const SelectText = styled.Text`
+  color: ${(props: ThemeState) => props.theme.PRIMARY_TEXT_COLOR_OPAQUE};
+  margin-right: 10px;
 `;
 
 export const SafeAreaView = styled.View`

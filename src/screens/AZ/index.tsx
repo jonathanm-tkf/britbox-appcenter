@@ -1,16 +1,12 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect, useRef } from 'react';
-import { NativeScrollEvent, Platform, ScrollView, View } from 'react-native';
+import { NativeScrollEvent, NativeSyntheticEvent, ScrollView, Platform } from 'react-native';
 import { useNavigation, useRoute, RouteProp } from '@react-navigation/native';
-import { getStatusBarHeight } from 'react-native-iphone-x-helper';
 import Header from '@components/Header';
 import { AppState } from '@store/modules/rootReducer';
 import { useSelector } from 'react-redux';
-import RNPickerSelect, { PickerSelectProps } from 'react-native-picker-select';
+import RNPickerSelect from 'react-native-picker-select';
 import { percentageWidth } from '@src/utils/dimension';
-
 import {
   MassiveSDKModelItemSummary,
   MassiveSDKModelPagination,
@@ -25,16 +21,15 @@ import { compact } from 'lodash';
 
 import { isTablet } from 'react-native-device-info';
 import { loadCollectionList } from '@src/services/util';
+import ModalPicker from '@screens/Shared/ModalPicker';
 import { dataDummy } from './data';
 import {
   Container,
   WrapperContinuosScroll,
-  AlphabetWrapper,
-  LetterButton,
-  LetterButtonText,
   ContainerGrid,
   Select,
   SafeAreaView,
+  SelectText,
 } from './styles';
 
 type RootParamList = {
@@ -47,11 +42,6 @@ type RootParamList = {
 
 type AZScreenRouteProp = RouteProp<RootParamList, 'Collection'>;
 
-const wrapper = {
-  flex: 1,
-  paddingTop: Platform.OS === 'ios' ? getStatusBarHeight() + 10 : 10,
-};
-
 type DataTypes = {
   items: MassiveSDKModelItemSummary[];
   paging: MassiveSDKModelPagination;
@@ -63,42 +53,13 @@ const alphabet = String.fromCharCode(...Array(123).keys())
   .split('');
 
 type AlphabetDataType = { label: string; count: number; param: string };
-type AlphabetProps = {
-  alphabetData: AlphabetDataType[] | undefined;
-  onPress: (letter: string) => void;
-};
-
-const Alphabet = ({ alphabetData, onPress }: AlphabetProps) => {
-  const [selected, setSelected] = useState('All');
-  const filter = (item: string) => {
-    setSelected(item);
-    if (item !== selected) {
-      return onPress(item);
-    }
-    return null;
-  };
-
-  return (
-    <AlphabetWrapper>
-      {(alphabetData || []).map((item) => {
-        return (
-          <LetterButton
-            key={item.label}
-            onPress={() => (item.count !== 0 ? filter(item.label) : {})}
-          >
-            <LetterButtonText
-              desactivate={(selected !== 'All' && item.label !== selected) || item.count === 0}
-            >
-              {item.label}
-            </LetterButtonText>
-          </LetterButton>
-        );
-      })}
-    </AlphabetWrapper>
-  );
-};
 
 const headerStyles = {};
+
+const gridStyles = {
+  marginTop: 10,
+  paddingHorizontal: isTablet() ? 7 : 15,
+};
 
 const AZ = () => {
   const navigation = useNavigation();
@@ -107,6 +68,7 @@ const AZ = () => {
 
   const [data, setData] = useState<DataTypes | undefined>(dataDummy as DataTypes);
   const [error, setError] = useState(false);
+  const [letter, setLetter] = useState('All');
   const [isLoadingContinuosScroll, setIsLoadingContinuosScroll] = useState(false);
   const [animationContinuosScroll, setAnimationContinuosScroll] = useState(true);
   const { t } = useTranslation(['layout', 'az']);
@@ -117,17 +79,16 @@ const AZ = () => {
   const [orderBy, setOrderBy] = useState('a-z');
   const menu = useSelector((state: AppState) => state.core.menu?.navigation?.header); // TODO: get data from properties
 
-  const pickerRef = useRef(PickerSelectProps);
+  const pickerRef = useRef<any>();
 
   const stylesSelect = {
-    inputIOS: { color: theme.PRIMARY_TEXT_COLOR_OPAQUE, paddingRight: 30 },
-    inputAndroid: {
-      color: theme.PRIMARY_TEXT_COLOR_OPAQUE,
-      paddingRight: 25,
+    inputIOS: {
+      opacity: 0,
+      display: 'none',
     },
-    iconContainer: {
-      position: 'absolute',
-      top: Platform.OS === 'ios' ? 0 : 16,
+    inputAndroid: {
+      opacity: 0,
+      display: 'none',
     },
   };
 
@@ -193,7 +154,7 @@ const AZ = () => {
     return layoutMeasurement.height + contentOffset.y >= contentSize.height - 50;
   };
 
-  const handleScroll = (event: any) => {
+  const handleScroll = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
     if (isCloseToBottom(event.nativeEvent) && !isLoadingContinuosScroll) {
       setIsLoadingContinuosScroll(true);
       getMoreDataContinuosScroll();
@@ -201,6 +162,7 @@ const AZ = () => {
   };
 
   const filterLetter = (value: string) => {
+    setLetter(value);
     setData(dataDummy as DataTypes);
     setAnimationContinuosScroll(true);
     getMoreDataContinuosScroll(true, order, orderBy, value);
@@ -210,7 +172,7 @@ const AZ = () => {
     reset?: boolean,
     orderFilter?: string,
     orderByFilter?: string,
-    letter?: string
+    letterValue?: string
   ) => {
     const { next, page, total } = data?.paging || {};
     if (page !== total || reset) {
@@ -244,7 +206,7 @@ const AZ = () => {
             sub: parameters.sub,
             order: orderFilter || order,
             orderBy: orderByFilter || orderBy,
-            param: typeof letter === 'undefined' ? '' : `TitleGroupKey:${letter}`,
+            param: typeof letterValue === 'undefined' ? '' : `TitleGroupKey:${letterValue}`,
           },
           segment
         )
@@ -270,87 +232,6 @@ const AZ = () => {
     }
   };
 
-  const renderContent = () => {
-    return (
-      <Container>
-        {data && (
-          <WrapperContinuosScroll>
-            {/* <ChangeOrderButton
-              onPress={() =>
-                navigation.navigate('ModalFilter', {
-                  title: t('layout:filter'),
-                  data: [
-                    {
-                      title: t('layout:order'),
-                      data: [
-                        {
-                          title: t('layout:recent'),
-                          value: 'date-added',
-                          selected: orderBy === 'date-added',
-                        },
-                        {
-                          title: t('layout:az'),
-                          value: 'a-z',
-                          selected: orderBy === 'a-z',
-                        },
-                      ],
-                    },
-                  ],
-                  previusRoute: 'AZ',
-                })
-              }
-            >
-              <ChangeOrderText>{t('layout:filter')} +</ChangeOrderText>
-            </ChangeOrderButton> */}
-
-            <ContainerGrid>
-              <Grid
-                items={data.items || []}
-                title={t('az:title')}
-                loading={animationContinuosScroll}
-                numColumns={isTablet() ? 4 : 3}
-                element={{
-                  width: percentageWidth(isTablet() ? 25 : 33.333) - (isTablet() ? 10 : 20),
-                  height: percentageWidth((isTablet() ? 25 : 33.333) * 1.25),
-                  marginBottom: 20,
-                  marginHorizontal: isTablet() ? 3 : 5,
-                }}
-                containerStyle={{
-                  marginTop: 10,
-                  paddingHorizontal: isTablet() ? 7 : 15,
-                }}
-              />
-            </ContainerGrid>
-            {alphabetData && alphabetData?.length > 0 && (
-              <Select
-                activeOpacity={1}
-                onPress={() => pickerRef.current && pickerRef.current.togglePicker()}
-              >
-                <RNPickerSelect
-                  ref={pickerRef}
-                  placeholder={{}}
-                  InputAccessoryView={() => null}
-                  useNativeAndroidPickerStyle={false}
-                  onValueChange={(value) => filterLetter(value)}
-                  items={alphabetData as any}
-                  style={stylesSelect}
-                  Icon={() => (
-                    <ArrowBottomIcon
-                      width={15}
-                      height={15}
-                      fill={theme.PRIMARY_TEXT_COLOR_OPAQUE}
-                    />
-                  )}
-                />
-              </Select>
-            )}
-          </WrapperContinuosScroll>
-        )}
-        {error && <ErrorLanding onPress={() => back()} />}
-      </Container>
-    );
-  };
-
   const getMenuItems = () => {
     if (menu && menu.length > 0) {
       const items = menu
@@ -370,42 +251,59 @@ const AZ = () => {
   return (
     <SafeAreaView>
       <Header style={headerStyles} menuItems={getMenuItems()} />
-      <ScrollView bounces={false} onScroll={(event) => handleScroll(event)}>
+      <ScrollView
+        bounces={false}
+        onScroll={(event) => handleScroll(event)}
+        scrollEventThrottle={16}
+      >
         <Container>
+          {alphabetData && alphabetData?.length > 0 ? (
+            Platform.OS === 'ios' ? (
+              <RNPickerSelect
+                ref={pickerRef}
+                placeholder={{}}
+                InputAccessoryView={() => null}
+                useNativeAndroidPickerStyle={false}
+                onValueChange={(value) => filterLetter(value)}
+                items={alphabetData as any}
+                style={stylesSelect}
+              />
+            ) : (
+              <ModalPicker
+                ref={pickerRef}
+                data={alphabetData}
+                label="label"
+                value="value"
+                onValueChange={(value) => filterLetter(value)}
+              />
+            )
+          ) : null}
+
           {data && (
             <WrapperContinuosScroll>
-              {/* <ChangeOrderButton
-              onPress={() =>
-                navigation.navigate('ModalFilter', {
-                  title: t('layout:filter'),
-                  data: [
-                    {
-                      title: t('layout:order'),
-                      data: [
-                        {
-                          title: t('layout:recent'),
-                          value: 'date-added',
-                          selected: orderBy === 'date-added',
-                        },
-                        {
-                          title: t('layout:az'),
-                          value: 'a-z',
-                          selected: orderBy === 'a-z',
-                        },
-                      ],
-                    },
-                  ],
-                  previusRoute: 'AZ',
-                })
-              }
-            >
-              <ChangeOrderText>{t('layout:filter')} +</ChangeOrderText>
-            </ChangeOrderButton> */}
-
               <ContainerGrid>
                 <Grid
                   items={data.items || []}
                   title={t('az:title')}
+                  filter={() =>
+                    alphabetData && alphabetData?.length > 0 ? (
+                      <Select
+                        activeOpacity={0.5}
+                        onPress={() => {
+                          if (pickerRef.current) {
+                            pickerRef.current.togglePicker(true);
+                          }
+                        }}
+                      >
+                        <SelectText>{letter}</SelectText>
+                        <ArrowBottomIcon
+                          width={15}
+                          height={15}
+                          fill={theme.PRIMARY_TEXT_COLOR_OPAQUE}
+                        />
+                      </Select>
+                    ) : null
+                  }
                   loading={animationContinuosScroll}
                   numColumns={isTablet() ? 4 : 3}
                   element={{
@@ -414,35 +312,9 @@ const AZ = () => {
                     marginBottom: 20,
                     marginHorizontal: isTablet() ? 3 : 5,
                   }}
-                  containerStyle={{
-                    marginTop: 10,
-                    paddingHorizontal: isTablet() ? 7 : 15,
-                  }}
+                  containerStyle={gridStyles}
                 />
               </ContainerGrid>
-              {alphabetData && alphabetData?.length > 0 && (
-                <Select
-                  activeOpacity={1}
-                  onPress={() => pickerRef.current && pickerRef.current.togglePicker()}
-                >
-                  <RNPickerSelect
-                    ref={pickerRef}
-                    placeholder={{}}
-                    InputAccessoryView={() => null}
-                    useNativeAndroidPickerStyle={false}
-                    onValueChange={(value) => filterLetter(value)}
-                    items={alphabetData as any}
-                    style={stylesSelect}
-                    Icon={() => (
-                      <ArrowBottomIcon
-                        width={15}
-                        height={15}
-                        fill={theme.PRIMARY_TEXT_COLOR_OPAQUE}
-                      />
-                    )}
-                  />
-                </Select>
-              )}
             </WrapperContinuosScroll>
           )}
           {error && <ErrorLanding onPress={() => back()} />}
