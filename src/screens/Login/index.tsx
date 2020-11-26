@@ -5,7 +5,6 @@ import { Button } from '@components/Button';
 import { Input } from '@components/Input';
 import { useDispatch, useSelector } from 'react-redux';
 import { loginRequest, loginRequestErrorClear } from '@store/modules/user/actions';
-import { atiEventTracking } from '@store/modules/layout/actions';
 import { forgotPasswordRequest } from '@store/modules/user/saga';
 import { AppState } from '@store/modules/rootReducer';
 import { EvergentLoginResponseError } from '@store/modules/user/types';
@@ -17,6 +16,7 @@ import ModalCustom from '@components/ModalCustom';
 import { validateEmail } from '@src/utils/validations';
 import { ThemeProps } from '@store/modules/theme/types';
 import { withTheme } from 'styled-components';
+import { analyticsRef } from '@src/utils/analytics';
 import {
   Container,
   ErrorText,
@@ -247,15 +247,20 @@ const Login = ({ theme }: Props) => {
   };
 
   const navigateToSignUp = () => {
-    dispatch(
-      atiEventTracking('submit', 'bb_sub_flow', {
-        is_background: false,
-        container: 'Application',
-        result: 'Subscribe now',
-        source: 'Britbox~App',
-        metadata: '',
-      })
-    );
+    if (analyticsRef.current) {
+      analyticsRef.current.onTrackEvent({
+        type: 'event',
+        actionType: 'submit',
+        actionName: 'bb_sub_flow',
+        eventProperties: {
+          is_background: false,
+          container: 'Application',
+          result: 'Subscribe now',
+          source: 'Britbox~App',
+          metadata: '',
+        },
+      });
+    }
     navigation.navigate('SignUp');
   };
 

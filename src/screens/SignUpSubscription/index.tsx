@@ -19,7 +19,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useRoute, RouteProp } from '@react-navigation/native';
 import { getProductsRequest, addSubscriptionRequest } from '@store/modules/user/saga';
 import { loginAfterRegister } from '@store/modules/user/actions';
-import { atiEventTracking } from '@store/modules/layout/actions';
 import {
   BritboxDataEvergentModelsGetProductsResponseMessageBaseProductsResponseMsg,
   BritboxDataEvergentModelsGetProductsResponseMessageBaseAppChannels,
@@ -33,7 +32,7 @@ import { Html5Entities } from 'html-entities';
 import * as RNIap from 'react-native-iap';
 import { encode } from 'base-64';
 import Analytics from 'appcenter-analytics';
-
+import { analyticsRef } from '@src/utils/analytics';
 import {
   Container,
   ScrollView,
@@ -357,15 +356,20 @@ const SignUpSubscription = () => {
   };
 
   const trackEvent = (result: string) => {
-    dispatch(
-      atiEventTracking('submit', 'bb_sub_flow', {
-        is_background: false,
-        container: 'Application',
-        result,
-        source: 'Britbox~App',
-        metadata: '',
-      })
-    );
+    if (analyticsRef.current) {
+      analyticsRef.current.onTrackEvent({
+        type: 'event',
+        actionType: 'submit',
+        actionName: 'bb_sub_flow',
+        eventProperties: {
+          is_background: false,
+          container: 'Application',
+          result,
+          source: 'Britbox~App',
+          metadata: '',
+        },
+      });
+    }
   };
 
   return (

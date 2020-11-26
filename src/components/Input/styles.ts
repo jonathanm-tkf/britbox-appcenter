@@ -4,6 +4,7 @@ import { TextInput, DefaultTheme, HelperText as HelperTextP } from 'react-native
 import { CheckedIcon, WarningIcon } from '@assets/icons';
 import { normalize } from '@src/utils/normalize';
 import PasswordInputText from 'react-native-hide-show-password-input';
+// import { Platform } from 'react-native';
 
 interface InputProps {
   error: boolean;

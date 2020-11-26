@@ -1,6 +1,6 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
 /* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState, forwardRef, useImperativeHandle, useRef } from 'react';
 import { Linking, Keyboard, KeyboardAvoidingView, Platform } from 'react-native';
 import {
@@ -9,8 +9,7 @@ import {
   getActiveSubscriptionRequest,
 } from '@store/modules/user/saga';
 import { BritboxDataEvergentModelsGetActiveSubscriptionsResponseMessageBaseAccountServiceMessage } from '@src/sdks/Britbox.API.Account.TS/api';
-import { getProfileRequest, profileRequestSuccess } from '@store/modules/user/actions';
-import { atiEventTracking, atiPageViewTracking } from '@store/modules/layout/actions';
+import { profileRequestSuccess } from '@store/modules/user/actions';
 import { useTranslation } from 'react-i18next';
 import ErrorBlock from '@components/ErrorBlock';
 import { Button } from '@components/Button';
@@ -21,6 +20,9 @@ import { getTextInConfigJSON } from '@src/utils/object';
 import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
 import { EvergentResponseError } from '@store/modules/user/types';
 import { validateEmail } from '@src/utils/validations';
+import { TrackPageView } from '@src/services/analytics';
+import { getBuildNumber, getSystemName, getSystemVersion } from 'react-native-device-info';
+import { analyticsRef } from '@src/utils/analytics';
 import Tabs from './components/Tabs';
 import {
   Container,
@@ -62,7 +64,12 @@ type MyAccountScreenRouteProp = RouteProp<RootParamList, 'MyAccount'>;
 export default function MyAccount() {
   const { params } = useRoute<MyAccountScreenRouteProp>();
   const { subscriptionSelected } = params || { subscriptionSelected: false };
-
+  const { token, segment } = useSelector((state: AppState) => state.core);
+  const { device } = useSelector((state: AppState) => state.layout);
+  const { analyticsSubscriptionStatus, isInFreeTrail } = useSelector(
+    (state: AppState) => (state.user?.profile as any) || {}
+  );
+  const { isLogged } = useSelector((state: AppState) => state.user);
   const { t } = useTranslation(['myaccount', 'signup']);
   const dispatch = useDispatch();
   const { navigate } = useNavigation();
@@ -123,7 +130,7 @@ export default function MyAccount() {
       text: '',
     });
 
-    const [errorMobile, setErrorMobile] = useState<{
+    const [errorMobile] = useState<{
       text: string;
     }>({
       text: '',
@@ -162,7 +169,7 @@ export default function MyAccount() {
           lastName,
           mobileNumber: mobile,
           email,
-          alertNotificationEmail: user?.profile?.isAlertNotificationEmail,
+          alertNotificationEmail: user?.profile?.isAlertNotificationEmail || false,
         });
 
         if (response) {
@@ -180,15 +187,20 @@ export default function MyAccount() {
                 })
               );
             }, 2000);
-            dispatch(
-              atiEventTracking('submit', 'bb_profile_edit', {
-                is_background: false,
-                container: 'Application',
-                result: 'Account Info Edit',
-                source: 'Britbox~App',
-                metadata: '',
-              })
-            );
+            if (analyticsRef.current) {
+              analyticsRef.current.onTrackEvent({
+                type: 'event',
+                actionType: 'submit',
+                actionName: 'bb_profile_edit',
+                eventProperties: {
+                  is_background: false,
+                  container: 'Application',
+                  result: 'Account Info Edit',
+                  source: 'Britbox~App',
+                  metadata: '',
+                },
+              });
+            }
           } else {
             setErrorState(true);
             if (
@@ -201,16 +213,20 @@ export default function MyAccount() {
               );
             }
             setErrorMessage(responseData);
-
-            dispatch(
-              atiEventTracking('error', 'bb_profile_edit', {
-                is_background: false,
-                container: 'Application',
-                result: `${responseData?.failureMessage[0]?.errorCode}: ${responseData?.failureMessage[0]?.errorMessage}`,
-                source: 'Britbox~App',
-                metadata: '',
-              })
-            );
+            if (analyticsRef.current) {
+              analyticsRef.current.onTrackEvent({
+                type: 'event',
+                actionType: 'submit',
+                actionName: 'bb_profile_edit',
+                eventProperties: {
+                  is_background: false,
+                  container: 'Application',
+                  result: `${responseData?.failureMessage[0]?.errorCode}: ${responseData?.failureMessage[0]?.errorMessage}`,
+                  source: 'Britbox~App',
+                  metadata: '',
+                },
+              });
+            }
           }
         }
         setLoading(false);
@@ -487,15 +503,20 @@ export default function MyAccount() {
           const { response: responseData } = response;
           if (responseData && Number(responseData.responseCode) === 1) {
             setIsSuccess(true);
-            dispatch(
-              atiEventTracking('submit', 'bb_profile_edit', {
-                is_background: false,
-                container: 'Application',
-                result: 'Account Info Edit',
-                source: 'Britbox~App',
-                metadata: '',
-              })
-            );
+            if (analyticsRef.current) {
+              analyticsRef.current.onTrackEvent({
+                type: 'event',
+                actionType: 'submit',
+                actionName: 'bb_profile_edit',
+                eventProperties: {
+                  is_background: false,
+                  container: 'Application',
+                  result: 'Account Info Edit',
+                  source: 'Britbox~App',
+                  metadata: '',
+                },
+              });
+            }
             setCurPassword('');
             setNewPassword('');
             setConfirmPassword('');
@@ -799,15 +820,20 @@ export default function MyAccount() {
               profileRequestSuccess({ ...user?.profile, isAlertNotificationEmail: isNewsletters })
             );
           }, 2000);
-          dispatch(
-            atiEventTracking('submit', 'bb_newsletter_update', {
-              is_background: false,
-              container: 'Application',
-              result: isNewsletters.toString(),
-              source: 'Britbox~App',
-              metadata: '',
-            })
-          );
+          if (analyticsRef.current) {
+            analyticsRef.current.onTrackEvent({
+              type: 'event',
+              actionType: 'submit',
+              actionName: 'bb_newsletter_update',
+              eventProperties: {
+                is_background: false,
+                container: 'Application',
+                result: isNewsletters.toString(),
+                source: 'Britbox~App',
+                metadata: '',
+              },
+            });
+          }
         } else {
           setErrorState(true);
           setErrorMessage(responseData);
@@ -913,7 +939,33 @@ export default function MyAccount() {
       pageName = 'MyAccount.Newsletter';
     }
     if (pageName) {
-      dispatch(atiPageViewTracking(pageName));
+      const { user: userTracking, terms } = TrackPageView(
+        { key: pageName, name: pageName },
+        token,
+        {
+          account_status: !isLogged
+            ? 'Unauth'
+            : typeof analyticsSubscriptionStatus !== 'undefined' ||
+              analyticsSubscriptionStatus !== ''
+            ? analyticsSubscriptionStatus
+            : 'Guest',
+          isFreeTrail: isInFreeTrail,
+          platform: getSystemName(),
+          os_version: getSystemVersion(),
+          device_name: device,
+          app_version: getBuildNumber(),
+          segment,
+        }
+      );
+
+      if (analyticsRef.current) {
+        analyticsRef.current.onTrackEvent({
+          type: 'trackPageView',
+          user: userTracking,
+          terms,
+        });
+      }
+
       detailRef?.current?.clearError();
       passwordRef?.current?.clearError();
     }

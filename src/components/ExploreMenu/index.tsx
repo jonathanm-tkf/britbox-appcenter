@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-
 import { Header } from '@store/modules/core/types';
 import { TouchableOpacity } from 'react-native';
 import { HelpIcon } from '@assets/icons';

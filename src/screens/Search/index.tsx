@@ -1,23 +1,21 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react';
-
 import { FlatList, TouchableOpacity, ActivityIndicator } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import Highlighter from 'react-native-highlight-words';
 import { SearchIcon, SearchDeleteIcon } from '@assets/icons';
 import { Button } from '@components/Button';
 import { AppState } from '@store/modules/rootReducer';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { navigateByPath } from '@src/navigation/rootNavigation';
 import { MassiveSDKModelItemList } from '@src/sdks/Britbox.API.Account.TS/api';
 import { MassiveSDKModelPerson } from '@src/sdks/Britbox.API.Content.TS/api';
 import { getSearch } from '@store/modules/search/saga';
-import { atiEventTracking } from '@store/modules/layout/actions';
 import Grid from '@screens/Shared/Grid';
 import { percentageWidth } from '@src/utils/dimension';
-
 import { isTablet } from 'react-native-device-info';
 import { getTextInConfigJSON } from '@src/utils/object';
+import { analyticsRef } from '@src/utils/analytics';
 import {
   Container,
   Title,
@@ -48,7 +46,6 @@ const containerStyles = {
 };
 
 export default function Search() {
-  const dispatch = useDispatch();
   const { t } = useTranslation('search');
   const theme = useSelector((state: AppState) => state.theme.theme);
   const user = useSelector((state: AppState) => state.user);
@@ -145,15 +142,20 @@ export default function Search() {
         const { externalResponse: responseSearchData } = responseData;
 
         if (responseSearchData) {
-          dispatch(
-            atiEventTracking('search', 'ns_search_terms', {
-              is_background: false,
-              container: 'Application',
-              result: `${searchInput}: ${(responseSearchData?.items?.items || []).length}`,
-              source: 'Britbox~App',
-              metadata: '',
-            })
-          );
+          if (analyticsRef.current) {
+            analyticsRef.current.onTrackEvent({
+              type: 'event',
+              actionType: 'search',
+              actionName: 'ns_search_terms',
+              eventProperties: {
+                is_background: false,
+                container: 'Application',
+                result: `${searchInput}: ${(responseSearchData?.items?.items || []).length}`,
+                source: 'Britbox~App',
+                metadata: '',
+              },
+            });
+          }
           setSearchingItemData(responseSearchData?.items?.items || []);
           setSearchingPeopleData(responseSearchData?.people || []);
         }
@@ -252,7 +254,6 @@ export default function Search() {
                             style={searchResultFirstPersonTextStyle}
                           />
                         </CastFirstNameWrapper>
-
                         <Highlighter
                           highlightStyle={searchResultHighLightTextStyle}
                           searchWords={[searchInput]}
@@ -267,7 +268,7 @@ export default function Search() {
               </ResultGrid>
             ) : (
               <FlatList
-                data={[...searchingItemData, ...searchingPeopleData] || []}
+                data={[...(searchingItemData || []), ...(searchingPeopleData || [])]}
                 contentContainerStyle={searchResultContainer}
                 renderItem={({ item }) => (
                   <TouchableOpacity onPress={() => navigateByPath(item)} activeOpacity={1}>

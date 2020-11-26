@@ -1,16 +1,15 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useEffect, useState, memo } from 'react';
 import { Dimensions } from 'react-native';
-
 import { Button } from '@components/Button';
 import { useTranslation } from 'react-i18next';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { AppState } from '@store/modules/rootReducer';
 import Animated from 'react-native-reanimated';
 import { useNavigation } from '@react-navigation/native';
 import { navigateByPath } from '@src/navigation/rootNavigation';
-import { atiEventTracking } from '@store/modules/layout/actions';
 import { getDimensions } from '@src/utils/dimension';
+import { analyticsRef } from '@src/utils/analytics';
 import { Container, Logo, LinksList, Gradient, CenterLogoWrapper, Content } from './styles';
 
 interface DataElement {
@@ -41,10 +40,8 @@ interface Props {
 }
 
 const Header = ({ hideSignIn, shadow, isCenter, onPressSignIn, style, menuItems }: Props) => {
-  const dispatch = useDispatch();
   const { t } = useTranslation('layout');
   const isLogged = useSelector((state: AppState) => state.user.isLogged);
-  // const menu = useSelector((state: AppState) => state.core.menu?.navigation?.header); // TODO: get data from properties
   const { navigate } = useNavigation();
   const [screenData, setScreenData] = useState(getDimensions());
 
@@ -107,15 +104,20 @@ const Header = ({ hideSignIn, shadow, isCenter, onPressSignIn, style, menuItems 
                   goTo={item.goTo}
                   onPressTouch={() => {
                     navigateByPath({ path: item.goTo });
-                    dispatch(
-                      atiEventTracking('select', item.text.toLocaleLowerCase(), {
-                        is_background: false,
-                        container: 'Application',
-                        result: item.text,
-                        source: 'Britbox~App',
-                        metadata: '',
-                      })
-                    );
+                    if (analyticsRef.current) {
+                      analyticsRef.current.onTrackEvent({
+                        type: 'event',
+                        actionType: 'select',
+                        actionName: item.text.toLocaleLowerCase(),
+                        eventProperties: {
+                          is_background: false,
+                          container: 'Application',
+                          result: item.text,
+                          source: 'Britbox~App',
+                          metadata: '',
+                        },
+                      });
+                    }
                   }}
                 />
               )}

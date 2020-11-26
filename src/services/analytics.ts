@@ -6,7 +6,7 @@ import { MassiveSDKModelItemSummary } from '@src/sdks/Britbox.API.Content.TS/api
 import { decode as atob } from 'base-64';
 import { getUniqueId } from 'react-native-device-info';
 
-type PageView = {
+export type PageView = {
   key: string;
   name: string;
   params?: {
@@ -18,7 +18,7 @@ type User = {
   uid?: string;
 };
 
-type UserInformation = {
+export type UserInformation = {
   id?: string;
   platform: string;
   account_status: string;

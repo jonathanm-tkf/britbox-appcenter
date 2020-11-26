@@ -9,9 +9,9 @@ import { useTranslation } from 'react-i18next';
 import { useSelector, useDispatch } from 'react-redux';
 import { logout } from '@store/modules/user/actions';
 import { getVersion, getBuildNumber, isTablet } from 'react-native-device-info';
-import { atiEventTracking } from '@store/modules/layout/actions';
 import { getTextInConfigJSON } from '@src/utils/object';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { analyticsRef } from '@src/utils/analytics';
 import {
   ProfileView,
   RowContainer,
@@ -47,19 +47,24 @@ export default function More() {
   };
 
   const logoutAction = () => {
+    if (analyticsRef.current) {
+      analyticsRef.current.onTrackEvent({
+        type: 'event',
+        actionType: 'auth',
+        actionName: 'bb_logged_out',
+        eventProperties: {
+          is_background: false,
+          container: 'Application',
+          result: '',
+          source: 'Britbox~App',
+          metadata: '',
+          eventType: 'atc',
+          label: 'User has logged out',
+          status: 'success',
+        },
+      });
+    }
     dispatch(logout());
-    dispatch(
-      atiEventTracking('auth', 'bb_logged_out', {
-        is_background: false,
-        container: 'Application',
-        result: '',
-        source: 'Britbox~App',
-        metadata: '',
-        eventType: 'atc',
-        label: 'User has logged out',
-        status: 'success',
-      })
-    );
   };
 
   return (

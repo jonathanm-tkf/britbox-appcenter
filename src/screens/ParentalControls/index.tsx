@@ -25,13 +25,13 @@ import { useSelector, useDispatch } from 'react-redux';
 import { AppState } from '@store/modules/rootReducer';
 import { useFocusEffect } from '@react-navigation/native';
 import { EvergentResponseError } from '@store/modules/user/types';
-import { atiEventTracking } from '@store/modules/layout/actions';
 import { getTextInConfigJSON } from '@src/utils/object';
 import {
   BritboxDataEvergentModelsGetParentalControlDetailsResponseMessageBaseResponse,
   BritboxAPIAccountModelsProfileUpdateParentalControlDetailsRequest,
 } from '@src/sdks/Britbox.API.Account.TS/api';
 import { parentalControlOff, parentalControlOn } from '@store/modules/user/actions';
+import { analyticsRef } from '@src/utils/analytics';
 import {
   Container,
   TitleWrapper,
@@ -385,15 +385,22 @@ export default function ParentalControls() {
         } else {
           dispatch(parentalControlOff());
         }
-        dispatch(
-          atiEventTracking('submit', 'bb_profile_edit', {
-            is_background: false,
-            container: 'Application',
-            result: `Parental Controls: ${parentalControl === 'true' ? parentalControlLebels : ''}`,
-            source: 'Britbox~App',
-            metadata: '',
-          })
-        );
+        if (analyticsRef.current) {
+          analyticsRef.current.onTrackEvent({
+            type: 'event',
+            actionType: 'submit',
+            actionName: 'bb_profile_edit',
+            eventProperties: {
+              is_background: false,
+              container: 'Application',
+              result: `Parental Controls: ${
+                parentalControl === 'true' ? parentalControlLebels : ''
+              }`,
+              source: 'Britbox~App',
+              metadata: '',
+            },
+          });
+        }
         updateParentalDetail();
       } else {
         setErrorMessage(responseData);

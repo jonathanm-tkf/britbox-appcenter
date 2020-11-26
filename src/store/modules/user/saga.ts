@@ -48,7 +48,8 @@ import {
 } from '@store/modules/core/actions';
 import { getDevice } from '@src/utils';
 
-import { atiEventTracking, welcomeMessageOn, getProfileFailed } from '../layout/actions';
+import { analyticsRef } from '@src/utils/analytics';
+import { welcomeMessageOn, getProfileFailed } from '../layout/actions';
 import {
   UserActionTypes,
   UserLogin,
@@ -141,18 +142,23 @@ export function* loginRequest({
     const { response } = yield call(login, payload);
     if (Number(response.responseCode) === 1) {
       yield put(loginRequestSuccess(response));
-      yield put(
-        atiEventTracking('auth', 'bb_logged_in', {
-          is_background: false,
-          container: 'Application',
-          result: '',
-          source: 'Britbox~App',
-          metadata: '',
-          eventType: 'atc',
-          label: 'User has logged in',
-          status: 'success',
-        })
-      );
+      if (analyticsRef.current) {
+        analyticsRef.current.onTrackEvent({
+          type: 'event',
+          actionType: 'auth',
+          actionName: 'bb_logged_in',
+          eventProperties: {
+            is_background: false,
+            container: 'Application',
+            result: '',
+            source: 'Britbox~App',
+            metadata: '',
+            eventType: 'atc',
+            label: 'User has logged in',
+            status: 'success',
+          },
+        });
+      }
       const { accessToken } = yield select(getToken);
       const segment = yield select(getSegment);
       const { response: responseProfile } = yield call(profile, accessToken, segment);
@@ -165,15 +171,20 @@ export function* loginRequest({
       }
     } else {
       yield put(loginRequestError(response));
-      yield put(
-        atiEventTracking('error', 'bb_logged_in', {
-          is_background: false,
-          container: 'Application',
-          result: `${response?.failureMessage[0]?.errorCode}: ${response?.failureMessage[0]?.errorMessage}`,
-          source: 'Britbox~App',
-          metadata: '',
-        })
-      );
+      if (analyticsRef.current) {
+        analyticsRef.current.onTrackEvent({
+          type: 'event',
+          actionType: 'error',
+          actionName: 'bb_logged_in',
+          eventProperties: {
+            is_background: false,
+            container: 'Application',
+            result: `${response?.failureMessage[0]?.errorCode}: ${response?.failureMessage[0]?.errorMessage}`,
+            source: 'Britbox~App',
+            metadata: '',
+          },
+        });
+      }
     }
   } catch (error) {
     Analytics.trackEvent('loginRequestFailure', {

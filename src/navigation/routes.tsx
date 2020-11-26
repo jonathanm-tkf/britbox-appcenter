@@ -20,6 +20,7 @@ import { TrackPageView } from '@src/services/analytics';
 import { Segment } from '@store/modules/core/types';
 import { activateApp } from '@store/modules/home/actions';
 import { Config } from '@src/utils/config';
+import { analyticsRef } from '@src/utils/analytics';
 import { RootStackScreen } from './Root';
 import { navigationRef } from './rootNavigation';
 
@@ -39,11 +40,7 @@ type Profile = {
   isInFreeTrail: boolean;
 };
 
-type Props = {
-  onTrackEvent: (data: Record<string, unknown>) => void;
-};
-
-export default ({ onTrackEvent }: Props) => {
+export default () => {
   const theme = useSelector((state: AppState) => state.theme.theme);
   const { token, segment } = useSelector((state: AppState) => state.core);
   const { device } = useSelector((state: AppState) => state.layout);
@@ -108,7 +105,6 @@ export default ({ onTrackEvent }: Props) => {
 
   const handleNavigationChange = async () => {
     const { response } = await refreshTokenWithExpiresIn(expiresIn, refresh);
-
     if (response) {
       dispatch(refreshTokenSuccess({ ...response }));
     }
@@ -122,7 +118,6 @@ export default ({ onTrackEvent }: Props) => {
       onStateChange={() => {
         const previousRoute = routeNameRef.current;
         const currentRoute = navigationRef.current.getCurrentRoute();
-
         if (previousRoute.name !== currentRoute.name) {
           const { user, terms } = TrackPageView(currentRoute, token, {
             account_status: !isLogged
@@ -138,18 +133,18 @@ export default ({ onTrackEvent }: Props) => {
             app_version: getBuildNumber(),
             segment,
           });
-
-          if (terms?.page !== '.page')
-            onTrackEvent({
-              type: 'trackPageView',
-              user,
-              terms,
-            });
+          if (terms?.page !== '.page') {
+            if (analyticsRef.current) {
+              analyticsRef.current.onTrackEvent({
+                type: 'trackPageView',
+                user,
+                terms,
+              });
+            }
+          }
         }
-
         // Save the current route name for later comparision
         routeNameRef.current = currentRoute;
-
         handleNavigationChange();
       }}
     >
