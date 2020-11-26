@@ -29,15 +29,6 @@ export const showSheetBottom = (data?: Record<string, unknown>) =>
   action(LayoutActionTypes.LAYOUT_SHOW_SHEET_BOTTOM, { ...data });
 export const hideSheetBottom = () => action(LayoutActionTypes.LAYOUT_HIDE_SHEET_BOTTOM);
 
-export const atiEventTracking = (
-  actionType: string,
-  actionName: string,
-  eventProperties: Record<string, unknown>
-) => action(LayoutActionTypes.LAYOUT_EVENT, { actionType, actionName, eventProperties });
-
-export const atiPageViewTracking = (pageView: string) =>
-  action(LayoutActionTypes.LAYOUT_PAGEVIEW, { pageView });
-
 export const device = (type: string) => action(LayoutActionTypes.LAYOUT_DEVICE, { type });
 
 export const autoPlayOn = () => action(LayoutActionTypes.LAYOUT_AUTOPLAY_ON);

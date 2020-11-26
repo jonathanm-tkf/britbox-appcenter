@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import Header from '@components/Header';
 import { isTablet } from 'react-native-device-info';
 import Carousel from 'react-native-snap-carousel';
@@ -8,9 +8,9 @@ import { useTranslation } from 'react-i18next';
 import { AppState } from '@store/modules/rootReducer';
 import { useIsFocused } from '@react-navigation/native';
 import { navigate } from '@src/navigation/rootNavigation';
-import { atiEventTracking } from '@store/modules/layout/actions';
 import { getTextInConfigJSON } from '@src/utils/object';
 import { getDimensions } from '@src/utils/dimension';
+import { analyticsRef } from '@src/utils/analytics';
 import {
   Button,
   Pagination,
@@ -40,7 +40,6 @@ const Auth = () => {
   const [screenData] = useState(getDimensions());
 
   const { t } = useTranslation('auth');
-  const dispatch = useDispatch();
 
   const images = isTablet()
     ? [
@@ -95,26 +94,36 @@ const Auth = () => {
   };
 
   const onPressSignIn = () => {
-    dispatch(
-      atiEventTracking('Submit', 'Sign-IN', {
-        is_background: false,
-        container: 'Application',
-        result: '',
-        metadata: '',
-      })
-    );
+    if (analyticsRef.current) {
+      analyticsRef.current.onTrackEvent({
+        type: 'event',
+        actionType: 'Submit',
+        actionName: 'Sign-IN',
+        eventProperties: {
+          is_background: false,
+          container: 'Application',
+          result: '',
+          metadata: '',
+        },
+      });
+    }
   };
 
   const navigateToSignUp = () => {
-    dispatch(
-      atiEventTracking('submit', 'bb_sub_flow', {
-        is_background: false,
-        container: 'Application',
-        result: 'Free Trial',
-        source: 'Britbox~App',
-        metadata: '',
-      })
-    );
+    if (analyticsRef.current) {
+      analyticsRef.current.onTrackEvent({
+        type: 'event',
+        actionType: 'Submit',
+        actionName: 'bb_sub_flow',
+        eventProperties: {
+          is_background: false,
+          container: 'Application',
+          result: 'Free Trial',
+          source: 'Britbox~App',
+          metadata: '',
+        },
+      });
+    }
     navigate('SignUp');
   };
 
@@ -129,7 +138,12 @@ const Auth = () => {
   return !loading ? (
     <>
       <HeaderWrapper>
-        <Header hideSignIn={!isFocused} isCenter onPressSignIn={() => onPressSignIn()} />
+        <Header
+          menuItems={[]}
+          hideSignIn={!isFocused}
+          isCenter
+          onPressSignIn={() => onPressSignIn()}
+        />
       </HeaderWrapper>
       <ScrollView>
         <Carousel

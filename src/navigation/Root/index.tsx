@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -25,9 +27,10 @@ import FailedGetProfile from '@screens/FailedGetProfile';
 import { BritboxAPIContentModelsItemsGetItemRelatedListResponse } from '@src/sdks/Britbox.API.Content.TS/api';
 import { setDeepLinkUrl } from '@store/modules/home/actions';
 import { getItemContent } from '@store/modules/home/saga';
-import { AppDrawerScreen } from '../Drawer';
+import Loading from '@screens/Loading';
 import { AuthStackScreen } from '../Auth';
 import { navigateByPath } from '../rootNavigation';
+import { AppTabsScreen } from '../Tabs';
 
 const STORYBOOK_START = false && __DEV__;
 
@@ -68,6 +71,7 @@ const VersionModal = () => {
 const RootStack = createStackNavigator();
 const RootStackScreen = () => {
   const user = useSelector((state: AppState) => state.user);
+  const isLoading = useSelector((state: AppState) => state.layout.loading);
   const { isLogged } = useSelector((state: AppState) => state.user);
   const theme = useSelector((state: AppState) => state.theme.theme);
   const isOut = useSelector((state: AppState) => state.layout.out);
@@ -96,7 +100,7 @@ const RootStackScreen = () => {
   }, [britboxConfig]);
 
   useEffect(() => {
-    Orientation.lockToPortrait();
+    // Orientation.lockToPortrait();
     const unsubscribe = NetInfo.addEventListener((state) => {
       if (!state.isConnected) {
         setLostConnection(true);
@@ -186,6 +190,8 @@ const RootStackScreen = () => {
       >
         {STORYBOOK_START ? (
           <RootStack.Screen name="Storybook" component={Storybook} />
+        ) : isLoading ? (
+          <RootStack.Screen name="Loading" component={Loading} />
         ) : lostConnection ? (
           <RootStack.Screen name="LostConnection" component={LostConnection} />
         ) : isOut ? (
@@ -195,7 +201,7 @@ const RootStackScreen = () => {
         ) : failedGetProfile && user.isLogged ? (
           <RootStack.Screen name="FailedGetProfile" component={FailedGetProfile} />
         ) : user.isLogged && !isOut ? (
-          <RootStack.Screen name="AppDrawerScreen" component={AppDrawerScreen} />
+          <RootStack.Screen name="AppTabsScreen" component={AppTabsScreen} />
         ) : (
           <RootStack.Screen name="AuthStackScreen" component={AuthStackScreen} />
         )}

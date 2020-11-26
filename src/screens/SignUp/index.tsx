@@ -1,20 +1,19 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from 'react';
 import { KeyboardAvoidingView, Platform, Keyboard, Linking } from 'react-native';
-
 import { Button } from '@components/Button';
 import { Input, PasswordInput } from '@components/Input';
 import HeaderCustom from '@components/HeaderCustom';
 import { useSelector, useDispatch } from 'react-redux';
 import { signupRequest } from '@store/modules/user/saga';
 import { registerRequestSuccess } from '@store/modules/user/actions';
-import { atiEventTracking } from '@store/modules/layout/actions';
 import { EvergentSignupResponseError } from '@store/modules/user/types';
 import { AppState } from '@store/modules/rootReducer';
 import { getTextInConfigJSON, getSegment } from '@src/utils/object';
 import { useTranslation } from 'react-i18next';
 import { useNavigation } from '@react-navigation/native';
 import { validateEmail } from '@src/utils/validations';
+import { analyticsRef } from '@src/utils/analytics';
 import {
   Container,
   ScrollView,
@@ -137,15 +136,20 @@ const SignUp = () => {
         const { response: responseData } = response;
         if (responseData && Number(responseData.responseCode) === 1) {
           dispatch(registerRequestSuccess(responseData));
-          dispatch(
-            atiEventTracking('submit', 'bb_sub_flow', {
-              is_background: false,
-              container: 'Application',
-              result: '1_Create_Account',
-              source: 'Britbox~App',
-              metadata: '',
-            })
-          );
+          if (analyticsRef.current) {
+            analyticsRef.current.onTrackEvent({
+              type: 'event',
+              actionType: 'submit',
+              actionName: 'bb_sub_flow',
+              eventProperties: {
+                is_background: false,
+                container: 'Application',
+                result: '1_Create_Account',
+                source: 'Britbox~App',
+                metadata: '',
+              },
+            });
+          }
           navigation.navigate('SignUpSubscription');
         } else {
           if (response[0] && response[0]?.errorCode === 'eV4014') {
