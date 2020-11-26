@@ -120,24 +120,6 @@ export const ActionTitleAfter = styled.Text`
   margin-bottom: 5px;
 `;
 
-export const ChangeGenreButton = styled.TouchableOpacity`
-  flex-direction: row;
-  position: absolute;
-  height: 50px;
-  line-height: ${normalize(46, 50)}px;
-  right: 20px;
-  bottom: 0;
-  justify-content: center;
-  align-items: center;
-  z-index: 2;
-`;
-
-export const ChangeGenreText = styled.Text`
-  font-family: ${(props: ThemeState) => props.theme.PRIMARY_FONT_FAMILY_MEDIUM};
-  color: ${(props: ThemeState) => props.theme.SECONDARY_COLOR_LIGHT};
-  margin-right: 10px;
-`;
-
 export const ChangeOrderText = styled.Text`
   font-family: ${(props: ThemeState) => props.theme.PRIMARY_FONT_FAMILY};
   color: ${(props: ThemeState) => rgba(props.theme.PRIMARY_FOREGROUND_COLOR, 0.6)};

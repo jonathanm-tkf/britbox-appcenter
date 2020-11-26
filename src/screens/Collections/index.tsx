@@ -1,14 +1,15 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Animated, NativeScrollEvent, View } from 'react-native';
 import { useNavigation, useRoute, RouteProp } from '@react-navigation/native';
-import { BackIcon, ArrowBottomIcon } from '@assets/icons';
+import { BackIcon } from '@assets/icons';
 import { getDimensions, percentageWidth } from '@src/utils/dimension';
 
 import {
   MassiveSDKModelItemSummary,
   MassiveSDKModelPage,
   MassiveSDKModelItemList,
+  MassiveSDKModelPageEntry,
 } from '@src/sdks/Britbox.API.Content.TS/api';
 import { loadCollectionPage } from '@src/services/detail';
 import {
@@ -17,10 +18,8 @@ import {
   getIsOurFavoritesMultiple,
   getIsListDetail,
 } from '@src/utils/template';
-// import TitleTreatment from '@screens/Shared/TitleTreatment';
 import Genre from '@screens/Shared/Genre';
 import Standard from '@screens/Shared/Standard';
-// import Popular from '@screens/Shared/Popular';
 import LargeProgramming from '@screens/Shared/LargeProgramming';
 import Episodes from '@screens/Shared/Episodes';
 import New from '@screens/Shared/New';
@@ -32,7 +31,6 @@ import OurFavorites from '@screens/Shared/OurFavorites';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppState } from '@store/modules/rootReducer';
-import { Header } from '@store/modules/core/types';
 import { Item } from '@screens/ModalFilter';
 
 import { checkIsInWatchingList } from '@src/services/watchlist';
@@ -51,8 +49,6 @@ import {
   GridInnerContent,
   Gradient,
   ActionTitle,
-  ChangeGenreButton,
-  ChangeGenreText,
   ChangeOrderButton,
   ChangeOrderText,
   WrapperContinuosScroll,
@@ -76,6 +72,12 @@ type CustomFiled = {
 };
 
 type CollectionScreenRouteProp = RouteProp<RootParamList, 'Collection'>;
+
+type Card = MassiveSDKModelItemList & {
+  showId?: string;
+  customId?: string;
+  type?: string;
+};
 
 const GridContent = ({ data }: { data: MassiveSDKModelItemSummary }) => {
   const wrapper = {
@@ -108,14 +110,14 @@ const Collections = () => {
   const [animatedOpacityValue] = useState(new Animated.Value(0));
   const { params } = useRoute<CollectionScreenRouteProp>();
   const { item: itemData, genre, filter } = params || undefined;
-  const [data, setData] = useState<MassiveSDKModelPage | undefined>(dataDummy);
+  const [data, setData] = useState<MassiveSDKModelPage | undefined>(
+    dataDummy as MassiveSDKModelPage
+  );
   const [isContinuosScroll, setIsContinuosScroll] = useState(false);
   const [error, setError] = useState(false);
   const [isLoadingContinuosScroll, setIsLoadingContinuosScroll] = useState(false);
   const [animationContinuosScroll, setAnimationContinuosScroll] = useState(false);
   const [loading, setLoading] = useState(false);
-  const menu = useSelector((state: AppState) => state.core?.menu?.navigation?.header);
-  const theme = useSelector((state: AppState) => state.theme.theme);
   const { t } = useTranslation('layout');
   const [infiniteGridColumns, setInfiniteGridColumns] = useState<number | undefined>(undefined);
   const { isShowMiniController } = useSelector((state: AppState) => state.layout);
@@ -135,24 +137,6 @@ const Collections = () => {
     marginTop: 10,
     paddingHorizontal: isTablet() ? 7 : 15,
   };
-
-  const isGenre = useMemo(() => {
-    if (menu && data) {
-      const explore = (menu.filter((item: Header) => item.label === 'Explore') || []).reduce(
-        (e) => e
-      ).children;
-
-      if (explore && explore?.length > 0) {
-        const genreList = (explore.filter((list) => list.label === 'Genre') || [])
-          .reduce((l) => l)
-          .children.filter(
-            (children) => children.label === (data.title || '')?.replace('Britbox - ', '')
-          );
-        return genreList.length ? t('genre') : data?.title || '';
-      }
-    }
-    return '';
-  }, [data, menu, t]);
 
   const back = () => {
     navigation.goBack();
@@ -224,7 +208,7 @@ const Collections = () => {
     getDataDetail(itemData?.path || '');
 
     return () => {
-      setData(dataDummy);
+      setData(dataDummy as MassiveSDKModelPage);
       setIsLoadingContinuosScroll(false);
       setIsContinuosScroll(false);
       setError(false);
@@ -369,11 +353,11 @@ const Collections = () => {
     }
   };
 
-  const onPlay = (card: MassiveSDKModelItemList) => {
+  const onPlay = (card: Card) => {
     navigateByPath(card);
   };
 
-  const onWatchlist = (card: MassiveSDKModelItemList) => {
+  const onWatchlist = (card: Card) => {
     dispatch(
       watchlistToggleRequest({
         itemId: card.type === 'season' ? card?.showId || '0' : card?.id || '0',
@@ -392,7 +376,7 @@ const Collections = () => {
 
   useEffect(() => {
     if (genre) {
-      setData(dataDummy);
+      setData(dataDummy as MassiveSDKModelPage);
       getDataDetail(genre);
       setOrder('asc');
       setOrderBy('a-z');
@@ -427,7 +411,7 @@ const Collections = () => {
         return item;
       });
 
-      setData({ ...data, entries: newData });
+      setData({ ...data, entries: newData as MassiveSDKModelPageEntry[] });
       getMoreDataContinuosScroll(
         true,
         filter.value === 'date-added' ? 'desc' : 'asc',
@@ -442,15 +426,7 @@ const Collections = () => {
         <Button onPress={() => back()}>
           <BackIcon width={20} height={20} />
         </Button>
-        <TopText>{getIsCollectionDetail(data?.template || '') ? data?.title : isGenre}</TopText>
-        {isGenre === t('genre') && (
-          <ChangeGenreButton
-            onPress={() => navigation.navigate('ModalGenre', { genre: data?.title || '' })}
-          >
-            <ChangeGenreText>{data?.title || ''}</ChangeGenreText>
-            <ArrowBottomIcon width={10} height={10} fill={theme.PRIMARY_FOREGROUND_COLOR} />
-          </ChangeGenreButton>
-        )}
+        <TopText>{data?.title}</TopText>
         <BackgroundTop
           style={{
             opacity: animatedOpacityValue.interpolate({
@@ -601,8 +577,6 @@ const Collections = () => {
                     containerStyle={containerStyles}
                   />
                 );
-              // case 'popular':
-              //   return <Popular key={key.toString()} {...{ item }} />;
               case 'standard':
                 return <Standard key={key.toString()} {...{ item }} />;
               case 'genre':

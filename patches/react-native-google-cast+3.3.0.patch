@@ -37,8 +37,7 @@ index 0000000..0d259dd
 +o/classes
 diff --git a/node_modules/react-native-google-cast/android/build/.transforms/3afd058e049d5db3a434106bdc0bf63b/classes/classes.dex b/node_modules/react-native-google-cast/android/build/.transforms/3afd058e049d5db3a434106bdc0bf63b/classes/classes.dex
 new file mode 100644
-index 0000000..4b5e596
-Binary files /dev/null and b/node_modules/react-native-google-cast/android/build/.transforms/3afd058e049d5db3a434106bdc0bf63b/classes/classes.dex differ
+index 0000000..e69de29
 diff --git a/node_modules/react-native-google-cast/android/build/.transforms/9003fa54bf5729d0bf9da6f94a44ffb4.bin b/node_modules/react-native-google-cast/android/build/.transforms/9003fa54bf5729d0bf9da6f94a44ffb4.bin
 new file mode 100644
 index 0000000..0d259dd
@@ -48,8 +47,18 @@ index 0000000..0d259dd
 +o/classes
 diff --git a/node_modules/react-native-google-cast/android/build/.transforms/9003fa54bf5729d0bf9da6f94a44ffb4/classes/classes.dex b/node_modules/react-native-google-cast/android/build/.transforms/9003fa54bf5729d0bf9da6f94a44ffb4/classes/classes.dex
 new file mode 100644
-index 0000000..f67ce30
-Binary files /dev/null and b/node_modules/react-native-google-cast/android/build/.transforms/9003fa54bf5729d0bf9da6f94a44ffb4/classes/classes.dex differ
+index 0000000..e69de29
+diff --git a/node_modules/react-native-google-cast/android/build/.transforms/92f938cbed5abe54ae9062cc98d1b11c.bin b/node_modules/react-native-google-cast/android/build/.transforms/92f938cbed5abe54ae9062cc98d1b11c.bin
+new file mode 100644
+index 0000000..0d259dd
+--- /dev/null
++++ b/node_modules/react-native-google-cast/android/build/.transforms/92f938cbed5abe54ae9062cc98d1b11c.bin
+@@ -0,0 +1 @@
++o/classes
+diff --git a/node_modules/react-native-google-cast/android/build/.transforms/92f938cbed5abe54ae9062cc98d1b11c/classes/classes.dex b/node_modules/react-native-google-cast/android/build/.transforms/92f938cbed5abe54ae9062cc98d1b11c/classes/classes.dex
+new file mode 100644
+index 0000000..593d9c4
+Binary files /dev/null and b/node_modules/react-native-google-cast/android/build/.transforms/92f938cbed5abe54ae9062cc98d1b11c/classes/classes.dex differ
 diff --git a/node_modules/react-native-google-cast/android/build/.transforms/93754e5282595d34a39e099116e53ea4.bin b/node_modules/react-native-google-cast/android/build/.transforms/93754e5282595d34a39e099116e53ea4.bin
 new file mode 100644
 index 0000000..0d259dd
@@ -78,6 +87,16 @@ index 0000000..0d259dd
 @@ -0,0 +1 @@
 +o/classes
 diff --git a/node_modules/react-native-google-cast/android/build/.transforms/b7adf95146fe13302a12e51b7c836822/classes/classes.dex b/node_modules/react-native-google-cast/android/build/.transforms/b7adf95146fe13302a12e51b7c836822/classes/classes.dex
+new file mode 100644
+index 0000000..e69de29
+diff --git a/node_modules/react-native-google-cast/android/build/.transforms/c8aeecab1e5dbc3047c68efe0a5974b7.bin b/node_modules/react-native-google-cast/android/build/.transforms/c8aeecab1e5dbc3047c68efe0a5974b7.bin
+new file mode 100644
+index 0000000..0d259dd
+--- /dev/null
++++ b/node_modules/react-native-google-cast/android/build/.transforms/c8aeecab1e5dbc3047c68efe0a5974b7.bin
+@@ -0,0 +1 @@
++o/classes
+diff --git a/node_modules/react-native-google-cast/android/build/.transforms/c8aeecab1e5dbc3047c68efe0a5974b7/classes/classes.dex b/node_modules/react-native-google-cast/android/build/.transforms/c8aeecab1e5dbc3047c68efe0a5974b7/classes/classes.dex
 new file mode 100644
 index 0000000..e69de29
 diff --git a/node_modules/react-native-google-cast/android/build/.transforms/e5e6621c041e295a80c2e487639beb7e.bin b/node_modules/react-native-google-cast/android/build/.transforms/e5e6621c041e295a80c2e487639beb7e.bin
@@ -208,24 +227,19 @@ index 0000000..9e26dfe
 \ No newline at end of file
 diff --git a/node_modules/react-native-google-cast/android/build/intermediates/compile_library_classes/debug/classes.jar b/node_modules/react-native-google-cast/android/build/intermediates/compile_library_classes/debug/classes.jar
 new file mode 100644
-index 0000000..61e29e4
-Binary files /dev/null and b/node_modules/react-native-google-cast/android/build/intermediates/compile_library_classes/debug/classes.jar differ
+index 0000000..e69de29
 diff --git a/node_modules/react-native-google-cast/android/build/intermediates/compile_library_classes/release/classes.jar b/node_modules/react-native-google-cast/android/build/intermediates/compile_library_classes/release/classes.jar
 new file mode 100644
-index 0000000..60f9d9b
-Binary files /dev/null and b/node_modules/react-native-google-cast/android/build/intermediates/compile_library_classes/release/classes.jar differ
+index 0000000..e69de29
 diff --git a/node_modules/react-native-google-cast/android/build/intermediates/compile_only_not_namespaced_r_class_jar/debug/R.jar b/node_modules/react-native-google-cast/android/build/intermediates/compile_only_not_namespaced_r_class_jar/debug/R.jar
 new file mode 100644
-index 0000000..285fe7a
-Binary files /dev/null and b/node_modules/react-native-google-cast/android/build/intermediates/compile_only_not_namespaced_r_class_jar/debug/R.jar differ
+index 0000000..e69de29
 diff --git a/node_modules/react-native-google-cast/android/build/intermediates/compile_only_not_namespaced_r_class_jar/release/R.jar b/node_modules/react-native-google-cast/android/build/intermediates/compile_only_not_namespaced_r_class_jar/release/R.jar
 new file mode 100644
-index 0000000..414996e
-Binary files /dev/null and b/node_modules/react-native-google-cast/android/build/intermediates/compile_only_not_namespaced_r_class_jar/release/R.jar differ
+index 0000000..e69de29
 diff --git a/node_modules/react-native-google-cast/android/build/intermediates/incremental/debug-mergeNativeLibs/merge-state b/node_modules/react-native-google-cast/android/build/intermediates/incremental/debug-mergeNativeLibs/merge-state
 new file mode 100644
-index 0000000..2589bac
-Binary files /dev/null and b/node_modules/react-native-google-cast/android/build/intermediates/incremental/debug-mergeNativeLibs/merge-state differ
+index 0000000..e69de29
 diff --git a/node_modules/react-native-google-cast/android/build/intermediates/incremental/mergeDebugJniLibFolders/merger.xml b/node_modules/react-native-google-cast/android/build/intermediates/incremental/mergeDebugJniLibFolders/merger.xml
 new file mode 100644
 index 0000000..6e148f5
@@ -316,328 +330,247 @@ index 0000000..a12efbf
 \ No newline at end of file
 diff --git a/node_modules/react-native-google-cast/android/build/intermediates/incremental/release-mergeNativeLibs/merge-state b/node_modules/react-native-google-cast/android/build/intermediates/incremental/release-mergeNativeLibs/merge-state
 new file mode 100644
-index 0000000..718be83
-Binary files /dev/null and b/node_modules/react-native-google-cast/android/build/intermediates/incremental/release-mergeNativeLibs/merge-state differ
+index 0000000..e69de29
 diff --git a/node_modules/react-native-google-cast/android/build/intermediates/javac/debug/classes/com/facebook/react/GoogleCastActivity.class b/node_modules/react-native-google-cast/android/build/intermediates/javac/debug/classes/com/facebook/react/GoogleCastActivity.class
 new file mode 100644
-index 0000000..40df022
-Binary files /dev/null and b/node_modules/react-native-google-cast/android/build/intermediates/javac/debug/classes/com/facebook/react/GoogleCastActivity.class differ
+index 0000000..e69de29
 diff --git a/node_modules/react-native-google-cast/android/build/intermediates/javac/debug/classes/com/reactnative/googlecast/BuildConfig.class b/node_modules/react-native-google-cast/android/build/intermediates/javac/debug/classes/com/reactnative/googlecast/BuildConfig.class
 new file mode 100644
-index 0000000..b27ee4a
-Binary files /dev/null and b/node_modules/react-native-google-cast/android/build/intermediates/javac/debug/classes/com/reactnative/googlecast/BuildConfig.class differ
+index 0000000..e69de29
 diff --git a/node_modules/react-native-google-cast/android/build/intermediates/javac/debug/classes/com/reactnative/googlecast/GoogleCastButtonManager$1.class b/node_modules/react-native-google-cast/android/build/intermediates/javac/debug/classes/com/reactnative/googlecast/GoogleCastButtonManager$1.class
 new file mode 100644
-index 0000000..e646d80
-Binary files /dev/null and b/node_modules/react-native-google-cast/android/build/intermediates/javac/debug/classes/com/reactnative/googlecast/GoogleCastButtonManager$1.class differ
+index 0000000..e69de29
 diff --git a/node_modules/react-native-google-cast/android/build/intermediates/javac/debug/classes/com/reactnative/googlecast/GoogleCastButtonManager$ColorableMediaRouteButton.class b/node_modules/react-native-google-cast/android/build/intermediates/javac/debug/classes/com/reactnative/googlecast/GoogleCastButtonManager$ColorableMediaRouteButton.class
 new file mode 100644
-index 0000000..630513c
-Binary files /dev/null and b/node_modules/react-native-google-cast/android/build/intermediates/javac/debug/classes/com/reactnative/googlecast/GoogleCastButtonManager$ColorableMediaRouteButton.class differ
+index 0000000..e69de29
 diff --git a/node_modules/react-native-google-cast/android/build/intermediates/javac/debug/classes/com/reactnative/googlecast/GoogleCastButtonManager.class b/node_modules/react-native-google-cast/android/build/intermediates/javac/debug/classes/com/reactnative/googlecast/GoogleCastButtonManager.class
 new file mode 100644
-index 0000000..4334e8d
-Binary files /dev/null and b/node_modules/react-native-google-cast/android/build/intermediates/javac/debug/classes/com/reactnative/googlecast/GoogleCastButtonManager.class differ
+index 0000000..e69de29
 diff --git a/node_modules/react-native-google-cast/android/build/intermediates/javac/debug/classes/com/reactnative/googlecast/GoogleCastExpandedControlsActivity.class b/node_modules/react-native-google-cast/android/build/intermediates/javac/debug/classes/com/reactnative/googlecast/GoogleCastExpandedControlsActivity.class
 new file mode 100644
-index 0000000..816997f
-Binary files /dev/null and b/node_modules/react-native-google-cast/android/build/intermediates/javac/debug/classes/com/reactnative/googlecast/GoogleCastExpandedControlsActivity.class differ
+index 0000000..e69de29
 diff --git a/node_modules/react-native-google-cast/android/build/intermediates/javac/debug/classes/com/reactnative/googlecast/GoogleCastModule$1.class b/node_modules/react-native-google-cast/android/build/intermediates/javac/debug/classes/com/reactnative/googlecast/GoogleCastModule$1.class
 new file mode 100644
-index 0000000..44ba557
-Binary files /dev/null and b/node_modules/react-native-google-cast/android/build/intermediates/javac/debug/classes/com/reactnative/googlecast/GoogleCastModule$1.class differ
+index 0000000..e69de29
 diff --git a/node_modules/react-native-google-cast/android/build/intermediates/javac/debug/classes/com/reactnative/googlecast/GoogleCastModule$10.class b/node_modules/react-native-google-cast/android/build/intermediates/javac/debug/classes/com/reactnative/googlecast/GoogleCastModule$10.class
 new file mode 100644
-index 0000000..5658c4d
-Binary files /dev/null and b/node_modules/react-native-google-cast/android/build/intermediates/javac/debug/classes/com/reactnative/googlecast/GoogleCastModule$10.class differ
+index 0000000..e69de29
 diff --git a/node_modules/react-native-google-cast/android/build/intermediates/javac/debug/classes/com/reactnative/googlecast/GoogleCastModule$11.class b/node_modules/react-native-google-cast/android/build/intermediates/javac/debug/classes/com/reactnative/googlecast/GoogleCastModule$11.class
 new file mode 100644
-index 0000000..288a155
-Binary files /dev/null and b/node_modules/react-native-google-cast/android/build/intermediates/javac/debug/classes/com/reactnative/googlecast/GoogleCastModule$11.class differ
+index 0000000..e69de29
 diff --git a/node_modules/react-native-google-cast/android/build/intermediates/javac/debug/classes/com/reactnative/googlecast/GoogleCastModule$12.class b/node_modules/react-native-google-cast/android/build/intermediates/javac/debug/classes/com/reactnative/googlecast/GoogleCastModule$12.class
 new file mode 100644
-index 0000000..ef69820
-Binary files /dev/null and b/node_modules/react-native-google-cast/android/build/intermediates/javac/debug/classes/com/reactnative/googlecast/GoogleCastModule$12.class differ
+index 0000000..e69de29
 diff --git a/node_modules/react-native-google-cast/android/build/intermediates/javac/debug/classes/com/reactnative/googlecast/GoogleCastModule$13.class b/node_modules/react-native-google-cast/android/build/intermediates/javac/debug/classes/com/reactnative/googlecast/GoogleCastModule$13.class
 new file mode 100644
-index 0000000..45d4d68
-Binary files /dev/null and b/node_modules/react-native-google-cast/android/build/intermediates/javac/debug/classes/com/reactnative/googlecast/GoogleCastModule$13.class differ
+index 0000000..e69de29
 diff --git a/node_modules/react-native-google-cast/android/build/intermediates/javac/debug/classes/com/reactnative/googlecast/GoogleCastModule$14.class b/node_modules/react-native-google-cast/android/build/intermediates/javac/debug/classes/com/reactnative/googlecast/GoogleCastModule$14.class
 new file mode 100644
-index 0000000..fdf21f1
-Binary files /dev/null and b/node_modules/react-native-google-cast/android/build/intermediates/javac/debug/classes/com/reactnative/googlecast/GoogleCastModule$14.class differ
+index 0000000..e69de29
 diff --git a/node_modules/react-native-google-cast/android/build/intermediates/javac/debug/classes/com/reactnative/googlecast/GoogleCastModule$15.class b/node_modules/react-native-google-cast/android/build/intermediates/javac/debug/classes/com/reactnative/googlecast/GoogleCastModule$15.class
 new file mode 100644
-index 0000000..7f67ffb
-Binary files /dev/null and b/node_modules/react-native-google-cast/android/build/intermediates/javac/debug/classes/com/reactnative/googlecast/GoogleCastModule$15.class differ
+index 0000000..e69de29
 diff --git a/node_modules/react-native-google-cast/android/build/intermediates/javac/debug/classes/com/reactnative/googlecast/GoogleCastModule$2.class b/node_modules/react-native-google-cast/android/build/intermediates/javac/debug/classes/com/reactnative/googlecast/GoogleCastModule$2.class
 new file mode 100644
-index 0000000..350dbed
-Binary files /dev/null and b/node_modules/react-native-google-cast/android/build/intermediates/javac/debug/classes/com/reactnative/googlecast/GoogleCastModule$2.class differ
+index 0000000..e69de29
 diff --git a/node_modules/react-native-google-cast/android/build/intermediates/javac/debug/classes/com/reactnative/googlecast/GoogleCastModule$3.class b/node_modules/react-native-google-cast/android/build/intermediates/javac/debug/classes/com/reactnative/googlecast/GoogleCastModule$3.class
 new file mode 100644
-index 0000000..8221a58
-Binary files /dev/null and b/node_modules/react-native-google-cast/android/build/intermediates/javac/debug/classes/com/reactnative/googlecast/GoogleCastModule$3.class differ
+index 0000000..e69de29
 diff --git a/node_modules/react-native-google-cast/android/build/intermediates/javac/debug/classes/com/reactnative/googlecast/GoogleCastModule$4.class b/node_modules/react-native-google-cast/android/build/intermediates/javac/debug/classes/com/reactnative/googlecast/GoogleCastModule$4.class
 new file mode 100644
-index 0000000..134fe28
-Binary files /dev/null and b/node_modules/react-native-google-cast/android/build/intermediates/javac/debug/classes/com/reactnative/googlecast/GoogleCastModule$4.class differ
+index 0000000..e69de29
 diff --git a/node_modules/react-native-google-cast/android/build/intermediates/javac/debug/classes/com/reactnative/googlecast/GoogleCastModule$5$1.class b/node_modules/react-native-google-cast/android/build/intermediates/javac/debug/classes/com/reactnative/googlecast/GoogleCastModule$5$1.class
 new file mode 100644
-index 0000000..00535a3
-Binary files /dev/null and b/node_modules/react-native-google-cast/android/build/intermediates/javac/debug/classes/com/reactnative/googlecast/GoogleCastModule$5$1.class differ
+index 0000000..e69de29
 diff --git a/node_modules/react-native-google-cast/android/build/intermediates/javac/debug/classes/com/reactnative/googlecast/GoogleCastModule$5.class b/node_modules/react-native-google-cast/android/build/intermediates/javac/debug/classes/com/reactnative/googlecast/GoogleCastModule$5.class
 new file mode 100644
-index 0000000..dce8262
-Binary files /dev/null and b/node_modules/react-native-google-cast/android/build/intermediates/javac/debug/classes/com/reactnative/googlecast/GoogleCastModule$5.class differ
+index 0000000..e69de29
 diff --git a/node_modules/react-native-google-cast/android/build/intermediates/javac/debug/classes/com/reactnative/googlecast/GoogleCastModule$6$1.class b/node_modules/react-native-google-cast/android/build/intermediates/javac/debug/classes/com/reactnative/googlecast/GoogleCastModule$6$1.class
 new file mode 100644
-index 0000000..4123f81
-Binary files /dev/null and b/node_modules/react-native-google-cast/android/build/intermediates/javac/debug/classes/com/reactnative/googlecast/GoogleCastModule$6$1.class differ
+index 0000000..e69de29
 diff --git a/node_modules/react-native-google-cast/android/build/intermediates/javac/debug/classes/com/reactnative/googlecast/GoogleCastModule$6.class b/node_modules/react-native-google-cast/android/build/intermediates/javac/debug/classes/com/reactnative/googlecast/GoogleCastModule$6.class
 new file mode 100644
-index 0000000..60ac567
-Binary files /dev/null and b/node_modules/react-native-google-cast/android/build/intermediates/javac/debug/classes/com/reactnative/googlecast/GoogleCastModule$6.class differ
+index 0000000..e69de29
 diff --git a/node_modules/react-native-google-cast/android/build/intermediates/javac/debug/classes/com/reactnative/googlecast/GoogleCastModule$7.class b/node_modules/react-native-google-cast/android/build/intermediates/javac/debug/classes/com/reactnative/googlecast/GoogleCastModule$7.class
 new file mode 100644
-index 0000000..9e4266b
-Binary files /dev/null and b/node_modules/react-native-google-cast/android/build/intermediates/javac/debug/classes/com/reactnative/googlecast/GoogleCastModule$7.class differ
+index 0000000..e69de29
 diff --git a/node_modules/react-native-google-cast/android/build/intermediates/javac/debug/classes/com/reactnative/googlecast/GoogleCastModule$8.class b/node_modules/react-native-google-cast/android/build/intermediates/javac/debug/classes/com/reactnative/googlecast/GoogleCastModule$8.class
 new file mode 100644
-index 0000000..a5a4b28
-Binary files /dev/null and b/node_modules/react-native-google-cast/android/build/intermediates/javac/debug/classes/com/reactnative/googlecast/GoogleCastModule$8.class differ
+index 0000000..e69de29
 diff --git a/node_modules/react-native-google-cast/android/build/intermediates/javac/debug/classes/com/reactnative/googlecast/GoogleCastModule$9.class b/node_modules/react-native-google-cast/android/build/intermediates/javac/debug/classes/com/reactnative/googlecast/GoogleCastModule$9.class
 new file mode 100644
-index 0000000..06456e1
-Binary files /dev/null and b/node_modules/react-native-google-cast/android/build/intermediates/javac/debug/classes/com/reactnative/googlecast/GoogleCastModule$9.class differ
+index 0000000..e69de29
 diff --git a/node_modules/react-native-google-cast/android/build/intermediates/javac/debug/classes/com/reactnative/googlecast/GoogleCastModule.class b/node_modules/react-native-google-cast/android/build/intermediates/javac/debug/classes/com/reactnative/googlecast/GoogleCastModule.class
 new file mode 100644
-index 0000000..5c7751a
-Binary files /dev/null and b/node_modules/react-native-google-cast/android/build/intermediates/javac/debug/classes/com/reactnative/googlecast/GoogleCastModule.class differ
+index 0000000..e69de29
 diff --git a/node_modules/react-native-google-cast/android/build/intermediates/javac/debug/classes/com/reactnative/googlecast/GoogleCastOptionsProvider$1.class b/node_modules/react-native-google-cast/android/build/intermediates/javac/debug/classes/com/reactnative/googlecast/GoogleCastOptionsProvider$1.class
 new file mode 100644
-index 0000000..b7e2211
-Binary files /dev/null and b/node_modules/react-native-google-cast/android/build/intermediates/javac/debug/classes/com/reactnative/googlecast/GoogleCastOptionsProvider$1.class differ
+index 0000000..e69de29
 diff --git a/node_modules/react-native-google-cast/android/build/intermediates/javac/debug/classes/com/reactnative/googlecast/GoogleCastOptionsProvider$ImagePickerImpl.class b/node_modules/react-native-google-cast/android/build/intermediates/javac/debug/classes/com/reactnative/googlecast/GoogleCastOptionsProvider$ImagePickerImpl.class
 new file mode 100644
-index 0000000..a647acc
-Binary files /dev/null and b/node_modules/react-native-google-cast/android/build/intermediates/javac/debug/classes/com/reactnative/googlecast/GoogleCastOptionsProvider$ImagePickerImpl.class differ
+index 0000000..e69de29
 diff --git a/node_modules/react-native-google-cast/android/build/intermediates/javac/debug/classes/com/reactnative/googlecast/GoogleCastOptionsProvider.class b/node_modules/react-native-google-cast/android/build/intermediates/javac/debug/classes/com/reactnative/googlecast/GoogleCastOptionsProvider.class
 new file mode 100644
-index 0000000..b9712b8
-Binary files /dev/null and b/node_modules/react-native-google-cast/android/build/intermediates/javac/debug/classes/com/reactnative/googlecast/GoogleCastOptionsProvider.class differ
+index 0000000..e69de29
 diff --git a/node_modules/react-native-google-cast/android/build/intermediates/javac/debug/classes/com/reactnative/googlecast/GoogleCastPackage.class b/node_modules/react-native-google-cast/android/build/intermediates/javac/debug/classes/com/reactnative/googlecast/GoogleCastPackage.class
 new file mode 100644
-index 0000000..352a947
-Binary files /dev/null and b/node_modules/react-native-google-cast/android/build/intermediates/javac/debug/classes/com/reactnative/googlecast/GoogleCastPackage.class differ
+index 0000000..e69de29
 diff --git a/node_modules/react-native-google-cast/android/build/intermediates/javac/debug/classes/com/reactnative/googlecast/GoogleCastRemoteMediaClientListener$1.class b/node_modules/react-native-google-cast/android/build/intermediates/javac/debug/classes/com/reactnative/googlecast/GoogleCastRemoteMediaClientListener$1.class
 new file mode 100644
-index 0000000..d5c77f3
-Binary files /dev/null and b/node_modules/react-native-google-cast/android/build/intermediates/javac/debug/classes/com/reactnative/googlecast/GoogleCastRemoteMediaClientListener$1.class differ
+index 0000000..e69de29
 diff --git a/node_modules/react-native-google-cast/android/build/intermediates/javac/debug/classes/com/reactnative/googlecast/GoogleCastRemoteMediaClientListener$2.class b/node_modules/react-native-google-cast/android/build/intermediates/javac/debug/classes/com/reactnative/googlecast/GoogleCastRemoteMediaClientListener$2.class
 new file mode 100644
-index 0000000..9361eb2
-Binary files /dev/null and b/node_modules/react-native-google-cast/android/build/intermediates/javac/debug/classes/com/reactnative/googlecast/GoogleCastRemoteMediaClientListener$2.class differ
+index 0000000..e69de29
 diff --git a/node_modules/react-native-google-cast/android/build/intermediates/javac/debug/classes/com/reactnative/googlecast/GoogleCastRemoteMediaClientListener.class b/node_modules/react-native-google-cast/android/build/intermediates/javac/debug/classes/com/reactnative/googlecast/GoogleCastRemoteMediaClientListener.class
 new file mode 100644
-index 0000000..dc3d893
-Binary files /dev/null and b/node_modules/react-native-google-cast/android/build/intermediates/javac/debug/classes/com/reactnative/googlecast/GoogleCastRemoteMediaClientListener.class differ
+index 0000000..e69de29
 diff --git a/node_modules/react-native-google-cast/android/build/intermediates/javac/debug/classes/com/reactnative/googlecast/GoogleCastSessionManagerListener$1.class b/node_modules/react-native-google-cast/android/build/intermediates/javac/debug/classes/com/reactnative/googlecast/GoogleCastSessionManagerListener$1.class
 new file mode 100644
-index 0000000..40836ef
-Binary files /dev/null and b/node_modules/react-native-google-cast/android/build/intermediates/javac/debug/classes/com/reactnative/googlecast/GoogleCastSessionManagerListener$1.class differ
+index 0000000..e69de29
 diff --git a/node_modules/react-native-google-cast/android/build/intermediates/javac/debug/classes/com/reactnative/googlecast/GoogleCastSessionManagerListener.class b/node_modules/react-native-google-cast/android/build/intermediates/javac/debug/classes/com/reactnative/googlecast/GoogleCastSessionManagerListener.class
 new file mode 100644
-index 0000000..d482315
-Binary files /dev/null and b/node_modules/react-native-google-cast/android/build/intermediates/javac/debug/classes/com/reactnative/googlecast/GoogleCastSessionManagerListener.class differ
+index 0000000..e69de29
 diff --git a/node_modules/react-native-google-cast/android/build/intermediates/javac/debug/classes/com/reactnative/googlecast/MediaInfoBuilder$1.class b/node_modules/react-native-google-cast/android/build/intermediates/javac/debug/classes/com/reactnative/googlecast/MediaInfoBuilder$1.class
 new file mode 100644
-index 0000000..4e9da81
-Binary files /dev/null and b/node_modules/react-native-google-cast/android/build/intermediates/javac/debug/classes/com/reactnative/googlecast/MediaInfoBuilder$1.class differ
+index 0000000..e69de29
 diff --git a/node_modules/react-native-google-cast/android/build/intermediates/javac/debug/classes/com/reactnative/googlecast/MediaInfoBuilder$2.class b/node_modules/react-native-google-cast/android/build/intermediates/javac/debug/classes/com/reactnative/googlecast/MediaInfoBuilder$2.class
 new file mode 100644
-index 0000000..642d2f0
-Binary files /dev/null and b/node_modules/react-native-google-cast/android/build/intermediates/javac/debug/classes/com/reactnative/googlecast/MediaInfoBuilder$2.class differ
+index 0000000..e69de29
 diff --git a/node_modules/react-native-google-cast/android/build/intermediates/javac/debug/classes/com/reactnative/googlecast/MediaInfoBuilder$3.class b/node_modules/react-native-google-cast/android/build/intermediates/javac/debug/classes/com/reactnative/googlecast/MediaInfoBuilder$3.class
 new file mode 100644
-index 0000000..dbe9bcd
-Binary files /dev/null and b/node_modules/react-native-google-cast/android/build/intermediates/javac/debug/classes/com/reactnative/googlecast/MediaInfoBuilder$3.class differ
+index 0000000..e69de29
 diff --git a/node_modules/react-native-google-cast/android/build/intermediates/javac/debug/classes/com/reactnative/googlecast/MediaInfoBuilder$4.class b/node_modules/react-native-google-cast/android/build/intermediates/javac/debug/classes/com/reactnative/googlecast/MediaInfoBuilder$4.class
 new file mode 100644
-index 0000000..0274219
-Binary files /dev/null and b/node_modules/react-native-google-cast/android/build/intermediates/javac/debug/classes/com/reactnative/googlecast/MediaInfoBuilder$4.class differ
+index 0000000..e69de29
 diff --git a/node_modules/react-native-google-cast/android/build/intermediates/javac/debug/classes/com/reactnative/googlecast/MediaInfoBuilder.class b/node_modules/react-native-google-cast/android/build/intermediates/javac/debug/classes/com/reactnative/googlecast/MediaInfoBuilder.class
 new file mode 100644
-index 0000000..194e7d8
-Binary files /dev/null and b/node_modules/react-native-google-cast/android/build/intermediates/javac/debug/classes/com/reactnative/googlecast/MediaInfoBuilder.class differ
+index 0000000..e69de29
 diff --git a/node_modules/react-native-google-cast/android/build/intermediates/javac/debug/classes/com/reactnative/googlecast/ReadableMapUtils.class b/node_modules/react-native-google-cast/android/build/intermediates/javac/debug/classes/com/reactnative/googlecast/ReadableMapUtils.class
 new file mode 100644
-index 0000000..4127825
-Binary files /dev/null and b/node_modules/react-native-google-cast/android/build/intermediates/javac/debug/classes/com/reactnative/googlecast/ReadableMapUtils.class differ
+index 0000000..e69de29
 diff --git a/node_modules/react-native-google-cast/android/build/intermediates/javac/release/classes/com/facebook/react/GoogleCastActivity.class b/node_modules/react-native-google-cast/android/build/intermediates/javac/release/classes/com/facebook/react/GoogleCastActivity.class
 new file mode 100644
-index 0000000..40df022
-Binary files /dev/null and b/node_modules/react-native-google-cast/android/build/intermediates/javac/release/classes/com/facebook/react/GoogleCastActivity.class differ
+index 0000000..e69de29
 diff --git a/node_modules/react-native-google-cast/android/build/intermediates/javac/release/classes/com/reactnative/googlecast/BuildConfig.class b/node_modules/react-native-google-cast/android/build/intermediates/javac/release/classes/com/reactnative/googlecast/BuildConfig.class
 new file mode 100644
-index 0000000..1b1a5d9
-Binary files /dev/null and b/node_modules/react-native-google-cast/android/build/intermediates/javac/release/classes/com/reactnative/googlecast/BuildConfig.class differ
+index 0000000..e69de29
 diff --git a/node_modules/react-native-google-cast/android/build/intermediates/javac/release/classes/com/reactnative/googlecast/GoogleCastButtonManager$1.class b/node_modules/react-native-google-cast/android/build/intermediates/javac/release/classes/com/reactnative/googlecast/GoogleCastButtonManager$1.class
 new file mode 100644
-index 0000000..e646d80
-Binary files /dev/null and b/node_modules/react-native-google-cast/android/build/intermediates/javac/release/classes/com/reactnative/googlecast/GoogleCastButtonManager$1.class differ
+index 0000000..e69de29
 diff --git a/node_modules/react-native-google-cast/android/build/intermediates/javac/release/classes/com/reactnative/googlecast/GoogleCastButtonManager$ColorableMediaRouteButton.class b/node_modules/react-native-google-cast/android/build/intermediates/javac/release/classes/com/reactnative/googlecast/GoogleCastButtonManager$ColorableMediaRouteButton.class
 new file mode 100644
-index 0000000..630513c
-Binary files /dev/null and b/node_modules/react-native-google-cast/android/build/intermediates/javac/release/classes/com/reactnative/googlecast/GoogleCastButtonManager$ColorableMediaRouteButton.class differ
+index 0000000..e69de29
 diff --git a/node_modules/react-native-google-cast/android/build/intermediates/javac/release/classes/com/reactnative/googlecast/GoogleCastButtonManager.class b/node_modules/react-native-google-cast/android/build/intermediates/javac/release/classes/com/reactnative/googlecast/GoogleCastButtonManager.class
 new file mode 100644
-index 0000000..4334e8d
-Binary files /dev/null and b/node_modules/react-native-google-cast/android/build/intermediates/javac/release/classes/com/reactnative/googlecast/GoogleCastButtonManager.class differ
+index 0000000..e69de29
 diff --git a/node_modules/react-native-google-cast/android/build/intermediates/javac/release/classes/com/reactnative/googlecast/GoogleCastExpandedControlsActivity.class b/node_modules/react-native-google-cast/android/build/intermediates/javac/release/classes/com/reactnative/googlecast/GoogleCastExpandedControlsActivity.class
 new file mode 100644
-index 0000000..816997f
-Binary files /dev/null and b/node_modules/react-native-google-cast/android/build/intermediates/javac/release/classes/com/reactnative/googlecast/GoogleCastExpandedControlsActivity.class differ
+index 0000000..e69de29
 diff --git a/node_modules/react-native-google-cast/android/build/intermediates/javac/release/classes/com/reactnative/googlecast/GoogleCastModule$1.class b/node_modules/react-native-google-cast/android/build/intermediates/javac/release/classes/com/reactnative/googlecast/GoogleCastModule$1.class
 new file mode 100644
-index 0000000..44ba557
-Binary files /dev/null and b/node_modules/react-native-google-cast/android/build/intermediates/javac/release/classes/com/reactnative/googlecast/GoogleCastModule$1.class differ
+index 0000000..e69de29
 diff --git a/node_modules/react-native-google-cast/android/build/intermediates/javac/release/classes/com/reactnative/googlecast/GoogleCastModule$10.class b/node_modules/react-native-google-cast/android/build/intermediates/javac/release/classes/com/reactnative/googlecast/GoogleCastModule$10.class
 new file mode 100644
-index 0000000..5658c4d
-Binary files /dev/null and b/node_modules/react-native-google-cast/android/build/intermediates/javac/release/classes/com/reactnative/googlecast/GoogleCastModule$10.class differ
+index 0000000..e69de29
 diff --git a/node_modules/react-native-google-cast/android/build/intermediates/javac/release/classes/com/reactnative/googlecast/GoogleCastModule$11.class b/node_modules/react-native-google-cast/android/build/intermediates/javac/release/classes/com/reactnative/googlecast/GoogleCastModule$11.class
 new file mode 100644
-index 0000000..288a155
-Binary files /dev/null and b/node_modules/react-native-google-cast/android/build/intermediates/javac/release/classes/com/reactnative/googlecast/GoogleCastModule$11.class differ
+index 0000000..e69de29
 diff --git a/node_modules/react-native-google-cast/android/build/intermediates/javac/release/classes/com/reactnative/googlecast/GoogleCastModule$12.class b/node_modules/react-native-google-cast/android/build/intermediates/javac/release/classes/com/reactnative/googlecast/GoogleCastModule$12.class
 new file mode 100644
-index 0000000..ef69820
-Binary files /dev/null and b/node_modules/react-native-google-cast/android/build/intermediates/javac/release/classes/com/reactnative/googlecast/GoogleCastModule$12.class differ
+index 0000000..e69de29
 diff --git a/node_modules/react-native-google-cast/android/build/intermediates/javac/release/classes/com/reactnative/googlecast/GoogleCastModule$13.class b/node_modules/react-native-google-cast/android/build/intermediates/javac/release/classes/com/reactnative/googlecast/GoogleCastModule$13.class
 new file mode 100644
-index 0000000..45d4d68
-Binary files /dev/null and b/node_modules/react-native-google-cast/android/build/intermediates/javac/release/classes/com/reactnative/googlecast/GoogleCastModule$13.class differ
+index 0000000..e69de29
 diff --git a/node_modules/react-native-google-cast/android/build/intermediates/javac/release/classes/com/reactnative/googlecast/GoogleCastModule$14.class b/node_modules/react-native-google-cast/android/build/intermediates/javac/release/classes/com/reactnative/googlecast/GoogleCastModule$14.class
 new file mode 100644
-index 0000000..fdf21f1
-Binary files /dev/null and b/node_modules/react-native-google-cast/android/build/intermediates/javac/release/classes/com/reactnative/googlecast/GoogleCastModule$14.class differ
+index 0000000..e69de29
 diff --git a/node_modules/react-native-google-cast/android/build/intermediates/javac/release/classes/com/reactnative/googlecast/GoogleCastModule$15.class b/node_modules/react-native-google-cast/android/build/intermediates/javac/release/classes/com/reactnative/googlecast/GoogleCastModule$15.class
 new file mode 100644
-index 0000000..7f67ffb
-Binary files /dev/null and b/node_modules/react-native-google-cast/android/build/intermediates/javac/release/classes/com/reactnative/googlecast/GoogleCastModule$15.class differ
+index 0000000..e69de29
 diff --git a/node_modules/react-native-google-cast/android/build/intermediates/javac/release/classes/com/reactnative/googlecast/GoogleCastModule$2.class b/node_modules/react-native-google-cast/android/build/intermediates/javac/release/classes/com/reactnative/googlecast/GoogleCastModule$2.class
 new file mode 100644
-index 0000000..350dbed
-Binary files /dev/null and b/node_modules/react-native-google-cast/android/build/intermediates/javac/release/classes/com/reactnative/googlecast/GoogleCastModule$2.class differ
+index 0000000..e69de29
 diff --git a/node_modules/react-native-google-cast/android/build/intermediates/javac/release/classes/com/reactnative/googlecast/GoogleCastModule$3.class b/node_modules/react-native-google-cast/android/build/intermediates/javac/release/classes/com/reactnative/googlecast/GoogleCastModule$3.class
 new file mode 100644
-index 0000000..8221a58
-Binary files /dev/null and b/node_modules/react-native-google-cast/android/build/intermediates/javac/release/classes/com/reactnative/googlecast/GoogleCastModule$3.class differ
+index 0000000..e69de29
 diff --git a/node_modules/react-native-google-cast/android/build/intermediates/javac/release/classes/com/reactnative/googlecast/GoogleCastModule$4.class b/node_modules/react-native-google-cast/android/build/intermediates/javac/release/classes/com/reactnative/googlecast/GoogleCastModule$4.class
 new file mode 100644
-index 0000000..134fe28
-Binary files /dev/null and b/node_modules/react-native-google-cast/android/build/intermediates/javac/release/classes/com/reactnative/googlecast/GoogleCastModule$4.class differ
+index 0000000..e69de29
 diff --git a/node_modules/react-native-google-cast/android/build/intermediates/javac/release/classes/com/reactnative/googlecast/GoogleCastModule$5$1.class b/node_modules/react-native-google-cast/android/build/intermediates/javac/release/classes/com/reactnative/googlecast/GoogleCastModule$5$1.class
 new file mode 100644
-index 0000000..00535a3
-Binary files /dev/null and b/node_modules/react-native-google-cast/android/build/intermediates/javac/release/classes/com/reactnative/googlecast/GoogleCastModule$5$1.class differ
+index 0000000..e69de29
 diff --git a/node_modules/react-native-google-cast/android/build/intermediates/javac/release/classes/com/reactnative/googlecast/GoogleCastModule$5.class b/node_modules/react-native-google-cast/android/build/intermediates/javac/release/classes/com/reactnative/googlecast/GoogleCastModule$5.class
 new file mode 100644
-index 0000000..dce8262
-Binary files /dev/null and b/node_modules/react-native-google-cast/android/build/intermediates/javac/release/classes/com/reactnative/googlecast/GoogleCastModule$5.class differ
+index 0000000..e69de29
 diff --git a/node_modules/react-native-google-cast/android/build/intermediates/javac/release/classes/com/reactnative/googlecast/GoogleCastModule$6$1.class b/node_modules/react-native-google-cast/android/build/intermediates/javac/release/classes/com/reactnative/googlecast/GoogleCastModule$6$1.class
 new file mode 100644
-index 0000000..4123f81
-Binary files /dev/null and b/node_modules/react-native-google-cast/android/build/intermediates/javac/release/classes/com/reactnative/googlecast/GoogleCastModule$6$1.class differ
+index 0000000..e69de29
 diff --git a/node_modules/react-native-google-cast/android/build/intermediates/javac/release/classes/com/reactnative/googlecast/GoogleCastModule$6.class b/node_modules/react-native-google-cast/android/build/intermediates/javac/release/classes/com/reactnative/googlecast/GoogleCastModule$6.class
 new file mode 100644
-index 0000000..60ac567
-Binary files /dev/null and b/node_modules/react-native-google-cast/android/build/intermediates/javac/release/classes/com/reactnative/googlecast/GoogleCastModule$6.class differ
+index 0000000..e69de29
 diff --git a/node_modules/react-native-google-cast/android/build/intermediates/javac/release/classes/com/reactnative/googlecast/GoogleCastModule$7.class b/node_modules/react-native-google-cast/android/build/intermediates/javac/release/classes/com/reactnative/googlecast/GoogleCastModule$7.class
 new file mode 100644
-index 0000000..9e4266b
-Binary files /dev/null and b/node_modules/react-native-google-cast/android/build/intermediates/javac/release/classes/com/reactnative/googlecast/GoogleCastModule$7.class differ
+index 0000000..e69de29
 diff --git a/node_modules/react-native-google-cast/android/build/intermediates/javac/release/classes/com/reactnative/googlecast/GoogleCastModule$8.class b/node_modules/react-native-google-cast/android/build/intermediates/javac/release/classes/com/reactnative/googlecast/GoogleCastModule$8.class
 new file mode 100644
-index 0000000..a5a4b28
-Binary files /dev/null and b/node_modules/react-native-google-cast/android/build/intermediates/javac/release/classes/com/reactnative/googlecast/GoogleCastModule$8.class differ
+index 0000000..e69de29
 diff --git a/node_modules/react-native-google-cast/android/build/intermediates/javac/release/classes/com/reactnative/googlecast/GoogleCastModule$9.class b/node_modules/react-native-google-cast/android/build/intermediates/javac/release/classes/com/reactnative/googlecast/GoogleCastModule$9.class
 new file mode 100644
-index 0000000..06456e1
-Binary files /dev/null and b/node_modules/react-native-google-cast/android/build/intermediates/javac/release/classes/com/reactnative/googlecast/GoogleCastModule$9.class differ
+index 0000000..e69de29
 diff --git a/node_modules/react-native-google-cast/android/build/intermediates/javac/release/classes/com/reactnative/googlecast/GoogleCastModule.class b/node_modules/react-native-google-cast/android/build/intermediates/javac/release/classes/com/reactnative/googlecast/GoogleCastModule.class
 new file mode 100644
-index 0000000..5c7751a
-Binary files /dev/null and b/node_modules/react-native-google-cast/android/build/intermediates/javac/release/classes/com/reactnative/googlecast/GoogleCastModule.class differ
+index 0000000..e69de29
 diff --git a/node_modules/react-native-google-cast/android/build/intermediates/javac/release/classes/com/reactnative/googlecast/GoogleCastOptionsProvider$1.class b/node_modules/react-native-google-cast/android/build/intermediates/javac/release/classes/com/reactnative/googlecast/GoogleCastOptionsProvider$1.class
 new file mode 100644
-index 0000000..b7e2211
-Binary files /dev/null and b/node_modules/react-native-google-cast/android/build/intermediates/javac/release/classes/com/reactnative/googlecast/GoogleCastOptionsProvider$1.class differ
+index 0000000..e69de29
 diff --git a/node_modules/react-native-google-cast/android/build/intermediates/javac/release/classes/com/reactnative/googlecast/GoogleCastOptionsProvider$ImagePickerImpl.class b/node_modules/react-native-google-cast/android/build/intermediates/javac/release/classes/com/reactnative/googlecast/GoogleCastOptionsProvider$ImagePickerImpl.class
 new file mode 100644
-index 0000000..a647acc
-Binary files /dev/null and b/node_modules/react-native-google-cast/android/build/intermediates/javac/release/classes/com/reactnative/googlecast/GoogleCastOptionsProvider$ImagePickerImpl.class differ
+index 0000000..e69de29
 diff --git a/node_modules/react-native-google-cast/android/build/intermediates/javac/release/classes/com/reactnative/googlecast/GoogleCastOptionsProvider.class b/node_modules/react-native-google-cast/android/build/intermediates/javac/release/classes/com/reactnative/googlecast/GoogleCastOptionsProvider.class
 new file mode 100644
-index 0000000..b9712b8
-Binary files /dev/null and b/node_modules/react-native-google-cast/android/build/intermediates/javac/release/classes/com/reactnative/googlecast/GoogleCastOptionsProvider.class differ
+index 0000000..e69de29
 diff --git a/node_modules/react-native-google-cast/android/build/intermediates/javac/release/classes/com/reactnative/googlecast/GoogleCastPackage.class b/node_modules/react-native-google-cast/android/build/intermediates/javac/release/classes/com/reactnative/googlecast/GoogleCastPackage.class
 new file mode 100644
-index 0000000..352a947
-Binary files /dev/null and b/node_modules/react-native-google-cast/android/build/intermediates/javac/release/classes/com/reactnative/googlecast/GoogleCastPackage.class differ
+index 0000000..e69de29
 diff --git a/node_modules/react-native-google-cast/android/build/intermediates/javac/release/classes/com/reactnative/googlecast/GoogleCastRemoteMediaClientListener$1.class b/node_modules/react-native-google-cast/android/build/intermediates/javac/release/classes/com/reactnative/googlecast/GoogleCastRemoteMediaClientListener$1.class
 new file mode 100644
-index 0000000..d5c77f3
-Binary files /dev/null and b/node_modules/react-native-google-cast/android/build/intermediates/javac/release/classes/com/reactnative/googlecast/GoogleCastRemoteMediaClientListener$1.class differ
+index 0000000..e69de29
 diff --git a/node_modules/react-native-google-cast/android/build/intermediates/javac/release/classes/com/reactnative/googlecast/GoogleCastRemoteMediaClientListener$2.class b/node_modules/react-native-google-cast/android/build/intermediates/javac/release/classes/com/reactnative/googlecast/GoogleCastRemoteMediaClientListener$2.class
 new file mode 100644
-index 0000000..9361eb2
-Binary files /dev/null and b/node_modules/react-native-google-cast/android/build/intermediates/javac/release/classes/com/reactnative/googlecast/GoogleCastRemoteMediaClientListener$2.class differ
+index 0000000..e69de29
 diff --git a/node_modules/react-native-google-cast/android/build/intermediates/javac/release/classes/com/reactnative/googlecast/GoogleCastRemoteMediaClientListener.class b/node_modules/react-native-google-cast/android/build/intermediates/javac/release/classes/com/reactnative/googlecast/GoogleCastRemoteMediaClientListener.class
 new file mode 100644
-index 0000000..dc3d893
-Binary files /dev/null and b/node_modules/react-native-google-cast/android/build/intermediates/javac/release/classes/com/reactnative/googlecast/GoogleCastRemoteMediaClientListener.class differ
+index 0000000..e69de29
 diff --git a/node_modules/react-native-google-cast/android/build/intermediates/javac/release/classes/com/reactnative/googlecast/GoogleCastSessionManagerListener$1.class b/node_modules/react-native-google-cast/android/build/intermediates/javac/release/classes/com/reactnative/googlecast/GoogleCastSessionManagerListener$1.class
 new file mode 100644
-index 0000000..40836ef
-Binary files /dev/null and b/node_modules/react-native-google-cast/android/build/intermediates/javac/release/classes/com/reactnative/googlecast/GoogleCastSessionManagerListener$1.class differ
+index 0000000..e69de29
 diff --git a/node_modules/react-native-google-cast/android/build/intermediates/javac/release/classes/com/reactnative/googlecast/GoogleCastSessionManagerListener.class b/node_modules/react-native-google-cast/android/build/intermediates/javac/release/classes/com/reactnative/googlecast/GoogleCastSessionManagerListener.class
 new file mode 100644
-index 0000000..d482315
-Binary files /dev/null and b/node_modules/react-native-google-cast/android/build/intermediates/javac/release/classes/com/reactnative/googlecast/GoogleCastSessionManagerListener.class differ
+index 0000000..e69de29
 diff --git a/node_modules/react-native-google-cast/android/build/intermediates/javac/release/classes/com/reactnative/googlecast/MediaInfoBuilder$1.class b/node_modules/react-native-google-cast/android/build/intermediates/javac/release/classes/com/reactnative/googlecast/MediaInfoBuilder$1.class
 new file mode 100644
-index 0000000..4e9da81
-Binary files /dev/null and b/node_modules/react-native-google-cast/android/build/intermediates/javac/release/classes/com/reactnative/googlecast/MediaInfoBuilder$1.class differ
+index 0000000..e69de29
 diff --git a/node_modules/react-native-google-cast/android/build/intermediates/javac/release/classes/com/reactnative/googlecast/MediaInfoBuilder$2.class b/node_modules/react-native-google-cast/android/build/intermediates/javac/release/classes/com/reactnative/googlecast/MediaInfoBuilder$2.class
 new file mode 100644
-index 0000000..642d2f0
-Binary files /dev/null and b/node_modules/react-native-google-cast/android/build/intermediates/javac/release/classes/com/reactnative/googlecast/MediaInfoBuilder$2.class differ
+index 0000000..e69de29
 diff --git a/node_modules/react-native-google-cast/android/build/intermediates/javac/release/classes/com/reactnative/googlecast/MediaInfoBuilder$3.class b/node_modules/react-native-google-cast/android/build/intermediates/javac/release/classes/com/reactnative/googlecast/MediaInfoBuilder$3.class
 new file mode 100644
-index 0000000..dbe9bcd
-Binary files /dev/null and b/node_modules/react-native-google-cast/android/build/intermediates/javac/release/classes/com/reactnative/googlecast/MediaInfoBuilder$3.class differ
+index 0000000..e69de29
 diff --git a/node_modules/react-native-google-cast/android/build/intermediates/javac/release/classes/com/reactnative/googlecast/MediaInfoBuilder$4.class b/node_modules/react-native-google-cast/android/build/intermediates/javac/release/classes/com/reactnative/googlecast/MediaInfoBuilder$4.class
 new file mode 100644
-index 0000000..0274219
-Binary files /dev/null and b/node_modules/react-native-google-cast/android/build/intermediates/javac/release/classes/com/reactnative/googlecast/MediaInfoBuilder$4.class differ
+index 0000000..e69de29
 diff --git a/node_modules/react-native-google-cast/android/build/intermediates/javac/release/classes/com/reactnative/googlecast/MediaInfoBuilder.class b/node_modules/react-native-google-cast/android/build/intermediates/javac/release/classes/com/reactnative/googlecast/MediaInfoBuilder.class
 new file mode 100644
-index 0000000..194e7d8
-Binary files /dev/null and b/node_modules/react-native-google-cast/android/build/intermediates/javac/release/classes/com/reactnative/googlecast/MediaInfoBuilder.class differ
+index 0000000..e69de29
 diff --git a/node_modules/react-native-google-cast/android/build/intermediates/javac/release/classes/com/reactnative/googlecast/ReadableMapUtils.class b/node_modules/react-native-google-cast/android/build/intermediates/javac/release/classes/com/reactnative/googlecast/ReadableMapUtils.class
 new file mode 100644
-index 0000000..4127825
-Binary files /dev/null and b/node_modules/react-native-google-cast/android/build/intermediates/javac/release/classes/com/reactnative/googlecast/ReadableMapUtils.class differ
+index 0000000..e69de29
 diff --git a/node_modules/react-native-google-cast/android/build/intermediates/library_java_res/debug/res.jar b/node_modules/react-native-google-cast/android/build/intermediates/library_java_res/debug/res.jar
 new file mode 100644
-index 0000000..15cb0ec
-Binary files /dev/null and b/node_modules/react-native-google-cast/android/build/intermediates/library_java_res/debug/res.jar differ
+index 0000000..e69de29
 diff --git a/node_modules/react-native-google-cast/android/build/intermediates/library_java_res/release/res.jar b/node_modules/react-native-google-cast/android/build/intermediates/library_java_res/release/res.jar
 new file mode 100644
-index 0000000..15cb0ec
-Binary files /dev/null and b/node_modules/react-native-google-cast/android/build/intermediates/library_java_res/release/res.jar differ
+index 0000000..e69de29
 diff --git a/node_modules/react-native-google-cast/android/build/intermediates/library_manifest/debug/AndroidManifest.xml b/node_modules/react-native-google-cast/android/build/intermediates/library_manifest/debug/AndroidManifest.xml
 new file mode 100644
 index 0000000..620b716
@@ -4902,12 +4835,10 @@ index 0000000..debf079
 +xml rn_dev_preferences
 diff --git a/node_modules/react-native-google-cast/android/build/intermediates/runtime_library_classes/debug/classes.jar b/node_modules/react-native-google-cast/android/build/intermediates/runtime_library_classes/debug/classes.jar
 new file mode 100644
-index 0000000..61e29e4
-Binary files /dev/null and b/node_modules/react-native-google-cast/android/build/intermediates/runtime_library_classes/debug/classes.jar differ
+index 0000000..e69de29
 diff --git a/node_modules/react-native-google-cast/android/build/intermediates/runtime_library_classes/release/classes.jar b/node_modules/react-native-google-cast/android/build/intermediates/runtime_library_classes/release/classes.jar
 new file mode 100644
-index 0000000..60f9d9b
-Binary files /dev/null and b/node_modules/react-native-google-cast/android/build/intermediates/runtime_library_classes/release/classes.jar differ
+index 0000000..e69de29
 diff --git a/node_modules/react-native-google-cast/android/build/intermediates/symbols/debug/R.txt b/node_modules/react-native-google-cast/android/build/intermediates/symbols/debug/R.txt
 new file mode 100644
 index 0000000..d32a2b3
@@ -10415,7 +10346,7 @@ index 01a35ba..66d73cb 100644
  import android.view.MenuItem;
  
 diff --git a/node_modules/react-native-google-cast/android/src/main/java/com/reactnative/googlecast/GoogleCastModule.java b/node_modules/react-native-google-cast/android/src/main/java/com/reactnative/googlecast/GoogleCastModule.java
-index 47595ab..4b5448c 100755
+index 47595ab..13703c4 100755
 --- a/node_modules/react-native-google-cast/android/src/main/java/com/reactnative/googlecast/GoogleCastModule.java
 +++ b/node_modules/react-native-google-cast/android/src/main/java/com/reactnative/googlecast/GoogleCastModule.java
 @@ -2,8 +2,8 @@ package com.reactnative.googlecast;
@@ -10429,25 +10360,6 @@ index 47595ab..4b5448c 100755
  import android.util.Log;
  
  import com.facebook.react.bridge.Arguments;
-@@ -182,10 +182,14 @@ public class GoogleCastModule
-               }
- 
-               WritableMap map = Arguments.createMap();
--              map.putString("id", mCastSession.getCastDevice().getDeviceId());
--              map.putString("version", mCastSession.getCastDevice().getDeviceVersion());
--              map.putString("name", mCastSession.getCastDevice().getFriendlyName());
--              map.putString("model", mCastSession.getCastDevice().getModelName());
-+              try {
-+                map.putString("id", mCastSession.getCastDevice().getDeviceId());
-+                map.putString("version", mCastSession.getCastDevice().getDeviceVersion());
-+                map.putString("name", mCastSession.getCastDevice().getFriendlyName());
-+                map.putString("model", mCastSession.getCastDevice().getModelName());
-+              } catch (Exception e) {
-+                Log.e("getCastDevice Exception", e.toString());
-+              }
-               promise.resolve(map);
-             }
-         });
 diff --git a/node_modules/react-native-google-cast/android/src/main/java/com/reactnative/googlecast/GoogleCastRemoteMediaClientListener.java b/node_modules/react-native-google-cast/android/src/main/java/com/reactnative/googlecast/GoogleCastRemoteMediaClientListener.java
 index e6245fb..7bc3804 100644
 --- a/node_modules/react-native-google-cast/android/src/main/java/com/reactnative/googlecast/GoogleCastRemoteMediaClientListener.java
@@ -10500,81 +10412,3 @@ index b1abb38..a5d4558 100644
 +    app:actionProviderClass="androidx.mediarouter.app.MediaRouteActionProvider"
      app:showAsAction="always" />
  </menu>
-diff --git a/node_modules/react-native-google-cast/ios/.DS_Store b/node_modules/react-native-google-cast/ios/.DS_Store
-new file mode 100644
-index 0000000..e69de29
-diff --git a/node_modules/react-native-google-cast/ios/RNGoogleCast.xcodeproj/project.xcworkspace/contents.xcworkspacedata b/node_modules/react-native-google-cast/ios/RNGoogleCast.xcodeproj/project.xcworkspace/contents.xcworkspacedata
-new file mode 100644
-index 0000000..919434a
---- /dev/null
-+++ b/node_modules/react-native-google-cast/ios/RNGoogleCast.xcodeproj/project.xcworkspace/contents.xcworkspacedata
-@@ -0,0 +1,7 @@
-+<?xml version="1.0" encoding="UTF-8"?>
-+<Workspace
-+   version = "1.0">
-+   <FileRef
-+      location = "self:">
-+   </FileRef>
-+</Workspace>
-diff --git a/node_modules/react-native-google-cast/ios/RNGoogleCast.xcodeproj/project.xcworkspace/xcshareddata/IDEWorkspaceChecks.plist b/node_modules/react-native-google-cast/ios/RNGoogleCast.xcodeproj/project.xcworkspace/xcshareddata/IDEWorkspaceChecks.plist
-new file mode 100644
-index 0000000..18d9810
---- /dev/null
-+++ b/node_modules/react-native-google-cast/ios/RNGoogleCast.xcodeproj/project.xcworkspace/xcshareddata/IDEWorkspaceChecks.plist
-@@ -0,0 +1,8 @@
-+<?xml version="1.0" encoding="UTF-8"?>
-+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-+<plist version="1.0">
-+<dict>
-+	<key>IDEDidComputeMac32BitWarning</key>
-+	<true/>
-+</dict>
-+</plist>
-diff --git a/node_modules/react-native-google-cast/ios/RNGoogleCast.xcodeproj/project.xcworkspace/xcuserdata/jonathanmachado.xcuserdatad/UserInterfaceState.xcuserstate b/node_modules/react-native-google-cast/ios/RNGoogleCast.xcodeproj/project.xcworkspace/xcuserdata/jonathanmachado.xcuserdatad/UserInterfaceState.xcuserstate
-new file mode 100644
-index 0000000..e69de29
-diff --git a/node_modules/react-native-google-cast/ios/RNGoogleCast.xcodeproj/xcuserdata/jonathanmachado.xcuserdatad/xcdebugger/Breakpoints_v2.xcbkptlist b/node_modules/react-native-google-cast/ios/RNGoogleCast.xcodeproj/xcuserdata/jonathanmachado.xcuserdatad/xcdebugger/Breakpoints_v2.xcbkptlist
-new file mode 100644
-index 0000000..ec439be
---- /dev/null
-+++ b/node_modules/react-native-google-cast/ios/RNGoogleCast.xcodeproj/xcuserdata/jonathanmachado.xcuserdatad/xcdebugger/Breakpoints_v2.xcbkptlist
-@@ -0,0 +1,6 @@
-+<?xml version="1.0" encoding="UTF-8"?>
-+<Bucket
-+   uuid = "AFD32B46-9FB5-4B2B-B185-E82C70C0525A"
-+   type = "1"
-+   version = "2.0">
-+</Bucket>
-diff --git a/node_modules/react-native-google-cast/ios/RNGoogleCast.xcodeproj/xcuserdata/jonathanmachado.xcuserdatad/xcschemes/xcschememanagement.plist b/node_modules/react-native-google-cast/ios/RNGoogleCast.xcodeproj/xcuserdata/jonathanmachado.xcuserdatad/xcschemes/xcschememanagement.plist
-new file mode 100644
-index 0000000..14ecd5f
---- /dev/null
-+++ b/node_modules/react-native-google-cast/ios/RNGoogleCast.xcodeproj/xcuserdata/jonathanmachado.xcuserdatad/xcschemes/xcschememanagement.plist
-@@ -0,0 +1,14 @@
-+<?xml version="1.0" encoding="UTF-8"?>
-+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-+<plist version="1.0">
-+<dict>
-+	<key>SchemeUserState</key>
-+	<dict>
-+		<key>RNGoogleCast.xcscheme_^#shared#^_</key>
-+		<dict>
-+			<key>orderHint</key>
-+			<integer>0</integer>
-+		</dict>
-+	</dict>
-+</dict>
-+</plist>
-diff --git a/node_modules/react-native-google-cast/ios/react-native-google-cast.podspec b/node_modules/react-native-google-cast/ios/react-native-google-cast.podspec
-index d6738c9..404dc7e 100644
---- a/node_modules/react-native-google-cast/ios/react-native-google-cast.podspec
-+++ b/node_modules/react-native-google-cast/ios/react-native-google-cast.podspec
-@@ -19,7 +19,7 @@ Pod::Spec.new do |s|
- 
-   s.subspec 'Default' do |ss|
-     ss.dependency "#{package['name']}/RNGoogleCast"
--    ss.dependency 'google-cast-sdk', '<= 4.3.0'
-+    ss.dependency 'google-cast-sdk', '<= 4.5.0'
-   end
- 
-   s.subspec 'NoBluetooth' do |ss|

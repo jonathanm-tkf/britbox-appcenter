@@ -13,7 +13,7 @@ storiesOf('Button', module)
   .add(
     'secondary',
     () => (
-      <Button onPress={action('tapped-default')} secondary>
+      <Button onPress={action('tapped-secondary')} secondary>
         Press Me
       </Button>
     ),
