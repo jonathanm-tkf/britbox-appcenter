@@ -15,18 +15,12 @@ import {
 } from './actions';
 import { AppState } from '../rootReducer';
 import { HomeActionTypes } from './types';
-import {
-  configRequestError,
-  configRequestSuccess,
-  sendAppleTvSearchSubscription,
-} from '../core/actions';
+import { configRequestError, configRequestSuccess } from '../core/actions';
 import { Segment } from '../core/types';
 
 const { AppleTVController } = NativeModules;
 
 const getSegment = (state: AppState) => state.core.segment;
-const getIsAppleTVSearchSubscriptionSent = (state: AppState) =>
-  state.core.isAppleTVSearchSubscriptionSent;
 const getCanStream = (state: AppState) => state?.user?.profile?.canStream || false;
 
 export async function getConfigSDK() {
@@ -129,11 +123,10 @@ export function* activateApp() {
       yield put(homeRequestSuccess(response));
       yield put(searchRequestSuccess(responseSearch));
     }
-    const isAppleTVSearchSubscriptionSent = yield select(getIsAppleTVSearchSubscriptionSent);
-    if (!isAppleTVSearchSubscriptionSent) {
-      const canStream = yield select(getCanStream);
+    const canStream = yield select(getCanStream);
+    if (canStream) {
       yield call(appleTVSubscription, canStream);
-      yield put(sendAppleTvSearchSubscription());
+      // yield put(sendAppleTvSearchSubscription());
     }
   } catch (error) {
     yield put(configRequestError());

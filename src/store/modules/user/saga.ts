@@ -164,10 +164,8 @@ export function* loginRequest({
       const { response: responseProfile } = yield call(profile, accessToken, segment);
       const { response: responseAccountDetail } = yield call(getAccountDetail, accessToken);
       yield put(profileRequestSuccess({ ...responseProfile, ...responseAccountDetail }));
-      const isAppleTVSearchSubscriptionSent = yield select(getIsAppleTVSearchSubscriptionSent);
-      if (!isAppleTVSearchSubscriptionSent) {
+      if (responseProfile.canStream) {
         yield call(appleTVSubscription, responseProfile.canStream);
-        yield put(sendAppleTvSearchSubscription());
       }
     } else {
       yield put(loginRequestError(response));

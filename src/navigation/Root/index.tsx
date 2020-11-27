@@ -29,7 +29,7 @@ import { setDeepLinkUrl } from '@store/modules/home/actions';
 import { getItemContent } from '@store/modules/home/saga';
 import Loading from '@screens/Loading';
 import { AuthStackScreen } from '../Auth';
-import { navigateByPath } from '../rootNavigation';
+import { navigateByPath, navigationGoBack, navigationRef } from '../rootNavigation';
 import { AppTabsScreen } from '../Tabs';
 
 const STORYBOOK_START = false && __DEV__;
@@ -115,6 +115,7 @@ const RootStackScreen = () => {
 
   const appWokeUp = async (event: any) => {
     const { url } = event;
+    const { name } = navigationRef.current.getCurrentRoute();
     if (url) {
       if (Platform.OS === 'ios') {
         const route = url?.split('://');
@@ -129,6 +130,9 @@ const RootStackScreen = () => {
               );
 
               if (response && response?.externalResponse) {
+                if (name === 'VideoPlayer') {
+                  navigationGoBack();
+                }
                 const { externalResponse } = response;
                 navigateByPath(externalResponse, routeName[0] === 'watch');
                 setDeepLinkUrl(null);
@@ -141,6 +145,9 @@ const RootStackScreen = () => {
 
         if (route[1] && route[1] !== '') {
           if (/\/show\/|\/movie\/|\/season\/|\/episode\//.test(route[1] || '')) {
+            if (name === 'VideoPlayer') {
+              navigationGoBack();
+            }
             navigateByPath({ path: route[1], customId: true }, !(route[1] || '').includes('_'));
             setDeepLinkUrl(null);
           }

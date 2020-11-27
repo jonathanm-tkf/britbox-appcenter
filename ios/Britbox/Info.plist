@@ -76,7 +76,7 @@
 		<string>MuseoSans-500.ttf</string>
 		<string>MuseoSans-700.ttf</string>
 		<string>MuseoSans-900.ttf</string>
-    <string>MaterialIcons.ttf</string>
+		<string>MaterialIcons.ttf</string>
 	</array>
 	<key>UIBackgroundModes</key>
 	<array>
