@@ -319,11 +319,21 @@ const SignUp = () => {
       if (splitStr[0] && splitStr[1]) {
         return (
           <LinkText
-            onPress={() =>
-              navigation.navigate(
-                splitStr[1] === 'terms-and-conditions' ? 'Terms' : 'PrivacyPolicy'
-              )
-            }
+            onPress={() => {
+              const path =
+                splitStr[1] === 'terms-and-conditions'
+                  ? getTextInConfigJSON(
+                      ['urls', 'terms'],
+                      `https://www.britbox.com/${country}/terms-and-conditions`
+                    )
+                  : getTextInConfigJSON(
+                      ['urls', 'privacy'],
+                      `https://www.britbox.com/${country}/privacy`
+                    );
+              navigation.navigate('MoreLinks', {
+                url: path,
+              });
+            }}
           >
             {splitStr[0]}
           </LinkText>
