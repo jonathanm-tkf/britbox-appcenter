@@ -56,7 +56,7 @@ type AlphabetDataType = { label: string; count: number; param: string };
 
 const headerStyles = {};
 
-const gridStyles = {
+const listStyles = {
   marginTop: 10,
   paddingHorizontal: isTablet() ? 7 : 15,
 };
@@ -312,7 +312,7 @@ const AZ = () => {
                     marginBottom: 20,
                     marginHorizontal: isTablet() ? 3 : 5,
                   }}
-                  containerStyle={gridStyles}
+                  listStyles={listStyles}
                 />
               </ContainerGrid>
             </WrapperContinuosScroll>

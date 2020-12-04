@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { View } from 'react-native';
 import Header from '@components/Header';
 import { useSelector, useDispatch } from 'react-redux';
@@ -42,8 +42,9 @@ type WatchlistToggleRequest = MassiveSDKModelItemSummary & {
 const headerStyles = {};
 
 const Item = () => {
-  const dispatch = useDispatch();
   const menu = useSelector((state: AppState) => state.core.menu?.navigation?.header); // TODO: get data from properties
+  const home = useSelector((state: AppState) => state.home.data);
+  const dispatch = useDispatch();
 
   const modal = (item: MassiveSDKModelItemSummary) => {
     if (item.type !== 'link') {
@@ -51,13 +52,12 @@ const Item = () => {
     }
     return navigateByPath(item, item.type !== 'link');
   };
-  const home = useSelector((state: AppState) => state.home.data);
 
   const heroDiscoverMore = (item: any) => {
     navigateByPath(item);
   };
 
-  const getMenuItems = () => {
+  const getMenuItems = useCallback(() => {
     if (menu && menu.length > 0) {
       const items = menu
         .filter((item) => item.label !== 'Explore' && item.label !== 'Help')
@@ -71,7 +71,7 @@ const Item = () => {
       return items;
     }
     return [];
-  };
+  }, [menu]);
 
   const onWatchlist = (item: WatchlistToggleRequest, isInWatchlist: boolean) => {
     dispatch(

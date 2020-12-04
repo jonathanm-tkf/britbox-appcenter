@@ -1,10 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, memo } from 'react';
 import { Animated } from 'react-native';
-import Shimmer from '@components/Shimmer';
-import { AppState } from '@store/modules/rootReducer';
-import { useSelector } from 'react-redux';
-import ContentLoader, { Rect } from 'react-content-loader/native';
 import { getImage } from '@src/utils/images';
 import { LoadDetailPageResponse } from '@store/modules/detail/types';
 import { Container, HeaderBackgroundImage, ImageTop } from './styles';
@@ -15,7 +11,6 @@ type Props = {
 
 const Header = ({ data }: Props) => {
   const [loaded, setLoaded] = useState(false);
-  const theme = useSelector((state: AppState) => state.theme.theme);
   const [animatedOpacityBackground] = useState(new Animated.Value(0));
 
   useEffect(() => {
@@ -39,41 +34,28 @@ const Header = ({ data }: Props) => {
   return (
     <Container>
       <HeaderBackgroundImage>
-        <Shimmer
-          visible={loaded}
-          shimmerComponent={() => (
-            <ContentLoader
-              speed={1}
-              backgroundColor={theme.PRIMARY_COLOR_OPAQUE}
-              foregroundColor={theme.PRIMARY_COLOR}
-            >
-              <Rect x="0" y="0" width="100%" height="100%" />
-            </ContentLoader>
-          )}
+        <Animated.View
+          style={{
+            opacity: animatedOpacityBackground.interpolate({
+              inputRange: [0, 1],
+              outputRange: [1, 0],
+            }),
+          }}
         >
-          <Animated.View
-            style={{
-              opacity: animatedOpacityBackground.interpolate({
-                inputRange: [0, 1],
-                outputRange: [1, 0],
-              }),
-            }}
-          >
-            {(() => {
-              const image = getImage(data?.detail.images.wallpaper, 'wallpaper');
-              return image !== 'no-image' ? (
-                <ImageTop
-                  source={{ uri: image }}
-                  resizeMode="cover"
-                  onLoadEnd={() => setLoaded(true)}
-                />
-              ) : null;
-            })()}
-          </Animated.View>
-        </Shimmer>
+          {(() => {
+            const image = getImage(data?.detail.images.wallpaper, 'wallpaper', 30, 300, 300);
+            return image !== 'no-image' ? (
+              <ImageTop
+                source={{ uri: image }}
+                resizeMode="cover"
+                onLoadEnd={() => setLoaded(true)}
+              />
+            ) : null;
+          })()}
+        </Animated.View>
       </HeaderBackgroundImage>
     </Container>
   );
 };
 
-export default Header;
+export default memo(Header);

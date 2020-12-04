@@ -165,7 +165,7 @@ export function* loginRequest({
       const { response: responseAccountDetail } = yield call(getAccountDetail, accessToken);
       yield put(profileRequestSuccess({ ...responseProfile, ...responseAccountDetail }));
       if (responseProfile.canStream) {
-        yield call(appleTVSubscription, responseProfile.canStream);
+        yield call(appleTVSubscription);
       }
     } else {
       yield put(loginRequestError(response));
@@ -310,7 +310,7 @@ export function* getProfileRequest() {
     yield put(profileRequestSuccess({ ...responseProfile, ...responseAccountDetail }));
     const isAppleTVSearchSubscriptionSent = yield select(getIsAppleTVSearchSubscriptionSent);
     if (!isAppleTVSearchSubscriptionSent) {
-      yield call(appleTVSubscription, responseProfile.canStream);
+      yield call(appleTVSubscription);
       yield put(sendAppleTvSearchSubscription());
     }
   } catch (error) {
@@ -483,9 +483,9 @@ async function logoutRequest(accessToken: string) {
   }
 }
 
-async function appleTVSubscription(isPaid: boolean) {
+async function appleTVSubscription() {
   if (Platform.OS === 'ios') {
-    await AppleTVController.appleTVSubscription(isPaid);
+    await AppleTVController.appleTVSubscription();
   }
 }
 

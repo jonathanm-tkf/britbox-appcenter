@@ -1,12 +1,11 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { MassiveSDKModelItemList } from '@src/sdks/Britbox.API.Content.TS/api';
-
 import { getImage } from '@src/utils/images';
 import { LogBox, ImageStyle, ViewStyle, FlatList } from 'react-native';
 import ContentLoader, { Rect } from 'react-content-loader/native';
-import { AppState } from '@store/modules/rootReducer';
-import { useSelector } from 'react-redux';
 import { Row } from '@components/Layout';
+import { withTheme } from 'styled-components';
+import { ThemeProps } from '@store/modules/theme/types';
 import { Container, Card, Headline, TitleWrapper, FilterWrapper } from './styles';
 
 LogBox.ignoreLogs([
@@ -20,7 +19,8 @@ type SQUARE = 'square';
 
 type Props = {
   data: MassiveSDKModelItemList[];
-  containerStyle?: ViewStyle;
+  containerStyles?: ViewStyle;
+  listStyles?: ViewStyle;
   element: ImageStyle;
   imageType?: WALLPAPER | POSTER | HERO3X1 | SQUARE;
   onPress?: (item: MassiveSDKModelItemList) => void;
@@ -31,6 +31,7 @@ type Props = {
   cardContentAfter?: (item: MassiveSDKModelItemList) => JSX.Element | null;
   isEpisode: boolean;
   filter?: () => JSX.Element | null;
+  readonly theme: ThemeProps;
 };
 
 type Episode = {
@@ -44,7 +45,8 @@ const Grid = ({
   data,
   element,
   imageType,
-  containerStyle,
+  containerStyles,
+  listStyles,
   onPress,
   title,
   numColumns = 1,
@@ -52,9 +54,9 @@ const Grid = ({
   cardContentAfter,
   isEpisode,
   filter,
+  theme,
 }: Props) => {
-  const theme = useSelector((state: AppState) => state.theme.theme);
-  const getImageResult = (item: MassiveSDKModelItemList): string => {
+  const getImageResult = useCallback((item: MassiveSDKModelItemList) => {
     if (Array.isArray(imageType)) {
       let find = false;
       let result = 'no-image';
@@ -78,7 +80,7 @@ const Grid = ({
       imageType && item?.images ? item?.images[imageType] : item?.images?.poster || '',
       imageType || 'poster'
     );
-  };
+  }, []);
 
   return (
     <>
@@ -102,13 +104,14 @@ const Grid = ({
           )}
         </Row>
       )}
-      <Container style={containerStyle}>
+      <Container style={containerStyles}>
         <FlatList
           data={data}
           scrollEnabled={false}
           listKey={Math.random().toString()}
           numColumns={numColumns}
           keyExtractor={(_, index) => index.toString()}
+          style={listStyles}
           renderItem={({ item }) => {
             return isEpisode ? (
               <Card
@@ -145,4 +148,4 @@ const Grid = ({
   );
 };
 
-export default Grid;
+export default withTheme(Grid);

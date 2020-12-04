@@ -2,10 +2,10 @@
 /* eslint-disable @typescript-eslint/no-shadow */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useState, useEffect, useRef } from 'react';
-import { Animated, Text, NativeModules, Platform, StatusBar } from 'react-native';
+import React, { useState, useEffect, useRef, useMemo, useCallback } from 'react';
+import { Animated, Text, NativeModules, Platform, StatusBar, Dimensions } from 'react-native';
 import { BackIcon } from '@assets/icons';
-import Card from '@components/Card';
+import NewCard from '@components/NewCard';
 import { useRoute, useNavigation, RouteProp, useIsFocused } from '@react-navigation/native';
 import {
   MassiveSDKModelItemList,
@@ -53,6 +53,9 @@ import { immersiveModeOff } from 'react-native-android-immersive-mode';
 import { isTablet } from 'react-native-device-info';
 import { HomeIndicator } from 'react-native-home-indicator';
 import { castVideo } from '@store/modules/chromecast/actions';
+import { getDimensions } from '@src/utils/dimension';
+import { withTheme } from 'styled-components';
+import { ThemeProps } from '@store/modules/theme/types';
 import {
   Container,
   Scroll,
@@ -125,7 +128,13 @@ const getProgress = (id: string, watched: any) => {
   return 0;
 };
 
-const Detail = () => {
+const { width } = getDimensions();
+
+type Props = {
+  readonly theme: ThemeProps;
+};
+
+const Detail = ({ theme }: Props) => {
   const isFocus = useIsFocused();
   const { params } = useRoute<DetailScreenRouteProp>();
   const { item, seasonModal, autoPlay, seriesData } = params || undefined;
@@ -133,7 +142,6 @@ const Detail = () => {
   const [showBlueView, setShowBlueView] = useState(false);
   const [tabsOffset, setTabsOffset] = useState(false);
   const [animatedOpacityValue] = useState(new Animated.Value(0));
-  const theme = useSelector((state: AppState) => state.theme.theme);
   const core = useSelector((state: AppState) => state.core);
   const { watched } = useSelector((state: AppState) => state.detail);
   const { castDetail, castState, cast, isShowMiniController } = useSelector(
@@ -451,14 +459,14 @@ const Detail = () => {
     return navigation.navigate('VideoPlayer', { item: episode || item });
   };
 
-  const playTrailer = () => {
+  const playTrailer = useCallback(() => {
     return navigation.navigate('VideoPlayer', {
       item: data ? (data?.moreInformation?.trailers || []).reduce((trailer) => trailer) : {},
       isTrailer: true,
     });
-  };
+  }, []);
 
-  const getCategories = (information: any): any[] => {
+  const getCategories = useCallback((information: any) => {
     const dataResult = [];
     const { classification, customFields } = information;
     if (classification) {
@@ -486,24 +494,27 @@ const Detail = () => {
       }
     }
     return dataResult;
-  };
+  }, []);
 
-  const onScrollTo = (y: number) => {
-    if (scrollRef.current) {
-      scrollRef.current.scrollTo({
-        x: 0,
-        y: Number(tabsOffset) + Number(y) - 300,
-        animated: true,
-      });
-      if (getAutoPlay()) {
-        setTimeout(() => {
-          onPlay();
-        }, 1000);
+  const onScrollTo = useCallback(
+    (y: number) => {
+      if (scrollRef.current) {
+        scrollRef.current.scrollTo({
+          x: 0,
+          y: Number(tabsOffset) + Number(y) - 300,
+          animated: true,
+        });
+        if (getAutoPlay()) {
+          setTimeout(() => {
+            onPlay();
+          }, 1000);
+        }
       }
-    }
-  };
+    },
+    [tabsOffset]
+  );
 
-  const onWatchlist = (itemWatchlist: any, isInWatchlist: boolean) => {
+  const onWatchlist = useCallback((itemWatchlist: any, isInWatchlist: boolean) => {
     dispatch(
       watchlistToggleRequest({
         itemId:
@@ -512,10 +523,32 @@ const Detail = () => {
         isInWatchlist,
       })
     );
-  };
+  }, []);
+
+  const getPosterImage = useMemo(() => {
+    return data?.detail?.images
+      ? getImage(
+          isTablet()
+            ? data?.detail?.images?.tile
+            : data?.detail?.images?.poster ||
+                data?.detail?.images?.square ||
+                data?.detail?.images?.tile,
+          isTablet() ? 'tile' : 'poster'
+        )
+      : '';
+  }, [data]);
+
+  const dimensions = useMemo(
+    () => ({
+      width: isTablet() ? 512 : 185,
+      height: 275,
+    }),
+    []
+  );
 
   return (
-    <Container paddingBottom={isShowMiniController ? 152 : 64}>
+    // paddingBottom={isShowMiniController ? 152 : 64}
+    <Container>
       <HomeIndicator autoHidden={false} />
       <TopWrapper>
         <Button onPress={() => back()}>
@@ -536,22 +569,7 @@ const Detail = () => {
       <Scroll onScroll={(event) => handleScroll(event)} scrollEventThrottle={16} ref={scrollRef}>
         <Header {...{ data }} />
         <Poster>
-          <Card
-            url={
-              data?.detail?.images
-                ? getImage(
-                    isTablet()
-                      ? data?.detail?.images?.tile
-                      : data?.detail?.images?.poster ||
-                          data?.detail?.images?.square ||
-                          data?.detail?.images?.tile,
-                    isTablet() ? 'tile' : 'poster'
-                  )
-                : ''
-            }
-            width={isTablet() ? 512 : 185}
-            height={275}
-          />
+          <NewCard url={getPosterImage} width={dimensions.width} height={dimensions.height} />
         </Poster>
         <InnerContent>
           <Actions
@@ -647,4 +665,4 @@ const Detail = () => {
   );
 };
 
-export default Detail;
+export default withTheme(Detail);

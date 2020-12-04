@@ -1,4 +1,6 @@
-import React from 'react';
+/* eslint-disable no-unused-vars */
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import React, { useCallback, useMemo } from 'react';
 import Card from '@components/Card';
 import { MassiveSDKModelEpisodesItem } from '@src/sdks/Britbox.API.Content.TS/api';
 import { getImage } from '@src/utils/images';
@@ -10,10 +12,13 @@ import { useSelector } from 'react-redux';
 import { pickBy } from 'lodash';
 import { LoadDetailPageResponse, MoreInformation, Show } from '@store/modules/detail/types';
 import { isTablet } from 'react-native-device-info';
+import { LayoutChangeEvent } from 'react-native';
+import NewGrid from '@components/NewGrid';
+import NewCard from '@components/NewCard';
 import { Container, ContainerFilter, SeasonButton, SeasonText, InformationButton } from './styles';
 
 interface Props {
-  onLayout?: (event: any) => void;
+  onLayout?: (event: LayoutChangeEvent) => void;
   data: MassiveSDKModelEpisodesItem[];
   show: Show | undefined;
   moreInformation: MoreInformation | undefined;
@@ -21,7 +26,7 @@ interface Props {
   onScrollTo: (y: number) => void;
   autoPlay: boolean;
   onPlay: (item: MassiveSDKModelEpisodesItem) => void;
-  seriesData: LoadDetailPageResponse;
+  seriesData: LoadDetailPageResponse | undefined;
 }
 
 const Episodes = ({
@@ -68,13 +73,16 @@ const Episodes = ({
     return dataResult;
   };
 
-  const goToModalSeasons = (showData: Show) => {
-    navigate('ModalSeasons', { show: showData, seriesData });
-  };
+  const goToModalSeasons = useCallback(
+    (showData: Show) => {
+      navigate('ModalSeasons', { show: showData, seriesData });
+    },
+    [navigate, seriesData]
+  );
 
-  const goToMoreInformation = () => {
-    return navigate('ModalMoreInformation', { moreInformation });
-  };
+  const goToMoreInformation = useCallback(() => {
+    navigate('ModalMoreInformation', { moreInformation });
+  }, [navigate, moreInformation]);
 
   const getProgress = (item: MassiveSDKModelEpisodesItem) => {
     const filter = pickBy(watched, (value, key) => key.startsWith(item?.id || ''));
@@ -90,6 +98,23 @@ const Episodes = ({
 
     return 0;
   };
+
+  const dimensions = useMemo(
+    () => ({
+      width: isTablet() ? 250 : 157,
+      height: isTablet() ? 140 : 107,
+    }),
+    []
+  );
+
+  const renderItem = (item: MassiveSDKModelEpisodesItem) => (
+    <NewCard
+      width={dimensions.width}
+      height={dimensions.height}
+      url={getImage(item?.images?.wallpaper || 'loading', 'wallpaper')}
+      onPress={() => onPlay(item)}
+    />
+  );
 
   return (
     <Container onLayout={onLayout}>
@@ -111,10 +136,10 @@ const Episodes = ({
           <InformationButton onPress={goToMoreInformation}>
             <DiscoverMoreIcon width={25} height={25} />
           </InformationButton>
-          {/* <Year>Year: {show.releaseYear}</Year> */}
         </ContainerFilter>
       )}
-      {data.map((item, index) => (
+      <NewGrid data={data} numColumns={1} renderItem={({ item }) => renderItem(item)} />
+      {/* {data.map((item, index) => (
         <Card
           key={index.toString()}
           width={isTablet() ? 250 : 157}
@@ -138,7 +163,7 @@ const Episodes = ({
           isContinue={getProgress(item) > 0}
           cardElement={item}
         />
-      ))}
+      ))} */}
     </Container>
   );
 };

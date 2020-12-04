@@ -1,14 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react-native/no-inline-styles */
-import React, { useEffect, useState } from 'react';
-import {
-  View,
-  StatusBar,
-  BackHandler,
-  NativeModules,
-  NativeEventEmitter,
-  Platform,
-} from 'react-native';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import { StatusBar, BackHandler, NativeModules, NativeEventEmitter, Platform } from 'react-native';
 import Orientation from 'react-native-orientation-locker';
 import { useNavigation, RouteProp, useRoute } from '@react-navigation/native';
 import { AppState } from '@store/modules/rootReducer';
@@ -30,7 +23,15 @@ import { HomeIndicator } from 'react-native-home-indicator';
 import { getDimensions } from '@src/utils/dimension';
 import { Dismissal, Pause, Play, VideoStart } from '@screens/Shared/Cast/services';
 import { pickBy } from 'lodash';
-import { ChromecastWrapper } from './styles';
+import Action from '@components/Action';
+import { BackIcon } from '@assets/icons';
+import {
+  BackButton,
+  ChromecastWrapper,
+  LoadingContainer,
+  LoadingWrapper,
+  SafeArea,
+} from './styles';
 
 const { width, height } = getDimensions();
 
@@ -44,7 +45,6 @@ type RootParamList = {
 type VideoPlayerScreenRouteProp = RouteProp<RootParamList, 'VideoPlayer'>;
 
 const VideoPlayer = () => {
-  const theme = useSelector((state: AppState) => state.theme.theme);
   const token = useSelector((state: AppState) => state.core.token);
   const refreshToken = useSelector((state: AppState) => state.user?.access?.refreshToken || '');
   const layout = useSelector((state: AppState) => state.layout);
@@ -56,12 +56,16 @@ const VideoPlayer = () => {
   const [connection, setConnection] = useState<NetInfoStateType | undefined>(undefined);
   const { goBack } = useNavigation();
   const { params } = useRoute<VideoPlayerScreenRouteProp>();
-  const webview = {
-    backgroundColor: 'transparent',
-    flex: 1,
-    width: height,
-    height: width,
-  };
+  const [isLoading, setIsLoading] = useState(true);
+  const webview = useMemo(
+    () => ({
+      backgroundColor: 'transparent',
+      flex: 1,
+      width: height,
+      height: width,
+    }),
+    [width, height]
+  );
 
   useEffect(() => {
     if (Platform.OS === 'android') {
@@ -73,16 +77,18 @@ const VideoPlayer = () => {
         eventEmitterDevice.removeListener('DEVICE_SCREEN_OFF', deviceScreenOff);
       };
     }
-    return () => {};
+    return () => {
+      setIsLoading(true);
+    };
   }, []);
 
-  const deviceScreenOff = () => {
+  const deviceScreenOff = useCallback(() => {
     if (webViewRef.current) {
       PostMessage({
         type: 'pause',
       });
     }
-  };
+  }, []);
 
   const processMessage = (message: { [name: string]: any }) => {
     const { close, chromecast, analytics } = message;
@@ -93,6 +99,10 @@ const VideoPlayer = () => {
         dispatch(castVideoPlayerDetail({ currentTime, item: params.item }));
         dispatch(layoutCasting(true));
       }
+    }
+
+    if (message.type === 'startPlayer') {
+      setIsLoading(false);
     }
 
     if (Platform.OS === 'ios' && analytics && params.item) {
@@ -120,13 +130,13 @@ const VideoPlayer = () => {
     }
   };
 
-  const handleBackButtonClick = () => {
-    Orientation.lockToPortrait();
+  const handleBackButtonClick = useCallback(() => {
+    // Orientation.lockToPortrait();
     StatusBar.setHidden(false);
     immersiveModeOff();
     backArrow();
     return true;
-  };
+  }, []);
 
   useEffect(() => {
     let unmonted = false;
@@ -150,15 +160,15 @@ const VideoPlayer = () => {
     };
   }, []);
 
-  const backArrow = () => {
+  const backArrow = useCallback(() => {
     Orientation.lockToPortrait();
     immersiveModeOff();
     StatusBar.setHidden(false);
     dispatch(continueWatchingRequest());
     goBack();
-  };
+  }, []);
 
-  const onTrackEvent = () => {
+  const onTrackEvent = useCallback(() => {
     if (webViewRef.current) {
       PostMessage({
         type: 'player',
@@ -180,9 +190,9 @@ const VideoPlayer = () => {
         isTrailer: params.isTrailer || false,
       });
     }
-  };
+  }, []);
 
-  const getProgress = (item: MassiveSDKModelEpisodesItem) => {
+  const getProgress = useCallback((item: MassiveSDKModelEpisodesItem) => {
     const filter = pickBy(watched, (value, key) => key.startsWith(item?.id || ''));
     if (filter[item?.id || '']) {
       const { isFullyWatched, position } = filter[item?.id || ''];
@@ -192,18 +202,28 @@ const VideoPlayer = () => {
       return position || 0;
     }
     return 0;
-  };
+  }, []);
 
   return (
-    <View
+    <SafeArea
       style={{
-        backgroundColor: theme.PRIMARY_COLOR,
+        backgroundColor: '#000',
         flex: 1,
         justifyContent: 'space-between',
         alignItems: 'center',
       }}
     >
       <HomeIndicator autoHidden />
+      {isLoading && (
+        <LoadingContainer>
+          <BackButton onPress={() => backArrow()}>
+            <BackIcon width={22} height={22} />
+          </BackButton>
+          <LoadingWrapper>
+            <Action width={88} height={88} loading animated loop autoPlay />
+          </LoadingWrapper>
+        </LoadingContainer>
+      )}
       {token && (
         <WebView
           ref={webViewRef}
@@ -220,8 +240,8 @@ const VideoPlayer = () => {
           //   onTrackEvent();
           //   console.tron.log({ load: true });
           //   console.tron.log({
-          //     uri: `${'http://localhost:8000/index.html'}?country=${segment?.toLocaleLowerCase()}&videoid=${
-          //       // uri: `${Config.URL_PLAYER}?country=${segment?.toLocaleLowerCase()}&videoid=${
+          //     // uri: `${'http://localhost:8000/index.html'}?country=${segment?.toLocaleLowerCase()}&videoid=${
+          //     uri: `${Config.URL_PLAYER}?country=${segment?.toLocaleLowerCase()}&videoid=${
           //       params.item.id
           //     }&token=${token}&ert=${refreshToken}&allow=autoplay&isTrailer=${
           //       params.isTrailer || false
@@ -260,7 +280,7 @@ const VideoPlayer = () => {
           <CastButton />
         </ChromecastWrapper>
       )}
-    </View>
+    </SafeArea>
   );
 };
 

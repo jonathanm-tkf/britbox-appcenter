@@ -106,9 +106,9 @@ export async function getItemContent(id: string) {
   }
 }
 
-async function appleTVSubscription(isPaid: boolean) {
+async function appleTVSubscription() {
   if (Platform.OS === 'ios') {
-    await AppleTVController.appleTVSubscription(isPaid);
+    await AppleTVController.appleTVSubscription();
   }
 }
 
@@ -125,7 +125,7 @@ export function* activateApp() {
     }
     const canStream = yield select(getCanStream);
     if (canStream) {
-      yield call(appleTVSubscription, canStream);
+      yield call(appleTVSubscription);
       // yield put(sendAppleTvSearchSubscription());
     }
   } catch (error) {

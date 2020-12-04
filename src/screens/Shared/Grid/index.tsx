@@ -3,7 +3,7 @@ import { MassiveSDKModelItemList } from '@src/sdks/Britbox.API.Content.TS/api';
 import GridC from '@components/Grid';
 import Action from '@components/Action';
 import { navigateByPath } from '@src/navigation/rootNavigation';
-import { ImageStyle, ViewStyle } from 'react-native';
+import { ImageStyle, LayoutChangeEvent, ViewStyle } from 'react-native';
 import { Container, WrapperLoading } from './styles';
 
 type WALLPAPER = 'wallpaper';
@@ -13,7 +13,7 @@ type SQUARE = 'square';
 type TILE = 'square';
 
 interface Props {
-  onLayout?: (event: any) => void;
+  onLayout?: (event: LayoutChangeEvent) => void;
   items: MassiveSDKModelItemList[];
   title: string | undefined;
   loading?: boolean;
@@ -22,7 +22,8 @@ interface Props {
   cardContentAfter?: (item: MassiveSDKModelItemList) => JSX.Element | null;
   numColumns?: number;
   element: ImageStyle;
-  containerStyle?: ViewStyle;
+  containerStyles?: ViewStyle;
+  listStyles?: ViewStyle;
   isEpisode?: boolean;
   filter?: () => JSX.Element | null;
 }
@@ -37,7 +38,8 @@ const Grid = ({
   cardContentAfter,
   numColumns = 1,
   element,
-  containerStyle,
+  containerStyles,
+  listStyles,
   isEpisode,
   filter,
 }: Props) => {
@@ -53,12 +55,11 @@ const Grid = ({
       <GridC
         data={items}
         numColumns={numColumns}
-        {...{ element, imageType, isEpisode, filter }}
         onPress={(item) => goToOtherContent(item)}
         title={title}
-        containerStyle={containerStyle}
         cardContent={(item) => (cardContent ? cardContent(item) : null)}
         cardContentAfter={(item) => (cardContentAfter ? cardContentAfter(item) : null)}
+        {...{ element, imageType, isEpisode, filter, containerStyles, listStyles }}
       />
       {loading && (
         <WrapperLoading>

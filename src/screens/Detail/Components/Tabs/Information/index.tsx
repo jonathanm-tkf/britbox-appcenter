@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useEffect } from 'react';
+import React, { useEffect, memo, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { getDuration } from '@src/utils/template';
 import { DiscoverMoreIcon } from '@assets/icons';
@@ -28,9 +28,10 @@ const Information = ({ data, onLayout, moreInformation, autoPlay, onAutoPlay }: 
   const { t } = useTranslation('layout');
   const { navigate } = useNavigation();
 
-  const goToMoreInformation = () => {
-    return navigate('ModalMoreInformation', { moreInformation });
-  };
+  const goToMoreInformation = useCallback(
+    () => navigate('ModalMoreInformation', { moreInformation }),
+    []
+  );
 
   useEffect(() => {
     if (autoPlay) {
@@ -63,11 +64,9 @@ const Information = ({ data, onLayout, moreInformation, autoPlay, onAutoPlay }: 
       )}
       {(data.genres || []).length > 0 && (
         <Row>
-          <LabelBold>Genre: </LabelBold>
+          <LabelBold>{t('genre')}: </LabelBold>
           {(() => {
-            const genres = (data.genres || [])
-              .filter((item) => item.character !== '')
-              .map((item) => item[0].toUpperCase() + item.slice(1));
+            const genres = (data.genres || []).map((item) => item[0].toUpperCase() + item.slice(1));
             return genres.join(', ');
           })()}
         </Row>
@@ -94,4 +93,4 @@ const Information = ({ data, onLayout, moreInformation, autoPlay, onAutoPlay }: 
   );
 };
 
-export default Information;
+export default memo(Information);

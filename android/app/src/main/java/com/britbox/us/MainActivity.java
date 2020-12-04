@@ -12,6 +12,7 @@ import android.view.View;
 import android.content.Intent;
 import android.content.res.Configuration;
 import com.facebook.react.GoogleCastActivity;
+import android.os.Bundle;
 
 public class MainActivity extends GoogleCastActivity {
 
@@ -30,6 +31,11 @@ public class MainActivity extends GoogleCastActivity {
   @Override
   protected String getMainComponentName() {
     return "Britbox";
+  }
+
+  @Override
+  protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(null);
   }
 
   class CustomReactActivityDelegate extends ReactActivityDelegate {

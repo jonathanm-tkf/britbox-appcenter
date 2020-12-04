@@ -32,7 +32,7 @@ import { AuthStackScreen } from '../Auth';
 import { navigateByPath, navigationGoBack, navigationRef } from '../rootNavigation';
 import { AppTabsScreen } from '../Tabs';
 
-const STORYBOOK_START = false && __DEV__;
+const STORYBOOK_START = true && __DEV__;
 
 const EffectModal = (progress: Animated.AnimatedInterpolation) => ({
   cardStyle: {
