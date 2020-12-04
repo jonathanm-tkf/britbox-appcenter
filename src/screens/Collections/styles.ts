@@ -9,7 +9,7 @@ import { normalize } from '@src/utils/normalize';
 export const Container = styled.View`
   flex: 1;
   background-color: ${(props: ThemeState) => props.theme.PRIMARY_COLOR};
-  padding-bottom: ${getBottomSpace() + 64}px;
+  /* padding-bottom: ${getBottomSpace() + 64}px; */
 `;
 
 export const Scroll = styled.ScrollView.attrs({

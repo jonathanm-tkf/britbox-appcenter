@@ -15,6 +15,7 @@ import { hideSheet } from '@src/utils/sheetBottom';
 import { getTextInConfigJSON } from '@src/utils/object';
 import { MassiveSDKModelEpisodesItem } from '@src/sdks/Britbox.API.Content.TS/api';
 import { isTablet } from 'react-native-device-info';
+import { LayoutChangeEvent } from 'react-native';
 import {
   TabsWrapper,
   PreloadTabs,
@@ -30,7 +31,7 @@ import BonusFeatures from './BonusFeatures';
 type Props = {
   data: LoadDetailPageResponse | undefined;
   onScrollTo: (y: number) => void;
-  onLayout?: (event: any) => void;
+  onLayout?: (event: LayoutChangeEvent) => void;
   autoPlay: boolean;
   onPlay: (item?: MassiveSDKModelEpisodesItem) => void;
 };
@@ -42,10 +43,10 @@ const Tabs = ({ data, onScrollTo, onLayout, autoPlay, onPlay }: Props) => {
   const { navigate } = useNavigation();
 
   const [height, setHeight] = useState<HeightType>('auto');
-  const [firstHeight, setFirstHeight] = useState('auto');
-  const [secondHeight, setSecondHeight] = useState('auto');
-  const [threeHeight, setThreeHeight] = useState('auto');
-  const [fourHeight, setFourHeight] = useState('auto');
+  const [firstHeight, setFirstHeight] = useState<HeightType>('auto');
+  const [secondHeight, setSecondHeight] = useState<HeightType>('auto');
+  const [threeHeight, setThreeHeight] = useState<HeightType>('auto');
+  const [fourHeight, setFourHeight] = useState<HeightType>('auto');
   const [activeTab, setActiveTab] = useState('');
   const dispatch = useDispatch();
 

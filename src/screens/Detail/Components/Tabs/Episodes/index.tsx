@@ -1,7 +1,5 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable @typescript-eslint/no-unused-vars */
-import React, { useCallback, useMemo } from 'react';
-import Card from '@components/Card';
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useCallback, useEffect, useMemo } from 'react';
 import { MassiveSDKModelEpisodesItem } from '@src/sdks/Britbox.API.Content.TS/api';
 import { getImage } from '@src/utils/images';
 import { getDuration } from '@src/utils/template';
@@ -14,9 +12,7 @@ import { LoadDetailPageResponse, MoreInformation, Show } from '@store/modules/de
 import { isTablet } from 'react-native-device-info';
 import { LayoutChangeEvent } from 'react-native';
 import NewGrid from '@components/NewGrid';
-import NewCard from '@components/NewCard';
 import Episode from '@components/Episode';
-import { getDimensions } from '@src/utils/dimension';
 import { Container, ContainerFilter, SeasonButton, SeasonText, InformationButton } from './styles';
 
 interface Props {
@@ -24,21 +20,17 @@ interface Props {
   data: MassiveSDKModelEpisodesItem[];
   show: Show | undefined;
   moreInformation: MoreInformation | undefined;
-  isEpisode: boolean;
   onScrollTo: (y: number) => void;
   autoPlay: boolean;
-  onPlay: (item: MassiveSDKModelEpisodesItem) => void;
+  onPlay: (item?: MassiveSDKModelEpisodesItem) => void;
   seriesData: LoadDetailPageResponse | undefined;
 }
-
-const { width } = getDimensions();
 
 const Episodes = ({
   onLayout,
   data,
   show,
   moreInformation,
-  isEpisode,
   onScrollTo,
   autoPlay,
   onPlay,
@@ -47,7 +39,7 @@ const Episodes = ({
   const { navigate } = useNavigation();
   const { watched } = useSelector((state: AppState) => state.user?.profile || {});
 
-  const getCategories = (itemData: MassiveSDKModelEpisodesItem): any[] => {
+  const getCategories = useCallback((itemData: MassiveSDKModelEpisodesItem) => {
     const dataResult = [];
     const { classification, customFields } = itemData;
     if (classification) {
@@ -75,7 +67,7 @@ const Episodes = ({
       }
     }
     return dataResult;
-  };
+  }, []);
 
   const goToModalSeasons = useCallback(
     (showData: Show) => {
@@ -128,8 +120,20 @@ const Episodes = ({
       }}
       progress={getProgress(item)}
       isContinue={getProgress(item) > 0}
+      onLayout={(event) => {
+        const { layout } = event.nativeEvent;
+        if (show && show.episodeNumber === item?.episodeNumber && autoPlay) {
+          onScrollTo(layout.y);
+        }
+      }}
     />
   );
+
+  useEffect(() => {
+    if (show?.episodeNumber === undefined && autoPlay) {
+      onPlay();
+    }
+  }, []);
 
   return (
     <Container onLayout={onLayout}>
@@ -154,31 +158,6 @@ const Episodes = ({
         </ContainerFilter>
       )}
       <NewGrid data={data} numColumns={1} renderItem={({ item }) => renderItem(item)} />
-      {/* {data.map((item, index) => (
-        <Card
-          key={index.toString()}
-          width={isTablet() ? 250 : 157}
-          height={isTablet() ? 140 : 107}
-          url={getImage(item?.images?.wallpaper || 'loading', 'wallpaper')}
-          isDetail
-          onLayout={(event) => {
-            const { layout } = event.nativeEvent;
-            if ((isEpisode && show && show.episodeNumber === item?.episodeNumber) || autoPlay) {
-              onScrollTo(layout.y);
-            }
-          }}
-          data={{
-            title: `${item.episodeNumber}. ${item?.episodeName}` || '',
-            description: `${getDuration(item?.duration || 0)} min`,
-            summary: item?.shortDescription || '',
-            category: getCategories(item || {}),
-          }}
-          onPress={() => onPlay(item)}
-          progress={getProgress(item)}
-          isContinue={getProgress(item) > 0}
-          cardElement={item}
-        />
-      ))} */}
     </Container>
   );
 };

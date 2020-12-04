@@ -10,7 +10,7 @@ type ContainerProps = {
 export const Container = styled.View`
   padding-top: ${75 + (Platform.OS === 'ios' ? getStatusBarHeight() : 0)}px;
   background-color: ${(props: ThemeState & ContainerProps) => props.theme.PRIMARY_COLOR};
-  padding-bottom: ${getBottomSpace() + 50}px;
+  /* padding-bottom: ${getBottomSpace() + 50}px; */
   ${(props: ContainerProps & ThemeState) => {
     return (
       props.isShowMiniController &&

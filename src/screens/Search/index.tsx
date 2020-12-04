@@ -40,9 +40,12 @@ import {
 } from './styles';
 
 const containerStyles = {
-  marginTop: 10,
-  paddingHorizontal: 0,
   alignItems: 'center',
+};
+
+const listStyles = {
+  marginTop: 10,
+  paddingHorizontal: 10,
 };
 
 export default function Search() {
@@ -224,7 +227,8 @@ export default function Search() {
                     marginBottom: 20,
                     marginHorizontal: isTablet() ? 3 : 5,
                   }}
-                  containerStyle={containerStyles}
+                  containerStyles={containerStyles}
+                  listStyles={listStyles}
                 />
                 {(searchingPeopleData || [])?.length > 0 && (
                   <ResultCastWrapper>
@@ -319,7 +323,8 @@ export default function Search() {
                 marginBottom: 20,
                 marginHorizontal: isTablet() ? 3 : 5,
               }}
-              containerStyle={containerStyles}
+              containerStyles={containerStyles}
+              listStyles={listStyles}
             />
           </ResultGrid>
         )}

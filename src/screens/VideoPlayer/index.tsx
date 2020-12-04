@@ -101,7 +101,7 @@ const VideoPlayer = () => {
       }
     }
 
-    if (message.type === 'startPlayer') {
+    if (message.type === 'startPlayer' || !message.loading) {
       setIsLoading(false);
     }
 
@@ -140,7 +140,6 @@ const VideoPlayer = () => {
 
   useEffect(() => {
     let unmonted = false;
-    Orientation.lockToLandscape();
     immersiveModeOn();
     StatusBar.setHidden(true);
     BackHandler.addEventListener('hardwareBackPress', handleBackButtonClick);
@@ -149,6 +148,7 @@ const VideoPlayer = () => {
       NetInfo.fetch().then((state) => {
         const { type } = state;
         setConnection(type || undefined);
+        Orientation.lockToLandscape();
       });
     }
 

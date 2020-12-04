@@ -9,7 +9,7 @@ import { isTablet } from 'react-native-device-info';
 export const Container = styled.View`
   flex: 1;
   background-color: ${(props: ThemeState) => props.theme.PRIMARY_COLOR};
-  padding-bottom: ${getBottomSpace() + 74}px;
+  /* padding-bottom: ${getBottomSpace() + 74}px; */
 `;
 
 export const ScrollableContainer = styled.ScrollView.attrs({

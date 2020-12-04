@@ -9,7 +9,7 @@ import { MassiveSDKModelItemList } from '@src/sdks/Britbox.API.Content.TS/api';
 import { ThemeProps } from '@store/modules/theme/types';
 import ContentLoader, { Rect } from 'react-content-loader/native';
 import { useTranslation } from 'react-i18next';
-import { StyleProp, ViewStyle } from 'react-native';
+import { LayoutChangeEvent, StyleProp, ViewStyle } from 'react-native';
 import { isTablet } from 'react-native-device-info';
 import { withTheme } from 'styled-components';
 import Image from 'react-native-fast-image';
@@ -44,6 +44,7 @@ type Props = {
   actionText?: string;
   isContinue?: boolean;
   progress?: number;
+  onLayout?: (event: LayoutChangeEvent) => void;
   data?: {
     title: string;
     description?: string;
@@ -60,6 +61,7 @@ const Episode = ({
   theme,
   style,
   cardElement,
+  onLayout,
   actionText = '',
   isContinue,
   progress = 0,
@@ -142,6 +144,7 @@ const Episode = ({
       activeScale={onPress ? 0.9 : 1}
       tension={50}
       friction={8}
+      onLayout={onLayout}
       onPress={() => (onPress && url !== 'loading' ? onPress() : {})}
       onLongPress={() => (onPress && url !== 'loading' ? onPress() : {})}
     >

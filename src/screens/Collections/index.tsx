@@ -133,7 +133,7 @@ const Collections = () => {
   const getIsInWatchlist = (item: any) =>
     checkIsInWatchingList(bookmarklist?.items || [], item) === 3;
 
-  const containerStyles = {
+  const listStyle = {
     marginTop: 10,
     paddingHorizontal: isTablet() ? 7 : 15,
   };
@@ -477,7 +477,7 @@ const Collections = () => {
                       marginBottom: 20,
                       marginHorizontal: isTablet() ? 3 : 5,
                     }}
-                    containerStyle={containerStyles}
+                    listStyles={listStyle}
                   />
                 );
               case 'grid-infinite': {
@@ -548,7 +548,7 @@ const Collections = () => {
                               marginHorizontal: isTablet() ? 3 : 5,
                             }
                       }
-                      containerStyle={containerStyles}
+                      listStyles={listStyle}
                       imageType={infiniteGridColumns === 2 ? 'wallpaper' : 'poster'}
                     />
                   </WrapperContinuosScroll>
@@ -574,7 +574,7 @@ const Collections = () => {
                       marginBottom: 20,
                       marginHorizontal: 5,
                     }}
-                    containerStyle={containerStyles}
+                    listStyles={listStyle}
                   />
                 );
               case 'standard':
