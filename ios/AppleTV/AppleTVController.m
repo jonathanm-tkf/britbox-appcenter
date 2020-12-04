@@ -47,7 +47,8 @@ RCT_EXPORT_METHOD(userActivity:(NSString *)contentId resolver:(RCTPromiseResolve
       userActivity.persistentIdentifier = bundleIdentifier;
     }
     if (@available(iOS 13.0, *)) {
-      userActivity.targetContentIdentifier = contentId;
+      // userActivity.targetContentIdentifier = contentId;
+      userActivity.externalMediaContentIdentifier = contentId;
     }
     self.view.userActivity = userActivity;
     [userActivity becomeCurrent];
@@ -192,11 +193,15 @@ RCT_EXPORT_METHOD(seek:(double)seconds resolver:(RCTPromiseResolveBlock)resolve 
   }
 }
 
-RCT_EXPORT_METHOD(dismissal:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
+RCT_EXPORT_METHOD(dismissal:(double)seconds resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
 {
   @try {
     if (NSClassFromString(@"MPNowPlayingInfoCenter")) {
       [[MPNowPlayingInfoCenter defaultCenter] setNowPlayingInfo:nil];
+      NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
+      [dict setObject:[NSNumber numberWithFloat:0.0] forKey:MPNowPlayingInfoPropertyPlaybackRate];
+      [dict setObject:[NSNumber numberWithDouble:seconds] forKey:MPNowPlayingInfoPropertyElapsedPlaybackTime];
+      [[MPNowPlayingInfoCenter defaultCenter] setNowPlayingInfo:dict];
     }
     resolve(nil);
   } @catch (NSError *e) {

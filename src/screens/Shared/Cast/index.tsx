@@ -140,7 +140,7 @@ const Cast = () => {
           dispatch(setCastState(undefined));
 
           if (Platform.OS === 'ios') {
-            Dismissal();
+            Dismissal(0);
           }
         }
       });
@@ -178,7 +178,7 @@ const Cast = () => {
         dispatch(castDetailAction({ id: itemVideoMassiveId, ...mediaMetadata }));
         if (Platform.OS === 'ios') {
           const { playPosition, item } = getItemCastDetail() as CastDetail;
-          VideoStart(playPosition, item);
+          VideoStart({ message: { videoID: item?.customId || '0' } }, playPosition, item);
         }
       }
     });

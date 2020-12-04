@@ -99,13 +99,16 @@ const VideoPlayer = () => {
       const { type, actualMilisecond } = message;
       switch (type) {
         case 'startPlayer':
-          VideoStart(getProgress(params.item), params.item);
+          VideoStart(message, getProgress(params.item), params.item);
           break;
         case 'play':
-          Pause(actualMilisecond / 1000);
+          Play();
           break;
         case 'pause':
-          Play();
+          Pause(actualMilisecond / 1000);
+          break;
+        case 'stop':
+          Dismissal(actualMilisecond / 1000);
           break;
         default:
           break;
@@ -113,9 +116,6 @@ const VideoPlayer = () => {
     }
 
     if (close) {
-      if (Platform.OS === 'ios') {
-        Dismissal();
-      }
       backArrow();
     }
   };
