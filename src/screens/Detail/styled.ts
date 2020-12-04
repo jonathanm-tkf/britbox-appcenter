@@ -6,21 +6,21 @@ import { rgba } from 'polished';
 import { normalize } from '@src/utils/normalize';
 
 type ContainerProps = {
-  paddingBottom: number;
+  paddingBottom?: number;
 };
 
 export const Container = styled.View`
   flex: 1;
   background-color: ${(props: ThemeState) => props.theme.PRIMARY_COLOR};
 
-  ${(props: ContainerProps & ThemeState) => {
+  /* ${(props: ContainerProps & ThemeState) => {
     return (
       !props.paddingBottom &&
       `
       padding-bottom: ${getBottomSpace() + props.paddingBottom}px;
     `
     );
-  }};
+  }}; */
 `;
 
 export const Scroll = styled.ScrollView.attrs({

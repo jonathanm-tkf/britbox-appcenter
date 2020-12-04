@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback, memo, useMemo } from 'react';
 import {
   MassiveSDKModelPageEntry,
   MassiveSDKModelItemList,
@@ -7,52 +7,41 @@ import { Headline } from '@components/Typography';
 import { Row } from '@components/Layout';
 import { slice } from 'lodash';
 import Carousel from '@components/Carousel';
-import Card from '@components/Card';
+import NewCard from '@components/NewCard';
 import { getImage } from '@src/utils/images';
-import { useSelector } from 'react-redux';
-import { AppState } from '@store/modules/rootReducer';
-import ContentLoader, { Rect } from 'react-content-loader/native';
 import { navigateByPath } from '@src/navigation/rootNavigation';
 import { isTablet } from 'react-native-device-info';
-import { Container } from './styles';
 
 type Props = {
   item: MassiveSDKModelPageEntry;
 };
 
 const Genre = ({ item }: Props) => {
-  const theme = useSelector((state: AppState) => state.theme.theme);
-
-  const goToDetail = (card: MassiveSDKModelItemList) => {
+  const goToDetail = useCallback((card: MassiveSDKModelItemList) => {
     navigateByPath(card);
-  };
+  }, []);
+
+  const dimensions = useMemo(
+    () => ({
+      width: isTablet() ? 250 : 190,
+      height: isTablet() ? 250 : 190,
+    }),
+    []
+  );
 
   return (
     <>
       <Row>
-        {item.title === 'loading' ? (
-          <Container>
-            <ContentLoader
-              speed={1}
-              backgroundColor={theme.PRIMARY_COLOR_OPAQUE}
-              foregroundColor={theme.PRIMARY_COLOR}
-            >
-              <Rect x="0" y="0" rx="8" ry="8" width="50%" height="40" />
-            </ContentLoader>
-          </Container>
-        ) : (
-          <Headline>{item.title}</Headline>
-        )}
+        <Headline>{item.title !== 'loading' && item.title}</Headline>
       </Row>
       <Carousel
         items={slice(item?.list?.items, 0, 20)}
         listProps={{ horizontal: true }}
-        renderItem={({ item: card }) => (
-          <Card
+        renderItem={({ item: card }: { item: MassiveSDKModelItemList }) => (
+          <NewCard
             url={getImage(card.images?.square, 'square')}
-            element={{ marginBottom: 30 }}
-            width={isTablet() ? 250 : 190}
-            height={isTablet() ? 250 : 190}
+            width={dimensions.width}
+            height={dimensions.height}
             onPress={() => ((item?.list?.title || '') !== 'loading' ? goToDetail(card) : {})}
           />
         )}
@@ -61,4 +50,4 @@ const Genre = ({ item }: Props) => {
   );
 };
 
-export default Genre;
+export default memo(Genre);

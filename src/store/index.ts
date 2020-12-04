@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 /* eslint-disable import/no-cycle */
 /* eslint-disable no-console */
 import createSagaMiddleware from 'redux-saga';
@@ -11,6 +12,11 @@ const sagaMonitor = __DEV__ ? console.tron.createSagaMonitor() : null;
 const sagaMiddleware = createSagaMiddleware({ sagaMonitor });
 
 const middlewares = [sagaMiddleware];
+
+if (__DEV__) {
+  const createFlipperMiddleware = require('rn-redux-middleware-flipper').default;
+  middlewares.push(createFlipperMiddleware());
+}
 
 const store = createStore(persistReducers(rootReducer), middlewares);
 const persistor = persistStore(store);

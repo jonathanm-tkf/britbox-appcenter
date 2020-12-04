@@ -12,7 +12,6 @@ type IsFocused = {
 export const Container = styled.SafeAreaView`
   flex-direction: row;
   justify-content: space-around;
-  margin-top: 10px;
   background-color: ${(props: ThemeState) => props.theme.PRIMARY_COLOR};
 `;
 
@@ -28,7 +27,7 @@ export const Label = styled.Text`
 export const Button = styled.TouchableOpacity`
   align-items: center;
   justify-content: space-between;
-  flex: 1;
+  /* flex: 1; */
 `;
 
 export const WrapperIcon = styled.View`
@@ -44,17 +43,17 @@ export const CustomShadowTabBar = styled(LinearGradient).attrs((props: ThemeStat
   colors: [rgba(props.theme.PRIMARY_COLOR, 0), props.theme.PRIMARY_COLOR],
 }))`
   position: absolute;
-  top: 0;
+  top: -10px;
   width: 100%;
   height: 10px;
   z-index: 1;
 `;
 
 export const TabsWrapper = styled.View`
-  position: absolute;
+  /* position: absolute;
   left: 0;
   bottom: 0;
-  right: 0;
+  right: 0; */
   align-content: center;
   justify-content: flex-end;
 `;

@@ -4,7 +4,7 @@ import { normalize } from '@src/utils/normalize';
 
 export const Container = styled.View`
   background-color: ${(props: ThemeState) => props.theme.PRIMARY_COLOR};
-  padding: 20px;
+  padding: 20px 20px 0;
 `;
 
 export const ContainerFilter = styled.View`

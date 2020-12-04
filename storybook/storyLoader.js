@@ -4,11 +4,14 @@
 // https://github.com/elderfo/react-native-storybook-loader.git
 
 function loadStories() {
+  require('../src/components/Stories/Actions.stories');
   require('../src/components/Stories/Animations.stories');
+  require('../src/components/Stories/Badge.stories');
   require('../src/components/Stories/Bookmark.stories');
   require('../src/components/Stories/Button.stories');
   require('../src/components/Stories/Card.stories');
   require('../src/components/Stories/Carousel.stories');
+  require('../src/components/Stories/Episode.stories');
   require('../src/components/Stories/ErrorLanding.stories');
   require('../src/components/Stories/ExploreMenu.stories');
   require('../src/components/Stories/Grid.stories');
@@ -16,6 +19,7 @@ function loadStories() {
   require('../src/components/Stories/HeaderCustom.stories');
   require('../src/components/Stories/Input.stories');
   require('../src/components/Stories/ModalCustom.stories');
+  require('../src/components/Stories/NewCard.stories');
   require('../src/components/Stories/NewSlider.stories');
   require('../src/components/Stories/OurFavorites.stories');
   require('../src/components/Stories/Outstanding.stories');
@@ -25,11 +29,14 @@ function loadStories() {
 }
 
 const stories = [
+  '../src/components/Stories/Actions.stories',
   '../src/components/Stories/Animations.stories',
+  '../src/components/Stories/Badge.stories',
   '../src/components/Stories/Bookmark.stories',
   '../src/components/Stories/Button.stories',
   '../src/components/Stories/Card.stories',
   '../src/components/Stories/Carousel.stories',
+  '../src/components/Stories/Episode.stories',
   '../src/components/Stories/ErrorLanding.stories',
   '../src/components/Stories/ExploreMenu.stories',
   '../src/components/Stories/Grid.stories',
@@ -37,6 +44,7 @@ const stories = [
   '../src/components/Stories/HeaderCustom.stories',
   '../src/components/Stories/Input.stories',
   '../src/components/Stories/ModalCustom.stories',
+  '../src/components/Stories/NewCard.stories',
   '../src/components/Stories/NewSlider.stories',
   '../src/components/Stories/OurFavorites.stories',
   '../src/components/Stories/Outstanding.stories',

@@ -11917,6 +11917,11 @@ react-native-flipper@^0.34.0:
   resolved "https://registry.yarnpkg.com/react-native-flipper/-/react-native-flipper-0.34.0.tgz#7df1f38ba5d97a9321125fe0fccbe47d99e6fa1d"
   integrity sha512-48wgm29HJTOlZ0DibBsvXueEOY0EPIVL0wWKbwRfgrk86+luSEuLW3aZC50oJa95zSFb9qYShTV/6dWqh4Jamg==
 
+react-native-flipper@^0.67.0:
+  version "0.67.0"
+  resolved "https://registry.yarnpkg.com/react-native-flipper/-/react-native-flipper-0.67.0.tgz#dac604d9d3661b5cc81ce30e67113e80309d9995"
+  integrity sha512-Fi8OXn98/obfgfYmpLUuoB0DbH0iA6FR0YkZTi0IC1tF+Qz5dG2rw+p/YmcyfFaAFevTqMTLT/E1M9ThUbX4zQ==
+
 react-native-gesture-handler@^1.8.0:
   version "1.8.0"
   resolved "https://registry.yarnpkg.com/react-native-gesture-handler/-/react-native-gesture-handler-1.8.0.tgz#18f61f51da50320f938957b0ee79bc58f47449dc"
@@ -12829,6 +12834,11 @@ rn-host-detect@1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/rn-host-detect/-/rn-host-detect-1.2.0.tgz#8b0396fc05631ec60c1cb8789e5070cdb04d0da0"
   integrity sha512-btNg5kzHcjZZ7t7mvvV/4wNJ9e3MPgrWivkRgWURzXL0JJ0pwWlU4zrbmdlz3HHzHOxhBhHB4D+/dbMFfu4/4A==
+
+rn-redux-middleware-flipper@^0.1.0:
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/rn-redux-middleware-flipper/-/rn-redux-middleware-flipper-0.1.0.tgz#805ce91bb7b28755481235865f90e535fa1b777c"
+  integrity sha512-hYii3l3jCHWejt7g07vVUST4Q+RjM9oLMCUr7oQWZ1HRSTJX9yeB0bIcf/I+Qvytwl947ObTJVL39vwIxfK24w==
 
 rsvp@^4.8.4:
   version "4.8.5"

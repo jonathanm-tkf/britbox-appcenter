@@ -7,7 +7,7 @@ import { Headline } from '@components/Typography';
 import { Row } from '@components/Layout';
 import { slice } from 'lodash';
 import Carousel from '@components/Carousel';
-import Card from '@components/Card';
+import NewCard from '@components/NewCard';
 import { getImage } from '@src/utils/images';
 import { useSelector } from 'react-redux';
 import { AppState } from '@store/modules/rootReducer';
@@ -46,14 +46,18 @@ const Collections = ({ item }: Props) => {
       </Row>
       <Carousel
         items={slice(item?.list?.items, 0, 20)}
-        listProps={{ horizontal: true }}
+        listProps={{
+          horizontal: true,
+          style: {
+            paddingBottom: 30,
+          },
+        }}
         renderItem={({ item: card }) => (
-          <Card
+          <NewCard
             url={getImage(
               card.images?.square || card.images?.tile || card.images?.wallpaper,
               'square'
             )}
-            element={{ marginBottom: 30 }}
             width={isTablet() ? 180 : 130}
             height={isTablet() ? 180 : 130}
             onPress={() => ((item?.list?.title || '') !== 'loading' ? goToDetail(card) : {})}

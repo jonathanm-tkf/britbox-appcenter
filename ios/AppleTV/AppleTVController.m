@@ -52,7 +52,7 @@ RCT_EXPORT_METHOD(userActivity:(NSString *)contentId resolver:(RCTPromiseResolve
     }
     self.view.userActivity = userActivity;
     [userActivity becomeCurrent];
-    
+
     resolve(contentId);
   } @catch (NSError *e) {
     reject(nil, nil, e);
@@ -70,18 +70,14 @@ RCT_EXPORT_METHOD(invalidUserActivity:(RCTPromiseResolveBlock)resolve rejecter:(
 }
 
 //Subscription Methods
-RCT_EXPORT_METHOD(appleTVSubscription:(BOOL)isPaid resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
+RCT_EXPORT_METHOD(appleTVSubscription:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
 {
   @try {
     if (@available(iOS 11.0, *)) {
        VSSubscription *subscription = [[VSSubscription alloc]init];
        subscription.expirationDate = NSDate.distantFuture;
        VSSubscriptionRegistrationCenter *registrationCenter = [VSSubscriptionRegistrationCenter defaultSubscriptionRegistrationCenter];
-       if(isPaid == YES){
-          [subscription setAccessLevel:2];
-       } else{
-          [subscription setAccessLevel:1];
-       }
+       [subscription setAccessLevel:VSSubscriptionAccessLevelPaid];
        [registrationCenter setCurrentSubscription:subscription];
     }
     resolve(nil);

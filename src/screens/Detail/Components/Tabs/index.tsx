@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import ContentLoader, { Rect } from 'react-content-loader/native';
 import { useSelector, useDispatch } from 'react-redux';
 import { AppState } from '@store/modules/rootReducer';
@@ -60,34 +60,37 @@ const Tabs = ({ data, onScrollTo, onLayout, autoPlay, onPlay }: Props) => {
   const { t } = useTranslation(['detail', 'layout']);
   const ref = useRef();
 
-  const goToAccount = () => {
+  const goToAccount = useCallback(() => {
     dispatch(hideSheetBottom());
     hideSheet();
     setTimeout(() => {
       return navigate('More', { screen: 'MyAccount', params: { subscriptionSelected: true } });
     }, 450);
-  };
+  }, []);
 
-  const renderBottomContent = () => (
-    <WrapperBottomContent>
-      <Headline fontSize={16} lineHeight={isTablet() ? 26 : 22} color={theme.PRIMARY_TEXT_COLOR}>
-        {getTextInConfigJSON(['no-plan', 'message'], t('errorOut.subtitle'))}
-      </Headline>
-      <WrapperButtons>
-        <Button
-          stretch
-          size="big"
-          fontWeight="medium"
-          onPress={() => goToAccount()}
-          style={{ marginBottom: 20 }}
-        >
-          {getTextInConfigJSON(['no-plan', 'ctas', '0'], '')}
-        </Button>
-        <Button outline stretch size="big" fontWeight="medium" onPress={hideSheet}>
-          {getTextInConfigJSON(['no-plan', 'ctas', '1'], '')}
-        </Button>
-      </WrapperButtons>
-    </WrapperBottomContent>
+  const renderBottomContent = useCallback(
+    () => (
+      <WrapperBottomContent>
+        <Headline fontSize={16} lineHeight={isTablet() ? 26 : 22} color={theme.PRIMARY_TEXT_COLOR}>
+          {getTextInConfigJSON(['no-plan', 'message'], t('errorOut.subtitle'))}
+        </Headline>
+        <WrapperButtons>
+          <Button
+            stretch
+            size="big"
+            fontWeight="medium"
+            onPress={() => goToAccount()}
+            style={{ marginBottom: 20 }}
+          >
+            {getTextInConfigJSON(['no-plan', 'ctas', '0'], '')}
+          </Button>
+          <Button outline stretch size="big" fontWeight="medium" onPress={hideSheet}>
+            {getTextInConfigJSON(['no-plan', 'ctas', '1'], '')}
+          </Button>
+        </WrapperButtons>
+      </WrapperBottomContent>
+    ),
+    []
   );
 
   useEffect(() => {
