@@ -131,7 +131,7 @@ const VideoPlayer = () => {
   };
 
   const handleBackButtonClick = useCallback(() => {
-    // Orientation.lockToPortrait();
+    Orientation.lockToPortrait();
     StatusBar.setHidden(false);
     immersiveModeOff();
     backArrow();

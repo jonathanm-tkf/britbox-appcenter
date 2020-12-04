@@ -15,6 +15,8 @@ import { isTablet } from 'react-native-device-info';
 import { LayoutChangeEvent } from 'react-native';
 import NewGrid from '@components/NewGrid';
 import NewCard from '@components/NewCard';
+import Episode from '@components/Episode';
+import { getDimensions } from '@src/utils/dimension';
 import { Container, ContainerFilter, SeasonButton, SeasonText, InformationButton } from './styles';
 
 interface Props {
@@ -28,6 +30,8 @@ interface Props {
   onPlay: (item: MassiveSDKModelEpisodesItem) => void;
   seriesData: LoadDetailPageResponse | undefined;
 }
+
+const { width } = getDimensions();
 
 const Episodes = ({
   onLayout,
@@ -108,11 +112,22 @@ const Episodes = ({
   );
 
   const renderItem = (item: MassiveSDKModelEpisodesItem) => (
-    <NewCard
+    <Episode
       width={dimensions.width}
       height={dimensions.height}
       url={getImage(item?.images?.wallpaper || 'loading', 'wallpaper')}
       onPress={() => onPlay(item)}
+      data={{
+        title:
+          item?.episodeNumber && item?.episodeName
+            ? `${item.episodeNumber}. ${item?.episodeName}`
+            : '',
+        description: item?.duration ? `${getDuration(item?.duration || 0)} min` : '',
+        summary: item?.shortDescription || '',
+        category: getCategories(item || {}),
+      }}
+      progress={getProgress(item)}
+      isContinue={getProgress(item) > 0}
     />
   );
 

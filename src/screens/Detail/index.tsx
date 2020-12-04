@@ -548,7 +548,7 @@ const Detail = ({ theme }: Props) => {
 
   return (
     // paddingBottom={isShowMiniController ? 152 : 64}
-    <Container>
+    <Container style={{ width }}>
       <HomeIndicator autoHidden={false} />
       <TopWrapper>
         <Button onPress={() => back()}>

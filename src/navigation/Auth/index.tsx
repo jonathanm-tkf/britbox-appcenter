@@ -12,7 +12,7 @@ const AuthStack = createStackNavigator();
 
 const AuthStackScreen = () => {
   useEffect(() => {
-    // Orientation.lockToPortrait();
+    Orientation.lockToPortrait();
   }, []);
 
   return (

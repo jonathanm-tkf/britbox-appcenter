@@ -181,18 +181,20 @@ const Episode = ({
                   />
                 ) : null}
                 <Overlay>
-                  <ActionWrapper>
-                    <Action
-                      isContinue={isContinue}
-                      width={isTablet() ? 60 : 45}
-                      height={isTablet() ? 60 : 45}
-                      autoPlay
-                      loop={!isContinue}
-                    />
-                    <ActionText>
-                      {actionText !== '' ? actionText : isContinue ? t('continue') : t('playnow')}
-                    </ActionText>
-                  </ActionWrapper>
+                  {data && data.description !== '' && (
+                    <ActionWrapper>
+                      <Action
+                        isContinue={isContinue}
+                        width={isTablet() ? 60 : 45}
+                        height={isTablet() ? 60 : 45}
+                        autoPlay
+                        loop={!isContinue}
+                      />
+                      <ActionText>
+                        {actionText !== '' ? actionText : isContinue ? t('continue') : t('playnow')}
+                      </ActionText>
+                    </ActionWrapper>
+                  )}
                   <Gradient />
                   {progress > 0 && <ProgressBar {...{ progress, width: imageStyle.width }} />}
                 </Overlay>
