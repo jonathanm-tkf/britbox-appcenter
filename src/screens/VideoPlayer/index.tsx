@@ -1,9 +1,16 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react-native/no-inline-styles */
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
-import { StatusBar, BackHandler, NativeModules, NativeEventEmitter, Platform } from 'react-native';
+import {
+  StatusBar,
+  BackHandler,
+  NativeModules,
+  NativeEventEmitter,
+  Platform,
+  InteractionManager,
+} from 'react-native';
 import Orientation from 'react-native-orientation-locker';
-import { useNavigation, RouteProp, useRoute } from '@react-navigation/native';
+import { useNavigation, RouteProp, useRoute, useFocusEffect } from '@react-navigation/native';
 import { AppState } from '@store/modules/rootReducer';
 import { useDispatch, useSelector } from 'react-redux';
 import { WebView } from 'react-native-webview';
@@ -57,6 +64,7 @@ const VideoPlayer = () => {
   const { goBack } = useNavigation();
   const { params } = useRoute<VideoPlayerScreenRouteProp>();
   const [isLoading, setIsLoading] = useState(true);
+  const [orientation, setOrientation] = useState();
   const webview = useMemo(
     () => ({
       backgroundColor: 'transparent',
@@ -66,6 +74,10 @@ const VideoPlayer = () => {
     }),
     [width, height]
   );
+
+  const onOrientationDidChange = useCallback((getOrientation) => {
+    setOrientation(getOrientation);
+  }, []);
 
   useEffect(() => {
     if (Platform.OS === 'android') {
@@ -77,8 +89,12 @@ const VideoPlayer = () => {
         eventEmitterDevice.removeListener('DEVICE_SCREEN_OFF', deviceScreenOff);
       };
     }
+
+    Orientation.addOrientationListener(onOrientationDidChange);
+
     return () => {
       setIsLoading(true);
+      Orientation.removeOrientationListener(onOrientationDidChange);
     };
   }, []);
 
@@ -148,7 +164,6 @@ const VideoPlayer = () => {
       NetInfo.fetch().then((state) => {
         const { type } = state;
         setConnection(type || undefined);
-        Orientation.lockToLandscape();
       });
     }
 
@@ -159,6 +174,16 @@ const VideoPlayer = () => {
       BackHandler.removeEventListener('hardwareBackPress', handleBackButtonClick);
     };
   }, []);
+
+  useFocusEffect(
+    useCallback(() => {
+      const task = InteractionManager.runAfterInteractions(() => {
+        // Expensive task
+        Orientation.lockToLandscape();
+      });
+      return () => task.cancel();
+    }, [])
+  );
 
   const backArrow = useCallback(() => {
     Orientation.lockToPortrait();
@@ -216,9 +241,11 @@ const VideoPlayer = () => {
       <HomeIndicator autoHidden />
       {isLoading && (
         <LoadingContainer>
-          <BackButton onPress={() => backArrow()}>
-            <BackIcon width={22} height={22} />
-          </BackButton>
+          {(orientation === 'LANDSCAPE-LEFT' || orientation === 'LANDSCAPE-RIGHT') && (
+            <BackButton onPress={() => backArrow()}>
+              <BackIcon width={22} height={22} />
+            </BackButton>
+          )}
           <LoadingWrapper>
             <Action width={88} height={88} loading animated loop autoPlay />
           </LoadingWrapper>
