@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import ExploreMenu from '@components/ExploreMenu';
 import { Linking, Alert } from 'react-native';
 import { AppState } from '@store/modules/rootReducer';
@@ -6,7 +6,6 @@ import { useSelector } from 'react-redux';
 import { Header } from '@store/modules/core/types';
 import { navigateByPath } from '@src/navigation/rootNavigation';
 import { useTranslation } from 'react-i18next';
-import { Container, SafeAreaView } from './styles';
 
 const Explore = () => {
   const menu = useSelector((state: AppState) => state.core.menu);
@@ -44,13 +43,7 @@ const Explore = () => {
     return navigateByPath(newItem);
   };
 
-  return (
-    <SafeAreaView>
-      <Container>
-        <ExploreMenu data={menu?.navigation.header || []} onPress={(item) => goToScreen(item)} />
-      </Container>
-    </SafeAreaView>
-  );
+  return <ExploreMenu data={menu?.navigation.header || []} onPress={(item) => goToScreen(item)} />;
 };
 
-export default Explore;
+export default memo(Explore);

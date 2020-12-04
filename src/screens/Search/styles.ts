@@ -6,10 +6,7 @@ import { rgba } from 'polished';
 import { StarIcon } from '@assets/icons';
 import { normalize } from '@src/utils/normalize';
 import { isTablet } from 'react-native-device-info';
-
-export const Container = styled.SafeAreaView`
-  flex: 1;
-`;
+import { getStatusBarHeight } from 'react-native-iphone-x-helper';
 
 export const Scroll = styled.ScrollView.attrs({
   showsVerticalScrollIndicator: false,
@@ -27,7 +24,7 @@ export const Title = styled(TitleC)``;
 export const TitleWrapper = styled.View`
   margin-left: 40px;
   margin-right: 40px;
-  margin-top: 50px;
+  padding-top: ${getStatusBarHeight() + 50}px;
 `;
 
 export const SearchWrapper = styled.View`

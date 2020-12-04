@@ -3,9 +3,11 @@ import { ThemeState } from '@store/modules/theme/types';
 import { Button } from '@components/Button';
 import { rgba } from 'polished';
 import { normalize } from '@src/utils/normalize';
+import { getBottomSpace, getStatusBarHeight } from 'react-native-iphone-x-helper';
 
 export const Container = styled.View`
   width: 100%;
+  padding: ${getStatusBarHeight() + 10}px 20px ${getBottomSpace() + 10}px;
   flex: 1;
 `;
 

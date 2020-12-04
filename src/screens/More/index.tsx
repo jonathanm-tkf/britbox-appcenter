@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback, useMemo } from 'react';
 import { Platform, ScrollView, TouchableOpacity, Linking } from 'react-native';
 import { getStatusBarHeight } from 'react-native-iphone-x-helper';
 import { Title } from '@components/Typography';
@@ -10,7 +10,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import { logout } from '@store/modules/user/actions';
 import { getVersion, getBuildNumber, isTablet } from 'react-native-device-info';
 import { getTextInConfigJSON } from '@src/utils/object';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import { analyticsRef } from '@src/utils/analytics';
 import {
   ProfileView,
@@ -33,20 +32,32 @@ export default function More() {
   const user = useSelector((state: AppState) => state.user);
   const isShowMiniController = useSelector((state: AppState) => state.layout.isShowMiniController);
 
-  const wrapper = {
-    flexGrow: 1,
-    paddingTop: Platform.OS === 'ios' ? getStatusBarHeight() + 10 : 10,
-    paddingHorizontal: 30,
-    paddingBottom:
-      Platform.OS === 'ios' ? (isShowMiniController ? 160 : 110) : isShowMiniController ? 140 : 90,
-  };
+  const wrapper = useMemo(
+    () => ({
+      flexGrow: 1,
+      paddingTop: Platform.OS === 'ios' ? getStatusBarHeight() + 10 : 10,
+      paddingHorizontal: 30,
+      paddingBottom:
+        Platform.OS === 'ios'
+          ? isShowMiniController
+            ? 160
+            : 110
+          : isShowMiniController
+          ? 140
+          : 90,
+    }),
+    [isShowMiniController]
+  );
 
-  const CelularStyle = {
-    left: -10,
-    opacity: 0.6,
-  };
+  const CelularStyle = useMemo(
+    () => ({
+      left: -10,
+      opacity: 0.6,
+    }),
+    []
+  );
 
-  const logoutAction = () => {
+  const logoutAction = useCallback(() => {
     if (analyticsRef.current) {
       analyticsRef.current.onTrackEvent({
         type: 'event',
@@ -65,104 +76,102 @@ export default function More() {
       });
     }
     dispatch(logout());
-  };
+  }, [dispatch]);
 
   return (
-    <SafeAreaView>
-      <ScrollView bounces={false} contentContainerStyle={wrapper}>
-        <ProfileView>
-          <RowContainer>
-            <ProfileImageIconView />
-            <RowContent>
-              <Title fontSize={isTablet() ? 24 : 20}>{user?.profile?.firstName || ''}</Title>
-              <RowViewContainer>
-                <EditIconContainer
-                  onPress={() => {
-                    navigate('MyAccount');
-                  }}
-                >
-                  <SubTitleLink>{t('manageprofile')} </SubTitleLink>
-                  <EditIcon width={25} height={25} />
-                </EditIconContainer>
-              </RowViewContainer>
-            </RowContent>
-          </RowContainer>
-        </ProfileView>
-        <SeparatorLine />
-        <RowContainer
-          onPress={() => {
-            navigate('MyAccount', {
-              subscriptionSelected: false,
-            });
-          }}
-        >
-          <RowContent>
-            <ItemTitle>{t('myaccount.title')}</ItemTitle>
-          </RowContent>
-        </RowContainer>
-        <SeparatorLine />
-        <RowContainer
-          onPress={() => {
-            navigate('ParentalControls');
-          }}
-        >
-          <RowContent>
-            <ItemTitle>{t('parentalcontrols.title')}</ItemTitle>
-          </RowContent>
-        </RowContainer>
-        <SeparatorLine />
+    <ScrollView bounces={false} contentContainerStyle={wrapper}>
+      <ProfileView>
         <RowContainer>
+          <ProfileImageIconView />
           <RowContent>
-            <ItemTitle
-              onPress={() =>
-                Linking.openURL(getTextInConfigJSON(['urls', 'help'], 'https://help.britbox.com/'))
-              }
-            >
-              {t('help')}
-            </ItemTitle>
+            <Title fontSize={isTablet() ? 24 : 20}>{user?.profile?.firstName || ''}</Title>
+            <RowViewContainer>
+              <EditIconContainer
+                onPress={() => {
+                  navigate('MyAccount');
+                }}
+              >
+                <SubTitleLink>{t('manageprofile')} </SubTitleLink>
+                <EditIcon width={25} height={25} />
+              </EditIconContainer>
+            </RowViewContainer>
           </RowContent>
         </RowContainer>
-        <RowContainer
-          onPress={() => {
-            navigate('Terms');
-          }}
-        >
-          <RowContent>
-            <ItemTitle>{t('termscondition')}</ItemTitle>
-          </RowContent>
-        </RowContainer>
-        <RowContainer
-          onPress={() => {
-            navigate('PrivacyPolicy');
-          }}
-        >
-          <RowContent>
-            <ItemTitle>{t('privacypolicy')}</ItemTitle>
-          </RowContent>
-        </RowContainer>
-        <SeparatorLine />
-        <RowContainer>
-          <CelularIcon
-            height={isTablet() ? 70 : 60}
-            width={isTablet() ? 60 : 50}
-            style={CelularStyle}
-          />
-          <RowContent>
-            <ItemSubTitle>{t('appversion')}</ItemSubTitle>
-            <DescriptionText>
-              {t('version')}: {getVersion()} {t('build')} {getBuildNumber()} (code 34567), OS
-            </DescriptionText>
-          </RowContent>
-        </RowContainer>
-        <SeparatorLine />
-        <RowContainer>
-          <RowContent>
-            <TouchableOpacity activeOpacity={1} onPress={() => logoutAction()}>
-              <ItemTitle>{t('signout')}</ItemTitle>
-            </TouchableOpacity>
-          </RowContent>
-        </RowContainer>
-      </ScrollView>
-    </SafeAreaView>
+      </ProfileView>
+      <SeparatorLine />
+      <RowContainer
+        onPress={() => {
+          navigate('MyAccount', {
+            subscriptionSelected: false,
+          });
+        }}
+      >
+        <RowContent>
+          <ItemTitle>{t('myaccount.title')}</ItemTitle>
+        </RowContent>
+      </RowContainer>
+      <SeparatorLine />
+      <RowContainer
+        onPress={() => {
+          navigate('ParentalControls');
+        }}
+      >
+        <RowContent>
+          <ItemTitle>{t('parentalcontrols.title')}</ItemTitle>
+        </RowContent>
+      </RowContainer>
+      <SeparatorLine />
+      <RowContainer>
+        <RowContent>
+          <ItemTitle
+            onPress={() =>
+              Linking.openURL(getTextInConfigJSON(['urls', 'help'], 'https://help.britbox.com/'))
+            }
+          >
+            {t('help')}
+          </ItemTitle>
+        </RowContent>
+      </RowContainer>
+      <RowContainer
+        onPress={() => {
+          navigate('Terms');
+        }}
+      >
+        <RowContent>
+          <ItemTitle>{t('termscondition')}</ItemTitle>
+        </RowContent>
+      </RowContainer>
+      <RowContainer
+        onPress={() => {
+          navigate('PrivacyPolicy');
+        }}
+      >
+        <RowContent>
+          <ItemTitle>{t('privacypolicy')}</ItemTitle>
+        </RowContent>
+      </RowContainer>
+      <SeparatorLine />
+      <RowContainer>
+        <CelularIcon
+          height={isTablet() ? 70 : 60}
+          width={isTablet() ? 60 : 50}
+          style={CelularStyle}
+        />
+        <RowContent>
+          <ItemSubTitle>{t('appversion')}</ItemSubTitle>
+          <DescriptionText>
+            {t('version')}: {getVersion()} {t('build')} {getBuildNumber()} (code 34567), OS
+          </DescriptionText>
+        </RowContent>
+      </RowContainer>
+      <SeparatorLine />
+      <RowContainer>
+        <RowContent>
+          <TouchableOpacity activeOpacity={0.5} onPress={() => logoutAction()}>
+            <ItemTitle>{t('signout')}</ItemTitle>
+          </TouchableOpacity>
+        </RowContent>
+      </RowContainer>
+    </ScrollView>
   );
 }
