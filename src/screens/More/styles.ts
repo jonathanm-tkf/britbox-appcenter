@@ -31,7 +31,6 @@ export const RowViewContainer = styled.View`
 `;
 
 export const EditIconContainer = styled.TouchableOpacity`
-  padding-left: 10px;
   padding-right: 10px;
   flex-direction: row;
 `;

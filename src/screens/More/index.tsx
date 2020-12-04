@@ -78,6 +78,14 @@ export default function More() {
     dispatch(logout());
   }, [dispatch]);
 
+  const formatURL = useCallback((url: string) => {
+    if (url.includes('[urls:')) {
+      const path = url.replace('[', '').replace(']', '').split(':');
+      if (path.length > 0) return getTextInConfigJSON(path, '');
+    }
+    return url;
+  }, []);
+
   return (
     <ScrollView bounces={false} contentContainerStyle={wrapper}>
       <ProfileView>
@@ -121,35 +129,28 @@ export default function More() {
         </RowContent>
       </RowContainer>
       <SeparatorLine />
-      <RowContainer>
-        <RowContent>
-          <ItemTitle
-            onPress={() =>
-              Linking.openURL(getTextInConfigJSON(['urls', 'help'], 'https://help.britbox.com/'))
-            }
-          >
-            {t('help')}
-          </ItemTitle>
-        </RowContent>
-      </RowContainer>
-      <RowContainer
-        onPress={() => {
-          navigate('Terms');
-        }}
-      >
-        <RowContent>
-          <ItemTitle>{t('termscondition')}</ItemTitle>
-        </RowContent>
-      </RowContainer>
-      <RowContainer
-        onPress={() => {
-          navigate('PrivacyPolicy');
-        }}
-      >
-        <RowContent>
-          <ItemTitle>{t('privacypolicy')}</ItemTitle>
-        </RowContent>
-      </RowContainer>
+      {(getTextInConfigJSON(['more-links'], undefined) ?? []).map((item: any, index: number) => {
+        return (
+          <RowContainer key={index.toString()}>
+            <RowContent>
+              <ItemTitle
+                onPress={() => {
+                  const path = formatURL(item.path || '');
+                  if (item.type === 'weblink') {
+                    Linking.openURL(path);
+                  } else {
+                    navigate('MoreLinks', {
+                      url: path,
+                    });
+                  }
+                }}
+              >
+                {item.text}
+              </ItemTitle>
+            </RowContent>
+          </RowContainer>
+        );
+      })}
       <SeparatorLine />
       <RowContainer>
         <CelularIcon

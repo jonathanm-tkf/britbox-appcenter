@@ -16,8 +16,7 @@ import ModalMoreInformation from '@screens/ModalMoreInformation';
 import Orientation from 'react-native-orientation-locker';
 import ModalGenre from '@screens/ModalGenre';
 import ModalFilter from '@screens/ModalFilter';
-import ModalTerms from '@screens/Terms';
-import ModalPrivacyPolicy from '@screens/PrivacyPolicy';
+import MoreLinks from '@screens/MoreLinks';
 import ErrorLanding from '@components/ErrorLanding';
 import VersionUpgrade from '@components/VersionUpgrade';
 import { getTextInConfigJSON } from '@src/utils/object';
@@ -233,12 +232,7 @@ const RootStackScreen = () => {
           component={ModalFilter}
           options={ModalOptions(theme)}
         />
-        <RootStack.Screen name="Terms" component={ModalTerms} options={ModalOptions(theme)} />
-        <RootStack.Screen
-          name="PrivacyPolicy"
-          component={ModalPrivacyPolicy}
-          options={ModalOptions(theme)}
-        />
+        <RootStack.Screen name="MoreLinks" component={MoreLinks} options={ModalOptions(theme)} />
       </RootStack.Navigator>
     </>
   );
