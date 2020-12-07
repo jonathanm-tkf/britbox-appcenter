@@ -46,7 +46,7 @@ const ModalSeasons = () => {
     navigate('Detail', { seasonModal: { ...item }, seriesData });
   };
 
-  const renderItem = ({ item }: { item: MassiveSDKModelSeasonsItem }) => {
+  const renderItemComponent = ({ item }: { item: MassiveSDKModelSeasonsItem }) => {
     return (
       <SeasonWrapper>
         <TouchableOpacity onPress={() => goToDetail(item)}>
@@ -69,7 +69,7 @@ const ModalSeasons = () => {
       {seasons && (
         <FlatList
           data={seasons?.items || []}
-          renderItem={renderItem}
+          renderItem={({ item }: any) => renderItemComponent({ item })}
           initialNumToRender={seasons?.items?.length}
           keyExtractor={(item: any) => item.id}
         />
