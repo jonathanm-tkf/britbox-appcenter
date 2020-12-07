@@ -16,6 +16,7 @@ import { loadDetailPage, loadEpisodesBySeason } from '@src/services/detail';
 import { getImage } from '@src/utils/images';
 import { fill, pickBy } from 'lodash';
 import Bookmark from '@components/Bookmark';
+import ErrorNotFound from '@components/ErrorNotFound';
 import { getVideoIdAndClassification } from '@src/services/cast';
 import { AppState } from '@store/modules/rootReducer';
 import { useSelector, useDispatch } from 'react-redux';
@@ -148,6 +149,7 @@ const Detail = ({ theme }: Props) => {
     (state: AppState) => state.layout
   );
   const { t } = useTranslation(['myaccount', 'detail', 'layout']);
+  const [error, setError] = useState(false);
   const [data, setData] = useState<LoadDetailPageResponse | undefined>(undefined);
   const [valuePin, setValuePin] = useState('');
   const [errorValuePin, setErrorValuePin] = useState(false);
@@ -206,11 +208,15 @@ const Detail = ({ theme }: Props) => {
       response: LoadDetailPageResponse;
       watched: Record<string, MassiveSDKModelWatched>;
     } = await loadDetailPage(path, customId);
-    if (Platform.OS === 'ios' && /show|movie|season/.test(response?.information?.type || '')) {
-      setUserActivity(response?.detail?.customId || '');
+    if (response) {
+      if (Platform.OS === 'ios' && /show|movie|season/.test(response?.information?.type || '')) {
+        setUserActivity(response?.detail?.customId || '');
+      }
+      dispatch(detailWatchedSuccess(watched));
+      setData(response);
+    } else {
+      setError(true);
     }
-    dispatch(detailWatchedSuccess(watched));
-    setData(response);
   };
 
   const setUserActivity = async (customId: string) => {
@@ -661,6 +667,7 @@ const Detail = ({ theme }: Props) => {
           </WrapperPin>
         </BottomSheetWrapper>
       </RBSheet>
+      {error && <ErrorNotFound onPress={() => back()} />}
     </Container>
   );
 };

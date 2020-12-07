@@ -27,7 +27,7 @@ const EffectModal = (progress: Animated.AnimatedInterpolation) => ({
   },
 });
 
-const ModalOptions = (theme: ThemeProps) => ({
+export const ModalOptions = (theme: ThemeProps) => ({
   gestureEnabled: false,
   animationEnabled: true,
   cardStyle: { backgroundColor: rgba(theme.PRIMARY_COLOR, 0.15) },
