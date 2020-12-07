@@ -28,7 +28,7 @@ import { setDeepLinkUrl } from '@store/modules/home/actions';
 import { getItemContent } from '@store/modules/home/saga';
 import Loading from '@screens/Loading';
 import { AuthStackScreen } from '../Auth';
-import { navigateByPath, navigationGoBack, navigationRef } from '../rootNavigation';
+import { push, navigateByPath, navigationGoBack, navigationRef } from '../rootNavigation';
 import { AppTabsScreen } from '../Tabs';
 
 const STORYBOOK_START = false && __DEV__;
@@ -135,6 +135,8 @@ const RootStackScreen = () => {
                 const { externalResponse } = response;
                 navigateByPath(externalResponse, routeName[0] === 'watch');
                 setDeepLinkUrl(null);
+              } else {
+                push('Detail', { item: {}, autoPlay: false });
               }
             }
           }
@@ -172,12 +174,14 @@ const RootStackScreen = () => {
   }, [isLogged]);
 
   useEffect(() => {
+    if (isLoading) return;
+
     Linking.getInitialURL().then((url: string | null) => {
       if (url) {
         deepLink({ url });
       }
     });
-  }, []);
+  }, [isLoading]);
 
   useEffect(() => {
     if (isLogged && deepLinkUrl) {
