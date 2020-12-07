@@ -33,6 +33,7 @@ const More = ({ onLayout, items }: Props) => {
       onLayout={onLayout}
       data={items}
       numColumns={isTablet() ? 4 : 3}
+      initialNumToRender={items.length}
       style={listStyles}
       renderItem={({ item }) => (
         <NewCard

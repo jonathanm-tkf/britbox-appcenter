@@ -117,6 +117,7 @@ const Tabs = ({ data, onScrollTo, onLayout, autoPlay, onPlay }: Props) => {
             onScrollTo={(y) => onScrollTo(y)}
             onPlay={(item) => onPlay(item)}
             onLayout={(event) => {
+              // console.tron.log({ event });
               if (!ready.episodes) {
                 setFirstHeight(event.nativeEvent.layout.height);
                 ready.episodes = true;

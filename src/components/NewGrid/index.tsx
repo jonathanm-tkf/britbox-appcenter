@@ -7,10 +7,19 @@ type Props = {
   numColumns?: number | undefined;
   renderItem: any;
   onLayout?: (event: LayoutChangeEvent) => void;
+  initialNumToRender?: number;
   style?: any;
 };
 
-const NewGrid = ({ data, renderItem, numColumns, onLayout, style, ...rest }: Props) => {
+const NewGrid = ({
+  data,
+  renderItem,
+  numColumns,
+  onLayout,
+  style,
+  initialNumToRender = 15,
+  ...rest
+}: Props) => {
   return (
     <Container
       onLayout={(e) => {
@@ -23,6 +32,7 @@ const NewGrid = ({ data, renderItem, numColumns, onLayout, style, ...rest }: Pro
         listKey={Math.random().toString()}
         keyExtractor={(_, index) => index.toString()}
         renderItem={({ item }) => (renderItem ? renderItem({ item }) : null)}
+        initialNumToRender={initialNumToRender}
       />
     </Container>
   );

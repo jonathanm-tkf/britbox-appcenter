@@ -4,10 +4,12 @@ import { Button } from '@components/Button';
 import { rgba } from 'polished';
 import { normalize } from '@src/utils/normalize';
 import { getBottomSpace, getStatusBarHeight } from 'react-native-iphone-x-helper';
+import { Platform } from 'react-native';
 
 export const Container = styled.View`
   width: 100%;
-  padding: ${getStatusBarHeight() + 10}px 20px ${getBottomSpace() + 10}px;
+  padding: ${Platform.OS === 'ios' ? getStatusBarHeight() + 10 : 0}px 20px
+    ${Platform.OS === 'ios' ? getBottomSpace() + 10 : 0}px;
   flex: 1;
 `;
 

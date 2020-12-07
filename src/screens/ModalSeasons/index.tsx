@@ -10,7 +10,6 @@ import {
 import { TouchableOpacity } from 'react-native';
 import { LoadDetailPageResponse } from '@store/modules/detail/types';
 import {
-  Container,
   CloseButton,
   CloseButtonWrapper,
   FlatList,
@@ -66,11 +65,12 @@ const ModalSeasons = () => {
   };
 
   return (
-    <Container>
+    <>
       {seasons && (
         <FlatList
           data={seasons?.items || []}
           renderItem={renderItem}
+          initialNumToRender={seasons?.items?.length}
           keyExtractor={(item: any) => item.id}
         />
       )}
@@ -79,7 +79,7 @@ const ModalSeasons = () => {
           <CloseIcon width={50} height={50} />
         </CloseButton>
       </CloseButtonWrapper>
-    </Container>
+    </>
   );
 };
 

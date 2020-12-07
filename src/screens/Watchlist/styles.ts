@@ -1,5 +1,4 @@
 import styled from 'styled-components/native';
-import { getBottomSpace } from 'react-native-iphone-x-helper';
 import { ThemeState } from '@store/modules/theme/types';
 import { normalize } from '@src/utils/normalize';
 
@@ -18,7 +17,6 @@ export const Background = styled.View`
 export const Container = styled.View`
   flex: 1;
   background-color: ${(props: ThemeState) => props.theme.PRIMARY_COLOR};
-  padding-bottom: ${getBottomSpace() + 64}px;
   padding: 20px;
 `;
 
@@ -32,9 +30,7 @@ export const Headline = styled(HeadlineC)`
   margin-bottom: 30px;
 `;
 
-export const GridWrapper = styled.View`
-  margin-bottom: 100px;
-`;
+export const GridWrapper = styled.View``;
 
 export const RemoveButtonWrapper = styled.View`
   align-items: center;

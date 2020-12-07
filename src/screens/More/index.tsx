@@ -129,29 +129,35 @@ export default function More() {
         </RowContent>
       </RowContainer>
       <SeparatorLine />
-      {(getTextInConfigJSON(['more-links'], undefined) ?? []).map((item: any, index: number) => {
-        return (
-          <RowContainer key={index.toString()}>
-            <RowContent>
-              <ItemTitle
-                onPress={() => {
-                  const path = formatURL(item.path || '');
-                  if (item.type === 'weblink') {
-                    Linking.openURL(path);
-                  } else {
-                    navigate('MoreLinks', {
-                      url: path,
-                    });
-                  }
-                }}
-              >
-                {item.text}
-              </ItemTitle>
-            </RowContent>
-          </RowContainer>
-        );
-      })}
-      <SeparatorLine />
+      {((getTextInConfigJSON(['more-links'], undefined) ?? []) as Array<any>).length > 0 && (
+        <>
+          {(getTextInConfigJSON(['more-links'], undefined) ?? []).map(
+            (item: any, index: number) => {
+              return (
+                <RowContainer key={index.toString()}>
+                  <RowContent>
+                    <ItemTitle
+                      onPress={() => {
+                        const path = formatURL(item.path || '');
+                        if (item.type === 'weblink') {
+                          Linking.openURL(path);
+                        } else {
+                          navigate('MoreLinks', {
+                            url: path,
+                          });
+                        }
+                      }}
+                    >
+                      {item.text}
+                    </ItemTitle>
+                  </RowContent>
+                </RowContainer>
+              );
+            }
+          )}
+          <SeparatorLine />
+        </>
+      )}
       <RowContainer>
         <CelularIcon
           height={isTablet() ? 70 : 60}

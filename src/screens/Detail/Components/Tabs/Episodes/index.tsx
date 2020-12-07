@@ -11,7 +11,6 @@ import { pickBy } from 'lodash';
 import { LoadDetailPageResponse, MoreInformation, Show } from '@store/modules/detail/types';
 import { isTablet } from 'react-native-device-info';
 import { LayoutChangeEvent } from 'react-native';
-import NewGrid from '@components/NewGrid';
 import Episode from '@components/Episode';
 import { Container, ContainerFilter, SeasonButton, SeasonText, InformationButton } from './styles';
 
@@ -103,31 +102,31 @@ const Episodes = ({
     []
   );
 
-  const renderItem = (item: MassiveSDKModelEpisodesItem) => (
-    <Episode
-      width={dimensions.width}
-      height={dimensions.height}
-      url={getImage(item?.images?.wallpaper || 'loading', 'wallpaper')}
-      onPress={() => onPlay(item)}
-      data={{
-        title:
-          item?.episodeNumber && item?.episodeName
-            ? `${item.episodeNumber}. ${item?.episodeName}`
-            : '',
-        description: item?.duration ? `${getDuration(item?.duration || 0)} min` : '',
-        summary: item?.shortDescription || '',
-        category: getCategories(item || {}),
-      }}
-      progress={getProgress(item)}
-      isContinue={getProgress(item) > 0}
-      onLayout={(event) => {
-        const { layout } = event.nativeEvent;
-        if (show && show.episodeNumber === item?.episodeNumber && autoPlay) {
-          onScrollTo(layout.y);
-        }
-      }}
-    />
-  );
+  // const renderItem = (item: MassiveSDKModelEpisodesItem) => (
+  //   <Episode
+  //     width={dimensions.width}
+  //     height={dimensions.height}
+  //     url={getImage(item?.images?.wallpaper || 'loading', 'wallpaper')}
+  //     onPress={() => onPlay(item)}
+  //     data={{
+  //       title:
+  //         item?.episodeNumber && item?.episodeName
+  //           ? `${item.episodeNumber}. ${item?.episodeName}`
+  //           : '',
+  //       description: item?.duration ? `${getDuration(item?.duration || 0)} min` : '',
+  //       summary: item?.shortDescription || '',
+  //       category: getCategories(item || {}),
+  //     }}
+  //     progress={getProgress(item)}
+  //     isContinue={getProgress(item) > 0}
+  //     onLayout={(event) => {
+  //       const { layout } = event.nativeEvent;
+  //       if (show && show.episodeNumber === item?.episodeNumber && autoPlay) {
+  //         onScrollTo(layout.y);
+  //       }
+  //     }}
+  //   />
+  // );
 
   useEffect(() => {
     if (show?.episodeNumber === undefined && autoPlay) {
@@ -157,7 +156,58 @@ const Episodes = ({
           </InformationButton>
         </ContainerFilter>
       )}
-      <NewGrid data={data} numColumns={1} renderItem={({ item }) => renderItem(item)} />
+      {/* <NewGrid data={data} numColumns={1} renderItem={({ item }) => renderItem(item)} /> */}
+      {data.map((item, index) => (
+        <Episode
+          key={index.toString()}
+          width={dimensions.width}
+          height={dimensions.height}
+          url={getImage(item?.images?.wallpaper || 'loading', 'wallpaper')}
+          onPress={() => onPlay(item)}
+          data={{
+            title:
+              item?.episodeNumber && item?.episodeName
+                ? `${item.episodeNumber}. ${item?.episodeName}`
+                : '',
+            description: item?.duration ? `${getDuration(item?.duration || 0)} min` : '',
+            summary: item?.shortDescription || '',
+            category: getCategories(item || {}),
+          }}
+          progress={getProgress(item)}
+          isContinue={getProgress(item) > 0}
+          onLayout={(event) => {
+            const { layout } = event.nativeEvent;
+            if (show && show.episodeNumber === item?.episodeNumber && autoPlay) {
+              onScrollTo(layout.y);
+            }
+          }}
+        />
+      ))}
+      {/* {data.map((item, index) => (
+        <Card
+          key={index.toString()}
+          width={isTablet() ? 250 : 157}
+          height={isTablet() ? 140 : 107}
+          url={getImage(item?.images?.wallpaper || 'loading', 'wallpaper')}
+          isDetail
+          onLayout={(event) => {
+            const { layout } = event.nativeEvent;
+            if ((show && show.episodeNumber === item?.episodeNumber) || autoPlay) {
+              onScrollTo(layout.y);
+            }
+          }}
+          data={{
+            title: `${item.episodeNumber}. ${item?.episodeName}` || '',
+            description: `${getDuration(item?.duration || 0)} min`,
+            summary: item?.shortDescription || '',
+            category: getCategories(item || {}),
+          }}
+          onPress={() => onPlay(item)}
+          progress={getProgress(item)}
+          isContinue={getProgress(item) > 0}
+          cardElement={item}
+        />
+      ))} */}
     </Container>
   );
 };

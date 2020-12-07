@@ -5,11 +5,6 @@ import LinearGradient from 'react-native-linear-gradient';
 import { rgba } from 'polished';
 import { normalize } from '@src/utils/normalize';
 
-export const Container = styled.SafeAreaView`
-  flex: 1;
-  background-color: ${(props: ThemeState) => props.theme.PRIMARY_COLOR};
-`;
-
 export const CloseButtonWrapper = styled.View`
   position: absolute;
   width: 100%;
@@ -32,7 +27,9 @@ export const FlatList = styled(RNFlatList).attrs({
     paddingRight: 20,
     paddingBottom: 120,
   },
-})``;
+})`
+  background-color: ${(props: ThemeState) => props.theme.PRIMARY_COLOR};
+`;
 
 type SeasonItemTextProps = {
   active: boolean;

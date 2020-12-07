@@ -24,7 +24,7 @@ export const Title = styled(TitleC)``;
 export const TitleWrapper = styled.View`
   margin-left: 40px;
   margin-right: 40px;
-  padding-top: ${getStatusBarHeight() + 50}px;
+  padding-top: ${(Platform.OS === 'ios' ? getStatusBarHeight() : 0) + 50}px;
 `;
 
 export const SearchWrapper = styled.View`

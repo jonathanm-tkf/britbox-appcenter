@@ -43,7 +43,7 @@ const Header = ({ data }: Props) => {
           }}
         >
           {(() => {
-            const image = getImage(data?.detail.images.wallpaper, 'wallpaper', 30, 300, 300);
+            const image = getImage(data?.detail.images.wallpaper, 'wallpaper', 10, 300, 300);
             return image !== 'no-image' ? (
               <ImageTop
                 source={{ uri: image }}

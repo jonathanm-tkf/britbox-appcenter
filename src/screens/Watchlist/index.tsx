@@ -240,7 +240,7 @@ const Watchlist = () => {
               marginBottom: 20,
               marginHorizontal: isTablet() ? 3 : 5,
             }}
-            containerStyle={gridContainer}
+            listStyles={gridContainer}
             cardContentAfter={(item) => removeIcon(item)}
           />
         </GridWrapper>
