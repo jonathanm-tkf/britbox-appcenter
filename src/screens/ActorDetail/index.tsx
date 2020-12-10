@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import Header from '@components/Header';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
@@ -104,6 +104,14 @@ const Item = () => {
     setLoading(false);
   };
 
+  const getInnerItemTitle = useCallback((items, plural, singular) => {
+    if ((items || []).length === 1) {
+      return singular;
+    }
+
+    return plural;
+  }, []);
+
   useEffect(() => {
     getDataDetail(item?.path || '', 'true');
   }, [item]);
@@ -134,28 +142,20 @@ const Item = () => {
                 return null;
               }
 
-              let title = '';
-
               switch (innerItem.title) {
                 case 'Movies':
-                  if (loading) {
-                    title = 'loading';
-                  } else if (innerItem?.list?.items) {
-                    if (innerItem.list.items.length > 1) {
-                      title = `${innerItem?.list?.items?.length} ${t('moviesfound')}: "${
-                        item?.name
-                      }"`;
-                    } else if (innerItem.list.items.length === 1) {
-                      title = `${innerItem?.list?.items?.length} ${t('onemoviefound')}: "${
-                        item?.name
-                      }"`;
-                    }
-                  }
-
                   return (
                     <GridContainer key={index.toString()}>
                       <Grid
-                        title={title}
+                        title={
+                          loading
+                            ? 'loading'
+                            : `${(innerItem?.list?.items || []).length} ${getInnerItemTitle(
+                                innerItem?.list?.items,
+                                t('moviesfound'),
+                                t('onemoviefound')
+                              )}`
+                        }
                         items={innerItem?.list?.items || []}
                         imageType="poster"
                         numColumns={3}
@@ -170,24 +170,18 @@ const Item = () => {
                     </GridContainer>
                   );
                 case 'Shows':
-                  if (loading) {
-                    title = 'loading';
-                  } else if (innerItem?.list?.items) {
-                    if (innerItem.list.items.length > 1) {
-                      title = `${innerItem?.list?.items?.length} ${t('showsfound')}: "${
-                        item?.name
-                      }"`;
-                    } else if (innerItem.list.items.length === 1) {
-                      title = `${innerItem?.list?.items?.length} ${t('oneshowfound')}: "${
-                        item?.name
-                      }"`;
-                    }
-                  }
-
                   return (
                     <GridContainer key={index.toString()}>
                       <Grid
-                        title={title}
+                        title={
+                          loading
+                            ? 'loading'
+                            : `${(innerItem?.list?.items || []).length} ${getInnerItemTitle(
+                                innerItem?.list?.items,
+                                t('showsfound'),
+                                t('oneshowfound')
+                              )}`
+                        }
                         items={innerItem?.list?.items || []}
                         numColumns={3}
                         element={{
