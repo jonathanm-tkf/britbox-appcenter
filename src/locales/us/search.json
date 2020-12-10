@@ -13,5 +13,7 @@
   "cast": "Cast related to your search:",
   "placeholder": "Title or cast",
   "showsfound": "Shows found for",
-  "moviesfound": "Movies found for"
+  "oneshowfound": "Show found for",
+  "moviesfound": "Movies found for",
+  "onemoviefound": "Movie found for"
 }

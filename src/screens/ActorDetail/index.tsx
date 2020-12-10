@@ -133,18 +133,28 @@ const Item = () => {
                 return null;
               }
 
+              let title = '';
+
               switch (innerItem.title) {
                 case 'Movies':
+                  if (loading) {
+                    title = 'loading';
+                  } else if (innerItem?.list?.items) {
+                    if (innerItem.list.items.length > 1) {
+                      title = `${innerItem?.list?.items?.length} ${t('moviesfound')}: "${
+                        item?.name
+                      }"`;
+                    } else if (innerItem.list.items.length === 1) {
+                      title = `${innerItem?.list?.items?.length} ${t('onemoviefound')}: "${
+                        item?.name
+                      }"`;
+                    }
+                  }
+
                   return (
                     <GridContainer key={index.toString()}>
                       <Grid
-                        title={
-                          loading
-                            ? 'loading'
-                            : `${innerItem?.list?.items?.length} ${t('moviesfound')}: "${
-                                item?.name
-                              }"` || ''
-                        }
+                        title={title}
                         items={innerItem?.list?.items || []}
                         imageType="poster"
                         numColumns={3}
@@ -159,16 +169,24 @@ const Item = () => {
                     </GridContainer>
                   );
                 case 'Shows':
+                  if (loading) {
+                    title = 'loading';
+                  } else if (innerItem?.list?.items) {
+                    if (innerItem.list.items.length > 1) {
+                      title = `${innerItem?.list?.items?.length} ${t('showsfound')}: "${
+                        item?.name
+                      }"`;
+                    } else if (innerItem.list.items.length === 1) {
+                      title = `${innerItem?.list?.items?.length} ${t('oneshowfound')}: "${
+                        item?.name
+                      }"`;
+                    }
+                  }
+
                   return (
                     <GridContainer key={index.toString()}>
                       <Grid
-                        title={
-                          loading
-                            ? 'loading'
-                            : `${innerItem?.list?.items?.length} ${t('showsfound')}: "${
-                                item?.name
-                              }"` || ''
-                        }
+                        title={title}
                         items={innerItem?.list?.items || []}
                         numColumns={3}
                         element={{
