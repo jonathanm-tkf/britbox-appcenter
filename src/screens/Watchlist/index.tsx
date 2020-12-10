@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 
 import { getStatusBarHeight } from 'react-native-iphone-x-helper';
 import { Platform, View, TouchableOpacity } from 'react-native';
@@ -170,6 +170,14 @@ const Watchlist = () => {
     hideSheet();
   };
 
+  const getGridTitle = useCallback(() => {
+    if (filter?.value === 'movie') {
+      return `${list.length} ${list.length === 1 ? t('movie') : t('movies')}`;
+    }
+
+    return `${list.length} ${list.length === 1 ? t('program') : t('programmes')}`;
+  }, [list, filter]);
+
   const renderContent = () => {
     return (
       <>
@@ -234,7 +242,7 @@ const Watchlist = () => {
           </FilterButton>
           <Grid
             items={list}
-            title={`${list.length} ${list.length === 1 ? t('program') : t('programmes')}`}
+            title={getGridTitle()}
             numColumns={isTablet() ? 4 : 3}
             element={{
               width: vw(isTablet() ? 25 : 33.333) - wp(isTablet() ? 10 : 20),
