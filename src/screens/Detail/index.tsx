@@ -317,7 +317,7 @@ const Detail = ({ theme }: Props) => {
 
   useEffect(() => {
     if (isFocus) {
-      Orientation.lockToPortrait();
+      // Orientation.lockToPortrait();
       StatusBar.setHidden(false);
       immersiveModeOff();
     }
