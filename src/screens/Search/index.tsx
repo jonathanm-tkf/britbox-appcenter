@@ -38,6 +38,7 @@ import {
   ResultCastWrapper,
   CastFirstNameWrapper,
   CastStarIcon,
+  Container,
 } from './styles';
 
 const containerStyles = {
@@ -178,160 +179,162 @@ const Search = ({ theme }: Props) => {
   };
 
   return (
-    <Scroll>
-      <TitleWrapper>
-        <Title fontSize={isTablet() ? 32 : 25} lineHeight={isTablet() ? 42 : 38}>
-          {t('title')}
-        </Title>
-      </TitleWrapper>
-      <SearchWrapper>
-        <SearchIconWrapper>
-          <SearchIcon width={isTablet() ? 30 : 25} height={isTablet() ? 30 : 25} />
-        </SearchIconWrapper>
-        <SearchInput
-          placeholder={t('placeholder')}
-          returnKeyType="done"
-          value={searchInput}
-          onChangeText={(text) => setSearchInput(text)}
-          onSubmitEditing={() => {
-            if (searchInput.length >= 3) {
-              setIsDone(true);
-              doSearch(true);
-            }
-          }}
-        />
-        {searchInput !== '' && (
-          <SearchClearButton onPress={() => setSearchInput('')}>
-            {isLoading ? (
-              <ActivityIndicator size="small" color={theme.PRIMARY_FOREGROUND_COLOR} />
-            ) : (
-              <SearchDeleteIcon width={25} height={25} />
-            )}
-          </SearchClearButton>
-        )}
-      </SearchWrapper>
-      {(searchingItemData || []).length > 0 || (searchingPeopleData || []).length > 0 ? (
-        <>
-          {isDone ? (
-            <ResultGrid>
-              <ResultWrapper>
-                <ResultText>
-                  {t('findResults')}
-                  <ResultBold>&#34;{searchInput}&#34;</ResultBold>
-                </ResultText>
-              </ResultWrapper>
-              <Grid
-                items={searchingItemData || []}
-                title=""
-                numColumns={isTablet() ? 4 : 3}
-                element={{
-                  width: percentageWidth(isTablet() ? 25 : 33.333) - (isTablet() ? 10 : 20),
-                  height: percentageWidth((isTablet() ? 25 : 33.333) * 1.25),
-                  marginBottom: 20,
-                  marginHorizontal: isTablet() ? 3 : 5,
-                }}
-                containerStyles={containerStyles}
-                listStyles={listStyles}
-              />
-              {(searchingPeopleData || [])?.length > 0 && (
-                <ResultCastWrapper>
-                  <ResultText>{t('castFindResults')}</ResultText>
-                </ResultCastWrapper>
+    <Container>
+      <Scroll>
+        <TitleWrapper>
+          <Title fontSize={isTablet() ? 32 : 25} lineHeight={isTablet() ? 42 : 38}>
+            {t('title')}
+          </Title>
+        </TitleWrapper>
+        <SearchWrapper>
+          <SearchIconWrapper>
+            <SearchIcon width={isTablet() ? 30 : 25} height={isTablet() ? 30 : 25} />
+          </SearchIconWrapper>
+          <SearchInput
+            placeholder={t('placeholder')}
+            returnKeyType="done"
+            value={searchInput}
+            onChangeText={(text) => setSearchInput(text)}
+            onSubmitEditing={() => {
+              if (searchInput.length >= 3) {
+                setIsDone(true);
+                doSearch(true);
+              }
+            }}
+          />
+          {searchInput !== '' && (
+            <SearchClearButton onPress={() => setSearchInput('')}>
+              {isLoading ? (
+                <ActivityIndicator size="small" color={theme.PRIMARY_FOREGROUND_COLOR} />
+              ) : (
+                <SearchDeleteIcon width={25} height={25} />
               )}
-              <FlatList
-                data={searchingPeopleData || []}
-                numColumns={2}
-                contentContainerStyle={searchResultCastContainer}
-                renderItem={({ item }) => {
-                  const name: string[] | undefined = item?.name?.split(' ');
-                  const firstName = name && name[0];
-                  const lastName = name && name[1];
-                  return (
-                    <TouchableOpacity
-                      style={searchResultPersonContainer}
-                      onPress={() => navigateByPath(item)}
-                      activeOpacity={1}
-                    >
-                      <CastFirstNameWrapper>
-                        <CastStarIcon />
+            </SearchClearButton>
+          )}
+        </SearchWrapper>
+        {(searchingItemData || []).length > 0 || (searchingPeopleData || []).length > 0 ? (
+          <>
+            {isDone ? (
+              <ResultGrid>
+                <ResultWrapper>
+                  <ResultText>
+                    {t('findResults')}
+                    <ResultBold>&#34;{searchInput}&#34;</ResultBold>
+                  </ResultText>
+                </ResultWrapper>
+                <Grid
+                  items={searchingItemData || []}
+                  title=""
+                  numColumns={isTablet() ? 4 : 3}
+                  element={{
+                    width: percentageWidth(isTablet() ? 25 : 33.333) - (isTablet() ? 10 : 20),
+                    height: percentageWidth((isTablet() ? 25 : 33.333) * 1.25),
+                    marginBottom: 20,
+                    marginHorizontal: isTablet() ? 3 : 5,
+                  }}
+                  containerStyles={containerStyles}
+                  listStyles={listStyles}
+                />
+                {(searchingPeopleData || [])?.length > 0 && (
+                  <ResultCastWrapper>
+                    <ResultText>{t('castFindResults')}</ResultText>
+                  </ResultCastWrapper>
+                )}
+                <FlatList
+                  data={searchingPeopleData || []}
+                  numColumns={2}
+                  contentContainerStyle={searchResultCastContainer}
+                  renderItem={({ item }) => {
+                    const name: string[] | undefined = item?.name?.split(' ');
+                    const firstName = name && name[0];
+                    const lastName = name && name[1];
+                    return (
+                      <TouchableOpacity
+                        style={searchResultPersonContainer}
+                        onPress={() => navigateByPath(item)}
+                        activeOpacity={1}
+                      >
+                        <CastFirstNameWrapper>
+                          <CastStarIcon />
+                          <Highlighter
+                            highlightStyle={searchResultHighLightTextStyle}
+                            searchWords={[searchInput]}
+                            textToHighlight={firstName}
+                            style={searchResultFirstPersonTextStyle}
+                          />
+                        </CastFirstNameWrapper>
                         <Highlighter
                           highlightStyle={searchResultHighLightTextStyle}
                           searchWords={[searchInput]}
-                          textToHighlight={firstName}
-                          style={searchResultFirstPersonTextStyle}
+                          textToHighlight={lastName}
+                          style={searchResultPersonTextStyle}
                         />
-                      </CastFirstNameWrapper>
-                      <Highlighter
-                        highlightStyle={searchResultHighLightTextStyle}
-                        searchWords={[searchInput]}
-                        textToHighlight={lastName}
-                        style={searchResultPersonTextStyle}
-                      />
-                    </TouchableOpacity>
-                  );
-                }}
+                      </TouchableOpacity>
+                    );
+                  }}
+                  keyExtractor={(item, index) => index.toString()}
+                />
+              </ResultGrid>
+            ) : (
+              <FlatList
+                data={[...(searchingItemData || []), ...(searchingPeopleData || [])]}
+                contentContainerStyle={searchResultContainer}
+                renderItem={({ item }) => (
+                  <TouchableOpacity onPress={() => navigateByPath(item)} activeOpacity={1}>
+                    <Highlighter
+                      highlightStyle={searchResultHighLightTextStyle}
+                      searchWords={[searchInput]}
+                      textToHighlight={item?.title || item?.name}
+                      style={searchResultTextStyle}
+                    />
+                  </TouchableOpacity>
+                )}
                 keyExtractor={(item, index) => index.toString()}
               />
-            </ResultGrid>
-          ) : (
-            <FlatList
-              data={[...(searchingItemData || []), ...(searchingPeopleData || [])]}
-              contentContainerStyle={searchResultContainer}
-              renderItem={({ item }) => (
-                <TouchableOpacity onPress={() => navigateByPath(item)} activeOpacity={1}>
-                  <Highlighter
-                    highlightStyle={searchResultHighLightTextStyle}
-                    searchWords={[searchInput]}
-                    textToHighlight={item?.title || item?.name}
-                    style={searchResultTextStyle}
-                  />
-                </TouchableOpacity>
-              )}
-              keyExtractor={(item, index) => index.toString()}
-            />
-          )}
-        </>
-      ) : (
-        <ResultGrid>
-          {noResults ? (
-            <NoResultWrapper>
-              <NoResultText>
-                <NoResultBold>{t('noResults.bold')}</NoResultBold>
-                {t('noResults.text')}
-              </NoResultText>
-            </NoResultWrapper>
-          ) : (
-            <SuggestionWrapper>
-              <SuggestionText>{t('browse')}</SuggestionText>
-              {suggestionLinks.map((link: { text: string; link: string }) => (
-                <Button
-                  key={link.link}
-                  link
-                  color={theme.PRIMARY_FOREGROUND_COLOR}
-                  onPress={() => navigateByPath({ path: link.link })}
-                >
-                  {link.text}
-                </Button>
-              ))}
-            </SuggestionWrapper>
-          )}
+            )}
+          </>
+        ) : (
+          <ResultGrid>
+            {noResults ? (
+              <NoResultWrapper>
+                <NoResultText>
+                  <NoResultBold>{t('noResults.bold')}</NoResultBold>
+                  {t('noResults.text')}
+                </NoResultText>
+              </NoResultWrapper>
+            ) : (
+              <SuggestionWrapper>
+                <SuggestionText>{t('browse')}</SuggestionText>
+                {suggestionLinks.map((link: { text: string; link: string }) => (
+                  <Button
+                    key={link.link}
+                    link
+                    color={theme.PRIMARY_FOREGROUND_COLOR}
+                    onPress={() => navigateByPath({ path: link.link })}
+                  >
+                    {link.text}
+                  </Button>
+                ))}
+              </SuggestionWrapper>
+            )}
 
-          <Grid
-            items={search?.items || []}
-            title={search?.title || ''}
-            numColumns={isTablet() ? 4 : 3}
-            element={{
-              width: percentageWidth(isTablet() ? 25 : 33.333) - (isTablet() ? 10 : 20),
-              height: percentageWidth((isTablet() ? 25 : 33.333) * 1.25),
-              marginBottom: 20,
-              marginHorizontal: isTablet() ? 3 : 5,
-            }}
-            containerStyles={containerStyles}
-            listStyles={listStyles}
-          />
-        </ResultGrid>
-      )}
-    </Scroll>
+            <Grid
+              items={search?.items || []}
+              title={search?.title || ''}
+              numColumns={isTablet() ? 4 : 3}
+              element={{
+                width: percentageWidth(isTablet() ? 25 : 33.333) - (isTablet() ? 10 : 20),
+                height: percentageWidth((isTablet() ? 25 : 33.333) * 1.25),
+                marginBottom: 20,
+                marginHorizontal: isTablet() ? 3 : 5,
+              }}
+              containerStyles={containerStyles}
+              listStyles={listStyles}
+            />
+          </ResultGrid>
+        )}
+      </Scroll>
+    </Container>
   );
 };
 

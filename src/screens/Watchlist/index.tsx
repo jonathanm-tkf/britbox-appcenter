@@ -88,10 +88,10 @@ const Watchlist = () => {
 
   const [list, setList] = useState<MassiveSDKModelItemSummary[]>([]);
 
-  const getProfile = async () => {
+  const getProfile = useCallback(async () => {
     const { response } = await profile(token, segment);
-    setList(response?.bookmarkList?.items || []);
-  };
+    return response?.bookmarkList?.items || [];
+  }, []);
 
   useEffect(() => {
     const dataDummy = {
@@ -104,7 +104,11 @@ const Watchlist = () => {
 
     setList(dataDummy.items);
 
-    getProfile();
+    if (!filter) {
+      getProfile().then((response) => {
+        setList(response);
+      });
+    }
   }, []);
 
   useEffect(() => {

@@ -3,9 +3,15 @@ import { ThemeState } from '@store/modules/theme/types';
 import { ProfileImageIcon } from '@assets/icons';
 import { normalize } from '@src/utils/normalize';
 import { isTablet } from 'react-native-device-info';
+import { getStatusBarHeight } from 'react-native-iphone-x-helper';
+import { Platform } from 'react-native';
+
+export const Container = styled.View`
+  padding-top: ${Platform.OS === 'ios' ? getStatusBarHeight() : 0}px;
+`;
 
 export const ProfileView = styled.View`
-  padding-top: 50px;
+  padding-top: 20px;
   padding-bottom: 30px;
 `;
 
