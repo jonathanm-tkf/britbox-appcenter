@@ -116,6 +116,7 @@ const Search = ({ theme }: Props) => {
   };
 
   const suggestionLinks = getTextInConfigJSON(['search-links'], '');
+  const noSearchResulsts = getTextInConfigJSON(['search-no-resulsts'], '');
 
   useEffect(() => {
     const searchString = searchInput?.trim();
@@ -295,10 +296,11 @@ const Search = ({ theme }: Props) => {
         <ResultGrid>
           {noResults ? (
             <NoResultWrapper>
-              <NoResultText>
-                <NoResultBold>{t('noResults.bold')}</NoResultBold>
-                {t('noResults.text')}
-              </NoResultText>
+              {noSearchResulsts.map((message: { text: string; bold: boolean }) => (
+                <NoResultText key={message.text}>
+                  {message.bold ? <NoResultBold>{message.text}</NoResultBold> : message.text}
+                </NoResultText>
+              ))}
             </NoResultWrapper>
           ) : (
             <SuggestionWrapper>
