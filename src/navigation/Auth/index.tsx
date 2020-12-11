@@ -1,7 +1,6 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useEffect } from 'react';
 import { createStackNavigator, TransitionPresets } from '@react-navigation/stack';
+import { isTablet } from 'react-native-device-info';
 import Auth from '@screens/Auth';
 import Login from '@screens/Login';
 import SignUp from '@screens/SignUp';
@@ -12,7 +11,9 @@ const AuthStack = createStackNavigator();
 
 const AuthStackScreen = () => {
   useEffect(() => {
-    Orientation.lockToPortrait();
+    if (!isTablet()) {
+      Orientation.lockToPortrait();
+    }
   }, []);
 
   return (

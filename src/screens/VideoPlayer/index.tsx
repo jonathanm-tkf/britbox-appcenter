@@ -147,7 +147,10 @@ const VideoPlayer = () => {
   };
 
   const handleBackButtonClick = useCallback(() => {
-    Orientation.lockToPortrait();
+    if (!isTablet()) {
+      Orientation.lockToPortrait();
+    }
+
     StatusBar.setHidden(false);
     immersiveModeOff();
     backArrow();
@@ -186,7 +189,10 @@ const VideoPlayer = () => {
   );
 
   const backArrow = useCallback(() => {
-    Orientation.lockToPortrait();
+    if (!isTablet()) {
+      Orientation.lockToPortrait();
+    }
+
     immersiveModeOff();
     StatusBar.setHidden(false);
     dispatch(continueWatchingRequest());
