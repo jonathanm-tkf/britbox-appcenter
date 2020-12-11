@@ -3,6 +3,8 @@ import { Header } from '@store/modules/core/types';
 import { TouchableOpacity } from 'react-native';
 import { HelpIcon } from '@assets/icons';
 import { ThemeProps } from '@store/modules/theme/types';
+import { useOrientation } from '@src/utils/orientation';
+import { isTablet } from 'react-native-device-info';
 import { withTheme } from 'styled-components';
 import {
   Container,
@@ -10,6 +12,7 @@ import {
   TabHeaderItem,
   TabHeaderItemText,
   TabHeaderItemIndicator,
+  BigScreenTabWrapper,
   TabContent,
   HeaderWrapper,
   HeaderBottom,
@@ -28,6 +31,8 @@ const ExploreMenu = ({ data, onPress, theme }: Props) => {
 
   const [dataHeader, setDataHeader]: any = useState([]);
   const [dataMenu, setDataMenu]: any = useState([]);
+
+  const orientation = useOrientation();
 
   const changeTab = (key: string) => {
     setActive(key);
@@ -73,28 +78,50 @@ const ExploreMenu = ({ data, onPress, theme }: Props) => {
           );
         })}
       </HeaderWrapper>
-      <TabHeader>
-        {dataMenu.map((item: Header, index: number) => (
-          <TabHeaderItem
-            key={item.label.toString() + index.toString()}
-            onPress={() => changeTab(item.label)}
-          >
-            {active === item.label && <TabHeaderItemIndicator />}
-            <TabHeaderItemText active={active === item.label}>{item.label}</TabHeaderItemText>
-          </TabHeaderItem>
-        ))}
-      </TabHeader>
-      {dataMenu.map((item: Header) => (
-        <TabContent key={item.label.toString()} active={active === item.label}>
-          {(item.children || []).map((link, index) => {
-            return (
-              <TabButton key={`${item.label}_${index.toString()}`} onPress={() => onPress(link)}>
-                <TabButtonText>{link.label}</TabButtonText>
-              </TabButton>
-            );
-          })}
-        </TabContent>
-      ))}
+      {isTablet() || orientation === 'LANDSCAPE' ? (
+        <TabHeader>
+          {dataMenu.map((item: Header, index: number) => (
+            <TabHeaderItem key={item.label.toString() + index.toString()} disabled bigScreen>
+              <BigScreenTabWrapper>
+                <TabHeaderItemText active={false}>{item.label}</TabHeaderItemText>
+                <TabContent key={item.label.toString()} active bigScreen>
+                  {(item.children || []).map((link, _index) => (
+                    <TabButton
+                      key={`${item.label}_${_index.toString()}`}
+                      onPress={() => onPress(link)}
+                    >
+                      <TabButtonText>{link.label}</TabButtonText>
+                    </TabButton>
+                  ))}
+                </TabContent>
+              </BigScreenTabWrapper>
+            </TabHeaderItem>
+          ))}
+        </TabHeader>
+      ) : (
+        <>
+          <TabHeader>
+            {dataMenu.map((item: Header, index: number) => (
+              <TabHeaderItem
+                key={item.label.toString() + index.toString()}
+                onPress={() => changeTab(item.label)}
+              >
+                {active === item.label && <TabHeaderItemIndicator />}
+                <TabHeaderItemText active={active === item.label}>{item.label}</TabHeaderItemText>
+              </TabHeaderItem>
+            ))}
+          </TabHeader>
+          {dataMenu.map((item: Header) => (
+            <TabContent key={item.label.toString()} active={active === item.label}>
+              {(item.children || []).map((link, index) => (
+                <TabButton key={`${item.label}_${index.toString()}`} onPress={() => onPress(link)}>
+                  <TabButtonText>{link.label}</TabButtonText>
+                </TabButton>
+              ))}
+            </TabContent>
+          ))}
+        </>
+      )}
     </Container>
   );
 };
