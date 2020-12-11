@@ -23,6 +23,7 @@ import {
   RowViewContainer,
   ProfileImageIconView,
   EditIconContainer,
+  Container,
 } from './styles';
 
 export default function More() {
@@ -87,98 +88,100 @@ export default function More() {
   }, []);
 
   return (
-    <ScrollView bounces={false} contentContainerStyle={wrapper}>
-      <ProfileView>
-        <RowContainer>
-          <ProfileImageIconView />
+    <Container>
+      <ScrollView bounces={false} contentContainerStyle={wrapper}>
+        <ProfileView>
+          <RowContainer>
+            <ProfileImageIconView />
+            <RowContent>
+              <Title fontSize={isTablet() ? 24 : 20}>{user?.profile?.firstName || ''}</Title>
+              <RowViewContainer>
+                <EditIconContainer
+                  onPress={() => {
+                    navigate('MyAccount');
+                  }}
+                >
+                  <SubTitleLink>{t('manageprofile')} </SubTitleLink>
+                  <EditIcon width={25} height={25} />
+                </EditIconContainer>
+              </RowViewContainer>
+            </RowContent>
+          </RowContainer>
+        </ProfileView>
+        <SeparatorLine />
+        <RowContainer
+          onPress={() => {
+            navigate('MyAccount', {
+              subscriptionSelected: false,
+            });
+          }}
+        >
           <RowContent>
-            <Title fontSize={isTablet() ? 24 : 20}>{user?.profile?.firstName || ''}</Title>
-            <RowViewContainer>
-              <EditIconContainer
-                onPress={() => {
-                  navigate('MyAccount');
-                }}
-              >
-                <SubTitleLink>{t('manageprofile')} </SubTitleLink>
-                <EditIcon width={25} height={25} />
-              </EditIconContainer>
-            </RowViewContainer>
+            <ItemTitle>{t('myaccount.title')}</ItemTitle>
           </RowContent>
         </RowContainer>
-      </ProfileView>
-      <SeparatorLine />
-      <RowContainer
-        onPress={() => {
-          navigate('MyAccount', {
-            subscriptionSelected: false,
-          });
-        }}
-      >
-        <RowContent>
-          <ItemTitle>{t('myaccount.title')}</ItemTitle>
-        </RowContent>
-      </RowContainer>
-      <SeparatorLine />
-      <RowContainer
-        onPress={() => {
-          navigate('ParentalControls');
-        }}
-      >
-        <RowContent>
-          <ItemTitle>{t('parentalcontrols.title')}</ItemTitle>
-        </RowContent>
-      </RowContainer>
-      <SeparatorLine />
-      {((getTextInConfigJSON(['more-links'], undefined) ?? []) as Array<any>).length > 0 && (
-        <>
-          {(getTextInConfigJSON(['more-links'], undefined) ?? []).map(
-            (item: any, index: number) => {
-              return (
-                <RowContainer key={index.toString()}>
-                  <RowContent>
-                    <ItemTitle
-                      onPress={() => {
-                        const path = formatURL(item.path || '');
-                        if (item.type === 'weblink') {
-                          Linking.openURL(path);
-                        } else {
-                          navigate('MoreLinks', {
-                            url: path,
-                          });
-                        }
-                      }}
-                    >
-                      {item.text}
-                    </ItemTitle>
-                  </RowContent>
-                </RowContainer>
-              );
-            }
-          )}
-          <SeparatorLine />
-        </>
-      )}
-      <RowContainer>
-        <CelularIcon
-          height={isTablet() ? 70 : 60}
-          width={isTablet() ? 60 : 50}
-          style={CelularStyle}
-        />
-        <RowContent>
-          <ItemSubTitle>{t('appversion')}</ItemSubTitle>
-          <DescriptionText>
-            {t('version')}: {getVersion()} {t('build')} {getBuildNumber()} (code 34567), OS
-          </DescriptionText>
-        </RowContent>
-      </RowContainer>
-      <SeparatorLine />
-      <RowContainer>
-        <RowContent>
-          <TouchableOpacity activeOpacity={0.5} onPress={() => logoutAction()}>
-            <ItemTitle>{t('signout')}</ItemTitle>
-          </TouchableOpacity>
-        </RowContent>
-      </RowContainer>
-    </ScrollView>
+        <SeparatorLine />
+        <RowContainer
+          onPress={() => {
+            navigate('ParentalControls');
+          }}
+        >
+          <RowContent>
+            <ItemTitle>{t('parentalcontrols.title')}</ItemTitle>
+          </RowContent>
+        </RowContainer>
+        <SeparatorLine />
+        {((getTextInConfigJSON(['more-links'], undefined) ?? []) as Array<any>).length > 0 && (
+          <>
+            {(getTextInConfigJSON(['more-links'], undefined) ?? []).map(
+              (item: any, index: number) => {
+                return (
+                  <RowContainer key={index.toString()}>
+                    <RowContent>
+                      <ItemTitle
+                        onPress={() => {
+                          const path = formatURL(item.path || '');
+                          if (item.type === 'weblink') {
+                            Linking.openURL(path);
+                          } else {
+                            navigate('MoreLinks', {
+                              url: path,
+                            });
+                          }
+                        }}
+                      >
+                        {item.text}
+                      </ItemTitle>
+                    </RowContent>
+                  </RowContainer>
+                );
+              }
+            )}
+            <SeparatorLine />
+          </>
+        )}
+        <RowContainer>
+          <CelularIcon
+            height={isTablet() ? 70 : 60}
+            width={isTablet() ? 60 : 50}
+            style={CelularStyle}
+          />
+          <RowContent>
+            <ItemSubTitle>{t('appversion')}</ItemSubTitle>
+            <DescriptionText>
+              {t('version')}: {getVersion()} {t('build')} {getBuildNumber()} (code 34567), OS
+            </DescriptionText>
+          </RowContent>
+        </RowContainer>
+        <SeparatorLine />
+        <RowContainer>
+          <RowContent>
+            <TouchableOpacity activeOpacity={0.5} onPress={() => logoutAction()}>
+              <ItemTitle>{t('signout')}</ItemTitle>
+            </TouchableOpacity>
+          </RowContent>
+        </RowContainer>
+      </ScrollView>
+    </Container>
   );
 }
