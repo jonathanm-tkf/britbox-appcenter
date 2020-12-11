@@ -1,8 +1,9 @@
-import React, { useState, useEffect, useMemo, useCallback, SetStateAction } from 'react';
+import React, { useState, useEffect, useCallback, SetStateAction } from 'react';
+// import { Platform } from 'react-native';
 import { useSelector } from 'react-redux';
 import { AppState } from '@store/modules/rootReducer';
 import { Header } from '@store/modules/core/types';
-import { useOrientation } from '@src/utils/orientation';
+import { getDimensions } from '@src/utils/dimension';
 import ScreenHeader from '@components/Header';
 import { isTablet } from 'react-native-device-info';
 import {
@@ -24,16 +25,27 @@ interface Props {
 
 const headerStyles = {};
 
+const { width: screenWidth, height: screenHeight } = getDimensions();
+
 const ExploreMenu = ({ data, onPress }: Props) => {
   const menu = useSelector((state: AppState) => state.core.menu?.navigation?.header); // TODO: get data from properties
   const [active, setActive] = useState('');
   const [dataMenu, setDataMenu] = useState([]);
-
-  const orientation = useOrientation();
+  const [orientation, setOrientation] = useState(
+    screenHeight >= screenWidth ? 'PORTRAIT' : 'LANDSCAPE'
+  );
 
   const changeTab = (key: string) => {
     setActive(key);
   };
+
+  // const onOrientationDidChange = (newOrientation: OrientationType) => {
+  //   if (newOrientation === 'PORTRAIT' || newOrientation === 'PORTRAIT-UPSIDEDOWN') {
+  //     setOrientation(Platform.OS === 'ios' ? 'PORTRAIT' : 'LANDSCAPE');
+  //   } else if (newOrientation === 'LANDSCAPE-LEFT' || newOrientation === 'LANDSCAPE-RIGHT') {
+  //     setOrientation(Platform.OS === 'ios' ? 'LANDSCAPE' : 'PORTRAIT');
+  //   }
+  // };
 
   useEffect(() => {
     const filterData = data.filter((item) => item.label === 'Explore');
@@ -44,6 +56,15 @@ const ExploreMenu = ({ data, onPress }: Props) => {
     }
     setDataMenu(elements as SetStateAction<never[]>);
   }, [data]);
+
+  useEffect(() => {
+    // Orientation.addDeviceOrientationListener(onOrientationDidChange);
+    // Orientation.getDeviceOrientation(onOrientationDidChange);
+
+    return () => {
+      // Orientation.removeOrientationListener(onOrientationDidChange);
+    };
+  });
 
   const getMenuItems = useCallback(() => {
     if (menu && menu.length > 0) {
@@ -62,10 +83,6 @@ const ExploreMenu = ({ data, onPress }: Props) => {
     return [];
   }, [menu]);
 
-  const bigScreen = useMemo(() => {
-    return isTablet() || orientation === 'LANDSCAPE';
-  }, [orientation]);
-
   return (
     <Container>
       <ScreenHeader style={headerStyles} menuItems={getMenuItems()} />
@@ -74,22 +91,32 @@ const ExploreMenu = ({ data, onPress }: Props) => {
           <TabHeaderItem
             key={headerItem.label.toString() + headerIndex.toString()}
             active={active === headerItem.label}
-            disabled={bigScreen}
+            center={!isTablet() || (orientation === 'LANDSCAPE' && headerIndex === 0)}
+            addPadding={
+              isTablet() &&
+              ((orientation === 'PORTRAIT' && headerIndex === 0) || orientation === 'LANDSCAPE')
+            }
             onPress={() => changeTab(headerItem.label)}
+            disabled={isTablet()}
           >
-            {!bigScreen && active === headerItem.label && <TabHeaderItemIndicator />}
-            <TabHeaderItemText active={!bigScreen && active === headerItem.label}>
+            {!isTablet() && active === headerItem.label && <TabHeaderItemIndicator />}
+            <TabHeaderItemText
+              active={!isTablet() && active === headerItem.label}
+              paddingLeft={
+                isTablet() && orientation === 'LANDSCAPE' && headerIndex === 0 ? '10%' : undefined
+              }
+            >
               {headerItem.label}
             </TabHeaderItemText>
           </TabHeaderItem>
         ))}
       </TabHeader>
-      <LinksWrapper bigScreen={bigScreen}>
+      <LinksWrapper bigScreen={isTablet()}>
         {dataMenu.map((headerItem: Header) => (
           <TabContent
             key={headerItem.label.toString()}
-            active={bigScreen || active === headerItem.label}
-            bigScreen={bigScreen}
+            active={isTablet() || active === headerItem.label}
+            bigScreen={isTablet()}
           >
             {(headerItem.children || []).map((link, headerIndex) => (
               <TabButton
