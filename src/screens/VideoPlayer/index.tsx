@@ -146,7 +146,7 @@ const VideoPlayer = () => {
   };
 
   const handleBackButtonClick = useCallback(() => {
-    ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT_UP);
+    // ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT_UP);
     StatusBar.setHidden(false);
     immersiveModeOff();
     backArrow();
@@ -178,14 +178,14 @@ const VideoPlayer = () => {
     useCallback(() => {
       const task = InteractionManager.runAfterInteractions(() => {
         // Expensive task
-        ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.LANDSCAPE);
+        // ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.LANDSCAPE);
       });
       return () => task.cancel();
     }, [])
   );
 
   const backArrow = useCallback(() => {
-    ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT_UP);
+    // ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT_UP);
     immersiveModeOff();
     StatusBar.setHidden(false);
     dispatch(continueWatchingRequest());
