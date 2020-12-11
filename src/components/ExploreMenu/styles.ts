@@ -19,10 +19,14 @@ export const TabHeader = styled.View`
   width: 100%;
 `;
 
-export const TabHeaderItem = styled.TouchableOpacity`
+type TabHeaderItemProps = {
+  bigScreen?: boolean;
+};
+
+export const TabHeaderItem = styled.TouchableOpacity<TabHeaderItemProps>`
   flex: 1;
   flex-direction: row;
-  align-items: center;
+  align-items: ${(props: TabHeaderItemProps) => (props.bigScreen ? 'flex-start' : 'center')};
   justify-content: center;
 `;
 
@@ -68,14 +72,20 @@ export const TabHeaderItemIndicator = styled.View`
   margin-right: 10px;
 `;
 
+export const BigScreenTabWrapper = styled.View`
+  flex: 1;
+  align-items: center;
+`;
+
 type TabContentProps = {
   active: boolean;
+  bigScreen?: boolean;
 };
 
 export const TabContent = styled.View<TabContentProps>`
   flex-direction: column;
   margin-top: 15px;
-  align-items: center;
+  align-items: ${(props: TabHeaderItemProps) => (props.bigScreen ? 'flex-start' : 'center')};
   ${(props: TabContentProps) => {
     return (
       !props.active &&
