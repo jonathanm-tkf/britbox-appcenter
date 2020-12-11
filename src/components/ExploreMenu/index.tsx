@@ -1,11 +1,10 @@
 import React, { useState, useEffect, useCallback, SetStateAction } from 'react';
 import { useSelector } from 'react-redux';
-import Orientation, { OrientationType } from 'react-native-orientation-locker';
 import { AppState } from '@store/modules/rootReducer';
 import { Header } from '@store/modules/core/types';
+import { useOrientation } from '@src/utils/orientation';
 import ScreenHeader from '@components/Header';
 import { isTablet } from 'react-native-device-info';
-import { Dimensions } from 'react-native';
 import {
   Container,
   TabHeader,
@@ -29,25 +28,11 @@ const ExploreMenu = ({ data, onPress }: Props) => {
   const menu = useSelector((state: AppState) => state.core.menu?.navigation?.header); // TODO: get data from properties
   const [active, setActive] = useState('');
   const [dataMenu, setDataMenu] = useState([]);
-  const [orientation, setOrientation] = useState(
-    Dimensions.get('window').height >= Dimensions.get('window').width ? 'PORTRAIT' : 'LANDSCAPE'
-  );
+  const orientation = useOrientation();
 
   const changeTab = (key: string) => {
     setActive(key);
   };
-
-  const onOrientationDidChange = useCallback(() => {
-    Orientation.getOrientation((newOrientation: OrientationType) => {
-      if (isTablet()) {
-        if (newOrientation === 'LANDSCAPE-LEFT' || newOrientation === 'LANDSCAPE-RIGHT') {
-          setOrientation('LANDSCAPE');
-        } else {
-          setOrientation('PORTRAIT');
-        }
-      }
-    });
-  }, []);
 
   useEffect(() => {
     const filterData = data.filter((item) => item.label === 'Explore');
@@ -58,18 +43,6 @@ const ExploreMenu = ({ data, onPress }: Props) => {
     }
     setDataMenu(elements as SetStateAction<never[]>);
   }, [data]);
-
-  useEffect((): (() => void) => {
-    if (isTablet()) {
-      Orientation.addDeviceOrientationListener(onOrientationDidChange);
-
-      return () => {
-        Orientation.removeOrientationListener(onOrientationDidChange);
-      };
-    }
-
-    return () => {};
-  });
 
   const getMenuItems = useCallback(() => {
     if (menu && menu.length > 0) {
