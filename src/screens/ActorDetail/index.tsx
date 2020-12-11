@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import Header from '@components/Header';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
@@ -103,6 +103,14 @@ const Item = () => {
     setLoading(false);
   };
 
+  const getInnerItemTitle = useCallback((items, plural, singular) => {
+    if ((items || []).length === 1) {
+      return singular;
+    }
+
+    return plural;
+  }, []);
+
   useEffect(() => {
     getDataDetail(item?.path || '', 'true');
   }, [item]);
@@ -141,9 +149,11 @@ const Item = () => {
                         title={
                           loading
                             ? 'loading'
-                            : `${innerItem?.list?.items?.length} ${t('moviesfound')}: "${
-                                item?.name
-                              }"` || ''
+                            : `${(innerItem?.list?.items || []).length} ${getInnerItemTitle(
+                                innerItem?.list?.items,
+                                t('moviesfound'),
+                                t('onemoviefound')
+                              )}`
                         }
                         items={innerItem?.list?.items || []}
                         imageType="poster"
@@ -165,9 +175,11 @@ const Item = () => {
                         title={
                           loading
                             ? 'loading'
-                            : `${innerItem?.list?.items?.length} ${t('showsfound')}: "${
-                                item?.name
-                              }"` || ''
+                            : `${(innerItem?.list?.items || []).length} ${getInnerItemTitle(
+                                innerItem?.list?.items,
+                                t('showsfound'),
+                                t('oneshowfound')
+                              )}`
                         }
                         items={innerItem?.list?.items || []}
                         numColumns={3}
