@@ -323,7 +323,7 @@ const Detail = ({ theme }: Props) => {
 
   useEffect(() => {
     if (isFocus) {
-      ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT_UP);
+      // ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT_UP);
       StatusBar.setHidden(false);
       immersiveModeOff();
     }
