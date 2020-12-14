@@ -118,7 +118,6 @@ const RootStackScreen = () => {
     if (url) {
       if (Platform.OS === 'ios') {
         const route = url?.split('://');
-
         if (route && route[1]) {
           const routeName = route[1]?.split('/');
 
@@ -133,8 +132,10 @@ const RootStackScreen = () => {
                   navigationGoBack();
                 }
                 const { externalResponse } = response;
-                navigateByPath(externalResponse, routeName[0] === 'watch');
-                setDeepLinkUrl(null);
+                if (name !== 'Loading') {
+                  navigateByPath(externalResponse, routeName[0] === 'watch');
+                }
+                dispatch(name !== 'Loading' ? setDeepLinkUrl(null) : setDeepLinkUrl({ ...event }));
               }
             }
           }
@@ -182,7 +183,7 @@ const RootStackScreen = () => {
   useEffect(() => {
     if (isLogged && deepLinkUrl) {
       setTimeout(() => {
-        deepLink({ url: deepLinkUrl });
+        deepLink(deepLinkUrl);
       }, 200);
     }
   }, [isLogged, deepLinkUrl]);

@@ -464,7 +464,7 @@ const Detail = ({ theme }: Props) => {
       item: data ? (data?.moreInformation?.trailers || []).reduce((trailer) => trailer) : {},
       isTrailer: true,
     });
-  }, []);
+  }, [data]);
 
   const getCategories = useCallback((information: any) => {
     const dataResult = [];

@@ -157,7 +157,7 @@ const AZ = () => {
   const handleScroll = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
     if (isCloseToBottom(event.nativeEvent) && !isLoadingContinuosScroll) {
       setIsLoadingContinuosScroll(true);
-      getMoreDataContinuosScroll();
+      getMoreDataContinuosScroll(false, order, orderBy, letter);
     }
   };
 

@@ -13,7 +13,7 @@ const AppTabs = createBottomTabNavigator();
 const AppTabsScreen = () => {
   const { t } = useTranslation('tabs');
   return (
-    <AppTabs.Navigator lazy={false} tabBar={(props) => <TabBar {...props} />}>
+    <AppTabs.Navigator tabBar={(props) => <TabBar {...props} />}>
       <AppTabs.Screen
         name="Home"
         component={HomeStackScreen}

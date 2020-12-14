@@ -1,5 +1,5 @@
 import styled from 'styled-components/native';
-import { getStatusBarHeight, getBottomSpace } from 'react-native-iphone-x-helper';
+import { getStatusBarHeight } from 'react-native-iphone-x-helper';
 import { ThemeState } from '@store/modules/theme/types';
 import { Platform, Animated } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
@@ -9,7 +9,6 @@ import { normalize } from '@src/utils/normalize';
 export const Container = styled.View`
   flex: 1;
   background-color: ${(props: ThemeState) => props.theme.PRIMARY_COLOR};
-  padding-bottom: ${getBottomSpace() + 64}px;
 `;
 
 export const ContainerGrid = styled.View`
