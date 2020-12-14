@@ -31,6 +31,12 @@ export const TabHeaderItem = styled.TouchableOpacity<TabHeaderItemProps>`
   ${(props: TabHeaderItemProps) => props.center && `justify-content: center;`}
 `;
 
+export const BigScreenTabHeaderItemTextWrapper = styled.Text`
+  width: 50%;
+  align-items: flex-start;
+  opacity: 0.6;
+`;
+
 interface ItemText {
   active: boolean;
   paddingLeft?: string;
