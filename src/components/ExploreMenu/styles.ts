@@ -1,7 +1,5 @@
 import styled from 'styled-components/native';
 import { ThemeState } from '@store/modules/theme/types';
-import { Button } from '@components/Button';
-import { rgba } from 'polished';
 import { normalize } from '@src/utils/normalize';
 import { getBottomSpace, getStatusBarHeight } from 'react-native-iphone-x-helper';
 import { Platform } from 'react-native';
