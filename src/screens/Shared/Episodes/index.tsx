@@ -24,7 +24,7 @@ const Episodes = ({ item }: Props) => {
   const theme = useSelector((state: AppState) => state.theme.theme);
 
   const goToDetail = (card: any) => {
-    navigateByPath(card, card.type === 'episode');
+    navigateByPath(card, card.type === 'episode' || card.path.includes('/episode/'));
   };
 
   return (
