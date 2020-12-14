@@ -11,6 +11,7 @@ import {
   TabHeader,
   TabHeaderItem,
   TabHeaderItemText,
+  BigScreenTabHeaderItemTextWrapper,
   TabHeaderItemIndicator,
   BigScreenTabWrapper,
   TabContent,
@@ -83,12 +84,14 @@ const ExploreMenu = ({ data, onPress, theme }: Props) => {
           {dataMenu.map((item: Header, index: number) => (
             <TabHeaderItem key={item.label.toString() + index.toString()} disabled bigScreen>
               <BigScreenTabWrapper>
-                <TabHeaderItemText active={false}>{item.label}</TabHeaderItemText>
+                <BigScreenTabHeaderItemTextWrapper>
+                  <TabHeaderItemText active={false}>{item.label}</TabHeaderItemText>
+                </BigScreenTabHeaderItemTextWrapper>
                 <TabContent key={item.label.toString()} active bigScreen>
                   {(item.children || []).map((link, _index) => (
                     <TabButton
                       key={`${item.label}_${_index.toString()}`}
-                      onPress={() => onPress(link)}
+                      onPress={() => onPress(link as Header)}
                     >
                       <TabButtonText>{link.label}</TabButtonText>
                     </TabButton>
@@ -114,7 +117,11 @@ const ExploreMenu = ({ data, onPress, theme }: Props) => {
           {dataMenu.map((item: Header) => (
             <TabContent key={item.label.toString()} active={active === item.label}>
               {(item.children || []).map((link, index) => (
-                <TabButton key={`${item.label}_${index.toString()}`} onPress={() => onPress(link)}>
+                <TabButton
+                  key={`${item.label}
+                  ${index.toString()}`}
+                  onPress={() => onPress(link as Header)}
+                >
                   <TabButtonText>{link.label}</TabButtonText>
                 </TabButton>
               ))}
