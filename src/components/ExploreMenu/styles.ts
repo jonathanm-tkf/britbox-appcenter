@@ -30,12 +30,6 @@ export const TabHeaderItem = styled.TouchableOpacity<TabHeaderItemProps>`
   justify-content: center;
 `;
 
-export const BigScreenTabHeaderItemTextWrapper = styled.Text`
-  width: 50%;
-  align-items: flex-start;
-  opacity: 0.6;
-`;
-
 interface ItemText {
   active: boolean;
 }
