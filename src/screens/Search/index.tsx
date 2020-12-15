@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import { FlatList, TouchableOpacity, ActivityIndicator } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import Highlighter from 'react-native-highlight-words';
@@ -16,6 +16,7 @@ import { percentageWidth } from '@src/utils/dimension';
 import { isTablet } from 'react-native-device-info';
 import { getTextInConfigJSON } from '@src/utils/object';
 import { analyticsRef } from '@src/utils/analytics';
+import { useOrientation } from '@src/utils/orientation';
 import { withTheme } from 'styled-components';
 import { ThemeProps } from '@store/modules/theme/types';
 import {
@@ -57,6 +58,7 @@ const Search = ({ theme }: Props) => {
   const { t } = useTranslation('search');
   const user = useSelector((state: AppState) => state.user);
   const { search } = useSelector((state: AppState) => state.home);
+  const orientation = useOrientation();
   const [searchInput, setSearchInput] = useState('');
   const [isDone, setIsDone] = useState(false);
   const [noResults, setNoResults] = useState(false);
@@ -177,6 +179,10 @@ const Search = ({ theme }: Props) => {
       setIsLoading(false);
     }
   };
+
+  const numOfColums = useMemo(() => {
+    return isTablet() ? (orientation === 'PORTRAIT' ? 4 : 7) : 3;
+  }, [orientation]);
 
   return (
     <Scroll>
@@ -321,10 +327,10 @@ const Search = ({ theme }: Props) => {
           <Grid
             items={search?.items || []}
             title={search?.title || ''}
-            numColumns={isTablet() ? 4 : 3}
+            numColumns={numOfColums}
             element={{
-              width: percentageWidth(isTablet() ? 25 : 33.333) - (isTablet() ? 10 : 20),
-              height: percentageWidth((isTablet() ? 25 : 33.333) * 1.25),
+              width: percentageWidth(100 / numOfColums) - (isTablet() ? 10 : 20),
+              height: percentageWidth((100 / numOfColums) * 1.25),
               marginBottom: 20,
               marginHorizontal: isTablet() ? 3 : 5,
             }}
