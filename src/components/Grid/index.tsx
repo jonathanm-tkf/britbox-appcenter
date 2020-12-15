@@ -42,6 +42,7 @@ type Episode = {
 };
 
 let prevNumColumns = 0;
+let changes = 0;
 
 const Grid = ({
   data,
@@ -87,9 +88,9 @@ const Grid = ({
   const flatListKey = useCallback(() => {
     if (numColumns !== prevNumColumns) {
       prevNumColumns = numColumns;
-      return 'key1';
+      changes += 1;
     }
-    return 'key2';
+    return `key-${changes}`;
   }, [numColumns]);
 
   return (
