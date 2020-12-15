@@ -143,6 +143,26 @@ const Search = ({ theme }: Props) => {
     return () => clearTimeout(timer);
   }, [searchInput]);
 
+  const onOrientationDidChange = useCallback((prevOrientation: OrientationType) => {
+    if (!isTablet()) {
+      return;
+    }
+
+    if (prevOrientation === 'PORTRAIT' || prevOrientation === 'PORTRAIT-UPSIDEDOWN') {
+      setNumOfColumns(TABLET_LANDSCAPE_COLUMNS);
+    } else if (prevOrientation === 'LANDSCAPE-LEFT' || prevOrientation === 'LANDSCAPE-RIGHT') {
+      setNumOfColumns(TABLET_PORTRAIT_COLUMNS);
+    }
+  }, []);
+
+  useEffect(() => {
+    Orientation.addDeviceOrientationListener(onOrientationDidChange);
+
+    return () => {
+      Orientation.removeOrientationListener(onOrientationDidChange);
+    };
+  }, []);
+
   const doSearch = async (done: boolean) => {
     const searchString = searchInput?.trim();
     if (searchString.length >= 3) {
