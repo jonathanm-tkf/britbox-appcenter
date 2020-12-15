@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import { FlatList, TouchableOpacity, ActivityIndicator, Platform } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import Highlighter from 'react-native-highlight-words';
@@ -15,8 +15,9 @@ import Grid from '@screens/Shared/Grid';
 import { percentageWidth } from '@src/utils/dimension';
 import { isTablet } from 'react-native-device-info';
 import { getTextInConfigJSON } from '@src/utils/object';
-import { analyticsRef } from '@src/utils/analytics';
 import { useColumns } from '@src/utils/columns';
+import { analyticsRef } from '@src/utils/analytics';
+import { useOrientation } from '@src/utils/orientation';
 import { withTheme } from 'styled-components';
 import { ThemeProps } from '@store/modules/theme/types';
 import {
@@ -58,6 +59,7 @@ const Search = ({ theme }: Props) => {
   const { t } = useTranslation('search');
   const user = useSelector((state: AppState) => state.user);
   const { search } = useSelector((state: AppState) => state.home);
+  const orientation = useOrientation();
   const [searchInput, setSearchInput] = useState('');
   const [isDone, setIsDone] = useState(false);
   const [noResults, setNoResults] = useState(false);
