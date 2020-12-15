@@ -46,3 +46,9 @@ export const percentageWidth = (percentage: number) => {
   const value = (percentage / 100) * width;
   return Math.round(value);
 };
+
+export const percentageHeight = (percentage: number) => {
+  const { height } = getDimensions();
+  const value = (percentage / 100) * height;
+  return Math.round(value);
+};

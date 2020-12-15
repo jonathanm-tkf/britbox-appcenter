@@ -4,7 +4,7 @@ import { storiesOf } from '@storybook/react-native';
 import { action } from '@storybook/addon-actions';
 
 import Grid from '@components/Grid';
-import { getDimensions, percentageWidth } from '@src/utils/dimension';
+import { getDimensions, percentageWidth, percentageHeight } from '@src/utils/dimension';
 import Theme from './Theme';
 
 const { width } = getDimensions();
@@ -405,5 +405,19 @@ storiesOf('Grid', module)
       }}
       onPress={action('tapped-item')}
       title="Title Section"
+    />
+  ))
+  .add('landscape', () => (
+    <Grid
+      data={DATA.items}
+      numColumns={7}
+      element={{
+        width: percentageHeight(14.286) - 10,
+        height: percentageHeight(14.286 * 1.5),
+        marginBottom: 20,
+        marginHorizontal: 5,
+      }}
+      imageType="poster"
+      onPress={action('tapped-item')}
     />
   ));
