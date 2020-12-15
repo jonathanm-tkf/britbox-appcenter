@@ -134,6 +134,13 @@ const Episodes = ({
     }
   }, []);
 
+  const getFirstEpisode = useCallback((): MassiveSDKModelEpisodesItem | undefined => {
+    if (data.length > 0) {
+      return data.reduce((item) => item);
+    }
+    return undefined;
+  }, [data]);
+
   return (
     <Container onLayout={onLayout}>
       {show && (
@@ -177,7 +184,13 @@ const Episodes = ({
           isContinue={getProgress(item) > 0}
           onLayout={(event) => {
             const { layout } = event.nativeEvent;
-            if (show && show.episodeNumber === item?.episodeNumber && autoPlay) {
+            if (
+              (show && show.episodeNumber === item?.episodeNumber && autoPlay) ||
+              (show &&
+                show.episodeNumber === undefined &&
+                getFirstEpisode()?.episodeNumber === item?.episodeNumber &&
+                (show.type === 'season' || show.type === 'episode'))
+            ) {
               onScrollTo(layout.y);
             }
           }}

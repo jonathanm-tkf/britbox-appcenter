@@ -57,6 +57,7 @@ const processDetailPage = async (
     releaseYear: undefined,
     seasonNumber: undefined,
     episodeNumber: undefined,
+    type: undefined,
   };
 
   const informationResponse: Information = {
@@ -99,6 +100,7 @@ const processDetailPage = async (
       showResponse.releaseYear = entries?.item?.releaseYear;
       showResponse.id = parseInt(entries?.item?.id || '0', 10);
       showResponse.showId = parseInt(entries?.item?.showId || '0', 10);
+      showResponse.type = detail?.key === 'ShowDetail' ? 'show' : 'season';
 
       informationResponse.type = 'show';
       informationResponse.credits = entries?.item?.show?.credits;
@@ -138,6 +140,7 @@ const processDetailPage = async (
     showResponse.id = parseInt(entries?.item?.season?.id || '0', 10);
     showResponse.showId = parseInt(entries?.item?.showId || '0', 10);
     showResponse.episodeNumber = entries?.item?.episodeNumber;
+    showResponse.type = 'episode';
 
     informationResponse.type = 'episode';
     informationResponse.credits = entries?.item?.season?.show?.credits;

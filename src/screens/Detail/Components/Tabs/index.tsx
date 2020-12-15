@@ -113,11 +113,15 @@ const Tabs = ({ data, onScrollTo, onLayout, autoPlay, onPlay }: Props) => {
           <Episodes
             data={episodes?.items || []}
             seriesData={data}
-            {...{ show, moreInformation, isEpisode: information?.type === 'episode', autoPlay }}
+            {...{
+              show,
+              moreInformation,
+              isEpisode: information?.type === 'episode',
+              autoPlay,
+            }}
             onScrollTo={(y) => onScrollTo(y)}
             onPlay={(item) => onPlay(item)}
             onLayout={(event) => {
-              // console.tron.log({ event });
               if (!ready.episodes) {
                 setFirstHeight(event.nativeEvent.layout.height);
                 ready.episodes = true;

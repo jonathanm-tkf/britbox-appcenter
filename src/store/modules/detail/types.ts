@@ -34,6 +34,7 @@ export type Show = {
   id: number | undefined;
   showId: number | undefined;
   episodeNumber: number | undefined;
+  type: string | undefined;
 };
 
 export type Information = {

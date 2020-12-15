@@ -56,6 +56,7 @@ import { castVideo } from '@store/modules/chromecast/actions';
 import { getDimensions } from '@src/utils/dimension';
 import { withTheme } from 'styled-components';
 import { ThemeProps } from '@store/modules/theme/types';
+import ErrorNotFound from '@components/ErrorNotFound';
 import {
   Container,
   Scroll,
@@ -140,7 +141,7 @@ const Detail = ({ theme }: Props) => {
   const { item, seasonModal, autoPlay, seriesData } = params || undefined;
   const navigation = useNavigation();
   const [showBlueView, setShowBlueView] = useState(false);
-  const [tabsOffset, setTabsOffset] = useState(false);
+  const [tabsOffset, setTabsOffset] = useState<boolean | number>(false);
   const [animatedOpacityValue] = useState(new Animated.Value(0));
   const core = useSelector((state: AppState) => state.core);
   const { watched } = useSelector((state: AppState) => state.detail);
@@ -148,6 +149,7 @@ const Detail = ({ theme }: Props) => {
     (state: AppState) => state.layout
   );
   const { t } = useTranslation(['myaccount', 'detail', 'layout']);
+  const [error, setError] = useState(false);
   const [data, setData] = useState<LoadDetailPageResponse | undefined>(undefined);
   const [valuePin, setValuePin] = useState('');
   const [errorValuePin, setErrorValuePin] = useState(false);
@@ -206,11 +208,15 @@ const Detail = ({ theme }: Props) => {
       response: LoadDetailPageResponse;
       watched: Record<string, MassiveSDKModelWatched>;
     } = await loadDetailPage(path, customId);
-    if (Platform.OS === 'ios' && /show|movie|season/.test(response?.information?.type || '')) {
-      setUserActivity(response?.detail?.customId || '');
+    if (response) {
+      if (Platform.OS === 'ios' && /show|movie|season/.test(response?.information?.type || '')) {
+        setUserActivity(response?.detail?.customId || '');
+      }
+      dispatch(detailWatchedSuccess(watched));
+      setData(response);
+    } else {
+      setError(true);
     }
-    dispatch(detailWatchedSuccess(watched));
-    setData(response);
   };
 
   const setUserActivity = async (customId: string) => {
@@ -453,9 +459,6 @@ const Detail = ({ theme }: Props) => {
       return true;
     }
 
-    // TODO: Deep-link
-    // console.tron.log({ item, data });
-
     return navigation.navigate('VideoPlayer', { item: episode || item });
   };
 
@@ -661,6 +664,7 @@ const Detail = ({ theme }: Props) => {
           </WrapperPin>
         </BottomSheetWrapper>
       </RBSheet>
+      {error && <ErrorNotFound onPress={() => back()} />}
     </Container>
   );
 };
