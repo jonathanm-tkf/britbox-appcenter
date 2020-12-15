@@ -41,6 +41,8 @@ type Episode = {
   contextualTitle?: string;
 };
 
+let prevNumColumns = 0;
+
 const Grid = ({
   data,
   element,
@@ -82,6 +84,14 @@ const Grid = ({
     );
   }, []);
 
+  const flatListKey = useCallback(() => {
+    if (numColumns !== prevNumColumns) {
+      prevNumColumns = numColumns;
+      return 'key1';
+    }
+    return 'key2';
+  }, [numColumns]);
+
   return (
     <>
       {title !== '' && (
@@ -106,11 +116,12 @@ const Grid = ({
       )}
       <Container style={containerStyles}>
         <FlatList
+          key={flatListKey()}
           data={data}
           scrollEnabled={false}
           listKey={Math.random().toString()}
           numColumns={numColumns}
-          keyExtractor={(_, index) => index.toString()}
+          keyExtractor={(_, index) => flatListKey() + index.toString()}
           style={listStyles}
           renderItem={({ item }) => {
             return isEpisode ? (
