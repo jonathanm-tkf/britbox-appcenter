@@ -17,7 +17,7 @@ import { isTablet } from 'react-native-device-info';
 import { getTextInConfigJSON } from '@src/utils/object';
 import { useColumns } from '@src/utils/columns';
 import { analyticsRef } from '@src/utils/analytics';
-import { useOrientation } from '@src/utils/orientation';
+import { getDimensions } from '@src/utils/dimension';
 import { withTheme } from 'styled-components';
 import { ThemeProps } from '@store/modules/theme/types';
 import {
@@ -59,7 +59,6 @@ const Search = ({ theme }: Props) => {
   const { t } = useTranslation('search');
   const user = useSelector((state: AppState) => state.user);
   const { search } = useSelector((state: AppState) => state.home);
-  const orientation = useOrientation();
   const [searchInput, setSearchInput] = useState('');
   const [isDone, setIsDone] = useState(false);
   const [noResults, setNoResults] = useState(false);
