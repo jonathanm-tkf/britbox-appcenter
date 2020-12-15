@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState, useCallback } from 'react';
-import { FlatList, TouchableOpacity, ActivityIndicator } from 'react-native';
+import { FlatList, TouchableOpacity, ActivityIndicator, Platform } from 'react-native';
 import Orientation, { OrientationType } from 'react-native-orientation-locker';
 import { useTranslation } from 'react-i18next';
 import Highlighter from 'react-native-highlight-words';
@@ -155,9 +155,9 @@ const Search = ({ theme }: Props) => {
     }
 
     if (prevOrientation === 'PORTRAIT' || prevOrientation === 'PORTRAIT-UPSIDEDOWN') {
-      setNumOfColumns(TABLET_LANDSCAPE_COLUMNS);
+      setNumOfColumns(Platform.OS === 'ios' ? TABLET_PORTRAIT_COLUMNS : TABLET_LANDSCAPE_COLUMNS);
     } else if (prevOrientation === 'LANDSCAPE-LEFT' || prevOrientation === 'LANDSCAPE-RIGHT') {
-      setNumOfColumns(TABLET_PORTRAIT_COLUMNS);
+      setNumOfColumns(Platform.OS === 'ios' ? TABLET_LANDSCAPE_COLUMNS : TABLET_PORTRAIT_COLUMNS);
     }
   }, []);
 
@@ -352,8 +352,12 @@ const Search = ({ theme }: Props) => {
             title={search?.title || ''}
             numColumns={numOfColums}
             element={{
-              width: percentageWidth(isTablet() ? 22 : 33.333 - (isTablet() ? 10 : 20)),
-              height: percentageWidth((isTablet() ? 22 : 33.333) * 1.25),
+              width: percentageWidth(
+                isTablet() ? (numOfColums <= 4 ? 22 : 12) : 33.333 - (isTablet() ? 10 : 20)
+              ),
+              height: percentageWidth(
+                (isTablet() ? (numOfColums <= 4 ? 22 : 12) : 33.333 - (isTablet() ? 10 : 20)) * 1.25
+              ),
               marginBottom: 20,
               marginHorizontal: isTablet() ? 3 : 5,
             }}
