@@ -1,13 +1,13 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { NativeScrollEvent, NativeSyntheticEvent, ScrollView, Platform } from 'react-native';
+import Orientation, { OrientationType } from 'react-native-orientation-locker';
 import { useNavigation, useRoute, RouteProp } from '@react-navigation/native';
 import Header from '@components/Header';
 import { AppState } from '@store/modules/rootReducer';
 import { useSelector } from 'react-redux';
 import RNPickerSelect from 'react-native-picker-select';
-import { percentageWidth } from '@src/utils/dimension';
-import { useColumns } from '@src/utils/columns';
+import { percentageWidth, getDimensions } from '@src/utils/dimension';
 import {
   MassiveSDKModelItemSummary,
   MassiveSDKModelPagination,
@@ -62,6 +62,12 @@ const listStyles = {
   paddingHorizontal: isTablet() ? 7 : 15,
 };
 
+const TABLET_PORTRAIT_COLUMNS = 4;
+const TABLET_LANDSCAPE_COLUMNS = 7;
+
+const { width: screenWidth, height: screenHeight } = getDimensions();
+const isPortrait = screenHeight >= screenWidth;
+
 const AZ = () => {
   const navigation = useNavigation();
   const { params } = useRoute<AZScreenRouteProp>();
@@ -79,9 +85,8 @@ const AZ = () => {
   const [order, setOrder] = useState('asc');
   const [orderBy, setOrderBy] = useState('a-z');
   const menu = useSelector((state: AppState) => state.core.menu?.navigation?.header); // TODO: get data from properties
-  const [numOfColums, elementWidth, elementHeight] = useColumns(
-    18.75,
-    Platform.OS === 'ios' ? 16 : 28.5
+  const [numOfColums, setNumOfColumns] = useState(
+    isTablet() ? (isPortrait ? TABLET_PORTRAIT_COLUMNS : TABLET_LANDSCAPE_COLUMNS) : 3
   );
 
   const pickerRef = useRef<any>();
@@ -150,6 +155,26 @@ const AZ = () => {
       );
     }
   }, [filter]);
+
+  const onOrientationDidChange = useCallback((prevOrientation: OrientationType) => {
+    if (!isTablet()) {
+      return;
+    }
+
+    if (prevOrientation === 'PORTRAIT' || prevOrientation === 'PORTRAIT-UPSIDEDOWN') {
+      setNumOfColumns(Platform.OS === 'ios' ? TABLET_PORTRAIT_COLUMNS : TABLET_LANDSCAPE_COLUMNS);
+    } else if (prevOrientation === 'LANDSCAPE-LEFT' || prevOrientation === 'LANDSCAPE-RIGHT') {
+      setNumOfColumns(Platform.OS === 'ios' ? TABLET_LANDSCAPE_COLUMNS : TABLET_PORTRAIT_COLUMNS);
+    }
+  }, []);
+
+  useEffect(() => {
+    Orientation.addDeviceOrientationListener(onOrientationDidChange);
+
+    return () => {
+      Orientation.removeOrientationListener(onOrientationDidChange);
+    };
+  }, []);
 
   const isCloseToBottom = ({
     layoutMeasurement,
