@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useState, useCallback, useMemo } from 'react';
 import { FlatList, TouchableOpacity, ActivityIndicator, Platform } from 'react-native';
 import Orientation, { OrientationType } from 'react-native-orientation-locker';
 import { useTranslation } from 'react-i18next';
@@ -155,9 +155,9 @@ const Search = ({ theme }: Props) => {
     }
 
     if (prevOrientation === 'PORTRAIT' || prevOrientation === 'PORTRAIT-UPSIDEDOWN') {
-      setNumOfColumns(Platform.OS === 'ios' ? TABLET_PORTRAIT_COLUMNS : TABLET_LANDSCAPE_COLUMNS);
+      setNumOfColumns(TABLET_PORTRAIT_COLUMNS);
     } else if (prevOrientation === 'LANDSCAPE-LEFT' || prevOrientation === 'LANDSCAPE-RIGHT') {
-      setNumOfColumns(Platform.OS === 'ios' ? TABLET_LANDSCAPE_COLUMNS : TABLET_PORTRAIT_COLUMNS);
+      setNumOfColumns(TABLET_LANDSCAPE_COLUMNS);
     }
   }, []);
 
@@ -168,6 +168,22 @@ const Search = ({ theme }: Props) => {
       Orientation.removeOrientationListener(onOrientationDidChange);
     };
   }, []);
+
+  const [elementWidth, elementHeight] = useMemo((): Array<number> => {
+    let size = [13.333, 13.333 * 1.25];
+
+    if (isTablet()) {
+      if (Platform.OS === 'ios' && numOfColums === TABLET_PORTRAIT_COLUMNS) {
+        size = [22, 22 * 1.25];
+      } else if (Platform.OS === 'ios' && numOfColums === TABLET_LANDSCAPE_COLUMNS) {
+        size = [12, 12 * 1.25];
+      } else {
+        size = [22, 22 * 1.25];
+      }
+    }
+
+    return size;
+  }, [numOfColums]);
 
   const doSearch = async (done: boolean) => {
     const searchString = searchInput?.trim();
@@ -352,12 +368,8 @@ const Search = ({ theme }: Props) => {
             title={search?.title || ''}
             numColumns={numOfColums}
             element={{
-              width: percentageWidth(
-                isTablet() ? (numOfColums <= 4 ? 22 : 12) : 33.333 - (isTablet() ? 10 : 20)
-              ),
-              height: percentageWidth(
-                (isTablet() ? (numOfColums <= 4 ? 22 : 12) : 33.333 - (isTablet() ? 10 : 20)) * 1.25
-              ),
+              width: percentageWidth(elementWidth),
+              height: percentageWidth(elementHeight),
               marginBottom: 20,
               marginHorizontal: isTablet() ? 3 : 5,
             }}
