@@ -1,9 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-<<<<<<< HEAD
 import React, { useEffect, useState } from 'react';
-=======
-import React, { useEffect, useState, useCallback, useMemo } from 'react';
->>>>>>> 03bba21... fix Search cards size for iOS
 import { FlatList, TouchableOpacity, ActivityIndicator, Platform } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import Highlighter from 'react-native-highlight-words';
