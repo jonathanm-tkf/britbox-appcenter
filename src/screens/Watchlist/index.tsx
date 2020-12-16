@@ -89,6 +89,7 @@ const Watchlist = () => {
   const navigation = useNavigation();
   const [type, setType] = useState('all');
   const [orderBy, setOrderBy] = useState('date-added');
+  const [orientation, setOrientation] = useState(isPortrait ? 'PORTRAIT' : 'LANDSCAPE');
   const [numOfColums, setNumOfColumns] = useState(
     isTablet() ? (isPortrait ? TABLET_PORTRAIT_COLUMNS : TABLET_LANDSCAPE_COLUMNS) : 3
   );
@@ -147,14 +148,16 @@ const Watchlist = () => {
   }, [filter]);
 
   const onOrientationDidChange = useCallback((prevOrientation: OrientationType) => {
-    if (!isTablet()) {
-      return;
-    }
-
-    if (prevOrientation === 'PORTRAIT' || prevOrientation === 'PORTRAIT-UPSIDEDOWN') {
-      setNumOfColumns(Platform.OS === 'ios' ? TABLET_PORTRAIT_COLUMNS : TABLET_LANDSCAPE_COLUMNS);
+    if (isTablet()) {
+      if (prevOrientation === 'PORTRAIT' || prevOrientation === 'PORTRAIT-UPSIDEDOWN') {
+        setNumOfColumns(Platform.OS === 'ios' ? TABLET_PORTRAIT_COLUMNS : TABLET_LANDSCAPE_COLUMNS);
+      } else if (prevOrientation === 'LANDSCAPE-LEFT' || prevOrientation === 'LANDSCAPE-RIGHT') {
+        setNumOfColumns(Platform.OS === 'ios' ? TABLET_LANDSCAPE_COLUMNS : TABLET_PORTRAIT_COLUMNS);
+      }
+    } else if (prevOrientation === 'PORTRAIT') {
+      setOrientation('PORTRAIT');
     } else if (prevOrientation === 'LANDSCAPE-LEFT' || prevOrientation === 'LANDSCAPE-RIGHT') {
-      setNumOfColumns(Platform.OS === 'ios' ? TABLET_LANDSCAPE_COLUMNS : TABLET_PORTRAIT_COLUMNS);
+      setOrientation('LANDSCAPE');
     }
   }, []);
 
@@ -167,18 +170,18 @@ const Watchlist = () => {
   }, []);
 
   const [elementWidth, elementHeight] = useMemo((): Array<number> => {
-    let size = [13.333, 13.333 * 1.25];
+    let size = [29, 29 * 1.25];
 
     if (isTablet()) {
       if (Platform.OS === 'ios' && numOfColums === TABLET_LANDSCAPE_COLUMNS) {
-        size = [12, 12 * 1.25];
+        size = [13.8, 13.8 * 1.25];
       } else {
-        size = [22, 22 * 1.25];
+        size = [25, 25 * 1.25];
       }
     }
 
     return size;
-  }, [numOfColums]);
+  }, [numOfColums, orientation]);
 
   const showSheetBottomContent = (item: MassiveSDKModelItemSummary) => {
     if (getSheetHeight() === 0) {
