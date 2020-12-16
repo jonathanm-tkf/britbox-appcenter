@@ -9,7 +9,6 @@ import {
   Platform,
   InteractionManager,
 } from 'react-native';
-import Orientation from 'react-native-orientation-locker';
 import { useNavigation, RouteProp, useRoute, useFocusEffect } from '@react-navigation/native';
 import { AppState } from '@store/modules/rootReducer';
 import { useDispatch, useSelector } from 'react-redux';
@@ -26,12 +25,13 @@ import { PostMessage, webViewRef } from '@src/utils/videoPlayerRef';
 import GoogleCast, { CastButton } from 'react-native-google-cast';
 import { continueWatchingRequest } from '@store/modules/user/actions';
 import { Config } from '@src/utils/config';
-import { HomeIndicator } from 'react-native-home-indicator';
+// import { HomeIndicator } from 'react-native-home-indicator';
 import { getDimensions } from '@src/utils/dimension';
 import { Dismissal, Pause, Play, VideoStart } from '@screens/Shared/Cast/services';
 import { pickBy } from 'lodash';
 import Action from '@components/Action';
 import { BackIcon } from '@assets/icons';
+import * as ScreenOrientation from 'expo-screen-orientation';
 import {
   BackButton,
   ChromecastWrapper,
@@ -64,7 +64,6 @@ const VideoPlayer = () => {
   const { goBack } = useNavigation();
   const { params } = useRoute<VideoPlayerScreenRouteProp>();
   const [isLoading, setIsLoading] = useState(true);
-  const [orientation, setOrientation] = useState();
   const webview = useMemo(
     () => ({
       backgroundColor: 'transparent',
@@ -74,10 +73,6 @@ const VideoPlayer = () => {
     }),
     [width, height]
   );
-
-  const onOrientationDidChange = useCallback((getOrientation) => {
-    setOrientation(getOrientation);
-  }, []);
 
   useEffect(() => {
     if (Platform.OS === 'android') {
@@ -90,11 +85,8 @@ const VideoPlayer = () => {
       };
     }
 
-    Orientation.addOrientationListener(onOrientationDidChange);
-
     return () => {
       setIsLoading(true);
-      Orientation.removeOrientationListener(onOrientationDidChange);
     };
   }, []);
 
@@ -147,7 +139,7 @@ const VideoPlayer = () => {
   };
 
   const handleBackButtonClick = useCallback(() => {
-    Orientation.lockToPortrait();
+    ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT_UP);
     StatusBar.setHidden(false);
     immersiveModeOff();
     backArrow();
@@ -179,14 +171,14 @@ const VideoPlayer = () => {
     useCallback(() => {
       const task = InteractionManager.runAfterInteractions(() => {
         // Expensive task
-        Orientation.lockToLandscape();
+        ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.LANDSCAPE);
       });
       return () => task.cancel();
     }, [])
   );
 
   const backArrow = useCallback(() => {
-    Orientation.lockToPortrait();
+    ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT_UP);
     immersiveModeOff();
     StatusBar.setHidden(false);
     dispatch(continueWatchingRequest());
@@ -238,14 +230,12 @@ const VideoPlayer = () => {
         alignItems: 'center',
       }}
     >
-      <HomeIndicator autoHidden />
+      {/* <HomeIndicator autoHidden /> */}
       {isLoading && (
         <LoadingContainer>
-          {(orientation === 'LANDSCAPE-LEFT' || orientation === 'LANDSCAPE-RIGHT') && (
-            <BackButton onPress={() => backArrow()}>
-              <BackIcon width={22} height={22} />
-            </BackButton>
-          )}
+          <BackButton onPress={() => backArrow()}>
+            <BackIcon width={22} height={22} />
+          </BackButton>
           <LoadingWrapper>
             <Action width={88} height={88} loading animated loop autoPlay />
           </LoadingWrapper>

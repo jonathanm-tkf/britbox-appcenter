@@ -185,7 +185,9 @@ const Episodes = ({
           onLayout={(event) => {
             const { layout } = event.nativeEvent;
             if (
-              (show && show.episodeNumber === item?.episodeNumber && autoPlay) ||
+              (show &&
+                show.episodeNumber === item?.episodeNumber &&
+                (autoPlay || show.type === 'episode')) ||
               (show &&
                 show.episodeNumber === undefined &&
                 getFirstEpisode()?.episodeNumber === item?.episodeNumber &&

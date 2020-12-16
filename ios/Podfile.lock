@@ -42,6 +42,9 @@ PODS:
   - EXPermissions (9.3.0):
     - UMCore
     - UMPermissionsInterface
+  - EXScreenOrientation (2.1.0):
+    - React-Core
+    - UMCore
   - FBLazyVector (0.63.3)
   - FBReactNativeSpec (0.63.3):
     - Folly (= 2020.01.13.00)
@@ -316,14 +319,10 @@ PODS:
     - react-native-google-cast/RNGoogleCast
   - react-native-google-cast/RNGoogleCast (3.3.0):
     - React
-  - react-native-home-indicator (0.2.6):
-    - React-Core
   - react-native-kochava-tracker (1.4.0):
     - React
   - react-native-netinfo (5.9.7):
     - React-Core
-  - react-native-orientation-locker (1.2.0):
-    - React
   - react-native-safe-area-context (3.1.8):
     - React-Core
   - react-native-viewpager (4.1.6):
@@ -457,6 +456,7 @@ DEPENDENCIES:
   - EXFileSystem (from `../node_modules/expo-file-system/ios`)
   - EXImageLoader (from `../node_modules/expo-image-loader/ios`)
   - EXPermissions (from `../node_modules/expo-permissions/ios`)
+  - EXScreenOrientation (from `../node_modules/expo-screen-orientation/ios`)
   - FBLazyVector (from `../node_modules/react-native/Libraries/FBLazyVector`)
   - FBReactNativeSpec (from `../node_modules/react-native/Libraries/FBReactNativeSpec`)
   - Flipper (~> 0.55.0)
@@ -498,10 +498,8 @@ DEPENDENCIES:
   - react-native-flipper (from `../node_modules/react-native-flipper`)
   - react-native-get-random-values (from `../node_modules/react-native-get-random-values`)
   - react-native-google-cast (from `../node_modules/react-native-google-cast/ios`)
-  - react-native-home-indicator (from `../node_modules/react-native-home-indicator`)
   - react-native-kochava-tracker (from `../node_modules/react-native-kochava-tracker`)
   - "react-native-netinfo (from `../node_modules/@react-native-community/netinfo`)"
-  - react-native-orientation-locker (from `../node_modules/react-native-orientation-locker`)
   - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
   - "react-native-viewpager (from `../node_modules/@react-native-community/viewpager`)"
   - react-native-webview (from `../node_modules/react-native-webview`)
@@ -590,6 +588,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/expo-image-loader/ios"
   EXPermissions:
     :path: "../node_modules/expo-permissions/ios"
+  EXScreenOrientation:
+    :path: "../node_modules/expo-screen-orientation/ios"
   FBLazyVector:
     :path: "../node_modules/react-native/Libraries/FBLazyVector"
   FBReactNativeSpec:
@@ -630,14 +630,10 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-get-random-values"
   react-native-google-cast:
     :path: "../node_modules/react-native-google-cast/ios"
-  react-native-home-indicator:
-    :path: "../node_modules/react-native-home-indicator"
   react-native-kochava-tracker:
     :path: "../node_modules/react-native-kochava-tracker"
   react-native-netinfo:
     :path: "../node_modules/@react-native-community/netinfo"
-  react-native-orientation-locker:
-    :path: "../node_modules/react-native-orientation-locker"
   react-native-safe-area-context:
     :path: "../node_modules/react-native-safe-area-context"
   react-native-viewpager:
@@ -736,6 +732,7 @@ SPEC CHECKSUMS:
   EXFileSystem: afe9b1fd937d30270bf5108ba44e2f4a1d1ad694
   EXImageLoader: 7153fb1307ac643299a9072b71da0d276f4c7789
   EXPermissions: 30cbe5b72bd209b65c00884180ad058a60bb413d
+  EXScreenOrientation: 74ec9be3963b613eb37730d41ef0954e014b08ff
   FBLazyVector: 878b59e31113e289e275165efbe4b54fa614d43d
   FBReactNativeSpec: 7da9338acfb98d4ef9e5536805a0704572d33c2f
   Flipper: 872982ccb1467aed793aa916e7f99ca898bd8f55
@@ -769,10 +766,8 @@ SPEC CHECKSUMS:
   react-native-flipper: 9d5738fbde235d9e2c922783e0e4657e665fe8ab
   react-native-get-random-values: 1404bd5cc0ab0e287f75ee1c489555688fc65f89
   react-native-google-cast: 3576ec1bfb730bddd6f063f3340c192b0ebc1e69
-  react-native-home-indicator: 92b86b0fbe85a50c9cba286ad7bae4a2c319238a
   react-native-kochava-tracker: babb1ec6b31134295ac2c3b75750ca82f589ec77
   react-native-netinfo: 250dc0ca126512f618a8a2ca6a936577e1f66586
-  react-native-orientation-locker: 47aaa55d59bfc1613804dc22f159e6bb1cca5f30
   react-native-safe-area-context: 79fea126c6830c85f65947c223a5e3058a666937
   react-native-viewpager: f44c9e21c37d4cb76d38841c8a450e3891923461
   react-native-webview: 4e96d493f9f90ba4f03b28933f30b2964df07e39

@@ -13,7 +13,6 @@ import ModalSeasons from '@screens/ModalSeasons';
 import { Animated, Linking, Platform } from 'react-native';
 import { ThemeProps } from '@store/modules/theme/types';
 import ModalMoreInformation from '@screens/ModalMoreInformation';
-import Orientation from 'react-native-orientation-locker';
 import ModalGenre from '@screens/ModalGenre';
 import ModalFilter from '@screens/ModalFilter';
 import MoreLinks from '@screens/MoreLinks';
@@ -27,6 +26,7 @@ import { BritboxAPIContentModelsItemsGetItemRelatedListResponse } from '@src/sdk
 import { setDeepLinkUrl } from '@store/modules/home/actions';
 import { getItemContent } from '@store/modules/home/saga';
 import Loading from '@screens/Loading';
+import * as ScreenOrientation from 'expo-screen-orientation';
 import { AuthStackScreen } from '../Auth';
 import { navigateByPath, navigationGoBack, navigationRef } from '../rootNavigation';
 import { AppTabsScreen } from '../Tabs';
@@ -99,7 +99,7 @@ const RootStackScreen = () => {
   }, [britboxConfig]);
 
   useEffect(() => {
-    Orientation.lockToPortrait();
+    ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT_UP);
     const unsubscribe = NetInfo.addEventListener((state) => {
       if (!state.isConnected) {
         setLostConnection(true);
@@ -148,8 +148,14 @@ const RootStackScreen = () => {
             if (name === 'VideoPlayer') {
               navigationGoBack();
             }
-            navigateByPath({ path: route[1], customId: true }, !(route[1] || '').includes('_'));
-            setDeepLinkUrl(null);
+            if (name !== 'Loading') {
+              const id = route[1].split('/').pop();
+              navigateByPath(
+                { path: route[1], id, customId: true },
+                !(route[1] || '').includes('_')
+              );
+            }
+            dispatch(name !== 'Loading' ? setDeepLinkUrl(null) : setDeepLinkUrl({ ...event }));
           }
         }
       }
