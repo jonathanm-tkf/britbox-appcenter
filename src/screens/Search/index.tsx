@@ -13,11 +13,11 @@ import { MassiveSDKModelItemList } from '@src/sdks/Britbox.API.Account.TS/api';
 import { MassiveSDKModelPerson } from '@src/sdks/Britbox.API.Content.TS/api';
 import { getSearch } from '@store/modules/search/saga';
 import Grid from '@screens/Shared/Grid';
-import { percentageWidth } from '@src/utils/dimension';
+import { percentageWidth, getDimensions } from '@src/utils/dimension';
 import { isTablet } from 'react-native-device-info';
 import { getTextInConfigJSON } from '@src/utils/object';
 import { analyticsRef } from '@src/utils/analytics';
-import { getDimensions } from '@src/utils/dimension';
+
 import { withTheme } from 'styled-components';
 import { ThemeProps } from '@store/modules/theme/types';
 import {
@@ -156,9 +156,9 @@ const Search = ({ theme }: Props) => {
     }
 
     if (prevOrientation === 'PORTRAIT' || prevOrientation === 'PORTRAIT-UPSIDEDOWN') {
-      setNumOfColumns(Platform.OS === 'ios' ? TABLET_PORTRAIT_COLUMNS : TABLET_LANDSCAPE_COLUMNS);
+      setNumOfColumns(TABLET_PORTRAIT_COLUMNS);
     } else if (prevOrientation === 'LANDSCAPE-LEFT' || prevOrientation === 'LANDSCAPE-RIGHT') {
-      setNumOfColumns(Platform.OS === 'ios' ? TABLET_LANDSCAPE_COLUMNS : TABLET_PORTRAIT_COLUMNS);
+      setNumOfColumns(TABLET_LANDSCAPE_COLUMNS);
     }
   }, []);
 
@@ -174,7 +174,9 @@ const Search = ({ theme }: Props) => {
     let size = [13.333, 13.333 * 1.25];
 
     if (isTablet()) {
-      if (Platform.OS === 'ios' && numOfColums === TABLET_LANDSCAPE_COLUMNS) {
+      if (Platform.OS === 'ios' && numOfColums === TABLET_PORTRAIT_COLUMNS) {
+        size = [22, 22 * 1.25];
+      } else if (Platform.OS === 'ios' && numOfColums === TABLET_LANDSCAPE_COLUMNS) {
         size = [12, 12 * 1.25];
       } else {
         size = [22, 22 * 1.25];
