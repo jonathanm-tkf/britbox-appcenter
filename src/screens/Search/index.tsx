@@ -373,8 +373,8 @@ const Search = ({ theme }: Props) => {
             title={search?.title || ''}
             numColumns={numOfColums}
             element={{
-              width: percentageWidth(elementWidth),
-              height: percentageWidth(elementHeight),
+              width: percentageWidth(isTablet() ? 22 : 33.333 - (isTablet() ? 10 : 20)),
+              height: percentageWidth((isTablet() ? 22 : 33.333 - (isTablet() ? 10 : 20)) * 1.25),
               marginBottom: 20,
               marginHorizontal: isTablet() ? 3 : 5,
             }}
