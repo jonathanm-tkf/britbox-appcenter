@@ -6,7 +6,7 @@ import Auth from '@screens/Auth';
 import Login from '@screens/Login';
 import SignUp from '@screens/SignUp';
 import SignUpSubscription from '@screens/SignUpSubscription';
-import Orientation from 'react-native-orientation-locker';
+// import Orientation from 'react-native-orientation-locker';
 
 const AuthStack = createStackNavigator();
 

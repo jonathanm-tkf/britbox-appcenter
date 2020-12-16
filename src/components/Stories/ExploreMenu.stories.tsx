@@ -83,4 +83,5 @@ const DATA = [
 
 storiesOf('Explore Menu', module)
   .addDecorator(Theme)
-  .add('default', () => <ExploreMenu data={DATA} onPress={action('onPress')} />);
+  .add('default', () => <ExploreMenu data={DATA} onPress={action('onPress')} />)
+  .add('big screen', () => <ExploreMenu data={DATA} onPress={action('onPress')} />);
