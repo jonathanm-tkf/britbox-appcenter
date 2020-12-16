@@ -156,9 +156,9 @@ const Search = ({ theme }: Props) => {
     }
 
     if (prevOrientation === 'PORTRAIT' || prevOrientation === 'PORTRAIT-UPSIDEDOWN') {
-      setNumOfColumns(TABLET_PORTRAIT_COLUMNS);
+      setNumOfColumns(Platform.OS === 'ios' ? TABLET_PORTRAIT_COLUMNS : TABLET_LANDSCAPE_COLUMNS);
     } else if (prevOrientation === 'LANDSCAPE-LEFT' || prevOrientation === 'LANDSCAPE-RIGHT') {
-      setNumOfColumns(TABLET_LANDSCAPE_COLUMNS);
+      setNumOfColumns(Platform.OS === 'ios' ? TABLET_LANDSCAPE_COLUMNS : TABLET_PORTRAIT_COLUMNS);
     }
   }, []);
 
@@ -174,9 +174,7 @@ const Search = ({ theme }: Props) => {
     let size = [13.333, 13.333 * 1.25];
 
     if (isTablet()) {
-      if (Platform.OS === 'ios' && numOfColums === TABLET_PORTRAIT_COLUMNS) {
-        size = [22, 22 * 1.25];
-      } else if (Platform.OS === 'ios' && numOfColums === TABLET_LANDSCAPE_COLUMNS) {
+      if (Platform.OS === 'ios' && numOfColums === TABLET_LANDSCAPE_COLUMNS) {
         size = [12, 12 * 1.25];
       } else {
         size = [22, 22 * 1.25];
