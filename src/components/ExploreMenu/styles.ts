@@ -1,7 +1,5 @@
 import styled from 'styled-components/native';
 import { ThemeState } from '@store/modules/theme/types';
-import { Button } from '@components/Button';
-import { rgba } from 'polished';
 import { normalize } from '@src/utils/normalize';
 import { getBottomSpace, getStatusBarHeight } from 'react-native-iphone-x-helper';
 import { Platform } from 'react-native';
@@ -19,7 +17,11 @@ export const TabHeader = styled.View`
   width: 100%;
 `;
 
-export const TabHeaderItem = styled.TouchableOpacity`
+type TabHeaderItemProps = {
+  active: boolean;
+};
+
+export const TabHeaderItem = styled.TouchableOpacity<TabHeaderItemProps>`
   flex: 1;
   flex-direction: row;
   align-items: center;
@@ -41,23 +43,9 @@ export const TabHeaderItemText = styled.Text`
       : `
         opacity: 0.6;
         font-family: ${props.theme.PRIMARY_FONT_FAMILY};
+        align-self: flex-start;
       `;
   }};
-`;
-
-export const HeaderWrapper = styled.View`
-  padding-top: 35px;
-  padding-bottom: 35px;
-  flex-direction: row;
-  border-bottom-width: 1px;
-  align-items: center;
-  justify-content: space-around;
-  border-bottom-color: ${(props: ThemeState) => rgba(props.theme.PRIMARY_COLOR_OPAQUE, 0.5)};
-`;
-
-export const HeaderBottom = styled(Button)`
-  font-size: ${normalize(12, 24)}px;
-  line-height: ${normalize(24, 38)}px;
 `;
 
 export const TabHeaderItemIndicator = styled.View`
@@ -68,14 +56,26 @@ export const TabHeaderItemIndicator = styled.View`
   margin-right: 10px;
 `;
 
+interface LinksWrapperProps {
+  bigScreen: boolean;
+}
+
+export const LinksWrapper = styled.View<LinksWrapperProps>`
+  flex: 1;
+  flex-direction: row;
+  justify-content: center;
+`;
+
 type TabContentProps = {
   active: boolean;
+  bigScreen?: boolean;
 };
 
 export const TabContent = styled.View<TabContentProps>`
-  flex-direction: column;
   margin-top: 15px;
-  align-items: center;
+  ${(props: TabContentProps) => {
+    return props.bigScreen && `padding-horizontal: 15%;`;
+  }}
   ${(props: TabContentProps) => {
     return (
       !props.active &&

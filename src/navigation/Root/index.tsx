@@ -13,7 +13,7 @@ import ModalSeasons from '@screens/ModalSeasons';
 import { Animated, Linking, Platform } from 'react-native';
 import { ThemeProps } from '@store/modules/theme/types';
 import ModalMoreInformation from '@screens/ModalMoreInformation';
-import Orientation from 'react-native-orientation-locker';
+// import Orientation from 'react-native-orientation-locker';
 import ModalGenre from '@screens/ModalGenre';
 import ModalFilter from '@screens/ModalFilter';
 import MoreLinks from '@screens/MoreLinks';

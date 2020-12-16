@@ -9,7 +9,7 @@ import {
   Platform,
   InteractionManager,
 } from 'react-native';
-import Orientation from 'react-native-orientation-locker';
+// import Orientation from 'react-native-orientation-locker';
 import { useNavigation, RouteProp, useRoute, useFocusEffect } from '@react-navigation/native';
 import { AppState } from '@store/modules/rootReducer';
 import { useDispatch, useSelector } from 'react-redux';
@@ -26,7 +26,7 @@ import { PostMessage, webViewRef } from '@src/utils/videoPlayerRef';
 import GoogleCast, { CastButton } from 'react-native-google-cast';
 import { continueWatchingRequest } from '@store/modules/user/actions';
 import { Config } from '@src/utils/config';
-import { HomeIndicator } from 'react-native-home-indicator';
+// import { HomeIndicator } from 'react-native-home-indicator';
 import { getDimensions } from '@src/utils/dimension';
 import { Dismissal, Pause, Play, VideoStart } from '@screens/Shared/Cast/services';
 import { pickBy } from 'lodash';
@@ -238,7 +238,7 @@ const VideoPlayer = () => {
         alignItems: 'center',
       }}
     >
-      <HomeIndicator autoHidden />
+      {/* <HomeIndicator autoHidden /> */}
       {isLoading && (
         <LoadingContainer>
           {(orientation === 'LANDSCAPE-LEFT' || orientation === 'LANDSCAPE-RIGHT') && (

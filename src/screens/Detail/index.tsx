@@ -48,10 +48,10 @@ import RBSheet from 'react-native-raw-bottom-sheet';
 import { BritboxAccountApi } from '@src/sdks';
 import Action from '@components/Action';
 import { refreshTokenWithExpiresIn } from '@src/services/token';
-import Orientation from 'react-native-orientation-locker';
+// import Orientation from 'react-native-orientation-locker';
 import { immersiveModeOff } from 'react-native-android-immersive-mode';
 import { isTablet } from 'react-native-device-info';
-import { HomeIndicator } from 'react-native-home-indicator';
+// import { HomeIndicator } from 'react-native-home-indicator';
 import { castVideo } from '@store/modules/chromecast/actions';
 import { getDimensions } from '@src/utils/dimension';
 import { withTheme } from 'styled-components';
@@ -549,7 +549,7 @@ const Detail = ({ theme }: Props) => {
   return (
     // paddingBottom={isShowMiniController ? 152 : 64}
     <Container style={{ width }}>
-      <HomeIndicator autoHidden={false} />
+      {/* <HomeIndicator autoHidden={false} /> */}
       <TopWrapper>
         <Button onPress={() => back()}>
           <BackIcon width={20} height={20} />
