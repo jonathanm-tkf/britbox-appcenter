@@ -1,14 +1,14 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useEffect, useState, useCallback } from 'react';
-
+import React, { useEffect, useState, useCallback, useMemo } from 'react';
 import { getStatusBarHeight } from 'react-native-iphone-x-helper';
 import { Platform, View, TouchableOpacity, ScrollView } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
+import Orientation, { OrientationType } from 'react-native-orientation-locker';
 import { AppState } from '@store/modules/rootReducer';
 import Header from '@components/Header';
 import { sheetComponent, showSheetBottom } from '@store/modules/layout/actions';
 import { useTranslation } from 'react-i18next';
-import { percentageWidth } from '@src/utils/dimension';
+import { percentageWidth, getDimensions } from '@src/utils/dimension';
 import Grid from '@screens/Shared/Grid';
 import { CloseIcon } from '@assets/icons';
 import { Button } from '@components/Button';
@@ -72,6 +72,12 @@ type RootParamList = {
 
 type WatchlistScreenRouteProp = RouteProp<RootParamList, 'Watchlist'>;
 
+const TABLET_PORTRAIT_COLUMNS = 4;
+const TABLET_LANDSCAPE_COLUMNS = 7;
+
+const { width: screenWidth, height: screenHeight } = getDimensions();
+const isPortrait = screenHeight >= screenWidth;
+
 const Watchlist = () => {
   const { params } = useRoute<WatchlistScreenRouteProp>();
   const theme = useSelector((state: AppState) => state.theme.theme);
@@ -83,6 +89,9 @@ const Watchlist = () => {
   const navigation = useNavigation();
   const [type, setType] = useState('all');
   const [orderBy, setOrderBy] = useState('date-added');
+  const [numOfColums, setNumOfColumns] = useState(
+    isTablet() ? (isPortrait ? TABLET_PORTRAIT_COLUMNS : TABLET_LANDSCAPE_COLUMNS) : 3
+  );
   const { filter } = params || {};
   const menu = useSelector((state: AppState) => state.core.menu?.navigation?.header); // TODO: get data from properties
 
@@ -136,6 +145,40 @@ const Watchlist = () => {
       }
     }
   }, [filter]);
+
+  const onOrientationDidChange = useCallback((prevOrientation: OrientationType) => {
+    if (!isTablet()) {
+      return;
+    }
+
+    if (prevOrientation === 'PORTRAIT' || prevOrientation === 'PORTRAIT-UPSIDEDOWN') {
+      setNumOfColumns(Platform.OS === 'ios' ? TABLET_PORTRAIT_COLUMNS : TABLET_LANDSCAPE_COLUMNS);
+    } else if (prevOrientation === 'LANDSCAPE-LEFT' || prevOrientation === 'LANDSCAPE-RIGHT') {
+      setNumOfColumns(Platform.OS === 'ios' ? TABLET_LANDSCAPE_COLUMNS : TABLET_PORTRAIT_COLUMNS);
+    }
+  }, []);
+
+  useEffect(() => {
+    Orientation.addDeviceOrientationListener(onOrientationDidChange);
+
+    return () => {
+      Orientation.removeOrientationListener(onOrientationDidChange);
+    };
+  }, []);
+
+  const [elementWidth, elementHeight] = useMemo((): Array<number> => {
+    let size = [13.333, 13.333 * 1.25];
+
+    if (isTablet()) {
+      if (Platform.OS === 'ios' && numOfColums === TABLET_LANDSCAPE_COLUMNS) {
+        size = [12, 12 * 1.25];
+      } else {
+        size = [22, 22 * 1.25];
+      }
+    }
+
+    return size;
+  }, [numOfColums]);
 
   const showSheetBottomContent = (item: MassiveSDKModelItemSummary) => {
     if (getSheetHeight() === 0) {
@@ -241,10 +284,10 @@ const Watchlist = () => {
           <Grid
             items={list}
             title={getGridTitle()}
-            numColumns={isTablet() ? 4 : 3}
+            numColumns={numOfColums}
             element={{
-              width: percentageWidth(isTablet() ? 25 : 33.333) - (isTablet() ? 10 : 20),
-              height: percentageWidth((isTablet() ? 25 : 33.333) * 1.25),
+              width: percentageWidth(elementWidth),
+              height: percentageWidth(elementHeight),
               marginBottom: 20,
               marginHorizontal: isTablet() ? 3 : 5,
             }}
