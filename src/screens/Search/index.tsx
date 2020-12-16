@@ -1,12 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-<<<<<<< HEAD
 import React, { useEffect, useState } from 'react';
 import { FlatList, TouchableOpacity, ActivityIndicator, Platform } from 'react-native';
-=======
-import React, { useEffect, useState, useCallback } from 'react';
-import { FlatList, TouchableOpacity, ActivityIndicator, Platform } from 'react-native';
-import Orientation, { OrientationType } from 'react-native-orientation-locker';
->>>>>>> 545084e... fix last commit for ios
 import { useTranslation } from 'react-i18next';
 import Highlighter from 'react-native-highlight-words';
 import { SearchIcon, SearchDeleteIcon } from '@assets/icons';
@@ -148,26 +142,6 @@ const Search = ({ theme }: Props) => {
 
     return () => clearTimeout(timer);
   }, [searchInput]);
-
-  const onOrientationDidChange = useCallback((prevOrientation: OrientationType) => {
-    if (!isTablet()) {
-      return;
-    }
-
-    if (prevOrientation === 'PORTRAIT' || prevOrientation === 'PORTRAIT-UPSIDEDOWN') {
-      setNumOfColumns(Platform.OS === 'ios' ? TABLET_PORTRAIT_COLUMNS : TABLET_LANDSCAPE_COLUMNS);
-    } else if (prevOrientation === 'LANDSCAPE-LEFT' || prevOrientation === 'LANDSCAPE-RIGHT') {
-      setNumOfColumns(Platform.OS === 'ios' ? TABLET_LANDSCAPE_COLUMNS : TABLET_PORTRAIT_COLUMNS);
-    }
-  }, []);
-
-  useEffect(() => {
-    Orientation.addDeviceOrientationListener(onOrientationDidChange);
-
-    return () => {
-      Orientation.removeOrientationListener(onOrientationDidChange);
-    };
-  }, []);
 
   const doSearch = async (done: boolean) => {
     const searchString = searchInput?.trim();
