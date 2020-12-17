@@ -20,13 +20,18 @@ export const TabHeader = styled.View`
 type TabHeaderItemProps = {
   active: boolean;
   center: boolean;
+<<<<<<< HEAD
   addPadding: boolean;
+=======
+  paddingLeft?: string;
+>>>>>>> d75ef9c... fix titles positions on Explore screen
 };
 
 export const TabHeaderItem = styled.TouchableOpacity<TabHeaderItemProps>`
   width: 50%;
   flex-direction: row;
   align-items: center;
+<<<<<<< HEAD
   ${(props: TabHeaderItemProps) => props.addPadding && `padding-left: 6%;`}
   ${(props: TabHeaderItemProps) => props.center && `justify-content: center;`}
 `;
@@ -35,6 +40,10 @@ export const BigScreenTabHeaderItemTextWrapper = styled.Text`
   width: 50%;
   align-items: flex-start;
   opacity: 0.6;
+=======
+  ${(props: TabHeaderItemProps) => props.center && `justify-content: center;`}
+  ${(props: TabHeaderItemProps) => props.paddingLeft && `padding-left: ${props.paddingLeft};`}
+>>>>>>> d75ef9c... fix titles positions on Explore screen
 `;
 
 interface ItemText {
