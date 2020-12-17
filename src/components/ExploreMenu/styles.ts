@@ -21,16 +21,21 @@ type TabHeaderItemProps = {
   active: boolean;
   center: boolean;
 <<<<<<< HEAD
+<<<<<<< HEAD
   addPadding: boolean;
 =======
   paddingLeft?: string;
 >>>>>>> d75ef9c... fix titles positions on Explore screen
+=======
+  addPadding: boolean;
+>>>>>>> 7829e77... fix header titles position on tablets
 };
 
 export const TabHeaderItem = styled.TouchableOpacity<TabHeaderItemProps>`
   width: 50%;
   flex-direction: row;
   align-items: center;
+<<<<<<< HEAD
 <<<<<<< HEAD
   ${(props: TabHeaderItemProps) => props.addPadding && `padding-left: 6%;`}
   ${(props: TabHeaderItemProps) => props.center && `justify-content: center;`}
@@ -44,6 +49,10 @@ export const BigScreenTabHeaderItemTextWrapper = styled.Text`
   ${(props: TabHeaderItemProps) => props.center && `justify-content: center;`}
   ${(props: TabHeaderItemProps) => props.paddingLeft && `padding-left: ${props.paddingLeft};`}
 >>>>>>> d75ef9c... fix titles positions on Explore screen
+=======
+  ${(props: TabHeaderItemProps) => props.addPadding && `padding-left: 6%;`}
+  ${(props: TabHeaderItemProps) => props.center && `justify-content: center;`}
+>>>>>>> 7829e77... fix header titles position on tablets
 `;
 
 interface ItemText {
