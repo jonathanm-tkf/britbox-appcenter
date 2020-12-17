@@ -29,7 +29,6 @@ const ExploreMenu = ({ data, onPress }: Props) => {
   const [active, setActive] = useState('');
   const [dataMenu, setDataMenu] = useState([]);
   const orientation = useOrientation();
-  console.log({ orientation });
 
   const changeTab = (key: string) => {
     setActive(key);
