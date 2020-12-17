@@ -319,6 +319,8 @@ PODS:
     - react-native-google-cast/RNGoogleCast
   - react-native-google-cast/RNGoogleCast (3.3.0):
     - React
+  - react-native-home-indicator (0.2.6):
+    - React-Core
   - react-native-kochava-tracker (1.4.0):
     - React
   - react-native-netinfo (5.9.7):
@@ -498,6 +500,7 @@ DEPENDENCIES:
   - react-native-flipper (from `../node_modules/react-native-flipper`)
   - react-native-get-random-values (from `../node_modules/react-native-get-random-values`)
   - react-native-google-cast (from `../node_modules/react-native-google-cast/ios`)
+  - react-native-home-indicator (from `../node_modules/react-native-home-indicator`)
   - react-native-kochava-tracker (from `../node_modules/react-native-kochava-tracker`)
   - "react-native-netinfo (from `../node_modules/@react-native-community/netinfo`)"
   - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
@@ -630,6 +633,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-get-random-values"
   react-native-google-cast:
     :path: "../node_modules/react-native-google-cast/ios"
+  react-native-home-indicator:
+    :path: "../node_modules/react-native-home-indicator"
   react-native-kochava-tracker:
     :path: "../node_modules/react-native-kochava-tracker"
   react-native-netinfo:
@@ -766,6 +771,7 @@ SPEC CHECKSUMS:
   react-native-flipper: 9d5738fbde235d9e2c922783e0e4657e665fe8ab
   react-native-get-random-values: 1404bd5cc0ab0e287f75ee1c489555688fc65f89
   react-native-google-cast: 3576ec1bfb730bddd6f063f3340c192b0ebc1e69
+  react-native-home-indicator: 92b86b0fbe85a50c9cba286ad7bae4a2c319238a
   react-native-kochava-tracker: babb1ec6b31134295ac2c3b75750ca82f589ec77
   react-native-netinfo: 250dc0ca126512f618a8a2ca6a936577e1f66586
   react-native-safe-area-context: 79fea126c6830c85f65947c223a5e3058a666937

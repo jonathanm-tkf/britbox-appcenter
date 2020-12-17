@@ -25,7 +25,7 @@ import { PostMessage, webViewRef } from '@src/utils/videoPlayerRef';
 import GoogleCast, { CastButton } from 'react-native-google-cast';
 import { continueWatchingRequest } from '@store/modules/user/actions';
 import { Config } from '@src/utils/config';
-// import { HomeIndicator } from 'react-native-home-indicator';
+import { HomeIndicator } from 'react-native-home-indicator';
 import { getDimensions } from '@src/utils/dimension';
 import { Dismissal, Pause, Play, VideoStart } from '@screens/Shared/Cast/services';
 import { pickBy } from 'lodash';
@@ -79,9 +79,11 @@ const VideoPlayer = () => {
       const { Device } = NativeModules;
       const eventEmitterDevice = new NativeEventEmitter(Device);
       eventEmitterDevice.addListener('DEVICE_SCREEN_OFF', deviceScreenOff);
+      eventEmitterDevice.addListener('DEVICE_SCREEN_ON', deviceScreenOn);
 
       return () => {
         eventEmitterDevice.removeListener('DEVICE_SCREEN_OFF', deviceScreenOff);
+        eventEmitterDevice.removeListener('DEVICE_SCREEN_ON', deviceScreenOn);
       };
     }
 
@@ -96,6 +98,11 @@ const VideoPlayer = () => {
         type: 'pause',
       });
     }
+    immersiveModeOff();
+  }, []);
+
+  const deviceScreenOn = useCallback(() => {
+    immersiveModeOn();
   }, []);
 
   const processMessage = (message: { [name: string]: any }) => {
@@ -230,7 +237,7 @@ const VideoPlayer = () => {
         alignItems: 'center',
       }}
     >
-      {/* <HomeIndicator autoHidden /> */}
+      <HomeIndicator autoHidden />
       {isLoading && (
         <LoadingContainer>
           <BackButton onPress={() => backArrow()}>

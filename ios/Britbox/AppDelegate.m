@@ -13,6 +13,7 @@
 #import <UMCore/UMModuleRegistry.h>
 #import <UMReactNativeAdapter/UMNativeModulesProxy.h>
 #import <UMReactNativeAdapter/UMModuleRegistryAdapter.h>
+#import <RNHomeIndicator.h>
 #import <EXScreenOrientation/EXScreenOrientationViewController.h>
 
 #ifdef FB_SONARKIT_ENABLED
@@ -58,7 +59,7 @@ static void InitializeFlipper(UIApplication *application) {
   rootView.backgroundColor = [UIColor colorWithRed: 0.09 green: 0.11 blue: 0.14 alpha: 1.00];
 
   self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
-  UIViewController *rootViewController = [[EXScreenOrientationViewController alloc] init];
+  UIViewController *rootViewController = [HomeIndicatorViewController new];
   rootViewController.view = rootView;
   self.window.rootViewController = rootViewController;
   [self.window makeKeyAndVisible];

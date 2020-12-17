@@ -75,7 +75,7 @@ export const MiniController = styled.View`
   align-items: center;
   width: 100%;
   height: ${isTablet() ? 90 : 70}px;
-  margin-bottom: -10px;
+  margin-bottom: 0px;
   z-index: 1;
   elevation: 4;
 `;
