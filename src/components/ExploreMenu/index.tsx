@@ -28,14 +28,18 @@ const headerStyles = {};
 
 const { width: screenWidth, height: screenHeight } = getDimensions();
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 const initialOrientation = screenWidth >= screenHeight ? 'LANDSCAPE' : 'PORTRAIT';
 >>>>>>> d75ef9c... fix titles positions on Explore screen
+=======
+>>>>>>> 7829e77... fix header titles position on tablets
 
 const ExploreMenu = ({ data, onPress }: Props) => {
   const menu = useSelector((state: AppState) => state.core.menu?.navigation?.header); // TODO: get data from properties
   const [active, setActive] = useState('');
   const [dataMenu, setDataMenu] = useState([]);
+<<<<<<< HEAD
 <<<<<<< HEAD
   const [orientation, setOrientation] = useState(
     screenHeight >= screenWidth ? 'PORTRAIT' : 'LANDSCAPE'
@@ -43,16 +47,25 @@ const ExploreMenu = ({ data, onPress }: Props) => {
 =======
   const [orientation, setOrientation] = useState(initialOrientation);
 >>>>>>> d75ef9c... fix titles positions on Explore screen
+=======
+  const [orientation, setOrientation] = useState(
+    screenHeight >= screenWidth ? 'PORTRAIT' : 'LANDSCAPE'
+  );
+>>>>>>> 7829e77... fix header titles position on tablets
 
   const changeTab = (key: string) => {
     setActive(key);
   };
 
 <<<<<<< HEAD
+<<<<<<< HEAD
   const onOrientationDidChange = (newOrientation: OrientationType) => {
 =======
   const orientationListener = (newOrientation: OrientationType) => {
 >>>>>>> d75ef9c... fix titles positions on Explore screen
+=======
+  const onOrientationDidChange = (newOrientation: OrientationType) => {
+>>>>>>> 7829e77... fix header titles position on tablets
     if (newOrientation === 'PORTRAIT' || newOrientation === 'PORTRAIT-UPSIDEDOWN') {
       setOrientation(Platform.OS === 'ios' ? 'PORTRAIT' : 'LANDSCAPE');
     } else if (newOrientation === 'LANDSCAPE-LEFT' || newOrientation === 'LANDSCAPE-RIGHT') {
@@ -72,15 +85,21 @@ const ExploreMenu = ({ data, onPress }: Props) => {
 
   useEffect(() => {
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 7829e77... fix header titles position on tablets
     Orientation.addDeviceOrientationListener(onOrientationDidChange);
     Orientation.getDeviceOrientation(onOrientationDidChange);
 
     return () => {
       Orientation.removeOrientationListener(onOrientationDidChange);
     };
+<<<<<<< HEAD
 =======
     Orientation.addDeviceOrientationListener(orientationListener);
 >>>>>>> d75ef9c... fix titles positions on Explore screen
+=======
+>>>>>>> 7829e77... fix header titles position on tablets
   });
 
   const getMenuItems = useCallback(() => {
@@ -110,6 +129,7 @@ const ExploreMenu = ({ data, onPress }: Props) => {
             active={active === headerItem.label}
             center={!isTablet() || (orientation === 'LANDSCAPE' && headerIndex === 0)}
 <<<<<<< HEAD
+<<<<<<< HEAD
             addPadding={
               isTablet() &&
               ((orientation === 'PORTRAIT' && headerIndex === 0) || orientation === 'LANDSCAPE')
@@ -121,20 +141,32 @@ const ExploreMenu = ({ data, onPress }: Props) => {
             }
             disabled={isTablet()}
 >>>>>>> d75ef9c... fix titles positions on Explore screen
+=======
+            addPadding={
+              isTablet() &&
+              ((orientation === 'PORTRAIT' && headerIndex === 0) || orientation === 'LANDSCAPE')
+            }
+>>>>>>> 7829e77... fix header titles position on tablets
             onPress={() => changeTab(headerItem.label)}
             disabled={isTablet()}
           >
             {!isTablet() && active === headerItem.label && <TabHeaderItemIndicator />}
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 7829e77... fix header titles position on tablets
             <TabHeaderItemText
               active={!isTablet() && active === headerItem.label}
               paddingLeft={
                 isTablet() && orientation === 'LANDSCAPE' && headerIndex === 0 ? '10%' : undefined
               }
             >
+<<<<<<< HEAD
 =======
             <TabHeaderItemText active={!isTablet() && active === headerItem.label}>
 >>>>>>> d75ef9c... fix titles positions on Explore screen
+=======
+>>>>>>> 7829e77... fix header titles position on tablets
               {headerItem.label}
             </TabHeaderItemText>
           </TabHeaderItem>
