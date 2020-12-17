@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback, SetStateAction } from 'react';
 import { useSelector } from 'react-redux';
+import Orientation, { OrientationType } from 'react-native-orientation-locker';
 import { AppState } from '@store/modules/rootReducer';
 import { Header } from '@store/modules/core/types';
 import { useOrientation } from '@src/utils/orientation';
