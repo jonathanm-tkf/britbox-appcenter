@@ -27,20 +27,32 @@ interface Props {
 const headerStyles = {};
 
 const { width: screenWidth, height: screenHeight } = getDimensions();
+<<<<<<< HEAD
+=======
+const initialOrientation = screenWidth >= screenHeight ? 'LANDSCAPE' : 'PORTRAIT';
+>>>>>>> d75ef9c... fix titles positions on Explore screen
 
 const ExploreMenu = ({ data, onPress }: Props) => {
   const menu = useSelector((state: AppState) => state.core.menu?.navigation?.header); // TODO: get data from properties
   const [active, setActive] = useState('');
   const [dataMenu, setDataMenu] = useState([]);
+<<<<<<< HEAD
   const [orientation, setOrientation] = useState(
     screenHeight >= screenWidth ? 'PORTRAIT' : 'LANDSCAPE'
   );
+=======
+  const [orientation, setOrientation] = useState(initialOrientation);
+>>>>>>> d75ef9c... fix titles positions on Explore screen
 
   const changeTab = (key: string) => {
     setActive(key);
   };
 
+<<<<<<< HEAD
   const onOrientationDidChange = (newOrientation: OrientationType) => {
+=======
+  const orientationListener = (newOrientation: OrientationType) => {
+>>>>>>> d75ef9c... fix titles positions on Explore screen
     if (newOrientation === 'PORTRAIT' || newOrientation === 'PORTRAIT-UPSIDEDOWN') {
       setOrientation(Platform.OS === 'ios' ? 'PORTRAIT' : 'LANDSCAPE');
     } else if (newOrientation === 'LANDSCAPE-LEFT' || newOrientation === 'LANDSCAPE-RIGHT') {
@@ -59,12 +71,16 @@ const ExploreMenu = ({ data, onPress }: Props) => {
   }, [data]);
 
   useEffect(() => {
+<<<<<<< HEAD
     Orientation.addDeviceOrientationListener(onOrientationDidChange);
     Orientation.getDeviceOrientation(onOrientationDidChange);
 
     return () => {
       Orientation.removeOrientationListener(onOrientationDidChange);
     };
+=======
+    Orientation.addDeviceOrientationListener(orientationListener);
+>>>>>>> d75ef9c... fix titles positions on Explore screen
   });
 
   const getMenuItems = useCallback(() => {
@@ -93,20 +109,32 @@ const ExploreMenu = ({ data, onPress }: Props) => {
             key={headerItem.label.toString() + headerIndex.toString()}
             active={active === headerItem.label}
             center={!isTablet() || (orientation === 'LANDSCAPE' && headerIndex === 0)}
+<<<<<<< HEAD
             addPadding={
               isTablet() &&
               ((orientation === 'PORTRAIT' && headerIndex === 0) || orientation === 'LANDSCAPE')
             }
+=======
+            paddingLeft={
+              (isTablet() && orientation === 'PORTRAIT' && headerIndex === 0 ? '5%' : undefined) ||
+              (isTablet() && orientation === 'LANDSCAPE' && headerIndex === 1 ? '5%' : undefined)
+            }
+            disabled={isTablet()}
+>>>>>>> d75ef9c... fix titles positions on Explore screen
             onPress={() => changeTab(headerItem.label)}
             disabled={isTablet()}
           >
             {!isTablet() && active === headerItem.label && <TabHeaderItemIndicator />}
+<<<<<<< HEAD
             <TabHeaderItemText
               active={!isTablet() && active === headerItem.label}
               paddingLeft={
                 isTablet() && orientation === 'LANDSCAPE' && headerIndex === 0 ? '10%' : undefined
               }
             >
+=======
+            <TabHeaderItemText active={!isTablet() && active === headerItem.label}>
+>>>>>>> d75ef9c... fix titles positions on Explore screen
               {headerItem.label}
             </TabHeaderItemText>
           </TabHeaderItem>
