@@ -29,6 +29,7 @@ const ExploreMenu = ({ data, onPress }: Props) => {
   const [active, setActive] = useState('');
   const [dataMenu, setDataMenu] = useState([]);
   const orientation = useOrientation();
+  console.log({ orientation });
 
   const changeTab = (key: string) => {
     setActive(key);
@@ -70,10 +71,7 @@ const ExploreMenu = ({ data, onPress }: Props) => {
             key={headerItem.label.toString() + headerIndex.toString()}
             active={active === headerItem.label}
             center={!isTablet() || (orientation === 'LANDSCAPE' && headerIndex === 0)}
-            addPadding={
-              isTablet() &&
-              ((orientation === 'PORTRAIT' && headerIndex === 0) || orientation === 'LANDSCAPE')
-            }
+            addPadding={isTablet() && (orientation === 'LANDSCAPE' || headerIndex === 0)}
             onPress={() => changeTab(headerItem.label)}
             disabled={isTablet()}
           >

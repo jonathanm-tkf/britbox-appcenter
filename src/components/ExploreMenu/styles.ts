@@ -54,7 +54,6 @@ export const TabHeaderItemText = styled.Text`
       : `
         opacity: 0.6;
         font-family: ${props.theme.PRIMARY_FONT_FAMILY};
-        align-self: flex-start;
       `;
   }};
 `;
