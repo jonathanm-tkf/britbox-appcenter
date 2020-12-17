@@ -19,13 +19,16 @@ export const TabHeader = styled.View`
 
 type TabHeaderItemProps = {
   active: boolean;
+  center: boolean;
+  paddingLeft?: string;
 };
 
 export const TabHeaderItem = styled.TouchableOpacity<TabHeaderItemProps>`
-  flex: 1;
+  width: 50%;
   flex-direction: row;
   align-items: center;
-  justify-content: center;
+  ${(props: TabHeaderItemProps) => props.center && `justify-content: center;`}
+  ${(props: TabHeaderItemProps) => props.paddingLeft && `padding-left: ${props.paddingLeft};`}
 `;
 
 interface ItemText {
@@ -43,7 +46,6 @@ export const TabHeaderItemText = styled.Text`
       : `
         opacity: 0.6;
         font-family: ${props.theme.PRIMARY_FONT_FAMILY};
-        align-self: flex-start;
       `;
   }};
 `;
@@ -74,7 +76,7 @@ type TabContentProps = {
 export const TabContent = styled.View<TabContentProps>`
   margin-top: 15px;
   ${(props: TabContentProps) => {
-    return props.bigScreen && `padding-horizontal: 15%;`;
+    return props.bigScreen && `padding-horizontal: 10%;`;
   }}
   ${(props: TabContentProps) => {
     return (
