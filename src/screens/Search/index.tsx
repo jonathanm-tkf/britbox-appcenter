@@ -1,7 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useEffect, useState, useCallback, useMemo } from 'react';
+import React, { useEffect, useState } from 'react';
 import { FlatList, TouchableOpacity, ActivityIndicator, Platform } from 'react-native';
-import Orientation, { OrientationType } from 'react-native-orientation-locker';
 import { useTranslation } from 'react-i18next';
 import Highlighter from 'react-native-highlight-words';
 import { SearchIcon, SearchDeleteIcon } from '@assets/icons';
@@ -17,7 +16,7 @@ import { percentageWidth } from '@src/utils/dimension';
 import { isTablet } from 'react-native-device-info';
 import { getTextInConfigJSON } from '@src/utils/object';
 import { analyticsRef } from '@src/utils/analytics';
-import { getDimensions } from '@src/utils/dimension';
+import { useColumns } from '@src/utils/columns';
 import { withTheme } from 'styled-components';
 import { ThemeProps } from '@store/modules/theme/types';
 import {
@@ -55,12 +54,6 @@ type Props = {
   readonly theme: ThemeProps;
 };
 
-const TABLET_PORTRAIT_COLUMNS = 4;
-const TABLET_LANDSCAPE_COLUMNS = 7;
-
-const { width: screenWidth, height: screenHeight } = getDimensions();
-const isPortrait = screenHeight >= screenWidth;
-
 const Search = ({ theme }: Props) => {
   const { t } = useTranslation('search');
   const user = useSelector((state: AppState) => state.user);
@@ -69,8 +62,9 @@ const Search = ({ theme }: Props) => {
   const [isDone, setIsDone] = useState(false);
   const [noResults, setNoResults] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [numOfColums, setNumOfColumns] = useState(
-    isTablet() ? (isPortrait ? TABLET_PORTRAIT_COLUMNS : TABLET_LANDSCAPE_COLUMNS) : 3
+  const [numOfColums, elementWidth, elementHeight] = useColumns(
+    18,
+    Platform.OS === 'ios' ? 16 : 28
   );
   const [searchingItemData, setSearchingItemData] = useState<MassiveSDKModelItemList[] | undefined>(
     undefined
@@ -148,40 +142,6 @@ const Search = ({ theme }: Props) => {
 
     return () => clearTimeout(timer);
   }, [searchInput]);
-
-  const onOrientationDidChange = useCallback((prevOrientation: OrientationType) => {
-    if (!isTablet()) {
-      return;
-    }
-
-    if (prevOrientation === 'PORTRAIT' || prevOrientation === 'PORTRAIT-UPSIDEDOWN') {
-      setNumOfColumns(Platform.OS === 'ios' ? TABLET_PORTRAIT_COLUMNS : TABLET_LANDSCAPE_COLUMNS);
-    } else if (prevOrientation === 'LANDSCAPE-LEFT' || prevOrientation === 'LANDSCAPE-RIGHT') {
-      setNumOfColumns(Platform.OS === 'ios' ? TABLET_LANDSCAPE_COLUMNS : TABLET_PORTRAIT_COLUMNS);
-    }
-  }, []);
-
-  useEffect(() => {
-    Orientation.addDeviceOrientationListener(onOrientationDidChange);
-
-    return () => {
-      Orientation.removeOrientationListener(onOrientationDidChange);
-    };
-  }, []);
-
-  const [elementWidth, elementHeight] = useMemo((): Array<number> => {
-    let size = [13.333, 13.333 * 1.25];
-
-    if (isTablet()) {
-      if (Platform.OS === 'ios' && numOfColums === TABLET_LANDSCAPE_COLUMNS) {
-        size = [12, 12 * 1.25];
-      } else {
-        size = [22, 22 * 1.25];
-      }
-    }
-
-    return size;
-  }, [numOfColums]);
 
   const doSearch = async (done: boolean) => {
     const searchString = searchInput?.trim();
