@@ -28,7 +28,7 @@ import { getItemContent } from '@store/modules/home/saga';
 import Loading from '@screens/Loading';
 import * as ScreenOrientation from 'expo-screen-orientation';
 import { AuthStackScreen } from '../Auth';
-import { navigateByPath, navigationGoBack, navigationRef } from '../rootNavigation';
+import { push, navigateByPath, navigationGoBack, navigationRef } from '../rootNavigation';
 import { AppTabsScreen } from '../Tabs';
 
 const STORYBOOK_START = false && __DEV__;
@@ -126,36 +126,29 @@ const RootStackScreen = () => {
               const response: BritboxAPIContentModelsItemsGetItemRelatedListResponse = await getItemContent(
                 routeName[1]
               );
-
               if (response && response?.externalResponse) {
                 if (name === 'VideoPlayer') {
                   navigationGoBack();
                 }
                 const { externalResponse } = response;
-                if (name !== 'Loading') {
-                  navigateByPath(externalResponse, routeName[0] === 'watch');
-                }
-                dispatch(name !== 'Loading' ? setDeepLinkUrl(null) : setDeepLinkUrl({ ...event }));
+                navigateByPath(externalResponse, routeName[0] === 'watch');
+                setDeepLinkUrl(null);
+              } else {
+                push('Detail', { item: {}, autoPlay: false });
               }
             }
           }
         }
       } else {
         const route = url?.split('www.britbox.com');
-
         if (route[1] && route[1] !== '') {
           if (/\/show\/|\/movie\/|\/season\/|\/episode\//.test(route[1] || '')) {
             if (name === 'VideoPlayer') {
               navigationGoBack();
             }
-            if (name !== 'Loading') {
-              const id = route[1].split('/').pop();
-              navigateByPath(
-                { path: route[1], id, customId: true },
-                !(route[1] || '').includes('_')
-              );
-            }
-            dispatch(name !== 'Loading' ? setDeepLinkUrl(null) : setDeepLinkUrl({ ...event }));
+            const id = route[1].split('/').pop();
+            navigateByPath({ path: route[1], id, customId: true }, !(route[1] || '').includes('_'));
+            setDeepLinkUrl(null);
           }
         }
       }
@@ -166,7 +159,7 @@ const RootStackScreen = () => {
     if (isLogged) {
       appWokeUp(event);
     } else {
-      dispatch(setDeepLinkUrl(event?.url));
+      dispatch(setDeepLinkUrl(event));
     }
   };
 
@@ -179,12 +172,13 @@ const RootStackScreen = () => {
   }, [isLogged]);
 
   useEffect(() => {
+    if (isLoading) return;
     Linking.getInitialURL().then((url: string | null) => {
       if (url) {
         deepLink({ url });
       }
     });
-  }, []);
+  }, [isLoading]);
 
   useEffect(() => {
     if (isLogged && deepLinkUrl) {
