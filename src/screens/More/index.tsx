@@ -1,5 +1,5 @@
 import React, { useCallback, useMemo } from 'react';
-import { Platform, ScrollView, TouchableOpacity, Linking } from 'react-native';
+import { Platform, ScrollView, TouchableOpacity, Linking, FlexAlignType } from 'react-native';
 import { getStatusBarHeight } from 'react-native-iphone-x-helper';
 import { Title } from '@components/Typography';
 import { CelularIcon, EditIcon } from '@assets/icons';
@@ -11,6 +11,7 @@ import { logout } from '@store/modules/user/actions';
 import { getVersion, getBuildNumber, isTablet } from 'react-native-device-info';
 import { getTextInConfigJSON } from '@src/utils/object';
 import { analyticsRef } from '@src/utils/analytics';
+import { getDimensions } from '@src/utils/dimension';
 import {
   ProfileView,
   RowContainer,
@@ -26,6 +27,9 @@ import {
   Container,
 } from './styles';
 
+const { width: screenWidth, height: screenHeight } = getDimensions();
+const width = Math.min(screenWidth, screenHeight) * 0.8;
+
 export default function More() {
   const { t } = useTranslation('myaccount');
   const { navigate } = useNavigation();
@@ -37,7 +41,9 @@ export default function More() {
     () => ({
       flexGrow: 1,
       paddingTop: Platform.OS === 'ios' ? getStatusBarHeight() + 10 : 10,
-      paddingHorizontal: 30,
+      paddingHorizontal: isTablet() ? 0 : 30,
+      width: isTablet() ? width : undefined,
+      alignSelf: (isTablet() ? 'center' : 'flex-start') as FlexAlignType,
       paddingBottom:
         Platform.OS === 'ios'
           ? isShowMiniController
