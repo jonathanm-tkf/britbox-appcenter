@@ -4,11 +4,8 @@ import LinearGradient from 'react-native-linear-gradient';
 import { UnLockIcon, LockIcon } from '@assets/icons';
 import { getBottomSpace } from 'react-native-iphone-x-helper';
 import { normalize } from '@src/utils/normalize';
-import { getDimensions } from '@src/utils/dimension';
+import { getTabletScreenWidth } from '@src/utils/dimension';
 import { isTablet } from 'react-native-device-info';
-
-const { width: screenWidth, height: screenHeight } = getDimensions();
-const width = Math.min(screenWidth, screenHeight) * 0.8;
 
 export const Container = styled.View`
   flex: 1;
@@ -19,7 +16,7 @@ export const Container = styled.View`
 export const ScrollableContainer = styled.ScrollView.attrs({
   contentContainerStyle: {
     flexGrow: 1,
-    width,
+    width: getTabletScreenWidth(),
     alignSelf: 'center',
   },
   bounces: false,
