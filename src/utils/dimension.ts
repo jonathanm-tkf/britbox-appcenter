@@ -56,9 +56,9 @@ export const percentageHeight = (percentage: number) => {
 /**
  * Tablet-Screen-Width
  * A few screens have the exact same width on tablets
- * @returns {number} 80% of the screen width
+ * @returns {number} 90% of the screen width
  */
 export const getTabletScreenWidth = (): number => {
   const { width: screenWidth, height: screenHeight } = getDimensions();
-  return Math.min(screenWidth, screenHeight) * 0.8;
+  return Math.min(screenWidth, screenHeight) * 0.9;
 };
