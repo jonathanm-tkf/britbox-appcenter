@@ -1,6 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from 'react';
 import { KeyboardAvoidingView, Platform, Keyboard, Linking } from 'react-native';
+import { isTablet } from 'react-native-device-info';
 import { Button } from '@components/Button';
 import { Input, PasswordInput } from '@components/Input';
 import HeaderCustom from '@components/HeaderCustom';
@@ -10,6 +11,7 @@ import { registerRequestSuccess } from '@store/modules/user/actions';
 import { EvergentSignupResponseError } from '@store/modules/user/types';
 import { AppState } from '@store/modules/rootReducer';
 import { getTextInConfigJSON, getSegment } from '@src/utils/object';
+import { getTabletScreenWidth } from '@src/utils/dimension';
 import { useTranslation } from 'react-i18next';
 import { useNavigation } from '@react-navigation/native';
 import { validateEmail } from '@src/utils/validations';
@@ -48,13 +50,22 @@ const evergentSignupResponseError: EvergentSignupResponseError = {
   failureMessage: [],
 };
 
-const cancelStyle = { marginTop: 15, width: '100%', alignItems: 'center' };
+const cancelStyle = {
+  marginTop: 15,
+  width: isTablet() ? 300 : '100%',
+  alignItems: 'center',
+};
 
 const loginStyle = {
   paddingLeft: 65,
   paddingRight: 65,
-  width: '100%',
+  width: isTablet() ? 300 : '100%',
   alignItems: 'center',
+};
+
+const footerWrapperStyle = {
+  width: isTablet() ? getTabletScreenWidth() : null,
+  alignSelf: 'center',
 };
 
 const SignUp = () => {
@@ -466,7 +477,7 @@ const SignUp = () => {
                 <CancelText>{t('signin:signin')}</CancelText>
               </Button>
             </SeparatorWrapper>
-            <Gradient>
+            <Gradient style={footerWrapperStyle}>
               <GradientWrapper>
                 <FooterTitle>{getTextInConfigJSON(['customer-service', 'title'], '')}</FooterTitle>
                 <EmailTitle
