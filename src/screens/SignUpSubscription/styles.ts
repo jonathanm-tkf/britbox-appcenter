@@ -1,9 +1,11 @@
 import { ScrollView as ScrollViewList } from 'react-native';
+import { isTablet } from 'react-native-device-info';
 import styled from 'styled-components/native';
 import { ThemeState } from '@store/modules/theme/types';
 import LinearGradient from 'react-native-linear-gradient';
 import { RadioCheckedIcon, RadioUnCheckedIcon } from '@assets/icons';
 import { normalize } from '@src/utils/normalize';
+import { getTabletScreenWidth } from '@src/utils/dimension';
 
 export const Container = styled.View`
   flex: 1;
@@ -161,6 +163,12 @@ export const Gradient = styled(LinearGradient).attrs({
   colors: ['#202634', '#171B23'],
 })`
   flex: 1;
+  ${() =>
+    isTablet() &&
+    `
+      width: ${getTabletScreenWidth()};
+      align-self: center;
+    `}
 `;
 
 export const RadioCheckedIconView = styled(RadioCheckedIcon).attrs({
