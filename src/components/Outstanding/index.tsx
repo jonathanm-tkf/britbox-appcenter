@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
+import { Platform } from 'react-native';
 import { Logo } from '@assets/icons';
 import { fill } from 'lodash';
+import Orientation, { OrientationType } from 'react-native-orientation-locker';
 import SwiperFlatList from 'react-native-swiper-flatlist';
 import { isTablet } from 'react-native-device-info';
 import { getDimensions } from '@src/utils/dimension';
@@ -60,28 +62,47 @@ const PaginationComponent = ({
 const ACTIONS_HEIGHT = 150;
 
 const Outstanding = ({ items, onPlay, onWatchlist, onDiscoverMore }: Props) => {
-  const [screenData] = useState(getDimensions());
+  const [screenSize, setScreenSize] = useState(getDimensions());
   const [activeIndex, setActiveIndex] = useState(0);
 
   const stylesAspectRatio = {
-    width: screenData.width,
-    height: isTablet() ? undefined : screenData.width,
-    aspectRatio: isTablet() ? 16 / 9 : 1,
+    width: screenSize.width,
+    height: isTablet() ? undefined : screenSize.width,
+    aspectRatio: isTablet() ? 3 / 1 : 1,
   };
+
+  const onOrientationDidChange = useCallback((newOrientation: OrientationType) => {
+    if (newOrientation === 'LANDSCAPE-LEFT' || newOrientation === 'LANDSCAPE-RIGHT') {
+      setScreenSize(getDimensions());
+    } else {
+      setScreenSize(
+        Platform.OS === 'ios'
+          ? getDimensions()
+          : { width: getDimensions().height, height: getDimensions().width }
+      );
+    }
+  }, []);
+
+  useEffect((): (() => void) => {
+    Orientation.addDeviceOrientationListener(onOrientationDidChange);
+    return () => {
+      Orientation.removeDeviceOrientationListener(onOrientationDidChange);
+    };
+  });
 
   return (
     <Wrapper>
       <SwiperFlatList
         index={0}
         style={{
-          width: screenData.width,
-          height: isTablet() ? undefined : screenData.width + ACTIONS_HEIGHT,
+          width: screenSize.width,
+          height: isTablet() ? undefined : screenSize.width + ACTIONS_HEIGHT,
         }}
-        onChangeIndex={({ index }) => setActiveIndex(index)}
+        onChangeIndex={({ index }: { index: number }) => setActiveIndex(index)}
         disableVirtualization={false}
         removeClippedSubviews
         data={items}
-        renderItem={({ item }) => (
+        renderItem={({ item }: { item: { url: string } }) => (
           <Wrapper>
             <WrapperButton onPress={() => (onDiscoverMore ? onDiscoverMore(item) : {})}>
               <ImageWrapper style={stylesAspectRatio}>
