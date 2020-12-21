@@ -135,6 +135,13 @@ const Outstanding = ({ items, onPlay, onWatchlist, onDiscoverMore }: Props) => {
     [screenData]
   );
 
+  useEffect((): (() => void) => {
+    Orientation.addDeviceOrientationListener(onOrientationDidChange);
+    return () => {
+      Orientation.removeDeviceOrientationListener(onOrientationDidChange);
+    };
+  });
+
   return (
     <Wrapper>
       <SwiperFlatList
