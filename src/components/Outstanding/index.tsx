@@ -6,6 +6,7 @@ import Orientation, { OrientationType } from 'react-native-orientation-locker';
 import SwiperFlatList from 'react-native-swiper-flatlist';
 import { isTablet } from 'react-native-device-info';
 import { getDimensions } from '@src/utils/dimension';
+import { useOrientation } from '@src/utils/orientation';
 import {
   Gradient,
   LogoWrapper,
@@ -71,7 +72,7 @@ const ACTIONS_HEIGHT = 150;
 const Outstanding = ({ items, onPlay, onWatchlist, onDiscoverMore }: Props) => {
   const [screenSize, setScreenSize] = useState(getDimensions());
   const [activeIndex, setActiveIndex] = useState(0);
-  const [orientation, setOrientation] = useState('PORTRAIT');
+  const orientation = useOrientation();
 
   const stylesAspectRatio = useMemo(() => {
     return {
@@ -83,22 +84,13 @@ const Outstanding = ({ items, onPlay, onWatchlist, onDiscoverMore }: Props) => {
     };
   }, [screenSize.width, screenSize.height, orientation]);
 
-  const onOrientationDidChange = useCallback((newOrientation: OrientationType) => {
+  const onOrientationDidChange = useCallback(() => {
     setScreenSize(getDimensions());
-
-    if (isTablet()) {
-      if (newOrientation === 'LANDSCAPE-LEFT' || newOrientation === 'LANDSCAPE-RIGHT') {
-        setOrientation(Platform.OS === 'ios' ? 'LANDSCAPE' : 'PORTRAIT');
-      } else {
-        setOrientation(Platform.OS === 'ios' ? 'PORTRAIT' : 'LANDSCAPE');
-      }
-    }
   }, []);
 
   useEffect((): (() => void) => {
     if (isTablet()) {
       Orientation.addDeviceOrientationListener(onOrientationDidChange);
-      Orientation.getDeviceOrientation(onOrientationDidChange);
 
       return () => {
         Orientation.removeDeviceOrientationListener(onOrientationDidChange);
