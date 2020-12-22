@@ -32,6 +32,13 @@ const Hero = ({ item, onWatchlist, onDiscoverMore, onPlay }: Props) => {
             data?.images?.wallpaper,
           'square'
         ) || '',
+      images:
+        isTablet() && data?.images?.brand
+          ? {
+              brand: getImage(data.images.brand, '', 0, 0, 0, 'png'),
+              hero3x1: data.images?.hero3x1,
+            }
+          : data.images,
     };
   });
 
