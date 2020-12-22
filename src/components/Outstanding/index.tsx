@@ -137,6 +137,8 @@ const Outstanding = ({ items, onPlay, onWatchlist, onDiscoverMore }: Props) => {
 
   useEffect((): (() => void) => {
     Orientation.addDeviceOrientationListener(onOrientationDidChange);
+    Orientation.getDeviceOrientation(onOrientationDidChange);
+
     return () => {
       Orientation.removeDeviceOrientationListener(onOrientationDidChange);
     };
