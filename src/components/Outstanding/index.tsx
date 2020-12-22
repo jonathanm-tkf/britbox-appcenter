@@ -101,12 +101,16 @@ const Outstanding = ({ items, onPlay, onWatchlist, onDiscoverMore }: Props) => {
   }, []);
 
   useEffect((): (() => void) => {
-    Orientation.addDeviceOrientationListener(onOrientationDidChange);
-    Orientation.getDeviceOrientation(onOrientationDidChange);
+    if (isTablet()) {
+      Orientation.addDeviceOrientationListener(onOrientationDidChange);
+      Orientation.getDeviceOrientation(onOrientationDidChange);
 
-    return () => {
-      Orientation.removeDeviceOrientationListener(onOrientationDidChange);
-    };
+      return () => {
+        Orientation.removeDeviceOrientationListener(onOrientationDidChange);
+      };
+    }
+
+    return () => {};
   });
 
   const getItemTTIImageSize = useCallback(
