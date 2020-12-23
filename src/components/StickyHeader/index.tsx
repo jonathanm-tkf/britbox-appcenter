@@ -1,6 +1,6 @@
 import { AppState } from '@store/modules/rootReducer';
 import { ThemeProps } from '@store/modules/theme/types';
-import React, { ReactNode } from 'react';
+import React, { ReactNode, useMemo } from 'react';
 import { View, Animated, Platform } from 'react-native';
 import { getStatusBarHeight } from 'react-native-iphone-x-helper';
 import { useSelector } from 'react-redux';
@@ -14,6 +14,8 @@ type Props = {
   onScroll?: (event: any) => void;
 };
 
+type PositionType = 'absolute' | 'relative' | undefined;
+
 const StickyHeader = ({ header, children, theme, onScroll }: Props) => {
   const heightHeader = 80 + getStatusBarHeight();
   const scrollY = new Animated.Value(0);
@@ -26,7 +28,7 @@ const StickyHeader = ({ header, children, theme, onScroll }: Props) => {
   const { isShowMiniController } = useSelector((state: AppState) => state.layout);
 
   const animationHeaderStyles = {
-    position: 'absolute',
+    position: 'absolute' as PositionType,
     top: Platform.OS === 'ios' ? 10 + getStatusBarHeight() : 0,
     width: '100%',
     elevation: 4,
@@ -38,17 +40,19 @@ const StickyHeader = ({ header, children, theme, onScroll }: Props) => {
     ],
   };
 
+  const viewStyle = useMemo(() => {
+    return {
+      backgroundColor: theme.PRIMARY_COLOR,
+      height: Platform.OS === 'ios' ? 10 + getStatusBarHeight() : 0,
+      width: '100%',
+      position: 'absolute' as PositionType,
+      zIndex: 10,
+    };
+  }, [theme]);
+
   return (
     <>
-      <View
-        style={{
-          backgroundColor: theme.PRIMARY_COLOR,
-          height: Platform.OS === 'ios' ? 10 + getStatusBarHeight() : 0,
-          width: '100%',
-          position: 'absolute',
-          zIndex: 10,
-        }}
-      />
+      <View style={viewStyle} />
       <Animated.View style={animationHeaderStyles}>{header()}</Animated.View>
       <Animated.ScrollView
         overScrollMode="never"

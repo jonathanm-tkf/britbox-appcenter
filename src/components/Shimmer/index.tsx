@@ -9,6 +9,10 @@ type Props = {
   style?: StyleProp<ViewStyle>;
 };
 
+const flex = {
+  flex: 1,
+};
+
 const Shimmer = ({ style, visible = false, children, shimmerComponent }: Props) => {
   const [isVisible, setIsVisible] = useState(false);
 
@@ -21,7 +25,7 @@ const Shimmer = ({ style, visible = false, children, shimmerComponent }: Props) 
   return (
     <View style={!isVisible ? [styles.container, style] : []}>
       {!isVisible ? (
-        <View style={{ flex: 1 }}>
+        <View style={flex}>
           {shimmerComponent && shimmerComponent()}
           <ContentHidden>{children}</ContentHidden>
         </View>

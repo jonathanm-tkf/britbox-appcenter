@@ -16,6 +16,10 @@ import { hideSheet, sheetRef, showSheet } from './utils/sheetBottom';
 import { getTextInConfigJSON } from './utils/object';
 import { analyticsRef } from './utils/analytics';
 
+const paragraphStyle = {
+  textAlign: 'center',
+};
+
 export default function App() {
   const { sheet } = useSelector((state: AppState) => state.layout);
   const theme = useSelector((state: AppState) => state.theme.theme);
@@ -43,7 +47,7 @@ export default function App() {
         <Headline center color={theme.PRIMARY_TEXT_COLOR}>
           {getTextInConfigJSON(['successful-purchase', 'title'], '')}
         </Headline>
-        <Paragraph style={{ textAlign: 'center' }}>
+        <Paragraph style={paragraphStyle}>
           {getTextInConfigJSON(['successful-purchase', 'message-1'], '')}
           {'\n'}
           {getTextInConfigJSON(['successful-purchase', 'message-2'], '')}

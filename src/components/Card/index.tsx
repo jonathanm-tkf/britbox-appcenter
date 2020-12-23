@@ -4,7 +4,7 @@ import Bookmark from '@components/Bookmark';
 import Shimmer from '@components/Shimmer';
 import { MassiveSDKModelItemList } from '@src/sdks/Britbox.API.Content.TS/api';
 import { ThemeProps } from '@store/modules/theme/types';
-import React, { memo, useEffect, useState } from 'react';
+import React, { memo, useMemo, useEffect, useState } from 'react';
 import ContentLoader, { Rect } from 'react-content-loader/native';
 import { useTranslation } from 'react-i18next';
 import { LayoutChangeEvent, TouchableOpacity } from 'react-native';
@@ -70,6 +70,10 @@ interface Props {
   showProgress?: boolean;
   theme: ThemeProps;
 }
+
+const temporaryRowStyle = {
+  width: '75%',
+};
 
 const Card = ({
   url,
@@ -144,6 +148,14 @@ const Card = ({
       </WrapperBookmarks>
     ) : null
   );
+
+  const isWatchListStyle = useMemo(() => {
+    if (!isWatchlist) {
+      return { marginLeft: 'auto' };
+    }
+
+    return {};
+  }, [isWatchlist]);
 
   return (
     <TouchableScale
@@ -236,10 +248,7 @@ const Card = ({
                     >
                       <BookmarksComponent />
                       {onRemove && (
-                        <TouchableOpacity
-                          style={!isWatchlist ? { marginLeft: 'auto' } : {}}
-                          onPress={() => onRemove()}
-                        >
+                        <TouchableOpacity style={isWatchListStyle} onPress={() => onRemove()}>
                           <CloseIcon width={25} height={25} />
                         </TouchableOpacity>
                       )}
@@ -251,7 +260,7 @@ const Card = ({
                     {cardElement && cardElement?.type !== 'link' && (
                       <>
                         <TemporaryRow />
-                        <TemporaryRow style={{ width: '75%' }} />
+                        <TemporaryRow style={temporaryRowStyle} />
                       </>
                     )}
                   </TemporaryWrapper>

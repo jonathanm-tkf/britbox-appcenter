@@ -38,10 +38,14 @@ const DATA = {
   ],
 };
 
+const flex = {
+  flex: 1,
+};
+
 storiesOf('Outstanding', module)
   .addDecorator(Theme)
   .add('default', () => (
-    <SafeAreaView style={{ flex: 1 }}>
+    <SafeAreaView style={flex}>
       <Outstanding
         items={DATA.items}
         onPlay={action('tapped-play')}

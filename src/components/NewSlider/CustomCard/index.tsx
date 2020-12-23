@@ -20,6 +20,11 @@ import {
   RadiusMask,
 } from './styles';
 
+const imageStyle = {
+  width: '100%',
+  height: '100%',
+};
+
 interface Props {
   even: boolean;
   parallax: boolean;
@@ -60,11 +65,7 @@ const CustomCard = ({
       //   spinnerColor={even ? 'rgba(255, 255, 255, 0.4)' : 'rgba(0, 0, 0, 0.25)'}
       //   {...parallaxProps}
       // />
-      <Image
-        source={{ uri: illustration }}
-        style={{ width: '100%', height: '100%' }}
-        resizeMode="cover"
-      />
+      <Image source={{ uri: illustration }} style={imageStyle} resizeMode="cover" />
     ) : (
       <Image source={{ uri: illustration }} />
     );

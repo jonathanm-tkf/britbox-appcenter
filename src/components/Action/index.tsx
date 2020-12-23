@@ -1,6 +1,4 @@
-/* eslint-disable no-unused-vars */
 /* eslint-disable @typescript-eslint/no-shadow */
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { ContinueWatching, Play, Loading, Trailer } from '@assets/icons';
 import React from 'react';
 
