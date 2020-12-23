@@ -76,15 +76,10 @@ const Outstanding = ({ items, onPlay, onWatchlist, onDiscoverMore }: Props) => {
   const stylesAspectRatio = useMemo(() => {
     return {
       width:
-        Platform.OS === 'ios' || (isTablet() && orientation === 'PORTRAIT')
-          ? screenSize.width
-          : screenSize.height,
-      height:
-        Platform.OS === 'ios'
-          ? screenSize.width
-          : isTablet() && orientation === 'PORTRAIT'
-          ? screenSize.width / 3
-          : screenSize.height / 3,
+        Platform.OS === 'android' && orientation === 'PORTRAIT'
+          ? screenSize.height
+          : screenSize.width,
+      height: screenSize.width / 3,
     };
   }, [screenSize.width, screenSize.height, orientation]);
 
@@ -125,16 +120,11 @@ const Outstanding = ({ items, onPlay, onWatchlist, onDiscoverMore }: Props) => {
       return {
         width,
         height,
-        top:
-          (Platform.OS === 'ios' || (isTablet() && orientation === 'PORTRAIT')
-            ? screenSize.width
-            : screenSize.height) /
-            6 -
-          height / 2,
+        top: screenSize.width / 6 - height / 2,
         left: orientation === 'LANDSCAPE' ? '8%' : 0,
       };
     },
-    [screenSize.width, screenSize.height, orientation]
+    [screenSize.width, orientation]
   );
 
   return (
@@ -143,9 +133,9 @@ const Outstanding = ({ items, onPlay, onWatchlist, onDiscoverMore }: Props) => {
         index={0}
         style={{
           width:
-            Platform.OS === 'ios' || (isTablet() && orientation === 'PORTRAIT')
-              ? screenSize.width
-              : screenSize.height,
+            Platform.OS === 'android' && orientation === 'PORTRAIT'
+              ? screenSize.height
+              : screenSize.width,
           height: isTablet() ? undefined : screenSize.width + ACTIONS_HEIGHT,
         }}
         onChangeIndex={({ index }: { index: number }) => setActiveIndex(index)}
