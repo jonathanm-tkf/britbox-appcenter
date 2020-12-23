@@ -790,7 +790,7 @@ export default function MyAccount() {
 
   const NewsletterRoute = () => {
     const [isNewsletters, setIsNewsletters] = useState(
-      Boolean(user?.profile?.isAlertNotificationEmail) || false
+      String(user?.profile?.isAlertNotificationEmail) === 'true'
     );
     const [loading, setLoading] = useState(false);
     const [isSuccess, setIsSuccess] = useState(false);
