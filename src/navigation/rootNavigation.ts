@@ -16,16 +16,15 @@ export function pop() {
 }
 
 export function navigateByPath(item: any, autoPlay?: boolean) {
+  const route = navigationRef.current.getCurrentRoute();
   switch (true) {
-    // case /\/show\//.test(item?.path || ''):
-    //   push('Detail', { item });
-    //   break;
     case item?.path === '/programmes':
       navigate('AZ');
       break;
-    case item?.path === '/account/watchlist':
-      navigate('Watchlist');
+    case item?.path === '/account/watchlist': {
+      navigate(`${route.name}Watchlist`, { routeName: route.name });
       break;
+    }
     case item?.path === '/':
       navigate('Home');
       break;
@@ -35,9 +34,10 @@ export function navigateByPath(item: any, autoPlay?: boolean) {
     case /\/show\/|\/season\/|\/movie\/|\/program\/|\/episode\//.test(item?.path || ''):
       push('Detail', { item, autoPlay });
       break;
-    default:
-      push('Collections', { item });
+    default: {
+      push(`${route.name}Collections`, { item, routeName: route.name });
       break;
+    }
   }
 }
 

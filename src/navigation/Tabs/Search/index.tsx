@@ -50,7 +50,7 @@ const SearchStackScreen = () => {
         options={ModalOptions(theme)}
       />
       <SearchStack.Screen
-        name="Collections"
+        name="SearchCollections"
         component={Collections}
         options={ModalOptions(theme)}
       />

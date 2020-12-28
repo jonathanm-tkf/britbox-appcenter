@@ -43,10 +43,14 @@ const ExploreStackScreen = () => {
     <ExploreStack.Navigator headerMode="none">
       <ExploreStack.Screen name="Explore" component={Explore} />
       <ExploreStack.Screen name="AZ" component={AZ} options={ModalOptions(theme)} />
-      <ExploreStack.Screen name="Watchlist" component={Watchlist} options={ModalOptions(theme)} />
+      <ExploreStack.Screen
+        name="ExploreWatchlist"
+        component={Watchlist}
+        options={ModalOptions(theme)}
+      />
       <ExploreStack.Screen name="Detail" component={Detail} options={ModalOptions(theme)} />
       <ExploreStack.Screen
-        name="Collections"
+        name="ExploreCollections"
         component={Collections}
         options={ModalOptions(theme)}
       />

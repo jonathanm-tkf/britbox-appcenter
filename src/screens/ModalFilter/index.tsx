@@ -24,6 +24,8 @@ export type Item = {
   value: string;
   selected: boolean;
   list?: string;
+  paging: any;
+  originalData: any;
 };
 
 type DataFilter = {
@@ -37,6 +39,7 @@ type RootParamList = {
     title: string;
     data: DataFilter[];
     previusRoute: string;
+    originalData: any;
   };
 };
 
@@ -45,10 +48,10 @@ type ModalFilterScreenRouteProp = RouteProp<RootParamList, 'ModalFilter'>;
 const ModalFilter = () => {
   const { params } = useRoute<ModalFilterScreenRouteProp>();
   const { goBack, navigate } = useNavigation();
-  const { data, title, previusRoute } = params;
+  const { data, title, previusRoute, originalData } = params;
 
   const goToDetail = (item: Item, type: string) => {
-    navigate(previusRoute, { filter: { ...item, list: type } });
+    navigate(previusRoute, { filter: { ...item, list: type, paging: item.paging, originalData } });
   };
 
   const renderItem = ({ item }: { item: Item }, type = '') => {

@@ -67,6 +67,7 @@ type Access = {
 type RootParamList = {
   Watchlist: {
     filter: Item;
+    routeName: string;
   };
 };
 
@@ -83,7 +84,7 @@ const Watchlist = () => {
   const navigation = useNavigation();
   const [type, setType] = useState('all');
   const [orderBy, setOrderBy] = useState('date-added');
-  const { filter } = params || {};
+  const { filter, routeName } = params || {};
   const menu = useSelector((state: AppState) => state.core.menu?.navigation?.header); // TODO: get data from properties
 
   const [list, setList] = useState<MassiveSDKModelItemSummary[]>([]);
@@ -239,7 +240,7 @@ const Watchlist = () => {
                     ],
                   },
                 ],
-                previusRoute: 'Watchlist',
+                previusRoute: `${routeName}Watchlist`,
               })
             }
           >

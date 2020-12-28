@@ -62,8 +62,9 @@ const { width } = getDimensions();
 type RootParamList = {
   Collection: {
     item: MassiveSDKModelItemSummary;
-    genre: string;
     filter: Item;
+    paging: string;
+    routeName: string;
   };
 };
 
@@ -109,7 +110,7 @@ const Collections = () => {
   const [showBlueView, setShowBlueView] = useState(false);
   const [animatedOpacityValue] = useState(new Animated.Value(0));
   const { params } = useRoute<CollectionScreenRouteProp>();
-  const { item: itemData, genre, filter } = params || undefined;
+  const { item: itemData, filter, routeName } = params || undefined;
   const [data, setData] = useState<MassiveSDKModelPage | undefined>(
     dataDummy as MassiveSDKModelPage
   );
@@ -205,7 +206,9 @@ const Collections = () => {
       useNativeDriver: true,
     }).start(() => setShowBlueView(true));
 
-    getDataDetail(itemData?.path || '');
+    if (!filter) {
+      getDataDetail(itemData?.path || '');
+    }
 
     return () => {
       setData(dataDummy as MassiveSDKModelPage);
@@ -240,7 +243,7 @@ const Collections = () => {
 
     if (isCloseToBottom(event.nativeEvent) && !isLoadingContinuosScroll && isContinuosScroll) {
       setIsLoadingContinuosScroll(true);
-      getMoreDataContinuosScroll();
+      getMoreDataContinuosScroll(data);
     }
   };
 
@@ -289,14 +292,17 @@ const Collections = () => {
   };
 
   const getMoreDataContinuosScroll = (
+    items: any,
     reset?: boolean,
     orderFilter?: string,
     orderByFilter?: string
   ) => {
-    const { next, page, total } =
-      (data?.entries || [])
+    const { next, page: actualPage, total } =
+      (items?.entries || [])
         .filter((item) => getTemplate(item.template || '') === 'grid-infinite')
         .reduce((item) => item).list?.paging || {};
+
+    const page = reset ? 1 : actualPage;
 
     if (page !== total || reset) {
       const url = (next || '').split('?');
@@ -314,18 +320,22 @@ const Collections = () => {
 
         const id = url[0].split('/').pop() || '';
 
+        if (reset) {
+          setAnimationContinuosScroll(true);
+        }
+
         loadCollectionList(
           {
             id: url[url.length - 1] !== '' ? id : olderId,
             page: reset ? 1 : nextPage,
-            pageSize,
+            pageSize: reset ? 15 : pageSize,
             sub,
             order: orderFilter || order,
             orderBy: orderByFilter || orderBy,
           },
           segment
         ).then(({ response }) => {
-          const newData = (data?.entries || []).map((item) => {
+          const newData = (items?.entries || []).map((item) => {
             if (getTemplate(item.template || '') === 'grid-infinite') {
               return {
                 ...item,
@@ -341,12 +351,30 @@ const Collections = () => {
             return item;
           });
 
-          setData({ ...data, entries: newData });
+          setData({ ...items, entries: newData });
           setIsLoadingContinuosScroll(false);
 
           if ((page || 0) + 1 === total) {
             setAnimationContinuosScroll(false);
           }
+
+          if (infiniteGridColumns === undefined) {
+            setInfiniteGridColumns(
+              getIsEpisodeGrid(
+                [...newData]
+                  .filter((item) => getTemplate(item.template || '') === 'grid-infinite')
+                  .reduce((item) => item).list?.items || []
+              )
+                ? isTablet()
+                  ? 3
+                  : 2
+                : isTablet()
+                ? 4
+                : 3
+            );
+          }
+
+          setIsContinuosScroll(true);
           setLoading(false);
         });
       }
@@ -375,20 +403,11 @@ const Collections = () => {
     items.length > 0 ? items.reduce((i) => i).type === 'episode' : false;
 
   useEffect(() => {
-    if (genre) {
-      setData(dataDummy as MassiveSDKModelPage);
-      getDataDetail(genre);
-      setOrder('asc');
-      setOrderBy('a-z');
-    }
-  }, [genre]);
-
-  useEffect(() => {
     if (filter) {
       setLoading(true);
       setOrder(filter.value === 'date-added' ? 'desc' : 'asc');
       setOrderBy(filter.value);
-      const newData = (data?.entries || []).map((item) => {
+      const newData = (filter.originalData?.entries || []).map((item) => {
         if (getTemplate(item.template || '') === 'grid-infinite') {
           return {
             ...item,
@@ -411,8 +430,9 @@ const Collections = () => {
         return item;
       });
 
-      setData({ ...data, entries: newData as MassiveSDKModelPageEntry[] });
+      setData({ ...filter.originalData, entries: newData as MassiveSDKModelPageEntry[] });
       getMoreDataContinuosScroll(
+        filter.originalData,
         true,
         filter.value === 'date-added' ? 'desc' : 'asc',
         filter.value
@@ -497,16 +517,19 @@ const Collections = () => {
                                         title: t('recent'),
                                         value: 'date-added',
                                         selected: orderBy === 'date-added',
+                                        paging: item?.list?.paging,
                                       },
                                       {
                                         title: t('az'),
                                         value: 'a-z',
                                         selected: orderBy === 'a-z',
+                                        paging: item?.list?.paging,
                                       },
                                     ],
                                   },
                                 ],
-                                previusRoute: 'Collections',
+                                previusRoute: `${routeName}Collections`,
+                                originalData: data,
                               })
                             }
                           >
