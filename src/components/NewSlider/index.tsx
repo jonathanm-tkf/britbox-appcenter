@@ -96,7 +96,7 @@ const NewSlider = ({
   const [sliderWidth, itemWidth] = useMemo(() => {
     const { width: screenWidth, height: screenHeight } = getDimensions();
     const size = orientation === 'PORTRAIT' ? screenHeight : screenWidth;
-    return [size, percentageWidth(25)];
+    return [size, percentageWidth(isTablet() ? 25 : 40)];
   }, [orientation]);
 
   const renderItem = ({ item, index }: any, parallaxProps: any) => {
