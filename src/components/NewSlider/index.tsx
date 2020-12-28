@@ -118,41 +118,45 @@ const NewSlider = ({
     return image === 'no-image' ? false : image;
   };
 
-  const getContent = (item?: MassiveSDKModelItemList) => {
-    const image = getImage(item?.images?.poster, 'wallpaper');
-    const sizes = [75, 87, 82, 75];
+  const getContent = useCallback(
+    (item?: MassiveSDKModelItemList) => {
+      const image = getImage(item?.images?.poster, 'wallpaper');
+      const sizes = [75, 87, 82, 75];
 
-    if (image === 'loading') {
+      if (image === 'loading') {
+        return (
+          <ContentLoader
+            speed={1}
+            backgroundColor={theme.PRIMARY_COLOR_OPAQUE}
+            foregroundColor={theme.PRIMARY_COLOR}
+            style={{ width: sliderWidth, height: 100 }}
+          >
+            {sizes.map((size, index) => (
+              <Rect
+                key={String(index)}
+                x={
+                  orientation === 'LANDSCAPE'
+                    ? percentageHeight((100 - size) / 2)
+                    : percentageWidth((100 - size) / 2)
+                }
+                y={`${index * 25}%`}
+                rx="8"
+                ry="8"
+                width={orientation === 'LANDSCAPE' ? percentageHeight(size) : percentageWidth(size)}
+                height="15"
+              />
+            ))}
+          </ContentLoader>
+        );
+      }
       return (
-        <ContentLoader
-          speed={1}
-          backgroundColor={theme.PRIMARY_COLOR_OPAQUE}
-          foregroundColor={theme.PRIMARY_COLOR}
-        >
-          {sizes.map((size, index) => (
-            <Rect
-              key={String(index)}
-              x={
-                orientation === 'LANDSCAPE'
-                  ? percentageHeight((100 - size) / 2)
-                  : percentageWidth((100 - size) / 2)
-              }
-              y={`${index * 25}%`}
-              rx="8"
-              ry="8"
-              width={orientation === 'LANDSCAPE' ? percentageHeight(size) : percentageWidth(size)}
-              height="15"
-            />
-          ))}
-        </ContentLoader>
+        <SlimDescriptionText>
+          {item?.type === 'link' ? item?.customFields?.description : item?.shortDescription}
+        </SlimDescriptionText>
       );
-    }
-    return (
-      <SlimDescriptionText>
-        {item?.type === 'link' ? item?.customFields?.description : item?.shortDescription}
-      </SlimDescriptionText>
-    );
-  };
+    },
+    [orientation, theme.PRIMARY_COLOR, theme.PRIMARY_COLOR_OPAQUE, sliderWidth]
+  );
 
   const getActions = useCallback(
     (item?: MassiveSDKModelItemList) => {
@@ -163,6 +167,7 @@ const NewSlider = ({
             speed={1}
             backgroundColor={theme.PRIMARY_COLOR_OPAQUE}
             foregroundColor={theme.PRIMARY_COLOR}
+            style={{ height: 110, width: sliderWidth }}
           >
             <Rect x={sliderWidth / 2 - 85 - 25} y="35" rx="8" ry="8" width="50" height="50" />
             <Rect x={sliderWidth / 2 - 35} y="10" rx="8" ry="8" width="70" height="100" />
