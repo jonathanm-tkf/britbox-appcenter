@@ -737,7 +737,13 @@ export default function MyAccount() {
       getActiveSubscription();
     }, []);
 
-    const suscribeStyle = { paddingLeft: 65, paddingRight: 65, marginBottom: 30, marginTop: 20 };
+    const suscribeStyle = {
+      paddingLeft: 65,
+      paddingRight: 65,
+      marginBottom: 30,
+      marginTop: 20,
+      alignItems: 'center',
+    };
 
     return (
       <>
