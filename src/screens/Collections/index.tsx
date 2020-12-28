@@ -1,9 +1,10 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from 'react';
-import { Animated, NativeScrollEvent, View } from 'react-native';
+import { Animated, NativeScrollEvent, View, Platform } from 'react-native';
 import { useNavigation, useRoute, RouteProp } from '@react-navigation/native';
 import { BackIcon } from '@assets/icons';
 import { getDimensions, percentageWidth } from '@src/utils/dimension';
+import { useColumns } from '@src/utils/columns';
 
 import {
   MassiveSDKModelItemSummary,
@@ -119,7 +120,11 @@ const Collections = () => {
   const [animationContinuosScroll, setAnimationContinuosScroll] = useState(false);
   const [loading, setLoading] = useState(false);
   const { t } = useTranslation('layout');
-  const [infiniteGridColumns, setInfiniteGridColumns] = useState<number | undefined>(undefined);
+  // eslint-disable-next-line prefer-const
+  let [infiniteGridColumns, elementWidth, elementHeight] = useColumns(
+    18.75,
+    Platform.OS === 'ios' ? 16 : 28.5
+  );
   const { isShowMiniController } = useSelector((state: AppState) => state.layout);
   const { segment } = useSelector((state: AppState) => state.core);
   const [order, setOrder] = useState('desc');
@@ -177,25 +182,44 @@ const Collections = () => {
       });
     }
 
-    const checkIsContinuosScroll = getIsContinuosScroll(response || {});
+    setIsContinuosScroll(getIsContinuosScroll(response || {}));
 
-    if (infiniteGridColumns === undefined) {
-      setInfiniteGridColumns(
-        getIsEpisodeGrid(
-          (response?.entries || [])
-            .filter((item) => getTemplate(item.template || '') === 'grid-infinite')
-            .reduce((item) => item).list?.items || []
-        )
-          ? isTablet()
-            ? 3
-            : 2
-          : isTablet()
-          ? 4
-          : 3
-      );
+    infiniteGridColumns = getIsEpisodeGrid(
+      (response?.entries || [])
+        .filter((item) => getTemplate(item.template || '') === 'grid-infinite')
+        .reduce((item) => item).list?.items || []
+    )
+      ? isTablet()
+        ? infiniteGridColumns
+        : 2
+      : infiniteGridColumns;
+  };
+
+  const onDiscoverMore = (card: MassiveSDKModelItemList) => {
+    navigateByPath(card);
+  };
+
+  const getIsEpisodeGrid = (items: MassiveSDKModelItemSummary[]) =>
+    items.length > 0 ? items.reduce((i) => i).type === 'episode' : false;
+
+  const getIsContinuosScroll = (response: MassiveSDKModelPage) => {
+    const result =
+      (response &&
+        response.entries &&
+        response.entries.filter((item) => getTemplate(item.template || '') === 'grid-infinite')) ||
+      [];
+
+    if (result.length > 0) {
+      const {
+        list: {
+          paging: { page, total },
+        },
+      } = result.reduce((item) => item);
+
+      setAnimationContinuosScroll(page !== total);
     }
 
-    setIsContinuosScroll(checkIsContinuosScroll);
+    return result.length > 0;
   };
 
   useEffect(() => {
@@ -254,26 +278,6 @@ const Collections = () => {
     }
 
     return null;
-  };
-
-  const getIsContinuosScroll = (response: MassiveSDKModelPage) => {
-    const result =
-      (response &&
-        response.entries &&
-        response.entries.filter((item) => getTemplate(item.template || '') === 'grid-infinite')) ||
-      [];
-
-    if (result.length > 0) {
-      const {
-        list: {
-          paging: { page, total },
-        },
-      } = result.reduce((item) => item);
-
-      setAnimationContinuosScroll(page !== total);
-    }
-
-    return result.length > 0;
   };
 
   const getListData = () => {
@@ -366,13 +370,6 @@ const Collections = () => {
       })
     );
   };
-
-  const onDiscoverMore = (card: MassiveSDKModelItemList) => {
-    navigateByPath(card);
-  };
-
-  const getIsEpisodeGrid = (items: MassiveSDKModelItemSummary[]) =>
-    items.length > 0 ? items.reduce((i) => i).type === 'episode' : false;
 
   useEffect(() => {
     if (genre) {
@@ -526,28 +523,12 @@ const Collections = () => {
                       loading={animationContinuosScroll}
                       isEpisode={infiniteGridColumns === 2}
                       numColumns={infiniteGridColumns}
-                      element={
-                        infiniteGridColumns === 2
-                          ? {
-                              width: percentageWidth(50) - 26,
-                              height: percentageWidth(50) - percentageWidth(26),
-                              marginBottom: 70,
-                              marginHorizontal: 5,
-                            }
-                          : infiniteGridColumns === 3
-                          ? {
-                              width: percentageWidth(33.333) - 20,
-                              height: percentageWidth(33.333 * 1.25),
-                              marginBottom: 20,
-                              marginHorizontal: 5,
-                            }
-                          : {
-                              width: percentageWidth(25) - 10,
-                              height: percentageWidth(25 * 1.25),
-                              marginBottom: 20,
-                              marginHorizontal: isTablet() ? 3 : 5,
-                            }
-                      }
+                      element={{
+                        width: percentageWidth(elementWidth),
+                        height: percentageWidth(elementHeight),
+                        marginBottom: isTablet() ? 70 : 20,
+                        marginHorizontal: isTablet() ? 3 : 5,
+                      }}
                       listStyles={listStyle}
                       imageType={infiniteGridColumns === 2 ? 'wallpaper' : 'poster'}
                     />
