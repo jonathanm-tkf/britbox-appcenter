@@ -48,7 +48,6 @@
     "react-native-appstate-hook": "^1.0.4",
     "react-native-cached-image": "https://github.com/fungilation/react-native-cached-image",
     "react-native-code-push": "^6.3.0",
-    "react-native-collapsible-header-views": "^1.1.2",
     "react-native-config": "^1.4.1",
     "react-native-confirmation-code-field": "^6.5.0",
     "react-native-device-info": "^6.0.4",

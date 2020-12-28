@@ -150,9 +150,9 @@ android {
         applicationId "com.britbox.us"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 20006
+        versionCode 20007
         multiDexEnabled = true
-        versionName "2.0.2"
+        versionName "2.0.3"
         multiDexEnabled true
         resValue "string", "build_config_package", "com.britbox.us"
     }
