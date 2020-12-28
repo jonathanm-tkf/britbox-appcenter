@@ -1,6 +1,6 @@
 import styled from 'styled-components/native';
 import { ThemeState } from '@store/modules/theme/types';
-import { getStatusBarHeight, getBottomSpace } from 'react-native-iphone-x-helper';
+import { getStatusBarHeight } from 'react-native-iphone-x-helper';
 import { Platform } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import { StarIcon } from '@assets/icons';
@@ -9,13 +9,12 @@ import { normalize } from '@src/utils/normalize';
 export const Container = styled.View`
   flex: 1;
   background-color: ${(props: ThemeState) => props.theme.PRIMARY_COLOR};
-  padding-top: ${Platform.OS === 'ios' ? getStatusBarHeight() + 10 : 10}px;
+  padding-top: ${Platform.OS === 'ios' ? getStatusBarHeight() + 10 : 0}px;
 `;
 
 export const ItemContainer = styled.View`
   flex: 1;
   background-color: ${(props: ThemeState) => props.theme.PRIMARY_COLOR};
-  padding-bottom: ${getBottomSpace() + 74}px;
 `;
 
 export const Scroll = styled.ScrollView.attrs({
@@ -30,7 +29,6 @@ export const Gradient = styled(LinearGradient).attrs({
 })``;
 
 export const ActorNameContainer = styled.View`
-  padding-top: 40px;
   padding-bottom: 40px;
   padding-left: 25px;
   padding-right: 30px;

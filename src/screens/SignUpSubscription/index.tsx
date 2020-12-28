@@ -375,7 +375,7 @@ const SignUpSubscription = () => {
   return (
     <>
       <HeaderCustom isBack shadow onBack={() => _doSuccessSubscription(false)} />
-      <Gradient style={{ marginBottom: account ? 90 : 0 }}>
+      <Gradient>
         <KeyboardAvoidingView style={flex} behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
           <ScrollView bounces={false}>
             <Container>

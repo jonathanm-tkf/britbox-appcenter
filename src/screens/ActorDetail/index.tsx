@@ -4,7 +4,6 @@ import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { useRoute, RouteProp } from '@react-navigation/native';
 import Action from '@components/Action';
-import { CollapsibleHeaderFlatList } from 'react-native-collapsible-header-views';
 import {
   MassiveSDKModelPerson,
   BritboxAPIContentModelsPageGetPageResponse,
@@ -15,6 +14,7 @@ import { loadActorDetailPage } from '@src/services/detail';
 import Grid from '@screens/Shared/Grid';
 import { percentageWidth } from '@src/utils/dimension';
 import { Title, Headline } from '@components/Typography';
+import StickyHeader from '@components/StickyHeader';
 import {
   Container,
   ItemContainer,
@@ -36,23 +36,32 @@ type RootParamList = {
 
 type DetailScreenRouteProp = RouteProp<RootParamList, 'Detail'>;
 
-const ActorDetail = () => {
-  const theme = useSelector((state: AppState) => state.theme.theme);
+const headerStyles = {};
 
-  const keyExtractor = (item: number) => `${item}`;
+const ActorDetail = () => {
+  const menu = useSelector((state: AppState) => state.core.menu?.navigation?.header); // TODO: get data from properties
+
+  const getMenuItems = useCallback(() => {
+    if (menu && menu.length > 0) {
+      const items = menu
+        .filter((item) => item.label !== 'Explore' && item.label !== 'Help')
+        .map((item, index) => {
+          return {
+            id: index.toString(),
+            text: item.label,
+            goTo: item?.path || '',
+          };
+        });
+      return items;
+    }
+    return [];
+  }, [menu]);
 
   return (
     <Container>
-      <CollapsibleHeaderFlatList
-        CollapsibleHeaderComponent={<Header />}
-        headerContainerBackgroundColor={theme.PRIMARY_COLOR}
-        headerHeight={77}
-        data={[0]}
-        renderItem={() => <Item />}
-        clipHeader
-        keyExtractor={keyExtractor}
-        showsVerticalScrollIndicator={false}
-      />
+      <StickyHeader header={() => <Header style={headerStyles} menuItems={getMenuItems()} />}>
+        <Item />
+      </StickyHeader>
     </Container>
   );
 };
@@ -78,6 +87,16 @@ const ActorName = () => {
 };
 
 const defaultData: MassiveSDKModelPage = {};
+
+const containerStyles = {
+  marginTop: 20,
+  paddingHorizontal: 15,
+};
+
+const listStyles = {
+  marginTop: 10,
+  paddingHorizontal: 10,
+};
 
 const Item = () => {
   const { t } = useTranslation(['search', 'layout']);
@@ -114,11 +133,6 @@ const Item = () => {
   useEffect(() => {
     getDataDetail(item?.path || '', 'true');
   }, [item]);
-
-  const containerStyles = {
-    marginTop: 20,
-    paddingHorizontal: 15,
-  };
 
   return (
     <ItemContainer>
@@ -165,6 +179,7 @@ const Item = () => {
                           marginHorizontal: 5,
                         }}
                         containerStyle={containerStyles}
+                        listStyles={listStyles}
                       />
                     </GridContainer>
                   );
@@ -190,6 +205,7 @@ const Item = () => {
                           marginHorizontal: 5,
                         }}
                         containerStyle={containerStyles}
+                        listStyles={listStyles}
                       />
                     </GridContainer>
                   );
