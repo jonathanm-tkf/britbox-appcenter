@@ -1,17 +1,17 @@
-import React, { useState, useEffect } from 'react';
-import { StyleSheet } from 'react-native';
+import React, { useState, useEffect, useCallback, useMemo } from 'react';
+import { StyleSheet, Platform } from 'react-native';
 import Carousel from 'react-native-snap-carousel';
 import { MassiveSDKModelItemList } from '@src/sdks/Britbox.API.Content.TS/api';
 import { getImage } from '@src/utils/images';
 import ContentLoader, { Rect } from 'react-content-loader/native';
 import { useSelector } from 'react-redux';
+import Orientation, { OrientationType } from 'react-native-orientation-locker';
 import { AppState } from '@store/modules/rootReducer';
 import { navigateByPath } from '@src/navigation/rootNavigation';
 import { getStatusBarHeight } from 'react-native-iphone-x-helper';
 import { isTablet } from 'react-native-device-info';
-import { getDimensions } from '@src/utils/dimension';
+import { getDimensions, percentageWidth, percentageHeight } from '@src/utils/dimension';
 import CustomCard from './CustomCard';
-import { sliderWidth, itemWidth, sliderWidthSlim, itemWidthSlim } from './CustomCard/styles';
 import {
   Container,
   Slider,
@@ -23,7 +23,7 @@ import {
 } from './styles';
 import Actions from './Actions';
 
-const { width } = getDimensions();
+const { width, height } = getDimensions();
 
 const styles = StyleSheet.create({
   sliderContainer: {
@@ -59,6 +59,7 @@ const NewSlider = ({
   onDiscoverMore,
 }: Props) => {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [orientation, setOrientation] = useState(height >= width ? 'PORTRAIT' : 'LANDSCAPE');
   const theme = useSelector((state: AppState) => state.theme.theme);
 
   const carouselData = data.map((item) => {
@@ -74,6 +75,29 @@ const NewSlider = ({
   useEffect(() => {
     setCurrentIndex(0);
   }, [data]);
+
+  const onOrientationDidChange = useCallback((newOrientation: OrientationType) => {
+    if (newOrientation === 'PORTRAIT' || newOrientation === 'PORTRAIT-UPSIDEDOWN') {
+      setOrientation(Platform.OS === 'ios' ? 'PORTRAIT' : 'LANDSCAPE');
+    } else if (newOrientation === 'LANDSCAPE-LEFT' || newOrientation === 'LANDSCAPE-RIGHT') {
+      setOrientation(Platform.OS === 'ios' ? 'LANDSCAPE' : 'PORTRAIT');
+    }
+  }, []);
+
+  useEffect(() => {
+    Orientation.addDeviceOrientationListener(onOrientationDidChange);
+    Orientation.getDeviceOrientation(onOrientationDidChange);
+
+    return () => {
+      Orientation.removeOrientationListener(onOrientationDidChange);
+    };
+  });
+
+  const [sliderWidth, itemWidth] = useMemo(() => {
+    const { width: screenWidth, height: screenHeight } = getDimensions();
+    const size = orientation === 'PORTRAIT' ? screenHeight : screenWidth;
+    return [size, percentageWidth(25)];
+  }, [orientation]);
 
   const renderItem = ({ item, index }: any, parallaxProps: any) => {
     return (
@@ -96,6 +120,7 @@ const NewSlider = ({
 
   const getContent = (item?: MassiveSDKModelItemList) => {
     const image = getImage(item?.images?.poster, 'wallpaper');
+    const sizes = [75, 87, 82, 75];
 
     if (image === 'loading') {
       return (
@@ -104,10 +129,21 @@ const NewSlider = ({
           backgroundColor={theme.PRIMARY_COLOR_OPAQUE}
           foregroundColor={theme.PRIMARY_COLOR}
         >
-          <Rect x="11%" y="0" rx="8" ry="8" width="75%" height="15" />
-          <Rect x="4%" y="25" rx="8" ry="8" width="87%" height="15" />
-          <Rect x="2%" y="50" rx="8" ry="8" width="89%" height="15" />
-          <Rect x="11%" y="75" rx="8" ry="8" width="75%" height="15" />
+          {sizes.map((size, index) => (
+            <Rect
+              key={String(index)}
+              x={
+                orientation === 'LANDSCAPE'
+                  ? percentageWidth((100 - size) / 2)
+                  : percentageHeight((100 - size) / 2)
+              }
+              y={`${index * 25}%`}
+              rx="8"
+              ry="8"
+              width={orientation === 'LANDSCAPE' ? percentageWidth(size) : percentageHeight(size)}
+              height="15"
+            />
+          ))}
         </ContentLoader>
       );
     }
@@ -118,32 +154,41 @@ const NewSlider = ({
     );
   };
 
-  const getActions = (item?: MassiveSDKModelItemList) => {
-    const image = getImage(item?.images?.poster, 'wallpaper');
-    if (image === 'loading') {
+  const getActions = useCallback(
+    (item?: MassiveSDKModelItemList) => {
+      const image = getImage(item?.images?.poster, 'wallpaper');
+      if (image === 'loading') {
+        return (
+          <ContentLoader
+            speed={1}
+            backgroundColor={theme.PRIMARY_COLOR_OPAQUE}
+            foregroundColor={theme.PRIMARY_COLOR}
+          >
+            <Rect x={sliderWidth / 2 - 105 - 20 + 8} y="35" rx="8" ry="8" width="50" height="50" />
+            <Rect x={sliderWidth / 2 - 35 - 20 + 16} y="10" rx="8" ry="8" width="70" height="100" />
+            <Rect x={sliderWidth / 2 + 55 - 20 + 24} y="35" rx="8" ry="8" width="50" height="50" />
+          </ContentLoader>
+        );
+      }
+
       return (
-        <ContentLoader
-          speed={1}
-          backgroundColor={theme.PRIMARY_COLOR_OPAQUE}
-          foregroundColor={theme.PRIMARY_COLOR}
-        >
-          <Rect x={width / 2 - 105 - 20 + 8} y="35" rx="8" ry="8" width="50" height="50" />
-          <Rect x={width / 2 - 35 - 20 + 16} y="10" rx="8" ry="8" width="70" height="100" />
-          <Rect x={width / 2 + 55 - 20 + 24} y="35" rx="8" ry="8" width="50" height="50" />
-        </ContentLoader>
-      );
-    }
-    return (
-      <>
         <Actions
           item={item}
           onWatchlist={() => (onWatchlist ? onWatchlist(item) : {})}
           onPlay={() => (onPlay ? onPlay(item) : {})}
           onDiscoverMore={() => (onDiscoverMore ? onDiscoverMore(item) : {})}
         />
-      </>
-    );
-  };
+      );
+    },
+    [
+      onDiscoverMore,
+      onPlay,
+      onWatchlist,
+      sliderWidth,
+      theme.PRIMARY_COLOR,
+      theme.PRIMARY_COLOR_OPAQUE,
+    ]
+  );
 
   const stylesContainer = slim
     ? {
@@ -154,11 +199,13 @@ const NewSlider = ({
 
   return (
     <Container>
-      <SliderWrapper {...{ slim: !!slim, collection: !!collection }}>
+      <SliderWrapper slim={!!slim} collection={!!collection} width={sliderWidth}>
         <Slider
           {...{
             slim: !!slim,
             collection: !!collection,
+            width: sliderWidth,
+            height: Math.min(getDimensions().width, getDimensions().height) * 0.65,
             source:
               (slim || collection) &&
               getImageSquare(
@@ -185,15 +232,15 @@ const NewSlider = ({
         <Carousel
           data={carouselData}
           renderItem={renderItem}
-          sliderWidth={slim ? sliderWidthSlim : sliderWidth}
-          itemWidth={slim ? itemWidthSlim : itemWidth}
+          sliderWidth={sliderWidth}
+          itemWidth={itemWidth}
           hasParallaxImages
           loop
           loopClonesPerSide={2}
           autoplay={false}
           firstItem={currentIndex}
           inactiveSlideScale={slim ? 0.8 : 0.92}
-          inactiveSlideOpacity={slim ? 0.5 : 0.7}
+          inactiveSlideOpacity={slim ? 1 : 0.7}
           containerCustomStyle={[styles.sliderContainer, stylesContainer]}
           contentContainerCustomStyle={styles.sliderContentContainer}
           onSnapToItem={(index: number) => setCurrentIndex(index)}
@@ -202,7 +249,9 @@ const NewSlider = ({
       </SliderWrapper>
 
       {slim && (
-        <SlimDescription space="no">{getContent(carouselData[currentIndex]?.item)}</SlimDescription>
+        <SlimDescription width={sliderWidth} space="no">
+          {getContent(carouselData[currentIndex]?.item)}
+        </SlimDescription>
       )}
 
       {collection && (carouselData[currentIndex].item?.customFields as CustomFiled)?.description && (
@@ -223,7 +272,11 @@ const NewSlider = ({
         </SlimDescription>
       )}
 
-      {slim && <ActionsWrapper>{getActions(carouselData[currentIndex]?.item)}</ActionsWrapper>}
+      {slim && (
+        <ActionsWrapper landscape={isTablet() && orientation === 'LANDSCAPE'}>
+          {getActions(carouselData[currentIndex]?.item)}
+        </ActionsWrapper>
+      )}
     </Container>
   );
 };

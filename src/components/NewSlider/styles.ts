@@ -2,12 +2,9 @@ import styled from 'styled-components/native';
 import { ThemeState } from '@store/modules/theme/types';
 import { Animated, ImageBackground, Platform } from 'react-native';
 import { Button as ButtonC } from '@components/Button';
-import { getDimensions, hp } from '@src/utils/dimension';
 import { getStatusBarHeight } from 'react-native-iphone-x-helper';
 import { normalize } from '@src/utils/normalize';
 import { isTablet } from 'react-native-device-info';
-
-const { width } = getDimensions();
 
 export const Container = styled.View`
   flex: 1;
@@ -19,12 +16,14 @@ const AnimatedImage = Animated.createAnimatedComponent(ImageBackground);
 type CarouselProps = {
   slim: boolean;
   collection: boolean;
+  width: number;
+  height?: number;
 };
 
 export const SliderWrapper = styled.View`
-  width: ${width}px;
   margin-top: 10px;
   margin-bottom: 20px;
+  ${(props: CarouselProps) => `width: ${props.width}px;`}
   ${(props: CarouselProps) => {
     return (
       props.collection &&
@@ -49,15 +48,16 @@ export const Slider = styled(AnimatedImage).attrs({
   resizeMode: 'cover',
   blurRadius: 10,
 })`
-  width: ${width}px;
   align-items: center;
   justify-content: center;
   opacity: 0.3;
+  ${(props: CarouselProps) => `width: ${props.width}px;`}
   ${(props: CarouselProps) => {
     return (
       props.slim &&
+      props.height &&
       `
-      height: ${width - hp(isTablet() ? 225 : 120)}px;
+      height: ${props.height}px;
     `
     );
   }};
@@ -89,12 +89,11 @@ export const SlimDescriptionText = styled.Text.attrs({
 type SlimDescriptionProps = {
   collection?: boolean;
   space?: string | undefined;
+  width?: number;
 };
 
 export const SlimDescription = styled.View`
   height: 100px;
-  padding-left: 40px;
-  padding-right: 40px;
 
   ${(props: SlimDescriptionProps) => {
     return (
@@ -116,8 +115,12 @@ export const SlimDescription = styled.View`
   }};
 `;
 
+type ActionsWrapperProps = {
+  landscape: boolean;
+};
+
 export const ActionsWrapper = styled.View`
-  height: ${isTablet() ? 230 : 150}px;
+  ${(props: ActionsWrapperProps) => `height: ${props.landscape ? 120 : 150}px;`}
   margin-bottom: 20px;
 `;
 
