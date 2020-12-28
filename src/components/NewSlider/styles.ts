@@ -76,6 +76,7 @@ export const SlimDescriptionText = styled.Text.attrs({
   min-height: 90px;
   font-size: ${normalize(12, 16)}px;
   line-height: ${normalize(18, 20)}px;
+  padding-horizontal: 40px;
   ${(props: SlimDescriptionTextProps & ThemeState) => {
     return (
       props.collection &&
@@ -94,6 +95,8 @@ type SlimDescriptionProps = {
 
 export const SlimDescription = styled.View`
   height: 100px;
+
+  ${(props: SlimDescriptionProps) => props.width && `width: ${props.width}px`}
 
   ${(props: SlimDescriptionProps) => {
     return (

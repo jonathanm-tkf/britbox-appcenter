@@ -95,9 +95,9 @@ const NewSlider = ({
 
   const [sliderWidth, itemWidth] = useMemo(() => {
     const { width: screenWidth, height: screenHeight } = getDimensions();
-    const size = orientation === 'PORTRAIT' ? screenHeight : screenWidth;
-    return [size, percentageWidth(isTablet() ? 25 : 40)];
-  }, [orientation]);
+    const size = orientation === 'PORTRAIT' ? screenWidth : screenHeight;
+    return [size, percentageWidth(isTablet() && slim ? 42 : isTablet() ? 55 : 40)];
+  }, [orientation, slim]);
 
   const renderItem = ({ item, index }: any, parallaxProps: any) => {
     return (
@@ -134,13 +134,13 @@ const NewSlider = ({
               key={String(index)}
               x={
                 orientation === 'LANDSCAPE'
-                  ? percentageWidth((100 - size) / 2)
-                  : percentageHeight((100 - size) / 2)
+                  ? percentageHeight((100 - size) / 2)
+                  : percentageWidth((100 - size) / 2)
               }
               y={`${index * 25}%`}
               rx="8"
               ry="8"
-              width={orientation === 'LANDSCAPE' ? percentageWidth(size) : percentageHeight(size)}
+              width={orientation === 'LANDSCAPE' ? percentageHeight(size) : percentageWidth(size)}
               height="15"
             />
           ))}
@@ -164,9 +164,9 @@ const NewSlider = ({
             backgroundColor={theme.PRIMARY_COLOR_OPAQUE}
             foregroundColor={theme.PRIMARY_COLOR}
           >
-            <Rect x={sliderWidth / 2 - 105 - 20 + 8} y="35" rx="8" ry="8" width="50" height="50" />
-            <Rect x={sliderWidth / 2 - 35 - 20 + 16} y="10" rx="8" ry="8" width="70" height="100" />
-            <Rect x={sliderWidth / 2 + 55 - 20 + 24} y="35" rx="8" ry="8" width="50" height="50" />
+            <Rect x={sliderWidth / 2 - 85 - 25} y="35" rx="8" ry="8" width="50" height="50" />
+            <Rect x={sliderWidth / 2 - 35} y="10" rx="8" ry="8" width="70" height="100" />
+            <Rect x={sliderWidth / 2 + 35 + 25} y="35" rx="8" ry="8" width="50" height="50" />
           </ContentLoader>
         );
       }
