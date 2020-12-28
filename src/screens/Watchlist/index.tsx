@@ -173,11 +173,14 @@ const Watchlist = () => {
   };
 
   const getGridTitle = useCallback(() => {
-    if (filter?.value === 'movie') {
-      return `${list.length} ${list.length === 1 ? t('movie') : t('movies')}`;
+    switch (filter?.value) {
+      case 'movie':
+        return `${list.length} ${list.length === 1 ? t('movie') : t('movies')}`;
+      case 'show':
+        return `${list.length} ${list.length === 1 ? t('show') : t('shows')}`;
+      default:
+        return `${list.length} ${list.length === 1 ? t('program') : t('programmes')}`;
     }
-
-    return `${list.length} ${list.length === 1 ? t('program') : t('programmes')}`;
   }, [list, filter]);
 
   const renderContent = () => {
