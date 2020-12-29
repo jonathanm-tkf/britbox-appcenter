@@ -6,13 +6,15 @@ import Auth from '@screens/Auth';
 import Login from '@screens/Login';
 import SignUp from '@screens/SignUp';
 import SignUpSubscription from '@screens/SignUpSubscription';
-import * as ScreenOrientation from 'expo-screen-orientation';
+import Orientation from 'react-native-orientation-locker';
 
 const AuthStack = createStackNavigator();
 
 const AuthStackScreen = () => {
   useEffect(() => {
-    // ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT_UP);
+    if (!isTablet()) {
+      Orientation.lockToPortrait();
+    }
   }, []);
 
   return (

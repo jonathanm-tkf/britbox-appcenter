@@ -11,6 +11,8 @@ import android.util.Log;
 import android.view.View;
 import com.facebook.react.GoogleCastActivity;
 import android.os.Bundle;
+import android.content.Intent;
+import android.content.res.Configuration;
 
 public class MainActivity extends GoogleCastActivity {
 
@@ -58,5 +60,13 @@ public class MainActivity extends GoogleCastActivity {
         return new RNGestureHandlerEnabledRootView(MainActivity.this);
       }
     };
+  }
+
+  @Override
+  public void onConfigurationChanged(Configuration newConfig) {
+    super.onConfigurationChanged(newConfig);
+    Intent intent = new Intent("onConfigurationChanged");
+    intent.putExtra("newConfig", newConfig);
+    this.sendBroadcast(intent);
   }
 }

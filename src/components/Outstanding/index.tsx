@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useCallback, useMemo } from 'react';
+import { Platform } from 'react-native';
 import { Logo } from '@assets/icons';
 import { fill } from 'lodash';
+import Orientation, { OrientationType } from 'react-native-orientation-locker';
 import SwiperFlatList from 'react-native-swiper-flatlist';
 import { isTablet } from 'react-native-device-info';
 import { getDimensions } from '@src/utils/dimension';
@@ -10,6 +12,7 @@ import {
   PaginationWrapper,
   PaginationContent,
   Image,
+  TTImage,
   ImageWrapper,
   PaginationDot,
   PaginationButton,
@@ -19,10 +22,16 @@ import {
 } from './styles';
 import Actions from './components/Actions';
 
+type Item = {
+  url: string;
+  images: {
+    brand?: string;
+    hero3x1: string;
+  };
+};
+
 interface Props {
-  items: {
-    url: string;
-  }[];
+  items: Item[];
   onWatchlist?: (item: any, isInWatchlist: boolean) => void;
   onDiscoverMore?: (item: any) => void;
   onPlay?: (item: any) => void;
@@ -60,28 +69,80 @@ const PaginationComponent = ({
 const ACTIONS_HEIGHT = 150;
 
 const Outstanding = ({ items, onPlay, onWatchlist, onDiscoverMore }: Props) => {
-  const [screenData] = useState(getDimensions());
+  const [screenSize, setScreenSize] = useState(getDimensions());
   const [activeIndex, setActiveIndex] = useState(0);
+  const [orientation, setOrientation] = useState('PORTRAIT');
 
-  const stylesAspectRatio = {
-    width: screenData.width,
-    height: isTablet() ? undefined : screenData.width,
-    aspectRatio: isTablet() ? 16 / 9 : 1,
-  };
+  const stylesAspectRatio = useMemo(() => {
+    return {
+      width:
+        Platform.OS === 'android' && orientation === 'PORTRAIT'
+          ? screenSize.height
+          : screenSize.width,
+      height: screenSize.width / 3,
+    };
+  }, [screenSize.width, screenSize.height, orientation]);
+
+  const onOrientationDidChange = useCallback((newOrientation: OrientationType) => {
+    setScreenSize(getDimensions());
+
+    if (isTablet()) {
+      if (newOrientation === 'LANDSCAPE-LEFT' || newOrientation === 'LANDSCAPE-RIGHT') {
+        setOrientation(Platform.OS === 'ios' ? 'LANDSCAPE' : 'PORTRAIT');
+      } else {
+        setOrientation(Platform.OS === 'ios' ? 'PORTRAIT' : 'LANDSCAPE');
+      }
+    }
+  }, []);
+
+  useEffect((): (() => void) => {
+    if (isTablet()) {
+      Orientation.addDeviceOrientationListener(onOrientationDidChange);
+      Orientation.getDeviceOrientation(onOrientationDidChange);
+
+      return () => {
+        Orientation.removeDeviceOrientationListener(onOrientationDidChange);
+      };
+    }
+
+    return () => {};
+  });
+
+  const getItemTTIImageSize = useCallback(
+    (item: Item) => {
+      if (!item.images.brand) {
+        return { width: 0, height: 0 };
+      }
+
+      const width = 400;
+      const height = (Number(item.images.brand?.split('Height=')[1].split('&')[0]) * 100) / width;
+
+      return {
+        width,
+        height,
+        top: screenSize.width / 6 - height / 2,
+        left: orientation === 'LANDSCAPE' ? '8%' : 0,
+      };
+    },
+    [screenSize.width, orientation]
+  );
 
   return (
     <Wrapper>
       <SwiperFlatList
         index={0}
         style={{
-          width: screenData.width,
-          height: isTablet() ? undefined : screenData.width + ACTIONS_HEIGHT,
+          width:
+            Platform.OS === 'android' && orientation === 'PORTRAIT'
+              ? screenSize.height
+              : screenSize.width,
+          height: isTablet() ? undefined : screenSize.width + ACTIONS_HEIGHT,
         }}
-        onChangeIndex={({ index }) => setActiveIndex(index)}
+        onChangeIndex={({ index }: { index: number }) => setActiveIndex(index)}
         disableVirtualization={false}
         removeClippedSubviews
         data={items}
-        renderItem={({ item }) => (
+        renderItem={({ item }: { item: Item }) => (
           <Wrapper>
             <WrapperButton onPress={() => (onDiscoverMore ? onDiscoverMore(item) : {})}>
               <ImageWrapper style={stylesAspectRatio}>
@@ -93,10 +154,19 @@ const Outstanding = ({ items, onPlay, onWatchlist, onDiscoverMore }: Props) => {
                   <>
                     <Image
                       source={{
-                        uri: item.url,
+                        uri: isTablet() ? item.images?.hero3x1 : item.url || '',
                       }}
                       resizeMode="cover"
                     />
+                    {isTablet() && item.images?.brand && (
+                      <TTImage
+                        source={{
+                          uri: item.images.brand,
+                        }}
+                        style={getItemTTIImageSize(item)}
+                        resizeMode="contain"
+                      />
+                    )}
                     <Gradient />
                   </>
                 )}

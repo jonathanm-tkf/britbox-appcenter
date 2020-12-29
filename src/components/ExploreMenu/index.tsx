@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback, SetStateAction } from 'react';
-// import { Platform } from 'react-native';
+import { Platform } from 'react-native';
 import { useSelector } from 'react-redux';
 import Orientation, { OrientationType } from 'react-native-orientation-locker';
 import { AppState } from '@store/modules/rootReducer';
@@ -40,13 +40,13 @@ const ExploreMenu = ({ data, onPress }: Props) => {
     setActive(key);
   };
 
-  // const onOrientationDidChange = (newOrientation: OrientationType) => {
-  //   if (newOrientation === 'PORTRAIT' || newOrientation === 'PORTRAIT-UPSIDEDOWN') {
-  //     setOrientation(Platform.OS === 'ios' ? 'PORTRAIT' : 'LANDSCAPE');
-  //   } else if (newOrientation === 'LANDSCAPE-LEFT' || newOrientation === 'LANDSCAPE-RIGHT') {
-  //     setOrientation(Platform.OS === 'ios' ? 'LANDSCAPE' : 'PORTRAIT');
-  //   }
-  // };
+  const onOrientationDidChange = (newOrientation: OrientationType) => {
+    if (newOrientation === 'PORTRAIT' || newOrientation === 'PORTRAIT-UPSIDEDOWN') {
+      setOrientation(Platform.OS === 'ios' ? 'PORTRAIT' : 'LANDSCAPE');
+    } else if (newOrientation === 'LANDSCAPE-LEFT' || newOrientation === 'LANDSCAPE-RIGHT') {
+      setOrientation(Platform.OS === 'ios' ? 'LANDSCAPE' : 'PORTRAIT');
+    }
+  };
 
   useEffect(() => {
     const filterData = data.filter((item) => item.label === 'Explore');
@@ -59,11 +59,11 @@ const ExploreMenu = ({ data, onPress }: Props) => {
   }, [data]);
 
   useEffect(() => {
-    // Orientation.addDeviceOrientationListener(onOrientationDidChange);
-    // Orientation.getDeviceOrientation(onOrientationDidChange);
+    Orientation.addDeviceOrientationListener(onOrientationDidChange);
+    Orientation.getDeviceOrientation(onOrientationDidChange);
 
     return () => {
-      // Orientation.removeOrientationListener(onOrientationDidChange);
+      Orientation.removeOrientationListener(onOrientationDidChange);
     };
   });
 

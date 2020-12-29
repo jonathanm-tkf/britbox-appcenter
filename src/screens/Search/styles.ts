@@ -8,10 +8,6 @@ import { normalize } from '@src/utils/normalize';
 import { isTablet } from 'react-native-device-info';
 import { getStatusBarHeight } from 'react-native-iphone-x-helper';
 
-export const Container = styled.View`
-  padding-top: ${Platform.OS === 'ios' ? getStatusBarHeight() : 0}px;
-`;
-
 export const Scroll = styled.ScrollView.attrs({
   showsVerticalScrollIndicator: false,
   bounces: false,
@@ -28,7 +24,7 @@ export const Title = styled(TitleC)``;
 export const TitleWrapper = styled.View`
   margin-left: 40px;
   margin-right: 40px;
-  padding-top: 50px;
+  padding-top: ${(Platform.OS === 'ios' ? getStatusBarHeight() : 0) + 50}px;
 `;
 
 export const SearchWrapper = styled.View`
