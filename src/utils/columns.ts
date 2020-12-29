@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { useState, useEffect, useCallback, useMemo } from 'react';
 import { Platform } from 'react-native';
 import Orientation, { OrientationType } from 'react-native-orientation-locker';
@@ -50,5 +52,5 @@ export function useColumns(portraitTabletCardWidth: number, landscapeTabletCardW
     }
 
     return size;
-  }, [numOfColums, orientation, portraitTabletCardWidth, landscapeTabletCardWidth]);
+  }, [numOfColums, portraitTabletCardWidth, landscapeTabletCardWidth]);
 }

@@ -32,7 +32,6 @@ import { pickBy } from 'lodash';
 import Action from '@components/Action';
 import { BackIcon } from '@assets/icons';
 import Orientation from 'react-native-orientation-locker';
-
 import {
   BackButton,
   ChromecastWrapper,
@@ -182,7 +181,9 @@ const VideoPlayer = () => {
     useCallback(() => {
       const task = InteractionManager.runAfterInteractions(() => {
         // Expensive task
-        Orientation.lockToLandscape();
+        if (!isTablet()) {
+          Orientation.lockToLandscape();
+        }
       });
       return () => task.cancel();
     }, [])

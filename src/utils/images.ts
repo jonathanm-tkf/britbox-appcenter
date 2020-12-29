@@ -13,7 +13,14 @@ export const getUrlVars = (url: string): { [key: string]: string } => {
   return myJson;
 };
 
-export const getImage = (url = '', imageType = '', quality = 0, height = 0, width = 0) => {
+export const getImage = (
+  url = '',
+  imageType = '',
+  quality = 0,
+  height = 0,
+  width = 0,
+  format = 'jpg'
+) => {
   let resImageURL = url;
 
   if (url === '') {
@@ -29,6 +36,7 @@ export const getImage = (url = '', imageType = '', quality = 0, height = 0, widt
     const originalHeight = parseInt(Height, 10);
     const originalWidth = parseInt(Width, 10);
     const originalQuality = parseInt(Quality, 10);
+    const originalForamt = 'jpg';
 
     let boxHeight = 0;
     let boxWidth = 0;
@@ -81,6 +89,7 @@ export const getImage = (url = '', imageType = '', quality = 0, height = 0, widt
     const newWidth = parseInt(String(originalWidth * scale), 10);
 
     resImageURL = `${url
+      .replace(`?Format='${originalForamt}'`, `?Format='${format}'`)
       .replace(`&Width=${String(originalWidth)}`, `&Width=${String(newWidth)}`)
       .replace(`&Height=${String(originalHeight)}`, `&Height=${String(newHeight)}`)
       .replace(

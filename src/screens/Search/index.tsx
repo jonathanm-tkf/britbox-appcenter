@@ -12,7 +12,7 @@ import { MassiveSDKModelItemList } from '@src/sdks/Britbox.API.Account.TS/api';
 import { MassiveSDKModelPerson } from '@src/sdks/Britbox.API.Content.TS/api';
 import { getSearch } from '@store/modules/search/saga';
 import Grid from '@screens/Shared/Grid';
-import { percentageWidth, getDimensions } from '@src/utils/dimension';
+import { percentageWidth } from '@src/utils/dimension';
 import { isTablet } from 'react-native-device-info';
 import { getTextInConfigJSON } from '@src/utils/object';
 import { analyticsRef } from '@src/utils/analytics';
@@ -331,8 +331,8 @@ const Search = ({ theme }: Props) => {
             title={search?.title || ''}
             numColumns={numOfColums}
             element={{
-              width: percentageWidth(isTablet() ? 22 : 33.333 - (isTablet() ? 10 : 20)),
-              height: percentageWidth((isTablet() ? 22 : 33.333 - (isTablet() ? 10 : 20)) * 1.25),
+              width: percentageWidth(elementWidth),
+              height: percentageWidth(elementHeight),
               marginBottom: 20,
               marginHorizontal: isTablet() ? 3 : 5,
             }}
