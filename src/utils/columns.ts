@@ -4,6 +4,7 @@ import Orientation, { OrientationType } from 'react-native-orientation-locker';
 import { isTablet } from 'react-native-device-info';
 import { getDimensions } from '@src/utils/dimension';
 
+const PHONE_COLUMNS = 3;
 const TABLET_PORTRAIT_COLUMNS = 5;
 const TABLET_LANDSCAPE_COLUMNS = 6;
 
@@ -13,7 +14,7 @@ const isPortrait = screenHeight >= screenWidth;
 export function useColumns(portraitTabletCardWidth: number, landscapeTabletCardWidth: number) {
   const [orientation, setOrientation] = useState(isPortrait ? 'PORTRAIT' : 'LANDSCAPE');
   const [numOfColums, setNumOfColumns] = useState(
-    isTablet() ? (isPortrait ? TABLET_PORTRAIT_COLUMNS : TABLET_LANDSCAPE_COLUMNS) : 3
+    isTablet() ? (isPortrait ? TABLET_PORTRAIT_COLUMNS : TABLET_LANDSCAPE_COLUMNS) : PHONE_COLUMNS
   );
 
   const onOrientationDidChange = useCallback((prevOrientation: OrientationType) => {
@@ -40,7 +41,7 @@ export function useColumns(portraitTabletCardWidth: number, landscapeTabletCardW
 
   return useMemo((): Array<number> => {
     const phoneWidth = 28.5;
-    let size = [phoneWidth, phoneWidth * 1.25];
+    let size = [PHONE_COLUMNS, phoneWidth, phoneWidth * 1.25];
 
     if (isTablet()) {
       size =

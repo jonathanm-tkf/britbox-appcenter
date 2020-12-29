@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { Animated, NativeScrollEvent, View, Platform } from 'react-native';
 import { useNavigation, useRoute, RouteProp } from '@react-navigation/native';
 import { BackIcon } from '@assets/icons';
@@ -105,6 +105,13 @@ const GridContentAfter = ({ data }: { data: MassiveSDKModelItemSummary }) => {
   );
 };
 
+const getIsEpisodeGrid = (items: MassiveSDKModelItemSummary[]) =>
+  items.length > 0 ? items.reduce((i) => i).type === 'episode' : false;
+
+const onDiscoverMore = (card: MassiveSDKModelItemList) => {
+  navigateByPath(card);
+};
+
 const Collections = () => {
   const navigation = useNavigation();
   const [showBlueView, setShowBlueView] = useState(false);
@@ -120,11 +127,12 @@ const Collections = () => {
   const [animationContinuosScroll, setAnimationContinuosScroll] = useState(false);
   const [loading, setLoading] = useState(false);
   const { t } = useTranslation('layout');
-  // eslint-disable-next-line prefer-const
-  let [infiniteGridColumns, elementWidth, elementHeight] = useColumns(
-    18.75,
-    Platform.OS === 'ios' ? 16 : 28.5
-  );
+  const [infiniteGridColumns, setInfiniteGridColumns] = useState<number | undefined>(undefined);
+  const [
+    infinitGridTabletNumOfColumns,
+    tabletInfinityGridElementWidth,
+    tabletInfinityGridElementHeight,
+  ] = useColumns(18.5, Platform.OS === 'ios' ? 16 : 28.5);
   const { isShowMiniController } = useSelector((state: AppState) => state.layout);
   const { segment } = useSelector((state: AppState) => state.core);
   const [order, setOrder] = useState('desc');
@@ -146,6 +154,24 @@ const Collections = () => {
   const back = () => {
     navigation.goBack();
   };
+
+  const calculateInfinityGridNumOfColumns = useMemo(() => {
+    if (isTablet()) {
+      setInfiniteGridColumns(infinitGridTabletNumOfColumns);
+    } else if (infiniteGridColumns === undefined) {
+      setInfiniteGridColumns(
+        getIsEpisodeGrid(
+          (data?.entries || [])
+            .filter((item) => getTemplate(item.template || '') === 'grid-infinite')
+            .reduce((item) => item).list?.items || []
+        )
+          ? 2
+          : 3
+      );
+    }
+
+    return () => {};
+  }, [infinitGridTabletNumOfColumns]);
 
   const getDataDetail = async (path: string) => {
     const { response } = await loadCollectionPage(path);
@@ -182,25 +208,9 @@ const Collections = () => {
       });
     }
 
+    calculateInfinityGridNumOfColumns();
     setIsContinuosScroll(getIsContinuosScroll(response || {}));
-
-    infiniteGridColumns = getIsEpisodeGrid(
-      (response?.entries || [])
-        .filter((item) => getTemplate(item.template || '') === 'grid-infinite')
-        .reduce((item) => item).list?.items || []
-    )
-      ? isTablet()
-        ? infiniteGridColumns
-        : 2
-      : infiniteGridColumns;
   };
-
-  const onDiscoverMore = (card: MassiveSDKModelItemList) => {
-    navigateByPath(card);
-  };
-
-  const getIsEpisodeGrid = (items: MassiveSDKModelItemSummary[]) =>
-    items.length > 0 ? items.reduce((i) => i).type === 'episode' : false;
 
   const getIsContinuosScroll = (response: MassiveSDKModelPage) => {
     const result =
@@ -523,12 +533,28 @@ const Collections = () => {
                       loading={animationContinuosScroll}
                       isEpisode={infiniteGridColumns === 2}
                       numColumns={infiniteGridColumns}
-                      element={{
-                        width: percentageWidth(elementWidth),
-                        height: percentageWidth(elementHeight),
-                        marginBottom: isTablet() ? 70 : 20,
-                        marginHorizontal: isTablet() ? 3 : 5,
-                      }}
+                      element={
+                        infiniteGridColumns === 2
+                          ? {
+                              width: percentageWidth(50) - 26,
+                              height: percentageWidth(50) - percentageWidth(26),
+                              marginBottom: 70,
+                              marginHorizontal: 5,
+                            }
+                          : infiniteGridColumns === 3
+                          ? {
+                              width: percentageWidth(33.333) - 20,
+                              height: percentageWidth(33.333 * 1.25),
+                              marginBottom: 20,
+                              marginHorizontal: 5,
+                            }
+                          : {
+                              width: percentageWidth(tabletInfinityGridElementWidth),
+                              height: percentageWidth(tabletInfinityGridElementHeight),
+                              marginBottom: 20,
+                              marginHorizontal: 4,
+                            }
+                      }
                       listStyles={listStyle}
                       imageType={infiniteGridColumns === 2 ? 'wallpaper' : 'poster'}
                     />

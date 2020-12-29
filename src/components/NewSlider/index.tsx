@@ -85,18 +85,28 @@ const NewSlider = ({
   }, []);
 
   useEffect(() => {
-    Orientation.addDeviceOrientationListener(onOrientationDidChange);
-    Orientation.getDeviceOrientation(onOrientationDidChange);
+    if (isTablet()) {
+      Orientation.addDeviceOrientationListener(onOrientationDidChange);
+      Orientation.getDeviceOrientation(onOrientationDidChange);
 
-    return () => {
-      Orientation.removeOrientationListener(onOrientationDidChange);
-    };
+      return () => {
+        Orientation.removeOrientationListener(onOrientationDidChange);
+      };
+    }
+
+    return () => {};
   });
 
   const [sliderWidth, itemWidth] = useMemo(() => {
     const { width: screenWidth, height: screenHeight } = getDimensions();
-    const size = orientation === 'PORTRAIT' ? screenWidth : screenHeight;
-    return [size, percentageWidth(isTablet() && slim ? 42 : isTablet() ? 55 : 40)];
+
+    if (isTablet()) {
+      const size = orientation === 'PORTRAIT' ? screenWidth : screenHeight;
+      return [size, percentageWidth(isTablet() && slim ? 42 : isTablet() ? 55 : 40)];
+    }
+
+    const size = Math.min(screenWidth, screenHeight);
+    return [size, 171, slim ? 274 : size / 3 + 40];
   }, [orientation, slim]);
 
   const renderItem = ({ item, index }: any, parallaxProps: any) => {
@@ -129,20 +139,28 @@ const NewSlider = ({
             speed={1}
             backgroundColor={theme.PRIMARY_COLOR_OPAQUE}
             foregroundColor={theme.PRIMARY_COLOR}
-            style={{ width: sliderWidth, height: 100 }}
+            style={{ width: sliderWidth, height: 25 * sizes.length }}
           >
             {sizes.map((size, index) => (
               <Rect
                 key={String(index)}
                 x={
-                  orientation === 'LANDSCAPE'
-                    ? percentageHeight((100 - size) / 2)
+                  isTablet()
+                    ? orientation === 'LANDSCAPE'
+                      ? percentageHeight((175 - size) / 2)
+                      : percentageWidth((140 - size) / 2)
                     : percentageWidth((100 - size) / 2)
                 }
                 y={`${index * 25}%`}
                 rx="8"
                 ry="8"
-                width={orientation === 'LANDSCAPE' ? percentageHeight(size) : percentageWidth(size)}
+                width={
+                  isTablet()
+                    ? orientation === 'LANDSCAPE'
+                      ? percentageHeight(size)
+                      : percentageWidth(size - 40)
+                    : percentageWidth(size)
+                }
                 height="15"
               />
             ))}
@@ -161,6 +179,10 @@ const NewSlider = ({
   const getActions = useCallback(
     (item?: MassiveSDKModelItemList) => {
       const image = getImage(item?.images?.poster, 'wallpaper');
+      const padding = 20;
+      const smallBoxSize = 50;
+      const bigBoxSize = 75;
+
       if (image === 'loading') {
         return (
           <ContentLoader
@@ -169,9 +191,30 @@ const NewSlider = ({
             foregroundColor={theme.PRIMARY_COLOR}
             style={{ height: 110, width: sliderWidth }}
           >
-            <Rect x={sliderWidth / 2 - 85 - 25} y="35" rx="8" ry="8" width="50" height="50" />
-            <Rect x={sliderWidth / 2 - 35} y="10" rx="8" ry="8" width="70" height="100" />
-            <Rect x={sliderWidth / 2 + 35 + 25} y="35" rx="8" ry="8" width="50" height="50" />
+            <Rect
+              x={sliderWidth / 2 - smallBoxSize * 2}
+              y="35"
+              rx="8"
+              ry="8"
+              width="50"
+              height="50"
+            />
+            <Rect
+              x={sliderWidth / 2 - bigBoxSize / 4 - padding / 2}
+              y="10"
+              rx="8"
+              ry="8"
+              width="70"
+              height="100"
+            />
+            <Rect
+              x={sliderWidth / 2 + smallBoxSize + padding / 2}
+              y="35"
+              rx="8"
+              ry="8"
+              width="50"
+              height="50"
+            />
           </ContentLoader>
         );
       }
