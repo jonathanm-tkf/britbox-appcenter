@@ -29,17 +29,17 @@ PODS:
     - React
     - SSZipArchive (~> 2.2.2)
   - DoubleConversion (1.1.6)
-  - EXConstants (9.2.0):
+  - EXConstants (9.3.5):
     - UMConstantsInterface
     - UMCore
-  - EXFileSystem (9.2.0):
+  - EXFileSystem (9.3.0):
     - UMCore
     - UMFileSystemInterface
-  - EXImageLoader (1.2.0):
+  - EXImageLoader (1.3.0):
     - React-Core
     - UMCore
     - UMImageLoaderInterface
-  - EXPermissions (9.3.0):
+  - EXPermissions (10.0.0):
     - UMCore
     - UMPermissionsInterface
   - EXScreenOrientation (2.1.0):
@@ -325,6 +325,8 @@ PODS:
     - React
   - react-native-netinfo (5.9.7):
     - React-Core
+  - react-native-orientation-locker (1.2.0):
+    - React
   - react-native-safe-area-context (3.1.8):
     - React-Core
   - react-native-viewpager (4.1.6):
@@ -426,23 +428,23 @@ PODS:
   - SSZipArchive (2.2.3)
   - toolbar-android (0.1.0-rc.2):
     - React
-  - UMAppLoader (1.3.0)
-  - UMBarCodeScannerInterface (5.3.0)
-  - UMCameraInterface (5.3.0)
-  - UMConstantsInterface (5.3.0)
-  - UMCore (5.5.1)
-  - UMFaceDetectorInterface (5.3.0)
-  - UMFileSystemInterface (5.3.0)
-  - UMFontInterface (5.3.0)
-  - UMImageLoaderInterface (5.3.0)
-  - UMPermissionsInterface (5.3.0):
+  - UMAppLoader (1.4.0)
+  - UMBarCodeScannerInterface (5.4.0)
+  - UMCameraInterface (5.4.0)
+  - UMConstantsInterface (5.4.0)
+  - UMCore (6.0.0)
+  - UMFaceDetectorInterface (5.4.0)
+  - UMFileSystemInterface (5.4.0)
+  - UMFontInterface (5.4.0)
+  - UMImageLoaderInterface (5.4.0)
+  - UMPermissionsInterface (5.4.0):
     - UMCore
-  - UMReactNativeAdapter (5.6.0):
+  - UMReactNativeAdapter (5.7.0):
     - React-Core
     - UMCore
     - UMFontInterface
-  - UMSensorsInterface (5.3.0)
-  - UMTaskManagerInterface (5.3.0)
+  - UMSensorsInterface (5.4.0)
+  - UMTaskManagerInterface (5.4.0)
   - Yoga (1.14.0)
   - YogaKit (1.18.1):
     - Yoga (~> 1.14)
@@ -503,6 +505,7 @@ DEPENDENCIES:
   - react-native-home-indicator (from `../node_modules/react-native-home-indicator`)
   - react-native-kochava-tracker (from `../node_modules/react-native-kochava-tracker`)
   - "react-native-netinfo (from `../node_modules/@react-native-community/netinfo`)"
+  - react-native-orientation-locker (from `../node_modules/react-native-orientation-locker`)
   - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
   - "react-native-viewpager (from `../node_modules/@react-native-community/viewpager`)"
   - react-native-webview (from `../node_modules/react-native-webview`)
@@ -639,6 +642,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-kochava-tracker"
   react-native-netinfo:
     :path: "../node_modules/@react-native-community/netinfo"
+  react-native-orientation-locker:
+    :path: "../node_modules/react-native-orientation-locker"
   react-native-safe-area-context:
     :path: "../node_modules/react-native-safe-area-context"
   react-native-viewpager:
@@ -733,10 +738,10 @@ SPEC CHECKSUMS:
   CocoaLibEvent: 2fab71b8bd46dd33ddb959f7928ec5909f838e3f
   CodePush: 69186fd1143f7e5e5c6f65383cf14f4927e28213
   DoubleConversion: cde416483dac037923206447da6e1454df403714
-  EXConstants: f486f6b4a36b86e47ab258d4d2b7b2699786fdce
-  EXFileSystem: afe9b1fd937d30270bf5108ba44e2f4a1d1ad694
-  EXImageLoader: 7153fb1307ac643299a9072b71da0d276f4c7789
-  EXPermissions: 30cbe5b72bd209b65c00884180ad058a60bb413d
+  EXConstants: 54d0bf04319d1692c6c7bc03ca151ef7a71705a4
+  EXFileSystem: 0e4974ab77bff04cda68d2886d070cbe64b93a6b
+  EXImageLoader: f96ec9992733a4224418bbd9382e5485c8948944
+  EXPermissions: 17d4846ad1880f6891c74ae58ca1acb43e47ed47
   EXScreenOrientation: 74ec9be3963b613eb37730d41ef0954e014b08ff
   FBLazyVector: 878b59e31113e289e275165efbe4b54fa614d43d
   FBReactNativeSpec: 7da9338acfb98d4ef9e5536805a0704572d33c2f
@@ -774,6 +779,7 @@ SPEC CHECKSUMS:
   react-native-home-indicator: 92b86b0fbe85a50c9cba286ad7bae4a2c319238a
   react-native-kochava-tracker: babb1ec6b31134295ac2c3b75750ca82f589ec77
   react-native-netinfo: 250dc0ca126512f618a8a2ca6a936577e1f66586
+  react-native-orientation-locker: 47aaa55d59bfc1613804dc22f159e6bb1cca5f30
   react-native-safe-area-context: 79fea126c6830c85f65947c223a5e3058a666937
   react-native-viewpager: f44c9e21c37d4cb76d38841c8a450e3891923461
   react-native-webview: 4e96d493f9f90ba4f03b28933f30b2964df07e39
@@ -803,19 +809,19 @@ SPEC CHECKSUMS:
   SDWebImageWebPCoder: d0dac55073088d24b2ac1b191a71a8f8d0adac21
   SSZipArchive: 62d4947b08730e4cda640473b0066d209ff033c9
   toolbar-android: 85f3ef4d691469f2d304e7dee4bca013aa1ba1ff
-  UMAppLoader: 5db5dc03176c6238da9c8b3657a370137882a4ad
-  UMBarCodeScannerInterface: 017672479f93de88d94c3a50dfb66b5348b65989
-  UMCameraInterface: 22bd2c4bf15dcf68530368fa5704af7490818457
-  UMConstantsInterface: ff612789417aace6fd01a9c35616bc87dcdc8d97
-  UMCore: 94e4725ab2efbbe247b5910a2a954a2dab64f7eb
-  UMFaceDetectorInterface: 9bc6a197ad9d4d16ba13bfdf2340dd7f24964308
-  UMFileSystemInterface: e7795274eee76beaadaf6015bcc7f5da3054b925
-  UMFontInterface: bc5dd878b2f6fffdac80e41fd36893c619683712
-  UMImageLoaderInterface: 78ab0fd45c2bcaee61957fa23858bf31f2bcb122
-  UMPermissionsInterface: 4f21b0c2aaf953cf041109ff44231b2a69e22836
-  UMReactNativeAdapter: 61ae88818058b7849bbf5b79bf97872cb3c8e0eb
-  UMSensorsInterface: 49bea41dcfcc041f0bbab27cfe4a6006f1dde0c0
-  UMTaskManagerInterface: 6cad5929dbc0a5b986ad4d77caac497d4de730a7
+  UMAppLoader: 92d044af52626af3d81a69796ad666fc7a9a7d78
+  UMBarCodeScannerInterface: 3f6c1b09ef4b867ce752b8c0b3893bcf9cd85f32
+  UMCameraInterface: d516032121192fee9a6c93bdfff0bb2cc7282796
+  UMConstantsInterface: 6825ea3832d26ed392ca6eff2df84edd69968fd0
+  UMCore: 97ba5041c9c92317ce61739f6d126a692c8ef4a8
+  UMFaceDetectorInterface: 60b36b07faa539205efce30b20c192e058b31c23
+  UMFileSystemInterface: ab01294ce58a3c773aefb4a5b131ce589c199559
+  UMFontInterface: 85fe1b845fb7caab45e04d9ce47e1677a5ce90a5
+  UMImageLoaderInterface: 18f37df089b7e6d301e3acac025a8264d26b66d6
+  UMPermissionsInterface: 807e5733b4c6607f35757b1dd128f370718d2f94
+  UMReactNativeAdapter: 172def7895b2cb44a7dd021336e316d5fa8ea958
+  UMSensorsInterface: 4df9ec662134de5614ae61acc249d6912db87ca5
+  UMTaskManagerInterface: 4c60b43eaf3cb05a164bc9113258a171c18b7bf7
   Yoga: 7d13633d129fd179e01b8953d38d47be90db185a
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
 

@@ -136,6 +136,10 @@ export const Image = styled.Image`
   height: 100%;
 `;
 
+export const TTImage = styled.Image`
+  position: absolute;
+`;
+
 export const ImageWrapper = styled.View``;
 
 export const Wrapper = styled.View``;

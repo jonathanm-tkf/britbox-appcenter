@@ -1,6 +1,6 @@
 #import "AppDelegate.h"
 #import <CodePush/CodePush.h>
-
+#import "Orientation.h"
 #import <React/RCTBridge.h>
 #import <React/RCTBundleURLProvider.h>
 #import <React/RCTRootView.h>
@@ -113,6 +113,10 @@ static void InitializeFlipper(UIApplication *application) {
  return [RCTLinkingManager application:application
                   continueUserActivity:userActivity
                     restorationHandler:restorationHandler];
+}
+
+- (UIInterfaceOrientationMask)application:(UIApplication *)application supportedInterfaceOrientationsForWindow:(UIWindow *)window {
+  return [Orientation getOrientation];
 }
 
 @end

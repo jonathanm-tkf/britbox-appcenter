@@ -4,7 +4,7 @@
 import React, { useEffect, useState } from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { useDispatch, useSelector } from 'react-redux';
-import { getBuildNumber } from 'react-native-device-info';
+import { getBuildNumber, isTablet } from 'react-native-device-info';
 import { AppState } from '@store/modules/rootReducer';
 import Storybook from '@screens/Storybook';
 import { rgba } from 'polished';
@@ -26,7 +26,7 @@ import { BritboxAPIContentModelsItemsGetItemRelatedListResponse } from '@src/sdk
 import { setDeepLinkUrl } from '@store/modules/home/actions';
 import { getItemContent } from '@store/modules/home/saga';
 import Loading from '@screens/Loading';
-import * as ScreenOrientation from 'expo-screen-orientation';
+import Orientation from 'react-native-orientation-locker';
 import { AuthStackScreen } from '../Auth';
 import { push, navigateByPath, navigationGoBack, navigationRef } from '../rootNavigation';
 import { AppTabsScreen } from '../Tabs';
@@ -99,7 +99,9 @@ const RootStackScreen = () => {
   }, [britboxConfig]);
 
   useEffect(() => {
-    // ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT_UP);
+    if (!isTablet()) {
+      Orientation.lockToPortrait();
+    }
     const unsubscribe = NetInfo.addEventListener((state) => {
       if (!state.isConnected) {
         setLostConnection(true);

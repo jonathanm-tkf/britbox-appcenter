@@ -50,13 +50,13 @@ import Action from '@components/Action';
 import { refreshTokenWithExpiresIn } from '@src/services/token';
 import { immersiveModeOff } from 'react-native-android-immersive-mode';
 import { isTablet } from 'react-native-device-info';
-// import { HomeIndicator } from 'react-native-home-indicator';
+import { HomeIndicator } from 'react-native-home-indicator';
 import { castVideo } from '@store/modules/chromecast/actions';
 import { getDimensions } from '@src/utils/dimension';
 import { withTheme } from 'styled-components';
 import { ThemeProps } from '@store/modules/theme/types';
 import ErrorNotFound from '@components/ErrorNotFound';
-import * as ScreenOrientation from 'expo-screen-orientation';
+import Orientation from 'react-native-orientation-locker';
 import {
   Container,
   Scroll,
@@ -323,7 +323,9 @@ const Detail = ({ theme }: Props) => {
 
   useEffect(() => {
     if (isFocus) {
-      // ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT_UP);
+      if (!isTablet()) {
+        Orientation.lockToPortrait();
+      }
       StatusBar.setHidden(false);
       immersiveModeOff();
     }
@@ -552,7 +554,7 @@ const Detail = ({ theme }: Props) => {
   return (
     // paddingBottom={isShowMiniController ? 152 : 64}
     <Container style={{ width }}>
-      {/* <HomeIndicator autoHidden={false} /> */}
+      <HomeIndicator autoHidden={false} />
       <TopWrapper>
         <Button onPress={() => back()}>
           <BackIcon width={20} height={20} />
