@@ -116,7 +116,10 @@ const Search = ({ theme }: Props) => {
   };
 
   const suggestionLinks = getTextInConfigJSON(['search-links'], '');
-  const noSearchResulsts = getTextInConfigJSON(['search-no-resulsts'], '');
+  const noSearchResulsts = getTextInConfigJSON(
+    ['search-no-resulsts'],
+    t('search-no-resulsts', { returnObjects: true })
+  );
 
   useEffect(() => {
     const searchString = searchInput?.trim();

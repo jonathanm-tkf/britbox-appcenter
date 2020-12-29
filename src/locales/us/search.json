@@ -11,5 +11,19 @@
   "showsfound": "Shows found for",
   "oneshowfound": "Show found for",
   "moviesfound": "Movies found for",
-  "onemoviefound": "Movie found for"
+  "onemoviefound": "Movie found for",
+  "search-no-resulsts": [
+    {
+      "text": "We are sorry!",
+      "bold": true
+    },
+    {
+      "text": "We did not find results for your search.",
+      "bold": false
+    },
+    {
+      "text": "Why not browse A-Z to find something you may be interested in.",
+      "bold": false
+    }
+  ]
 }

@@ -13,8 +13,8 @@ const getConfig = () => {
   return core?.britboxConfig ? core?.britboxConfig[getSegment()] : undefined;
 };
 
-export const getTextInConfigJSON = (params: string[], defaultString?: string) =>
-  get(getConfig(), params, defaultString);
+export const getTextInConfigJSON = (params: string[], defaultReturn?: string | any[]) =>
+  get(getConfig(), params, defaultReturn);
 
 export const getGlobalTextInConfigJSON = (params: string[], defaultString?: string) => {
   const { core }: { core: CoreState } = store.getState();
