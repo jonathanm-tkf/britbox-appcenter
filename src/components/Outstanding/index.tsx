@@ -39,14 +39,16 @@ interface Props {
   isTrailer?: boolean;
 }
 
-const Pagination = ({ size, paginationIndex, onPress }: any) => {
+const Pagination = ({ size, paginationIndex, onPress, tabletLandscape }: any) => {
   return (
     <PaginationDotsWrapper>
-      <PaginationContent />
       {fill(new Array(size), 1).map((item, index) => (
-        <PaginationButton onPress={onPress} key={index.toString()}>
-          <PaginationDot active={index === paginationIndex} />
-        </PaginationButton>
+        <>
+          <PaginationButton onPress={onPress} key={index.toString()}>
+            <PaginationDot active={index === paginationIndex} tabletLandscape={tabletLandscape} />
+          </PaginationButton>
+          <PaginationContent visible={index < size - 1} />
+        </>
       ))}
     </PaginationDotsWrapper>
   );
@@ -55,13 +57,15 @@ const Pagination = ({ size, paginationIndex, onPress }: any) => {
 const PaginationComponent = ({
   size,
   paginationIndex,
+  tabletLandscape,
 }: {
   size: number;
   paginationIndex: number;
+  tabletLandscape: boolean;
 }) => {
   return (
-    <PaginationWrapper>
-      <Pagination size={size} paginationIndex={paginationIndex} />
+    <PaginationWrapper tabletLandscape={tabletLandscape}>
+      <Pagination size={size} paginationIndex={paginationIndex} tabletLandscape={tabletLandscape} />
     </PaginationWrapper>
   );
 };
@@ -176,7 +180,11 @@ const Outstanding = ({ items, onPlay, onWatchlist, onDiscoverMore }: Props) => {
           </Wrapper>
         )}
       />
-      <PaginationComponent size={items.length} paginationIndex={activeIndex} />
+      <PaginationComponent
+        size={items.length}
+        paginationIndex={activeIndex}
+        tabletLandscape={isTablet() && orientation === 'PORTRAIT'}
+      />
     </Wrapper>
   );
 };
