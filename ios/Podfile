@@ -45,10 +45,13 @@ end
 
 target 'Britbox' do
   use_unimodules!
+
   target 'BritboxTests' do
     inherit! :complete
     # Pods for testing
   end
+
+  use_frameworks!
 
   # pod 'google-cast-sdk'
   # pod 'react-native-google-cast/NoBluetooth', path: '../node_modules/react-native-google-cast/ios'
@@ -57,9 +60,14 @@ target 'Britbox' do
   #
   # Note that if you have use_frameworks! enabled, Flipper will not work and
   # you should disable these next few lines.
-  use_flipper!(configurations: ['Debug', 'DebugStaging', 'DebugProduction'])
+  # use_flipper!(configurations: ['Debug', 'DebugStaging', 'DebugProduction'])
   post_install do |installer|
-    flipper_post_install(installer)
+    # flipper_post_install(installer)
+    installer.pods_project.targets.each do |target|
+        target.build_configurations.each do |config|
+            config.build_settings['ONLY_ACTIVE_ARCH'] = 'NO'
+        end
+    end
   end
 end
 
