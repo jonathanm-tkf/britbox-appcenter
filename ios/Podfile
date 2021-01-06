@@ -1,12 +1,12 @@
 require_relative '../node_modules/react-native/scripts/react_native_pods'
 require_relative '../node_modules/@react-native-community/cli-platform-ios/native_modules'
-# require_relative '../node_modules/react-native-unimodules/cocoapods.rb'
+### require_relative '../node_modules/react-native-unimodules/cocoapods.rb'
 
 platform :ios, '10.3'
 config = use_native_modules!
 use_react_native!(:path => config["reactNativePath"])
 
-project 'app', {
+project 'Britbox', {
   'DebugStaging' => :debug,
   'DebugProduction' => :debug,
   'ReleaseStaging' => :release,
@@ -43,10 +43,10 @@ def use_flipper!(versions = {}, configurations: ['Debug'])
   pod 'FlipperKit/FlipperKitNetworkPlugin', versions['Flipper'], :configurations => configurations
 end
 
-target 'app' do
-  # use_unimodules!
+target 'Britbox' do
+  ### use_unimodules!
 
-  target 'appTests' do
+  target 'BritboxTests' do
     inherit! :complete
     # Pods for testing
   end
@@ -71,10 +71,10 @@ target 'app' do
   end
 end
 
-target 'app-tvOS' do
-  # Pods for app-tvOS
+target 'Britbox-tvOS' do
+  # Pods for Britbox-tvOS
 
-  target 'app-tvOSTests' do
+  target 'Britbox-tvOSTests' do
     inherit! :search_paths
     # Pods for testing
   end
