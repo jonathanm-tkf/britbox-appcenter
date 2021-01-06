@@ -28,13 +28,13 @@ export const hp = (dimension: number): number => {
 
 export const getDimensions = () => {
   const { width: originalWidth, height: originalHeight } = Dimensions.get('window');
-  const width = originalWidth;
-  const height = originalHeight;
+  let width = originalWidth;
+  let height = originalHeight;
 
-  // if (width > height) {
-  //   width = originalHeight;
-  //   height = originalWidth;
-  // }
+  if (width > height && !isTablet()) {
+    width = originalHeight;
+    height = originalWidth;
+  }
 
   return {
     width,
