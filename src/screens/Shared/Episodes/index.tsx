@@ -9,20 +9,19 @@ import { slice } from 'lodash';
 import Carousel from '@components/Carousel';
 import Card from '@components/Card';
 import { getImage } from '@src/utils/images';
-import { useSelector } from 'react-redux';
-import { AppState } from '@store/modules/rootReducer';
 import ContentLoader, { Rect } from 'react-content-loader/native';
 import { navigateByPath } from '@src/navigation/rootNavigation';
 import { isTablet } from 'react-native-device-info';
+import { withTheme } from 'styled-components';
+import { ThemeProps } from '@store/modules/theme/types';
 import { Container } from './styles';
 
 type Props = {
   item: MassiveSDKModelPageEntry;
+  readonly theme: ThemeProps;
 };
 
-const Episodes = ({ item }: Props) => {
-  const theme = useSelector((state: AppState) => state.theme.theme);
-
+const Episodes = ({ item, theme }: Props) => {
   const goToDetail = (card: any) => {
     navigateByPath(card, card.type === 'episode' || card.path.includes('/episode/'));
   };
@@ -82,4 +81,4 @@ const Episodes = ({ item }: Props) => {
   );
 };
 
-export default Episodes;
+export default withTheme(Episodes);

@@ -28,7 +28,7 @@ const TabsScreen = ({ theme }: Props) => {
 
   return (
     <AppTabs.Navigator
-      lazy={false}
+      lazy
       tabBarOptions={{
         activeTintColor: theme.PRIMARY_FOREGROUND_COLOR,
         inactiveTintColor: rgba(theme.PRIMARY_FOREGROUND_COLOR, 0.6),

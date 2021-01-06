@@ -83,7 +83,7 @@ const Outstanding = ({ items, onPlay, onWatchlist, onDiscoverMore }: Props) => {
         Platform.OS === 'android' && orientation === 'PORTRAIT'
           ? screenSize.height
           : screenSize.width,
-      height: screenSize.width / 3,
+      height: isTablet() ? screenSize.width / 3 : screenSize.width,
     };
   }, [screenSize.width, screenSize.height, orientation]);
 
