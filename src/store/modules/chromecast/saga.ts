@@ -5,7 +5,7 @@ import axios from 'axios';
 import { getImage } from '@src/utils/images';
 import { getDevice } from '@src/utils';
 import { BritboxAccountApi } from '@src/sdks';
-import GoogleCast from 'react-native-google-cast';
+/// import GoogleCast from 'react-native-google-cast';
 import { Config } from '@src/utils/config';
 import {
   Connection,
@@ -267,20 +267,20 @@ export function* castVideoSaga({ payload: { item, pcToken, playPosition } }: Cas
 
     let retry = 1;
     const timer = setInterval(() => {
-      return GoogleCast.getCastDevice()
-        .then((device) => {
-          if (retry === 20) {
-            clearInterval(timer);
-            throw new Error('Retry');
-          }
-          if (device) {
-            clearInterval(timer);
-            GoogleCast.castMedia(video);
-          } else {
-            retry += 1;
-          }
-        })
-        .catch(() => {});
+      /// return GoogleCast.getCastDevice()
+      ///   .then((device) => {
+      ///     if (retry === 20) {
+      ///       clearInterval(timer);
+      ///       throw new Error('Retry');
+      ///     }
+      ///     if (device) {
+      ///       clearInterval(timer);
+      ///       GoogleCast.castMedia(video);
+      ///     } else {
+      ///       retry += 1;
+      ///     }
+      ///   })
+      ///   .catch(() => {});
     }, 500);
   } catch (error) {
     yield put(castVideoPlayerDetailClear());

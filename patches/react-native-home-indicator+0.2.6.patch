@@ -1,0 +1,16 @@
+diff --git a/node_modules/react-native-home-indicator/ios/RNHomeIndicator.h b/node_modules/react-native-home-indicator/ios/RNHomeIndicator.h
+index de3dbe6..5af9339 100644
+--- a/node_modules/react-native-home-indicator/ios/RNHomeIndicator.h
++++ b/node_modules/react-native-home-indicator/ios/RNHomeIndicator.h
+@@ -6,9 +6,9 @@
+ #endif
+ 
+ #import <UIKit/UIKit.h>
++#import <EXScreenOrientation/EXScreenOrientationViewController.h>
+ 
+-
+-@interface HomeIndicatorViewController : UIViewController
++@interface HomeIndicatorViewController : EXScreenOrientationViewController
+ @property BOOL prefersAutoHidden;
+ @end
+ 

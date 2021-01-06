@@ -31,7 +31,7 @@ import { useTranslation } from 'react-i18next';
 import { Html5Entities } from 'html-entities';
 import * as RNIap from 'react-native-iap';
 import { encode } from 'base-64';
-import Analytics from 'appcenter-analytics';
+/// import Analytics from 'appcenter-analytics';
 import { analyticsRef } from '@src/utils/analytics';
 import {
   Container,
@@ -136,9 +136,9 @@ const SignUpSubscription = () => {
   const getProducts = async () => {
     const { response } = await getProductsRequest(country);
 
-    Analytics.trackEvent('getProducts', {
-      products: JSON.stringify(response),
-    });
+    /// Analytics.trackEvent('getProducts', {
+    ///   products: JSON.stringify(response),
+    /// });
 
     if (response && Number(response?.responseCode) === 1) {
       if (response?.productsResponseMessage?.length > 0) {
@@ -244,17 +244,17 @@ const SignUpSubscription = () => {
         }
       }
 
-      Analytics.trackEvent('packageId', {
-        packageId: JSON.stringify(packageId),
-      });
+      /// Analytics.trackEvent('packageId', {
+      ///   packageId: JSON.stringify(packageId),
+      /// });
 
       trackEvent(`2_details_${packageData[packageIndex]?.productDescription}`);
 
       const purchase = await RNIap.requestSubscription(String(packageId));
 
-      Analytics.trackEvent('purchase', {
-        purchase: JSON.stringify(purchase),
-      });
+      /// Analytics.trackEvent('purchase', {
+      ///   purchase: JSON.stringify(purchase),
+      /// });
 
       await RNIap.finishTransaction(purchase);
 
@@ -265,9 +265,9 @@ const SignUpSubscription = () => {
         return true;
       }
 
-      Analytics.trackEvent('error catch purchase', {
-        err: JSON.stringify(err),
-      });
+      /// Analytics.trackEvent('error catch purchase', {
+      ///   err: JSON.stringify(err),
+      /// });
 
       if (err && err?.code === 'E_UNKNOWN') {
         setErrorMsg(getTextInConfigJSON(['login', 'error-messages', 'error-message'], ''));
@@ -306,9 +306,9 @@ const SignUpSubscription = () => {
         paymentmethodInfo,
       });
 
-      Analytics.trackEvent('subscriptionResponse', {
-        subscriptionResponse: JSON.stringify(subscriptionResponse),
-      });
+      /// Analytics.trackEvent('subscriptionResponse', {
+      ///   subscriptionResponse: JSON.stringify(subscriptionResponse),
+      /// });
 
       let error = false;
 
@@ -344,9 +344,9 @@ const SignUpSubscription = () => {
         setLoading(false);
       }
     } catch (err) {
-      Analytics.trackEvent('receiptValidate', {
-        receiptValidate: JSON.stringify(err),
-      });
+      /// Analytics.trackEvent('receiptValidate', {
+      ///   receiptValidate: JSON.stringify(err),
+      /// });
       setErrorMsg('Something went wrong.');
     }
   };

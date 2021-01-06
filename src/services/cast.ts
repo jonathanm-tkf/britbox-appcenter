@@ -15,7 +15,7 @@ import {
 } from '@store/modules/layout/types';
 import axios from 'axios';
 import sha1 from 'sha1';
-import GoogleCast from 'react-native-google-cast';
+/// import GoogleCast from 'react-native-google-cast';
 import { getImage } from '@src/utils/images';
 import { Platform } from 'react-native';
 import { pickBy, shuffle } from 'lodash';
@@ -179,13 +179,13 @@ export const CastVideo = async (
             subtitles,
           },
         };
-        GoogleCast.getCastDevice().then((device) => {
-          if (device) {
+        /// GoogleCast.getCastDevice().then((device) => {
+        ///   if (device) {
             // GoogleCast.initChannel('urn:x-cast:com.reactnative.googlecast.britbox');
-            GoogleCast.castMedia(video);
+        ///     GoogleCast.castMedia(video);
             // GoogleCast.launchExpandedControls();
-          }
-        });
+        ///   }
+        /// });
       });
       // .catch((error) => {
       //   console.tron.log(error);

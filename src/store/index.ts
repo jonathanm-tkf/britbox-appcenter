@@ -8,14 +8,15 @@ import rootReducer from './modules/rootReducer';
 import rootSaga from './modules/rootSaga';
 import persistReducers from './persistReducers';
 
-const sagaMonitor = __DEV__ ? console.tron.createSagaMonitor() : null;
+/// const sagaMonitor = __DEV__ ? console.tron.createSagaMonitor() : null;
+const sagaMonitor = false ? console.tron.createSagaMonitor() : null;
 const sagaMiddleware = createSagaMiddleware({ sagaMonitor });
 
 const middlewares = [sagaMiddleware];
 
 if (__DEV__) {
-  const createFlipperMiddleware = require('rn-redux-middleware-flipper').default;
-  middlewares.push(createFlipperMiddleware());
+  /// const createFlipperMiddleware = require('rn-redux-middleware-flipper').default;
+  /// middlewares.push(createFlipperMiddleware());
 }
 
 const store = createStore(persistReducers(rootReducer), middlewares);

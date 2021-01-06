@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from 'react';
-import GoogleCast, { CastDevice, CastState } from 'react-native-google-cast';
+/// import GoogleCast, { CastDevice, CastState } from 'react-native-google-cast';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   castOn,
@@ -102,48 +102,48 @@ const Cast = () => {
       .split(/\s+/);
 
     events.forEach((event) => {
-      GoogleCast.EventEmitter.addListener(GoogleCast[event], () => {
-        if (event === 'SESSION_STARTING') {
-          const { name } = navigationRef.current && navigationRef.current.getCurrentRoute();
-          if (name === 'VideoPlayer') {
-            dispatch(setCastState('sending'));
-            navigationRef.current!.goBack();
-          }
-        }
+      /// GoogleCast.EventEmitter.addListener(GoogleCast[event], () => {
+      ///   if (event === 'SESSION_STARTING') {
+      ///     const { name } = navigationRef.current && navigationRef.current.getCurrentRoute();
+      ///     if (name === 'VideoPlayer') {
+      ///       dispatch(setCastState('sending'));
+      ///       navigationRef.current!.goBack();
+      ///     }
+      ///   }
 
-        if (event === 'SESSION_STARTED') {
-          GoogleCast.initChannel('urn:x-cast:com.reactnative.googlecast.britbox');
-          dispatch(castOn());
+      ///   if (event === 'SESSION_STARTED') {
+      ///     GoogleCast.initChannel('urn:x-cast:com.reactnative.googlecast.britbox');
+      ///     dispatch(castOn());
 
-          setTimeout(() => {
-            GoogleCast.initChannel('urn:x-cast:com.reactnative.googlecast.britbox');
-          }, 5000);
+      ///     setTimeout(() => {
+      ///       GoogleCast.initChannel('urn:x-cast:com.reactnative.googlecast.britbox');
+      ///     }, 5000);
 
-          const { currentTime, item } = getItemCastDetail() as CastDetail;
+      ///     const { currentTime, item } = getItemCastDetail() as CastDetail;
 
-          if (currentTime && item) {
-            dispatch(setCastState('loading'));
-          }
-        }
+      ///     if (currentTime && item) {
+      ///       dispatch(setCastState('loading'));
+      ///     }
+      ///   }
 
-        if (event === 'SESSION_ENDING') {
-          dispatch(castingOff());
-        }
+      ///   if (event === 'SESSION_ENDING') {
+      ///     dispatch(castingOff());
+      ///   }
 
-        if (event === 'SESSION_ENDED') {
-          dispatch(castingOff());
-        }
+      ///   if (event === 'SESSION_ENDED') {
+      ///     dispatch(castingOff());
+      ///   }
 
-        if (event === 'MEDIA_PLAYBACK_ENDED') {
-          dispatch(toggleMiniController(false));
-          dispatch(castDetailClear());
-          dispatch(setCastState(undefined));
+      ///   if (event === 'MEDIA_PLAYBACK_ENDED') {
+      ///     dispatch(toggleMiniController(false));
+      ///     dispatch(castDetailClear());
+      ///     dispatch(setCastState(undefined));
 
-          if (Platform.OS === 'ios') {
-            Dismissal(0);
-          }
-        }
-      });
+      ///     if (Platform.OS === 'ios') {
+      ///       Dismissal(0);
+      ///     }
+      ///   }
+      /// });
     });
 
     GoogleCast.EventEmitter.addListener(GoogleCast.MEDIA_PLAYBACK_STARTED, ({ mediaStatus }) => {

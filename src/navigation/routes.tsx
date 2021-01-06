@@ -5,7 +5,7 @@ import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
 import { useSelector, useDispatch } from 'react-redux';
 import { AppState } from '@store/modules/rootReducer';
 import { AppState as AppStateRN } from 'react-native';
-import KochavaTracker from 'react-native-kochava-tracker';
+/// import KochavaTracker from 'react-native-kochava-tracker';
 import NetInfo from '@react-native-community/netinfo';
 import {
   isTablet,
@@ -26,9 +26,9 @@ import { navigationRef } from './rootNavigation';
 
 const configMapObject: { [name: string]: string } = {};
 
-configMapObject[KochavaTracker.PARAM_ANDROID_APP_GUID_STRING_KEY] = Config.KOCHAVA_ANDROID;
-configMapObject[KochavaTracker.PARAM_IOS_APP_GUID_STRING_KEY] = Config.KOCHAVA_IOS;
-KochavaTracker.configure(configMapObject);
+/// configMapObject[KochavaTracker.PARAM_ANDROID_APP_GUID_STRING_KEY] = Config.KOCHAVA_ANDROID;
+/// configMapObject[KochavaTracker.PARAM_IOS_APP_GUID_STRING_KEY] = Config.KOCHAVA_IOS;
+/// KochavaTracker.configure(configMapObject);
 
 type Access = {
   refreshToken: string;

@@ -11,7 +11,8 @@ declare global {
 }
 
 export default (reducers: Reducer, middlewares: Middleware[]) => {
-  const enhancer = __DEV__
+  /// const enhancer = __DEV__
+  const enhancer = false
     ? compose(console.tron.createEnhancer(), applyMiddleware(...middlewares))
     : applyMiddleware(...middlewares);
 

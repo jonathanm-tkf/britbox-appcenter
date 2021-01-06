@@ -22,10 +22,10 @@ import {
 import { immersiveModeOn, immersiveModeOff } from 'react-native-android-immersive-mode';
 import { autoPlayOff, castVideoPlayerDetail, layoutCasting } from '@store/modules/layout/actions';
 import { PostMessage, webViewRef } from '@src/utils/videoPlayerRef';
-import GoogleCast, { CastButton } from 'react-native-google-cast';
+/// import GoogleCast, { CastButton } from 'react-native-google-cast';
 import { continueWatchingRequest } from '@store/modules/user/actions';
 import { Config } from '@src/utils/config';
-import { HomeIndicator } from 'react-native-home-indicator';
+/// import { HomeIndicator } from 'react-native-home-indicator';
 import { getDimensions } from '@src/utils/dimension';
 import { Dismissal, Pause, Play, VideoStart } from '@screens/Shared/Cast/services';
 import { pickBy } from 'lodash';
@@ -108,7 +108,7 @@ const VideoPlayer = () => {
   const processMessage = (message: { [name: string]: any }) => {
     const { close, chromecast, analytics } = message;
     if (chromecast) {
-      GoogleCast.showCastPicker();
+      /// GoogleCast.showCastPicker();
       const { currentTime } = message;
       if (currentTime) {
         dispatch(castVideoPlayerDetail({ currentTime, item: params.item }));
@@ -237,7 +237,7 @@ const VideoPlayer = () => {
         alignItems: 'center',
       }}
     >
-      <HomeIndicator autoHidden />
+      {/***<HomeIndicator autoHidden />*/}
       {isLoading && (
         <LoadingContainer>
           <BackButton onPress={() => backArrow()}>
@@ -301,7 +301,7 @@ const VideoPlayer = () => {
       )}
       {Platform.OS === 'android' && (
         <ChromecastWrapper>
-          <CastButton />
+          {/***<CastButton />*/}
         </ChromecastWrapper>
       )}
     </SafeArea>

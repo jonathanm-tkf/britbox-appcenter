@@ -1,6 +1,6 @@
 import styled from 'styled-components/native';
 import { ThemeState } from '@store/modules/theme/types';
-import { CastButton as CastButtonC } from 'react-native-google-cast';
+/// import { CastButton as CastButtonC } from 'react-native-google-cast';
 import { rgba } from 'polished';
 import { Platform } from 'react-native';
 import FastImage from 'react-native-fast-image';
@@ -34,26 +34,8 @@ export const FABView = styled.TouchableOpacity`
   border-color: ${(props: ThemeState) => rgba(props.theme.PRIMARY_FOREGROUND_COLOR, 0.6)};
 `;
 
-export const CastButton = styled(CastButtonC).attrs((props: ThemeState) => ({
-  tintColor: props.theme.PRIMARY_FOREGROUND_COLOR,
-  contentStyles: {
-    width: isTablet() ? 70 : 60,
-    height: isTablet() ? 70 : 60,
-    borderRadius: isTablet() ? 35 : 30,
-    position: 'absolute',
-    margin: 16,
-    right: 0,
-    bottom:
-      Platform.OS === 'ios' ? (isTablet() ? 75 : 58) + getBottomSpace() : isTablet() ? 90 : 55,
-    backgroundColor: props.theme.PRIMARY_COLOR,
-    alignItems: 'center',
-    justifyContent: 'center',
-    elevation: 3,
-    zIndex: 3,
-    borderWidth: 2,
-    borderColor: rgba(props.theme.PRIMARY_FOREGROUND_COLOR, 0.6),
-  },
-}))`
+/// export const CastButton = styled(CastButtonC).attrs((props: ThemeState) => ({
+export const CastButton = styled.TouchableOpacity`
   width: ${isTablet() ? 70 : 60}px;
   height: ${isTablet() ? 70 : 60}px;
   border-radius: ${isTablet() ? 35 : 30}px;

@@ -11,7 +11,7 @@ import {
   take,
   delay,
 } from 'redux-saga/effects';
-import Analytics from 'appcenter-analytics';
+/// import Analytics from 'appcenter-analytics';
 import { BritboxAccountApi, BritboxContentApi } from '@src/sdks';
 import {
   BritboxAPIAccountModelsCustomerAddSubscriptionRequest,
@@ -225,9 +225,9 @@ export async function signupRequest(payload: UserSignUp, country: string) {
     const response = await signup(payload, country);
     return response;
   } catch (error) {
-    Analytics.trackEvent('signup error', {
-      error: JSON.stringify(error),
-    });
+    /// Analytics.trackEvent('signup error', {
+    ///   error: JSON.stringify(error),
+    /// });
     return null;
   }
 }
@@ -314,9 +314,9 @@ export function* getProfileRequest() {
       yield put(sendAppleTvSearchSubscription());
     }
   } catch (error) {
-    Analytics.trackEvent('user get profile', {
-      error: JSON.stringify(error),
-    });
+    /// Analytics.trackEvent('user get profile', {
+    ///   error: JSON.stringify(error),
+    /// });
     const retry = yield select(getRetryTimes);
 
     if (retry > 2) {
@@ -338,11 +338,11 @@ export async function getActiveSubscriptionRequest(token: string) {
 
   try {
     const response = await getActiveSubscription();
-    Analytics.trackEvent('getActiveSubscription', {
-      getActiveSubscription: JSON.stringify(
-        response.response?.accountServiceMessage[0]?.paymentMethod || response.response
-      ),
-    });
+    /// Analytics.trackEvent('getActiveSubscription', {
+    ///   getActiveSubscription: JSON.stringify(
+    ///     response.response?.accountServiceMessage[0]?.paymentMethod || response.response
+    ///   ),
+    /// });
     return response;
   } catch (error) {
     return error;
@@ -505,9 +505,9 @@ export function* logout() {
     yield call(removeAppleTVSubscription);
     yield put(revokeAppleTvSearchSubscription());
   } catch (error) {
-    Analytics.trackEvent('logout', {
-      error: JSON.stringify(error),
-    });
+    /// Analytics.trackEvent('logout', {
+    ///   error: JSON.stringify(error),
+    /// });
   }
 }
 

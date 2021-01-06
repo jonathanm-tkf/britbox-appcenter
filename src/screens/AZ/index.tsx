@@ -5,7 +5,7 @@ import { useNavigation, useRoute, RouteProp } from '@react-navigation/native';
 import Header from '@components/Header';
 import { AppState } from '@store/modules/rootReducer';
 import { useSelector } from 'react-redux';
-import RNPickerSelect from 'react-native-picker-select';
+/// import RNPickerSelect from 'react-native-picker-select';
 import { percentageWidth } from '@src/utils/dimension';
 import {
   MassiveSDKModelItemSummary,
@@ -258,6 +258,7 @@ const AZ = () => {
       >
         <Container>
           {alphabetData && alphabetData?.length > 0 ? (
+            /***
             Platform.OS === 'ios' ? (
               <RNPickerSelect
                 ref={pickerRef}
@@ -269,6 +270,7 @@ const AZ = () => {
                 style={stylesSelect}
               />
             ) : (
+              */
               <ModalPicker
                 ref={pickerRef}
                 data={alphabetData}
@@ -276,8 +278,9 @@ const AZ = () => {
                 value="value"
                 onValueChange={(value) => filterLetter(value)}
               />
-            )
-          ) : null}
+            ) : null
+          }
+          {/***) : null}*/}
 
           {data && (
             <WrapperContinuosScroll>
