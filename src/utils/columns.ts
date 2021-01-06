@@ -6,6 +6,7 @@ import { getDimensions } from '@src/utils/dimension';
 
 const TABLET_PORTRAIT_COLUMNS = 5;
 const TABLET_LANDSCAPE_COLUMNS = 6;
+const MOBILE_PORTRAIT_COLUMNS = 3;
 
 const { width: screenWidth, height: screenHeight } = getDimensions();
 const isPortrait = screenHeight >= screenWidth;
@@ -13,7 +14,11 @@ const isPortrait = screenHeight >= screenWidth;
 export function useColumns(portraitTabletCardWidth: number, landscapeTabletCardWidth: number) {
   const [orientation, setOrientation] = useState(isPortrait ? 'PORTRAIT' : 'LANDSCAPE');
   const [numOfColums, setNumOfColumns] = useState(
-    isTablet() ? (isPortrait ? TABLET_PORTRAIT_COLUMNS : TABLET_LANDSCAPE_COLUMNS) : 3
+    isTablet()
+      ? isPortrait
+        ? TABLET_PORTRAIT_COLUMNS
+        : TABLET_LANDSCAPE_COLUMNS
+      : MOBILE_PORTRAIT_COLUMNS
   );
 
   const onOrientationDidChange = useCallback((prevOrientation: OrientationType) => {
@@ -40,7 +45,7 @@ export function useColumns(portraitTabletCardWidth: number, landscapeTabletCardW
 
   return useMemo((): Array<number> => {
     const phoneWidth = 28.5;
-    let size = [phoneWidth, phoneWidth * 1.25];
+    let size = [MOBILE_PORTRAIT_COLUMNS, phoneWidth, phoneWidth * 1.25];
 
     if (isTablet()) {
       size =

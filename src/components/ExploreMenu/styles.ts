@@ -6,7 +6,7 @@ import { Platform } from 'react-native';
 
 export const Container = styled.View`
   width: 100%;
-  padding: ${Platform.OS === 'ios' ? getStatusBarHeight() + 10 : 0}px 20px
+  padding: ${Platform.OS === 'ios' ? getStatusBarHeight() + 10 : 0}px 0px
     ${Platform.OS === 'ios' ? getBottomSpace() + 10 : 0}px;
   flex: 1;
 `;
@@ -78,7 +78,7 @@ type TabContentProps = {
 export const TabContent = styled.View<TabContentProps>`
   margin-top: 15px;
   ${(props: TabContentProps) => {
-    return props.bigScreen && `padding-horizontal: 10%;`;
+    return props.bigScreen ? 'padding-horizontal: 10%;' : 'align-items: center;';
   }}
   ${(props: TabContentProps) => {
     return (
