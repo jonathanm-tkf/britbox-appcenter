@@ -6,7 +6,8 @@ import HeaderCustom from '@components/HeaderCustom';
 import { useTranslation } from 'react-i18next';
 import { useNavigation, CommonActions } from '@react-navigation/native';
 import { isTablet } from 'react-native-device-info';
-import { getDimensions, getTabletScreenWidth } from '@src/utils/dimension';
+import { getDimensions } from '@src/utils/dimension';
+import { rgba } from 'polished';
 import {
   TitleWrapper,
   Title,
@@ -47,7 +48,7 @@ const TabScene = ({
   const contentContainerStyle = {
     paddingTop: HeaderHeight + TabBarHeight,
     minHeight: windowHeight - TabBarHeight,
-    width: isTablet() ? getTabletScreenWidth() : 'flex: 1',
+    width: '100%',
     alignSelf: (isTablet() ? 'center' : 'flex-start') as FlexAlignType,
   };
 
@@ -268,9 +269,12 @@ const Tabs = ({ routes, subscriptionSelected, onTabChanged }: Props) => {
       zIndex: 1,
       position: 'absolute' as 'absolute' | 'relative',
       transform: [{ translateY: y }],
-      width: isTablet() ? getTabletScreenWidth() : '100%',
+      width: '100%',
       alignItems: (isTablet() ? 'center' : 'flex-start') as FlexAlignType,
       alignSelf: (isTablet() ? 'center' : 'flex-start') as FlexAlignType,
+      backgroundColor: '#171b23',
+      borderBottomWidth: 1,
+      borderColor: rgba('#FFFFFF', 0.1),
     };
 
     return (
@@ -328,8 +332,8 @@ const Tabs = ({ routes, subscriptionSelected, onTabChanged }: Props) => {
         />
       </View>
       <View style={{ flex: 1, marginTop: 75 }}>
-        {renderTabView()}
         {renderHeader()}
+        {renderTabView()}
       </View>
     </SafeAreaView>
   );
@@ -339,7 +343,7 @@ const styles = StyleSheet.create({
   header: {
     top: 0,
     height: 90,
-    width: isTablet() ? getTabletScreenWidth() : '100%',
+    width: '100%',
     alignItems: 'center',
     justifyContent: 'center',
     alignSelf: 'center',

@@ -46,8 +46,6 @@ export const TabBar = styled(TabBarC).attrs((props: ThemeState) => ({
   },
 }))`
   background-color: ${(props: ThemeState) => props.theme.PRIMARY_COLOR};
-  border-bottom-width: 1px;
-  border-color: ${(props: ThemeState) => rgba(props.theme.PRIMARY_FOREGROUND_COLOR, 0.1)};
 `;
 
 interface TabLabelProps {

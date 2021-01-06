@@ -42,7 +42,7 @@ export default function More() {
       flexGrow: 1,
       paddingTop: Platform.OS === 'ios' ? getStatusBarHeight() + 10 : 10,
       paddingHorizontal: isTablet() ? 0 : 30,
-      width: isTablet() ? width : undefined,
+      width: isTablet() ? width : '100%',
       alignSelf: (isTablet() ? 'center' : 'flex-start') as FlexAlignType,
       paddingBottom:
         Platform.OS === 'ios'

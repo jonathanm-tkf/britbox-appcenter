@@ -16,7 +16,7 @@ export const Container = styled.View`
 export const ScrollableContainer = styled.ScrollView.attrs({
   contentContainerStyle: {
     flexGrow: 1,
-    width: isTablet() ? getTabletScreenWidth() : null,
+    width: isTablet() ? getTabletScreenWidth() : '100%',
     alignSelf: 'center',
   },
   bounces: false,
