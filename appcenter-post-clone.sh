@@ -6,3 +6,5 @@ fi
 
 echo "Installing CocoaPods version $COCOAPODS_VER"
 sudo gem install cocoapods -v $COCOAPODS_VER
+
+yarn install
