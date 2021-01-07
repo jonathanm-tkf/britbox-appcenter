@@ -9,7 +9,7 @@ import { PersistGate } from 'redux-persist/integration/react';
 
 import './config/ReactotronConfig';
 import { DefaultTheme, Provider as PaperProvider, configureFonts } from 'react-native-paper';
-import { lightTheme, base } from '@store/modules/theme/theme';
+import { lightTheme, base } from './store/modules/theme/theme';
 import { LogBox } from 'react-native';
 import { persistor, store } from './store';
 import App from './App';

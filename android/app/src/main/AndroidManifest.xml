@@ -1,45 +1,27 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-  package="com.britbox.us"
-  xmlns:tools="http://schemas.android.com/tools">
+  package="com.britbox">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="com.android.vending.BILLING" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
-      android:name="com.britbox.us.MainApplication"
+      android:name=".MainApplication"
       android:label="@string/app_name"
-      android:icon="${appIcon}"
-      android:roundIcon="${appIconRound}"
+      android:icon="@mipmap/ic_launcher"
+      android:roundIcon="@mipmap/ic_launcher_round"
       android:allowBackup="false"
       android:theme="@style/AppTheme">
       <activity
-        android:name="com.britbox.us.MainActivity"
+        android:name=".MainActivity"
         android:label="@string/app_name"
         android:configChanges="keyboard|keyboardHidden|orientation|screenSize|uiMode"
-        android:launchMode="standard"
+        android:launchMode="singleTask"
         android:windowSoftInputMode="adjustResize">
         <intent-filter>
             <action android:name="android.intent.action.MAIN" />
             <category android:name="android.intent.category.LAUNCHER" />
         </intent-filter>
-        <intent-filter android:autoVerify="true">
-            <action android:name="android.intent.action.VIEW" />
-            <category android:name="android.intent.category.DEFAULT" />
-            <category android:name="android.intent.category.BROWSABLE" />
-            <data android:host="www.britbox.com" android:scheme="https" />
-        </intent-filter>
       </activity>
       <activity android:name="com.facebook.react.devsupport.DevSettingsActivity" />
-      <activity android:name="com.reactnative.googlecast.GoogleCastExpandedControlsActivity" />
-      <meta-data
-        android:name="com.google.android.gms.cast.framework.OPTIONS_PROVIDER_CLASS_NAME"
-        android:value="com.britbox.us.CastOptionsProvider" />
-      <receiver
-        tools:node="remove"
-        android:name="com.kochava.base.ReferralReceiver">
-      </receiver>
     </application>
 
 </manifest>

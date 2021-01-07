@@ -2,6 +2,7 @@
   "dependencies": {
     "react-native-google-cast": "^3.3.0",
     "react-native-kochava-tracker": "^1.4.0",
+    "react-native-safe-area-context": "^3.1.9",
     "appcenter": "^3.1.2",
     "appcenter-analytics": "^3.1.2",
     "appcenter-crashes": "^3.1.2",
