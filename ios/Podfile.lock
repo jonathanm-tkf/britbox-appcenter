@@ -18,6 +18,7 @@ PODS:
   - AppCenterReactNativeShared (3.1.2):
     - AppCenter/Core (= 3.3.4)
   - Base64 (1.1.2)
+  - BitmovinPlayer (2.57.1)
   - boost-for-react-native (1.63.0)
   - BVLinearGradient (2.5.6):
     - React
@@ -423,6 +424,9 @@ PODS:
     - libwebp (~> 1.0)
     - SDWebImage/Core (~> 5.7)
   - SSZipArchive (2.2.3)
+  - takeoffmedia-react-native-bitmovin-player (0.1.10):
+    - BitmovinPlayer (= 2.57.1)
+    - React-Core
   - toolbar-android (0.1.0-rc.2):
     - React
   - UMAppLoader (1.4.0)
@@ -450,6 +454,7 @@ DEPENDENCIES:
   - appcenter-analytics (from `../node_modules/appcenter-analytics/ios`)
   - appcenter-core (from `../node_modules/appcenter/ios`)
   - appcenter-crashes (from `../node_modules/appcenter-crashes/ios`)
+  - BitmovinPlayer (= 2.57.1)
   - BVLinearGradient (from `../node_modules/react-native-linear-gradient`)
   - CodePush (from `../node_modules/react-native-code-push`)
   - DoubleConversion (from `../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec`)
@@ -527,6 +532,7 @@ DEPENDENCIES:
   - RNScreens (from `../node_modules/react-native-screens`)
   - RNSVG (from `../node_modules/react-native-svg`)
   - RNVectorIcons (from `../node_modules/react-native-vector-icons`)
+  - "takeoffmedia-react-native-bitmovin-player (from `../node_modules/@takeoffmedia/react-native-bitmovin-player`)"
   - "toolbar-android (from `../node_modules/@react-native-community/toolbar-android`)"
   - UMAppLoader (from `../node_modules/unimodules-app-loader/ios`)
   - UMBarCodeScannerInterface (from `../node_modules/unimodules-barcode-scanner-interface/ios`)
@@ -544,6 +550,8 @@ DEPENDENCIES:
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
 SPEC REPOS:
+  https://github.com/bitmovin/cocoapod-specs.git:
+    - BitmovinPlayer
   trunk:
     - AppCenter
     - AppCenterReactNativeShared
@@ -688,6 +696,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-svg"
   RNVectorIcons:
     :path: "../node_modules/react-native-vector-icons"
+  takeoffmedia-react-native-bitmovin-player:
+    :path: "../node_modules/@takeoffmedia/react-native-bitmovin-player"
   toolbar-android:
     :path: "../node_modules/@react-native-community/toolbar-android"
   UMAppLoader:
@@ -726,6 +736,7 @@ SPEC CHECKSUMS:
   appcenter-crashes: 5da5dca952c3d1a3eea2d596748d94ec0412fbd1
   AppCenterReactNativeShared: 66667cd2dfad295b84bbf0f462e0e139e2128284
   Base64: cecfb41a004124895a7bcee567a89bae5a89d49b
+  BitmovinPlayer: 89a8773615a63e71f04bb24d0d0b647a92e374b3
   boost-for-react-native: 39c7adb57c4e60d6c5479dd8623128eb5b3f0f2c
   BVLinearGradient: e3aad03778a456d77928f594a649e96995f1c872
   CocoaAsyncSocket: 694058e7c0ed05a9e217d1b3c7ded962f4180845
@@ -801,6 +812,7 @@ SPEC CHECKSUMS:
   SDWebImage: a990c053fff71e388a10f3357edb0be17929c9c5
   SDWebImageWebPCoder: d0dac55073088d24b2ac1b191a71a8f8d0adac21
   SSZipArchive: 62d4947b08730e4cda640473b0066d209ff033c9
+  takeoffmedia-react-native-bitmovin-player: 208e9d2d78c0e9a760bcceda9877ac377181b12b
   toolbar-android: 85f3ef4d691469f2d304e7dee4bca013aa1ba1ff
   UMAppLoader: 92d044af52626af3d81a69796ad666fc7a9a7d78
   UMBarCodeScannerInterface: 3f6c1b09ef4b867ce752b8c0b3893bcf9cd85f32
@@ -818,6 +830,6 @@ SPEC CHECKSUMS:
   Yoga: 7d13633d129fd179e01b8953d38d47be90db185a
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
 
-PODFILE CHECKSUM: 8f300f69c51ef5f466972793d1cc1c4a0e91aead
+PODFILE CHECKSUM: 6c95d3acf76bdc7e46f318e42ead6a821bcc213a
 
 COCOAPODS: 1.10.0

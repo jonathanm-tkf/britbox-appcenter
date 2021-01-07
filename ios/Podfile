@@ -1,6 +1,7 @@
 require_relative '../node_modules/react-native/scripts/react_native_pods'
 require_relative '../node_modules/@react-native-community/cli-platform-ios/native_modules'
 require_relative '../node_modules/react-native-unimodules/cocoapods.rb'
+source 'https://github.com/bitmovin/cocoapod-specs.git'
 
 platform :ios, '10.0'
 config = use_native_modules!
@@ -50,6 +51,7 @@ target 'Britbox' do
     # Pods for testing
   end
 
+  pod 'BitmovinPlayer', '2.57.1'
   # pod 'google-cast-sdk'
   # pod 'react-native-google-cast/NoBluetooth', path: '../node_modules/react-native-google-cast/ios'
   # pod 'google-cast-sdk-no-bluetooth'

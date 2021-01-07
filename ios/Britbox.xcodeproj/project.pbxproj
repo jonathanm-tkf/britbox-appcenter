@@ -301,6 +301,7 @@
 				00E356EB1AD99517003FC87E /* Frameworks */,
 				00E356EC1AD99517003FC87E /* Resources */,
 				0519446AF3F0B929B1EADBC3 /* [CP] Copy Pods Resources */,
+				78B138753CB29A420D7311C3 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -323,6 +324,7 @@
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
 				EEAE60CC86A61E108B5E7399 /* [CP] Copy Pods Resources */,
+				B57D8D044B09EB4A6DCF45A4 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -344,6 +346,7 @@
 				2D02E4791E0B4A5D006451C7 /* Resources */,
 				2D02E4CB1E0B4B27006451C7 /* Bundle React Native Code And Images */,
 				FDC7BA40828885AAEB649311 /* [CP] Copy Pods Resources */,
+				78B20F9478918051557358BF /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -587,6 +590,60 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		78B138753CB29A420D7311C3 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Britbox-BritboxTests/Pods-Britbox-BritboxTests-frameworks.sh",
+				"${PODS_ROOT}/BitmovinPlayer/BitmovinPlayer/iOS/BitmovinPlayer.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/BitmovinPlayer.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Britbox-BritboxTests/Pods-Britbox-BritboxTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		78B20F9478918051557358BF /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Britbox-tvOS/Pods-Britbox-tvOS-frameworks.sh",
+				"${PODS_ROOT}/BitmovinPlayer/BitmovinPlayer/iOS/BitmovinPlayer.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/BitmovinPlayer.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Britbox-tvOS/Pods-Britbox-tvOS-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		B57D8D044B09EB4A6DCF45A4 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Britbox/Pods-Britbox-frameworks.sh",
+				"${PODS_ROOT}/BitmovinPlayer/BitmovinPlayer/iOS/BitmovinPlayer.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/BitmovinPlayer.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Britbox/Pods-Britbox-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		C7D9AC015D092A781952B57D /* [CP] Check Pods Manifest.lock */ = {
