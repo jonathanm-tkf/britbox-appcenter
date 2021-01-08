@@ -84,11 +84,11 @@ const Cast = () => {
 
   const timer = () =>
     setInterval(() => {
-      GoogleCast.getCastDevice().then((deviceItem) => {
-        if ((deviceItem === null || deviceItem === undefined) && !getIsCasting()) {
-          dispatch(castingOff());
-        }
-      });
+      /// GoogleCast.getCastDevice().then((deviceItem) => {
+      ///   if ((deviceItem === null || deviceItem === undefined) && !getIsCasting()) {
+      ///     dispatch(castingOff());
+      ///   }
+      /// });
     }, 1000);
 
   const registerListeners = () => {
@@ -146,57 +146,57 @@ const Cast = () => {
       /// });
     });
 
-    GoogleCast.EventEmitter.addListener(GoogleCast.MEDIA_PLAYBACK_STARTED, ({ mediaStatus }) => {
-      GoogleCast.initChannel('urn:x-cast:com.reactnative.googlecast.britbox');
-      if (mediaStatus && (mediaStatus?.playerState || 0) === 2) {
-        dispatch(castingOn());
-      }
-    });
+    /// GoogleCast.EventEmitter.addListener(GoogleCast.MEDIA_PLAYBACK_STARTED, ({ mediaStatus }) => {
+    ///   GoogleCast.initChannel('urn:x-cast:com.reactnative.googlecast.britbox');
+    ///   if (mediaStatus && (mediaStatus?.playerState || 0) === 2) {
+    ///     dispatch(castingOn());
+    ///   }
+    /// });
 
-    GoogleCast.EventEmitter.addListener(GoogleCast.CHANNEL_MESSAGE_RECEIVED, ({ message }) => {
-      const { eventError } = JSON.parse(message) || {};
-      if (eventError) {
-        const { detailedErrorCode } = eventError;
-        if (detailedErrorCode === 905) {
-          dispatch(castVideoPlayerDetailClear());
-          dispatch(setCastState('error'));
-        }
+    /// GoogleCast.EventEmitter.addListener(GoogleCast.CHANNEL_MESSAGE_RECEIVED, ({ message }) => {
+    ///   const { eventError } = JSON.parse(message) || {};
+    ///   if (eventError) {
+    ///     const { detailedErrorCode } = eventError;
+    ///     if (detailedErrorCode === 905) {
+    ///       dispatch(castVideoPlayerDetailClear());
+    ///       dispatch(setCastState('error'));
+    ///     }
 
-        return;
-      }
+    ///     return;
+    ///   }
 
-      if (getCastingVideo()) {
-        dispatch(layoutCasting(false));
-      }
+    ///   if (getCastingVideo()) {
+    ///     dispatch(layoutCasting(false));
+    ///     }
 
-      const { id } = getItemCastDetail();
-      const {
-        mediaMetadata,
-        mediaCustomData: { itemVideoMassiveId },
-      } = JSON.parse(message) || {};
-      if (id !== itemVideoMassiveId && getCastState() === 'loaded') {
-        dispatch(castDetailAction({ id: itemVideoMassiveId, ...mediaMetadata }));
-        if (Platform.OS === 'ios') {
-          const { playPosition, item } = getItemCastDetail() as CastDetail;
-          VideoStart({ message: { videoID: item?.customId || '0' } }, playPosition, item);
-        }
-      }
-    });
+    ///   const { id } = getItemCastDetail();
+    ///   const {
+    ///     mediaMetadata,
+    ///     mediaCustomData: { itemVideoMassiveId },
+    ///   } = JSON.parse(message) || {};
+    ///   if (id !== itemVideoMassiveId && getCastState() === 'loaded') {
+    ///     dispatch(castDetailAction({ id: itemVideoMassiveId, ...mediaMetadata }));
+    ///     if (Platform.OS === 'ios') {
+    ///       const { playPosition, item } = getItemCastDetail() as CastDetail;
+    ///       VideoStart({ message: { videoID: item?.customId || '0' } }, playPosition, item);
+    ///     }
+    ///   }
+    /// });
 
-    GoogleCast.EventEmitter.addListener(GoogleCast.MEDIA_STATUS_UPDATED, ({ mediaStatus }) => {
-      const { playerState, streamDuration, streamPosition } = mediaStatus;
-      setIsPlaying(playerState !== 3);
+    /// GoogleCast.EventEmitter.addListener(GoogleCast.MEDIA_STATUS_UPDATED, ({ mediaStatus }) => {
+    ///   const { playerState, streamDuration, streamPosition } = mediaStatus;
+    ///   setIsPlaying(playerState !== 3);
 
-      if (streamDuration > 0 && Platform.OS === 'ios') {
-        if (playerState === 3) {
-          Pause(streamPosition);
-        }
+    ///   if (streamDuration > 0 && Platform.OS === 'ios') {
+    ///     if (playerState === 3) {
+    ///       Pause(streamPosition);
+    ///     }
 
-        if (playerState === 2) {
-          Play();
-        }
-      }
-    });
+    ///     if (playerState === 2) {
+    ///       Play();
+    ///     }
+    ///   }
+    /// });
   };
 
   useEffect(() => {
@@ -206,38 +206,38 @@ const Cast = () => {
     }
 
     const intervalCheckChromecast = setInterval(() => {
-      GoogleCast.getCastState().then((state, ...rest) => {
-        setStateChromecast(state === 'NotConnected' ? t('loading') : state);
-        if (state === 'NoDevicesAvailable' && !forceChromecast) {
-          PostMessage({
-            type: 'chromecast',
-            value: false,
-          });
-          setShowButton(false);
-        } else {
-          PostMessage({
-            type: 'chromecast',
-            value: true,
-          });
-          if (state === 'NotConnected') {
-            setShowButton(true);
-          }
-        }
+      /// GoogleCast.getCastState().then((state, ...rest) => {
+      ///   setStateChromecast(state === 'NotConnected' ? t('loading') : state);
+      ///   if (state === 'NoDevicesAvailable' && !forceChromecast) {
+      ///     PostMessage({
+      ///      type: 'chromecast',
+      ///       value: false,
+      ///     });
+      ///     setShowButton(false);
+      ///   } else {
+      ///     PostMessage({
+      ///       type: 'chromecast',
+      ///       value: true,
+      ///     });
+      ///     if (state === 'NotConnected') {
+      ///       setShowButton(true);
+      ///     }
+      ///   }
 
-        if (state === 'Connected' && !isShowMiniController) {
-          setShowButton(true);
-        }
+      ///   if (state === 'Connected' && !isShowMiniController) {
+      ///     setShowButton(true);
+      ///   }
 
-        dispatch(state === 'NotConnected' || state === 'NoDevicesAvailable' ? castOff() : castOn());
-      });
+      ///   dispatch(state === 'NotConnected' || state === 'NoDevicesAvailable' ? castOff() : castOn());
+      /// });
 
-      GoogleCast.getCastDevice()
-        .then((deviceItem) => {
-          if (deviceItem !== undefined) {
-            setDevice(deviceItem);
-          }
-        })
-        .catch(() => {});
+      /// GoogleCast.getCastDevice()
+      ///   .then((deviceItem) => {
+      ///     if (deviceItem !== undefined) {
+      ///       setDevice(deviceItem);
+      ///     }
+      ///   })
+      ///   .catch(() => {});
     }, 1000);
 
     return () => {
@@ -249,7 +249,7 @@ const Cast = () => {
     try {
       if (casting && device) {
         dispatch(setCastState('loaded'));
-        GoogleCast.launchExpandedControls();
+        /// GoogleCast.launchExpandedControls();
       }
       // TODO: check this
     } catch (error) {
@@ -260,7 +260,7 @@ const Cast = () => {
   useEffect(() => {
     if (Platform.OS === 'ios') {
       setTimeout(() => {
-        GoogleCast.initChannel('urn:x-cast:com.reactnative.googlecast.britbox');
+        /// GoogleCast.initChannel('urn:x-cast:com.reactnative.googlecast.britbox');
         timer();
       }, 5000);
     }
@@ -268,11 +268,11 @@ const Cast = () => {
     let interval: any;
     if (Platform.OS === 'android') {
       interval = setInterval(() => {
-        GoogleCast.getCastState().then((state) => {
-          if (state !== 'Connected' && state !== 'Connecting' && !castingVideoPlayer) {
-            dispatch(castingOff());
-          }
-        });
+        /// GoogleCast.getCastState().then((state) => {
+        ///   if (state !== 'Connected' && state !== 'Connecting' && !castingVideoPlayer) {
+        ///     dispatch(castingOff());
+        ///   }
+        /// });
       }, 1000);
     }
 
@@ -297,9 +297,9 @@ const Cast = () => {
   const togglePlay = () => {
     if (device) {
       if (isPlaying) {
-        GoogleCast.pause();
+        /// GoogleCast.pause();
       } else {
-        GoogleCast.play();
+        /// GoogleCast.play();
       }
     }
   };
@@ -325,10 +325,10 @@ const Cast = () => {
       {isShowMiniController && (
         <MiniController>
           <MiniExpandButton
-            onPress={() =>
-              castState === 'error' || castState === 'loading'
-                ? GoogleCast.showCastPicker()
-                : GoogleCast.launchExpandedControls()
+            onPress={() => ''
+              /// castState === 'error' || castState === 'loading'
+              ///   ? GoogleCast.showCastPicker()
+              ///   : GoogleCast.launchExpandedControls()
             }
           >
             {castDetail?.images && castState !== 'error' && (
