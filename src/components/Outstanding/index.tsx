@@ -10,6 +10,7 @@ import {
   Gradient,
   LogoWrapper,
   PaginationWrapper,
+  PaginationButtonWrapper,
   PaginationContent,
   Image,
   TTImage,
@@ -43,12 +44,12 @@ const Pagination = ({ size, paginationIndex, onPress, tabletLandscape }: any) =>
   return (
     <PaginationDotsWrapper>
       {fill(new Array(size), 1).map((item, index) => (
-        <>
-          <PaginationButton onPress={onPress} key={index.toString()}>
+        <PaginationButtonWrapper key={index.toString()}>
+          <PaginationButton onPress={onPress}>
             <PaginationDot active={index === paginationIndex} tabletLandscape={tabletLandscape} />
           </PaginationButton>
           <PaginationContent visible={index < size - 1} />
-        </>
+        </PaginationButtonWrapper>
       ))}
     </PaginationDotsWrapper>
   );
@@ -73,28 +74,34 @@ const PaginationComponent = ({
 const ACTIONS_HEIGHT = 150;
 
 const Outstanding = ({ items, onPlay, onWatchlist, onDiscoverMore }: Props) => {
-  const [screenSize, setScreenSize] = useState(getDimensions());
   const [activeIndex, setActiveIndex] = useState(0);
-  const [orientation, setOrientation] = useState('PORTRAIT');
+  const [screenData, setScreenData] = useState({
+    size: getDimensions(),
+    orientation: 'PORTRAIT',
+  });
 
   const stylesAspectRatio = useMemo(() => {
     return {
       width:
-        Platform.OS === 'android' && orientation === 'PORTRAIT'
-          ? screenSize.height
-          : screenSize.width,
-      height: isTablet() ? screenSize.width / 3 : screenSize.width,
+        Platform.OS === 'android' && screenData.orientation === 'PORTRAIT'
+          ? screenData.size.height
+          : screenData.size.width,
+      height: isTablet() ? screenData.size.width / 3 : screenData.size.width,
     };
-  }, [screenSize.width, screenSize.height, orientation]);
+  }, [screenData]);
 
   const onOrientationDidChange = useCallback((newOrientation: OrientationType) => {
-    setScreenSize(getDimensions());
-
     if (isTablet()) {
       if (newOrientation === 'LANDSCAPE-LEFT' || newOrientation === 'LANDSCAPE-RIGHT') {
-        setOrientation(Platform.OS === 'ios' ? 'LANDSCAPE' : 'PORTRAIT');
+        setScreenData({
+          size: getDimensions(),
+          orientation: Platform.OS === 'ios' ? 'LANDSCAPE' : 'PORTRAIT',
+        });
       } else {
-        setOrientation(Platform.OS === 'ios' ? 'PORTRAIT' : 'LANDSCAPE');
+        setScreenData({
+          size: getDimensions(),
+          orientation: Platform.OS === 'ios' ? 'PORTRAIT' : 'LANDSCAPE',
+        });
       }
     }
   }, []);
@@ -110,7 +117,7 @@ const Outstanding = ({ items, onPlay, onWatchlist, onDiscoverMore }: Props) => {
     }
 
     return () => {};
-  });
+  }, [onOrientationDidChange]);
 
   const getItemTTIImageSize = useCallback(
     (item: Item) => {
@@ -124,11 +131,11 @@ const Outstanding = ({ items, onPlay, onWatchlist, onDiscoverMore }: Props) => {
       return {
         width,
         height,
-        top: screenSize.width / 6 - height / 2,
-        left: orientation === 'LANDSCAPE' ? '8%' : 0,
+        top: screenData.size.width / 6 - height / 2,
+        left: screenData.orientation === 'LANDSCAPE' ? '8%' : 0,
       };
     },
-    [screenSize.width, orientation]
+    [screenData]
   );
 
   return (
@@ -137,10 +144,10 @@ const Outstanding = ({ items, onPlay, onWatchlist, onDiscoverMore }: Props) => {
         index={0}
         style={{
           width:
-            Platform.OS === 'android' && orientation === 'PORTRAIT'
-              ? screenSize.height
-              : screenSize.width,
-          height: isTablet() ? undefined : screenSize.width + ACTIONS_HEIGHT,
+            Platform.OS === 'android' && screenData.orientation === 'PORTRAIT'
+              ? screenData.size.height
+              : screenData.size.width,
+          height: isTablet() ? undefined : screenData.size.width + ACTIONS_HEIGHT,
         }}
         onChangeIndex={({ index }: { index: number }) => setActiveIndex(index)}
         disableVirtualization={false}
@@ -183,7 +190,7 @@ const Outstanding = ({ items, onPlay, onWatchlist, onDiscoverMore }: Props) => {
       <PaginationComponent
         size={items.length}
         paginationIndex={activeIndex}
-        tabletLandscape={isTablet() && orientation === 'PORTRAIT'}
+        tabletLandscape={isTablet() && screenData.orientation === 'LANDSCAPE'}
       />
     </Wrapper>
   );

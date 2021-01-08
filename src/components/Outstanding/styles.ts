@@ -78,7 +78,7 @@ export const PaginationWrapper = styled.View`
       ? `
         position: absolute;
         right: 30px;
-        bottom: 50%;
+        bottom: 250px;
       `
       : `
         align-self: center;
@@ -90,14 +90,18 @@ export const PaginationOutside = styled.View`
   width: 100%;
 `;
 
-type PaginationContentProps = {
+interface PaginationContentProps extends ThemeState {
   visible: boolean;
-};
+}
 
-export const PaginationContent = styled.View`
+export const PaginationContent = styled.View<PaginationContentProps>`
   background-color: ${(props: ThemeState) => props.theme.PRIMARY_FOREGROUND_COLOR};
-  height: ${(props: PaginationContentProps) => (props.visible ? '1px' : '0px')};
-  width: ${(props: PaginationContentProps) => (props.visible ? '10px' : '0px')};
+  ${(props: PaginationContentProps) =>
+    props.visible &&
+    `
+      width: 10px;
+      height: 1px;
+    `}
   align-self: center;
 `;
 
@@ -137,6 +141,10 @@ export const PaginationDot = styled.View`
 `;
 
 export const PaginationDotsWrapper = styled.View`
+  flex-direction: row;
+`;
+
+export const PaginationButtonWrapper = styled.View`
   flex-direction: row;
 `;
 
