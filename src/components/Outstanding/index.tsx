@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback, useMemo } from 'react';
-import { Platform } from 'react-native';
+import { View, Platform } from 'react-native';
 import { Logo } from '@assets/icons';
 import { fill } from 'lodash';
 import Orientation, { OrientationType } from 'react-native-orientation-locker';
@@ -43,12 +43,12 @@ const Pagination = ({ size, paginationIndex, onPress, tabletLandscape }: any) =>
   return (
     <PaginationDotsWrapper>
       {fill(new Array(size), 1).map((item, index) => (
-        <>
-          <PaginationButton onPress={onPress} key={index.toString()}>
+        <View key={index.toString()}>
+          <PaginationButton onPress={onPress}>
             <PaginationDot active={index === paginationIndex} tabletLandscape={tabletLandscape} />
           </PaginationButton>
           <PaginationContent visible={index < size - 1} />
-        </>
+        </View>
       ))}
     </PaginationDotsWrapper>
   );
