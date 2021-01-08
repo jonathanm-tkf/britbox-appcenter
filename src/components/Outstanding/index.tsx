@@ -72,7 +72,6 @@ const PaginationComponent = ({
 };
 
 const ACTIONS_HEIGHT = 150;
-let getFirstTimeOrientation = true;
 
 const Outstanding = ({ items, onPlay, onWatchlist, onDiscoverMore }: Props) => {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -108,11 +107,6 @@ const Outstanding = ({ items, onPlay, onWatchlist, onDiscoverMore }: Props) => {
 
   useEffect((): (() => void) => {
     if (isTablet()) {
-      if (getFirstTimeOrientation) {
-        getFirstTimeOrientation = false;
-        Orientation.getDeviceOrientation(onOrientationDidChange);
-      }
-
       Orientation.addDeviceOrientationListener(onOrientationDidChange);
 
       return () => {
@@ -121,7 +115,7 @@ const Outstanding = ({ items, onPlay, onWatchlist, onDiscoverMore }: Props) => {
     }
 
     return () => {};
-  });
+  }, [onOrientationDidChange]);
 
   const getItemTTIImageSize = useCallback(
     (item: Item) => {
