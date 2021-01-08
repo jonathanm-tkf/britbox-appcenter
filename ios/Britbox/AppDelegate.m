@@ -14,7 +14,6 @@
 #import <UMReactNativeAdapter/UMNativeModulesProxy.h>
 #import <UMReactNativeAdapter/UMModuleRegistryAdapter.h>
 /// #import <RNHomeIndicator.h>
-#import <EXScreenOrientation/EXScreenOrientationViewController.h>
 
 /// #ifdef FB_SONARKIT_ENABLED
 /// #import <FlipperKit/FlipperClient.h>

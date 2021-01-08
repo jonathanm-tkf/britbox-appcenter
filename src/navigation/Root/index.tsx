@@ -1,5 +1,3 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -26,12 +24,12 @@ import { BritboxAPIContentModelsItemsGetItemRelatedListResponse } from '@src/sdk
 import { setDeepLinkUrl } from '@store/modules/home/actions';
 import { getItemContent } from '@store/modules/home/saga';
 import Loading from '@screens/Loading';
-import * as ScreenOrientation from 'expo-screen-orientation';
+import Orientation from 'react-native-orientation-locker';
 import { AuthStackScreen } from '../Auth';
 import { push, navigateByPath, navigationGoBack, navigationRef } from '../rootNavigation';
 import { AppTabsScreen } from '../Tabs';
 
-const STORYBOOK_START = false && __DEV__;
+const STORYBOOK_START = true && __DEV__;
 
 const EffectModal = (progress: Animated.AnimatedInterpolation) => ({
   cardStyle: {
@@ -59,13 +57,9 @@ const ModalOptions = (theme: ThemeProps) => ({
   cardStyleInterpolator: ({ current: { progress } }) => EffectModal(progress),
 });
 
-const Error = () => {
-  return <ErrorLanding onPress={() => {}} out />;
-};
+const Error = () => <ErrorLanding onPress={() => {}} out />;
 
-const VersionModal = () => {
-  return <VersionUpgrade />;
-};
+const VersionModal = () => <VersionUpgrade />;
 
 const RootStack = createStackNavigator();
 const RootStackScreen = () => {
@@ -99,7 +93,7 @@ const RootStackScreen = () => {
   }, [britboxConfig]);
 
   useEffect(() => {
-    ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT_UP);
+    Orientation.lockToPortrait();
     const unsubscribe = NetInfo.addEventListener((state) => {
       if (!state.isConnected) {
         setLostConnection(true);

@@ -1,16 +1,15 @@
 import React from 'react';
+import { LogBox } from 'react-native';
 import CodePush from 'react-native-code-push';
 import { enableScreens } from 'react-native-screens';
 import { I18nextProvider } from 'react-i18next';
 
 import { Provider } from 'react-redux';
-
 import { PersistGate } from 'redux-persist/integration/react';
 
 import './config/ReactotronConfig';
 import { DefaultTheme, Provider as PaperProvider, configureFonts } from 'react-native-paper';
 import { lightTheme, base } from './store/modules/theme/theme';
-import { LogBox } from 'react-native';
 import { persistor, store } from './store';
 import App from './App';
 import i18n from './services/i18next';
@@ -89,19 +88,17 @@ const theme = {
   fonts: configureFonts(fontConfig),
 };
 
-const Index = () => {
-  return (
-    <Provider store={store}>
-      <PaperProvider theme={theme}>
-        <PersistGate persistor={persistor}>
-          <I18nextProvider i18n={i18n}>
-            <App />
-          </I18nextProvider>
-        </PersistGate>
-      </PaperProvider>
-    </Provider>
-  );
-};
+const Index = () => (
+  <Provider store={store}>
+    <PaperProvider theme={theme}>
+      <PersistGate persistor={persistor}>
+        <I18nextProvider i18n={i18n}>
+          <App />
+        </I18nextProvider>
+      </PersistGate>
+    </PaperProvider>
+  </Provider>
+);
 
 export default CodePush({
   checkFrequency: CodePush.CheckFrequency.ON_APP_RESUME,

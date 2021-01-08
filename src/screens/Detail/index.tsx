@@ -56,7 +56,7 @@ import { getDimensions } from '@src/utils/dimension';
 import { withTheme } from 'styled-components';
 import { ThemeProps } from '@store/modules/theme/types';
 import ErrorNotFound from '@components/ErrorNotFound';
-import * as ScreenOrientation from 'expo-screen-orientation';
+import Orientation from 'react-native-orientation-locker';
 import {
   Container,
   Scroll,
@@ -323,7 +323,7 @@ const Detail = ({ theme }: Props) => {
 
   useEffect(() => {
     if (isFocus) {
-      ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT_UP);
+      Orientation.lockToPortrait();
       StatusBar.setHidden(false);
       immersiveModeOff();
     }
