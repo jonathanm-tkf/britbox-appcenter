@@ -7,7 +7,6 @@ import SignUp from '@screens/SignUp';
 import SignUpSubscription from '@screens/SignUpSubscription';
 import { isTablet } from 'react-native-device-info';
 import Orientation from 'react-native-orientation-locker';
-import { isTablet } from 'react-native-device-info';
 
 const AuthStack = createStackNavigator();
 
