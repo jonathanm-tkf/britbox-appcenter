@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback, useMemo } from 'react';
-import { View, Platform } from 'react-native';
+import { Platform } from 'react-native';
 import { Logo } from '@assets/icons';
 import { fill } from 'lodash';
 import Orientation, { OrientationType } from 'react-native-orientation-locker';
@@ -10,6 +10,7 @@ import {
   Gradient,
   LogoWrapper,
   PaginationWrapper,
+  PaginationButtonWrapper,
   PaginationContent,
   Image,
   TTImage,
@@ -43,12 +44,12 @@ const Pagination = ({ size, paginationIndex, onPress, tabletLandscape }: any) =>
   return (
     <PaginationDotsWrapper>
       {fill(new Array(size), 1).map((item, index) => (
-        <View key={index.toString()}>
+        <PaginationButtonWrapper key={index.toString()}>
           <PaginationButton onPress={onPress}>
             <PaginationDot active={index === paginationIndex} tabletLandscape={tabletLandscape} />
           </PaginationButton>
           <PaginationContent visible={index < size - 1} />
-        </View>
+        </PaginationButtonWrapper>
       ))}
     </PaginationDotsWrapper>
   );
@@ -71,6 +72,7 @@ const PaginationComponent = ({
 };
 
 const ACTIONS_HEIGHT = 150;
+let getFirstTimeOrientation = true;
 
 const Outstanding = ({ items, onPlay, onWatchlist, onDiscoverMore }: Props) => {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -106,6 +108,11 @@ const Outstanding = ({ items, onPlay, onWatchlist, onDiscoverMore }: Props) => {
 
   useEffect((): (() => void) => {
     if (isTablet()) {
+      if (getFirstTimeOrientation) {
+        getFirstTimeOrientation = false;
+        Orientation.getDeviceOrientation(onOrientationDidChange);
+      }
+
       Orientation.addDeviceOrientationListener(onOrientationDidChange);
 
       return () => {
