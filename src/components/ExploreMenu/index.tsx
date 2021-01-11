@@ -5,6 +5,7 @@ import { Header } from '@store/modules/core/types';
 import { useOrientation } from '@src/utils/orientation';
 import ScreenHeader from '@components/Header';
 import { isTablet } from 'react-native-device-info';
+import { Dimensions } from 'react-native';
 import {
   Container,
   TabHeader,
