@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from 'react';
-import { Animated, NativeScrollEvent, View } from 'react-native';
+import { Animated, NativeScrollEvent, View, Platform } from 'react-native';
 import { useNavigation, useRoute, RouteProp } from '@react-navigation/native';
 import { BackIcon } from '@assets/icons';
 import { getDimensions, percentageWidth } from '@src/utils/dimension';
@@ -18,6 +18,7 @@ import {
   getIsOurFavoritesMultiple,
   getIsListDetail,
 } from '@src/utils/template';
+import { useColumns } from '@src/utils/columns';
 import Genre from '@screens/Shared/Genre';
 import Standard from '@screens/Shared/Standard';
 import LargeProgramming from '@screens/Shared/LargeProgramming';
@@ -113,6 +114,10 @@ const Collections = () => {
   const [data, setData] = useState<MassiveSDKModelPage | undefined>(
     dataDummy as MassiveSDKModelPage
   );
+  const [numOfColumns, elementWidth, elementHeight] = useColumns(
+    18.8,
+    Platform.OS === 'ios' ? 16 : 28.5
+  );
   const [isContinuosScroll, setIsContinuosScroll] = useState(false);
   const [error, setError] = useState(false);
   const [isLoadingContinuosScroll, setIsLoadingContinuosScroll] = useState(false);
@@ -179,24 +184,26 @@ const Collections = () => {
 
     const checkIsContinuosScroll = getIsContinuosScroll(response || {});
 
-    if (infiniteGridColumns === undefined) {
+    if (isTablet()) {
+      setInfiniteGridColumns(numOfColumns);
+    } else if (infiniteGridColumns === undefined) {
       setInfiniteGridColumns(
         getIsEpisodeGrid(
           (response?.entries || [])
             .filter((item) => getTemplate(item.template || '') === 'grid-infinite')
             .reduce((item) => item).list?.items || []
         )
-          ? isTablet()
-            ? 3
-            : 2
-          : isTablet()
-          ? 4
+          ? 2
           : 3
       );
     }
 
     setIsContinuosScroll(checkIsContinuosScroll);
   };
+
+  useEffect(() => {
+    setInfiniteGridColumns(numOfColumns);
+  }, [numOfColumns]);
 
   useEffect(() => {
     Animated.timing(animatedOpacityValue, {
@@ -542,10 +549,10 @@ const Collections = () => {
                               marginHorizontal: 5,
                             }
                           : {
-                              width: percentageWidth(25) - 10,
-                              height: percentageWidth(25 * 1.25),
+                              width: percentageWidth(elementWidth),
+                              height: percentageWidth(elementHeight),
                               marginBottom: 20,
-                              marginHorizontal: isTablet() ? 3 : 5,
+                              marginHorizontal: 3,
                             }
                       }
                       listStyles={listStyle}
