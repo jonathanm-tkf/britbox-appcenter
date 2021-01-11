@@ -1,15 +1,15 @@
 import React, { useState, useEffect, useCallback, useMemo } from 'react';
-import { View, Platform } from 'react-native';
+import { Platform, Dimensions } from 'react-native';
 import { Logo } from '@assets/icons';
 import { fill } from 'lodash';
 import Orientation, { OrientationType } from 'react-native-orientation-locker';
 import SwiperFlatList from 'react-native-swiper-flatlist';
 import { isTablet } from 'react-native-device-info';
-import { getDimensions } from '@src/utils/dimension';
 import {
   Gradient,
   LogoWrapper,
   PaginationWrapper,
+  PaginationButtonWrapper,
   PaginationContent,
   Image,
   TTImage,
@@ -43,12 +43,12 @@ const Pagination = ({ size, paginationIndex, onPress, tabletLandscape }: any) =>
   return (
     <PaginationDotsWrapper>
       {fill(new Array(size), 1).map((item, index) => (
-        <View key={index.toString()}>
+        <PaginationButtonWrapper key={index.toString()}>
           <PaginationButton onPress={onPress}>
             <PaginationDot active={index === paginationIndex} tabletLandscape={tabletLandscape} />
           </PaginationButton>
           <PaginationContent visible={index < size - 1} />
-        </View>
+        </PaginationButtonWrapper>
       ))}
     </PaginationDotsWrapper>
   );
@@ -71,38 +71,47 @@ const PaginationComponent = ({
 };
 
 const ACTIONS_HEIGHT = 150;
+let getFirstTimeOrientation = true;
 
 const Outstanding = ({ items, onPlay, onWatchlist, onDiscoverMore }: Props) => {
-  const [screenSize, setScreenSize] = useState(getDimensions());
   const [activeIndex, setActiveIndex] = useState(0);
-  const [orientation, setOrientation] = useState('PORTRAIT');
+  const [screenData, setScreenData] = useState({
+    size: Dimensions.get('window'),
+    orientation: 'PORTRAIT',
+  });
 
   const stylesAspectRatio = useMemo(() => {
     return {
       width:
-        Platform.OS === 'android' && orientation === 'PORTRAIT'
-          ? screenSize.height
-          : screenSize.width,
-      height: isTablet() ? screenSize.width / 3 : screenSize.width,
+        screenData.orientation === 'LANDSCAPE'
+          ? Math.max(screenData.size.width, screenData.size.height)
+          : Math.min(screenData.size.width, screenData.size.height),
+      height: isTablet() ? screenData.size.width / 3 : screenData.size.width,
     };
-  }, [screenSize.width, screenSize.height, orientation]);
+  }, [screenData]);
 
   const onOrientationDidChange = useCallback((newOrientation: OrientationType) => {
-    setScreenSize(getDimensions());
-
-    if (isTablet()) {
-      if (newOrientation === 'LANDSCAPE-LEFT' || newOrientation === 'LANDSCAPE-RIGHT') {
-        setOrientation(Platform.OS === 'ios' ? 'LANDSCAPE' : 'PORTRAIT');
-      } else {
-        setOrientation(Platform.OS === 'ios' ? 'PORTRAIT' : 'LANDSCAPE');
-      }
+    if (newOrientation === 'LANDSCAPE-LEFT' || newOrientation === 'LANDSCAPE-RIGHT') {
+      setScreenData({
+        size: Dimensions.get('window'),
+        orientation: Platform.OS === 'ios' ? 'LANDSCAPE' : 'PORTRAIT',
+      });
+    } else {
+      setScreenData({
+        size: Dimensions.get('window'),
+        orientation: Platform.OS === 'ios' ? 'PORTRAIT' : 'LANDSCAPE',
+      });
     }
   }, []);
 
   useEffect((): (() => void) => {
     if (isTablet()) {
+      if (getFirstTimeOrientation) {
+        getFirstTimeOrientation = false;
+        Orientation.getDeviceOrientation(onOrientationDidChange);
+      }
+
       Orientation.addDeviceOrientationListener(onOrientationDidChange);
-      Orientation.getDeviceOrientation(onOrientationDidChange);
 
       return () => {
         Orientation.removeDeviceOrientationListener(onOrientationDidChange);
@@ -124,11 +133,11 @@ const Outstanding = ({ items, onPlay, onWatchlist, onDiscoverMore }: Props) => {
       return {
         width,
         height,
-        top: screenSize.width / 6 - height / 2,
-        left: orientation === 'LANDSCAPE' ? '8%' : 0,
+        top: screenData.size.width / 6 - height / 2,
+        left: screenData.orientation === 'LANDSCAPE' ? '8%' : 0,
       };
     },
-    [screenSize.width, orientation]
+    [screenData]
   );
 
   return (
@@ -136,11 +145,8 @@ const Outstanding = ({ items, onPlay, onWatchlist, onDiscoverMore }: Props) => {
       <SwiperFlatList
         index={0}
         style={{
-          width:
-            Platform.OS === 'android' && orientation === 'PORTRAIT'
-              ? screenSize.height
-              : screenSize.width,
-          height: isTablet() ? undefined : screenSize.width + ACTIONS_HEIGHT,
+          width: stylesAspectRatio.width,
+          height: isTablet() ? undefined : screenData.size.width + ACTIONS_HEIGHT,
         }}
         onChangeIndex={({ index }: { index: number }) => setActiveIndex(index)}
         disableVirtualization={false}
@@ -183,7 +189,7 @@ const Outstanding = ({ items, onPlay, onWatchlist, onDiscoverMore }: Props) => {
       <PaginationComponent
         size={items.length}
         paginationIndex={activeIndex}
-        tabletLandscape={isTablet() && orientation === 'PORTRAIT'}
+        tabletLandscape={isTablet() && screenData.orientation === 'LANDSCAPE'}
       />
     </Wrapper>
   );
