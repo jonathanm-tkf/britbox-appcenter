@@ -60,11 +60,7 @@ export const TabHeaderItemIndicator = styled.View`
   margin-right: 10px;
 `;
 
-interface LinksWrapperProps {
-  bigScreen: boolean;
-}
-
-export const LinksWrapper = styled.View<LinksWrapperProps>`
+export const LinksWrapper = styled.View`
   flex: 1;
   flex-direction: row;
   justify-content: center;
