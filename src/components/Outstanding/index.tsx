@@ -119,7 +119,7 @@ const Outstanding = ({ items, onPlay, onWatchlist, onDiscoverMore }: Props) => {
     }
 
     return () => {};
-  });
+  }, [onOrientationDidChange]);
 
   const getItemTTIImageSize = useCallback(
     (item: Item) => {
