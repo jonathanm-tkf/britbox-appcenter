@@ -78,7 +78,7 @@ export const PaginationWrapper = styled.View`
       ? `
         position: absolute;
         right: 30px;
-        bottom: 50%;
+        bottom: 250px;
       `
       : `
         align-self: center;
@@ -141,6 +141,10 @@ export const PaginationDot = styled.View`
 `;
 
 export const PaginationDotsWrapper = styled.View`
+  flex-direction: row;
+`;
+
+export const PaginationButtonWrapper = styled.View`
   flex-direction: row;
 `;
 
