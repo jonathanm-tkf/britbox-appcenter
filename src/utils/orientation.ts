@@ -1,10 +1,10 @@
 import { useEffect, useCallback, useState } from 'react';
 import { Dimensions } from 'react-native';
-import Orientation, {
+import OrientationLocker, {
   OrientationType as LockerOrientationType,
 } from 'react-native-orientation-locker';
 
-type OrientationType = 'PORTRAIT' | 'LANDSCAPE';
+export type Orientation = 'PORTRAIT' | 'LANDSCAPE';
 
 /**
  * Returns true if the screen is in portrait mode
@@ -20,12 +20,12 @@ const isPortrait = () => {
  */
 export function useOrientation(): Orientation {
   // State to hold the connection status
-  const [orientation, setOrientation] = useState<OrientationType>(
+  const [orientation, setOrientation] = useState<Orientation>(
     isPortrait() ? 'PORTRAIT' : 'LANDSCAPE'
   );
 
   const onOrientationDidChange = useCallback(() => {
-    Orientation.getOrientation((newOrientation: LockerOrientationType) => {
+    OrientationLocker.getOrientation((newOrientation: LockerOrientationType) => {
       // PORTRAIT has preference
       if (newOrientation === 'LANDSCAPE-RIGHT' || newOrientation === 'LANDSCAPE-LEFT') {
         setOrientation('LANDSCAPE');
@@ -36,10 +36,10 @@ export function useOrientation(): Orientation {
   }, []);
 
   useEffect(() => {
-    Orientation.addDeviceOrientationListener(onOrientationDidChange);
+    OrientationLocker.addDeviceOrientationListener(onOrientationDidChange);
 
     return () => {
-      Orientation.removeOrientationListener(onOrientationDidChange);
+      OrientationLocker.removeOrientationListener(onOrientationDidChange);
     };
   });
 

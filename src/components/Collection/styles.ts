@@ -1,8 +1,8 @@
 import styled from 'styled-components/native';
 import { ThemeProps } from '@store/modules/theme/types';
+import type { Orientation } from '@src/utils/orientation';
 
 type Align = 'left' | 'right';
-export type Orientation = 'PORTRAIT' | 'LANDSCAPE';
 
 export const List = styled.FlatList.attrs({
   keyExtractor: (_, index) => String(index),
