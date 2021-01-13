@@ -1,4 +1,5 @@
 import styled from 'styled-components/native';
+import { ThemeProps } from '@store/modules/theme/types';
 
 type Align = 'left' | 'right';
 
@@ -15,11 +16,13 @@ export const Wrapper = styled.View.attrs({
   padding-left: 10px;
 `;
 
-export const ImageBackground = styled.ImageBackground`
+export const ImageBackground = styled.ImageBackground.attrs({
+  blurRadius: 10,
+})`
   width: 100%;
   height: 300px;
   position: absolute;
-  opacity: 0.1;
+  opacity: 0.15;
 `;
 
 type SideWrapperProps = {
@@ -42,14 +45,15 @@ export const SideWrapper = styled.View<SideWrapperProps>`
 `;
 
 type TitleProps = {
+  readonly theme: ThemeProps;
   fontSize?: number;
   lineHeight?: number;
 };
 
 export const Title = styled.Text<TitleProps>`
-  color: #fff;
   text-align: left;
   width: 80%;
+  ${(props: DescriptionProps) => `color: ${props.theme.PRIMARY_FOREGROUND_COLOR}`}
   ${(props: TitleProps) =>
     props.fontSize &&
     `
@@ -63,15 +67,16 @@ export const Title = styled.Text<TitleProps>`
 `;
 
 type DescriptionProps = {
+  readonly theme: ThemeProps;
   fontSize?: number;
   lineHeight?: number;
 };
 
 export const Description = styled.Text<DescriptionProps>`
-  color: #fff;
   flex-wrap: wrap;
   width: 80%;
   padding-bottom: 40px;
+  ${(props: DescriptionProps) => `color: ${props.theme.PRIMARY_FOREGROUND_COLOR}`}
   ${(props: DescriptionProps) =>
     props.fontSize &&
     `

@@ -1,6 +1,8 @@
 import React from 'react';
 import { getImage } from '@src/utils/images';
 import { Button } from '@components/Button';
+import { withTheme } from 'styled-components';
+import { ThemeProps } from '@store/modules/theme/types';
 import {
   List,
   Wrapper,
@@ -30,15 +32,17 @@ type CollectionItem = {
 
 type Props = {
   data: Array<CollectionItem>;
+  readonly theme: ThemeProps;
 };
 
-const Collection = ({ data }: Props) => {
+const Collection = ({ data, theme }: Props) => {
   const listData = data.map((item) => {
     const image = item.images?.tile || 'loading';
 
     return {
       title: item.title,
       illustration: { uri: getImage(image, 'poster') },
+      wallpaper: { uri: getImage(image, 'hero') },
       description: item.customFields?.description,
       align: item.customFields?.align || 'right',
       item,
@@ -50,19 +54,20 @@ const Collection = ({ data }: Props) => {
       data={listData}
       renderItem={({ item }: any) => (
         <Wrapper>
-          <ImageBackground source={item.illustration} />
+          <ImageBackground source={item.wallpaper} />
           {item.align === 'left' && <Thumnail source={item.illustration} />}
           <SideWrapper align={item.align}>
-            <Title fontSize={32} lineHeight={50}>
+            <Title theme={theme} fontSize={32} lineHeight={50}>
               {item.title}
             </Title>
-            <Description fontSize={20} lineHeight={24}>
+            <Description theme={theme} fontSize={20} lineHeight={24}>
               {item.description}
             </Description>
             <Button
               stretch
               size="big"
               fontWeight="medium"
+              color={theme.PRIMARY_FOREGROUND_COLOR}
               onPress={() => {
                 // TODO
               }}
@@ -77,4 +82,4 @@ const Collection = ({ data }: Props) => {
   );
 };
 
-export default Collection;
+export default withTheme(Collection);
