@@ -1,5 +1,10 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useCallback, useState } from 'react';
 import { Dimensions } from 'react-native';
+import Orientation, {
+  OrientationType as LockerOrientationType,
+} from 'react-native-orientation-locker';
+
+type OrientationType = 'PORTRAIT' | 'LANDSCAPE';
 
 /**
  * Returns true if the screen is in portrait mode
@@ -9,27 +14,34 @@ const isPortrait = () => {
   return dim.height >= dim.width;
 };
 
-type Orientation = 'PORTRAIT' | 'LANDSCAPE';
-
 /**
  * A React Hook which updates when the orientation changes
  * @returns whether the user is in 'PORTRAIT' or 'LANDSCAPE'
  */
 export function useOrientation(): Orientation {
   // State to hold the connection status
-  const [orientation, setOrientation] = useState<Orientation>(
+  const [orientation, setOrientation] = useState<OrientationType>(
     isPortrait() ? 'PORTRAIT' : 'LANDSCAPE'
   );
 
-  useEffect(() => {
-    const callback = () => setOrientation(isPortrait() ? 'PORTRAIT' : 'LANDSCAPE');
+  const onOrientationDidChange = useCallback(() => {
+    Orientation.getOrientation((newOrientation: LockerOrientationType) => {
+      // PORTRAIT has preference
+      if (newOrientation === 'LANDSCAPE-RIGHT' || newOrientation === 'LANDSCAPE-LEFT') {
+        setOrientation('LANDSCAPE');
+      } else {
+        setOrientation('PORTRAIT');
+      }
+    });
+  }, []);
 
-    Dimensions.addEventListener('change', callback);
+  useEffect(() => {
+    Orientation.addDeviceOrientationListener(onOrientationDidChange);
 
     return () => {
-      Dimensions.removeEventListener('change', callback);
+      Orientation.removeOrientationListener(onOrientationDidChange);
     };
-  }, []);
+  });
 
   return orientation;
 }
