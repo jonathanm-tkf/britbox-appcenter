@@ -31,7 +31,8 @@ import { Dismissal, Pause, Play, VideoStart } from '@screens/Shared/Cast/service
 import { pickBy } from 'lodash';
 import Action from '@components/Action';
 import { BackIcon } from '@assets/icons';
-import * as ScreenOrientation from 'expo-screen-orientation';
+import Orientation from 'react-native-orientation-locker';
+
 import {
   BackButton,
   ChromecastWrapper,
@@ -146,7 +147,7 @@ const VideoPlayer = () => {
   };
 
   const handleBackButtonClick = useCallback(() => {
-    ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT_UP);
+    Orientation.lockToPortrait();
     StatusBar.setHidden(false);
     immersiveModeOff();
     backArrow();
@@ -178,14 +179,14 @@ const VideoPlayer = () => {
     useCallback(() => {
       const task = InteractionManager.runAfterInteractions(() => {
         // Expensive task
-        ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.LANDSCAPE);
+        Orientation.lockToLandscape();
       });
       return () => task.cancel();
     }, [])
   );
 
   const backArrow = useCallback(() => {
-    ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT_UP);
+    Orientation.lockToPortrait();
     immersiveModeOff();
     StatusBar.setHidden(false);
     dispatch(continueWatchingRequest());

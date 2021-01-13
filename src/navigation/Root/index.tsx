@@ -26,7 +26,7 @@ import { BritboxAPIContentModelsItemsGetItemRelatedListResponse } from '@src/sdk
 import { setDeepLinkUrl } from '@store/modules/home/actions';
 import { getItemContent } from '@store/modules/home/saga';
 import Loading from '@screens/Loading';
-import * as ScreenOrientation from 'expo-screen-orientation';
+import Orientation from 'react-native-orientation-locker';
 import { AuthStackScreen } from '../Auth';
 import { push, navigateByPath, navigationGoBack, navigationRef } from '../rootNavigation';
 import { AppTabsScreen } from '../Tabs';
@@ -99,7 +99,7 @@ const RootStackScreen = () => {
   }, [britboxConfig]);
 
   useEffect(() => {
-    ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT_UP);
+    Orientation.lockToPortrait();
     const unsubscribe = NetInfo.addEventListener((state) => {
       if (!state.isConnected) {
         setLostConnection(true);
