@@ -2,35 +2,43 @@ import styled from 'styled-components/native';
 import { ThemeProps } from '@store/modules/theme/types';
 
 type Align = 'left' | 'right';
+export type Orientation = 'PORTRAIT' | 'LANDSCAPE';
 
 export const List = styled.FlatList.attrs({
   keyExtractor: (_, index) => String(index),
 })``;
 
-export const Wrapper = styled.View.attrs({
-  zIndex: 1000,
-})`
+type WrapperProps = {
+  verticalMargin: number;
+};
+
+export const Wrapper = styled.View<WrapperProps>`
   flex-direction: row;
   align-items: center;
-  margin-vertical: 40px;
   padding-left: 10px;
+  ${(props: WrapperProps) => `margin-vertical: ${props.verticalMargin}px;`}
 `;
+
+type ImageBackgroundProps = {
+  height: number;
+};
 
 export const ImageBackground = styled.ImageBackground.attrs({
   blurRadius: 10,
-})`
+})<ImageBackgroundProps>`
   width: 100%;
-  height: 300px;
   position: absolute;
   opacity: 0.15;
+  ${(props: ImageBackgroundProps) => `height: ${props.height}px;`}
 `;
 
 type SideWrapperProps = {
   align: Align;
+  width: number;
 };
 
 export const SideWrapper = styled.View<SideWrapperProps>`
-  width: 40%;
+  ${(props: SideWrapperProps) => `width: ${props.width}%;`}
   ${(props: SideWrapperProps) => {
     return props.align === 'left'
       ? `
@@ -46,55 +54,63 @@ export const SideWrapper = styled.View<SideWrapperProps>`
 
 type TitleProps = {
   readonly theme: ThemeProps;
-  fontSize?: number;
-  lineHeight?: number;
+  orientation: Orientation;
 };
 
 export const Title = styled.Text<TitleProps>`
   text-align: left;
   width: 80%;
-  ${(props: DescriptionProps) => `color: ${props.theme.PRIMARY_FOREGROUND_COLOR}`}
-  ${(props: TitleProps) =>
-    props.fontSize &&
-    `
-      font-size: ${props.fontSize}px
-    `}
-  ${(props: TitleProps) =>
-    props.lineHeight &&
-    `
-      line-height: ${props.lineHeight}px;
-    `}
+  ${(props: TitleProps) => `color: ${props.theme.PRIMARY_FOREGROUND_COLOR};`}
+  ${(props: DescriptionProps) =>
+    props.orientation === 'LANDSCAPE'
+      ? `
+        font-size: 32px;
+        line-height: 50px;
+      `
+      : `
+        font-size: 26px;
+        line-height: 40px;
+      `}
 `;
 
 type DescriptionProps = {
   readonly theme: ThemeProps;
-  fontSize?: number;
-  lineHeight?: number;
+  orientation: Orientation;
 };
 
 export const Description = styled.Text<DescriptionProps>`
   flex-wrap: wrap;
   width: 80%;
-  padding-bottom: 40px;
   ${(props: DescriptionProps) => `color: ${props.theme.PRIMARY_FOREGROUND_COLOR}`}
   ${(props: DescriptionProps) =>
-    props.fontSize &&
-    `
-      font-size: ${props.fontSize}px
-    `}
-  ${(props: DescriptionProps) =>
-    props.lineHeight &&
-    `
-      line-height: ${props.lineHeight}px;
-    `}
+    props.orientation === 'LANDSCAPE'
+      ? `
+        font-size: 20px;
+        lineHeight: 24px;
+        padding-bottom: 40px;
+      `
+      : `
+        font-size: 14px;
+        lineHeight: 16px;
+        padding-bottom: 25px;
+      `}
 `;
 
 type ThumnailProps = {
-  source: string;
+  orientation: Orientation;
 };
 
 export const Thumnail = styled.Image<ThumnailProps>`
-  width: 60%;
-  aspect-ratio: 2;
   border-radius: 8px;
+  ${(props: ThumnailProps) => `width: ${props.width}%;`}
+  ${(props: ThumnailProps) =>
+    props.orientation === 'LANDSCAPE'
+      ? `
+        width: 60%
+        aspect-ratio: 2;
+      `
+      : `
+        width: 40%
+        aspect-ratio: 1.2;
+      `}
 `;

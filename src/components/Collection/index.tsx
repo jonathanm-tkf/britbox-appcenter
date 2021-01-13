@@ -1,4 +1,6 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
+import { useOrientation } from '@src/utils/orientation';
 import { getImage } from '@src/utils/images';
 import { Button } from '@components/Button';
 import { withTheme } from 'styled-components';
@@ -13,6 +15,8 @@ import {
   Description,
 } from './styles';
 
+type Align = 'left' | 'right';
+
 type CollectionItem = {
   type?: string;
   id?: string;
@@ -26,7 +30,7 @@ type CollectionItem = {
   };
   customFields?: {
     description?: string;
-    align?: 'left' | 'right';
+    align?: Align;
   };
 };
 
@@ -36,6 +40,9 @@ type Props = {
 };
 
 const Collection = ({ data, theme }: Props) => {
+  const orientation = useOrientation();
+  const { t } = useTranslation('layout');
+
   const listData = data.map((item) => {
     const image = item.images?.tile || 'loading';
 
@@ -53,14 +60,19 @@ const Collection = ({ data, theme }: Props) => {
     <List
       data={listData}
       renderItem={({ item }: any) => (
-        <Wrapper>
-          <ImageBackground source={item.wallpaper} />
-          {item.align === 'left' && <Thumnail source={item.illustration} />}
-          <SideWrapper align={item.align}>
-            <Title theme={theme} fontSize={32} lineHeight={50}>
+        <Wrapper verticalMargin={orientation === 'LANDSCAPE' ? 40 : 20}>
+          <ImageBackground
+            source={item.wallpaper}
+            height={orientation === 'LANDSCAPE' ? 300 : 200}
+          />
+          {item.align === 'left' && (
+            <Thumnail source={item.illustration} orientation={orientation} />
+          )}
+          <SideWrapper align={item.align} width={orientation === 'LANDSCAPE' ? 40 : 60}>
+            <Title theme={theme} orientation={orientation}>
               {item.title}
             </Title>
-            <Description theme={theme} fontSize={20} lineHeight={24}>
+            <Description theme={theme} orientation={orientation}>
               {item.description}
             </Description>
             <Button
@@ -72,10 +84,12 @@ const Collection = ({ data, theme }: Props) => {
                 // TODO
               }}
             >
-              Watch programmes
+              {t('watchprogrammes')}
             </Button>
           </SideWrapper>
-          {item.align === 'right' && <Thumnail source={item.illustration} />}
+          {item.align === 'right' && (
+            <Thumnail source={item.illustration} orientation={orientation} />
+          )}
         </Wrapper>
       )}
     />
