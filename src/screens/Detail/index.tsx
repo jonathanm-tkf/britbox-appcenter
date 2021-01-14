@@ -326,10 +326,7 @@ const Detail = ({ theme }: Props) => {
       if (!isTablet()) {
         Orientation.lockToPortrait();
       }
-<<<<<<< HEAD
 
-=======
->>>>>>> 9d754a6... Merge and updates
       StatusBar.setHidden(false);
       immersiveModeOff();
     }

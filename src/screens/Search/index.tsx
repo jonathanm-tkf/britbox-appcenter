@@ -121,23 +121,19 @@ const Search = ({ theme }: Props) => {
   };
 
   const suggestionLinks = getTextInConfigJSON(['search-links'], '');
-  const noSearchResulsts = getTextInConfigJSON(
-    ['search-no-resulsts'],
-    t('search-no-resulsts', { returnObjects: true })
-  );
 
   useEffect(() => {
     const searchString = searchInput?.trim();
     if (!searchString) setSearchInput('');
 
     const timer = setTimeout(() => {
-      if (searchInput.length >= 2) {
+      if (searchInput.length >= 3) {
         setIsDone(false);
         doSearch(false);
       }
     }, 500);
 
-    if (searchInput.length < 2) {
+    if (searchInput.length < 3) {
       setIsDone(false);
       setNoResults(false);
       setSearchingItemData([]);
@@ -304,11 +300,10 @@ const Search = ({ theme }: Props) => {
         <ResultGrid>
           {noResults ? (
             <NoResultWrapper>
-              {noSearchResulsts.map((message: { text: string; bold: boolean }) => (
-                <NoResultText key={message.text}>
-                  {message.bold ? <NoResultBold>{message.text}</NoResultBold> : message.text}
-                </NoResultText>
-              ))}
+              <NoResultText>
+                <NoResultBold>{t('noResults.bold')}</NoResultBold>
+                {t('noResults.text')}
+              </NoResultText>
             </NoResultWrapper>
           ) : (
             <SuggestionWrapper>
