@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useOrientation } from '@src/utils/orientation';
+import { navigateByPath } from '@src/navigation/rootNavigation';
 import { getImage } from '@src/utils/images';
 import { Button } from '@components/Button';
 import { withTheme } from 'styled-components';
@@ -43,18 +44,21 @@ const Collection = ({ data, theme }: Props) => {
   const orientation = useOrientation();
   const { t } = useTranslation('layout');
 
-  const listData = data.map((item) => {
-    const image = item.images?.tile || 'loading';
+  const listData = useMemo(() => {
+    return data.map((item) => {
+      const image = item.images?.tile || 'loading';
 
-    return {
-      title: item.title,
-      illustration: { uri: getImage(image, 'poster') },
-      wallpaper: { uri: getImage(image, 'hero') },
-      description: item.customFields?.description,
-      align: item.customFields?.align || 'right',
-      item,
-    };
-  });
+      return {
+        title: item.title,
+        illustration: { uri: getImage(image, 'poster') },
+        wallpaper: { uri: getImage(image, 'hero') },
+        description: item.customFields?.description,
+        align: item.customFields?.align || 'right',
+        path: item.path,
+        item,
+      };
+    });
+  }, [data]);
 
   return (
     <List
@@ -81,7 +85,7 @@ const Collection = ({ data, theme }: Props) => {
               fontWeight="medium"
               color={theme.PRIMARY_FOREGROUND_COLOR}
               onPress={() => {
-                // TODO
+                navigateByPath(item);
               }}
             >
               {t('watchprogrammes')}
