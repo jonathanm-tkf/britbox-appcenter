@@ -326,6 +326,7 @@ const Detail = ({ theme }: Props) => {
       if (!isTablet()) {
         Orientation.lockToPortrait();
       }
+
       StatusBar.setHidden(false);
       immersiveModeOff();
     }

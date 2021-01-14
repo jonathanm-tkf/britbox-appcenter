@@ -102,6 +102,7 @@ const RootStackScreen = () => {
     if (!isTablet()) {
       Orientation.lockToPortrait();
     }
+
     const unsubscribe = NetInfo.addEventListener((state) => {
       if (!state.isConnected) {
         setLostConnection(true);
