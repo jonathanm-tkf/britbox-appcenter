@@ -11,6 +11,7 @@ function loadStories() {
   require('../src/components/Stories/Button.stories');
   require('../src/components/Stories/Card.stories');
   require('../src/components/Stories/Carousel.stories');
+  require('../src/components/Stories/Collection.stories');
   require('../src/components/Stories/Episode.stories');
   require('../src/components/Stories/ErrorLanding.stories');
   require('../src/components/Stories/ExploreMenu.stories');
@@ -36,6 +37,7 @@ const stories = [
   '../src/components/Stories/Button.stories',
   '../src/components/Stories/Card.stories',
   '../src/components/Stories/Carousel.stories',
+  '../src/components/Stories/Collection.stories',
   '../src/components/Stories/Episode.stories',
   '../src/components/Stories/ErrorLanding.stories',
   '../src/components/Stories/ExploreMenu.stories',
