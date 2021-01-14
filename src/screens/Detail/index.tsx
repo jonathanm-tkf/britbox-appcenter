@@ -21,7 +21,7 @@ import { AppState } from '@store/modules/rootReducer';
 import { useSelector, useDispatch } from 'react-redux';
 import { refreshTokenSuccess, watchlistToggleRequest } from '@store/modules/user/actions';
 import { castDetail as castDetailAction, castDetailClear } from '@store/modules/core/actions';
-import { checkIsInWatchingList } from '@src/services/watchlist';
+// import { checkIsInWatchingList } from '@src/services/watchlist';
 import {
   autoPlayOff,
   autoPlayOn,

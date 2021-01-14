@@ -102,7 +102,6 @@ const Outstanding = ({ items, onPlay, onWatchlist, onDiscoverMore }: Props) => {
       orientation: parsedOrientation,
       size: getDimensions(),
     });
-
   }, []);
 
   useEffect((): (() => void) => {

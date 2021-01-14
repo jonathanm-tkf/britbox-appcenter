@@ -127,13 +127,13 @@ const Search = ({ theme }: Props) => {
     if (!searchString) setSearchInput('');
 
     const timer = setTimeout(() => {
-      if (searchInput.length >= 3) {
+      if (searchInput.length >= 2) {
         setIsDone(false);
         doSearch(false);
       }
     }, 500);
 
-    if (searchInput.length < 3) {
+    if (searchInput.length < 2) {
       setIsDone(false);
       setNoResults(false);
       setSearchingItemData([]);
