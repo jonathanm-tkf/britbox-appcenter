@@ -67,7 +67,7 @@ const VideoPlayer = () => {
   const webview = useMemo(() => {
     let { width: screenWidth, height: screenHeight } = Dimensions.get('window');
 
-    if (orientation === 'LANDSCAPE') {
+    if (orientation === 'LANDSCAPE' && Platform.OS === 'android') {
       const tempWidth = screenWidth;
       screenWidth = screenHeight;
       screenHeight = tempWidth;
