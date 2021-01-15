@@ -1,7 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useState, useEffect, useRef, useCallback } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { NativeScrollEvent, NativeSyntheticEvent, ScrollView, Platform } from 'react-native';
-import Orientation, { OrientationType } from 'react-native-orientation-locker';
 import { useNavigation, useRoute, RouteProp } from '@react-navigation/native';
 import Header from '@components/Header';
 import { AppState } from '@store/modules/rootReducer';
