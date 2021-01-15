@@ -22,6 +22,7 @@ import { pickBy, shuffle } from 'lodash';
 import { getSystemVersion } from 'react-native-device-info';
 import { Config } from '@src/utils/config';
 import { DetailState } from '@store/modules/detail/types';
+import { MassiveSDKModelNextPlaybackItem } from '@src/sdks/Britbox.API.Account.TS/api';
 import { getUserId } from './analytics';
 
 const getSegment = () => {
@@ -230,7 +231,15 @@ export const CastVideo = async (
   }
 };
 
-export const getVideoIdAndClassification = async (item: MassiveSDKModelEpisodesItem) => {
+export const getVideoIdAndClassification = async (
+  item: MassiveSDKModelEpisodesItem
+): Promise<
+  | {
+      item: MassiveSDKModelEpisodesItem;
+    }
+  | MassiveSDKModelNextPlaybackItem
+  | undefined
+> => {
   if (item.type === 'episode' || item.type === 'program' || item.type === 'movie') {
     return { item };
   }

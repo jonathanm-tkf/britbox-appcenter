@@ -941,6 +941,7 @@
 			baseConfigurationReference = CB65A24A254326B594A9EE8A /* Pods-Britbox.debugstaging.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon${BUNDLE_ID_SUFFIX}";
+				BITMOVIN_KEY = "2ab6b979-f679-4c7d-8a18-b455e6e6992b";
 				BUNDLE_ID_SUFFIX = .staging;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Britbox/Britbox.entitlements;
@@ -982,6 +983,7 @@
 			baseConfigurationReference = 381A59B6FD544FCD767F64DC /* Pods-Britbox.releasestaging.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon${BUNDLE_ID_SUFFIX}";
+				BITMOVIN_KEY = "2ab6b979-f679-4c7d-8a18-b455e6e6992b";
 				BUNDLE_ID_SUFFIX = .staging;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Britbox/Britbox.entitlements;
@@ -1303,6 +1305,7 @@
 			baseConfigurationReference = 9D54C1E0942E4F57070F785C /* Pods-Britbox.debugproduction.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon${BUNDLE_ID_SUFFIX}";
+				BITMOVIN_KEY = "37bf7581-f96e-4c92-9f9b-31297e8a9507";
 				BUNDLE_ID_SUFFIX = "";
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Britbox/Britbox.entitlements;
@@ -1476,6 +1479,7 @@
 			baseConfigurationReference = A47B77909C0EA03E68783B0B /* Pods-Britbox.releaseproduction.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon${BUNDLE_ID_SUFFIX}";
+				BITMOVIN_KEY = "37bf7581-f96e-4c92-9f9b-31297e8a9507";
 				BUNDLE_ID_SUFFIX = "";
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Britbox/Britbox.entitlements;
@@ -1642,6 +1646,7 @@
 			baseConfigurationReference = BB6B56C664A7F69EDC0CFB65 /* Pods-Britbox.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon${BUNDLE_ID_SUFFIX}";
+				BITMOVIN_KEY = "2ab6b979-f679-4c7d-8a18-b455e6e6992b";
 				BUNDLE_ID_SUFFIX = .staging;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Britbox/Britbox.entitlements;
@@ -1815,6 +1820,7 @@
 			baseConfigurationReference = C788742A6CE49AE4C701AE17 /* Pods-Britbox.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon${BUNDLE_ID_SUFFIX}";
+				BITMOVIN_KEY = "2ab6b979-f679-4c7d-8a18-b455e6e6992b";
 				BUNDLE_ID_SUFFIX = .staging;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Britbox/Britbox.entitlements;

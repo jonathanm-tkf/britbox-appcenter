@@ -1,79 +1,100 @@
 /* eslint-disable max-len */
 /* eslint-disable no-console */
 /* eslint-disable no-unused-vars */
-import React, { useMemo, useEffect, useState, useCallback } from 'react';
-import { Modal, Dimensions, ActivityIndicator, View, InteractionManager } from 'react-native';
+import React, { useMemo, useEffect, useState } from 'react';
+import { Modal, Dimensions, View } from 'react-native';
 import { HomeIndicator } from 'react-native-home-indicator';
 
 import ReactNativeBitmovinPlayer from '@takeoffmedia/react-native-bitmovin-player';
-import { useFocusEffect } from '@react-navigation/native';
+import { RouteProp, useRoute } from '@react-navigation/native';
 import { navigationGoBack } from '@src/navigation/rootNavigation';
-import { SafeArea, Loading, ErrorWrapper, ErrorText } from './styles-ios';
+import Action from '@components/Action';
+import { PlayVideo } from '@src/services/Video';
+import { MassiveSDKModelItemSummary } from '@src/sdks/Britbox.API.Content.TS/api';
+import { ErrorCode, VideoResponse } from '@src/services/Video/types';
+import { useTranslation } from 'react-i18next';
+import { BackIcon } from '@assets/icons';
+import { Config } from '@src/utils/config';
+import { SafeArea, Loading, ErrorWrapper, ErrorText, Back } from './styles-ios';
 
 const { width, height } = Dimensions.get('screen');
 
-interface Props {
-  modalVisible: boolean;
-}
+type RootParamList = {
+  VideoPlayer: {
+    item: MassiveSDKModelItemSummary;
+    isTrailer: boolean;
+    pcToken?: string;
+    currentTime: number;
+  };
+};
 
-const VideoPlayerNative = ({ modalVisible }: Props) => {
-  const [error] = useState(false);
-  const [errorMessage] = useState('');
-  const [loading, setLoading] = useState(true);
-  const [isVisible, setIsVisible] = useState(true);
+type VideoPlayerScreenRouteProp = RouteProp<RootParamList, 'VideoPlayer'>;
+
+const VideoPlayerNative = () => {
+  const { t } = useTranslation('layout');
+  const [videoData, setVideoData] = useState<VideoResponse>();
+  const [error, setError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<ErrorCode>();
+  const [loading, setLoading] = useState(false);
   const getHeight = useMemo(() => (width > height ? height : width), [height, width]);
-  useEffect(() => {
-    if (modalVisible) {
-      (async function asyncPlayVideo() {
-        setLoading(true);
-      })();
-    }
-  }, [modalVisible]);
+  const { params } = useRoute<VideoPlayerScreenRouteProp>();
 
-  useFocusEffect(
-    useCallback(() => {
-      const task = InteractionManager.runAfterInteractions(() => {
-        // Expensive task
-        setIsVisible(true);
-      });
-      return () => task.cancel();
-    }, [])
-  );
+  useEffect(() => {
+    (async function asyncPlayVideo() {
+      setLoading(true);
+      await PlayVideo({
+        ...params,
+      })
+        .then((response) => {
+          const { video } = response;
+          setVideoData({ ...video });
+          console.log({ video });
+          setError(false);
+          setErrorMessage(undefined);
+          setLoading(false);
+        })
+        .catch((e: ErrorCode) => {
+          console.tron.log({ e });
+          setErrorMessage(e);
+          setError(true);
+          setLoading(false);
+        });
+    })();
+  }, [params]);
 
   return (
     <View>
       {/* <HomeIndicator autoHidden /> */}
-      <Modal
-        // supportedOrientations={['landscape']}
-        animationType="fade"
-        visible
-        onShow={() => {
-          setTimeout(() => {
-            setLoading(false);
-          }, 1000);
-        }}
-      >
+      <Modal supportedOrientations={['landscape']} animationType="fade" visible>
         <SafeArea>
           {loading ? (
             <Loading>
-              <ActivityIndicator color="#FFF" size="large" />
+              <Action width={88} height={88} loading animated loop autoPlay />
             </Loading>
           ) : error ? (
             <ErrorWrapper>
-              <ErrorText>{errorMessage}</ErrorText>
+              <Back onPress={() => navigationGoBack()}>
+                <BackIcon width={22} height={22} />
+              </Back>
+              <ErrorText>{t('videoNotAvailable')}</ErrorText>
+              <ErrorText>{t('videoNotAvailableSecond')}</ErrorText>
+              <ErrorText>
+                {t('errorMessage')} {errorMessage?.errorCode}
+              </ErrorText>
+              {Config.ENVIRONMENT === 'STAGING' && (
+                <ErrorText>
+                  {t('dev')} {errorMessage?.devMessage}
+                </ErrorText>
+              )}
             </ErrorWrapper>
           ) : (
             <ReactNativeBitmovinPlayer
               autoPlay
               configuration={{
-                url:
-                  'https://vod-hls-ntham-comm-live.bbccomm.s.llnwi.net/usp/auth/vod/piff_abr_full_hd/7458d3-p0891fst/vf_p0891fst_322d55b5-72d8-43df-b8cb-6a34c09ff15e.ism/mobile_wifi_main_sd_abr_v2_hls_master.m3u8?s=1610096553&e=1610139753&h=723b57abe76bf1e40ad0ae78a77d4829',
-                poster:
-                  "https://stag.bbc-massive.com/isl/api/v1/dataservice/ResizeImage/$value?Format='jpg'&Quality=80&ImageId='205884'&EntityType='Item'&EntityId='23000'&Width=480&Height=269&device=web_browser&subscriptions=Anonymous&segmentationTags=US&imageType=wallpaper",
-                subtitles:
-                  'https://bitdash-a.akamaihd.net/content/sintel/subtitles/subtitles_en.vtt',
-                thumbnails:
-                  'https://staging-api.britbox.takeoffmedia.com/v1/thumbnail?qs=P19fZ2RhX189MTYxMDEzOTc1M19hMTkxMTc2NmZiZjkxMWQ2ODE0ODI2NWI3OWFmYmY5Mg==&fn=L3RodW1ibmFpbF92MS82YTBiMTYtcGlwcy1waWQtcDA4OTFmc3QvdmZfcGlwcy1waWQtcDA4OTFmc3RfdGh1bWJuYWlsX21hbmlmZXN0X2E2ZmMxNjNiLWIxNjctNDNkOS1iZjBkLWFjOWZkNTJlNjJkMC54bWw=&ch=vod-thumb-ntham-comm-live.akamaized.net',
+                url: videoData?.mediaUrl || '',
+                poster: videoData?.imageUrl || '',
+                subtitles: videoData?.customData?.subtitles,
+                thumbnails: videoData?.customData?.thumbnails,
               }}
               onLoad={() => {
                 console.tron.log({ event: 'load' });
@@ -89,10 +110,6 @@ const VideoPlayerNative = ({ modalVisible }: Props) => {
                 if (nativeEvent.message === 'closePlayer') {
                   navigationGoBack();
                 }
-              }}
-              style={{
-                flex: 0,
-                // height: getHeight,
               }}
             />
           )}

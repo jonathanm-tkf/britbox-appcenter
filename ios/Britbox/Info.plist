@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>BitmovinPlayerLicenseKey</key>
-	<string>9c99b27d-f418-402f-a6c8-f222a4ad829d</string>
+	<string>$(BITMOVIN_KEY)</string>
 	<key>BitmovinPlayerCss</key>
 	<string>http://localhost:9000/css/bitmovinplayer-ui.css</string>
 	<key>BitmovinPlayerJs</key>

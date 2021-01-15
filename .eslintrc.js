@@ -63,6 +63,7 @@ module.exports = {
         devDependencies: ['.storybook/**', '**/stories/**', '**/*.stories.tsx'],
       },
     ],
+    'prefer-promise-reject-errors': 0,
   },
   settings: {
     'import/resolver': {
