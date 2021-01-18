@@ -84,8 +84,8 @@ const Outstanding = ({ items, onPlay, onWatchlist, onDiscoverMore }: Props) => {
     return {
       width:
         Platform.OS === 'android' && screenData.orientation === 'LANDSCAPE'
-          ? screenData.size.height
-          : screenData.size.width,
+          ? screenData.size.width
+          : screenData.size.height,
       height: screenData.size.width / 3,
     };
   }, [screenData]);
@@ -107,6 +107,7 @@ const Outstanding = ({ items, onPlay, onWatchlist, onDiscoverMore }: Props) => {
 
   useEffect((): (() => void) => {
     if (isTablet()) {
+      Orientation.getDeviceOrientation(onOrientationDidChange);
       Orientation.addDeviceOrientationListener(onOrientationDidChange);
 
       return () => {
@@ -141,10 +142,7 @@ const Outstanding = ({ items, onPlay, onWatchlist, onDiscoverMore }: Props) => {
       <SwiperFlatList
         index={0}
         style={{
-          width:
-            Platform.OS === 'android' && screenData.orientation === 'LANDSCAPE'
-              ? screenData.size.height
-              : screenData.size.width,
+          width: stylesAspectRatio.width,
           height: isTablet() ? undefined : screenData.size.width + ACTIONS_HEIGHT,
         }}
         onChangeIndex={({ index }: { index: number }) => setActiveIndex(index)}
