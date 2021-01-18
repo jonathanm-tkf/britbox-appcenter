@@ -12706,7 +12706,7 @@ react-native-android-immersive-mode@^1.3.0:
   resolved "https://registry.yarnpkg.com/react-native-android-immersive-mode/-/react-native-android-immersive-mode-1.3.0.tgz#09ea88b6407724deec3e6532f76aee704b930741"
   integrity sha512-ADKzigTK+xfr31LIw5iIro/4Yp/h+9gawndO1RUcXGqp94OhctP3XzRjVvGUTbZl7DDxBpfTgRrJPt1ZXZ3fGQ==
 
-react-native-animatable@^1.3.3:
+react-native-animatable@1.3.3, react-native-animatable@^1.3.3:
   version "1.3.3"
   resolved "https://registry.yarnpkg.com/react-native-animatable/-/react-native-animatable-1.3.3.tgz#a13a4af8258e3bb14d0a9d839917e9bb9274ec8a"
   integrity sha512-2ckIxZQAsvWn25Ho+DK3d1mXIgj7tITkrS4pYDvx96WyOttSvzzFeQnM2od0+FUMzILbdHDsDEqZvnz1DYNQ1w==
@@ -12860,6 +12860,14 @@ react-native-linear-gradient@^2.5.6:
   resolved "git+https://github.com/javarahulsharma/react-native-material-textfield.git#e04f9d9c185ee5bdda2190e62ecbfab007f882e2"
   dependencies:
     prop-types "^15.5.9"
+
+react-native-modal@^11.6.1:
+  version "11.6.1"
+  resolved "https://registry.yarnpkg.com/react-native-modal/-/react-native-modal-11.6.1.tgz#6162a39731860fb3b6e8304059f72dc0a961f9fd"
+  integrity sha512-Xsd79nuBvbLOYwpRuur4btwJFQ3WkV9zp5LbAREidUtjl/Ajlp4QbNBx888FOPjo+EpOO3+U0riCRqs1dkdIzQ==
+  dependencies:
+    prop-types "^15.6.2"
+    react-native-animatable "1.3.3"
 
 react-native-orientation-locker@^1.2.0:
   version "1.2.0"

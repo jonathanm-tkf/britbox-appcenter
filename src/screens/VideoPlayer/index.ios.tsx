@@ -1,10 +1,8 @@
 /* eslint-disable max-len */
 /* eslint-disable no-console */
 /* eslint-disable no-unused-vars */
-import React, { useMemo, useEffect, useState } from 'react';
-import { Modal, Dimensions, View } from 'react-native';
-import { HomeIndicator } from 'react-native-home-indicator';
-
+import React, { useEffect, useState } from 'react';
+import Modal from 'react-native-modal';
 import ReactNativeBitmovinPlayer from '@takeoffmedia/react-native-bitmovin-player';
 import { RouteProp, useRoute } from '@react-navigation/native';
 import { navigationGoBack } from '@src/navigation/rootNavigation';
@@ -15,9 +13,11 @@ import { ErrorCode, VideoResponse } from '@src/services/Video/types';
 import { useTranslation } from 'react-i18next';
 import { BackIcon } from '@assets/icons';
 import { Config } from '@src/utils/config';
+import ScreenOrientation, { UNLOCK } from 'react-native-orientation-locker/ScreenOrientation';
+import Orientation from 'react-native-orientation-locker';
+import { delay } from 'lodash';
+import { isTablet } from 'react-native-device-info';
 import { SafeArea, Loading, ErrorWrapper, ErrorText, Back } from './styles-ios';
-
-const { width, height } = Dimensions.get('screen');
 
 type RootParamList = {
   VideoPlayer: {
@@ -30,13 +30,16 @@ type RootParamList = {
 
 type VideoPlayerScreenRouteProp = RouteProp<RootParamList, 'VideoPlayer'>;
 
+const modalStyles = { marginHorizontal: 0, marginVertical: 0 };
+
 const VideoPlayerNative = () => {
   const { t } = useTranslation('layout');
   const [videoData, setVideoData] = useState<VideoResponse>();
   const [error, setError] = useState(false);
+  const [modalIsVisible, setModalIsVisible] = useState(true);
+  const [supportedOrientations] = useState<'landscape'[]>(isTablet() ? [] : ['landscape']);
   const [errorMessage, setErrorMessage] = useState<ErrorCode>();
   const [loading, setLoading] = useState(false);
-  const getHeight = useMemo(() => (width > height ? height : width), [height, width]);
   const { params } = useRoute<VideoPlayerScreenRouteProp>();
 
   useEffect(() => {
@@ -63,9 +66,25 @@ const VideoPlayerNative = () => {
   }, [params]);
 
   return (
-    <View>
-      {/* <HomeIndicator autoHidden /> */}
-      <Modal supportedOrientations={['landscape']} animationType="fade" visible>
+    <>
+      <ScreenOrientation orientation={UNLOCK} />
+      <Modal
+        style={modalStyles}
+        useNativeDriver
+        supportedOrientations={supportedOrientations}
+        animationIn="fadeIn"
+        animationInTiming={500}
+        animationOut="fadeOut"
+        animationOutTiming={50}
+        backdropOpacity={1}
+        isVisible={modalIsVisible}
+        onModalHide={() => {
+          delay(() => {
+            Orientation.lockToPortrait();
+            navigationGoBack();
+          }, 150);
+        }}
+      >
         <SafeArea>
           {loading ? (
             <Loading>
@@ -73,7 +92,7 @@ const VideoPlayerNative = () => {
             </Loading>
           ) : error ? (
             <ErrorWrapper>
-              <Back onPress={() => navigationGoBack()}>
+              <Back onPress={() => setModalIsVisible(false)}>
                 <BackIcon width={22} height={22} />
               </Back>
               <ErrorText>{t('videoNotAvailable')}</ErrorText>
@@ -106,16 +125,15 @@ const VideoPlayerNative = () => {
                 console.tron.log({ event: 'pause' });
               }}
               onEvent={({ nativeEvent }) => {
-                console.tron.log({ time: new Date() });
                 if (nativeEvent.message === 'closePlayer') {
-                  navigationGoBack();
+                  setModalIsVisible(false);
                 }
               }}
             />
           )}
         </SafeArea>
       </Modal>
-    </View>
+    </>
   );
 };
 
