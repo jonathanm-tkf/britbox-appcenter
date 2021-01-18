@@ -83,7 +83,8 @@ const Outstanding = ({ items, onPlay, onWatchlist, onDiscoverMore }: Props) => {
   const stylesAspectRatio = useMemo(() => {
     return {
       width:
-        Platform.OS === 'android' && screenData.orientation === 'LANDSCAPE'
+        Platform.OS === 'ios' ||
+        (Platform.OS === 'android' && screenData.orientation === 'PORTRAIT')
           ? screenData.size.width
           : screenData.size.height,
       height: screenData.size.width / 3,
