@@ -41,6 +41,9 @@ type Episode = {
   contextualTitle?: string;
 };
 
+let prevNumColumns = 0;
+let changes = 0;
+
 const Grid = ({
   data,
   element,
@@ -56,31 +59,44 @@ const Grid = ({
   filter,
   theme,
 }: Props) => {
-  const getImageResult = useCallback((item: MassiveSDKModelItemList) => {
-    if (Array.isArray(imageType)) {
-      let find = false;
-      let result = 'no-image';
+  const getImageResult = useCallback(
+    (item: MassiveSDKModelItemList) => {
+      if (Array.isArray(imageType)) {
+        let find = false;
+        let result = 'no-image';
 
-      imageType.forEach((image: string) => {
-        if (!find) {
-          const imageResult = getImage(
-            imageType && item?.images ? item?.images[image] : '',
-            image || 'poster'
-          );
+        imageType.forEach((image: string) => {
+          if (!find) {
+            const imageResult = getImage(
+              imageType && item?.images ? item?.images[image] : '',
+              image || 'poster'
+            );
 
-          if (imageResult !== 'no-image') {
-            find = true;
-            result = imageResult;
+            if (imageResult !== 'no-image') {
+              find = true;
+              result = imageResult;
+            }
           }
-        }
-      });
-      return result;
+        });
+
+        return result;
+      }
+
+      return getImage(
+        imageType && item?.images ? item?.images[imageType] : item?.images?.poster || '',
+        imageType || 'poster'
+      );
+    },
+    [imageType]
+  );
+
+  const flatListKey = useCallback(() => {
+    if (numColumns !== prevNumColumns) {
+      prevNumColumns = numColumns;
+      changes += 1;
     }
-    return getImage(
-      imageType && item?.images ? item?.images[imageType] : item?.images?.poster || '',
-      imageType || 'poster'
-    );
-  }, []);
+    return `key-${changes}`;
+  }, [numColumns]);
 
   return (
     <>
@@ -106,11 +122,12 @@ const Grid = ({
       )}
       <Container style={containerStyles}>
         <FlatList
+          key={flatListKey()}
           data={data}
           scrollEnabled={false}
           listKey={Math.random().toString()}
           numColumns={numColumns}
-          keyExtractor={(_, index) => index.toString()}
+          keyExtractor={(_, index) => flatListKey() + index.toString()}
           style={listStyles}
           renderItem={({ item }) => {
             return isEpisode ? (

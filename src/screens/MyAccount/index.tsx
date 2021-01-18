@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState, forwardRef, useImperativeHandle, useRef } from 'react';
-import { Linking, Keyboard, KeyboardAvoidingView, Platform } from 'react-native';
+import { Linking, Keyboard, KeyboardAvoidingView, Platform, View } from 'react-native';
 import {
   updateProfileRequest,
   resetPasswordRequest,
@@ -737,7 +737,13 @@ export default function MyAccount() {
       getActiveSubscription();
     }, []);
 
-    const suscribeStyle = { paddingLeft: 65, paddingRight: 65, marginBottom: 30, marginTop: 20 };
+    const suscribeStyle = {
+      paddingLeft: 65,
+      paddingRight: 65,
+      marginBottom: 30,
+      marginTop: 20,
+      alignItems: 'center',
+    };
 
     return (
       <>

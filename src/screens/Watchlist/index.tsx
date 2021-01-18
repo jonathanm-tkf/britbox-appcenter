@@ -1,6 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState, useCallback } from 'react';
-
 import { getStatusBarHeight } from 'react-native-iphone-x-helper';
 import { Platform, View, TouchableOpacity, ScrollView } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
@@ -9,6 +8,7 @@ import Header from '@components/Header';
 import { sheetComponent, showSheetBottom } from '@store/modules/layout/actions';
 import { useTranslation } from 'react-i18next';
 import { percentageWidth } from '@src/utils/dimension';
+import { useColumns } from '@src/utils/columns';
 import Grid from '@screens/Shared/Grid';
 import { CloseIcon } from '@assets/icons';
 import { Button } from '@components/Button';
@@ -85,13 +85,17 @@ const Watchlist = () => {
   const [orderBy, setOrderBy] = useState('date-added');
   const { filter } = params || {};
   const menu = useSelector((state: AppState) => state.core.menu?.navigation?.header); // TODO: get data from properties
+  const [numOfColums, elementWidth, elementHeight] = useColumns(
+    18.75,
+    Platform.OS === 'ios' ? 16 : 28.5
+  );
 
   const [list, setList] = useState<MassiveSDKModelItemSummary[]>([]);
 
-  const getProfile = useCallback(async () => {
+  const getProfile = async () => {
     const { response } = await profile(token, segment);
-    return response?.bookmarkList?.items || [];
-  }, []);
+    setList(response?.bookmarkList?.items || []);
+  };
 
   useEffect(() => {
     const dataDummy = {
@@ -104,11 +108,7 @@ const Watchlist = () => {
 
     setList(dataDummy.items);
 
-    if (!filter) {
-      getProfile().then((response) => {
-        setList(response);
-      });
-    }
+    getProfile();
   }, []);
 
   useEffect(() => {
@@ -173,14 +173,11 @@ const Watchlist = () => {
   };
 
   const getGridTitle = useCallback(() => {
-    switch (filter?.value) {
-      case 'movie':
-        return `${list.length} ${list.length === 1 ? t('movie') : t('movies')}`;
-      case 'show':
-        return `${list.length} ${list.length === 1 ? t('show') : t('shows')}`;
-      default:
-        return `${list.length} ${list.length === 1 ? t('program') : t('programmes')}`;
+    if (filter?.value === 'movie') {
+      return `${list.length} ${list.length === 1 ? t('movie') : t('movies')}`;
     }
+
+    return `${list.length} ${list.length === 1 ? t('program') : t('programmes')}`;
   }, [list, filter]);
 
   const renderContent = () => {
@@ -248,10 +245,10 @@ const Watchlist = () => {
           <Grid
             items={list}
             title={getGridTitle()}
-            numColumns={isTablet() ? 4 : 3}
+            numColumns={numOfColums}
             element={{
-              width: percentageWidth(isTablet() ? 25 : 33.333) - (isTablet() ? 10 : 20),
-              height: percentageWidth((isTablet() ? 25 : 33.333) * 1.25),
+              width: percentageWidth(elementWidth),
+              height: percentageWidth(elementHeight),
               marginBottom: 20,
               marginHorizontal: isTablet() ? 3 : 5,
             }}

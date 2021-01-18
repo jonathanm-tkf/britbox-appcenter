@@ -68,28 +68,46 @@ export const LogoWrapper = styled.View`
   flex: 1;
 `;
 
+type PaginationWrapperProps = {
+  tabletLandscape: boolean;
+};
+
 export const PaginationWrapper = styled.View`
-  align-self: center;
-  margin-top: ${isTablet() ? -20 : 10}px;
+  ${(props: PaginationWrapperProps) =>
+    props.tabletLandscape
+      ? `
+        position: absolute;
+        right: 30px;
+        bottom: 250px;
+      `
+      : `
+        align-self: center;
+        margin-top: 10px;
+      `}
 `;
 
 export const PaginationOutside = styled.View`
   width: 100%;
 `;
 
-export const PaginationContent = styled.View`
+interface PaginationContentProps extends ThemeState {
+  visible: boolean;
+}
+
+export const PaginationContent = styled.View<PaginationContentProps>`
   background-color: ${(props: ThemeState) => props.theme.PRIMARY_FOREGROUND_COLOR};
-  margin-left: 16px;
-  margin-right: 16px;
-  height: 1px;
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 4px;
+  ${(props: PaginationContentProps) =>
+    props.visible &&
+    `
+      width: 10px;
+      height: 1px;
+    `}
+  align-self: center;
 `;
 
 type PaginationDotType = {
   active: boolean;
+  tabletLandscape: boolean;
 };
 
 export const PaginationDot = styled.View`
@@ -97,22 +115,36 @@ export const PaginationDot = styled.View`
   width: 10px;
   height: 10px;
   border-radius: 5px;
-  margin-left: 8px;
-  margin-right: 8px;
+  shadow-color: #000;
+  shadow-opacity: 0.5;
+  shadow-radius: 2px;
+  elevation: 2;
   border-color: ${(props: ThemeState) => props.theme.PRIMARY_FOREGROUND_COLOR};
 
   ${(props: PaginationDotType & ThemeState) => {
-    return props.active
+    return props.tabletLandscape && props.active
       ? `
-      background-color: ${props.theme.PRIMARY_FOREGROUND_COLOR};
-    `
+        background-color: ${props.theme.PRIMARY_FOREGROUND_COLOR};
+      `
+      : props.tabletLandscape
+      ? `
+        background-color: transparent;
+      `
+      : props.active
+      ? `
+        background-color: ${props.theme.PRIMARY_FOREGROUND_COLOR};
+      `
       : `
-      background-color: ${props.theme.PRIMARY_COLOR};
-    `;
+        background-color: ${props.theme.PRIMARY_COLOR};
+      `;
   }};
 `;
 
 export const PaginationDotsWrapper = styled.View`
+  flex-direction: row;
+`;
+
+export const PaginationButtonWrapper = styled.View`
   flex-direction: row;
 `;
 
@@ -134,6 +166,10 @@ export const DiscoverMoreText = styled.Text`
 export const Image = styled.Image`
   width: 100%;
   height: 100%;
+`;
+
+export const TTImage = styled.Image`
+  position: absolute;
 `;
 
 export const ImageWrapper = styled.View``;

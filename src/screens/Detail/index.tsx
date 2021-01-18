@@ -21,7 +21,7 @@ import { AppState } from '@store/modules/rootReducer';
 import { useSelector, useDispatch } from 'react-redux';
 import { refreshTokenSuccess, watchlistToggleRequest } from '@store/modules/user/actions';
 import { castDetail as castDetailAction, castDetailClear } from '@store/modules/core/actions';
-import { checkIsInWatchingList } from '@src/services/watchlist';
+// import { checkIsInWatchingList } from '@src/services/watchlist';
 import {
   autoPlayOff,
   autoPlayOn,
@@ -50,14 +50,13 @@ import Action from '@components/Action';
 import { refreshTokenWithExpiresIn } from '@src/services/token';
 import { immersiveModeOff } from 'react-native-android-immersive-mode';
 import { isTablet } from 'react-native-device-info';
-// import { HomeIndicator } from 'react-native-home-indicator';
+import { HomeIndicator } from 'react-native-home-indicator';
 import { castVideo } from '@store/modules/chromecast/actions';
 import { getDimensions } from '@src/utils/dimension';
 import { withTheme } from 'styled-components';
 import { ThemeProps } from '@store/modules/theme/types';
 import ErrorNotFound from '@components/ErrorNotFound';
 import Orientation from 'react-native-orientation-locker';
-
 import {
   Container,
   Scroll,
@@ -324,7 +323,10 @@ const Detail = ({ theme }: Props) => {
 
   useEffect(() => {
     if (isFocus) {
-      Orientation.lockToPortrait();
+      if (!isTablet()) {
+        Orientation.lockToPortrait();
+      }
+
       StatusBar.setHidden(false);
       immersiveModeOff();
     }
@@ -553,7 +555,7 @@ const Detail = ({ theme }: Props) => {
   return (
     // paddingBottom={isShowMiniController ? 152 : 64}
     <Container style={{ width }}>
-      {/* <HomeIndicator autoHidden={false} /> */}
+      <HomeIndicator autoHidden={false} />
       <TopWrapper>
         <Button onPress={() => back()}>
           <BackIcon width={20} height={20} />

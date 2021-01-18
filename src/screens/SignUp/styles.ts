@@ -1,8 +1,17 @@
 import styled from 'styled-components/native';
+import { isTablet } from 'react-native-device-info';
 import { ThemeState } from '@store/modules/theme/types';
 import LinearGradient from 'react-native-linear-gradient';
+import { getTabletScreenWidth } from '@src/utils/dimension';
 import { RadioCheckedIcon, RadioUnCheckedIcon } from '@assets/icons';
 import { normalize } from '@src/utils/normalize';
+
+const tabletCenterStyle =
+  isTablet() &&
+  `
+    width: ${getTabletScreenWidth()}px;
+    align-self: center;
+  `;
 
 export const Container = styled.View`
   flex: 1;
@@ -11,6 +20,7 @@ export const Container = styled.View`
   border-bottom-width: 1px;
   border-color: ${(props: ThemeState) => props.theme.PRIMARY_COLOR_OPAQUE};
   background-color: ${(props: ThemeState) => props.theme.PRIMARY_COLOR};
+  ${tabletCenterStyle}
 `;
 
 export const ErrorText = styled.Text`
@@ -98,6 +108,7 @@ export const Gradient = styled(LinearGradient).attrs({
 export const GradientWrapper = styled.View`
   padding-top: 20px;
   padding-bottom: 40px;
+  ${tabletCenterStyle}
 `;
 
 export const RadioCheckedIconView = styled(RadioCheckedIcon).attrs({
@@ -117,6 +128,7 @@ export const SeparatorWrapper = styled.View`
   padding-bottom: 25px;
   padding-left: 20px;
   padding-right: 20px;
+  ${tabletCenterStyle}
 `;
 
 export const LoginTitle = styled.Text`

@@ -5,17 +5,10 @@ import LinearGradient from 'react-native-linear-gradient';
 import { getBottomSpace } from 'react-native-iphone-x-helper';
 import { normalize } from '@src/utils/normalize';
 import { isTablet } from 'react-native-device-info';
+import { getTabletScreenWidth } from '@src/utils/dimension';
 
 export const Container = styled.View`
   flex: 1;
-`;
-
-export const SceneContainer = styled.View`
-  flex: 1;
-  padding-top: 10px;
-  padding-bottom: 30px;
-  padding-left: 20px;
-  padding-right: 20px;
 `;
 
 export const ScrollableContainer = styled.ScrollView.attrs({
@@ -37,14 +30,15 @@ export const ErrorText = styled.Text`
 `;
 
 export const ScrollContent = styled.View`
-  flex: 1;
   padding: 10px 0 30px;
 `;
 
 export const ScrollableContainerPaddingHorizontal = styled.View`
-  flex: 1;
   padding-left: 20px;
   padding-right: 20px;
+  width: ${isTablet() ? `${getTabletScreenWidth()}px` : '100%'};
+  margin-left: auto;
+  margin-right: auto;
 `;
 
 export const SwitchContainer = styled(Switch).attrs({
@@ -80,8 +74,6 @@ export const Gradient = styled(LinearGradient).attrs({
   colors: ['#202634', '#171B23'],
 })`
   padding-bottom: ${getBottomSpace() + 74}px;
-  margin-left: -20px;
-  margin-right: -20px;
 `;
 
 interface WrapperProps {

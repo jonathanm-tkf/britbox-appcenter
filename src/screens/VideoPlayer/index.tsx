@@ -8,6 +8,7 @@ import {
   NativeEventEmitter,
   Platform,
   InteractionManager,
+  Dimensions,
 } from 'react-native';
 import { useNavigation, RouteProp, useRoute, useFocusEffect } from '@react-navigation/native';
 import { AppState } from '@store/modules/rootReducer';
@@ -26,13 +27,12 @@ import GoogleCast, { CastButton } from 'react-native-google-cast';
 import { continueWatchingRequest } from '@store/modules/user/actions';
 import { Config } from '@src/utils/config';
 import { HomeIndicator } from 'react-native-home-indicator';
-import { getDimensions } from '@src/utils/dimension';
+import { useOrientation } from '@src/utils/orientation';
 import { Dismissal, Pause, Play, VideoStart } from '@screens/Shared/Cast/services';
 import { pickBy } from 'lodash';
 import Action from '@components/Action';
 import { BackIcon } from '@assets/icons';
 import Orientation from 'react-native-orientation-locker';
-
 import {
   BackButton,
   ChromecastWrapper,
@@ -40,8 +40,6 @@ import {
   LoadingWrapper,
   SafeArea,
 } from './styles';
-
-const { width, height } = getDimensions();
 
 type RootParamList = {
   VideoPlayer: {
@@ -65,15 +63,22 @@ const VideoPlayer = () => {
   const { goBack } = useNavigation();
   const { params } = useRoute<VideoPlayerScreenRouteProp>();
   const [isLoading, setIsLoading] = useState(true);
-  const webview = useMemo(
-    () => ({
+  const orientation = useOrientation();
+  const webview = useMemo(() => {
+    let { width: screenWidth, height: screenHeight } = Dimensions.get('window');
+
+    if (orientation === 'LANDSCAPE' && Platform.OS === 'android') {
+      const tempWidth = screenWidth;
+      screenWidth = screenHeight;
+      screenHeight = tempWidth;
+    }
+
+    return {
       backgroundColor: 'transparent',
-      flex: 1,
-      width: height,
-      height: width,
-    }),
-    [width, height]
-  );
+      width: screenWidth,
+      height: screenHeight,
+    };
+  }, [orientation]);
 
   useEffect(() => {
     if (Platform.OS === 'android') {
@@ -147,7 +152,10 @@ const VideoPlayer = () => {
   };
 
   const handleBackButtonClick = useCallback(() => {
-    Orientation.lockToPortrait();
+    if (!isTablet()) {
+      Orientation.lockToPortrait();
+    }
+
     StatusBar.setHidden(false);
     immersiveModeOff();
     backArrow();
@@ -179,14 +187,19 @@ const VideoPlayer = () => {
     useCallback(() => {
       const task = InteractionManager.runAfterInteractions(() => {
         // Expensive task
-        Orientation.lockToLandscape();
+        if (!isTablet()) {
+          Orientation.lockToLandscape();
+        }
       });
       return () => task.cancel();
     }, [])
   );
 
   const backArrow = useCallback(() => {
-    Orientation.lockToPortrait();
+    if (!isTablet()) {
+      Orientation.lockToPortrait();
+    }
+
     immersiveModeOff();
     StatusBar.setHidden(false);
     dispatch(continueWatchingRequest());

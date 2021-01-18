@@ -84,7 +84,11 @@ const Hole = ({ theme }: Props) => {
     }).start();
   };
 
-  return introChromecast && isLogged && (castDevice || forceChromecast) ? (
+  return introChromecast &&
+    isLogged &&
+    (castDevice || forceChromecast) &&
+    castPosition.x !== 0 &&
+    castPosition.y !== 0 ? (
     <Animated.View
       style={[
         styles.animate,

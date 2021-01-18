@@ -1,18 +1,18 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback, SetStateAction } from 'react';
+import { useSelector } from 'react-redux';
+import { AppState } from '@store/modules/rootReducer';
 import { Header } from '@store/modules/core/types';
-import { TouchableOpacity } from 'react-native';
-import { HelpIcon } from '@assets/icons';
-import { ThemeProps } from '@store/modules/theme/types';
-import { withTheme } from 'styled-components';
+import { useOrientation } from '@src/utils/orientation';
+import ScreenHeader from '@components/Header';
+import { isTablet } from 'react-native-device-info';
 import {
   Container,
   TabHeader,
   TabHeaderItem,
   TabHeaderItemText,
   TabHeaderItemIndicator,
+  LinksWrapper,
   TabContent,
-  HeaderWrapper,
-  HeaderBottom,
   TabButton,
   TabButtonText,
 } from './styles';
@@ -20,14 +20,15 @@ import {
 interface Props {
   data: Header[];
   onPress: (item: Header) => void;
-  readonly theme: ThemeProps;
 }
 
-const ExploreMenu = ({ data, onPress, theme }: Props) => {
-  const [active, setActive] = useState('');
+const headerStyles = {};
 
-  const [dataHeader, setDataHeader]: any = useState([]);
-  const [dataMenu, setDataMenu]: any = useState([]);
+const ExploreMenu = ({ data, onPress }: Props) => {
+  const menu = useSelector((state: AppState) => state.core.menu?.navigation?.header); // TODO: get data from properties
+  const [active, setActive] = useState('');
+  const [dataMenu, setDataMenu] = useState([]);
+  const orientation = useOrientation();
 
   const changeTab = (key: string) => {
     setActive(key);
@@ -40,63 +41,71 @@ const ExploreMenu = ({ data, onPress, theme }: Props) => {
       const { label } = [...elements].shift() || {};
       setActive(label || '');
     }
-    setDataMenu(elements);
-
-    const filterDataHeader = data.filter((item) => item.label !== 'Explore');
-
-    if (filterDataHeader.length > 0) {
-      setDataHeader(filterDataHeader);
-    }
+    setDataMenu(elements as SetStateAction<never[]>);
   }, [data]);
+
+  const getMenuItems = useCallback(() => {
+    if (menu && menu.length > 0) {
+      const items = menu
+        .filter((item) => item.label !== 'Explore' && item.label !== 'Help')
+        .map((item, index) => {
+          return {
+            id: index.toString(),
+            text: item.label,
+            goTo: item?.path || '',
+          };
+        });
+      return items;
+    }
+
+    return [];
+  }, [menu]);
 
   return (
     <Container>
-      <HeaderWrapper>
-        {dataHeader.map((item: Header, index: number) => {
-          if (item.label === 'Help') {
-            return (
-              <TouchableOpacity key={`${index.toString()}_header`} onPress={() => onPress(item)}>
-                <HelpIcon width={30} height={30} />
-              </TouchableOpacity>
-            );
-          }
-          return (
-            <HeaderBottom
-              key={`${index.toString()}_header`}
-              link
-              onPress={() => onPress(item)}
-              color={theme.PRIMARY_FOREGROUND_COLOR}
-              size="big"
-            >
-              {item.label}
-            </HeaderBottom>
-          );
-        })}
-      </HeaderWrapper>
+      <ScreenHeader style={headerStyles} menuItems={getMenuItems()} />
       <TabHeader>
-        {dataMenu.map((item: Header, index: number) => (
+        {dataMenu.map((headerItem: Header, headerIndex: number) => (
           <TabHeaderItem
-            key={item.label.toString() + index.toString()}
-            onPress={() => changeTab(item.label)}
+            key={headerItem.label.toString() + headerIndex.toString()}
+            active={active === headerItem.label}
+            center={!isTablet() || (orientation === 'LANDSCAPE' && headerIndex === 0)}
+            addPadding={isTablet() && (orientation === 'LANDSCAPE' || headerIndex === 0)}
+            onPress={() => changeTab(headerItem.label)}
+            disabled={isTablet()}
           >
-            {active === item.label && <TabHeaderItemIndicator />}
-            <TabHeaderItemText active={active === item.label}>{item.label}</TabHeaderItemText>
+            {!isTablet() && active === headerItem.label && <TabHeaderItemIndicator />}
+            <TabHeaderItemText
+              active={!isTablet() && active === headerItem.label}
+              paddingLeft={
+                isTablet() && orientation === 'LANDSCAPE' && headerIndex === 0 ? '10%' : undefined
+              }
+            >
+              {headerItem.label}
+            </TabHeaderItemText>
           </TabHeaderItem>
         ))}
       </TabHeader>
-      {dataMenu.map((item: Header) => (
-        <TabContent key={item.label.toString()} active={active === item.label}>
-          {(item.children || []).map((link, index) => {
-            return (
-              <TabButton key={`${item.label}_${index.toString()}`} onPress={() => onPress(link)}>
+      <LinksWrapper>
+        {dataMenu.map((headerItem: Header) => (
+          <TabContent
+            key={headerItem.label.toString()}
+            active={isTablet() || active === headerItem.label}
+            bigScreen={isTablet()}
+          >
+            {(headerItem.children || []).map((link, headerIndex) => (
+              <TabButton
+                key={`${headerItem.label}_${headerIndex.toString()}`}
+                onPress={() => onPress(link as Header)}
+              >
                 <TabButtonText>{link.label}</TabButtonText>
               </TabButton>
-            );
-          })}
-        </TabContent>
-      ))}
+            ))}
+          </TabContent>
+        ))}
+      </LinksWrapper>
     </Container>
   );
 };
 
-export default withTheme(ExploreMenu);
+export default ExploreMenu;

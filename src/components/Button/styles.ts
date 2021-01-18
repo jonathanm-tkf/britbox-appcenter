@@ -1,4 +1,5 @@
 import styled from 'styled-components/native';
+import { isTablet } from 'react-native-device-info';
 import { ThemeState } from '@store/modules/theme/types';
 import { normalize } from '@src/utils/normalize';
 import { ButtonProps, ButtonTextProps } from './props';
@@ -64,6 +65,17 @@ export const Button = styled.TouchableOpacity.attrs({
     `
     );
   }};
+
+  ${(props: ButtonTextProps & ThemeState) => {
+    return (
+      props.size === 'big' &&
+      isTablet() &&
+      `
+        width: 300px;
+        align-self: center;
+      `
+    );
+  }}
 `;
 
 export const ButtonText = styled.Text`

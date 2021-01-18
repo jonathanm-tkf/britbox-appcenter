@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react';
-import { FlatList, TouchableOpacity, ActivityIndicator } from 'react-native';
+import { FlatList, TouchableOpacity, ActivityIndicator, Platform } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import Highlighter from 'react-native-highlight-words';
 import { SearchIcon, SearchDeleteIcon } from '@assets/icons';
@@ -15,6 +15,7 @@ import Grid from '@screens/Shared/Grid';
 import { percentageWidth } from '@src/utils/dimension';
 import { isTablet } from 'react-native-device-info';
 import { getTextInConfigJSON } from '@src/utils/object';
+import { useColumns } from '@src/utils/columns';
 import { analyticsRef } from '@src/utils/analytics';
 import { withTheme } from 'styled-components';
 import { ThemeProps } from '@store/modules/theme/types';
@@ -61,6 +62,10 @@ const Search = ({ theme }: Props) => {
   const [isDone, setIsDone] = useState(false);
   const [noResults, setNoResults] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [numOfColums, elementWidth, elementHeight] = useColumns(
+    18,
+    Platform.OS === 'ios' ? 16 : 28
+  );
   const [searchingItemData, setSearchingItemData] = useState<MassiveSDKModelItemList[] | undefined>(
     undefined
   );
@@ -116,23 +121,19 @@ const Search = ({ theme }: Props) => {
   };
 
   const suggestionLinks = getTextInConfigJSON(['search-links'], '');
-  const noSearchResulsts = getTextInConfigJSON(
-    ['search-no-resulsts'],
-    t('search-no-resulsts', { returnObjects: true })
-  );
 
   useEffect(() => {
     const searchString = searchInput?.trim();
     if (!searchString) setSearchInput('');
 
     const timer = setTimeout(() => {
-      if (searchInput.length >= 2) {
+      if (searchInput.length >= 3) {
         setIsDone(false);
         doSearch(false);
       }
     }, 500);
 
-    if (searchInput.length < 2) {
+    if (searchInput.length < 3) {
       setIsDone(false);
       setNoResults(false);
       setSearchingItemData([]);
@@ -299,11 +300,10 @@ const Search = ({ theme }: Props) => {
         <ResultGrid>
           {noResults ? (
             <NoResultWrapper>
-              {noSearchResulsts.map((message: { text: string; bold: boolean }) => (
-                <NoResultText key={message.text}>
-                  {message.bold ? <NoResultBold>{message.text}</NoResultBold> : message.text}
-                </NoResultText>
-              ))}
+              <NoResultText>
+                <NoResultBold>{t('noResults.bold')}</NoResultBold>
+                {t('noResults.text')}
+              </NoResultText>
             </NoResultWrapper>
           ) : (
             <SuggestionWrapper>
@@ -324,10 +324,10 @@ const Search = ({ theme }: Props) => {
           <Grid
             items={search?.items || []}
             title={search?.title || ''}
-            numColumns={isTablet() ? 4 : 3}
+            numColumns={numOfColums}
             element={{
-              width: percentageWidth(isTablet() ? 25 : 33.333) - (isTablet() ? 10 : 20),
-              height: percentageWidth((isTablet() ? 25 : 33.333) * 1.25),
+              width: percentageWidth(elementWidth),
+              height: percentageWidth(elementHeight),
               marginBottom: 20,
               marginHorizontal: isTablet() ? 3 : 5,
             }}

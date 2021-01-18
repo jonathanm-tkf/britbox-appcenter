@@ -1,14 +1,12 @@
 import styled from 'styled-components/native';
 import { ThemeState } from '@store/modules/theme/types';
-import { Button } from '@components/Button';
-import { rgba } from 'polished';
 import { normalize } from '@src/utils/normalize';
 import { getBottomSpace, getStatusBarHeight } from 'react-native-iphone-x-helper';
 import { Platform } from 'react-native';
 
 export const Container = styled.View`
   width: 100%;
-  padding: ${Platform.OS === 'ios' ? getStatusBarHeight() + 10 : 0}px 20px
+  padding: ${Platform.OS === 'ios' ? getStatusBarHeight() + 10 : 0}px 0px
     ${Platform.OS === 'ios' ? getBottomSpace() + 10 : 0}px;
   flex: 1;
 `;
@@ -19,15 +17,23 @@ export const TabHeader = styled.View`
   width: 100%;
 `;
 
-export const TabHeaderItem = styled.TouchableOpacity`
-  flex: 1;
+type TabHeaderItemProps = {
+  active: boolean;
+  center: boolean;
+  addPadding: boolean;
+};
+
+export const TabHeaderItem = styled.TouchableOpacity<TabHeaderItemProps>`
+  width: 50%;
   flex-direction: row;
   align-items: center;
-  justify-content: center;
+  ${(props: TabHeaderItemProps) => props.addPadding && `padding-left: 6%;`}
+  ${(props: TabHeaderItemProps) => props.center && `justify-content: center;`}
 `;
 
 interface ItemText {
   active: boolean;
+  paddingLeft?: string;
 }
 
 export const TabHeaderItemText = styled.Text`
@@ -35,6 +41,7 @@ export const TabHeaderItemText = styled.Text`
   font-family: ${(props: ThemeState) => props.theme.PRIMARY_FONT_FAMILY_MEDIUM};
   font-size: ${normalize(18, 24)}px;
   line-height: ${normalize(32, 64)}px;
+  ${(props: ItemText) => props.paddingLeft && `padding-right: ${props.paddingLeft};`}
   ${(props: ItemText & ThemeState) => {
     return props.active
       ? `opacity: 1;`
@@ -45,21 +52,6 @@ export const TabHeaderItemText = styled.Text`
   }};
 `;
 
-export const HeaderWrapper = styled.View`
-  padding-top: 35px;
-  padding-bottom: 35px;
-  flex-direction: row;
-  border-bottom-width: 1px;
-  align-items: center;
-  justify-content: space-around;
-  border-bottom-color: ${(props: ThemeState) => rgba(props.theme.PRIMARY_COLOR_OPAQUE, 0.5)};
-`;
-
-export const HeaderBottom = styled(Button)`
-  font-size: ${normalize(12, 24)}px;
-  line-height: ${normalize(24, 38)}px;
-`;
-
 export const TabHeaderItemIndicator = styled.View`
   width: 8px;
   height: 8px;
@@ -68,14 +60,22 @@ export const TabHeaderItemIndicator = styled.View`
   margin-right: 10px;
 `;
 
+export const LinksWrapper = styled.View`
+  flex: 1;
+  flex-direction: row;
+  justify-content: center;
+`;
+
 type TabContentProps = {
   active: boolean;
+  bigScreen?: boolean;
 };
 
 export const TabContent = styled.View<TabContentProps>`
-  flex-direction: column;
   margin-top: 15px;
-  align-items: center;
+  ${(props: TabContentProps) => {
+    return props.bigScreen ? 'padding-horizontal: 10%;' : 'align-items: center;';
+  }}
   ${(props: TabContentProps) => {
     return (
       !props.active &&

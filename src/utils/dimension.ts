@@ -1,3 +1,4 @@
+import { isTablet } from 'react-native-device-info';
 import {
   widthPercentageToDP as wp2dp,
   heightPercentageToDP as hp2dp,
@@ -30,7 +31,7 @@ export const getDimensions = () => {
   let width = originalWidth;
   let height = originalHeight;
 
-  if (width > height) {
+  if (width > height && !isTablet()) {
     width = originalHeight;
     height = originalWidth;
   }
@@ -45,4 +46,20 @@ export const percentageWidth = (percentage: number) => {
   const { width } = getDimensions();
   const value = (percentage / 100) * width;
   return Math.round(value);
+};
+
+export const percentageHeight = (percentage: number) => {
+  const { height } = getDimensions();
+  const value = (percentage / 100) * height;
+  return Math.round(value);
+};
+
+/**
+ * Tablet-Screen-Width
+ * A few screens have the exact same width on tablets
+ * @returns {number} 90% of the screen width
+ */
+export const getTabletScreenWidth = (): number => {
+  const { width: screenWidth, height: screenHeight } = getDimensions();
+  return Math.min(screenWidth, screenHeight) * 0.9;
 };

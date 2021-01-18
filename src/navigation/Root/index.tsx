@@ -1,10 +1,8 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { useDispatch, useSelector } from 'react-redux';
-import { getBuildNumber } from 'react-native-device-info';
+import { getBuildNumber, isTablet } from 'react-native-device-info';
 import { AppState } from '@store/modules/rootReducer';
 import Storybook from '@screens/Storybook';
 import { rgba } from 'polished';
@@ -99,7 +97,10 @@ const RootStackScreen = () => {
   }, [britboxConfig]);
 
   useEffect(() => {
-    Orientation.lockToPortrait();
+    if (!isTablet()) {
+      Orientation.lockToPortrait();
+    }
+
     const unsubscribe = NetInfo.addEventListener((state) => {
       if (!state.isConnected) {
         setLostConnection(true);

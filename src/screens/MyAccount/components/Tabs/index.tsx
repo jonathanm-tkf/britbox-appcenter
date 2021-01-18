@@ -1,13 +1,13 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect, useRef } from 'react';
-import { StyleSheet, View, Animated, Keyboard } from 'react-native';
+import { StyleSheet, View, Animated, Keyboard, FlexAlignType } from 'react-native';
 import { TabView } from 'react-native-tab-view';
 import HeaderCustom from '@components/HeaderCustom';
 import { useTranslation } from 'react-i18next';
 import { useNavigation, CommonActions } from '@react-navigation/native';
-
 import { isTablet } from 'react-native-device-info';
 import { getDimensions } from '@src/utils/dimension';
+import { rgba } from 'polished';
 import {
   TitleWrapper,
   Title,
@@ -48,6 +48,8 @@ const TabScene = ({
   const contentContainerStyle = {
     paddingTop: HeaderHeight + TabBarHeight,
     minHeight: windowHeight - TabBarHeight,
+    width: '100%',
+    alignSelf: (isTablet() ? 'center' : 'flex-start') as FlexAlignType,
   };
 
   return (
@@ -91,6 +93,12 @@ interface Props {
   subscriptionSelected: boolean;
   onTabChanged: (index: number) => void;
 }
+
+const headerWrapperStyle = {
+  position: 'absolute' as 'absolute' | 'relative',
+  width: '100%',
+  zIndex: 3,
+};
 
 const Tabs = ({ routes, subscriptionSelected, onTabChanged }: Props) => {
   const [tabIndex, setIndex] = useState(0);
@@ -259,9 +267,14 @@ const Tabs = ({ routes, subscriptionSelected, onTabChanged }: Props) => {
     const tabBarWrapperStyle = {
       top: 0,
       zIndex: 1,
-      position: 'absolute',
+      position: 'absolute' as 'absolute' | 'relative',
       transform: [{ translateY: y }],
       width: '100%',
+      alignItems: (isTablet() ? 'center' : 'flex-start') as FlexAlignType,
+      alignSelf: (isTablet() ? 'center' : 'flex-start') as FlexAlignType,
+      backgroundColor: '#171b23',
+      borderBottomWidth: 1,
+      borderColor: rgba('#FFFFFF', 0.1),
     };
 
     return (
@@ -304,7 +317,7 @@ const Tabs = ({ routes, subscriptionSelected, onTabChanged }: Props) => {
 
   return (
     <SafeAreaView>
-      <View style={{ position: 'absolute', width: '100%', zIndex: 3 }}>
+      <View style={headerWrapperStyle}>
         <HeaderCustom
           isBack
           shadow
@@ -319,8 +332,8 @@ const Tabs = ({ routes, subscriptionSelected, onTabChanged }: Props) => {
         />
       </View>
       <View style={{ flex: 1, marginTop: 75 }}>
-        {renderTabView()}
         {renderHeader()}
+        {renderTabView()}
       </View>
     </SafeAreaView>
   );
@@ -333,6 +346,7 @@ const styles = StyleSheet.create({
     width: '100%',
     alignItems: 'center',
     justifyContent: 'center',
+    alignSelf: 'center',
     position: 'absolute',
     backgroundColor: '#171b23',
     zIndex: 2,
