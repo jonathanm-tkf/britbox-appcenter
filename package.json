@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "android": "react-native run-android",
+    "android:build": "react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle",
     "ios": "react-native run-ios",
     "apple-tv": "react-native run-ios  --simulator 'Apple TV' --scheme 'Britbox-tvOS'",
     "start": "react-native start",
