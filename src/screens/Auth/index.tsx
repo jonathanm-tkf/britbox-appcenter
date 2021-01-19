@@ -1,16 +1,17 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import { useSelector } from 'react-redux';
 import Header from '@components/Header';
 import { isTablet } from 'react-native-device-info';
 import Carousel from 'react-native-snap-carousel';
-import { StyleSheet, SafeAreaView } from 'react-native';
+import Orientation, { OrientationType } from 'react-native-orientation-locker';
+import { Platform, StyleSheet, SafeAreaView } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { AppState } from '@store/modules/rootReducer';
 import { useIsFocused } from '@react-navigation/native';
 import { navigate } from '@src/navigation/rootNavigation';
 import { getTextInConfigJSON } from '@src/utils/object';
-import { getDimensions } from '@src/utils/dimension';
 import { analyticsRef } from '@src/utils/analytics';
+import { getDimensions } from '@src/utils/dimension';
 import {
   Button,
   Pagination,
@@ -37,7 +38,51 @@ const Auth = () => {
   const { loading } = useSelector((state: AppState) => state.layout);
   const [sliderRef, setSliderRef] = useState(null);
   const [slider1ActiveSlide, setSlider1ActiveSlide] = useState(0);
-  const [screenData] = useState(getDimensions());
+
+  // FIXME: Try to replace this logic with useOrientation
+  const [screenData, setScreenData] = useState({
+    orientation: getDimensions().height >= getDimensions().width ? 'PORTRAIT' : 'LANDSCAPE',
+    size: getDimensions(),
+  });
+
+  const carouselItemSize = useMemo(() => {
+    return {
+      width:
+        Platform.OS === 'ios' ||
+        (Platform.OS === 'android' && screenData.orientation === 'PORTRAIT')
+          ? screenData.size.width
+          : screenData.size.height,
+      height: screenData.size.width,
+    };
+  }, [screenData]);
+
+  const onOrientationDidChange = useCallback((newOrientation: OrientationType) => {
+    let parsedOrientation;
+
+    if (newOrientation === 'LANDSCAPE-LEFT' || newOrientation === 'LANDSCAPE-RIGHT') {
+      parsedOrientation = Platform.OS === 'ios' ? 'LANDSCAPE' : 'PORTRAIT';
+    } else {
+      parsedOrientation = Platform.OS === 'ios' ? 'PORTRAIT' : 'LANDSCAPE';
+    }
+
+    setScreenData({
+      orientation: parsedOrientation,
+      size: getDimensions(),
+    });
+  }, []);
+
+  useEffect((): (() => void) => {
+    if (isTablet()) {
+      Orientation.getDeviceOrientation(onOrientationDidChange);
+      Orientation.addDeviceOrientationListener(onOrientationDidChange);
+
+      return () => {
+        Orientation.removeDeviceOrientationListener(onOrientationDidChange);
+      };
+    }
+
+    return () => {};
+  }, [onOrientationDidChange]);
 
   const { t } = useTranslation('auth');
 
@@ -150,8 +195,8 @@ const Auth = () => {
           ref={(c: any) => setSliderRef(c)}
           data={ENTRIES}
           renderItem={renderItemWithParallax}
-          sliderWidth={screenData.width}
-          itemWidth={screenData.width}
+          sliderWidth={carouselItemSize.width}
+          itemWidth={carouselItemSize.width}
           hasParallaxImages
           firstItem={0}
           inactiveSlideScale={1}
