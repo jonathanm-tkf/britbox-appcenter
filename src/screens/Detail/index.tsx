@@ -56,7 +56,7 @@ import { getDimensions } from '@src/utils/dimension';
 import { withTheme } from 'styled-components';
 import { ThemeProps } from '@store/modules/theme/types';
 import ErrorNotFound from '@components/ErrorNotFound';
-import Orientation from 'react-native-orientation-locker';
+import Orientation, { OrientationType } from 'react-native-orientation-locker';
 import {
   Container,
   Scroll,
@@ -129,7 +129,7 @@ const getProgress = (id: string, watched: any) => {
   return 0;
 };
 
-const { width } = getDimensions();
+const innerContentPadding = Math.max(getDimensions().width, getDimensions().height) / 6;
 
 type Props = {
   readonly theme: ThemeProps;
@@ -544,17 +544,62 @@ const Detail = ({ theme }: Props) => {
       : '';
   }, [data]);
 
-  const dimensions = useMemo(
-    () => ({
-      width: isTablet() ? 512 : 185,
-      height: 275,
-    }),
-    []
-  );
+  // FIXME: Try to replace this logic with useOrientation
+  const [screenData, setScreenData] = useState({
+    orientation: getDimensions().height >= getDimensions().width ? 'PORTRAIT' : 'LANDSCAPE',
+    size: getDimensions(),
+  });
+
+  const dimensions = useMemo(() => {
+    const width =
+      screenData.orientation === 'PORTRAIT'
+        ? Math.min(screenData.size.width, screenData.size.height) * 0.8
+        : Math.max(screenData.size.width, screenData.size.height) * 0.5;
+
+    return {
+      width,
+      height: width * 0.5625,
+    };
+  }, [screenData]);
+
+  const onOrientationDidChange = useCallback((newOrientation: OrientationType) => {
+    let parsedOrientation;
+
+    if (newOrientation === 'LANDSCAPE-LEFT' || newOrientation === 'LANDSCAPE-RIGHT') {
+      parsedOrientation = Platform.OS === 'ios' ? 'LANDSCAPE' : 'PORTRAIT';
+    } else {
+      parsedOrientation = Platform.OS === 'ios' ? 'PORTRAIT' : 'LANDSCAPE';
+    }
+
+    setScreenData({
+      orientation: parsedOrientation,
+      size: getDimensions(),
+    });
+  }, []);
+
+  useEffect((): (() => void) => {
+    if (isTablet()) {
+      Orientation.getDeviceOrientation(onOrientationDidChange);
+      Orientation.addDeviceOrientationListener(onOrientationDidChange);
+
+      return () => {
+        Orientation.removeDeviceOrientationListener(onOrientationDidChange);
+      };
+    }
+
+    return () => {};
+  }, [onOrientationDidChange]);
 
   return (
     // paddingBottom={isShowMiniController ? 152 : 64}
-    <Container style={{ width }}>
+    <Container
+      style={{
+        width:
+          Platform.OS === 'ios' || screenData.orientation === 'PORTRAIT'
+            ? screenData.size.width
+            : screenData.size.height,
+      }}
+    >
       <HomeIndicator autoHidden={false} />
       <TopWrapper>
         <Button onPress={() => back()}>
@@ -577,7 +622,11 @@ const Detail = ({ theme }: Props) => {
         <Poster>
           <NewCard url={getPosterImage} width={dimensions.width} height={dimensions.height} />
         </Poster>
-        <InnerContent>
+        <InnerContent
+          horizontalPadding={
+            isTablet() && screenData.orientation === 'LANDSCAPE' ? innerContentPadding : 20
+          }
+        >
           <Actions
             {...{ data }}
             id={data?.detail?.relatedId || '0'}

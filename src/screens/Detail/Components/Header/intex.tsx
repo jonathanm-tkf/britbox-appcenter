@@ -1,7 +1,10 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useEffect, useState, memo } from 'react';
-import { Animated } from 'react-native';
+import React, { useEffect, useState, useCallback } from 'react';
+import { Platform, Animated } from 'react-native';
+import Orientation, { OrientationType } from 'react-native-orientation-locker';
+import { isTablet } from 'react-native-device-info';
 import { getImage } from '@src/utils/images';
+import { getDimensions } from '@src/utils/dimension';
 import { LoadDetailPageResponse } from '@store/modules/detail/types';
 import { Container, HeaderBackgroundImage, ImageTop } from './styles';
 
@@ -31,9 +34,54 @@ const Header = ({ data }: Props) => {
     }).start();
   }, []);
 
+  // FIXME: Try to replace this logic with useOrientation
+  const [dimensions, setDimensions] = useState({
+    orientation: getDimensions().height >= getDimensions().width ? 'PORTRAIT' : 'LANDSCAPE',
+    width: getDimensions().width,
+    height: getDimensions().height,
+  });
+
+  const onOrientationDidChange = useCallback((newOrientation: OrientationType) => {
+    let parsedOrientation;
+
+    if (newOrientation === 'LANDSCAPE-LEFT' || newOrientation === 'LANDSCAPE-RIGHT') {
+      parsedOrientation = Platform.OS === 'ios' ? 'LANDSCAPE' : 'PORTRAIT';
+    } else {
+      parsedOrientation = Platform.OS === 'ios' ? 'PORTRAIT' : 'LANDSCAPE';
+    }
+
+    const screenDimensions = getDimensions();
+    const width =
+      parsedOrientation === 'PORTRAIT'
+        ? Math.min(screenDimensions.width, screenDimensions.height)
+        : Math.max(screenDimensions.width, screenDimensions.height);
+
+    setDimensions({
+      orientation: parsedOrientation,
+      width,
+      height: width * (parsedOrientation === 'PORTRAIT' ? 0.4 : 0.25),
+    });
+  }, []);
+
+  useEffect((): (() => void) => {
+    if (isTablet()) {
+      Orientation.getDeviceOrientation(onOrientationDidChange);
+      Orientation.addDeviceOrientationListener(onOrientationDidChange);
+
+      return () => {
+        Orientation.removeDeviceOrientationListener(onOrientationDidChange);
+      };
+    }
+
+    return () => {};
+  }, [onOrientationDidChange]);
+
   return (
-    <Container>
-      <HeaderBackgroundImage>
+    <Container paddingBottom={isTablet() ? 40 : 0}>
+      <HeaderBackgroundImage
+        width={isTablet() ? dimensions.width : 300}
+        height={isTablet() ? dimensions.height : 300}
+      >
         <Animated.View
           style={{
             opacity: animatedOpacityBackground.interpolate({
@@ -43,10 +91,19 @@ const Header = ({ data }: Props) => {
           }}
         >
           {(() => {
-            const image = getImage(data?.detail.images.wallpaper, 'wallpaper', 10, 300, 300);
+            const image = getImage(
+              data?.detail.images.wallpaper,
+              'wallpaper',
+              isTablet() ? 30 : 10,
+              isTablet() ? dimensions.width : 300,
+              isTablet() ? dimensions.height : 300
+            );
+
             return image !== 'no-image' ? (
               <ImageTop
                 source={{ uri: image }}
+                width={dimensions.width}
+                height={dimensions.height}
                 resizeMode="cover"
                 onLoadEnd={() => setLoaded(true)}
               />
@@ -58,4 +115,4 @@ const Header = ({ data }: Props) => {
   );
 };
 
-export default memo(Header);
+export default Header;
