@@ -58,5 +58,11 @@
   "errorMessage": "ERROR CODE:",
   "dev": "Development message:",
   "videoNotAvailable": "This content is not currently available on this device.",
-  "videoNotAvailableSecond": "Please try again later."
+  "videoNotAvailableSecond": "Please try again later.",
+  "video": {
+    "title": "Next Episode starts in...",
+    "button": {
+      "text": "Next Episode"
+    }
+  }
 }

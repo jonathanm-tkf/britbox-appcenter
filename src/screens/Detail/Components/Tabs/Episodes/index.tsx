@@ -14,6 +14,11 @@ import { LayoutChangeEvent } from 'react-native';
 import Episode from '@components/Episode';
 import { Container, ContainerFilter, SeasonButton, SeasonText, InformationButton } from './styles';
 
+type MassiveSDKModelEpisodesItemCustom = MassiveSDKModelEpisodesItem & {
+  season: {
+    seasonNumber: number;
+  };
+};
 interface Props {
   onLayout?: (event: LayoutChangeEvent) => void;
   data: MassiveSDKModelEpisodesItem[];
@@ -21,7 +26,7 @@ interface Props {
   moreInformation: MoreInformation | undefined;
   onScrollTo: (y: number) => void;
   autoPlay: boolean;
-  onPlay: (item?: MassiveSDKModelEpisodesItem) => void;
+  onPlay: (item?: MassiveSDKModelEpisodesItemCustom) => void;
   seriesData: LoadDetailPageResponse | undefined;
 }
 
@@ -170,7 +175,7 @@ const Episodes = ({
           width={dimensions.width}
           height={dimensions.height}
           url={getImage(item?.images?.wallpaper || 'loading', 'wallpaper')}
-          onPress={() => onPlay(item)}
+          onPress={() => onPlay({ ...item, season: { seasonNumber: show?.seasonNumber || 0 } })}
           data={{
             title:
               item?.episodeNumber && item?.episodeName

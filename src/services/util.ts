@@ -2,6 +2,7 @@ import { BritboxContentApi } from '@src/sdks';
 import {
   BritboxAPIContentModelsListsGetListResponse,
   MassiveSDKModelItemList,
+  MassiveSDKModelItemSummary,
 } from '@src/sdks/Britbox.API.Content.TS/api';
 import { getDevice } from '@src/utils';
 import { pickBy } from 'lodash';
@@ -73,4 +74,20 @@ export const getProgress = (id: string, watched: any): number => {
   }
 
   return 0;
+};
+
+export const getTitle = (videoInfo: MassiveSDKModelItemSummary) => {
+  let videoTitle = videoInfo?.contextualTitle || '';
+  if (videoInfo.type === 'episode') {
+    videoTitle = videoInfo?.episodeName || '';
+  }
+  return videoTitle;
+};
+
+export const getDescription = (videoInfo: MassiveSDKModelItemSummary) => {
+  let videoDescription = '';
+  if (videoInfo.type === 'episode') {
+    videoDescription = `S${videoInfo?.season?.seasonNumber} · E${videoInfo?.episodeNumber}`;
+  }
+  return videoDescription;
 };

@@ -20,7 +20,7 @@ import { isTablet } from 'react-native-device-info';
 import { continueWatchingRequest } from '@store/modules/user/actions';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppState } from '@store/modules/rootReducer';
-import { getProgress } from '@src/services/util';
+import { getDescription, getProgress, getTitle } from '@src/services/util';
 import { SafeArea, Loading, ErrorWrapper, ErrorText, Back } from './styles-ios';
 
 type RootParamList = {
@@ -40,6 +40,10 @@ const VideoPlayerNative = () => {
   const { t } = useTranslation('layout');
   const dispatch = useDispatch();
   const [videoData, setVideoData] = useState<VideoResponse>();
+  const [nextData, setnextData] = useState<{
+    item: MassiveSDKModelItemSummary | undefined;
+    currentTime: number;
+  }>();
   const [error, setError] = useState(false);
   const [modalIsVisible, setModalIsVisible] = useState(true);
   const [supportedOrientations] = useState<'landscape'[]>(isTablet() ? [] : ['landscape']);
@@ -120,25 +124,35 @@ const VideoPlayerNative = () => {
             <ReactNativeBitmovinPlayer
               autoPlay
               configuration={{
+                title: getTitle(params.item),
+                subtitle: getDescription(params.item),
                 url: videoData?.mediaUrl || '',
                 poster: videoData?.imageUrl || '',
                 subtitles: videoData?.customData?.subtitles,
                 thumbnails: videoData?.customData?.thumbnails,
                 startOffset: params.currentTime,
+                nextPlayback: 30,
               }}
               onLoad={() => {
                 console.tron.log({ event: 'load' });
-                // getNextItem(params.item?.id || '0').then((data) => {
-                //   console.tron.log({ data });
-
-                //   setTimeout(() => {
-                //     setParams({
-                //       item: data?.next || undefined,
-                //       currentTime: getProgress(data?.next?.id || '0', watched),
-                //     });
-                //     asyncPlayVideo({ item: data?.next || undefined });
-                //   }, 10000);
-                // });
+                getNextItem(params.item?.id || '0')
+                  .then((data) => {
+                    console.tron.log({ data });
+                    setnextData({
+                      item: data?.next || undefined,
+                      currentTime: getProgress(data?.next?.id || '0', watched),
+                    });
+                    //   setTimeout(() => {
+                    //     setParams({
+                    //       item: data?.next || undefined,
+                    //       currentTime: getProgress(data?.next?.id || '0', watched),
+                    //     });
+                    //     asyncPlayVideo({ item: data?.next || undefined });
+                    //   }, 10000);
+                  })
+                  .catch((e) => {
+                    console.log(e);
+                  });
               }}
               onPlaying={() => {
                 console.tron.log({ event: 'play' });
@@ -147,6 +161,8 @@ const VideoPlayerNative = () => {
                 console.tron.log({ event: 'pause' });
               }}
               onEvent={({ nativeEvent }) => {
+                console.tron.log({ event: nativeEvent });
+
                 if (nativeEvent.message === 'closePlayer') {
                   setModalIsVisible(false);
                 }

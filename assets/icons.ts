@@ -1,5 +1,6 @@
 export { default as HomeIcon } from './images/Home.svg';
 export { default as CloseIcon } from './images/Close.svg';
+export { default as CrossIcon } from './images/Cross.svg';
 export { default as ExploreIcon } from './images/Explore_mb.svg';
 export { default as SearchIcon } from './images/Search.svg';
 export { default as SearchDeleteIcon } from './images/SearchDelete.svg';
@@ -25,6 +26,7 @@ export { default as ChromecastIcon } from './images/Chromecast.svg';
 export { default as ChromecastPlay } from './images/ChromecastPlay.svg';
 export { default as ChromecastPause } from './images/ChromecastPause.svg';
 export { default as Play } from './images/Play.svg';
+export { default as PlayNowIcon } from './images/Play_now.svg';
 export { default as Loading } from './images/Loading.svg';
 export { default as Trailer } from './images/Trailer.svg';
 export { default as ContinueWatching } from './images/Continue_Watching.svg';

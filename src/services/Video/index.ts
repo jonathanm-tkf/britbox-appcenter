@@ -256,6 +256,7 @@ export const getNextItem = async (id: string) => {
 
   const response = await getNextPlaybackItem(id, {
     segments: [getSegment()],
+    expand: 'parent',
   });
   return response.externalResponse;
 };
