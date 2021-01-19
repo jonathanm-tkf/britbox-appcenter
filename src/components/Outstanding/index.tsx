@@ -83,11 +83,10 @@ const Outstanding = ({ items, onPlay, onWatchlist, onDiscoverMore }: Props) => {
   const stylesAspectRatio = useMemo(() => {
     return {
       width:
-        Platform.OS === 'ios' ||
-        (Platform.OS === 'android' && screenData.orientation === 'PORTRAIT')
+        Platform.OS === 'android' && screenData.orientation === 'LANDSCAPE'
           ? screenData.size.width
           : screenData.size.height,
-      height: isTablet() ? screenData.size.width / 3 : screenData.size.width,
+      height: screenData.size.width / 3,
     };
   }, [screenData]);
 
