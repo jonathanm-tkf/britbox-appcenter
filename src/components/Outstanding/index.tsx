@@ -87,7 +87,12 @@ const Outstanding = ({ items, onPlay, onWatchlist, onDiscoverMore }: Props) => {
         (Platform.OS === 'android' && screenData.orientation === 'PORTRAIT')
           ? screenData.size.width
           : screenData.size.height,
-      height: isTablet() ? screenData.size.width / 3 : screenData.size.width,
+      height:
+        isTablet() && screenData.orientation === 'LANDSCAPE'
+          ? Math.max(screenData.size.width, screenData.size.height) / 3
+          : isTablet() && screenData.orientation === 'PORTRAIT'
+          ? Math.min(screenData.size.width, screenData.size.height) / 3
+          : screenData.size.width,
     };
   }, [screenData]);
 
@@ -131,7 +136,7 @@ const Outstanding = ({ items, onPlay, onWatchlist, onDiscoverMore }: Props) => {
       return {
         width,
         height,
-        top: screenData.size.width / 6 - height / 2,
+        top: screenData.size.width / (screenData.orientation === 'LANDSCAPE' ? 3 : 6) - height / 2,
         left: screenData.orientation === 'LANDSCAPE' ? '8%' : 0,
       };
     },
@@ -139,12 +144,15 @@ const Outstanding = ({ items, onPlay, onWatchlist, onDiscoverMore }: Props) => {
   );
 
   return (
-    <Wrapper>
+    <Wrapper
+      style={{
+        height: stylesAspectRatio.height + ACTIONS_HEIGHT,
+      }}
+    >
       <SwiperFlatList
         index={0}
         style={{
           width: stylesAspectRatio.width,
-          height: isTablet() ? undefined : screenData.size.width + ACTIONS_HEIGHT,
         }}
         onChangeIndex={({ index }: { index: number }) => setActiveIndex(index)}
         disableVirtualization={false}
@@ -161,6 +169,16 @@ const Outstanding = ({ items, onPlay, onWatchlist, onDiscoverMore }: Props) => {
                 ) : (
                   <>
                     <Image
+                      width={
+                        isTablet() && screenData.orientation === 'LANDSCAPE'
+                          ? Math.max(screenData.size.width, screenData.size.height)
+                          : undefined
+                      }
+                      height={
+                        isTablet() && screenData.orientation === 'LANDSCAPE'
+                          ? Math.max(screenData.size.width, screenData.size.height) / 3
+                          : undefined
+                      }
                       source={{
                         uri: isTablet() ? item.images?.hero3x1 : item.url || '',
                       }}
@@ -175,7 +193,13 @@ const Outstanding = ({ items, onPlay, onWatchlist, onDiscoverMore }: Props) => {
                         resizeMode="contain"
                       />
                     )}
-                    <Gradient />
+                    <Gradient
+                      height={
+                        isTablet() && screenData.orientation === 'LANDSCAPE'
+                          ? Math.max(screenData.size.width, screenData.size.height) / 3
+                          : undefined
+                      }
+                    />
                   </>
                 )}
               </ImageWrapper>
