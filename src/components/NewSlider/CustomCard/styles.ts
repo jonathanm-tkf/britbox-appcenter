@@ -13,8 +13,8 @@ const IS_IOS = Platform.OS === 'ios';
 const { width: viewportWidth } = getDimensions();
 
 // Normal
-const slideHeight = isTablet() ? percentageWidth(33) : percentageWidth(52);
-const slideWidth = isTablet() ? percentageWidth(55) : percentageWidth(85);
+const slideHeight = isTablet() ? percentageWidth(40) : percentageWidth(52);
+const slideWidth = isTablet() ? percentageWidth(62) : percentageWidth(85);
 const itemHorizontalMargin = 0;
 
 export const sliderWidth = viewportWidth;
