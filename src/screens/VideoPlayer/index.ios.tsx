@@ -1,13 +1,13 @@
 /* eslint-disable max-len */
 /* eslint-disable no-console */
 /* eslint-disable no-unused-vars */
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import Modal from 'react-native-modal';
 import ReactNativeBitmovinPlayer from '@takeoffmedia/react-native-bitmovin-player';
-import { RouteProp, useRoute } from '@react-navigation/native';
+import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
 import { navigationGoBack } from '@src/navigation/rootNavigation';
 import Action from '@components/Action';
-import { PlayVideo } from '@src/services/Video';
+import { getNextItem, PlayVideo } from '@src/services/Video';
 import { MassiveSDKModelItemSummary } from '@src/sdks/Britbox.API.Content.TS/api';
 import { ErrorCode, VideoResponse } from '@src/services/Video/types';
 import { useTranslation } from 'react-i18next';
@@ -17,6 +17,10 @@ import ScreenOrientation, { UNLOCK } from 'react-native-orientation-locker/Scree
 import Orientation from 'react-native-orientation-locker';
 import { delay } from 'lodash';
 import { isTablet } from 'react-native-device-info';
+import { continueWatchingRequest } from '@store/modules/user/actions';
+import { useDispatch, useSelector } from 'react-redux';
+import { AppState } from '@store/modules/rootReducer';
+import { getProgress } from '@src/services/util';
 import { SafeArea, Loading, ErrorWrapper, ErrorText, Back } from './styles-ios';
 
 type RootParamList = {
@@ -34,35 +38,40 @@ const modalStyles = { marginHorizontal: 0, marginVertical: 0 };
 
 const VideoPlayerNative = () => {
   const { t } = useTranslation('layout');
+  const dispatch = useDispatch();
   const [videoData, setVideoData] = useState<VideoResponse>();
   const [error, setError] = useState(false);
   const [modalIsVisible, setModalIsVisible] = useState(true);
   const [supportedOrientations] = useState<'landscape'[]>(isTablet() ? [] : ['landscape']);
   const [errorMessage, setErrorMessage] = useState<ErrorCode>();
   const [loading, setLoading] = useState(false);
+  const { setParams } = useNavigation();
   const { params } = useRoute<VideoPlayerScreenRouteProp>();
+  const { watched } = useSelector((state: AppState) => state.detail);
+
+  const asyncPlayVideo = useCallback(async (dataParams) => {
+    setLoading(true);
+    await PlayVideo({
+      ...dataParams,
+    })
+      .then((response) => {
+        const { video } = response;
+        setVideoData({ ...video });
+        console.log({ video });
+        setError(false);
+        setErrorMessage(undefined);
+        setLoading(false);
+      })
+      .catch((e: ErrorCode) => {
+        console.tron.log({ e });
+        setErrorMessage(e);
+        setError(true);
+        setLoading(false);
+      });
+  }, []);
 
   useEffect(() => {
-    (async function asyncPlayVideo() {
-      setLoading(true);
-      await PlayVideo({
-        ...params,
-      })
-        .then((response) => {
-          const { video } = response;
-          setVideoData({ ...video });
-          console.log({ video });
-          setError(false);
-          setErrorMessage(undefined);
-          setLoading(false);
-        })
-        .catch((e: ErrorCode) => {
-          console.tron.log({ e });
-          setErrorMessage(e);
-          setError(true);
-          setLoading(false);
-        });
-    })();
+    asyncPlayVideo(params);
   }, [params]);
 
   return (
@@ -81,6 +90,7 @@ const VideoPlayerNative = () => {
         onModalHide={() => {
           delay(() => {
             Orientation.lockToPortrait();
+            dispatch(continueWatchingRequest());
             navigationGoBack();
           }, 150);
         }}
@@ -114,9 +124,21 @@ const VideoPlayerNative = () => {
                 poster: videoData?.imageUrl || '',
                 subtitles: videoData?.customData?.subtitles,
                 thumbnails: videoData?.customData?.thumbnails,
+                startOffset: params.currentTime,
               }}
               onLoad={() => {
                 console.tron.log({ event: 'load' });
+                // getNextItem(params.item?.id || '0').then((data) => {
+                //   console.tron.log({ data });
+
+                //   setTimeout(() => {
+                //     setParams({
+                //       item: data?.next || undefined,
+                //       currentTime: getProgress(data?.next?.id || '0', watched),
+                //     });
+                //     asyncPlayVideo({ item: data?.next || undefined });
+                //   }, 10000);
+                // });
               }}
               onPlaying={() => {
                 console.tron.log({ event: 'play' });

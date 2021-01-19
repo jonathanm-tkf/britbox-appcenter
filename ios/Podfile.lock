@@ -424,7 +424,7 @@ PODS:
     - libwebp (~> 1.0)
     - SDWebImage/Core (~> 5.7)
   - SSZipArchive (2.2.3)
-  - takeoffmedia-react-native-bitmovin-player (0.1.10):
+  - takeoffmedia-react-native-bitmovin-player (0.1.11):
     - BitmovinPlayer (= 2.57.1)
     - React-Core
   - toolbar-android (0.1.0-rc.2):
@@ -812,7 +812,7 @@ SPEC CHECKSUMS:
   SDWebImage: a990c053fff71e388a10f3357edb0be17929c9c5
   SDWebImageWebPCoder: d0dac55073088d24b2ac1b191a71a8f8d0adac21
   SSZipArchive: 62d4947b08730e4cda640473b0066d209ff033c9
-  takeoffmedia-react-native-bitmovin-player: 208e9d2d78c0e9a760bcceda9877ac377181b12b
+  takeoffmedia-react-native-bitmovin-player: 0e58a00866dcb27d823b889d92bbeb462c5b6e90
   toolbar-android: 85f3ef4d691469f2d304e7dee4bca013aa1ba1ff
   UMAppLoader: 92d044af52626af3d81a69796ad666fc7a9a7d78
   UMBarCodeScannerInterface: 3f6c1b09ef4b867ce752b8c0b3893bcf9cd85f32

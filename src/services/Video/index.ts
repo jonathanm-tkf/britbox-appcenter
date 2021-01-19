@@ -246,3 +246,16 @@ export const PlayVideo = async ({ item, pcToken }: PlayerVideoData) => {
     return Promise.reject(error);
   }
 };
+
+export const getNextItem = async (id: string) => {
+  const { getNextPlaybackItem } = BritboxAccountApi({
+    headers: {
+      Authorization: `Bearer ${getToken()}`,
+    },
+  });
+
+  const response = await getNextPlaybackItem(id, {
+    segments: [getSegment()],
+  });
+  return response.externalResponse;
+};

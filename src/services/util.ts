@@ -4,6 +4,7 @@ import {
   MassiveSDKModelItemList,
 } from '@src/sdks/Britbox.API.Content.TS/api';
 import { getDevice } from '@src/utils';
+import { pickBy } from 'lodash';
 
 export type LoadCollectionList = {
   id: string;
@@ -57,4 +58,19 @@ const processCollectionList = async (
   }
 
   return { response: undefined };
+};
+
+export const getProgress = (id: string, watched: any): number => {
+  const filter = pickBy(watched, (value, key) => key.startsWith(id || ''));
+  if (filter[id || '']) {
+    const { isFullyWatched, position } = filter[id || ''];
+
+    if (isFullyWatched) {
+      return 0;
+    }
+
+    return position;
+  }
+
+  return 0;
 };

@@ -55,6 +55,7 @@ import { getDimensions } from '@src/utils/dimension';
 import { withTheme } from 'styled-components';
 import { ThemeProps } from '@store/modules/theme/types';
 import ErrorNotFound from '@components/ErrorNotFound';
+import { getProgress } from '@src/services/util';
 import {
   Container,
   Scroll,
@@ -111,21 +112,6 @@ interface CellProps {
   symbol: string;
   isFocused: boolean;
 }
-
-const getProgress = (id: string, watched: any) => {
-  const filter = pickBy(watched, (value, key) => key.startsWith(id || ''));
-  if (filter[id || '']) {
-    const { isFullyWatched, position } = filter[id || ''];
-
-    if (isFullyWatched) {
-      return 0;
-    }
-
-    return position;
-  }
-
-  return 0;
-};
 
 const { width } = getDimensions();
 
@@ -474,7 +460,10 @@ const Detail = ({ theme }: Props) => {
       return true;
     }
 
-    return navigation.navigate('VideoPlayer', { item: episode || item });
+    return navigation.navigate('VideoPlayer', {
+      item: episode || item,
+      currentTime: playPosition || getProgress((next || episode || item)?.id || '0', watched),
+    });
   };
 
   const playTrailer = useCallback(() => {

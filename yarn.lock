@@ -3238,10 +3238,10 @@
     merge-deep "^3.0.2"
     svgo "^1.2.2"
 
-"@takeoffmedia/react-native-bitmovin-player@^0.1.10":
-  version "0.1.10"
-  resolved "https://registry.yarnpkg.com/@takeoffmedia/react-native-bitmovin-player/-/react-native-bitmovin-player-0.1.10.tgz#0fc4fbd479d96d6134bb687080a9849cad638134"
-  integrity sha512-QUxP2ujE/v2uRQdKIIZk/wTPxbTZINCHxSmVajVrTH8X4s15ROtJXlRXPJW/vYxbrWZucAFL21DWtEX5h1UvWQ==
+"@takeoffmedia/react-native-bitmovin-player@^0.1.11":
+  version "0.1.11"
+  resolved "https://registry.yarnpkg.com/@takeoffmedia/react-native-bitmovin-player/-/react-native-bitmovin-player-0.1.11.tgz#6e88f524dcddc0a7f96327bd53f5edaa69f81905"
+  integrity sha512-d6Z7iWfIyLV7JbYxDAb+EYxIIOYtfF7o8X2XgvKO9DKi39u0JWB5e3I3g5j3oIWoitD9q1wSlxodKcRpAkAkgQ==
 
 "@types/anymatch@*":
   version "1.3.1"

@@ -27,7 +27,7 @@
     "@react-navigation/drawer": "^5.9.0",
     "@react-navigation/native": "^5.7.3",
     "@react-navigation/stack": "^5.9.0",
-    "@takeoffmedia/react-native-bitmovin-player": "^0.1.10",
+    "@takeoffmedia/react-native-bitmovin-player": "^0.1.11",
     "appcenter": "^3.1.2",
     "appcenter-analytics": "^3.1.2",
     "appcenter-crashes": "^3.1.2",
