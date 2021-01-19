@@ -19,12 +19,13 @@ const AnimatedImage = Animated.createAnimatedComponent(ImageBackground);
 type CarouselProps = {
   slim: boolean;
   collection: boolean;
+  width?: number;
 };
 
 export const SliderWrapper = styled.View`
-  width: ${width}px;
   margin-top: 10px;
   margin-bottom: 20px;
+  ${(props: CarouselProps) => `width: ${props.width !== undefined ? props.width : width}px;`}
   ${(props: CarouselProps) => {
     return (
       props.collection &&
@@ -49,10 +50,10 @@ export const Slider = styled(AnimatedImage).attrs({
   resizeMode: 'cover',
   blurRadius: 10,
 })`
-  width: ${width}px;
   align-items: center;
   justify-content: center;
   opacity: 0.3;
+  ${(props: CarouselProps) => `width: ${props.width !== undefined ? props.width : width}px;`}
   ${(props: CarouselProps) => {
     return (
       props.slim &&

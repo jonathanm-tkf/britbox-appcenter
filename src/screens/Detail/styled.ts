@@ -80,14 +80,17 @@ export const Poster = styled.View`
   z-index: 3;
 `;
 
+interface InnerContentProps extends ThemeState {
+  horizontalPadding: number;
+}
+
 export const InnerContent = styled.View`
   background-color: ${(props: ThemeState) => props.theme.PRIMARY_COLOR};
   border-top-left-radius: 12px;
   border-top-right-radius: 12px;
   margin-top: -12px;
   padding-top: ${Platform.OS === 'ios' ? 80 : 40}px;
-  padding-left: 20px;
-  padding-right: 20px;
+  ${(props: InnerContentProps) => `padding-horizontal: ${props.horizontalPadding}px`}
 `;
 
 export const WrapperBookmarks = styled.View`

@@ -5,14 +5,21 @@ import { rgba } from 'polished';
 import { normalize } from '@src/utils/normalize';
 import { isTablet } from 'react-native-device-info';
 
-export const Gradient = styled(LinearGradient).attrs((props: ThemeState) => ({
+interface GradientProps extends ThemeState {
+  width?: number;
+  height?: number;
+}
+
+export const Gradient = styled(LinearGradient).attrs((props: GradientProps) => ({
   colors: [
     rgba(props.theme.PRIMARY_COLOR, 0),
     rgba(props.theme.PRIMARY_COLOR, isTablet() ? 0.8 : 1),
   ],
-}))`
-  width: 100%;
-  height: 100px;
+}))<GradientProps>`
+  ${(props: GradientProps) => `
+    width: ${typeof props.width === 'number' ? `${props.width}px` : '100%'}
+    height: ${typeof props.height === 'number' ? `${props.height}px` : '100px'}
+  `}
   position: absolute;
   bottom: 0;
   z-index: 1;
@@ -20,9 +27,11 @@ export const Gradient = styled(LinearGradient).attrs((props: ThemeState) => ({
 
 export const GradientTop = styled(LinearGradient).attrs((props: ThemeState) => ({
   colors: [props.theme.PRIMARY_COLOR, rgba(props.theme.PRIMARY_COLOR, 0)],
-}))`
-  width: 100%;
-  height: 100px;
+}))<GradientProps>`
+  ${(props: GradientProps) => `
+    width: ${typeof props.width === 'number' ? `${props.width}px` : '100%'}
+    height: ${typeof props.height === 'number' ? `${props.height}px` : '100px'}
+  `}
   position: absolute;
   top: 0;
   z-index: 1;
@@ -163,9 +172,16 @@ export const DiscoverMoreText = styled.Text`
   margin-left: 15px;
 `;
 
-export const Image = styled.Image`
-  width: 100%;
-  height: 100%;
+type ImageProps = {
+  width?: number;
+  height?: number;
+};
+
+export const Image = styled.Image<ImageProps>`
+  ${(props: ImageProps) => `
+    width: ${typeof props.width === 'number' ? `${props.width}px` : '100%'};
+    height: ${typeof props.height === 'number' ? `${props.height}px` : '100%'};
+  `}
 `;
 
 export const TTImage = styled.Image`

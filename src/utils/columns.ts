@@ -46,13 +46,13 @@ export function useColumns(portraitTabletCardWidth: number, landscapeTabletCardW
 
   return useMemo((): Array<number> => {
     const phoneWidth = 28.5;
-    let size = [MOBILE_PORTRAIT_COLUMNS, phoneWidth, phoneWidth * 1.25];
+    let size = [MOBILE_PORTRAIT_COLUMNS, phoneWidth, phoneWidth * 1.5];
 
     if (isTablet()) {
       size =
         data.numOfColums === TABLET_LANDSCAPE_COLUMNS
-          ? [data.numOfColums, landscapeTabletCardWidth, landscapeTabletCardWidth * 1.25]
-          : [data.numOfColums, portraitTabletCardWidth, portraitTabletCardWidth * 1.25];
+          ? [data.numOfColums, landscapeTabletCardWidth, landscapeTabletCardWidth * 1.5]
+          : [data.numOfColums, portraitTabletCardWidth, portraitTabletCardWidth * 1.5];
     }
 
     return size;
