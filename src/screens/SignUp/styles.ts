@@ -1,10 +1,10 @@
 import styled from 'styled-components/native';
-import { isTablet } from 'react-native-device-info';
 import { ThemeState } from '@store/modules/theme/types';
 import LinearGradient from 'react-native-linear-gradient';
-import { getTabletScreenWidth } from '@src/utils/dimension';
 import { RadioCheckedIcon, RadioUnCheckedIcon } from '@assets/icons';
+import { getTabletScreenWidth } from '@src/utils/dimension';
 import { normalize } from '@src/utils/normalize';
+import { isTablet } from '@src/utils/tablet';
 
 const tabletCenterStyle =
   isTablet() &&

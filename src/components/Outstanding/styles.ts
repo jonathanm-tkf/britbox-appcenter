@@ -3,7 +3,7 @@ import { ThemeState } from '@store/modules/theme/types';
 import LinearGradient from 'react-native-linear-gradient';
 import { rgba } from 'polished';
 import { normalize } from '@src/utils/normalize';
-import { isTablet } from 'react-native-device-info';
+import { isTablet } from '@src/utils/tablet';
 
 interface GradientProps extends ThemeState {
   width?: number;

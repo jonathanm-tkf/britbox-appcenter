@@ -1,7 +1,7 @@
 import styled from 'styled-components/native';
 import { ThemeState } from '@store/modules/theme/types';
 import { normalize } from '@src/utils/normalize';
-import { isTablet } from 'react-native-device-info';
+import { isTablet } from '@src/utils/tablet';
 
 export const Container = styled.View`
   margin-top: 10px;

@@ -3,7 +3,6 @@ import React, { useCallback, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppState } from '@store/modules/rootReducer';
 import { StatusBar, View } from 'react-native';
-import { isTablet } from 'react-native-device-info';
 import RBSheet from 'react-native-raw-bottom-sheet';
 import { hideSheetBottom, sheetComponent } from '@store/modules/layout/actions';
 import { ThemeProvider } from 'styled-components';
@@ -15,6 +14,7 @@ import Navigation from './navigation/routes';
 import { hideSheet, sheetRef, showSheet } from './utils/sheetBottom';
 import { getTextInConfigJSON } from './utils/object';
 import { analyticsRef } from './utils/analytics';
+import { isTablet } from './utils/tablet';
 
 export default function App() {
   const { sheet } = useSelector((state: AppState) => state.layout);

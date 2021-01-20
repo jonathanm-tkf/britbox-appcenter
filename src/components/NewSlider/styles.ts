@@ -5,7 +5,7 @@ import { Button as ButtonC } from '@components/Button';
 import { getDimensions, hp } from '@src/utils/dimension';
 import { getStatusBarHeight } from 'react-native-iphone-x-helper';
 import { normalize } from '@src/utils/normalize';
-import { isTablet } from 'react-native-device-info';
+import { isTablet } from '@src/utils/tablet';
 
 const { width } = getDimensions();
 

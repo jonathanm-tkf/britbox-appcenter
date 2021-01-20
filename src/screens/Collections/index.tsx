@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from 'react';
-import { Animated, NativeScrollEvent, View, Platform } from 'react-native';
+import { Animated, NativeScrollEvent, View } from 'react-native';
 import { useNavigation, useRoute, RouteProp } from '@react-navigation/native';
 import { BackIcon } from '@assets/icons';
 import { getDimensions, percentageWidth } from '@src/utils/dimension';
@@ -36,8 +36,8 @@ import { Item } from '@screens/ModalFilter';
 
 import { checkIsInWatchingList } from '@src/services/watchlist';
 import { watchlistToggleRequest } from '@store/modules/user/actions';
-import { isTablet } from 'react-native-device-info';
 import { loadCollectionList } from '@src/services/util';
+import { isTablet } from '@src/utils/tablet';
 import { dataDummy } from './data';
 import {
   Container,
@@ -80,6 +80,11 @@ type Card = MassiveSDKModelItemList & {
   type?: string;
 };
 
+const listStyle = {
+  marginTop: 10,
+  paddingHorizontal: isTablet() ? 7 : 15,
+};
+
 const GridContent = ({ data }: { data: MassiveSDKModelItemSummary }) => {
   const wrapper = {
     width: width - 40,
@@ -114,10 +119,7 @@ const Collections = () => {
   const [data, setData] = useState<MassiveSDKModelPage | undefined>(
     dataDummy as MassiveSDKModelPage
   );
-  const [numOfColumns, elementWidth, elementHeight] = useColumns(
-    18.8,
-    Platform.OS === 'ios' ? 16 : 28.5
-  );
+  const [numOfColumns, elementWidth] = useColumns();
   const [isContinuosScroll, setIsContinuosScroll] = useState(false);
   const [error, setError] = useState(false);
   const [isLoadingContinuosScroll, setIsLoadingContinuosScroll] = useState(false);
@@ -137,11 +139,6 @@ const Collections = () => {
 
   const getIsInWatchlist = (item: any) =>
     checkIsInWatchingList(bookmarklist?.items || [], item) === 3;
-
-  const listStyle = {
-    marginTop: 10,
-    paddingHorizontal: isTablet() ? 7 : 15,
-  };
 
   const back = () => {
     navigation.goBack();
@@ -549,8 +546,8 @@ const Collections = () => {
                               marginHorizontal: 5,
                             }
                           : {
-                              width: percentageWidth(elementWidth),
-                              height: percentageWidth(elementHeight),
+                              width: elementWidth - listStyle.paddingHorizontal - 3,
+                              height: (elementWidth - listStyle.paddingHorizontal - 3) * 1.5,
                               marginBottom: 20,
                               marginHorizontal: 3,
                             }

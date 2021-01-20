@@ -1,9 +1,9 @@
-import { isTablet } from 'react-native-device-info';
+import { Dimensions } from 'react-native';
 import {
   widthPercentageToDP as wp2dp,
   heightPercentageToDP as hp2dp,
 } from 'react-native-responsive-screen';
-import { Dimensions } from 'react-native';
+import { isTablet } from './tablet';
 /**
  * Width-Percentage
  * Converts width dimension to percentage

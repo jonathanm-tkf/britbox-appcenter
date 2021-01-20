@@ -10,8 +10,8 @@ import { Animated, StyleSheet } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { withTheme } from 'styled-components';
 import { RNHoleView } from 'react-native-hole-view';
-import { isTablet } from 'react-native-device-info';
 import { getDimensions } from '@src/utils/dimension';
+import { isTablet } from '@src/utils/tablet';
 import { getBottomSpace } from 'react-native-iphone-x-helper';
 import { HoleContent, HoleText } from './styles';
 

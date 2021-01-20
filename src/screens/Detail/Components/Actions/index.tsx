@@ -14,7 +14,7 @@ import {
   MassiveSDKModelItemSummary,
 } from '@src/sdks/Britbox.API.Content.TS/api';
 import { LoadDetailPageResponse } from '@store/modules/detail/types';
-import { isTablet } from 'react-native-device-info';
+import { isTablet } from '@src/utils/tablet';
 import { getDimensions } from '@src/utils/dimension';
 import {
   Container,

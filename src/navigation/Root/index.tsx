@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { useDispatch, useSelector } from 'react-redux';
-import { getBuildNumber, isTablet } from 'react-native-device-info';
+import { getBuildNumber } from 'react-native-device-info';
 import { AppState } from '@store/modules/rootReducer';
 import Storybook from '@screens/Storybook';
 import { rgba } from 'polished';
@@ -17,6 +17,7 @@ import MoreLinks from '@screens/MoreLinks';
 import ErrorLanding from '@components/ErrorLanding';
 import VersionUpgrade from '@components/VersionUpgrade';
 import { getTextInConfigJSON } from '@src/utils/object';
+import { isTablet } from '@src/utils/tablet';
 import NetInfo from '@react-native-community/netinfo';
 import LostConnection from '@screens/LostConnection';
 import FailedGetProfile from '@screens/FailedGetProfile';

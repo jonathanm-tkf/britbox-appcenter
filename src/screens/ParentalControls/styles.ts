@@ -5,7 +5,7 @@ import { UnLockIcon, LockIcon } from '@assets/icons';
 import { getBottomSpace } from 'react-native-iphone-x-helper';
 import { normalize } from '@src/utils/normalize';
 import { getTabletScreenWidth } from '@src/utils/dimension';
-import { isTablet } from 'react-native-device-info';
+import { isTablet } from '@src/utils/tablet';
 
 export const Container = styled.View`
   flex: 1;

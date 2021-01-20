@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react';
-import { FlatList, TouchableOpacity, ActivityIndicator, Platform } from 'react-native';
+import { FlatList, TouchableOpacity, ActivityIndicator } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import Highlighter from 'react-native-highlight-words';
 import { SearchIcon, SearchDeleteIcon } from '@assets/icons';
@@ -13,7 +13,7 @@ import { MassiveSDKModelPerson } from '@src/sdks/Britbox.API.Content.TS/api';
 import { getSearch } from '@store/modules/search/saga';
 import Grid from '@screens/Shared/Grid';
 import { percentageWidth } from '@src/utils/dimension';
-import { isTablet } from 'react-native-device-info';
+import { isTablet } from '@src/utils/tablet';
 import { getTextInConfigJSON } from '@src/utils/object';
 import { useColumns } from '@src/utils/columns';
 import { analyticsRef } from '@src/utils/analytics';
@@ -62,10 +62,7 @@ const Search = ({ theme }: Props) => {
   const [isDone, setIsDone] = useState(false);
   const [noResults, setNoResults] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [numOfColums, elementWidth, elementHeight] = useColumns(
-    18,
-    Platform.OS === 'ios' ? 16 : 28
-  );
+  const [numOfColums, elementWidth] = useColumns();
   const [searchingItemData, setSearchingItemData] = useState<MassiveSDKModelItemList[] | undefined>(
     undefined
   );
@@ -326,8 +323,8 @@ const Search = ({ theme }: Props) => {
             title={search?.title || ''}
             numColumns={numOfColums}
             element={{
-              width: percentageWidth(elementWidth),
-              height: percentageWidth(elementHeight),
+              width: elementWidth - listStyles.paddingHorizontal - (isTablet() ? 3 : 5),
+              height: (elementWidth - listStyles.paddingHorizontal - (isTablet() ? 3 : 5)) * 1.5,
               marginBottom: 20,
               marginHorizontal: isTablet() ? 3 : 5,
             }}

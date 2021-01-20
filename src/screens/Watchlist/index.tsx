@@ -7,7 +7,6 @@ import { AppState } from '@store/modules/rootReducer';
 import Header from '@components/Header';
 import { sheetComponent, showSheetBottom } from '@store/modules/layout/actions';
 import { useTranslation } from 'react-i18next';
-import { percentageWidth } from '@src/utils/dimension';
 import { useColumns } from '@src/utils/columns';
 import Grid from '@screens/Shared/Grid';
 import { CloseIcon } from '@assets/icons';
@@ -21,7 +20,7 @@ import { profile } from '@store/modules/user/saga';
 import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
 import { Item } from '@screens/ModalFilter';
 import { hideSheet, showSheet } from '@src/utils/sheetBottom';
-import { isTablet } from 'react-native-device-info';
+import { isTablet } from '@src/utils/tablet';
 import { getTextInConfigJSON } from '@src/utils/object';
 import {
   Container,
@@ -85,10 +84,7 @@ const Watchlist = () => {
   const [orderBy, setOrderBy] = useState('date-added');
   const { filter } = params || {};
   const menu = useSelector((state: AppState) => state.core.menu?.navigation?.header); // TODO: get data from properties
-  const [numOfColums, elementWidth, elementHeight] = useColumns(
-    18.75,
-    Platform.OS === 'ios' ? 16 : 28.5
-  );
+  const [numOfColums, elementWidth] = useColumns();
 
   const [list, setList] = useState<MassiveSDKModelItemSummary[]>([]);
 
@@ -247,8 +243,8 @@ const Watchlist = () => {
             title={getGridTitle()}
             numColumns={numOfColums}
             element={{
-              width: percentageWidth(elementWidth),
-              height: percentageWidth(elementHeight),
+              width: elementWidth - gridContainer.paddingHorizontal - (isTablet() ? 3 : 5),
+              height: (elementWidth - gridContainer.paddingHorizontal - (isTablet() ? 3 : 5)) * 1.5,
               marginBottom: 20,
               marginHorizontal: isTablet() ? 3 : 5,
             }}

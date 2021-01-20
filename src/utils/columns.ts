@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback, useMemo } from 'react';
 import Orientation, { OrientationType } from 'react-native-orientation-locker';
-import { isTablet } from 'react-native-device-info';
+import { isTablet } from '@src/utils/tablet';
 import { getDimensions } from '@src/utils/dimension';
 
 const TABLET_PORTRAIT_COLUMNS = 5;
@@ -8,9 +8,13 @@ const TABLET_LANDSCAPE_COLUMNS = 6;
 const MOBILE_PORTRAIT_COLUMNS = 3;
 
 const { width: screenWidth, height: screenHeight } = getDimensions();
+const min = Math.min(screenWidth, screenHeight);
+const max = Math.max(screenWidth, screenHeight);
 const isPortrait = screenHeight >= screenWidth;
+const portraitTabletCardWidth = 100 / TABLET_PORTRAIT_COLUMNS;
+const landscapeTabletCardWidth = 100 / TABLET_LANDSCAPE_COLUMNS;
 
-export function useColumns(portraitTabletCardWidth: number, landscapeTabletCardWidth: number) {
+export function useColumns() {
   const [data, setData] = useState({
     screenOrientation: isPortrait ? 'PORTRAIT' : 'LANDSCAPE',
     numOfColums: isTablet()
@@ -46,15 +50,15 @@ export function useColumns(portraitTabletCardWidth: number, landscapeTabletCardW
 
   return useMemo((): Array<number> => {
     const phoneWidth = 28.5;
-    let size = [MOBILE_PORTRAIT_COLUMNS, phoneWidth, phoneWidth * 1.5];
+    let size = [MOBILE_PORTRAIT_COLUMNS, phoneWidth];
 
     if (isTablet()) {
       size =
-        data.numOfColums === TABLET_LANDSCAPE_COLUMNS
-          ? [data.numOfColums, landscapeTabletCardWidth, landscapeTabletCardWidth * 1.5]
-          : [data.numOfColums, portraitTabletCardWidth, portraitTabletCardWidth * 1.5];
+        data.screenOrientation === 'LANDSCAPE'
+          ? [data.numOfColums, (landscapeTabletCardWidth / 100) * max]
+          : [data.numOfColums, (portraitTabletCardWidth / 100) * min];
     }
 
     return size;
-  }, [data, portraitTabletCardWidth, landscapeTabletCardWidth]);
+  }, [data]);
 }

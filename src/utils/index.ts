@@ -1,4 +1,5 @@
-import { getSystemName, isTablet } from 'react-native-device-info';
+import { getSystemName } from 'react-native-device-info';
+import { isTablet } from '@src/utils/tablet';
 
 export const getDevice = () => {
   if (isTablet()) {

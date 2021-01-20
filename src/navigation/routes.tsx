@@ -7,12 +7,7 @@ import { AppState } from '@store/modules/rootReducer';
 import { AppState as AppStateRN } from 'react-native';
 import KochavaTracker from 'react-native-kochava-tracker';
 import NetInfo from '@react-native-community/netinfo';
-import {
-  isTablet,
-  getSystemVersion,
-  getSystemName,
-  getBuildNumber,
-} from 'react-native-device-info';
+import { getSystemVersion, getSystemName, getBuildNumber } from 'react-native-device-info';
 import { connection } from '@store/modules/layout/actions';
 import { refreshTokenWithExpiresIn } from '@src/services/token';
 import { getProfileRequest, refreshTokenSuccess } from '@store/modules/user/actions';
@@ -21,6 +16,7 @@ import { Segment } from '@store/modules/core/types';
 import { activateApp } from '@store/modules/home/actions';
 import { Config } from '@src/utils/config';
 import { analyticsRef } from '@src/utils/analytics';
+import { isTablet } from '@src/utils/tablet';
 import { RootStackScreen } from './Root';
 import { navigationRef } from './rootNavigation';
 

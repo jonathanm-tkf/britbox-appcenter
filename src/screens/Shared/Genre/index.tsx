@@ -9,8 +9,8 @@ import { slice } from 'lodash';
 import Carousel from '@components/Carousel';
 import NewCard from '@components/NewCard';
 import { getImage } from '@src/utils/images';
+import { isTablet } from '@src/utils/tablet';
 import { navigateByPath } from '@src/navigation/rootNavigation';
-import { isTablet } from 'react-native-device-info';
 
 type Props = {
   item: MassiveSDKModelPageEntry;

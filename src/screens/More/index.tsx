@@ -8,10 +8,11 @@ import { AppState } from '@store/modules/rootReducer';
 import { useTranslation } from 'react-i18next';
 import { useSelector, useDispatch } from 'react-redux';
 import { logout } from '@store/modules/user/actions';
-import { getVersion, getBuildNumber, isTablet } from 'react-native-device-info';
+import { getVersion, getBuildNumber } from 'react-native-device-info';
 import { getTextInConfigJSON } from '@src/utils/object';
 import { analyticsRef } from '@src/utils/analytics';
 import { getDimensions } from '@src/utils/dimension';
+import { isTablet } from '@src/utils/tablet';
 import {
   ProfileView,
   RowContainer,

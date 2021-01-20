@@ -1,5 +1,5 @@
 import { useEffect, useCallback, useState } from 'react';
-import { Dimensions, Platform } from 'react-native';
+import { Dimensions } from 'react-native';
 import OrientationLocker, {
   OrientationType as LockerOrientationType,
 } from 'react-native-orientation-locker';
@@ -16,12 +16,7 @@ const parseOrientationType = (orientation: LockerOrientationType): Orientation =
 };
 
 const { width: screenWidth, height: screenHeight } = Dimensions.get('window');
-let initialOrientation: Orientation = screenHeight >= screenWidth ? 'PORTRAIT' : 'LANDSCAPE';
-
-// The strangest behaviour I've ever seen, but this fix works...
-if (Platform.OS === 'android' && screenHeight >= screenWidth) {
-  initialOrientation = 'PORTRAIT';
-}
+const initialOrientation: Orientation = screenHeight >= screenWidth ? 'PORTRAIT' : 'LANDSCAPE';
 
 /**
  * A React Hook which updates when the orientation changes

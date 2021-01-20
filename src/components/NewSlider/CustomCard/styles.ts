@@ -6,7 +6,7 @@ import { rgba } from 'polished';
 import { ThemeState } from '@store/modules/theme/types';
 import TouchableScaleC from 'react-native-touchable-scale';
 import { normalize } from '@src/utils/normalize';
-import { isTablet } from 'react-native-device-info';
+import { isTablet } from '@src/utils/tablet';
 import { getDimensions, percentageWidth } from '@src/utils/dimension';
 
 const IS_IOS = Platform.OS === 'ios';

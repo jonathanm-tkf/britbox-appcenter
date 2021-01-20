@@ -1,10 +1,9 @@
 import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import { useSelector } from 'react-redux';
 import Header from '@components/Header';
-import { isTablet } from 'react-native-device-info';
 import Carousel from 'react-native-snap-carousel';
 import Orientation, { OrientationType } from 'react-native-orientation-locker';
-import { Platform, StyleSheet, SafeAreaView } from 'react-native';
+import { StyleSheet, SafeAreaView } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { AppState } from '@store/modules/rootReducer';
 import { useIsFocused } from '@react-navigation/native';
@@ -12,6 +11,7 @@ import { navigate } from '@src/navigation/rootNavigation';
 import { getTextInConfigJSON } from '@src/utils/object';
 import { analyticsRef } from '@src/utils/analytics';
 import { getDimensions } from '@src/utils/dimension';
+import { isTablet } from '@src/utils/tablet';
 import {
   Button,
   Pagination,
@@ -56,16 +56,11 @@ const Auth = () => {
   }, [screenData]);
 
   const onOrientationDidChange = useCallback((newOrientation: OrientationType) => {
-    let parsedOrientation;
-
-    if (newOrientation === 'LANDSCAPE-LEFT' || newOrientation === 'LANDSCAPE-RIGHT') {
-      parsedOrientation = Platform.OS === 'ios' ? 'LANDSCAPE' : 'PORTRAIT';
-    } else {
-      parsedOrientation = Platform.OS === 'ios' ? 'PORTRAIT' : 'LANDSCAPE';
-    }
-
     setScreenData({
-      orientation: parsedOrientation,
+      orientation:
+        newOrientation === 'LANDSCAPE-LEFT' || newOrientation === 'LANDSCAPE-RIGHT'
+          ? 'LANDSCAPE'
+          : 'PORTRAIT',
       size: getDimensions(),
     });
   }, []);

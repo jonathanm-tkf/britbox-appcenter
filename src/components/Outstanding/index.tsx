@@ -4,7 +4,7 @@ import { Logo } from '@assets/icons';
 import { fill } from 'lodash';
 import Orientation, { OrientationType } from 'react-native-orientation-locker';
 import SwiperFlatList from 'react-native-swiper-flatlist';
-import { isTablet } from 'react-native-device-info';
+import { isTablet } from '@src/utils/tablet';
 import { getDimensions } from '@src/utils/dimension';
 import {
   Gradient,
@@ -97,16 +97,11 @@ const Outstanding = ({ items, onPlay, onWatchlist, onDiscoverMore }: Props) => {
   }, [screenData]);
 
   const onOrientationDidChange = useCallback((newOrientation: OrientationType) => {
-    let parsedOrientation;
-
-    if (newOrientation === 'LANDSCAPE-LEFT' || newOrientation === 'LANDSCAPE-RIGHT') {
-      parsedOrientation = Platform.OS === 'ios' ? 'LANDSCAPE' : 'PORTRAIT';
-    } else {
-      parsedOrientation = Platform.OS === 'ios' ? 'PORTRAIT' : 'LANDSCAPE';
-    }
-
     setScreenData({
-      orientation: parsedOrientation,
+      orientation:
+        newOrientation === 'LANDSCAPE-LEFT' || newOrientation === 'LANDSCAPE-RIGHT'
+          ? 'LANDSCAPE'
+          : 'PORTRAIT',
       size: getDimensions(),
     });
   }, []);
@@ -136,7 +131,10 @@ const Outstanding = ({ items, onPlay, onWatchlist, onDiscoverMore }: Props) => {
       return {
         width,
         height,
-        top: screenData.size.width / (screenData.orientation === 'LANDSCAPE' ? 3 : 6) - height / 2,
+        top:
+          screenData.size.width /
+            (screenData.orientation === 'LANDSCAPE' && Platform.OS === 'android' ? 3 : 6) -
+          height / 2,
         left: screenData.orientation === 'LANDSCAPE' ? '8%' : 0,
       };
     },
@@ -196,7 +194,7 @@ const Outstanding = ({ items, onPlay, onWatchlist, onDiscoverMore }: Props) => {
                     <Gradient
                       height={
                         isTablet() && screenData.orientation === 'LANDSCAPE'
-                          ? Math.max(screenData.size.width, screenData.size.height) / 3
+                          ? Math.max(screenData.size.width, screenData.size.height) / 6
                           : undefined
                       }
                     />

@@ -1,13 +1,14 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect } from 'react';
 import { ActivityIndicator, Image } from 'react-native';
-import { getDeviceName, isTablet } from 'react-native-device-info';
+import { getDeviceName } from 'react-native-device-info';
 
 import { CloseIcon, Logo } from '@assets/icons';
 import { AppState } from '@store/modules/rootReducer';
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { getTextInConfigJSON } from '@src/utils/object';
+import { isTablet } from '@src/utils/tablet';
 import { device, loadingOff } from '@store/modules/layout/actions';
 import FastImage from 'react-native-fast-image';
 import { withTheme } from 'styled-components';

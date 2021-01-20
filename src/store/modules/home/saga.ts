@@ -3,7 +3,7 @@ import { takeLatest, all, call, put, select } from 'redux-saga/effects';
 
 import { BritboxContentApi } from '@src/sdks';
 import { getDevice } from '@src/utils';
-import { isTablet } from 'react-native-device-info';
+import { isTablet } from '@src/utils/tablet';
 import { loadCollectionList } from '@src/services/util';
 import { getTextInConfigJSON } from '@src/utils/object';
 import { NativeModules, Platform } from 'react-native';

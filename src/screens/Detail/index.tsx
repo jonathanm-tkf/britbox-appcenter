@@ -3,7 +3,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect, useRef, useMemo, useCallback } from 'react';
-import { Animated, Text, NativeModules, Platform, StatusBar, Dimensions } from 'react-native';
+import { Animated, Text, NativeModules, Platform, StatusBar } from 'react-native';
 import { BackIcon } from '@assets/icons';
 import NewCard from '@components/NewCard';
 import { useRoute, useNavigation, RouteProp, useIsFocused } from '@react-navigation/native';
@@ -49,10 +49,10 @@ import { BritboxAccountApi } from '@src/sdks';
 import Action from '@components/Action';
 import { refreshTokenWithExpiresIn } from '@src/services/token';
 import { immersiveModeOff } from 'react-native-android-immersive-mode';
-import { isTablet } from 'react-native-device-info';
 import { HomeIndicator } from 'react-native-home-indicator';
 import { castVideo } from '@store/modules/chromecast/actions';
 import { getDimensions } from '@src/utils/dimension';
+import { isTablet } from '@src/utils/tablet';
 import { withTheme } from 'styled-components';
 import { ThemeProps } from '@store/modules/theme/types';
 import ErrorNotFound from '@components/ErrorNotFound';
@@ -563,16 +563,11 @@ const Detail = ({ theme }: Props) => {
   }, [screenData]);
 
   const onOrientationDidChange = useCallback((newOrientation: OrientationType) => {
-    let parsedOrientation;
-
-    if (newOrientation === 'LANDSCAPE-LEFT' || newOrientation === 'LANDSCAPE-RIGHT') {
-      parsedOrientation = Platform.OS === 'ios' ? 'LANDSCAPE' : 'PORTRAIT';
-    } else {
-      parsedOrientation = Platform.OS === 'ios' ? 'PORTRAIT' : 'LANDSCAPE';
-    }
-
     setScreenData({
-      orientation: parsedOrientation,
+      orientation:
+        newOrientation === 'LANDSCAPE-LEFT' || newOrientation === 'LANDSCAPE-RIGHT'
+          ? 'LANDSCAPE'
+          : 'PORTRAIT',
       size: getDimensions(),
     });
   }, []);

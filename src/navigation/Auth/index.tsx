@@ -1,11 +1,11 @@
 import React, { useEffect } from 'react';
 import { createStackNavigator, TransitionPresets } from '@react-navigation/stack';
-import { isTablet } from 'react-native-device-info';
 import Auth from '@screens/Auth';
 import Login from '@screens/Login';
 import SignUp from '@screens/SignUp';
 import SignUpSubscription from '@screens/SignUpSubscription';
 import Orientation from 'react-native-orientation-locker';
+import { isTablet } from '@src/utils/tablet';
 
 const AuthStack = createStackNavigator();
 

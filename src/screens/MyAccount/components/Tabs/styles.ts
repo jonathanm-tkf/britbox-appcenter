@@ -4,7 +4,7 @@ import { Animated } from 'react-native';
 import { TabBar as TabBarC } from 'react-native-tab-view';
 import { rgba } from 'polished';
 import { normalize } from '@src/utils/normalize';
-import { isTablet } from 'react-native-device-info';
+import { isTablet } from '@src/utils/tablet';
 
 export const Container = styled.View``;
 

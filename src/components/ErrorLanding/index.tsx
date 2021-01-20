@@ -5,7 +5,7 @@ import { Button } from '@components/Button';
 import { useTranslation } from 'react-i18next';
 import { Headline, Paragraph } from '@components/Typography';
 import { getTextInConfigJSON, getGlobalTextInConfigJSON } from '@src/utils/object';
-import { isTablet } from 'react-native-device-info';
+import { isTablet } from '@src/utils/tablet';
 import { Container, Opaque, BottomParagraph, LinkTitle, LogoContainer, Logo } from './styles';
 
 type Props = {

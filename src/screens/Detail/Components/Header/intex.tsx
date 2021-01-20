@@ -1,8 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState, useCallback } from 'react';
-import { Platform, Animated } from 'react-native';
+import { Animated } from 'react-native';
 import Orientation, { OrientationType } from 'react-native-orientation-locker';
-import { isTablet } from 'react-native-device-info';
+import { isTablet } from '@src/utils/tablet';
 import { getImage } from '@src/utils/images';
 import { getDimensions } from '@src/utils/dimension';
 import { LoadDetailPageResponse } from '@store/modules/detail/types';
@@ -42,24 +42,20 @@ const Header = ({ data }: Props) => {
   });
 
   const onOrientationDidChange = useCallback((newOrientation: OrientationType) => {
-    let parsedOrientation;
-
-    if (newOrientation === 'LANDSCAPE-LEFT' || newOrientation === 'LANDSCAPE-RIGHT') {
-      parsedOrientation = Platform.OS === 'ios' ? 'LANDSCAPE' : 'PORTRAIT';
-    } else {
-      parsedOrientation = Platform.OS === 'ios' ? 'PORTRAIT' : 'LANDSCAPE';
-    }
-
+    const orientation =
+      newOrientation === 'LANDSCAPE-LEFT' || newOrientation === 'LANDSCAPE-RIGHT'
+        ? 'LANDSCAPE'
+        : 'PORTRAIT';
     const screenDimensions = getDimensions();
     const width =
-      parsedOrientation === 'PORTRAIT'
+      orientation === 'PORTRAIT'
         ? Math.min(screenDimensions.width, screenDimensions.height)
         : Math.max(screenDimensions.width, screenDimensions.height);
 
     setDimensions({
-      orientation: parsedOrientation,
+      orientation,
       width,
-      height: width * (parsedOrientation === 'PORTRAIT' ? 0.4 : 0.25),
+      height: width * (orientation === 'PORTRAIT' ? 0.4 : 0.25),
     });
   }, []);
 
