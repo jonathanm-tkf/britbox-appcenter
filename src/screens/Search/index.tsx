@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react';
-import { FlatList, TouchableOpacity, ActivityIndicator, Platform } from 'react-native';
+import { FlatList, TouchableOpacity, ActivityIndicator } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import Highlighter from 'react-native-highlight-words';
 import { SearchIcon, SearchDeleteIcon } from '@assets/icons';
@@ -62,7 +62,7 @@ const Search = ({ theme }: Props) => {
   const [isDone, setIsDone] = useState(false);
   const [noResults, setNoResults] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [numOfColums, elementWidth] = useColumns(18, Platform.OS === 'ios' ? 16 : 28);
+  const [numOfColums, elementWidth] = useColumns();
   const [searchingItemData, setSearchingItemData] = useState<MassiveSDKModelItemList[] | undefined>(
     undefined
   );
@@ -323,8 +323,8 @@ const Search = ({ theme }: Props) => {
             title={search?.title || ''}
             numColumns={numOfColums}
             element={{
-              width: percentageWidth(elementWidth),
-              height: percentageWidth(elementWidth) * 1.5,
+              width: elementWidth - listStyles.paddingHorizontal - (isTablet() ? 3 : 5),
+              height: (elementWidth - listStyles.paddingHorizontal - (isTablet() ? 3 : 5)) * 1.5,
               marginBottom: 20,
               marginHorizontal: isTablet() ? 3 : 5,
             }}

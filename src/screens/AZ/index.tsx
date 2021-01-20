@@ -6,7 +6,6 @@ import Header from '@components/Header';
 import { AppState } from '@store/modules/rootReducer';
 import { useSelector } from 'react-redux';
 import RNPickerSelect from 'react-native-picker-select';
-import { percentageWidth } from '@src/utils/dimension';
 import { useColumns } from '@src/utils/columns';
 import { isTablet } from '@src/utils/tablet';
 import {
@@ -79,7 +78,7 @@ const AZ = () => {
   const [order, setOrder] = useState('asc');
   const [orderBy, setOrderBy] = useState('a-z');
   const menu = useSelector((state: AppState) => state.core.menu?.navigation?.header); // TODO: get data from properties
-  const [numOfColums, elementWidth] = useColumns(18.8, Platform.OS === 'ios' ? 15.8 : 32.5);
+  const [numOfColums, elementWidth] = useColumns();
 
   const pickerRef = useRef<any>();
 
@@ -309,8 +308,9 @@ const AZ = () => {
                   loading={animationContinuosScroll}
                   numColumns={numOfColums}
                   element={{
-                    width: percentageWidth(elementWidth),
-                    height: percentageWidth(elementWidth) * 1.5,
+                    width: elementWidth - listStyles.paddingHorizontal - (isTablet() ? 3 : 5),
+                    height:
+                      (elementWidth - listStyles.paddingHorizontal - (isTablet() ? 3 : 5)) * 1.5,
                     marginBottom: 20,
                     marginHorizontal: isTablet() ? 3 : 5,
                   }}

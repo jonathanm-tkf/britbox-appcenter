@@ -719,12 +719,9 @@ export default function MyAccount() {
   });
 
   const SubscriptionRoute = () => {
-    const [
-      subscriptionDetail,
-      setSubscriptionDetail,
-    ] = useState<BritboxDataEvergentModelsGetActiveSubscriptionsResponseMessageBaseAccountServiceMessage>(
-      {}
-    );
+    const [subscriptionDetail, setSubscriptionDetail] = useState<
+      BritboxDataEvergentModelsGetActiveSubscriptionsResponseMessageBaseAccountServiceMessage
+    >({});
 
     const getActiveSubscription = async () => {
       const { response } = await getActiveSubscriptionRequest(user?.access?.accessToken || '');
