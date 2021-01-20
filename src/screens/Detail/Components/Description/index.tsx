@@ -6,7 +6,7 @@ import { useSelector } from 'react-redux';
 import { Headline, Paragraph } from '@components/Typography';
 import ContentLoader, { Rect } from 'react-content-loader/native';
 import { LoadDetailPageResponse } from '@store/modules/detail/types';
-import { isTablet } from 'react-native-device-info';
+import { isTablet } from '@src/utils/tablet';
 import { Container, PreloadDescription } from './styles';
 
 type Props = {

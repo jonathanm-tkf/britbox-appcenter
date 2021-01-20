@@ -1,5 +1,5 @@
 import { PixelRatio, Dimensions } from 'react-native';
-import { isTablet } from 'react-native-device-info';
+import { isTablet } from '@src/utils/tablet';
 
 const ratio = PixelRatio.get();
 

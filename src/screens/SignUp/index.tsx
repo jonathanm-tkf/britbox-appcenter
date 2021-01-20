@@ -1,7 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from 'react';
 import { KeyboardAvoidingView, Platform, Keyboard, Linking } from 'react-native';
-import { isTablet } from 'react-native-device-info';
 import { Button } from '@components/Button';
 import { Input, PasswordInput } from '@components/Input';
 import HeaderCustom from '@components/HeaderCustom';
@@ -16,6 +15,7 @@ import { useTranslation } from 'react-i18next';
 import { useNavigation } from '@react-navigation/native';
 import { validateEmail } from '@src/utils/validations';
 import { analyticsRef } from '@src/utils/analytics';
+import { isTablet } from '@src/utils/tablet';
 import {
   Container,
   ScrollView,

@@ -9,8 +9,8 @@ import { useSelector } from 'react-redux';
 import { AppState } from '@store/modules/rootReducer';
 import { navigateByPath } from '@src/navigation/rootNavigation';
 import { getStatusBarHeight } from 'react-native-iphone-x-helper';
-import { isTablet } from 'react-native-device-info';
 import { getDimensions } from '@src/utils/dimension';
+import { isTablet } from '@src/utils/tablet';
 import CustomCard from './CustomCard';
 import { sliderWidth, itemWidth, sliderWidthSlim, itemWidthSlim } from './CustomCard/styles';
 import {

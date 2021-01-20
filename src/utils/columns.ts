@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback, useMemo } from 'react';
 import Orientation, { OrientationType } from 'react-native-orientation-locker';
-import { isTablet } from 'react-native-device-info';
+import { isTablet } from '@src/utils/tablet';
 import { getDimensions } from '@src/utils/dimension';
 
 const TABLET_PORTRAIT_COLUMNS = 5;

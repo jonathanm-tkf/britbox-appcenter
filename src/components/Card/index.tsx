@@ -1,14 +1,14 @@
+import React, { memo, useEffect, useState } from 'react';
 import { CloseIcon, Logo } from '@assets/icons';
 import Action from '@components/Action';
 import Bookmark from '@components/Bookmark';
 import Shimmer from '@components/Shimmer';
 import { MassiveSDKModelItemList } from '@src/sdks/Britbox.API.Content.TS/api';
 import { ThemeProps } from '@store/modules/theme/types';
-import React, { memo, useEffect, useState } from 'react';
+import { isTablet } from '@src/utils/tablet';
 import ContentLoader, { Rect } from 'react-content-loader/native';
 import { useTranslation } from 'react-i18next';
 import { LayoutChangeEvent, TouchableOpacity } from 'react-native';
-import { isTablet } from 'react-native-device-info';
 import { withTheme } from 'styled-components';
 import Image from 'react-native-fast-image';
 

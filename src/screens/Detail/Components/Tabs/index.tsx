@@ -13,8 +13,8 @@ import { useNavigation } from '@react-navigation/native';
 import { LoadDetailPageResponse } from '@store/modules/detail/types';
 import { hideSheet } from '@src/utils/sheetBottom';
 import { getTextInConfigJSON } from '@src/utils/object';
+import { isTablet } from '@src/utils/tablet';
 import { MassiveSDKModelEpisodesItem } from '@src/sdks/Britbox.API.Content.TS/api';
-import { isTablet } from 'react-native-device-info';
 import { LayoutChangeEvent } from 'react-native';
 import {
   TabsWrapper,

@@ -13,7 +13,7 @@ import { useSelector } from 'react-redux';
 import { AppState } from '@store/modules/rootReducer';
 import ContentLoader, { Rect } from 'react-content-loader/native';
 import { navigateByPath } from '@src/navigation/rootNavigation';
-import { isTablet } from 'react-native-device-info';
+import { isTablet } from '@src/utils/tablet';
 import { Container } from './styles';
 
 type Props = {

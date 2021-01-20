@@ -21,7 +21,7 @@ import { profile } from '@store/modules/user/saga';
 import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
 import { Item } from '@screens/ModalFilter';
 import { hideSheet, showSheet } from '@src/utils/sheetBottom';
-import { isTablet } from 'react-native-device-info';
+import { isTablet } from '@src/utils/tablet';
 import { getTextInConfigJSON } from '@src/utils/object';
 import {
   Container,

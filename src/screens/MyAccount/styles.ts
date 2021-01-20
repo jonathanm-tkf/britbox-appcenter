@@ -4,7 +4,7 @@ import { ThemeState } from '@store/modules/theme/types';
 import LinearGradient from 'react-native-linear-gradient';
 import { getBottomSpace } from 'react-native-iphone-x-helper';
 import { normalize } from '@src/utils/normalize';
-import { isTablet } from 'react-native-device-info';
+import { isTablet } from '@src/utils/tablet';
 import { getTabletScreenWidth } from '@src/utils/dimension';
 
 export const Container = styled.View`

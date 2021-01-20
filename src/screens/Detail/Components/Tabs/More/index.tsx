@@ -1,11 +1,11 @@
 import React, { memo, useCallback } from 'react';
 import { MassiveSDKModelItemList } from '@src/sdks/Britbox.API.Content.TS/api';
-import { isTablet } from 'react-native-device-info';
 import { percentageWidth } from '@src/utils/dimension';
 import { LayoutChangeEvent } from 'react-native';
 import NewGrid from '@components/NewGrid';
 import NewCard from '@components/NewCard';
 import { getImage } from '@src/utils/images';
+import { isTablet } from '@src/utils/tablet';
 import { navigateByPath } from '@src/navigation/rootNavigation';
 
 interface Props {

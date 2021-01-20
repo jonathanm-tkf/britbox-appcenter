@@ -13,8 +13,8 @@ import { Title, Paragraph } from '@components/Typography';
 import { Button } from '@components/Button';
 import { useTranslation } from 'react-i18next';
 import { widthPercentageToDP as vw } from 'react-native-responsive-screen';
-import { isTablet } from 'react-native-device-info';
 import { getDimensions } from '@src/utils/dimension';
+import { isTablet } from '@src/utils/tablet';
 import { Container, BackgroundImge, Card, Wrapper, InnerContent, TextWrapper } from './styles';
 
 const { width } = getDimensions();

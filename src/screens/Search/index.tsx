@@ -13,7 +13,7 @@ import { MassiveSDKModelPerson } from '@src/sdks/Britbox.API.Content.TS/api';
 import { getSearch } from '@store/modules/search/saga';
 import Grid from '@screens/Shared/Grid';
 import { percentageWidth } from '@src/utils/dimension';
-import { isTablet } from 'react-native-device-info';
+import { isTablet } from '@src/utils/tablet';
 import { getTextInConfigJSON } from '@src/utils/object';
 import { useColumns } from '@src/utils/columns';
 import { analyticsRef } from '@src/utils/analytics';

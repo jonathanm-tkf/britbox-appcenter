@@ -23,8 +23,8 @@ import { store } from '@store/index';
 import { LayoutState } from '@store/modules/layout/types';
 import { continueWatchingRemoveRequest, watchlistToggleRequest } from '@store/modules/user/actions';
 import { hideSheet, showSheet } from '@src/utils/sheetBottom';
+import { isTablet } from '@src/utils/tablet';
 import { useIsFocused } from '@react-navigation/native';
-import { isTablet } from 'react-native-device-info';
 import { BottomSheetWrapper, Headline } from './styles';
 
 const getItemId = () => {

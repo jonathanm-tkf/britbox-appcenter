@@ -6,7 +6,7 @@ import { Platform } from 'react-native';
 import FastImage from 'react-native-fast-image';
 import { getBottomSpace } from 'react-native-iphone-x-helper';
 import { normalize } from '@src/utils/normalize';
-import { isTablet } from 'react-native-device-info';
+import { isTablet } from '@src/utils/tablet';
 
 export const Container = styled.View``;
 

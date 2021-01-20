@@ -6,7 +6,7 @@ import {
 import { slice } from 'lodash';
 import Outstanding from '@components/Outstanding';
 import { getImage } from '@src/utils/images';
-import { isTablet } from 'react-native-device-info';
+import { isTablet } from '@src/utils/tablet';
 import { Container } from './styles';
 
 type Props = {

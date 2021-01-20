@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import { useSelector } from 'react-redux';
 import Header from '@components/Header';
-import { isTablet } from 'react-native-device-info';
 import Carousel from 'react-native-snap-carousel';
 import Orientation, { OrientationType } from 'react-native-orientation-locker';
 import { Platform, StyleSheet, SafeAreaView } from 'react-native';
@@ -12,6 +11,7 @@ import { navigate } from '@src/navigation/rootNavigation';
 import { getTextInConfigJSON } from '@src/utils/object';
 import { analyticsRef } from '@src/utils/analytics';
 import { getDimensions } from '@src/utils/dimension';
+import { isTablet } from '@src/utils/tablet';
 import {
   Button,
   Pagination,

@@ -3,8 +3,8 @@ import { useSelector } from 'react-redux';
 import { AppState } from '@store/modules/rootReducer';
 import { Header } from '@store/modules/core/types';
 import { useOrientation } from '@src/utils/orientation';
+import { isTablet } from '@src/utils/tablet';
 import ScreenHeader from '@components/Header';
-import { isTablet } from 'react-native-device-info';
 import {
   Container,
   TabHeader,

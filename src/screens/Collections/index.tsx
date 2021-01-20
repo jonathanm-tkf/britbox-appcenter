@@ -36,8 +36,8 @@ import { Item } from '@screens/ModalFilter';
 
 import { checkIsInWatchingList } from '@src/services/watchlist';
 import { watchlistToggleRequest } from '@store/modules/user/actions';
-import { isTablet } from 'react-native-device-info';
 import { loadCollectionList } from '@src/services/util';
+import { isTablet } from '@src/utils/tablet';
 import { dataDummy } from './data';
 import {
   Container,

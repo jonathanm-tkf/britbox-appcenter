@@ -5,7 +5,7 @@ import { TabView } from 'react-native-tab-view';
 import HeaderCustom from '@components/HeaderCustom';
 import { useTranslation } from 'react-i18next';
 import { useNavigation, CommonActions } from '@react-navigation/native';
-import { isTablet } from 'react-native-device-info';
+import { isTablet } from '@src/utils/tablet';
 import { getDimensions } from '@src/utils/dimension';
 import { rgba } from 'polished';
 import {

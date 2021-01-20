@@ -1,7 +1,7 @@
 import styled from 'styled-components/native';
-import { isTablet } from 'react-native-device-info';
 import { ThemeState } from '@store/modules/theme/types';
 import { normalize } from '@src/utils/normalize';
+import { isTablet } from '@src/utils/tablet';
 import { ButtonProps, ButtonTextProps } from './props';
 
 export const Button = styled.TouchableOpacity.attrs({

@@ -8,6 +8,7 @@ import { useSelector } from 'react-redux';
 import RNPickerSelect from 'react-native-picker-select';
 import { percentageWidth } from '@src/utils/dimension';
 import { useColumns } from '@src/utils/columns';
+import { isTablet } from '@src/utils/tablet';
 import {
   MassiveSDKModelItemSummary,
   MassiveSDKModelPagination,
@@ -20,7 +21,6 @@ import { Item } from '@screens/ModalFilter';
 import { ArrowBottomIcon } from '@assets/icons';
 import { compact } from 'lodash';
 
-import { isTablet } from 'react-native-device-info';
 import { loadCollectionList } from '@src/services/util';
 import ModalPicker from '@screens/Shared/ModalPicker';
 import { dataDummy } from './data';

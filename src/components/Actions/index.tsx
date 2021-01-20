@@ -7,10 +7,10 @@ import { AppState } from '@store/modules/rootReducer';
 import { useSelector } from 'react-redux';
 import { ActivityIndicator } from 'react-native';
 import { MassiveSDKModelItemList } from '@src/sdks/Britbox.API.Content.TS/api';
-import { isTablet } from 'react-native-device-info';
 import { withTheme } from 'styled-components';
 import { ThemeProps } from '@store/modules/theme/types';
 import { normalize } from '@src/utils/normalize';
+import { isTablet } from '@src/utils/tablet';
 import { Actions, ActionButton, DiscoverMoreText, ActionText, Container } from './styles';
 
 /* component.js */

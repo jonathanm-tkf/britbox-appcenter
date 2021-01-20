@@ -4,7 +4,7 @@ import { Logo } from '@assets/icons';
 import { fill } from 'lodash';
 import Orientation, { OrientationType } from 'react-native-orientation-locker';
 import SwiperFlatList from 'react-native-swiper-flatlist';
-import { isTablet } from 'react-native-device-info';
+import { isTablet } from '@src/utils/tablet';
 import { getDimensions } from '@src/utils/dimension';
 import {
   Gradient,

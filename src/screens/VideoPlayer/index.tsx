@@ -15,7 +15,7 @@ import { AppState } from '@store/modules/rootReducer';
 import { useDispatch, useSelector } from 'react-redux';
 import { WebView } from 'react-native-webview';
 import NetInfo, { NetInfoStateType } from '@react-native-community/netinfo';
-import { getSystemVersion, getUniqueId, isTablet } from 'react-native-device-info';
+import { getSystemVersion, getUniqueId } from 'react-native-device-info';
 import {
   MassiveSDKModelEpisodesItem,
   MassiveSDKModelItemSummary,
@@ -28,6 +28,7 @@ import { continueWatchingRequest } from '@store/modules/user/actions';
 import { Config } from '@src/utils/config';
 import { HomeIndicator } from 'react-native-home-indicator';
 import { useOrientation } from '@src/utils/orientation';
+import { isTablet } from '@src/utils/tablet';
 import { Dismissal, Pause, Play, VideoStart } from '@screens/Shared/Cast/services';
 import { pickBy } from 'lodash';
 import Action from '@components/Action';

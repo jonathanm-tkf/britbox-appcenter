@@ -2,7 +2,7 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { Platform, Animated } from 'react-native';
 import Orientation, { OrientationType } from 'react-native-orientation-locker';
-import { isTablet } from 'react-native-device-info';
+import { isTablet } from '@src/utils/tablet';
 import { getImage } from '@src/utils/images';
 import { getDimensions } from '@src/utils/dimension';
 import { LoadDetailPageResponse } from '@store/modules/detail/types';
