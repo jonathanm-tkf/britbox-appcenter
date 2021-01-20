@@ -2,12 +2,11 @@ import { Title as TitleC, Headline as HeadlineC } from '@components/Typography';
 import styled from 'styled-components/native';
 import ImageC from 'react-native-fast-image';
 import { rgba } from 'polished';
+import * as Animatable from 'react-native-animatable';
 import { ThemeState } from '../../store/modules/theme/types';
 
 export const Container = styled.View`
   background-color: ${(props: ThemeState) => props.theme.PRIMARY_COLOR};
-  max-width: 420px;
-  width: 90%;
   border-radius: 5px;
   padding: 20px;
 `;
@@ -90,4 +89,13 @@ export const BackgroundCounter = styled.View`
 export const CounterText = styled.Text`
   color: ${(props: ThemeState) => props.theme.PRIMARY_FOREGROUND_COLOR};
   font-weight: 600;
+`;
+
+export const Main = styled(Animatable.View)`
+  max-width: 420px;
+  width: 90%;
+  position: absolute;
+  bottom: 40px;
+  right: 40px;
+  z-index: 1;
 `;
