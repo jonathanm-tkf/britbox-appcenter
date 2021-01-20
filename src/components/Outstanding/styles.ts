@@ -190,4 +190,6 @@ export const TTImage = styled.Image`
 
 export const ImageWrapper = styled.View``;
 
-export const Wrapper = styled.View``;
+export const Wrapper = styled.View`
+  width: 100%;
+`;
