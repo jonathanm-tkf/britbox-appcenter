@@ -85,7 +85,7 @@ const Watchlist = () => {
   const [orderBy, setOrderBy] = useState('date-added');
   const { filter } = params || {};
   const menu = useSelector((state: AppState) => state.core.menu?.navigation?.header); // TODO: get data from properties
-  const [numOfColums, elementWidth] = useColumns(18.75, Platform.OS === 'ios' ? 16 : 28.5);
+  const [numOfColums, elementWidth] = useColumns(18.75, Platform.OS === 'ios' ? 15.8 : 28.5);
 
   const [list, setList] = useState<MassiveSDKModelItemSummary[]>([]);
 

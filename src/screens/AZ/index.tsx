@@ -79,7 +79,7 @@ const AZ = () => {
   const [order, setOrder] = useState('asc');
   const [orderBy, setOrderBy] = useState('a-z');
   const menu = useSelector((state: AppState) => state.core.menu?.navigation?.header); // TODO: get data from properties
-  const [numOfColums, elementWidth] = useColumns(17.75, Platform.OS === 'ios' ? 16 : 32.5);
+  const [numOfColums, elementWidth] = useColumns(18.8, Platform.OS === 'ios' ? 15.8 : 32.5);
 
   const pickerRef = useRef<any>();
 

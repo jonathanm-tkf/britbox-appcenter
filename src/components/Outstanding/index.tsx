@@ -131,7 +131,10 @@ const Outstanding = ({ items, onPlay, onWatchlist, onDiscoverMore }: Props) => {
       return {
         width,
         height,
-        top: screenData.size.width / (screenData.orientation === 'LANDSCAPE' ? 3 : 6) - height / 2,
+        top:
+          screenData.size.width /
+            (screenData.orientation === 'LANDSCAPE' && Platform.OS === 'android' ? 3 : 6) -
+          height / 2,
         left: screenData.orientation === 'LANDSCAPE' ? '8%' : 0,
       };
     },
@@ -191,7 +194,7 @@ const Outstanding = ({ items, onPlay, onWatchlist, onDiscoverMore }: Props) => {
                     <Gradient
                       height={
                         isTablet() && screenData.orientation === 'LANDSCAPE'
-                          ? Math.max(screenData.size.width, screenData.size.height) / 3
+                          ? Math.max(screenData.size.width, screenData.size.height) / 6
                           : undefined
                       }
                     />
