@@ -62,10 +62,7 @@ const Search = ({ theme }: Props) => {
   const [isDone, setIsDone] = useState(false);
   const [noResults, setNoResults] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [numOfColums, elementWidth, elementHeight] = useColumns(
-    18,
-    Platform.OS === 'ios' ? 16 : 28
-  );
+  const [numOfColums, elementWidth] = useColumns(18, Platform.OS === 'ios' ? 16 : 28);
   const [searchingItemData, setSearchingItemData] = useState<MassiveSDKModelItemList[] | undefined>(
     undefined
   );
@@ -327,7 +324,7 @@ const Search = ({ theme }: Props) => {
             numColumns={numOfColums}
             element={{
               width: percentageWidth(elementWidth),
-              height: percentageWidth(elementHeight),
+              height: percentageWidth(elementWidth) * 1.5,
               marginBottom: 20,
               marginHorizontal: isTablet() ? 3 : 5,
             }}

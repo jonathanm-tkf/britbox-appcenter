@@ -3,7 +3,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect, useRef, useMemo, useCallback } from 'react';
-import { Animated, Text, NativeModules, Platform, StatusBar, Dimensions } from 'react-native';
+import { Animated, Text, NativeModules, Platform, StatusBar } from 'react-native';
 import { BackIcon } from '@assets/icons';
 import NewCard from '@components/NewCard';
 import { useRoute, useNavigation, RouteProp, useIsFocused } from '@react-navigation/native';
@@ -563,16 +563,11 @@ const Detail = ({ theme }: Props) => {
   }, [screenData]);
 
   const onOrientationDidChange = useCallback((newOrientation: OrientationType) => {
-    let parsedOrientation;
-
-    if (newOrientation === 'LANDSCAPE-LEFT' || newOrientation === 'LANDSCAPE-RIGHT') {
-      parsedOrientation = Platform.OS === 'ios' ? 'LANDSCAPE' : 'PORTRAIT';
-    } else {
-      parsedOrientation = Platform.OS === 'ios' ? 'PORTRAIT' : 'LANDSCAPE';
-    }
-
     setScreenData({
-      orientation: parsedOrientation,
+      orientation:
+        newOrientation === 'LANDSCAPE-LEFT' || newOrientation === 'LANDSCAPE-RIGHT'
+          ? 'LANDSCAPE'
+          : 'PORTRAIT',
       size: getDimensions(),
     });
   }, []);

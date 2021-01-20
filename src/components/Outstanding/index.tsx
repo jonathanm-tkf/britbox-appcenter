@@ -97,16 +97,11 @@ const Outstanding = ({ items, onPlay, onWatchlist, onDiscoverMore }: Props) => {
   }, [screenData]);
 
   const onOrientationDidChange = useCallback((newOrientation: OrientationType) => {
-    let parsedOrientation;
-
-    if (newOrientation === 'LANDSCAPE-LEFT' || newOrientation === 'LANDSCAPE-RIGHT') {
-      parsedOrientation = Platform.OS === 'ios' ? 'LANDSCAPE' : 'PORTRAIT';
-    } else {
-      parsedOrientation = Platform.OS === 'ios' ? 'PORTRAIT' : 'LANDSCAPE';
-    }
-
     setScreenData({
-      orientation: parsedOrientation,
+      orientation:
+        newOrientation === 'LANDSCAPE-LEFT' || newOrientation === 'LANDSCAPE-RIGHT'
+          ? 'LANDSCAPE'
+          : 'PORTRAIT',
       size: getDimensions(),
     });
   }, []);

@@ -85,10 +85,7 @@ const Watchlist = () => {
   const [orderBy, setOrderBy] = useState('date-added');
   const { filter } = params || {};
   const menu = useSelector((state: AppState) => state.core.menu?.navigation?.header); // TODO: get data from properties
-  const [numOfColums, elementWidth, elementHeight] = useColumns(
-    18.75,
-    Platform.OS === 'ios' ? 16 : 28.5
-  );
+  const [numOfColums, elementWidth] = useColumns(18.75, Platform.OS === 'ios' ? 16 : 28.5);
 
   const [list, setList] = useState<MassiveSDKModelItemSummary[]>([]);
 
@@ -248,7 +245,7 @@ const Watchlist = () => {
             numColumns={numOfColums}
             element={{
               width: percentageWidth(elementWidth),
-              height: percentageWidth(elementHeight),
+              height: percentageWidth(elementWidth) * 1.5,
               marginBottom: 20,
               marginHorizontal: isTablet() ? 3 : 5,
             }}

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { Platform, StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native';
 import Carousel from 'react-native-snap-carousel';
 import Orientation, { OrientationType } from 'react-native-orientation-locker';
 import { MassiveSDKModelItemList } from '@src/sdks/Britbox.API.Content.TS/api';
@@ -101,18 +101,15 @@ const NewSlider = ({
   };
 
   const onOrientationDidChange = useCallback((newOrientation: OrientationType) => {
-    let parsedOrientation;
-
-    if (newOrientation === 'LANDSCAPE-LEFT' || newOrientation === 'LANDSCAPE-RIGHT') {
-      parsedOrientation = Platform.OS === 'ios' ? 'LANDSCAPE' : 'PORTRAIT';
-    } else {
-      parsedOrientation = Platform.OS === 'ios' ? 'PORTRAIT' : 'LANDSCAPE';
-    }
+    const orientation =
+      newOrientation === 'LANDSCAPE-LEFT' || newOrientation === 'LANDSCAPE-RIGHT'
+        ? 'LANDSCAPE'
+        : 'PORTRAIT';
 
     setScreenData({
-      orientation: parsedOrientation,
+      orientation,
       width:
-        parsedOrientation === 'PORTRAIT'
+        orientation === 'PORTRAIT'
           ? Math.min(getDimensions().width, getDimensions().height)
           : Math.max(getDimensions().width, getDimensions().height),
     });

@@ -114,10 +114,7 @@ const Collections = () => {
   const [data, setData] = useState<MassiveSDKModelPage | undefined>(
     dataDummy as MassiveSDKModelPage
   );
-  const [numOfColumns, elementWidth, elementHeight] = useColumns(
-    18.8,
-    Platform.OS === 'ios' ? 16 : 28.5
-  );
+  const [numOfColumns, elementWidth] = useColumns(18.8, Platform.OS === 'ios' ? 16 : 28.5);
   const [isContinuosScroll, setIsContinuosScroll] = useState(false);
   const [error, setError] = useState(false);
   const [isLoadingContinuosScroll, setIsLoadingContinuosScroll] = useState(false);
@@ -550,7 +547,7 @@ const Collections = () => {
                             }
                           : {
                               width: percentageWidth(elementWidth),
-                              height: percentageWidth(elementHeight),
+                              height: percentageWidth(elementWidth) * 1.5,
                               marginBottom: 20,
                               marginHorizontal: 3,
                             }
