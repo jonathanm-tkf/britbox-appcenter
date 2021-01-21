@@ -9,7 +9,11 @@ import { navigationGoBack } from '@src/navigation/rootNavigation';
 import Action from '@components/Action';
 import { getNextItem, PlayVideo } from '@src/services/Video';
 import { MassiveSDKModelItemSummary } from '@src/sdks/Britbox.API.Content.TS/api';
-import { ErrorCode, VideoResponse } from '@src/services/Video/types';
+import {
+  ErrorCode,
+  ValidateParentalControlResponse,
+  VideoResponse,
+} from '@src/services/Video/types';
 import { useTranslation } from 'react-i18next';
 import { BackIcon } from '@assets/icons';
 import { Config } from '@src/utils/config';
@@ -22,28 +26,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { AppState } from '@store/modules/rootReducer';
 import { getDescription, getProgress, getTitle } from '@src/services/util';
 import NextEpisode from '@components/NextEpisode';
-import { showSheet } from '@src/utils/sheetBottom';
-import { showSheetBottom } from '@store/modules/layout/actions';
 import { BritboxAccountApi } from '@src/sdks';
-import {
-  CodeField,
-  Cursor,
-  useBlurOnFulfill,
-  useClearByFocusCell,
-} from 'react-native-confirmation-code-field';
-import RBSheet from 'react-native-raw-bottom-sheet';
-import { BottomSheetWrapper, Headline, Paragraph } from '@components/Layout';
-import { Text } from 'react-native';
-import {
-  SafeArea,
-  Loading,
-  ErrorWrapper,
-  ErrorText,
-  Back,
-  ParagraphChecking,
-  ParagraphError,
-  WrapperPin,
-} from './styles-ios';
+import ParentalControl from '@components/ParentalControl';
+import { SafeArea, Loading, ErrorWrapper, ErrorText, Back } from './styles-ios';
 
 type RootParamList = {
   VideoPlayer: {
@@ -53,11 +38,6 @@ type RootParamList = {
     currentTime: number;
   };
 };
-interface CellProps {
-  index: number;
-  symbol: string;
-  isFocused: boolean;
-}
 
 type VideoPlayerScreenRouteProp = RouteProp<RootParamList, 'VideoPlayer'>;
 
@@ -82,34 +62,6 @@ const VideoPlayerNative = () => {
   const { watched } = useSelector((state: AppState) => state.detail);
   const user = useSelector((state: AppState) => state.user);
   const core = useSelector((state: AppState) => state.core);
-  const theme = useSelector((state: AppState) => state.theme.theme);
-  const isContentSheet = useSelector((state: AppState) => state.layout.sheet.height > 0);
-  const [errorValuePin, setErrorValuePin] = useState(false);
-  const [checkingParentalControl, setCheckingParentalControl] = useState(false);
-
-  const [valuePin, setValuePin] = useState('');
-  const [codeProps, getCellOnLayoutHandler] = useClearByFocusCell({
-    value: valuePin,
-    setValue: setValuePin,
-  });
-  const refPin = useBlurOnFulfill({ value: valuePin, cellCount: 4 });
-  const cell = {
-    width: 60,
-    height: 60,
-    lineHeight: 50,
-    fontSize: 30,
-    borderRadius: 10,
-    marginHorizontal: 15,
-    borderWidth: 2,
-    borderColor: '#202634',
-    backgroundColor: '#202634',
-    color: theme.SECONDARY_FOREGROUND_COLOR,
-    textAlign: 'center',
-    overflow: 'hidden',
-  };
-  const focusCell = {
-    borderColor: theme.SECONDARY_FOREGROUND_COLOR,
-  };
   const sheetRef = useRef<any>(undefined);
 
   const asyncPlayVideo = useCallback(async (dataParams) => {
@@ -137,52 +89,38 @@ const VideoPlayerNative = () => {
     asyncPlayVideo(params);
   }, [params]);
 
-  const playNextEpisode = useCallback(async () => {
-    setShowNextEpisode(false);
-    const itemPlayback = nextData?.item;
-    if (user.profile?.parentalControl) {
-      const { checkParentalControl } = BritboxAccountApi({
-        headers: {
-          Authorization: `Bearer ${core.token}`,
-        },
-      });
-      const { canStream } = await checkParentalControl({
-        classificationName: itemPlayback?.classification?.name || '',
-        segment: core.segment,
-      });
-      if (!canStream) {
-        if (sheetRef.current) {
-          sheetRef.current.open();
+  const playNextEpisode = useCallback(
+    async (pcToken = '') => {
+      setShowNextEpisode(false);
+      const itemPlayback = nextData?.item;
+      if (user.profile?.parentalControl && pcToken === '') {
+        const { checkParentalControl } = BritboxAccountApi({
+          headers: {
+            Authorization: `Bearer ${core.token}`,
+          },
+        });
+        const { canStream } = await checkParentalControl({
+          classificationName: itemPlayback?.classification?.name || '',
+          segment: core.segment,
+        });
+        if (!canStream) {
+          if (sheetRef.current) {
+            sheetRef.current.open();
+          }
+          return true;
         }
-        return true;
       }
-    }
 
-    setParams({
-      item: nextData?.item || undefined,
-      currentTime: getProgress(nextData?.item?.id || '0', watched),
-    });
+      setParams({
+        item: nextData?.item || undefined,
+        currentTime: getProgress(nextData?.item?.id || '0', watched),
+        pcToken,
+      });
 
-    return true;
-  }, [core.segment, core.token, nextData?.item, setParams, user.profile?.parentalControl, watched]);
-
-  const renderCell = ({ index, symbol, isFocused }: CellProps) => {
-    let textChild = null;
-    if (symbol) {
-      textChild = symbol;
-    } else if (isFocused) {
-      textChild = <Cursor />;
-    }
-    return (
-      <Text
-        key={index}
-        style={[cell, isFocused && focusCell]}
-        onLayout={getCellOnLayoutHandler(index)}
-      >
-        {textChild}
-      </Text>
-    );
-  };
+      return true;
+    },
+    [core.segment, core.token, nextData?.item, setParams, user.profile?.parentalControl, watched]
+  );
 
   return (
     <>
@@ -278,56 +216,16 @@ const VideoPlayerNative = () => {
               onNext={() => playNextEpisode()}
             />
           )}
-          <RBSheet
+          <ParentalControl
             ref={sheetRef}
-            height={280}
-            closeOnDragDown
-            closeOnPressMask={false}
-            customStyles={{
-              container: {
-                maxWidth: 400,
-                alignItems: 'center',
-                borderTopRightRadius: 15,
-                borderTopLeftRadius: 15,
-              },
-              wrapper: {
-                alignItems: 'center',
-              },
-              draggableIcon: {
-                backgroundColor: theme.PRIMARY_TEXT_COLOR_OPAQUE,
-                width: 50,
-                marginTop: 20,
-              },
+            item={nextData?.item}
+            onSuccess={(data: ValidateParentalControlResponse) => {
+              if (sheetRef.current) {
+                sheetRef.current.close();
+              }
+              playNextEpisode(data.pcToken);
             }}
-            onClose={() => {
-              setErrorValuePin(false);
-            }}
-          >
-            <BottomSheetWrapper>
-              <Headline center color={theme.PRIMARY_TEXT_COLOR}>
-                {t('myaccount:parentalcontrols:title')}
-              </Headline>
-              <WrapperPin>
-                <Paragraph>{t('myaccount:parentalcontrols:enter')}</Paragraph>
-                <CodeField
-                  ref={refPin}
-                  {...codeProps}
-                  value={valuePin}
-                  onChangeText={setValuePin}
-                  cellCount={4}
-                  keyboardType="number-pad"
-                  textContentType="oneTimeCode"
-                  renderCell={renderCell}
-                />
-                {checkingParentalControl && (
-                  <ParagraphChecking>{t('myaccount:parentalcontrols:checking')}</ParagraphChecking>
-                )}
-                {errorValuePin && (
-                  <ParagraphError>{t('myaccount:parentalcontrols:errorpin')}</ParagraphError>
-                )}
-              </WrapperPin>
-            </BottomSheetWrapper>
-          </RBSheet>
+          />
         </Modal>
       </SafeArea>
     </>

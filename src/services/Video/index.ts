@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-throw-literal */
 import { BritboxAccountApi, BritboxContentApi } from '@src/sdks';
 import { getDevice } from '@src/utils';
 import { getImage } from '@src/utils/images';
@@ -13,7 +14,16 @@ import sha1 from 'sha1';
 import { BritboxAPIAccountModelsMediaFileGetItemMediaFilesResponse } from '@src/sdks/Britbox.API.Account.TS/api';
 import { MassiveSDKModelItemSummary } from '@src/sdks/Britbox.API.Content.TS/api';
 import { Config } from '@src/utils/config';
-import { Connection, MediaSelectorResponse, Protocol, TransferFormat, CustomData } from './types';
+import {
+  Connection,
+  MediaSelectorResponse,
+  Protocol,
+  TransferFormat,
+  CustomData,
+  ValidateParentalControlResponse,
+  Access,
+} from './types';
+import { refreshTokenWithExpiresIn } from '../token';
 
 const getSegment = () => {
   const { core }: { core: CoreState } = store.getState();
@@ -259,4 +269,40 @@ export const getNextItem = async (id: string) => {
     expand: 'parent',
   });
   return response.externalResponse;
+};
+
+export const validateParentalControl = async (
+  access: Access,
+  parentalControlItem: MassiveSDKModelItemSummary | undefined,
+  valuePin: string
+): Promise<ValidateParentalControlResponse> => {
+  const { validateParentalControlPin } = BritboxAccountApi({
+    headers: {
+      Authorization: `Bearer ${access.accessToken}`,
+      'content-type': 'application/json',
+    },
+  });
+
+  const { response: responseValidate, token: pcToken } = await validateParentalControlPin({
+    parentalControlPin: valuePin,
+    itemId: parentalControlItem?.id || '0',
+  });
+
+  if (responseValidate?.validateParentalControlPINResponseMessage?.responseCode === '1') {
+    const { response } = await refreshTokenWithExpiresIn(
+      access.expiresIn.toString(),
+      access.refreshToken
+    );
+    const responseResult: ValidateParentalControlResponse = {
+      access,
+      pcToken: '',
+    };
+    if (response) {
+      responseResult.access = { ...response };
+    }
+    responseResult.pcToken = pcToken || '';
+    return { ...responseResult };
+  }
+
+  return Promise.reject('Validate Parental Control');
 };

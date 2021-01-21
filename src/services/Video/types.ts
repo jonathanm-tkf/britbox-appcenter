@@ -65,3 +65,17 @@ export interface ErrorCode {
   devMessage: string;
   errorCode: string;
 }
+
+export type Access = {
+  accessToken: string;
+  refreshToken: string;
+  tokenType: string;
+  expiresIn: string;
+  message: string;
+  responseCode: number;
+};
+
+export type ValidateParentalControlResponse = {
+  access: Access;
+  pcToken: string;
+};
