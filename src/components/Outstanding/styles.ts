@@ -74,7 +74,6 @@ export const ActionText = styled.Text`
 export const LogoWrapper = styled.View`
   justify-content: center;
   align-items: center;
-  flex: 1;
 `;
 
 type PaginationWrapperProps = {
@@ -190,4 +189,6 @@ export const TTImage = styled.Image`
 
 export const ImageWrapper = styled.View``;
 
-export const Wrapper = styled.View``;
+export const Wrapper = styled.View`
+  flex: 1;
+`;
