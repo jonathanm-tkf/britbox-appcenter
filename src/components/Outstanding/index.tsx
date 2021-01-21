@@ -4,7 +4,10 @@ import { Logo } from '@assets/icons';
 import { fill } from 'lodash';
 import SwiperFlatList from 'react-native-swiper-flatlist';
 import { isTablet } from '@src/utils/tablet';
-import Orientation, { OrientationType } from 'react-native-orientation-locker';
+import Orientation, {
+  OrientationType as LockerOrientationType,
+} from 'react-native-orientation-locker';
+import type { Orientation as OrientationType } from '@src/utils/orientation';
 
 import {
   Gradient,
@@ -74,10 +77,10 @@ const PaginationComponent = ({
 const Outstanding = ({ items, onPlay, onWatchlist, onDiscoverMore }: Props) => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [size, setSize] = useState({ width: 0, height: 0 });
-  const [orientation, setOrientation] = useState<'PORTRAIT' | 'LANDSCAPE' | undefined>(undefined);
+  const [orientation, setOrientation] = useState<OrientationType | undefined>(undefined);
   const sliderRef = useRef<any>(null);
 
-  const onOrientationDidChange = useCallback((newOrientation: OrientationType) => {
+  const onOrientationDidChange = useCallback((newOrientation: LockerOrientationType) => {
     setOrientation(
       newOrientation === 'LANDSCAPE-LEFT' || newOrientation === 'LANDSCAPE-RIGHT'
         ? 'LANDSCAPE'
