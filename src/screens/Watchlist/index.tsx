@@ -318,7 +318,6 @@ const Watchlist = () => {
           layout: { width: newWidth },
         },
       }: LayoutChangeEvent) => {
-        // * 2 because it has padding on both left and right
         setWidth(newWidth);
       }}
     >

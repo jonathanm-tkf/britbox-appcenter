@@ -9,7 +9,7 @@ const TABLET_PORTRAIT_COLUMNS = 5;
 const TABLET_LANDSCAPE_COLUMNS = 6;
 const MOBILE_PORTRAIT_COLUMNS = 3;
 
-export function useColumns(width: number, padding: number) {
+export function useColumns(width: number, margin: number) {
   const [data, setData] = useState({
     numOfColumns: MOBILE_PORTRAIT_COLUMNS,
     columnWidth: 0,
@@ -30,11 +30,11 @@ export function useColumns(width: number, padding: number) {
 
       setData({
         numOfColumns,
-        // * 2 because it has padding/margin on both left and right
-        columnWidth: (width - padding * 2) / numOfColumns,
+        // * 2 because it has margin on both left and right
+        columnWidth: (width - margin * 2 * numOfColumns) / numOfColumns,
       });
     },
-    [width, padding]
+    [width, margin]
   );
 
   useEffect((): (() => void) => {

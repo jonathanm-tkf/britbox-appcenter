@@ -189,7 +189,7 @@ const Search = ({ theme }: Props) => {
           layout: { width: newWidth },
         },
       }: LayoutChangeEvent) => {
-        // * 2 because it has padding on both left and right
+        // * 2 because it has padding on both sides, left and right
         setWidth(newWidth - listStyles.paddingHorizontal * 2);
       }}
     >
