@@ -1,6 +1,12 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect, useRef } from 'react';
-import { NativeScrollEvent, NativeSyntheticEvent, ScrollView, Platform } from 'react-native';
+import {
+  NativeScrollEvent,
+  NativeSyntheticEvent,
+  ScrollView,
+  Platform,
+  LayoutChangeEvent,
+} from 'react-native';
 import { useNavigation, useRoute, RouteProp } from '@react-navigation/native';
 import Header from '@components/Header';
 import { AppState } from '@store/modules/rootReducer';
@@ -61,6 +67,8 @@ const listStyles = {
   paddingHorizontal: isTablet() ? 7 : 15,
 };
 
+const gridElementMargin = isTablet() ? 3 : 5;
+
 const AZ = () => {
   const navigation = useNavigation();
   const { params } = useRoute<AZScreenRouteProp>();
@@ -78,7 +86,8 @@ const AZ = () => {
   const [order, setOrder] = useState('asc');
   const [orderBy, setOrderBy] = useState('a-z');
   const menu = useSelector((state: AppState) => state.core.menu?.navigation?.header); // TODO: get data from properties
-  const [numOfColums, elementWidth] = useColumns();
+  const [width, setWidth] = useState(0);
+  const [numOfColums, gridElementWidth] = useColumns(width, gridElementMargin);
 
   const pickerRef = useRef<any>();
 
@@ -250,7 +259,16 @@ const AZ = () => {
   };
 
   return (
-    <SafeAreaView>
+    <SafeAreaView
+      onLayout={({
+        nativeEvent: {
+          layout: { width: newWidth },
+        },
+      }: LayoutChangeEvent) => {
+        // * 2 because it has padding on both sides, left and right
+        setWidth(newWidth - listStyles.paddingHorizontal * 2);
+      }}
+    >
       <Header style={headerStyles} menuItems={getMenuItems()} />
       <ScrollView
         bounces={false}
@@ -308,11 +326,10 @@ const AZ = () => {
                   loading={animationContinuosScroll}
                   numColumns={numOfColums}
                   element={{
-                    width: elementWidth - listStyles.paddingHorizontal - (isTablet() ? 3 : 5),
-                    height:
-                      (elementWidth - listStyles.paddingHorizontal - (isTablet() ? 3 : 5)) * 1.5,
+                    width: gridElementWidth,
+                    height: gridElementWidth * 1.5,
                     marginBottom: 20,
-                    marginHorizontal: isTablet() ? 3 : 5,
+                    marginHorizontal: gridElementMargin,
                   }}
                   listStyles={listStyles}
                 />

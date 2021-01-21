@@ -3,37 +3,41 @@ import { ThemeState } from '@store/modules/theme/types';
 import { normalize } from '@src/utils/normalize';
 import { getBottomSpace, getStatusBarHeight } from 'react-native-iphone-x-helper';
 import { Platform } from 'react-native';
+import { isTablet } from '@src/utils/tablet';
+import { getDimensions } from '@src/utils/dimension';
+
+const { width } = getDimensions();
+const wrappersWidth = width * (isTablet() ? 0.8 : 0.6);
 
 export const Container = styled.View`
-  width: 100%;
   padding: ${Platform.OS === 'ios' ? getStatusBarHeight() + 10 : 0}px 0px
     ${Platform.OS === 'ios' ? getBottomSpace() + 10 : 0}px;
   flex: 1;
+  align-items: center;
 `;
 
 export const TabHeader = styled.View`
   flex-direction: row;
   margin-top: 18px;
-  width: 100%;
+  width: ${wrappersWidth}px;
 `;
 
 type TabHeaderItemProps = {
   active: boolean;
-  center: boolean;
-  addPadding: boolean;
 };
 
 export const TabHeaderItem = styled.TouchableOpacity<TabHeaderItemProps>`
-  width: 50%;
+  width: ${wrappersWidth / 2}px;
+  ${() => !isTablet() && `align-items: center;`}
+`;
+
+export const TabHaederChild = styled.View`
   flex-direction: row;
   align-items: center;
-  ${(props: TabHeaderItemProps) => props.addPadding && `padding-left: 6%;`}
-  ${(props: TabHeaderItemProps) => props.center && `justify-content: center;`}
 `;
 
 interface ItemText {
   active: boolean;
-  paddingLeft?: string;
 }
 
 export const TabHeaderItemText = styled.Text`
@@ -41,12 +45,11 @@ export const TabHeaderItemText = styled.Text`
   font-family: ${(props: ThemeState) => props.theme.PRIMARY_FONT_FAMILY_MEDIUM};
   font-size: ${normalize(18, 24)}px;
   line-height: ${normalize(32, 64)}px;
-  ${(props: ItemText) => props.paddingLeft && `padding-right: ${props.paddingLeft};`}
   ${(props: ItemText & ThemeState) => {
     return props.active
       ? `opacity: 1;`
       : `
-        opacity: 0.6;
+        opacity: 0.3;
         font-family: ${props.theme.PRIMARY_FONT_FAMILY};
       `;
   }};
@@ -64,6 +67,7 @@ export const LinksWrapper = styled.View`
   flex: 1;
   flex-direction: row;
   justify-content: center;
+  width: ${wrappersWidth / 2}px;
 `;
 
 type TabContentProps = {
@@ -73,9 +77,15 @@ type TabContentProps = {
 
 export const TabContent = styled.View<TabContentProps>`
   margin-top: 15px;
-  ${(props: TabContentProps) => {
-    return props.bigScreen ? 'padding-horizontal: 10%;' : 'align-items: center;';
-  }}
+  ${() =>
+    isTablet()
+      ? `
+        padding-left: 50px;
+        width: ${wrappersWidth / 2}px;
+      `
+      : `
+        align-items: center;
+      `}
   ${(props: TabContentProps) => {
     return (
       !props.active &&

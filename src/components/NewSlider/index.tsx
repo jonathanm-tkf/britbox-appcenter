@@ -1,7 +1,6 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import { StyleSheet } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { StyleSheet, LayoutChangeEvent } from 'react-native';
 import Carousel from 'react-native-snap-carousel';
-import Orientation, { OrientationType } from 'react-native-orientation-locker';
 import { MassiveSDKModelItemList } from '@src/sdks/Britbox.API.Content.TS/api';
 import { getImage } from '@src/utils/images';
 import ContentLoader, { Rect } from 'react-content-loader/native';
@@ -23,8 +22,6 @@ import {
   Button,
 } from './styles';
 import Actions from './Actions';
-
-const { width } = getDimensions();
 
 const styles = StyleSheet.create({
   sliderContainer: {
@@ -61,11 +58,7 @@ const NewSlider = ({
 }: Props) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const theme = useSelector((state: AppState) => state.theme.theme);
-  // FIXME: Try to replace this logic with useOrientation
-  const [screenData, setScreenData] = useState({
-    orientation: getDimensions().height >= getDimensions().width ? 'PORTRAIT' : 'LANDSCAPE',
-    width: getDimensions().width,
-  });
+  const [size, setSize] = useState({ width: getDimensions().width, height: 1 });
 
   const carouselData = data.map((item) => {
     const image = slim ? item.images?.poster : item.images?.tile || item.images?.wallpaper;
@@ -100,34 +93,6 @@ const NewSlider = ({
     return image === 'no-image' ? false : image;
   };
 
-  const onOrientationDidChange = useCallback((newOrientation: OrientationType) => {
-    const orientation =
-      newOrientation === 'LANDSCAPE-LEFT' || newOrientation === 'LANDSCAPE-RIGHT'
-        ? 'LANDSCAPE'
-        : 'PORTRAIT';
-
-    setScreenData({
-      orientation,
-      width:
-        orientation === 'PORTRAIT'
-          ? Math.min(getDimensions().width, getDimensions().height)
-          : Math.max(getDimensions().width, getDimensions().height),
-    });
-  }, []);
-
-  useEffect((): (() => void) => {
-    if (isTablet()) {
-      Orientation.getDeviceOrientation(onOrientationDidChange);
-      Orientation.addDeviceOrientationListener(onOrientationDidChange);
-
-      return () => {
-        Orientation.removeDeviceOrientationListener(onOrientationDidChange);
-      };
-    }
-
-    return () => {};
-  }, [onOrientationDidChange]);
-
   const getContent = (item?: MassiveSDKModelItemList) => {
     const image = getImage(item?.images?.poster, 'wallpaper');
 
@@ -161,9 +126,9 @@ const NewSlider = ({
           backgroundColor={theme.PRIMARY_COLOR_OPAQUE}
           foregroundColor={theme.PRIMARY_COLOR}
         >
-          <Rect x={width / 2 - 105 - 20 + 8} y="35" rx="8" ry="8" width="50" height="50" />
-          <Rect x={width / 2 - 35 - 20 + 16} y="10" rx="8" ry="8" width="70" height="100" />
-          <Rect x={width / 2 + 55 - 20 + 24} y="35" rx="8" ry="8" width="50" height="50" />
+          <Rect x={size.width / 2 - 105 - 20 + 8} y="35" rx="8" ry="8" width="50" height="50" />
+          <Rect x={size.width / 2 - 35 - 20 + 16} y="10" rx="8" ry="8" width="70" height="100" />
+          <Rect x={size.width / 2 + 55 - 20 + 24} y="35" rx="8" ry="8" width="50" height="50" />
         </ContentLoader>
       );
     }
@@ -187,21 +152,27 @@ const NewSlider = ({
     : {};
 
   return (
-    <Container>
+    <Container
+      onLayout={({
+        nativeEvent: {
+          layout: { width, height },
+        },
+      }: LayoutChangeEvent) => {
+        setSize({ width, height });
+      }}
+    >
       <SliderWrapper
         {...{
           slim: !!slim,
           collection: !!collection,
-          width:
-            isTablet() && screenData.orientation === 'LANDSCAPE' ? screenData.width : undefined,
+          width: size.width,
         }}
       >
         <Slider
           {...{
             slim: !!slim,
             collection: !!collection,
-            width:
-              isTablet() && screenData.orientation === 'LANDSCAPE' ? screenData.width : undefined,
+            width: size.width,
             source:
               (slim || collection) &&
               getImageSquare(
@@ -228,20 +199,8 @@ const NewSlider = ({
         <Carousel
           data={carouselData}
           renderItem={renderItem}
-          sliderWidth={
-            slim
-              ? sliderWidthSlim
-              : isTablet() && screenData.orientation === 'LANDSCAPE'
-              ? screenData.width
-              : sliderWidth
-          }
-          itemWidth={
-            slim
-              ? itemWidthSlim
-              : isTablet() && screenData.orientation === 'LANDSCAPE'
-              ? screenData.width / 2.75
-              : itemWidth
-          }
+          sliderWidth={slim ? sliderWidthSlim : isTablet() ? size.width : sliderWidth}
+          itemWidth={slim ? itemWidthSlim : itemWidth}
           hasParallaxImages
           loop
           loopClonesPerSide={2}
