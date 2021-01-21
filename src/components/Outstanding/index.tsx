@@ -1,9 +1,11 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect, useRef } from 'react';
 import { LayoutChangeEvent } from 'react-native';
 import { Logo } from '@assets/icons';
 import { fill } from 'lodash';
 import SwiperFlatList from 'react-native-swiper-flatlist';
 import { isTablet } from '@src/utils/tablet';
+import Orientation, { OrientationType } from 'react-native-orientation-locker';
+
 import {
   Gradient,
   LogoWrapper,
@@ -69,11 +71,32 @@ const PaginationComponent = ({
   );
 };
 
-const ACTIONS_HEIGHT = 150;
-
 const Outstanding = ({ items, onPlay, onWatchlist, onDiscoverMore }: Props) => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [size, setSize] = useState({ width: 0, height: 0 });
+  const [orientation, setOrientation] = useState<'PORTRAIT' | 'LANDSCAPE' | undefined>(undefined);
+  const sliderRef = useRef<any>(null);
+
+  const onOrientationDidChange = useCallback((newOrientation: OrientationType) => {
+    setOrientation(
+      newOrientation === 'LANDSCAPE-LEFT' || newOrientation === 'LANDSCAPE-RIGHT'
+        ? 'LANDSCAPE'
+        : 'PORTRAIT'
+    );
+  }, []);
+
+  useEffect(() => {
+    if (sliderRef?.current) {
+      sliderRef?.current.scrollToIndex({ index: 0, animated: true });
+    }
+  }, [orientation]);
+
+  useEffect(() => {
+    Orientation.addDeviceOrientationListener(onOrientationDidChange);
+    return () => {
+      Orientation.removeDeviceOrientationListener(onOrientationDidChange);
+    };
+  }, [onOrientationDidChange]);
 
   const getItemTTIImageSize = useCallback(
     (item: Item) => {
@@ -96,9 +119,6 @@ const Outstanding = ({ items, onPlay, onWatchlist, onDiscoverMore }: Props) => {
 
   return (
     <Wrapper
-      style={{
-        height: (isTablet() ? size.width / 3 : size.width) + ACTIONS_HEIGHT,
-      }}
       onLayout={({
         nativeEvent: {
           layout: { width, height },
@@ -109,7 +129,7 @@ const Outstanding = ({ items, onPlay, onWatchlist, onDiscoverMore }: Props) => {
     >
       <SwiperFlatList
         index={0}
-        style={{ width: size.width }}
+        ref={sliderRef}
         onChangeIndex={({ index }: { index: number }) => setActiveIndex(index)}
         disableVirtualization={false}
         removeClippedSubviews
@@ -119,7 +139,12 @@ const Outstanding = ({ items, onPlay, onWatchlist, onDiscoverMore }: Props) => {
             <WrapperButton onPress={() => (onDiscoverMore ? onDiscoverMore(item) : {})}>
               <ImageWrapper>
                 {item.url === 'no-image' ? (
-                  <LogoWrapper>
+                  <LogoWrapper
+                    style={{
+                      width: size.width,
+                      height: isTablet() ? size.width / 3 : size.width,
+                    }}
+                  >
                     <Logo width="80%" />
                   </LogoWrapper>
                 ) : (
@@ -146,14 +171,19 @@ const Outstanding = ({ items, onPlay, onWatchlist, onDiscoverMore }: Props) => {
                 )}
               </ImageWrapper>
             </WrapperButton>
-            <Actions {...{ item, onPlay, onDiscoverMore, onWatchlist }} />
+            <Actions
+              style={{
+                width: size.width,
+              }}
+              {...{ item, onPlay, onDiscoverMore, onWatchlist }}
+            />
           </Wrapper>
         )}
       />
       <PaginationComponent
         size={items.length}
         paginationIndex={activeIndex}
-        tabletLandscape={isTablet() && size.height >= size.width}
+        tabletLandscape={isTablet() && orientation === 'LANDSCAPE'}
       />
     </Wrapper>
   );

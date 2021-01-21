@@ -22,9 +22,10 @@ interface Props {
   onDiscoverMore?: (item: any) => void;
   onPlay?: (item: any) => void;
   readonly theme: ThemeProps;
+  style?: any;
 }
 
-const ActionsComponent = ({ item, onDiscoverMore, onPlay, onWatchlist, theme }: Props) => {
+const ActionsComponent = ({ item, onDiscoverMore, onPlay, onWatchlist, theme, style }: Props) => {
   const { t } = useTranslation('layout');
   const bookmarklist = useSelector(
     (state: AppState) => state.user.profile?.bookmarkList || []
@@ -50,7 +51,7 @@ const ActionsComponent = ({ item, onDiscoverMore, onPlay, onWatchlist, theme }: 
   };
 
   return (
-    <Container>
+    <Container {...style}>
       <Actions>
         {item.type !== 'link' && (
           <>
