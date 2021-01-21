@@ -52,6 +52,11 @@ const listStyles = {
 
 const gridElementHorizontalMargin = isTablet() ? 3 : 5;
 
+type NoResultsTextType = {
+  text: string;
+  bold: boolean;
+};
+
 type Props = {
   readonly theme: ThemeProps;
 };
@@ -121,6 +126,7 @@ const Search = ({ theme }: Props) => {
   };
 
   const suggestionLinks = getTextInConfigJSON(['search-links'], '');
+  const noResulsts = getTextInConfigJSON(['search-no-resulsts'], []);
 
   useEffect(() => {
     const searchString = searchInput?.trim();
@@ -309,10 +315,12 @@ const Search = ({ theme }: Props) => {
         <ResultGrid>
           {noResults ? (
             <NoResultWrapper>
-              <NoResultText>
-                <NoResultBold>{t('noResults.bold')}</NoResultBold>
-                {t('noResults.text')}
-              </NoResultText>
+              {noResulsts.map((item: NoResultsTextType, index: number) => (
+                <NoResultText key={String(index)}>
+                  {item.bold && <NoResultBold>{item.text}</NoResultBold>}
+                  {!item.bold && item.text}
+                </NoResultText>
+              ))}
             </NoResultWrapper>
           ) : (
             <SuggestionWrapper>
