@@ -2,13 +2,13 @@ import React, { useState, useEffect, useCallback, SetStateAction } from 'react';
 import { useSelector } from 'react-redux';
 import { AppState } from '@store/modules/rootReducer';
 import { Header } from '@store/modules/core/types';
-import { useOrientation } from '@src/utils/orientation';
 import { isTablet } from '@src/utils/tablet';
 import ScreenHeader from '@components/Header';
 import {
   Container,
   TabHeader,
   TabHeaderItem,
+  TabHaederChild,
   TabHeaderItemText,
   TabHeaderItemIndicator,
   LinksWrapper,
@@ -28,7 +28,6 @@ const ExploreMenu = ({ data, onPress }: Props) => {
   const menu = useSelector((state: AppState) => state.core.menu?.navigation?.header); // TODO: get data from properties
   const [active, setActive] = useState('');
   const [dataMenu, setDataMenu] = useState([]);
-  const orientation = useOrientation();
 
   const changeTab = (key: string) => {
     setActive(key);
@@ -69,20 +68,15 @@ const ExploreMenu = ({ data, onPress }: Props) => {
           <TabHeaderItem
             key={headerItem.label.toString() + headerIndex.toString()}
             active={active === headerItem.label}
-            center={!isTablet() || (orientation === 'LANDSCAPE' && headerIndex === 0)}
-            addPadding={isTablet() && (orientation === 'LANDSCAPE' || headerIndex === 0)}
             onPress={() => changeTab(headerItem.label)}
             disabled={isTablet()}
           >
-            {!isTablet() && active === headerItem.label && <TabHeaderItemIndicator />}
-            <TabHeaderItemText
-              active={!isTablet() && active === headerItem.label}
-              paddingLeft={
-                isTablet() && orientation === 'LANDSCAPE' && headerIndex === 0 ? '10%' : undefined
-              }
-            >
-              {headerItem.label}
-            </TabHeaderItemText>
+            <TabHaederChild>
+              {!isTablet() && active === headerItem.label && <TabHeaderItemIndicator />}
+              <TabHeaderItemText active={!isTablet() && active === headerItem.label}>
+                {headerItem.label}
+              </TabHeaderItemText>
+            </TabHaederChild>
           </TabHeaderItem>
         ))}
       </TabHeader>
