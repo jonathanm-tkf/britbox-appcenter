@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from 'react';
-import { Animated, NativeScrollEvent, View } from 'react-native';
+import { Animated, NativeScrollEvent, View, LayoutChangeEvent } from 'react-native';
 import { useNavigation, useRoute, RouteProp } from '@react-navigation/native';
 import { BackIcon } from '@assets/icons';
 import { getDimensions, percentageWidth } from '@src/utils/dimension';
@@ -58,7 +58,9 @@ import {
   FilterWrapper,
 } from './styles';
 
-const { width } = getDimensions();
+const { width: screenWidth } = getDimensions();
+
+const tabletGridElementMargin = 3;
 
 type RootParamList = {
   Collection: {
@@ -80,14 +82,14 @@ type Card = MassiveSDKModelItemList & {
   type?: string;
 };
 
-const listStyle = {
+const listStyles = {
   marginTop: 10,
   paddingHorizontal: isTablet() ? 7 : 15,
 };
 
 const GridContent = ({ data }: { data: MassiveSDKModelItemSummary }) => {
   const wrapper = {
-    width: width - 40,
+    width: screenWidth - 40,
   };
 
   return (
@@ -100,7 +102,7 @@ const GridContent = ({ data }: { data: MassiveSDKModelItemSummary }) => {
 
 const GridContentAfter = ({ data }: { data: MassiveSDKModelItemSummary }) => {
   const wrapper = {
-    width: width - 40,
+    width: screenWidth - 40,
   };
 
   return (
@@ -119,7 +121,8 @@ const Collections = () => {
   const [data, setData] = useState<MassiveSDKModelPage | undefined>(
     dataDummy as MassiveSDKModelPage
   );
-  const [numOfColumns, elementWidth] = useColumns();
+  const [width, setWidth] = useState(0);
+  const [numOfColumns, gridElementWidth] = useColumns(width, tabletGridElementMargin);
   const [isContinuosScroll, setIsContinuosScroll] = useState(false);
   const [error, setError] = useState(false);
   const [isLoadingContinuosScroll, setIsLoadingContinuosScroll] = useState(false);
@@ -425,7 +428,16 @@ const Collections = () => {
   }, [filter]);
 
   return (
-    <Container>
+    <Container
+      onLayout={({
+        nativeEvent: {
+          layout: { width: newWidth },
+        },
+      }: LayoutChangeEvent) => {
+        // * 2 because it has padding on both left and right
+        setWidth(newWidth - listStyles.paddingHorizontal * 2);
+      }}
+    >
       <TopWrapper>
         <Button onPress={() => back()}>
           <BackIcon width={20} height={20} />
@@ -481,7 +493,7 @@ const Collections = () => {
                       marginBottom: 20,
                       marginHorizontal: isTablet() ? 3 : 5,
                     }}
-                    listStyles={listStyle}
+                    listStyles={listStyles}
                   />
                 );
               case 'grid-infinite': {
@@ -546,13 +558,13 @@ const Collections = () => {
                               marginHorizontal: 5,
                             }
                           : {
-                              width: elementWidth - listStyle.paddingHorizontal - 3,
-                              height: (elementWidth - listStyle.paddingHorizontal - 3) * 1.5,
+                              width: gridElementWidth,
+                              height: gridElementWidth * 1.5,
                               marginBottom: 20,
-                              marginHorizontal: 3,
+                              marginHorizontal: tabletGridElementMargin,
                             }
                       }
-                      listStyles={listStyle}
+                      listStyles={listStyles}
                       imageType={infiniteGridColumns === 2 ? 'wallpaper' : 'poster'}
                     />
                   </WrapperContinuosScroll>
@@ -578,7 +590,7 @@ const Collections = () => {
                       marginBottom: 20,
                       marginHorizontal: 5,
                     }}
-                    listStyles={listStyle}
+                    listStyles={listStyles}
                   />
                 );
               case 'standard':

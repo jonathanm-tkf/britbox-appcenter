@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react';
-import { FlatList, TouchableOpacity, ActivityIndicator } from 'react-native';
+import { FlatList, TouchableOpacity, ActivityIndicator, LayoutChangeEvent } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import Highlighter from 'react-native-highlight-words';
 import { SearchIcon, SearchDeleteIcon } from '@assets/icons';
@@ -50,6 +50,8 @@ const listStyles = {
   paddingHorizontal: 10,
 };
 
+const gridElementHorizontalMargin = isTablet() ? 3 : 5;
+
 type Props = {
   readonly theme: ThemeProps;
 };
@@ -62,7 +64,8 @@ const Search = ({ theme }: Props) => {
   const [isDone, setIsDone] = useState(false);
   const [noResults, setNoResults] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [numOfColums, elementWidth] = useColumns();
+  const [width, setWidth] = useState(0);
+  const [numOfColums, gridElementWidth] = useColumns(width, gridElementHorizontalMargin);
   const [searchingItemData, setSearchingItemData] = useState<MassiveSDKModelItemList[] | undefined>(
     undefined
   );
@@ -180,7 +183,16 @@ const Search = ({ theme }: Props) => {
   };
 
   return (
-    <Scroll>
+    <Scroll
+      onLayout={({
+        nativeEvent: {
+          layout: { width: newWidth },
+        },
+      }: LayoutChangeEvent) => {
+        // * 2 because it has padding on both left and right
+        setWidth(newWidth - listStyles.paddingHorizontal * 2);
+      }}
+    >
       <TitleWrapper>
         <Title fontSize={isTablet() ? 32 : 25} lineHeight={isTablet() ? 42 : 38}>
           {t('title')}
@@ -323,10 +335,10 @@ const Search = ({ theme }: Props) => {
             title={search?.title || ''}
             numColumns={numOfColums}
             element={{
-              width: elementWidth - listStyles.paddingHorizontal - (isTablet() ? 3 : 5),
-              height: (elementWidth - listStyles.paddingHorizontal - (isTablet() ? 3 : 5)) * 1.5,
+              width: gridElementWidth,
+              height: gridElementWidth * 1.5,
               marginBottom: 20,
-              marginHorizontal: isTablet() ? 3 : 5,
+              marginHorizontal: gridElementHorizontalMargin,
             }}
             containerStyles={containerStyles}
             listStyles={listStyles}

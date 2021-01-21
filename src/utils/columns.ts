@@ -1,64 +1,56 @@
 import { useState, useEffect, useCallback, useMemo } from 'react';
-import Orientation, { OrientationType } from 'react-native-orientation-locker';
+import Orientation, {
+  OrientationType as LockerOrientationType,
+} from 'react-native-orientation-locker';
 import { isTablet } from '@src/utils/tablet';
-import { getDimensions } from '@src/utils/dimension';
+import type { Orientation as OrientationType } from '@src/utils/orientation';
 
 const TABLET_PORTRAIT_COLUMNS = 5;
 const TABLET_LANDSCAPE_COLUMNS = 6;
 const MOBILE_PORTRAIT_COLUMNS = 3;
 
-const { width: screenWidth, height: screenHeight } = getDimensions();
-const min = Math.min(screenWidth, screenHeight);
-const max = Math.max(screenWidth, screenHeight);
-const isPortrait = screenHeight >= screenWidth;
-const portraitTabletCardWidth = 100 / TABLET_PORTRAIT_COLUMNS;
-const landscapeTabletCardWidth = 100 / TABLET_LANDSCAPE_COLUMNS;
-
-export function useColumns() {
+export function useColumns(width: number, padding: number) {
   const [data, setData] = useState({
-    screenOrientation: isPortrait ? 'PORTRAIT' : 'LANDSCAPE',
-    numOfColums: isTablet()
-      ? isPortrait
-        ? TABLET_PORTRAIT_COLUMNS
-        : TABLET_LANDSCAPE_COLUMNS
-      : MOBILE_PORTRAIT_COLUMNS,
+    numOfColumns: MOBILE_PORTRAIT_COLUMNS,
+    columnWidth: 0,
   });
 
-  const onOrientationDidChange = useCallback(() => {
-    Orientation.getOrientation((orientation: OrientationType) => {
-      if (orientation === 'PORTRAIT' || orientation === 'PORTRAIT-UPSIDEDOWN') {
-        setData({
-          screenOrientation: 'PORTRAIT',
-          numOfColums: isTablet() ? TABLET_PORTRAIT_COLUMNS : MOBILE_PORTRAIT_COLUMNS,
-        });
-      } else if (orientation === 'LANDSCAPE-LEFT' || orientation === 'LANDSCAPE-RIGHT') {
-        setData({
-          screenOrientation: 'LANDSCAPE',
-          numOfColums: isTablet() ? TABLET_LANDSCAPE_COLUMNS : MOBILE_PORTRAIT_COLUMNS,
-        });
-      }
-    });
-  }, []);
+  const onOrientationDidChange = useCallback(
+    (newOrientation: LockerOrientationType) => {
+      const orientation: OrientationType =
+        newOrientation === 'LANDSCAPE-LEFT' || newOrientation === 'LANDSCAPE-RIGHT'
+          ? 'LANDSCAPE'
+          : 'PORTRAIT';
 
-  useEffect(() => {
-    Orientation.addDeviceOrientationListener(onOrientationDidChange);
+      const numOfColumns = !isTablet()
+        ? MOBILE_PORTRAIT_COLUMNS
+        : orientation === 'LANDSCAPE'
+        ? TABLET_LANDSCAPE_COLUMNS
+        : TABLET_PORTRAIT_COLUMNS;
 
-    return () => {
-      Orientation.removeOrientationListener(onOrientationDidChange);
-    };
-  });
+      setData({
+        numOfColumns,
+        // * 2 because it has padding/margin on both left and right
+        columnWidth: (width - padding * 2) / numOfColumns,
+      });
+    },
+    [width, padding]
+  );
 
-  return useMemo((): Array<number> => {
-    const phoneWidth = 28.5;
-    let size = [MOBILE_PORTRAIT_COLUMNS, phoneWidth];
+  useEffect((): (() => void) => {
+    Orientation.getDeviceOrientation(onOrientationDidChange);
 
     if (isTablet()) {
-      size =
-        data.screenOrientation === 'LANDSCAPE'
-          ? [data.numOfColums, (landscapeTabletCardWidth / 100) * max]
-          : [data.numOfColums, (portraitTabletCardWidth / 100) * min];
+      Orientation.addDeviceOrientationListener(onOrientationDidChange);
+      return () => {
+        Orientation.removeOrientationListener(onOrientationDidChange);
+      };
     }
 
-    return size;
+    return () => {};
+  }, [onOrientationDidChange]);
+
+  return useMemo((): Array<number> => {
+    return [data.numOfColumns, data.columnWidth];
   }, [data]);
 }

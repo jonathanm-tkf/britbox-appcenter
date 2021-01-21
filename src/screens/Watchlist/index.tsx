@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useState, useCallback, LayoutChangeEvent } from 'react';
 import { getStatusBarHeight } from 'react-native-iphone-x-helper';
 import { Platform, View, TouchableOpacity, ScrollView } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
@@ -59,6 +59,8 @@ const gridContainer = {
   paddingHorizontal: isTablet() ? 7 : 15,
 };
 
+const gridElementHorizontalMargin = isTablet() ? 3 : 5;
+
 type Access = {
   accessToken: string;
 };
@@ -84,7 +86,8 @@ const Watchlist = () => {
   const [orderBy, setOrderBy] = useState('date-added');
   const { filter } = params || {};
   const menu = useSelector((state: AppState) => state.core.menu?.navigation?.header); // TODO: get data from properties
-  const [numOfColums, elementWidth] = useColumns();
+  const [width, setWidth] = useState(0);
+  const [numOfColums, gridElementWidth] = useColumns(width, gridElementHorizontalMargin);
 
   const [list, setList] = useState<MassiveSDKModelItemSummary[]>([]);
 
@@ -243,10 +246,10 @@ const Watchlist = () => {
             title={getGridTitle()}
             numColumns={numOfColums}
             element={{
-              width: elementWidth - gridContainer.paddingHorizontal - (isTablet() ? 3 : 5),
-              height: (elementWidth - gridContainer.paddingHorizontal - (isTablet() ? 3 : 5)) * 1.5,
+              width: gridElementWidth,
+              height: gridElementWidth * 1.5,
               marginBottom: 20,
-              marginHorizontal: isTablet() ? 3 : 5,
+              marginHorizontal: gridElementHorizontalMargin,
             }}
             listStyles={gridContainer}
             cardContentAfter={(item) => removeIcon(item)}
@@ -308,7 +311,17 @@ const Watchlist = () => {
   };
 
   return (
-    <View style={[wrapper, { backgroundColor: theme.PRIMARY_COLOR }]}>
+    <View
+      style={[wrapper, { backgroundColor: theme.PRIMARY_COLOR }]}
+      onLayout={({
+        nativeEvent: {
+          layout: { width: newWidth },
+        },
+      }: LayoutChangeEvent) => {
+        // * 2 because it has padding on both left and right
+        setWidth(newWidth);
+      }}
+    >
       <Header menuItems={getMenuItems()} />
       <ScrollView bounces={false}>{renderContent()}</ScrollView>
     </View>
