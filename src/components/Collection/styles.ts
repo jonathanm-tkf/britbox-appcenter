@@ -102,7 +102,6 @@ type ThumnailProps = {
 
 export const Thumnail = styled.Image<ThumnailProps>`
   border-radius: 8px;
-  ${(props: ThumnailProps) => `width: ${props.width}%;`}
   ${(props: ThumnailProps) =>
     props.orientation === 'LANDSCAPE'
       ? `
